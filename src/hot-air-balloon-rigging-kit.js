@@ -1,54 +1,71 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import { buildSoftRope, updateSoftRope } from "./rope-kit.js";
 
 export const HOT_AIR_BALLOON_RIGGING_KIT_ID = "open-above-hot-air-balloon-rigging-kit";
 
 export const defaultRiggingProfile = {
   ropeColor: 0xf5deb3,
-  ropeOpacity: 0.82,
-  topRadius: 1.28,
+  ropeOpacity: 0.86,
+  ropeSegments: 10,
+  topRadius: 1.48,
+  topY: 0.8,
+  bottomY: -1.02,
   bottomWidth: 0.82,
-  bottomDepth: 0.62
+  bottomDepth: 0.62,
+  sag: 0.13,
+  sway: 0.035
 };
-
-function makeRope(a, b, material) {
-  const geometry = new THREE.BufferGeometry().setFromPoints([a, b]);
-  return new THREE.Line(geometry, material);
-}
 
 export function buildRigging(profile = defaultRiggingProfile) {
   const group = new THREE.Group();
   group.name = "hot-air-balloon-rigging";
   group.userData.domain = HOT_AIR_BALLOON_RIGGING_KIT_ID;
 
-  const ropeMat = new THREE.LineBasicMaterial({ color: profile.ropeColor, transparent: true, opacity: profile.ropeOpacity });
-  const topY = 0.42;
-  const bottomY = -1.08;
   const anchors = [
-    [-profile.topRadius, topY, -profile.topRadius],
-    [profile.topRadius, topY, -profile.topRadius],
-    [-profile.topRadius, topY, profile.topRadius],
-    [profile.topRadius, topY, profile.topRadius]
+    [-profile.topRadius, profile.topY, -profile.topRadius],
+    [profile.topRadius, profile.topY, -profile.topRadius],
+    [-profile.topRadius, profile.topY, profile.topRadius],
+    [profile.topRadius, profile.topY, profile.topRadius]
   ];
   const basket = [
-    [-profile.bottomWidth, bottomY, -profile.bottomDepth],
-    [profile.bottomWidth, bottomY, -profile.bottomDepth],
-    [-profile.bottomWidth, bottomY, profile.bottomDepth],
-    [profile.bottomWidth, bottomY, profile.bottomDepth]
+    [-profile.bottomWidth, profile.bottomY, -profile.bottomDepth],
+    [profile.bottomWidth, profile.bottomY, -profile.bottomDepth],
+    [-profile.bottomWidth, profile.bottomY, profile.bottomDepth],
+    [profile.bottomWidth, profile.bottomY, profile.bottomDepth]
   ];
 
+  const ropes = [];
   for (let i = 0; i < anchors.length; i += 1) {
-    group.add(makeRope(new THREE.Vector3(...anchors[i]), new THREE.Vector3(...basket[i]), ropeMat));
+    const rope = buildSoftRope(new THREE.Vector3(...anchors[i]), new THREE.Vector3(...basket[i]), {
+      segments: profile.ropeSegments,
+      color: profile.ropeColor,
+      opacity: profile.ropeOpacity,
+      sag: profile.sag,
+      sway: profile.sway,
+      phase: i * Math.PI * 0.5
+    });
+    ropes.push(rope);
+    group.add(rope);
   }
 
-  const crossA = makeRope(new THREE.Vector3(...basket[0]), new THREE.Vector3(...basket[3]), ropeMat);
-  const crossB = makeRope(new THREE.Vector3(...basket[1]), new THREE.Vector3(...basket[2]), ropeMat);
-  group.add(crossA, crossB);
-
+  group.userData.ropes = ropes;
+  group.userData.connectionPoints = { anchors, basket };
   return group;
+}
+
+export function animateRigging(rigging, time = performance.now()) {
+  const ropes = rigging?.userData?.ropes ?? [];
+  const points = rigging?.userData?.connectionPoints;
+  if (!points) return;
+  const seconds = time * 0.001;
+  ropes.forEach((rope, i) => {
+    updateSoftRope(rope, new THREE.Vector3(...points.anchors[i]), new THREE.Vector3(...points.basket[i]), seconds);
+  });
 }
 
 window.OpenAboveHotAirBalloonRiggingKit = {
   id: HOT_AIR_BALLOON_RIGGING_KIT_ID,
   defaultRiggingProfile,
-  buildRigging
+  buildRigging,
+  animateRigging
 };
