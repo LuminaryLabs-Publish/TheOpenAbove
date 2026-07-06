@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 const requiredFiles = [
   "index.html",
   "src/main.js",
-  "src/camera-kit.js",
+  "src/bird-dive-domain-kit.js",
   "src/data/campaign.config.js",
   "docs/GAME_DESIGN.md",
   "docs/MIGRATION_FROM_EXPERIMENT.md",
@@ -19,9 +19,9 @@ for (const file of requiredFiles) {
 
 const html = readFileSync("index.html", "utf8");
 assert.match(html, /The Open Above/);
-assert.match(html, /src\/camera-kit\.js/);
+assert.match(html, /src\/bird-dive-domain-kit\.js/);
 assert.match(html, /src\/main\.js/);
-assert.ok(html.indexOf("src/camera-kit.js") < html.indexOf("src/main.js"), "camera kit should load before main scene");
+assert.ok(html.indexOf("src/bird-dive-domain-kit.js") < html.indexOf("src/main.js"), "bird dive domain kit should load before main scene");
 
 const main = readFileSync("src/main.js", "utf8");
 assert.match(main, /window\.GameHost/);
@@ -32,12 +32,18 @@ assert.match(main, /createRealtimeGame/);
 assert.match(main, /defineRuntimeKit/);
 assert.match(main, /Nexus Engine Realtime Core/);
 
-const cameraKit = readFileSync("src/camera-kit.js", "utf8");
-assert.match(cameraKit, /open-above-close-chase-camera-kit/);
-assert.match(cameraKit, /CLOSE_TRAIL_DISTANCE\s*=\s*9\.6/);
-assert.match(cameraKit, /CLOSE_LIFT\s*=\s*4\.2/);
-assert.match(cameraKit, /PerspectiveCamera\.prototype\.lookAt/);
-assert.match(cameraKit, /window\.GameHost\.camera/);
+const diveKit = readFileSync("src/bird-dive-domain-kit.js", "utf8");
+assert.match(diveKit, /open-above-bird-dive-domain-kit/);
+assert.match(diveKit, /diveIntensity/);
+assert.match(diveKit, /wingTuck/);
+assert.match(diveKit, /angleOfAttack/);
+assert.match(diveKit, /liftMultiplier/);
+assert.match(diveKit, /dragMultiplier/);
+assert.match(diveKit, /turnStiffness/);
+assert.match(diveKit, /pulloutLoad/);
+assert.match(diveKit, /cameraShakeHint/);
+assert.match(diveKit, /PerspectiveCamera\.prototype\.lookAt/);
+assert.match(diveKit, /OpenAboveBirdDiveDomainKit/);
 
 const config = readFileSync("src/data/campaign.config.js", "utf8");
 assert.match(config, /meadow-lift/);
