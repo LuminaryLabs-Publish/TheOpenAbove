@@ -1,7 +1,7 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import { buildEnvelope, defaultEnvelopeProfile } from "./hot-air-balloon-envelope-kit.js";
 import { buildBasket, defaultBasketProfile } from "./hot-air-balloon-basket-kit.js";
-import { buildRigging, defaultRiggingProfile } from "./hot-air-balloon-rigging-kit.js";
+import { buildRigging, defaultRiggingProfile, animateRigging } from "./hot-air-balloon-rigging-kit.js";
 import { buildBurner, defaultBurnerProfile, animateBurner } from "./hot-air-balloon-burner-kit.js";
 
 export const HOT_AIR_BALLOON_OBJECT_KIT_ID = "open-above-hot-air-balloon-object-kit";
@@ -12,7 +12,7 @@ export const defaultHotAirBalloonProfile = {
   rigging: defaultRiggingProfile,
   burner: defaultBurnerProfile,
   scale: 2.35,
-  visualOffsetY: -1.1
+  visualOffsetY: -0.52
 };
 
 function findVehicle(scene) {
@@ -41,7 +41,8 @@ export function buildHotAirBalloon(profile = defaultHotAirBalloonProfile) {
     "open-above-hot-air-balloon-envelope-kit",
     "open-above-hot-air-balloon-basket-kit",
     "open-above-hot-air-balloon-rigging-kit",
-    "open-above-hot-air-balloon-burner-kit"
+    "open-above-hot-air-balloon-burner-kit",
+    "open-above-rope-kit"
   ];
 
   const envelope = buildEnvelope(profile.envelope);
@@ -53,7 +54,15 @@ export function buildHotAirBalloon(profile = defaultHotAirBalloonProfile) {
   group.position.y = profile.visualOffsetY;
   group.scale.setScalar(profile.scale);
   group.userData.parts = { envelope, rigging, basket, burner };
+  group.userData.basketFocusOffset = new THREE.Vector3(2.4, -4.85, 0);
   return group;
+}
+
+export function animateHotAirBalloon(balloon, time = performance.now()) {
+  const parts = balloon?.userData?.parts;
+  if (!parts) return;
+  animateBurner(parts.burner, time);
+  animateRigging(parts.rigging, time);
 }
 
 export function installHotAirBalloonVisual(host, profile = defaultHotAirBalloonProfile) {
@@ -86,8 +95,7 @@ function attachWhenReady() {
 
   function tick(time) {
     const balloon = findVehicle(host.scene)?.userData?.hotAirBalloon;
-    const burner = balloon?.userData?.parts?.burner;
-    animateBurner(burner, time);
+    animateHotAirBalloon(balloon, time);
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
@@ -97,6 +105,7 @@ window.OpenAboveHotAirBalloonObjectKit = {
   id: HOT_AIR_BALLOON_OBJECT_KIT_ID,
   profile: defaultHotAirBalloonProfile,
   buildHotAirBalloon,
+  animateHotAirBalloon,
   installHotAirBalloonVisual
 };
 requestAnimationFrame(attachWhenReady);
