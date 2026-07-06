@@ -17,6 +17,7 @@ jobs:
   build-and-deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -31,7 +32,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: Validate build and browser smoke
-        run: npm run validate
+        run: timeout 5m npm run validate
       - name: Add nojekyll marker
         run: touch dist/.nojekyll
       - name: Publish dist to gh-pages
