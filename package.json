@@ -8,10 +8,14 @@
     "start": "vite --host 0.0.0.0",
     "dev": "vite --host 0.0.0.0",
     "check": "node tests/smoke.mjs",
-    "build": "npm run check && vite build"
+    "build": "npm run check && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "test:browser": "node tests/browser-smoke.mjs",
+    "validate": "npm run build && npm run test:browser"
   },
   "dependencies": {
     "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "playwright": "^1.56.0",
     "vite": "^6.0.0"
   },
   "devDependencies": {},
