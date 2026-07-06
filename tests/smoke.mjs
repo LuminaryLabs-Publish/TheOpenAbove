@@ -10,6 +10,11 @@ const requiredFiles = [
   "src/bird-flight-frame-kit.js",
   "src/bird-posture-kit.js",
   "src/bird-camera-kit.js",
+  "src/hot-air-balloon-object-kit.js",
+  "src/hot-air-balloon-envelope-kit.js",
+  "src/hot-air-balloon-basket-kit.js",
+  "src/hot-air-balloon-rigging-kit.js",
+  "src/hot-air-balloon-burner-kit.js",
   "src/data/campaign.config.js",
   "docs/reference/AERO_GLIDE_KIT_EXTRACTION.md",
   "docs/GAME_DESIGN.md",
@@ -45,6 +50,8 @@ assert.match(diveKit, /bird-flight-physics-kit\.js/);
 assert.match(diveKit, /bird-flight-frame-kit\.js/);
 assert.match(diveKit, /bird-posture-kit\.js/);
 assert.match(diveKit, /bird-camera-kit\.js/);
+assert.match(diveKit, /hot-air-balloon-object-kit\.js/);
+assert.match(diveKit, /open-above-hot-air-balloon-object-kit/);
 
 const inputKit = readFileSync("src/bird-flight-input-kit.js", "utf8");
 assert.match(inputKit, /open-above-bird-flight-input-kit/);
@@ -92,6 +99,33 @@ assert.match(cameraKit, /frame\?\.forward/);
 assert.match(cameraKit, /frame\?\.up/);
 assert.match(cameraKit, /diveLift/);
 assert.match(cameraKit, /diveLookAhead/);
+
+const objectKit = readFileSync("src/hot-air-balloon-object-kit.js", "utf8");
+assert.match(objectKit, /open-above-hot-air-balloon-object-kit/);
+assert.match(objectKit, /buildHotAirBalloon/);
+assert.match(objectKit, /installHotAirBalloonVisual/);
+assert.match(objectKit, /hot-air-balloon-envelope-kit/);
+assert.match(objectKit, /hot-air-balloon-basket-kit/);
+assert.match(objectKit, /hot-air-balloon-rigging-kit/);
+assert.match(objectKit, /hot-air-balloon-burner-kit/);
+assert.match(objectKit, /hotAirBalloonInstalled/);
+
+const envelopeKit = readFileSync("src/hot-air-balloon-envelope-kit.js", "utf8");
+assert.match(envelopeKit, /open-above-hot-air-balloon-envelope-kit/);
+assert.match(envelopeKit, /buildEnvelope/);
+
+const basketKit = readFileSync("src/hot-air-balloon-basket-kit.js", "utf8");
+assert.match(basketKit, /open-above-hot-air-balloon-basket-kit/);
+assert.match(basketKit, /buildBasket/);
+
+const riggingKit = readFileSync("src/hot-air-balloon-rigging-kit.js", "utf8");
+assert.match(riggingKit, /open-above-hot-air-balloon-rigging-kit/);
+assert.match(riggingKit, /buildRigging/);
+
+const burnerKit = readFileSync("src/hot-air-balloon-burner-kit.js", "utf8");
+assert.match(burnerKit, /open-above-hot-air-balloon-burner-kit/);
+assert.match(burnerKit, /buildBurner/);
+assert.match(burnerKit, /animateBurner/);
 
 const extractionDoc = readFileSync("docs/reference/AERO_GLIDE_KIT_EXTRACTION.md", "utf8");
 assert.match(extractionDoc, /Aero-Glide Kit Extraction Reference/);
