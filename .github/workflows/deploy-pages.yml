@@ -16,12 +16,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    if: github.ref == 'refs/heads/main'
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    environment:
-      name: github-pages
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
@@ -43,6 +40,14 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: dist
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
