@@ -3,12 +3,26 @@ import { findBird, clamp01, lerp } from "./bird-flight-physics-kit.js";
 
 export const BIRD_POSTURE_KIT_ID = "open-above-bird-posture-kit";
 
+function applyFrameRotation(bird, frame, physics) {
+  const rotation = frame?.rotation;
+  if (Array.isArray(rotation) && rotation.length >= 4) {
+    bird.rotation.set(rotation[0], rotation[1], rotation[2], rotation[3]);
+  } else {
+    bird.rotation.set(physics.pitch, physics.yaw, -physics.roll, "YXZ");
+  }
+  bird.userData.openAboveTruePitch = physics.pitch;
+  bird.userData.openAboveTrueYaw = physics.yaw;
+  bird.userData.openAboveTrueRoll = physics.roll;
+  bird.userData.openAboveFlightForward = frame?.forward ?? [0, 0, -1];
+}
+
 function applyPosture(host) {
   const bird = findBird(host?.scene);
   if (!bird) return;
 
   const state = host.getState?.();
   const physics = state?.flightPhysics;
+  const frame = state?.flightFrame ?? physics?.flightFrame;
   if (!physics) return;
 
   const tuck = clamp01(physics.wingTuck);
@@ -16,10 +30,7 @@ function applyPosture(host) {
   const pullout = clamp01((physics.pulloutLoad - 1) / 2.9);
   const speedPose = clamp01((physics.speed - 72) / 80);
 
-  bird.rotation.set(physics.pitch, physics.yaw, -physics.roll, "YXZ");
-  bird.userData.openAboveTruePitch = physics.pitch;
-  bird.userData.openAboveTrueYaw = physics.yaw;
-  bird.userData.openAboveTrueRoll = physics.roll;
+  applyFrameRotation(bird, frame, physics);
 
   const leftWing = bird.userData.leftWing;
   const rightWing = bird.userData.rightWing;
