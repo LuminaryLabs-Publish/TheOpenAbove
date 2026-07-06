@@ -7,6 +7,7 @@ const requiredFiles = [
   "src/bird-dive-domain-kit.js",
   "src/bird-flight-input-kit.js",
   "src/bird-flight-physics-kit.js",
+  "src/bird-flight-frame-kit.js",
   "src/bird-posture-kit.js",
   "src/bird-camera-kit.js",
   "src/data/campaign.config.js",
@@ -41,6 +42,7 @@ const diveKit = readFileSync("src/bird-dive-domain-kit.js", "utf8");
 assert.match(diveKit, /open-above-bird-dive-domain-kit/);
 assert.match(diveKit, /bird-flight-input-kit\.js/);
 assert.match(diveKit, /bird-flight-physics-kit\.js/);
+assert.match(diveKit, /bird-flight-frame-kit\.js/);
 assert.match(diveKit, /bird-posture-kit\.js/);
 assert.match(diveKit, /bird-camera-kit\.js/);
 
@@ -68,15 +70,26 @@ assert.match(physicsKit, /turnStiffness/);
 assert.match(physicsKit, /pulloutLoad/);
 assert.match(physicsKit, /cameraShakeHint/);
 
+const frameKit = readFileSync("src/bird-flight-frame-kit.js", "utf8");
+assert.match(frameKit, /open-above-bird-flight-frame-kit/);
+assert.match(frameKit, /createFlightFrame/);
+assert.match(frameKit, /forward/);
+assert.match(frameKit, /right/);
+assert.match(frameKit, /up/);
+assert.match(frameKit, /meshNoseAxis/);
+
 const postureKit = readFileSync("src/bird-posture-kit.js", "utf8");
 assert.match(postureKit, /open-above-bird-posture-kit/);
-assert.match(postureKit, /bird\.rotation\.set\(physics\.pitch/);
+assert.match(postureKit, /applyFrameRotation/);
+assert.match(postureKit, /frame\?\.rotation/);
 assert.match(postureKit, /wingTuck/);
 assert.match(postureKit, /WebGLRenderer\.prototype\.render/);
 
 const cameraKit = readFileSync("src/bird-camera-kit.js", "utf8");
 assert.match(cameraKit, /open-above-bird-camera-kit/);
 assert.match(cameraKit, /PerspectiveCamera\.prototype\.lookAt/);
+assert.match(cameraKit, /frame\?\.forward/);
+assert.match(cameraKit, /frame\?\.up/);
 assert.match(cameraKit, /diveLift/);
 assert.match(cameraKit, /diveLookAhead/);
 
