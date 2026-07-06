@@ -1,8 +1,7 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@main/src/index.js";
 import { CAMPAIGN, WORLD } from "./data/campaign.config.js";
-import { buildHotAirBalloon } from "./hot-air-balloon-object-kit.js";
-import { animateBurner } from "./hot-air-balloon-burner-kit.js";
+import { buildHotAirBalloon, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
 
 const canvas = document.querySelector("#game");
 const hud = document.querySelector("#hud");
@@ -229,16 +228,16 @@ function createGame() {
   const windRibbons = makeWindRibbons(scene);
 
   const balloon = buildHotAirBalloon();
-  balloon.position.set(0, 95, 0);
+  balloon.position.set(0, 105, 0);
   scene.add(balloon);
 
   const keys = new Set();
   const state = {
-    position: new THREE.Vector3(0, 95, 0),
+    position: new THREE.Vector3(0, 105, 0),
     velocity: new THREE.Vector3(8, 0, -10),
     wind: new THREE.Vector3(8, 0, -10),
     verticalVelocity: 0,
-    altitude: 95,
+    altitude: 105,
     burner: 0.22,
     vent: 0,
     elapsed: 0,
@@ -315,7 +314,7 @@ function createGame() {
     balloon.rotation.y = Math.atan2(state.wind.x, state.wind.z) + Math.PI + Math.sin(state.elapsed * 0.32) * 0.035;
     balloon.rotation.x = Math.sin(state.elapsed * 0.42) * 0.018;
     balloon.rotation.z = Math.cos(state.elapsed * 0.37) * 0.022;
-    animateBurner(balloon.userData.parts?.burner, performance.now());
+    animateHotAirBalloon(balloon, performance.now());
     windRibbons.position.x = state.position.x * 0.08 + Math.sin(state.elapsed * 0.06) * 30;
     windRibbons.position.z = state.position.z * 0.08 + Math.cos(state.elapsed * 0.05) * 30;
   }
@@ -324,12 +323,16 @@ function createGame() {
     const windForward = state.wind.clone().normalize();
     const side = new THREE.Vector3(-windForward.z, 0, windForward.x).normalize();
     const zoom = camera.userData.zoom ?? 21;
-    const camPos = state.position.clone()
+    const basketFocus = state.position.clone()
+      .add(side.clone().multiplyScalar(2.7))
+      .add(windForward.clone().multiplyScalar(3.5))
+      .add(new THREE.Vector3(0, -5.7, 0));
+    const camPos = basketFocus.clone()
       .add(windForward.clone().multiplyScalar(-zoom))
-      .add(side.multiplyScalar(zoom * 0.28))
-      .add(new THREE.Vector3(0, 10 + zoom * 0.22, 0));
+      .add(side.clone().multiplyScalar(zoom * 0.34))
+      .add(new THREE.Vector3(0, 7 + zoom * 0.16, 0));
     camera.position.lerp(camPos, smooth(3.1, dt));
-    camera.lookAt(state.position.clone().add(new THREE.Vector3(0, 8, 0)).add(windForward.multiplyScalar(8)));
+    camera.lookAt(basketFocus);
     renderer.render(scene, camera);
   }
 
