@@ -5,10 +5,12 @@ const requiredFiles = [
   "index.html",
   "src/main.js",
   "src/bird-dive-domain-kit.js",
+  "src/bird-flight-input-kit.js",
   "src/bird-flight-physics-kit.js",
   "src/bird-posture-kit.js",
   "src/bird-camera-kit.js",
   "src/data/campaign.config.js",
+  "docs/reference/AERO_GLIDE_KIT_EXTRACTION.md",
   "docs/GAME_DESIGN.md",
   "docs/MIGRATION_FROM_EXPERIMENT.md",
   "docs/TECHNICAL_ARCHITECTURE.md",
@@ -37,9 +39,19 @@ assert.match(main, /Nexus Engine Realtime Core/);
 
 const diveKit = readFileSync("src/bird-dive-domain-kit.js", "utf8");
 assert.match(diveKit, /open-above-bird-dive-domain-kit/);
+assert.match(diveKit, /bird-flight-input-kit\.js/);
 assert.match(diveKit, /bird-flight-physics-kit\.js/);
 assert.match(diveKit, /bird-posture-kit\.js/);
 assert.match(diveKit, /bird-camera-kit\.js/);
+
+const inputKit = readFileSync("src/bird-flight-input-kit.js", "utf8");
+assert.match(inputKit, /open-above-bird-flight-input-kit/);
+assert.match(inputKit, /pitchInput/);
+assert.match(inputKit, /rollInput/);
+assert.match(inputKit, /invertPitch/);
+assert.match(inputKit, /sensitivity/);
+assert.match(inputKit, /touchmove/);
+assert.match(inputKit, /setInputSensitivity/);
 
 const physicsKit = readFileSync("src/bird-flight-physics-kit.js", "utf8");
 assert.match(physicsKit, /open-above-bird-flight-physics-kit/);
@@ -67,6 +79,13 @@ assert.match(cameraKit, /open-above-bird-camera-kit/);
 assert.match(cameraKit, /PerspectiveCamera\.prototype\.lookAt/);
 assert.match(cameraKit, /diveLift/);
 assert.match(cameraKit, /diveLookAhead/);
+
+const extractionDoc = readFileSync("docs/reference/AERO_GLIDE_KIT_EXTRACTION.md", "utf8");
+assert.match(extractionDoc, /Aero-Glide Kit Extraction Reference/);
+assert.match(extractionDoc, /bird-flight-input-kit/);
+assert.match(extractionDoc, /bird-flight-physics-kit/);
+assert.match(extractionDoc, /bird-posture-kit/);
+assert.match(extractionDoc, /bird-camera-kit/);
 
 const config = readFileSync("src/data/campaign.config.js", "utf8");
 assert.match(config, /meadow-lift/);
