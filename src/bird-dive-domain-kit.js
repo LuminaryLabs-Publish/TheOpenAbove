@@ -3,6 +3,7 @@ import "./bird-flight-physics-kit.js";
 import "./bird-flight-frame-kit.js";
 import "./bird-posture-kit.js";
 import "./bird-camera-kit.js";
+import "./hot-air-balloon-object-kit.js";
 
 export const BIRD_DIVE_DOMAIN_KIT_ID = "open-above-bird-dive-domain-kit";
 
@@ -13,6 +14,7 @@ window.OpenAboveBirdDiveDomainKit = {
     "open-above-bird-flight-physics-kit",
     "open-above-bird-flight-frame-kit",
     "open-above-bird-posture-kit",
-    "open-above-bird-camera-kit"
+    "open-above-bird-camera-kit",
+    "open-above-hot-air-balloon-object-kit"
   ]
 };
