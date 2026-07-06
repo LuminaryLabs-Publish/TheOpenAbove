@@ -5,16 +5,33 @@ import { chromium } from "playwright";
 
 const port = 4173;
 const url = `http://127.0.0.1:${port}/TheOpenAbove/`;
+const hardTimeout = setTimeout(() => {
+  console.error("Browser smoke timed out.");
+  process.exit(1);
+}, 120000);
+hardTimeout.unref?.();
 
 function startPreview() {
-  const child = spawn("npx", ["vite", "preview", "--host", "127.0.0.1", "--port", String(port)], {
-    stdio: ["ignore", "pipe", "pipe"],
+  const child = spawn(process.execPath, ["node_modules/vite/bin/vite.js", "preview", "--host", "127.0.0.1", "--port", String(port), "--strictPort"], {
+    stdio: "ignore",
+    detached: process.platform !== "win32",
     env: { ...process.env, CI: "1" }
   });
-
-  child.stdout.on("data", (chunk) => process.stdout.write(chunk));
-  child.stderr.on("data", (chunk) => process.stderr.write(chunk));
+  child.unref?.();
   return child;
+}
+
+function stopPreview(child) {
+  if (!child?.pid) return;
+  try {
+    if (process.platform === "win32") {
+      child.kill("SIGTERM");
+    } else {
+      process.kill(-child.pid, "SIGTERM");
+    }
+  } catch {
+    // Process already exited.
+  }
 }
 
 async function waitForServer() {
@@ -70,5 +87,6 @@ try {
   console.log("The Open Above browser smoke passed.");
 } finally {
   if (browser) await browser.close();
-  server.kill("SIGTERM");
+  stopPreview(server);
+  clearTimeout(hardTimeout);
 }
