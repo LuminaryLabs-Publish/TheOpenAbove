@@ -13,6 +13,10 @@ const cameraProfile = {
   followAlpha: 0.92
 };
 
+function vectorFromArray(value, fallback) {
+  return new THREE.Vector3(...(Array.isArray(value) ? value : fallback));
+}
+
 const originalLookAt = THREE.PerspectiveCamera.prototype.lookAt;
 THREE.PerspectiveCamera.prototype.lookAt = function birdCameraLookAt(target, ...rest) {
   const host = window.GameHost;
@@ -21,11 +25,12 @@ THREE.PerspectiveCamera.prototype.lookAt = function birdCameraLookAt(target, ...
   const state = host.getState?.();
   const local = state?.local;
   const physics = state?.flightPhysics;
-  if (!local?.position || !local?.velocity || !physics) return originalLookAt.call(this, target, ...rest);
+  const frame = state?.flightFrame ?? physics?.flightFrame;
+  if (!local?.position || !physics) return originalLookAt.call(this, target, ...rest);
 
-  const bird = new THREE.Vector3(...local.position);
-  const velocity = new THREE.Vector3(...local.velocity);
-  const forward = velocity.lengthSq() > 0.0001 ? velocity.normalize() : new THREE.Vector3(0, 0, -1);
+  const bird = vectorFromArray(frame?.position, local.position);
+  const forward = vectorFromArray(frame?.forward, [0, 0, -1]).normalize();
+  const up = vectorFromArray(frame?.up, [0, 1, 0]).normalize();
   const dive = clamp01(physics.diveIntensity);
   const tuck = clamp01(physics.wingTuck);
   const shake = physics.cameraShakeHint ?? 0;
@@ -41,7 +46,7 @@ THREE.PerspectiveCamera.prototype.lookAt = function birdCameraLookAt(target, ...
 
   const desiredPosition = bird.clone()
     .add(forward.clone().multiplyScalar(-trail))
-    .add(new THREE.Vector3(0, lift, 0))
+    .add(up.clone().multiplyScalar(lift))
     .add(shakeOffset);
   const desiredTarget = bird.clone().add(forward.clone().multiplyScalar(lookAhead));
 
