@@ -8,7 +8,8 @@ const requiredFiles = [
   "docs/GAME_DESIGN.md",
   "docs/MIGRATION_FROM_EXPERIMENT.md",
   "docs/TECHNICAL_ARCHITECTURE.md",
-  "docs/ROADMAP.md"
+  "docs/ROADMAP.md",
+  "vite.config.js"
 ];
 
 for (const file of requiredFiles) {
@@ -23,10 +24,17 @@ const main = readFileSync("src/main.js", "utf8");
 assert.match(main, /window\.GameHost/);
 assert.match(main, /Meadow Lift/);
 assert.match(main, /requestAnimationFrame/);
+assert.match(main, /LuminaryLabs-Dev\/NexusEngine/);
+assert.match(main, /createRealtimeGame/);
+assert.match(main, /defineRuntimeKit/);
+assert.match(main, /Nexus Engine Realtime Core/);
 
 const config = readFileSync("src/data/campaign.config.js", "utf8");
 assert.match(config, /meadow-lift/);
 assert.match(config, /thermalTarget/);
 assert.match(config, /gateTarget/);
+
+const vite = readFileSync("vite.config.js", "utf8");
+assert.match(vite, /base:\s*"\/TheOpenAbove\/"/);
 
 console.log("The Open Above smoke passed.");
