@@ -20,6 +20,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    environment:
+      name: github-pages
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
