@@ -270,9 +270,9 @@ function createGame() {
   addEventListener("keyup", (event) => keys.delete(event.code));
   addEventListener("blur", () => keys.clear());
   addEventListener("wheel", (event) => {
-    camera.userData.zoom = clamp((camera.userData.zoom ?? 42) + Math.sign(event.deltaY) * 4, 18, 150);
+    camera.userData.zoom = clamp((camera.userData.zoom ?? 21) + Math.sign(event.deltaY) * 3, 9, 75);
   }, { passive: true });
-  camera.userData.zoom = 42;
+  camera.userData.zoom = 21;
 
   function resize() {
     const width = innerWidth || 1;
@@ -323,13 +323,13 @@ function createGame() {
   function draw(dt) {
     const windForward = state.wind.clone().normalize();
     const side = new THREE.Vector3(-windForward.z, 0, windForward.x).normalize();
-    const zoom = camera.userData.zoom ?? 42;
+    const zoom = camera.userData.zoom ?? 21;
     const camPos = state.position.clone()
       .add(windForward.clone().multiplyScalar(-zoom))
-      .add(side.multiplyScalar(zoom * 0.32))
-      .add(new THREE.Vector3(0, 18 + zoom * 0.28, 0));
-    camera.position.lerp(camPos, smooth(2.6, dt));
-    camera.lookAt(state.position.clone().add(new THREE.Vector3(0, 10, 0)).add(windForward.multiplyScalar(12)));
+      .add(side.multiplyScalar(zoom * 0.28))
+      .add(new THREE.Vector3(0, 10 + zoom * 0.22, 0));
+    camera.position.lerp(camPos, smooth(3.1, dt));
+    camera.lookAt(state.position.clone().add(new THREE.Vector3(0, 8, 0)).add(windForward.multiplyScalar(8)));
     renderer.render(scene, camera);
   }
 
