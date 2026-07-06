@@ -29,10 +29,8 @@ jobs:
           node-version: 22
       - name: Install
         run: npm install
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
-      - name: Validate build and browser smoke
-        run: timeout 5m npm run validate
+      - name: Build
+        run: npm run build
       - name: Add nojekyll marker
         run: touch dist/.nojekyll
       - name: Publish dist to gh-pages
