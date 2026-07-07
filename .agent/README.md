@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T15-11-23-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T16-21-09-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -29,6 +29,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T12-38-43-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T13-50-54-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T15-11-23-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T16-21-09-04-00/project-breakdown.md
 ```
 
 ## Current repo read
@@ -37,7 +38,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 
 The source-of-truth layer is still split. `README.md`, `package.json`, and `src/data/campaign.config.js` still preserve older free-flight / bird-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch / bank controls, and legacy `FLIGHT` tuning. Treat balloon drift as canonical unless a future product decision intentionally restores the bird controller.
 
-This pass tightens the next build into **Route State Authority + Mission Snapshot Reducer Fixture Cutover**. The most useful seam is now source-owned route state plus reducer snapshot proof: extract live drift constants into config, define altitude bands and route objects, emit accepted/rejected route event envelopes, reduce Meadow Lift mission state, project mission/progression snapshots, and prove ordered completion through DOM-free smoke before broad runtime extraction.
+This pass tightens the next build into **Balloon Config Authority + Route Event Replay Smoke Gate**. The most useful seam is now source-owned balloon config plus replayable route events: extract live drift constants into `BALLOON_DRIFT`, add route source data, add event/result/reducer contracts, project mission/progression snapshots, and prove ordered route completion through DOM-free smoke before broad runtime extraction.
 
 ## Current explicit kit inventory
 
@@ -59,6 +60,7 @@ open-above-rope-kit
 
 ```txt
 open-above-runtime-host-kit
+open-above-vite-static-publish-kit
 open-above-three-render-host-kit
 open-above-balloon-input-map-kit
 open-above-balloon-state-kit
@@ -77,9 +79,12 @@ open-above-static-marker-smoke-kit
 
 ```txt
 open-above-balloon-drift-config-kit
+open-above-balloon-drift-config-smoke-kit
 open-above-legacy-flight-compatibility-kit
+open-above-product-copy-alignment-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
+open-above-wind-lane-hint-config-kit
 open-above-route-object-config-kit
 open-above-route-object-state-kit
 open-above-route-object-evaluator-kit
@@ -93,6 +98,7 @@ open-above-route-state-reducer-kit
 open-above-route-fixture-contract-kit
 open-above-route-fixture-harness-kit
 open-above-route-fixture-snapshot-kit
+open-above-route-replay-parity-kit
 open-above-meadow-lift-mission-reducer-kit
 open-above-mission-snapshot-projector-kit
 open-above-region-unlock-progression-kit
@@ -104,7 +110,7 @@ open-above-balloon-behavior-smoke-kit
 
 ## Immediate next product direction
 
-Commit to `TheOpenAbove Route State Authority + Mission Snapshot Reducer Fixture Cutover`:
+Commit to `TheOpenAbove Balloon Config Authority + Route Event Replay Smoke Gate`:
 
 ```txt
 preserve current balloon visuals, burner / vent controls, camera, HUD telemetry, and GameHost shape
@@ -118,6 +124,7 @@ preserve current balloon visuals, burner / vent controls, camera, HUD telemetry,
   -> add WIND_LANE_HINTS for readable route guidance
   -> create pure altitude band resolver
   -> create pure route object evaluator
+  -> create route order policy
   -> create route event result envelope
   -> create route state reducer
   -> create route event journal
@@ -126,7 +133,7 @@ preserve current balloon visuals, burner / vent controls, camera, HUD telemetry,
   -> project local.mission, local.progression, local.routeObjects, local.routeEvents, local.routeDiagnostics, and local.routeFixture from snapshot()
   -> add one compact HUD mission line
   -> extend tests/smoke.mjs with DOM-free route fixture cases
-  -> defer host extraction, render extraction, and balloon physics extraction until route smoke passes
+  -> defer host extraction, render extraction, world extraction, and balloon physics extraction until route smoke passes
 ```
 
 ## Next acceptance target
@@ -137,7 +144,7 @@ package.json description no longer says free-flight exploration
 src/data/campaign.config.js exports BALLOON_DRIFT, ALTITUDE_BANDS, ROUTE_OBJECTS, and WIND_LANE_HINTS
 FLIGHT is marked compatibility-only or is protected by smoke coverage proving it is not live authority
 src/main.js reads live drift constants from BALLOON_DRIFT
-route event records include eventId, objectId, accepted, reason, before, after, and snapshotTick
+route event records include eventId, objectId, eventType, accepted, reason, before, after, and snapshotTick
 out-of-order route attempts reject with reason=out_of_order
 wrong-altitude route attempts reject with reason=invalid_altitude_band
 already-completed route objects reject with reason=already_completed
@@ -149,5 +156,5 @@ cloud-basin unlocks only after meadow-lift completion
 window.GameHost.getState().local exposes mission, progression, routeObjects, routeEvents, routeDiagnostics, and routeFixture
 HUD shows one compact mission line without adding noisy UI
 DOM-free smoke proves in-order, out-of-order, invalid-altitude, already-completed, unknown-object, outside-radius, landing, and unlock behavior
-host/render/physics extraction remains explicitly out of scope
+host/render/world/physics extraction remains explicitly out of scope
 ```
