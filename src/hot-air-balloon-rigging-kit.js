@@ -4,16 +4,17 @@ import { buildSoftRope, updateSoftRope } from "./rope-kit.js";
 export const HOT_AIR_BALLOON_RIGGING_KIT_ID = "open-above-hot-air-balloon-rigging-kit";
 
 export const defaultRiggingProfile = {
-  ropeColor: 0xf5deb3,
-  ropeOpacity: 0.86,
+  ropeColor: 0x050505,
+  ropeStripeColor: 0x8a8a8a,
+  ropeOpacity: 0.95,
   ropeSegments: 10,
-  topRadius: 1.48,
-  topY: 0.8,
+  topRadius: 1.28,
+  topY: 0.55,
   bottomY: -1.02,
   bottomWidth: 0.82,
   bottomDepth: 0.62,
-  sag: 0.13,
-  sway: 0.035
+  sag: 0.11,
+  sway: 0.032
 };
 
 export function buildRigging(profile = defaultRiggingProfile) {
@@ -39,10 +40,14 @@ export function buildRigging(profile = defaultRiggingProfile) {
     const rope = buildSoftRope(new THREE.Vector3(...anchors[i]), new THREE.Vector3(...basket[i]), {
       segments: profile.ropeSegments,
       color: profile.ropeColor,
+      stripeColor: profile.ropeStripeColor,
       opacity: profile.ropeOpacity,
       sag: profile.sag,
       sway: profile.sway,
-      phase: i * Math.PI * 0.5
+      phase: i * Math.PI * 0.5,
+      radius: 0.034,
+      radialSegments: 6,
+      stripeEvery: 2
     });
     ropes.push(rope);
     group.add(rope);
