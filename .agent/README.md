@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T05-21-11-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T06-31-46-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -20,13 +20,14 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T03-00-32-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T04-08-29-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T05-21-11-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T06-31-46-04-00/project-breakdown.md
 ```
 
 ## Current repo read
 
-`TheOpenAbove` is currently a standalone Vite/Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner/vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, and a Nexus Engine telemetry DSK.
+`TheOpenAbove` is currently a standalone Vite/Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner/vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, a Nexus Engine telemetry DSK, and `window.GameHost.getState()`.
 
-The public README and `src/data/campaign.config.js` still contain bird/free-flight language and legacy `FLIGHT` tuning. Treat that as stale product language until the repo either restores the bird controller or formally reframes the product around balloon drift.
+The browser host already labels the product as `The Open Above: Balloon Drift`, but the public README, package description, and `src/data/campaign.config.js` still contain older bird/free-flight language and legacy `FLIGHT` tuning. Treat balloon drift as the active runtime direction unless a future code pass intentionally restores the bird controller.
 
 ## Active agent rules
 
@@ -53,20 +54,44 @@ open-above-hot-air-balloon-burner-kit
 open-above-rope-kit
 ```
 
-## Immediate next product direction
-
-Commit to `TheOpenAbove Balloon Drift Config + Mission Cutover`:
+## Current candidate kit inventory
 
 ```txt
-boot scene
-  -> load BALLOON_DRIFT config
-  -> install input, drift physics, wind field, terrain sampler, objective, camera, HUD, telemetry, and GameHost kits
-  -> spawn three buoyancy gates along a wind-lane path
-  -> detect altitude-band entry and gate pass-through
-  -> detect return / landing zone
-  -> write meadow-lift-complete and cloud-basin-unlocked to local state
-  -> expose mission status through HUD and GameHost
-  -> add behavior smoke for burner lift, vent descent, wind drift, ground clamp, gate completion, and unlock
+open-above-balloon-drift-config-kit
+open-above-runtime-host-kit
+open-above-balloon-input-map-kit
+open-above-balloon-state-kit
+open-above-balloon-drift-physics-domain-kit
+open-above-wind-field-domain-kit
+open-above-altitude-safety-domain-kit
+open-above-terrain-sampler-domain-kit
+open-above-world-generation-domain-kit
+open-above-route-object-kit
+open-above-meadow-lift-balloon-objective-kit
+open-above-region-unlock-progression-kit
+open-above-basket-follow-camera-kit
+open-above-hud-telemetry-kit
+open-above-gamehost-debug-kit
+open-above-balloon-behavior-smoke-kit
+```
+
+## Immediate next product direction
+
+Commit to `TheOpenAbove Balloon Drift Config Parity + Objective State Cutover`:
+
+```txt
+config parity first
+  -> BALLOON_DRIFT constants
+  -> route object definitions
+  -> three buoyancy gates
+  -> altitude bands
+  -> landing zone
+  -> mission state in GameHost.getState().local.mission
+  -> progression state with meadow-lift-complete and cloud-basin-unlocked
+  -> HUD mission status
+  -> static smoke assertions
+  -> behavior smoke harness
+  -> service extraction from src/main.js
 ```
 
 ## Next acceptance target
@@ -74,7 +99,9 @@ boot scene
 ```txt
 npm run check passes
 npm run build passes
+README and config both describe balloon drift
 GameHost.getState().local.mission exists
+GameHost.getState().local.progression.cloudBasinUnlocked exists
 three buoyancy gates can be completed deterministically
 cloud-basin unlock is visible in local state
 ```
