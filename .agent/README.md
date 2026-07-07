@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T17-29-51-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T18-49-32-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -31,15 +31,16 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T15-11-23-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T16-21-09-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T17-29-51-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T18-49-32-04-00/project-breakdown.md
 ```
 
 ## Current repo read
 
 `TheOpenAbove` is currently a standalone Vite / Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner / vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, a Nexus Engine telemetry DSK, and `window.GameHost.getState()`.
 
-The source-of-truth layer is still split. `README.md`, `package.json`, and `src/data/campaign.config.js` still preserve older free-flight / bird-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch / bank controls, and legacy `FLIGHT` tuning. Treat balloon drift as canonical unless a future product decision intentionally restores the bird controller.
+The source-of-truth layer is still split. `README.md`, `package.json`, and `src/data/campaign.config.js` still preserve older free-flight / bird-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch / bank controls, legacy `FLIGHT` tuning, and sky perch return. Treat balloon drift as canonical unless a future product decision intentionally restores the bird controller.
 
-This pass tightens the next build into **Route Replay Fixture Authority + Mission Snapshot Contract Lock**. The most useful seam is now source-owned balloon config plus replayable route events: extract live drift constants into `BALLOON_DRIFT`, add route source data, add event/result/reducer contracts, project mission/progression snapshots, and prove ordered route completion through DOM-free smoke before broad runtime extraction.
+This pass tightens the next build into **Balloon Config Cutover + Route Result Fixture Gate**. The most useful seam is now source-owned balloon config plus replayable route results: extract live drift constants into `BALLOON_DRIFT`, add route source data, add event/result/reducer contracts, project mission/progression snapshots, and prove route legality through DOM-free smoke before broad runtime extraction.
 
 ## Current explicit kit inventory
 
@@ -83,6 +84,7 @@ open-above-balloon-drift-config-kit
 open-above-balloon-drift-config-smoke-kit
 open-above-legacy-flight-compatibility-kit
 open-above-product-copy-alignment-kit
+open-above-balloon-source-snapshot-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-wind-lane-hint-config-kit
@@ -96,24 +98,24 @@ open-above-route-event-acceptance-policy-kit
 open-above-route-event-rejection-reason-kit
 open-above-route-event-journal-kit
 open-above-route-state-reducer-kit
-open-above-route-fixture-contract-kit
-open-above-route-fixture-harness-kit
-open-above-route-fixture-snapshot-kit
-open-above-route-replay-parity-kit
+open-above-meadow-lift-mission-state-kit
 open-above-meadow-lift-mission-reducer-kit
 open-above-mission-snapshot-projector-kit
 open-above-region-unlock-progression-kit
 open-above-gamehost-route-diagnostics-kit
 open-above-hud-route-mission-line-kit
+open-above-route-fixture-contract-kit
+open-above-route-fixture-harness-kit
+open-above-route-fixture-snapshot-kit
+open-above-route-replay-parity-kit
 open-above-route-event-smoke-kit
 open-above-balloon-behavior-smoke-kit
-open-above-route-replay-authority-kit
-open-above-mission-snapshot-contract-kit
+open-above-route-result-fixture-gate-kit
 ```
 
 ## Immediate next product direction
 
-Commit to `TheOpenAbove Route Replay Fixture Authority + Mission Snapshot Contract Lock`:
+Commit to `TheOpenAbove Balloon Config Cutover + Route Result Fixture Gate`:
 
 ```txt
 preserve current balloon visuals, burner / vent controls, camera, HUD telemetry, and GameHost shape
@@ -128,14 +130,14 @@ preserve current balloon visuals, burner / vent controls, camera, HUD telemetry,
   -> create pure altitude band resolver
   -> create pure route object evaluator
   -> create route order policy
-  -> create route event result envelope
+  -> create RouteEventResult envelopes
   -> create route state reducer
   -> create route event journal
   -> create Meadow Lift mission reducer
   -> create Cloud Basin unlock progression reducer
   -> project local.mission, local.progression, local.routeObjects, local.routeEvents, local.routeDiagnostics, and local.routeFixture from snapshot()
   -> add one compact HUD mission line
-  -> extend tests/smoke.mjs with DOM-free route fixture cases
+  -> extend tests/smoke.mjs or adjacent smoke module with DOM-free route fixture cases
   -> defer host extraction, render extraction, world extraction, camera extraction, and balloon physics extraction until route smoke passes
 ```
 
@@ -148,6 +150,7 @@ src/data/campaign.config.js exports BALLOON_DRIFT, ALTITUDE_BANDS, ROUTE_OBJECTS
 FLIGHT is marked compatibility-only or is protected by smoke coverage proving it is not live authority
 src/main.js reads live drift constants from BALLOON_DRIFT
 route event records include eventId, objectId, eventType, accepted, reason, before, after, and snapshotTick
+accepted route attempts include reason=accepted
 out-of-order route attempts reject with reason=out_of_order
 wrong-altitude route attempts reject with reason=invalid_altitude_band
 already-completed route objects reject with reason=already_completed
