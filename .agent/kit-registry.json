@@ -1,24 +1,23 @@
 {
-  "schemaVersion": "1.2.0",
+  "schemaVersion": "1.3.0",
   "repo": "LuminaryLabs-Publish/TheOpenAbove",
-  "generatedAt": "2026-07-07T07:38:47-04:00",
+  "generatedAt": "2026-07-07T08:51:15-04:00",
   "branchTarget": "main",
-  "status": "agent-side-kit-registry-updated-mission-state-service-behavior-smoke-cutover",
+  "status": "agent-side-kit-registry-updated-balloon-drift-canonical-config-mission-snapshot-cutover",
   "productDirection": {
     "currentRuntime": "hot-air-balloon wind-drift exploration",
-    "staleDocumentationDirection": "bird/free-flight exploration language remains in README, package description, and legacy FLIGHT config",
-    "recommendedDecision": "Commit to balloon drift as the canonical runtime direction unless a future code pass intentionally restores bird flight.",
-    "recommendedVerticalSlice": "TheOpenAbove Mission State Service + Behavior Smoke Cutover"
+    "staleDocumentationDirection": "README.md, package.json, and src/data/campaign.config.js still preserve bird/free-flight language, thermals, wind gates, pitch/bank controls, boost, and legacy FLIGHT tuning.",
+    "recommendedDecision": "Make balloon drift the canonical runtime and config direction before extracting additional services from src/main.js.",
+    "recommendedVerticalSlice": "TheOpenAbove Balloon Drift Canonical Config + Mission Snapshot Cutover"
   },
   "observedPublishRepos": [
+    "LuminaryLabs-Publish/IntoTheMeadow",
     "LuminaryLabs-Publish/HorrorCorridor",
     "LuminaryLabs-Publish/AetherVale",
-    "LuminaryLabs-Publish/TheOpenAbove",
-    "LuminaryLabs-Publish/TheCavalryOfRome",
-    "LuminaryLabs-Publish/PhantomCommand",
-    "LuminaryLabs-Publish/PrehistoricRush",
     "LuminaryLabs-Publish/ZombieOrchard",
-    "LuminaryLabs-Publish/IntoTheMeadow"
+    "LuminaryLabs-Publish/TheOpenAbove",
+    "LuminaryLabs-Publish/PhantomCommand",
+    "LuminaryLabs-Publish/PrehistoricRush"
   ],
   "excludedRepos": [
     {
@@ -28,28 +27,28 @@
   ],
   "selection": {
     "selectedRepo": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "The central Publish rotation most recently documented LuminaryLabs-Publish/AetherVale, making LuminaryLabs-Publish/TheOpenAbove the next eligible repo in the tracked rotation."
+    "reason": "The central Publish rotation most recently documented LuminaryLabs-Publish/AetherVale at 2026-07-07T08-39-48-04-00, making LuminaryLabs-Publish/TheOpenAbove the next eligible repo in the tracked cycle."
   },
-  "latestTracker": ".agent/trackers/2026-07-07T07-38-47-04-00/project-breakdown.md",
+  "latestTracker": ".agent/trackers/2026-07-07T08-51-15-04-00/project-breakdown.md",
   "runtimeEvidence": {
     "readme": "README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, and sky perch return.",
     "package": "package.json still describes a standalone free-flight exploration game.",
-    "main": "src/main.js owns terrain, lakes, trees, clouds, wind ribbons, balloon state, burner/vent input, drift physics, camera, HUD, Nexus telemetry, and GameHost.",
+    "main": "src/main.js owns host, renderer setup, terrain, lakes, trees, clouds, wind ribbons, balloon state, input, drift physics, camera, HUD, Nexus telemetry, and GameHost.",
     "campaignConfig": "src/data/campaign.config.js defines Meadow Lift with thermalTarget, gateTarget, returnRadius, and legacy FLIGHT tuning.",
     "objectFamily": "src/hot-air-balloon-object-kit.js composes triangulated panels, mouth, fitted streamers, seams, basket, rigging, burner, and rope kits.",
-    "smoke": "tests/smoke.mjs validates static markers and old bird-regression markers but not mission behavior."
+    "smoke": "tests/smoke.mjs should keep static marker coverage, then add behavior-level gate/landing/unlock assertions."
   },
   "interactionLoop": {
     "currentImplemented": [
       "load static page",
       "mount canvas, HUD, and error panel",
-      "initialize Three.js scene, camera, renderer, lights, fog, and frame loop",
+      "initialize Three.js scene, camera, renderer, lights, fog, shadows, and animation loop",
       "generate terrain, lakes, trees, clouds, and wind ribbons",
       "spawn procedural hot-air-balloon object",
       "map Space/W/ArrowUp to burner lift",
       "map S/ArrowDown/Shift to vent descent",
       "sample time-varying wind angle and wind speed",
-      "integrate buoyancy, damping, ceiling softness, velocity, position, and altitude",
+      "integrate buoyancy, venting, vertical damping, ceiling softness, velocity, position, altitude, and drift distance",
       "clamp balloon above terrain clearance",
       "animate balloon visual sub-kits",
       "follow basket-relative wind-facing camera",
@@ -59,24 +58,42 @@
     ],
     "targetProductLoop": [
       "start Meadow Lift as balloon pilot",
-      "read wind-lane hints and altitude-band targets",
-      "use burner and vent to enter the required air layer",
+      "read wind-lane and altitude-band hints",
+      "use burner and vent to enter required air layer",
       "complete buoyancy-gate-01",
       "complete buoyancy-gate-02",
       "complete buoyancy-gate-03",
       "maintain safe terrain clearance",
-      "enter meadow perch landing radius at valid altitude",
+      "enter meadow-perch landing radius at valid altitude and safe descent",
       "record meadow-lift-complete",
       "unlock cloud-basin",
-      "expose mission and progression through HUD and GameHost",
+      "expose mission, progression, and routeObjects through HUD and GameHost",
       "prove completion through scripted route smoke"
+    ],
+    "recommendedServiceLoop": [
+      "collect balloon input action frame",
+      "update balloon physics state",
+      "evaluate altitude safety",
+      "evaluate route object crossings",
+      "update mission state",
+      "update progression state",
+      "project mission/progression/routeObjects into local snapshot",
+      "publish Nexus telemetry",
+      "update HUD mission line",
+      "record behavior-smoke diagnostics"
     ]
   },
   "domains": [
     {
+      "id": "static-page-host",
+      "currentFiles": ["index.html"],
+      "services": ["canvas mount", "HUD shell", "error panel"],
+      "status": "implemented"
+    },
+    {
       "id": "runtime-host",
-      "currentFiles": ["index.html", "src/main.js"],
-      "services": ["canvas host", "HUD host", "error panel", "animation frame loop", "resize handling"],
+      "currentFiles": ["src/main.js"],
+      "services": ["runtime bootstrap", "animation loop", "resize handling", "input listeners", "fatal error reporting"],
       "status": "implemented-monolith"
     },
     {
@@ -92,9 +109,27 @@
       "status": "implemented-inline-runtime-kit"
     },
     {
-      "id": "gamehost-debug",
+      "id": "window-gamehost-debug",
       "currentFiles": ["src/main.js"],
-      "services": ["engine handle", "NexusEngine handle", "scene", "renderer", "camera", "balloon", "local snapshot", "target mission/progression diagnostics"],
+      "services": ["engine handle", "scene handle", "renderer handle", "camera handle", "balloon handle", "local snapshot", "target mission/progression diagnostics"],
+      "status": "candidate-kit"
+    },
+    {
+      "id": "campaign-config",
+      "currentFiles": ["src/data/campaign.config.js", "README.md", "package.json"],
+      "services": ["campaign id", "regions", "objectives", "world seed", "world tuning", "legacy FLIGHT tuning", "target BALLOON_DRIFT tuning", "target route object descriptors"],
+      "status": "needs-balloon-drift-canonicalization"
+    },
+    {
+      "id": "balloon-drift-config",
+      "currentFiles": ["target src/data/campaign.config.js"],
+      "services": ["burner defaults", "venting", "buoyancy", "damping", "ceiling softness", "ground clearance", "wind tuning", "camera zoom"],
+      "status": "missing-config-authority"
+    },
+    {
+      "id": "balloon-input-map",
+      "currentFiles": ["src/main.js"],
+      "services": ["key capture", "burner input", "vent input", "zoom wheel"],
       "status": "candidate-kit"
     },
     {
@@ -104,27 +139,21 @@
       "status": "implemented-inline-state"
     },
     {
-      "id": "balloon-input-map",
-      "currentFiles": ["src/main.js"],
-      "services": ["key capture", "burner input", "vent input", "zoom wheel"],
-      "status": "candidate-kit"
-    },
-    {
       "id": "balloon-drift-physics",
       "currentFiles": ["src/main.js"],
-      "services": ["buoyancy", "vertical damping", "ceiling softness", "wind velocity blend", "position integration"],
-      "status": "candidate-kit"
-    },
-    {
-      "id": "altitude-safety",
-      "currentFiles": ["src/main.js"],
-      "services": ["terrain clearance", "ground clamp", "altitude computation"],
+      "services": ["buoyancy", "vent force", "vertical damping", "ceiling softness", "wind velocity blend", "position integration"],
       "status": "candidate-kit"
     },
     {
       "id": "wind-field",
       "currentFiles": ["src/main.js"],
-      "services": ["wind angle", "wind speed", "wind vector", "wind-ribbon offset", "target wind-lane descriptors"],
+      "services": ["wind angle", "wind speed", "wind vector", "wind-ribbon offset", "target wind-lane hints"],
+      "status": "candidate-kit"
+    },
+    {
+      "id": "altitude-safety",
+      "currentFiles": ["src/main.js"],
+      "services": ["terrain clearance", "ground clamp", "altitude computation", "target landing-altitude validity"],
       "status": "candidate-kit"
     },
     {
@@ -140,21 +169,15 @@
       "status": "candidate-kit"
     },
     {
-      "id": "campaign-config",
-      "currentFiles": ["src/data/campaign.config.js", "README.md", "package.json"],
-      "services": ["campaign id", "regions", "objectives", "world seed", "world tuning", "legacy FLIGHT tuning", "target BALLOON_DRIFT tuning"],
-      "status": "needs-balloon-drift-parity"
-    },
-    {
       "id": "route-object-state",
       "currentFiles": ["target service"],
-      "services": ["gate IDs", "gate positions", "gate radius", "altitude bands", "landing zone", "route completion state"],
+      "services": ["gate IDs", "gate positions", "gate radius", "altitude bands", "wind-lane hints", "landing zone", "route completion state"],
       "status": "missing-product-loop"
     },
     {
-      "id": "meadow-lift-objective",
+      "id": "meadow-lift-mission-state",
       "currentFiles": ["target service"],
-      "services": ["gate sequence", "altitude-band checks", "landing checks", "completion messages"],
+      "services": ["gate sequence", "altitude-band checks", "landing checks", "completion messages", "current objective label"],
       "status": "missing-product-loop"
     },
     {
@@ -162,6 +185,12 @@
       "currentFiles": ["target service"],
       "services": ["record meadow-lift-complete", "unlock cloud-basin", "snapshot progression"],
       "status": "missing-product-loop"
+    },
+    {
+      "id": "mission-snapshot-contract",
+      "currentFiles": ["target service"],
+      "services": ["local.mission shape", "local.progression shape", "local.routeObjects shape", "behavior smoke assertions"],
+      "status": "missing"
     },
     {
       "id": "balloon-visual-object",
@@ -182,6 +211,12 @@
       "status": "candidate-kit"
     },
     {
+      "id": "static-smoke-validation",
+      "currentFiles": ["tests/smoke.mjs"],
+      "services": ["marker checks", "static route guard"],
+      "status": "implemented-needs-product-language-refresh"
+    },
+    {
       "id": "behavior-smoke-validation",
       "currentFiles": ["target tests"],
       "services": ["scripted route fixture", "gate completion assertions", "landing assertions", "unlock assertions"],
@@ -199,17 +234,16 @@
         "resources": ["openAbove.balloonSnapshot"],
         "events": ["openAbove.balloonTicked"],
         "services": ["publish balloon snapshot", "emit tick telemetry", "install engine.openAbove.getState"],
-        "blockers": ["defined inside src/main.js", "no behavior-level tests"]
+        "blockers": ["defined inside src/main.js", "does not yet include mission/progression route state"]
       },
       {
         "id": "open-above-hot-air-balloon-object-kit",
         "kind": "object-composition-kit",
-        "status": "implemented",
+        "status": "implemented-active",
         "sourceFiles": ["src/hot-air-balloon-object-kit.js"],
         "provides": ["defaultHotAirBalloonProfile", "buildHotAirBalloon", "animateHotAirBalloon", "installHotAirBalloonVisual"],
         "composes": ["open-above-balloon-envelope-panel-kit", "open-above-balloon-mouth-kit", "open-above-balloon-streamer-fit-kit", "open-above-balloon-fabric-seam-kit", "open-above-hot-air-balloon-basket-kit", "open-above-hot-air-balloon-rigging-kit", "open-above-hot-air-balloon-burner-kit", "open-above-rope-kit"],
-        "services": ["compose balloon object", "store part references", "animate sub-kits", "install into legacy vehicle host"],
-        "blockers": ["compatibility search still references old wing/tail host assumptions"]
+        "services": ["compose balloon object", "store part references", "animate sub-kits", "install into legacy vehicle host"]
       },
       {
         "id": "open-above-balloon-envelope-panel-kit",
@@ -255,39 +289,39 @@
       {
         "id": "open-above-hot-air-balloon-basket-kit",
         "kind": "object-part-visual-kit",
-        "status": "implemented",
+        "status": "implemented-active",
         "sourceFiles": ["src/hot-air-balloon-basket-kit.js"],
         "provides": ["defaultBasketProfile", "buildBasket"],
-        "services": ["build basket body", "build trim rails"],
-        "blockers": ["no passenger or payload socket metadata"]
+        "services": ["build basket body", "build trim rails"]
       },
       {
         "id": "open-above-hot-air-balloon-rigging-kit",
         "kind": "object-part-visual-kit",
-        "status": "implemented",
+        "status": "implemented-active",
         "sourceFiles": ["src/hot-air-balloon-rigging-kit.js"],
         "provides": ["defaultRiggingProfile", "buildRigging", "animateRigging"],
-        "services": ["build rope rigging", "attach to envelope and basket", "animate rope endpoints"]
+        "services": ["build rope rigging", "connect basket to envelope", "animate sway"]
       },
       {
         "id": "open-above-hot-air-balloon-burner-kit",
         "kind": "object-part-visual-kit",
-        "status": "implemented",
+        "status": "implemented-active",
         "sourceFiles": ["src/hot-air-balloon-burner-kit.js"],
         "provides": ["defaultBurnerProfile", "buildBurner", "animateBurner"],
-        "services": ["build burner frame", "build flame", "build glow light", "animate burner pulse"]
+        "services": ["build burner frame", "build flame", "build glow light", "animate pulse"]
       },
       {
         "id": "open-above-rope-kit",
-        "kind": "object-utility-kit",
-        "status": "implemented",
+        "kind": "utility-visual-kit",
+        "status": "implemented-active",
         "sourceFiles": ["src/rope-kit.js"],
-        "provides": ["buildSoftRope", "updateSoftRope"],
-        "services": ["build sagging tube rope", "build gray stripe bands", "update rope path"]
+        "provides": ["createRope", "updateRope"],
+        "services": ["build sagging tube rope", "apply black/gray striping", "update rope endpoints"]
       }
     ],
-    "candidateExtraction": [
+    "targetExtraction": [
       "open-above-balloon-drift-config-kit",
+      "open-above-route-object-config-kit",
       "open-above-runtime-host-kit",
       "open-above-three-render-host-kit",
       "open-above-balloon-input-map-kit",
@@ -300,48 +334,43 @@
       "open-above-route-object-kit",
       "open-above-meadow-lift-mission-state-kit",
       "open-above-region-unlock-progression-kit",
+      "open-above-mission-snapshot-contract-kit",
       "open-above-basket-follow-camera-kit",
       "open-above-hud-mission-telemetry-kit",
       "open-above-gamehost-debug-kit",
       "open-above-scripted-route-smoke-kit",
-      "open-above-balloon-behavior-smoke-kit"
+      "open-above-balloon-behavior-smoke-kit",
+      "open-above-static-marker-smoke-kit"
     ]
   },
-  "keyFindings": [
-    "The live runtime is already balloon-first, but public docs/config still preserve older bird/free-flight terms.",
-    "src/main.js is the current extraction bottleneck and should not absorb mission logic directly.",
-    "The next product gap is a pure mission state service for gates, altitude bands, landing, and unlocks.",
-    "Static smoke tests protect markers but do not verify route behavior.",
-    "GameHost needs mission, progression, routeObjects, and kitStatus fields for useful automation diagnostics.",
-    "The visual object kit family is strong and should remain stable during mission service extraction."
-  ],
   "recommendedNextWork": {
-    "title": "TheOpenAbove Mission State Service + Behavior Smoke Cutover",
-    "orderedSteps": [
+    "title": "TheOpenAbove Balloon Drift Canonical Config + Mission Snapshot Cutover",
+    "buildOrder": [
       "preserve current balloon drift visuals and controls",
-      "update README/package/config language around balloon drift",
-      "add BALLOON_DRIFT config beside legacy FLIGHT",
-      "define three buoyancy gate route objects",
-      "define altitude bands and wind-lane hint descriptors",
-      "define landing/perch zone conditions",
-      "add pure mission state service",
+      "update README controls and milestone language to burner / vent / drift",
+      "update package description from free-flight to balloon drift",
+      "add BALLOON_DRIFT to src/data/campaign.config.js",
+      "keep FLIGHT only as legacy compatibility or remove after smoke parity",
+      "define routeObjects for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing",
+      "define altitudeBand descriptors and windLaneHint descriptors",
+      "add pure mission-state service fed by balloon state and route objects",
       "add progression service for meadow-lift-complete and cloud-basin-unlocked",
-      "expose mission/progression/routeObjects in GameHost.getState().local",
-      "surface mission status in HUD",
-      "add pure scripted route smoke fixture",
-      "keep static smoke coverage",
-      "extract host/input/wind/terrain/drift/camera/HUD after behavior state is stable"
+      "extend snapshot() with mission, progression, and routeObjects",
+      "extend HUD with current gate / landing / unlock status",
+      "add scripted smoke for deterministic route completion",
+      "extract host/input/wind/terrain/drift/camera/HUD modules only after state contract parity"
     ],
-    "acceptanceTargets": [
-      "npm run check passes",
-      "npm run build passes",
-      "README and config describe balloon drift consistently",
-      "BALLOON_DRIFT is canonical and FLIGHT is legacy-only",
+    "acceptance": [
+      "README.md describes balloon drift, burner, vent, drift gates, and meadow-perch landing",
+      "package.json description describes the active balloon runtime",
+      "src/data/campaign.config.js exports canonical BALLOON_DRIFT and route object descriptors",
+      "FLIGHT is marked legacy-only or removed behind compatibility tests",
       "GameHost.getState().local.mission exists",
       "GameHost.getState().local.progression.cloudBasinUnlocked exists",
-      "three buoyancy gates can be completed through a deterministic fixture",
-      "landing/perch completion writes meadow-lift-complete",
-      "cloud-basin unlock is visible in local state"
+      "GameHost.getState().local.routeObjects exposes gate/landing status",
+      "HUD shows mission status without adding more than one extra line",
+      "behavior smoke proves three gate completions and landing unlock",
+      "existing static smoke and npm run build remain green"
     ]
   }
 }
