@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T07-38-47-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T08-51-15-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -22,24 +22,16 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T05-21-11-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T06-31-46-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T07-38-47-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T08-51-15-04-00/project-breakdown.md
 ```
 
 ## Current repo read
 
 `TheOpenAbove` is currently a standalone Vite/Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner/vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, a Nexus Engine telemetry DSK, and `window.GameHost.getState()`.
 
-The browser host already labels the product as `The Open Above: Balloon Drift`, but the public README, package description, and `src/data/campaign.config.js` still contain older bird/free-flight language and legacy `FLIGHT` tuning. Treat balloon drift as the active runtime direction unless a future code pass intentionally restores the bird controller.
+The browser runtime is already balloon-first, but `README.md`, `package.json`, and `src/data/campaign.config.js` still preserve old bird/free-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch/bank controls, and legacy `FLIGHT` tuning. Treat balloon drift as canonical unless a future product decision intentionally restores the bird controller.
 
-This pass refines the next build from broad config parity into a mission state service cutover. The first needed product loop is now explicit route state: buoyancy gates, altitude bands, landing/perch conditions, mission completion, Cloud Basin unlock, and behavior smoke fixtures.
-
-## Active agent rules
-
-- Work on only one publish repo per run.
-- Do not work on `LuminaryLabs-Publish/TheCavalryOfRome`.
-- Keep findings in root `.agent`.
-- Create a timestamped tracker entry for each run.
-- Push directly to `main` when the workflow permits it.
-- Mirror the central tracking note into `LuminaryLabs-Dev/LuminaryLabs`.
+This pass refines the next build into **Balloon Drift Canonical Config + Mission Snapshot**. The needed first product loop is explicit route and snapshot authority: canonical `BALLOON_DRIFT`, route object descriptors, altitude bands, wind-lane hints, three buoyancy gates, meadow-perch landing, mission state, progression unlocks, and behavior smoke fixtures.
 
 ## Current explicit kit inventory
 
@@ -61,6 +53,7 @@ open-above-rope-kit
 
 ```txt
 open-above-balloon-drift-config-kit
+open-above-route-object-config-kit
 open-above-runtime-host-kit
 open-above-three-render-host-kit
 open-above-balloon-input-map-kit
@@ -73,31 +66,33 @@ open-above-world-generation-domain-kit
 open-above-route-object-kit
 open-above-meadow-lift-mission-state-kit
 open-above-region-unlock-progression-kit
+open-above-mission-snapshot-contract-kit
 open-above-basket-follow-camera-kit
 open-above-hud-mission-telemetry-kit
 open-above-gamehost-debug-kit
 open-above-scripted-route-smoke-kit
 open-above-balloon-behavior-smoke-kit
+open-above-static-marker-smoke-kit
 ```
 
 ## Immediate next product direction
 
-Commit to `TheOpenAbove Mission State Service + Behavior Smoke Cutover`:
+Commit to `TheOpenAbove Balloon Drift Canonical Config + Mission Snapshot Cutover`:
 
 ```txt
 preserve current balloon drift visuals and controls
-  -> update README/package/config language around balloon drift
-  -> add BALLOON_DRIFT config beside legacy FLIGHT
-  -> define three buoyancy gate route objects
-  -> define altitude bands and wind-lane hint descriptors
-  -> define landing/perch zone conditions
-  -> add pure mission state service
+  -> update README controls and milestone language to burner / vent / drift
+  -> update package description from free-flight to balloon drift
+  -> add BALLOON_DRIFT to src/data/campaign.config.js
+  -> keep FLIGHT only as legacy compatibility or remove after smoke parity
+  -> define routeObjects for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing
+  -> define altitudeBand descriptors and windLaneHint descriptors
+  -> add pure mission-state service fed by balloon state and route objects
   -> add progression service for meadow-lift-complete and cloud-basin-unlocked
-  -> expose mission/progression/routeObjects in GameHost.getState().local
-  -> surface mission status in HUD
-  -> add pure scripted route smoke fixture
-  -> keep static smoke coverage
-  -> extract host/input/wind/terrain/drift/camera/HUD only after behavior state is stable
+  -> extend snapshot() with mission, progression, and routeObjects
+  -> extend HUD with current gate / landing / unlock status
+  -> add scripted smoke for deterministic route completion
+  -> extract host/input/wind/terrain/drift/camera/HUD modules after state contract parity
 ```
 
 ## Next acceptance target
@@ -105,11 +100,12 @@ preserve current balloon drift visuals and controls
 ```txt
 npm run check passes
 npm run build passes
-README and config describe balloon drift consistently
-BALLOON_DRIFT is canonical and FLIGHT is legacy-only
+README and package describe balloon drift consistently
+BALLOON_DRIFT is canonical and FLIGHT is legacy-only or removed behind compatibility tests
+routeObjects include buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing
 GameHost.getState().local.mission exists
 GameHost.getState().local.progression.cloudBasinUnlocked exists
-three buoyancy gates can be completed through a deterministic fixture
-landing/perch completion writes meadow-lift-complete
-cloud-basin unlock is visible in local state
+GameHost.getState().local.routeObjects exposes gate and landing status
+HUD shows mission status without adding more than one extra line
+behavior smoke proves three gate completions and landing unlock
 ```
