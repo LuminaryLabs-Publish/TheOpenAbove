@@ -1,10 +1,10 @@
 {
-  "schemaVersion": "1.8.0",
+  "schemaVersion": "1.9.0",
   "repo": "LuminaryLabs-Publish/TheOpenAbove",
-  "generatedAt": "2026-07-07T13:50:54-04:00",
+  "generatedAt": "2026-07-07T15-11-23-04:00",
   "branchTarget": "main",
-  "status": "agent-side-kit-registry-updated-balloon-drift-source-truth-route-fixture-planned",
-  "latestTracker": ".agent/trackers/2026-07-07T13-50-54-04-00/project-breakdown.md",
+  "status": "agent-side-kit-registry-updated-route-state-mission-snapshot-reducer-fixture-planned",
+  "latestTracker": ".agent/trackers/2026-07-07T15-11-23-04-00/project-breakdown.md",
   "selection": {
     "selectedRepo": "LuminaryLabs-Publish/TheOpenAbove",
     "reason": "The central ledger showed TheOpenAbove as the oldest tracked non-Cavalry Publish repo by latest review timestamp among accessible repos.",
@@ -28,9 +28,9 @@
   },
   "productDirection": {
     "currentRuntime": "hot-air-balloon wind-drift exploration",
-    "currentGap": "Live runtime behavior is balloon-first, but README.md, package.json, and src/data/campaign.config.js still describe an older free-flight / bird-flight controller while src/main.js owns balloon drift constants and the route-ready snapshot seam inline.",
-    "recommendedDecision": "Make balloon drift config source-authoritative and prove route fixture behavior before host, render, or physics extraction.",
-    "recommendedVerticalSlice": "TheOpenAbove Balloon Drift Source Truth + Route Fixture Contract Cutover"
+    "currentGap": "Live runtime behavior is balloon-first, but README.md, package.json, and src/data/campaign.config.js still describe an older free-flight / bird-flight controller while src/main.js owns balloon drift constants and route-ready snapshot projection inline.",
+    "recommendedDecision": "Make route state source-authoritative, reduce mission/progression snapshots, and prove route fixture behavior before host, render, or physics extraction.",
+    "recommendedVerticalSlice": "TheOpenAbove Route State Authority + Mission Snapshot Reducer Fixture Cutover"
   },
   "runtimeEvidence": {
     "readme": "README.md still says free-flight exploration with carving, gliding, diving, boosting, thermals, wind gates, and sky perch return.",
@@ -68,7 +68,7 @@
       "complete meadow-perch-landing at valid landing altitude",
       "record meadow-lift-complete",
       "unlock cloud-basin",
-      "show mission, progression, routeObjects, routeEvents, and routeFixture through HUD and GameHost"
+      "show mission, progression, routeObjects, routeEvents, routeDiagnostics, and routeFixture through HUD and GameHost"
     ],
     "recommendedServiceLoop": [
       "read BalloonState snapshot",
@@ -78,9 +78,10 @@
       "apply route order policy",
       "emit accepted or rejected RouteEvent records",
       "append route event journal",
+      "reduce route object state",
       "reduce ordered Meadow Lift mission state",
       "reduce progression state",
-      "project routeObjects, routeEvents, mission, progression, and routeFixture into snapshot",
+      "project routeObjects, routeEvents, routeDiagnostics, mission, progression, and routeFixture into snapshot",
       "update HUD mission line",
       "run DOM-free route fixture smoke"
     ]
@@ -90,10 +91,9 @@
     { "id": "runtime-host", "status": "implemented-monolith", "services": ["runtime bootstrap", "animation loop", "resize", "input listeners", "fatal error reporting"] },
     { "id": "three-render-host", "status": "implemented-inline", "services": ["scene", "camera", "renderer", "lights", "fog", "shadows", "tone mapping"] },
     { "id": "nexus-telemetry", "status": "implemented-inline-runtime-kit", "services": ["BalloonSnapshot resource", "BalloonTicked event", "engine.openAbove.getState"] },
-    { "id": "window-gamehost-debug", "status": "candidate-kit", "services": ["engine handle", "scene handle", "renderer handle", "camera handle", "balloon handle", "local snapshot"] },
     { "id": "campaign-config", "status": "needs-balloon-drift-canonicalization", "services": ["campaign id", "regions", "objectives", "world seed", "world tuning", "target BALLOON_DRIFT"] },
-    { "id": "balloon-drift-config-authority", "status": "next-cutover", "services": ["burner floor", "vent force", "buoyancy", "damping", "ceiling softness", "terrain clearance", "wind sampling", "initial velocity"] },
     { "id": "legacy-flight-compatibility", "status": "next-cutover", "services": ["legacy FLIGHT alias", "compatibility smoke", "removal gate"] },
+    { "id": "balloon-drift-config-authority", "status": "next-cutover", "services": ["burner floor", "vent force", "buoyancy", "damping", "ceiling softness", "terrain clearance", "wind sampling", "initial velocity"] },
     { "id": "balloon-input-map", "status": "candidate-kit", "services": ["key capture", "burner input", "vent input", "zoom wheel"] },
     { "id": "balloon-vehicle-state", "status": "implemented-inline-state", "services": ["position", "velocity", "wind", "vertical velocity", "altitude", "burner", "vent", "elapsed", "distance", "message"] },
     { "id": "balloon-drift-physics", "status": "candidate-kit", "services": ["buoyancy", "vent force", "vertical damping", "ceiling softness", "wind blend", "position integration"] },
@@ -106,21 +106,24 @@
     { "id": "world-generation", "status": "candidate-kit", "services": ["terrain mesh", "lakes", "trees", "clouds", "wind ribbons"] },
     { "id": "basket-follow-camera", "status": "implemented-inline", "services": ["wind-forward frame", "side vector", "zoom", "basket focus", "camera smoothing"] },
     { "id": "hud-mission-telemetry", "status": "candidate-kit", "services": ["title", "message", "heat", "altitude", "wind", "distance", "mission line"] },
+    { "id": "window-gamehost-debug", "status": "candidate-kit", "services": ["engine handle", "scene handle", "renderer handle", "camera handle", "balloon handle", "local snapshot", "route diagnostics"] },
     { "id": "balloon-visual-object", "status": "implemented-visual-kits", "services": ["composite balloon", "panels", "mouth", "streamers", "seams", "basket", "rigging", "burner", "ropes", "animation"] },
     { "id": "route-object-descriptor", "status": "next-cutover", "services": ["gate ids", "landing id", "positions", "radius", "required altitude band", "sequence"] },
+    { "id": "route-object-state", "status": "next-cutover", "services": ["completed flags", "entered flags", "last distance", "altitude status"] },
     { "id": "route-object-evaluator", "status": "next-cutover", "services": ["proximity check", "altitude-band check", "landing check", "route status snapshot"] },
     { "id": "route-order-policy", "status": "next-cutover", "services": ["next expected gate", "out-of-order rejection", "completion order proof"] },
-    { "id": "route-object-state", "status": "next-cutover", "services": ["completed flags", "entered flags", "last distance", "altitude status"] },
     { "id": "route-event-contract", "status": "next-cutover", "services": ["event id", "source", "object id", "event type", "accepted", "reason", "before", "after"] },
+    { "id": "route-event-result-envelope", "status": "next-cutover", "services": ["accepted result", "rejected result", "snapshot tick", "diagnostics", "before/after route state"] },
     { "id": "route-event-acceptance-policy", "status": "next-cutover", "services": ["accepted route event", "out-of-order rejection", "invalid altitude rejection", "already completed rejection", "outside radius rejection"] },
     { "id": "route-event-rejection-reason-catalog", "status": "next-cutover", "services": ["accepted", "out_of_order", "invalid_altitude_band", "already_completed", "unknown_route_object", "outside_radius"] },
     { "id": "route-event-journal", "status": "next-cutover", "services": ["accepted events", "rejected events", "last accepted", "last rejected"] },
+    { "id": "route-state-reducer", "status": "next-cutover", "services": ["route object state", "route result application", "route progress counters", "route diagnostics"] },
     { "id": "route-fixture-contract", "status": "next-cutover", "services": ["scripted route frames", "assertion summary", "fixture snapshot", "replay proof"] },
     { "id": "meadow-lift-mission-reducer", "status": "next-cutover", "services": ["current objective", "gate completion", "landing completion", "message", "mission complete"] },
-    { "id": "mission-snapshot-projector", "status": "next-cutover", "services": ["local.mission", "local.progression", "local.routeObjects", "local.routeEvents", "local.routeFixture"] },
+    { "id": "mission-snapshot-projector", "status": "next-cutover", "services": ["local.mission", "local.progression", "local.routeObjects", "local.routeEvents", "local.routeDiagnostics", "local.routeFixture"] },
     { "id": "region-unlock-progression", "status": "next-cutover", "services": ["meadow-lift-complete", "cloud-basin-unlocked", "progression snapshot"] },
     { "id": "static-smoke-validation", "status": "implemented", "services": ["required files", "marker checks", "static route guard"] },
-    { "id": "route-event-smoke-validation", "status": "next-cutover", "services": ["in-order fixture", "out-of-order fixture", "invalid-altitude fixture", "already-completed fixture", "unknown-object fixture", "landing fixture", "unlock fixture"] }
+    { "id": "route-event-smoke-validation", "status": "next-cutover", "services": ["in-order fixture", "out-of-order fixture", "invalid-altitude fixture", "already-completed fixture", "unknown-object fixture", "outside-radius fixture", "landing fixture", "unlock fixture"] }
   ],
   "kits": {
     "explicit": [
@@ -157,19 +160,22 @@
       "open-above-altitude-band-contract-kit",
       "open-above-altitude-band-resolver-kit",
       "open-above-route-object-config-kit",
+      "open-above-route-object-state-kit",
       "open-above-route-object-evaluator-kit",
       "open-above-route-order-policy-kit",
-      "open-above-route-object-state-kit",
       "open-above-route-event-contract-kit",
+      "open-above-route-event-result-envelope-kit",
       "open-above-route-event-acceptance-policy-kit",
       "open-above-route-event-rejection-reason-kit",
       "open-above-route-event-journal-kit",
+      "open-above-route-state-reducer-kit",
       "open-above-route-fixture-contract-kit",
       "open-above-route-fixture-harness-kit",
       "open-above-route-fixture-snapshot-kit",
       "open-above-meadow-lift-mission-reducer-kit",
       "open-above-mission-snapshot-projector-kit",
       "open-above-region-unlock-progression-kit",
+      "open-above-gamehost-route-diagnostics-kit",
       "open-above-hud-route-mission-line-kit",
       "open-above-route-event-smoke-kit",
       "open-above-balloon-behavior-smoke-kit"
@@ -185,80 +191,62 @@
       "open-above-world-object-render-descriptor-kit"
     ]
   },
-  "routeEventContractTarget": {
-    "fields": [
-      "id",
-      "frame",
-      "elapsed",
-      "source",
-      "region",
-      "objectId",
-      "eventType",
-      "sequenceIndex",
-      "altitude",
-      "altitudeBand",
-      "distanceToObject",
-      "accepted",
-      "reason",
-      "before",
-      "after"
-    ],
-    "acceptedReasons": ["accepted"],
-    "rejectedReasons": [
-      "out_of_order",
-      "invalid_altitude_band",
-      "already_completed",
-      "unknown_route_object",
-      "outside_radius"
+  "services": {
+    "telemetry": ["define BalloonSnapshot resource", "define BalloonTicked event", "set balloon snapshot resource each simulate tick", "emit balloon tick event", "install engine.openAbove.getState", "expose telemetry through GameHost"],
+    "runtimeHost": ["mount canvas / HUD / error panel", "create scene / renderer / camera", "wire resize / key / blur / wheel listeners", "own requestAnimationFrame lifecycle", "call update, engine.tick, draw, and HUD update", "report fatal runtime errors"],
+    "balloonDrift": ["initialize position / velocity / wind / altitude / burner / vent / elapsed / distance", "resolve burner input", "resolve vent input", "sample wind angle", "sample wind speed", "integrate buoyancy", "apply vent force", "apply altitude damping", "apply ceiling softness", "blend velocity toward wind", "integrate position", "clamp to terrain clearance", "compute altitude above terrain", "increment drift distance"],
+    "visualObject": ["build envelope panels", "build open balloon mouth", "build fitted streamers", "build fabric seams", "build basket", "build rigging", "build burner", "build tube ropes", "animate burner", "animate rigging", "attach compatibility controls for legacy vehicle host", "export OpenAboveHotAirBalloonObjectKit on window"],
+    "routeState": ["load route object descriptors", "resolve current altitude band", "evaluate route object proximity", "evaluate required altitude band", "evaluate route order", "evaluate duplicate completion", "create accepted route event", "create rejected route event", "append route event journal", "reduce route object state", "reduce Meadow Lift mission state", "reduce Cloud Basin unlock state", "project mission snapshot into GameHost", "project route fixture snapshot into GameHost"],
+    "smokeFixture": ["verify required files exist", "verify current balloon marker coverage", "verify legacy bird markers remain absent", "run in-order gate fixture", "run out-of-order rejection fixture", "run invalid-altitude rejection fixture", "run already-completed rejection fixture", "run unknown-object rejection fixture", "run outside-radius rejection fixture", "run landing completion fixture", "run Cloud Basin unlock fixture", "emit normalized fixture summary"]
+  },
+  "nextImplementationSlice": {
+    "name": "TheOpenAbove Route State Authority + Mission Snapshot Reducer Fixture Cutover",
+    "buildOrder": [
+      "preserve current balloon visuals, burner / vent controls, camera, HUD telemetry, and GameHost shape",
+      "update README.md and package.json away from free-flight / bird-flight language",
+      "update Meadow Lift copy away from thermals, wind gates, pitch, bank, boost, and sky-perch return",
+      "add BALLOON_DRIFT beside legacy FLIGHT in src/data/campaign.config.js",
+      "move live drift constants from src/main.js into BALLOON_DRIFT",
+      "keep FLIGHT as compatibility-only until smoke confirms no live runtime dependency",
+      "add ALTITUDE_BANDS for low-clearance, gate-cruise, high-drift, and landing-window",
+      "add ROUTE_OBJECTS for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing",
+      "add WIND_LANE_HINTS for readable route guidance",
+      "create pure altitude band resolver",
+      "create pure route object evaluator",
+      "create route event result envelope",
+      "create route state reducer",
+      "create route event journal",
+      "create Meadow Lift mission reducer",
+      "create Cloud Basin unlock progression reducer",
+      "project local.mission, local.progression, local.routeObjects, local.routeEvents, local.routeDiagnostics, and local.routeFixture from snapshot()",
+      "add one compact HUD mission line",
+      "extend tests/smoke.mjs with DOM-free route fixture cases",
+      "defer host extraction, render extraction, and balloon physics extraction until route smoke passes"
     ]
   },
-  "nextBuildOrder": [
-    "preserve current balloon visuals, burner / vent controls, camera, HUD telemetry, and GameHost shape",
-    "update README.md and package.json away from free-flight / bird-flight language",
-    "update Meadow Lift copy away from thermals, wind gates, pitch, bank, boost, and sky-perch return",
-    "add BALLOON_DRIFT beside legacy FLIGHT in src/data/campaign.config.js",
-    "move live drift constants from src/main.js into BALLOON_DRIFT",
-    "keep FLIGHT as compatibility-only until static smoke confirms no runtime dependency",
-    "add ALTITUDE_BANDS for low-clearance, gate-cruise, high-drift, and landing-window",
-    "add ROUTE_OBJECTS for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing",
-    "add WIND_LANE_HINTS for readable route guidance",
-    "create pure altitude band resolver",
-    "create pure route object evaluator",
-    "create route event contract",
-    "create route event acceptance policy",
-    "create route event rejection reason catalog",
-    "create route event journal",
-    "create route fixture harness and route fixture snapshot",
-    "create Meadow Lift mission reducer",
-    "create Cloud Basin unlock progression reducer",
-    "project local.mission, local.progression, local.routeObjects, local.routeEvents, and local.routeFixture from snapshot()",
-    "add one compact HUD mission line",
-    "extend tests/smoke.mjs with DOM-free route fixture cases",
-    "defer host extraction, render extraction, and balloon physics extraction until route smoke passes"
-  ],
   "acceptanceTargets": [
-    "README.md and package.json describe balloon drift, burner, vent, route gates, and landing",
+    "README.md describes hot-air-balloon drift, burner, vent, route gates, and landing",
+    "package.json description no longer says free-flight exploration",
     "src/data/campaign.config.js exports BALLOON_DRIFT, ALTITUDE_BANDS, ROUTE_OBJECTS, and WIND_LANE_HINTS",
-    "legacy FLIGHT is compatibility-only or unused behind explicit smoke coverage",
-    "runtime drift constants are config-backed",
-    "route event records are stable and include accepted/rejected metadata",
+    "FLIGHT is marked compatibility-only or is protected by smoke coverage proving it is not live authority",
+    "src/main.js reads live drift constants from BALLOON_DRIFT",
+    "route event records include eventId, objectId, accepted, reason, before, after, and snapshotTick",
     "out-of-order route attempts reject with reason=out_of_order",
     "wrong-altitude route attempts reject with reason=invalid_altitude_band",
-    "already completed route objects reject with reason=already_completed",
+    "already-completed route objects reject with reason=already_completed",
     "unknown route objects reject with reason=unknown_route_object",
     "outside-radius attempts reject with reason=outside_radius",
     "in-order route fixture completes three buoyancy gates",
     "valid landing fixture completes meadow-lift",
     "cloud-basin unlocks only after meadow-lift completion",
-    "window.GameHost.getState().local exposes mission, progression, routeObjects, routeEvents, and routeFixture",
+    "window.GameHost.getState().local exposes mission, progression, routeObjects, routeEvents, routeDiagnostics, and routeFixture",
     "HUD shows one compact mission line without adding noisy UI",
-    "DOM-free smoke proves in-order, out-of-order, invalid-altitude, already-completed, unknown-object, landing, and unlock behavior",
+    "DOM-free smoke proves in-order, out-of-order, invalid-altitude, already-completed, unknown-object, outside-radius, landing, and unlock behavior",
     "host/render/physics extraction remains explicitly out of scope"
   ],
   "validation": {
     "runtimeSourceChanged": false,
     "localBuildRun": false,
-    "localSmokeRun": false,
-    "notes": "Documentation-only breakdown and planning pass."
+    "smokeTestRun": false
   }
 }
