@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T06-31-46-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T07-38-47-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -21,6 +21,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T04-08-29-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T05-21-11-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T06-31-46-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T07-38-47-04-00/project-breakdown.md
 ```
 
 ## Current repo read
@@ -28,6 +29,8 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 `TheOpenAbove` is currently a standalone Vite/Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner/vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, a Nexus Engine telemetry DSK, and `window.GameHost.getState()`.
 
 The browser host already labels the product as `The Open Above: Balloon Drift`, but the public README, package description, and `src/data/campaign.config.js` still contain older bird/free-flight language and legacy `FLIGHT` tuning. Treat balloon drift as the active runtime direction unless a future code pass intentionally restores the bird controller.
+
+This pass refines the next build from broad config parity into a mission state service cutover. The first needed product loop is now explicit route state: buoyancy gates, altitude bands, landing/perch conditions, mission completion, Cloud Basin unlock, and behavior smoke fixtures.
 
 ## Active agent rules
 
@@ -59,6 +62,7 @@ open-above-rope-kit
 ```txt
 open-above-balloon-drift-config-kit
 open-above-runtime-host-kit
+open-above-three-render-host-kit
 open-above-balloon-input-map-kit
 open-above-balloon-state-kit
 open-above-balloon-drift-physics-domain-kit
@@ -67,31 +71,33 @@ open-above-altitude-safety-domain-kit
 open-above-terrain-sampler-domain-kit
 open-above-world-generation-domain-kit
 open-above-route-object-kit
-open-above-meadow-lift-balloon-objective-kit
+open-above-meadow-lift-mission-state-kit
 open-above-region-unlock-progression-kit
 open-above-basket-follow-camera-kit
-open-above-hud-telemetry-kit
+open-above-hud-mission-telemetry-kit
 open-above-gamehost-debug-kit
+open-above-scripted-route-smoke-kit
 open-above-balloon-behavior-smoke-kit
 ```
 
 ## Immediate next product direction
 
-Commit to `TheOpenAbove Balloon Drift Config Parity + Objective State Cutover`:
+Commit to `TheOpenAbove Mission State Service + Behavior Smoke Cutover`:
 
 ```txt
-config parity first
-  -> BALLOON_DRIFT constants
-  -> route object definitions
-  -> three buoyancy gates
-  -> altitude bands
-  -> landing zone
-  -> mission state in GameHost.getState().local.mission
-  -> progression state with meadow-lift-complete and cloud-basin-unlocked
-  -> HUD mission status
-  -> static smoke assertions
-  -> behavior smoke harness
-  -> service extraction from src/main.js
+preserve current balloon drift visuals and controls
+  -> update README/package/config language around balloon drift
+  -> add BALLOON_DRIFT config beside legacy FLIGHT
+  -> define three buoyancy gate route objects
+  -> define altitude bands and wind-lane hint descriptors
+  -> define landing/perch zone conditions
+  -> add pure mission state service
+  -> add progression service for meadow-lift-complete and cloud-basin-unlocked
+  -> expose mission/progression/routeObjects in GameHost.getState().local
+  -> surface mission status in HUD
+  -> add pure scripted route smoke fixture
+  -> keep static smoke coverage
+  -> extract host/input/wind/terrain/drift/camera/HUD only after behavior state is stable
 ```
 
 ## Next acceptance target
@@ -99,9 +105,11 @@ config parity first
 ```txt
 npm run check passes
 npm run build passes
-README and config both describe balloon drift
+README and config describe balloon drift consistently
+BALLOON_DRIFT is canonical and FLIGHT is legacy-only
 GameHost.getState().local.mission exists
 GameHost.getState().local.progression.cloudBasinUnlocked exists
-three buoyancy gates can be completed deterministically
+three buoyancy gates can be completed through a deterministic fixture
+landing/perch completion writes meadow-lift-complete
 cloud-basin unlock is visible in local state
 ```
