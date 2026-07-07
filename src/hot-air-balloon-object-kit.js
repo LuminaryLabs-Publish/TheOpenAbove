@@ -1,5 +1,8 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import { buildEnvelope, defaultEnvelopeProfile } from "./hot-air-balloon-envelope-kit.js";
+import { buildEnvelopePanels, defaultEnvelopePanelProfile } from "./balloon-envelope-panel-kit.js";
+import { buildBalloonMouth, defaultBalloonMouthProfile } from "./balloon-mouth-kit.js";
+import { buildFittedStreamers, defaultStreamerFitProfile } from "./balloon-streamer-fit-kit.js";
+import { buildFabricSeams, defaultFabricSeamProfile } from "./balloon-fabric-seam-kit.js";
 import { buildBasket, defaultBasketProfile } from "./hot-air-balloon-basket-kit.js";
 import { buildRigging, defaultRiggingProfile, animateRigging } from "./hot-air-balloon-rigging-kit.js";
 import { buildBurner, defaultBurnerProfile, animateBurner } from "./hot-air-balloon-burner-kit.js";
@@ -7,7 +10,10 @@ import { buildBurner, defaultBurnerProfile, animateBurner } from "./hot-air-ball
 export const HOT_AIR_BALLOON_OBJECT_KIT_ID = "open-above-hot-air-balloon-object-kit";
 
 export const defaultHotAirBalloonProfile = {
-  envelope: defaultEnvelopeProfile,
+  panels: defaultEnvelopePanelProfile,
+  mouth: defaultBalloonMouthProfile,
+  streamers: defaultStreamerFitProfile,
+  seams: defaultFabricSeamProfile,
   basket: defaultBasketProfile,
   rigging: defaultRiggingProfile,
   burner: defaultBurnerProfile,
@@ -33,19 +39,37 @@ function makeCompatibilityControls() {
   return { leftWing, rightWing, tail };
 }
 
+function buildEnvelopeAssembly(profile) {
+  const group = new THREE.Group();
+  group.name = "hot-air-balloon-triangulated-envelope";
+  group.userData.triangulated = true;
+  group.userData.openBottom = true;
+
+  const panels = buildEnvelopePanels(profile.panels);
+  const streamers = buildFittedStreamers(profile.streamers);
+  const seams = buildFabricSeams(profile.seams);
+  const mouth = buildBalloonMouth(profile.mouth);
+  group.add(panels, streamers, seams, mouth);
+  group.userData.parts = { panels, streamers, seams, mouth };
+  return group;
+}
+
 export function buildHotAirBalloon(profile = defaultHotAirBalloonProfile) {
   const group = new THREE.Group();
   group.name = "open-above-procedural-hot-air-balloon";
   group.userData.domain = HOT_AIR_BALLOON_OBJECT_KIT_ID;
   group.userData.subdomains = [
-    "open-above-hot-air-balloon-envelope-kit",
+    "open-above-balloon-envelope-panel-kit",
+    "open-above-balloon-mouth-kit",
+    "open-above-balloon-streamer-fit-kit",
+    "open-above-balloon-fabric-seam-kit",
     "open-above-hot-air-balloon-basket-kit",
     "open-above-hot-air-balloon-rigging-kit",
     "open-above-hot-air-balloon-burner-kit",
     "open-above-rope-kit"
   ];
 
-  const envelope = buildEnvelope(profile.envelope);
+  const envelope = buildEnvelopeAssembly(profile);
   const basket = buildBasket(profile.basket);
   const rigging = buildRigging(profile.rigging);
   const burner = buildBurner(profile.burner);
