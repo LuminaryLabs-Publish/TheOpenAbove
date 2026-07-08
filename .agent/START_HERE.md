@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T04:31:06-04:00`
+**Last aligned:** `2026-07-08T05:48:28-04:00`
 
 ## Purpose
 
@@ -12,24 +12,41 @@ Read this folder before changing implementation code.
 
 ## Current selection result
 
-The full current `LuminaryLabs-Publish` repo list was compared against tracked repo-ledger state in `LuminaryLabs-Dev/LuminaryLabs`.
+The full accessible `LuminaryLabs-Publish` repo list was compared against tracked repo-ledger state in `LuminaryLabs-Dev/LuminaryLabs`.
 
-All checked non-excluded Publish repos are represented in the central ledger and have some root `.agent` state. `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
+No checked non-excluded Publish repo was found that was fully new, central-ledger absent, or missing root `.agent/START_HERE.md` state.
 
-`TheOpenAbove` was selected by fallback oldest eligible follow-up among checked repos because its live app has a high-value authority seam: the public route is now a hot-air-balloon drift game, while README/package/campaign source still carries legacy free-flight/bird language and the runtime owns balloon drift constants inline.
+`TheOpenAbove` was selected as the current follow-up target because its root audit already identified the correct product-source seam, but the next implementation still needs a smaller fixture matrix before code changes: product copy, package description, campaign text, `BALLOON_DRIFT`, altitude bands, route objects, source snapshots, and GameHost diagnostics must agree before mission or renderer extraction.
+
+`LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
+
+## Publish repos checked
+
+```txt
+LuminaryLabs-Publish/AetherVale          ledgered with root .agent
+LuminaryLabs-Publish/HorrorCorridor      ledgered with root .agent
+LuminaryLabs-Publish/IntoTheMeadow       ledgered with root .agent
+LuminaryLabs-Publish/MyCozyIsland        ledgered with root .agent
+LuminaryLabs-Publish/PhantomCommand      ledgered with root .agent
+LuminaryLabs-Publish/PrehistoricRush     ledgered with root .agent
+LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
+LuminaryLabs-Publish/TheOpenAbove        selected follow-up: product-source fixture matrix refined
+LuminaryLabs-Publish/TheUnmappedHouse    ledgered with root .agent
+LuminaryLabs-Publish/ZombieOrchard       ledgered with root .agent
+```
 
 ## Current product read
 
 `TheOpenAbove` is currently a Vite / Three.js hot-air-balloon drift game.
 
-The public route is:
+The active page route is:
 
 ```txt
 index.html
   -> src/main.js
 ```
 
-The runtime imports Three.js and NexusEngine from CDN, builds procedural terrain/lakes/trees/clouds/wind ribbons, creates a hot-air-balloon object family, integrates burner/vent/wind drift inline, publishes Nexus telemetry, updates a HUD, and exposes `window.GameHost` state.
+The live runtime imports Three.js and NexusEngine from CDNs, builds procedural terrain, lakes, trees, clouds, wind ribbons, a hot-air-balloon object family, integrates burner, vent, wind, vertical velocity, altitude safety, camera blend, HUD, Nexus telemetry, and `window.GameHost` state inline.
 
 ## First files to read
 
@@ -42,8 +59,9 @@ The runtime imports Three.js and NexusEngine from CDN, builds procedural terrain
 .agent/render-audit/balloon-render-surface-audit.md
 .agent/gameplay-audit/balloon-drift-loop-audit.md
 .agent/route-source-audit/balloon-source-authority-gap.md
-.agent/trackers/2026-07-08T04-31-06-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T04-31-06-04-00.md
+.agent/product-copy-audit/balloon-product-source-fixture-matrix.md
+.agent/trackers/2026-07-08T05-48-28-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T05-48-28-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -72,10 +90,12 @@ tests/smoke.mjs
 
 Treat the hot-air-balloon drift runtime as canonical unless a future product decision intentionally restores the earlier bird/free-flight controller.
 
-Do not let README copy, legacy `FLIGHT` constants, renderer code, DOM/HUD code, or ad hoc inline motion constants become the permanent source of product or gameplay authority.
+Do not let README copy, package copy, legacy `FLIGHT`, DOM/HUD text, renderer frame state, or inline `src/main.js` drift constants become permanent product authority.
 
 ## Current next safe ledge
 
-Build the **Product Copy Authority + Balloon Drift Config Fixture Gate**.
+```txt
+TheOpenAbove Product Source Fixture Matrix + Balloon Drift Config Gate
+```
 
-Keep the public route, balloon visuals, burner/vent controls, basket-follow camera, Nexus telemetry kit, and GameHost shape stable while moving canonical balloon drift config, altitude bands, route objects, source fingerprints, route event results, and DOM-free route replay fixtures into source-backed authority.
+Keep the public route, balloon visuals, burner and vent controls, basket-follow camera, Nexus telemetry kit, and GameHost baseline stable while proving product-copy/config/runtime parity through source-backed snapshots and DOM-free fixture records.
