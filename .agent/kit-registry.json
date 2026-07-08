@@ -1,15 +1,16 @@
 {
-  "schemaVersion": "3.4.0",
+  "schemaVersion": "3.5.0",
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
-  "lastAligned": "2026-07-08T15-11-18-04-00",
-  "status": "source-module-consumer-splice-planned",
-  "latestTracker": ".agent/trackers/2026-07-08T15-11-18-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T15-11-18-04-00.md",
-  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T15-11-18-04-00-source-module-consumer-dsk-map.md",
-  "latestRenderAudit": ".agent/render-audit/2026-07-08T15-11-18-04-00-gamehost-source-readback-splice.md",
-  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T15-11-18-04-00-balloon-source-driven-route-loop.md",
-  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T15-11-18-04-00-source-module-consumer-splice-map.md",
-  "previousSameHourTracker": ".agent/trackers/2026-07-08T15-09-42-04-00/project-breakdown.md",
+  "lastAligned": "2026-07-08T17-21-32-04-00",
+  "status": "product-config-fixture-row-gate-planned",
+  "latestTracker": ".agent/trackers/2026-07-08T17-21-32-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T17-21-32-04-00.md",
+  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T17-21-32-04-00-product-config-fixture-row-dsk-map.md",
+  "latestRenderAudit": ".agent/render-audit/2026-07-08T17-21-32-04-00-gamehost-source-diagnostics-contract.md",
+  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T17-21-32-04-00-balloon-route-acceptance-loop.md",
+  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T17-21-32-04-00-fixture-row-implementation-contract.md",
+  "latestDeployAudit": ".agent/deploy-audit/2026-07-08T17-21-32-04-00-static-publish-build-contract.md",
+  "previousTracker": ".agent/trackers/2026-07-08T15-11-18-04-00/project-breakdown.md",
   "implementedSourceBackedKits": [
     "open-above-balloon-telemetry-kit",
     "open-above-hot-air-balloon-object-kit",
@@ -51,6 +52,8 @@
     "open-above-product-copy-authority-kit",
     "open-above-readme-route-copy-parity-kit",
     "open-above-package-description-parity-kit",
+    "open-above-campaign-current-route-authority-kit",
+    "open-above-legacy-flight-compatibility-kit",
     "open-above-balloon-drift-config-kit",
     "open-above-balloon-source-fingerprint-kit",
     "open-above-balloon-source-snapshot-kit",
@@ -67,6 +70,7 @@
     "open-above-route-fixture-harness-kit",
     "open-above-route-replay-parity-kit",
     "open-above-gamehost-diagnostics-parity-kit",
+    "open-above-deploy-build-contract-kit",
     "open-above-mission-snapshot-projector-kit"
   ],
   "nextImplementationFiles": [
@@ -86,9 +90,10 @@
     "README.md",
     "package.json",
     "src/data/campaign.config.js",
+    "tests/smoke.mjs",
     "package.json scripts.check"
   ],
-  "nextSafeLedge": "TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate",
+  "nextSafeLedge": "TheOpenAbove Product Config Fixture Row + GameHost Source Diagnostics Gate",
   "acceptanceRows": [
     "product_copy_matches_balloon_drift",
     "package_description_matches_balloon_drift",
@@ -104,6 +109,8 @@
     "wind_lane_hints_match_route_objects",
     "dom_free_fixture_runs_without_canvas_webgl_or_dom",
     "existing_local_snapshot_shape_preserved",
-    "existing_nexus_snapshot_shape_preserved"
+    "existing_nexus_snapshot_shape_preserved",
+    "npm_check_runs_source_fixture",
+    "npm_build_runs_source_fixture_before_vite_build"
   ]
 }
