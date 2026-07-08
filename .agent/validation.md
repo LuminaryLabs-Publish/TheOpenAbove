@@ -1,6 +1,6 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T17-21-32-04-00`
+**Timestamp:** `2026-07-08T17-31-22-04-00`
 
 ## Performed in this pass
 
@@ -9,10 +9,9 @@ read accessible LuminaryLabs-Publish repository list
 read central TheOpenAbove repo ledger
 read TheOpenAbove README.md
 read TheOpenAbove package.json
-read TheOpenAbove index.html
 read TheOpenAbove src/main.js
 read TheOpenAbove src/data/campaign.config.js
-read TheOpenAbove src/hot-air-balloon-object-kit.js
+read TheOpenAbove tests/smoke.mjs
 read TheOpenAbove root .agent files
 wrote timestamped tracker and turn ledger
 wrote timestamped architecture audit
@@ -36,7 +35,6 @@ browser route check
 GitHub Pages live check
 visual regression check
 mobile/touch check
-performance profile
 runtime source edit
 ```
 
@@ -44,6 +42,7 @@ runtime source edit
 
 ```bash
 npm install
+node scripts/open-above-source-fixture.mjs
 npm run check
 npm run build
 ```
@@ -59,7 +58,7 @@ Confirm S / ArrowDown / Shift vent descent.
 Confirm wheel changes camera blend.
 Confirm no console fatal error.
 Confirm window.GameHost.getState() returns existing local/nexus balloon drift telemetry.
-Confirm window.GameHost.getState().source returns product, config, fingerprint, snapshot, acceptanceLedger, routeObjects, altitudeBand, windLaneHints, and fixtureStatus after implementation.
+Confirm window.GameHost.getState().source returns product, driftConfig, sourceManifest, fingerprint, snapshot, acceptanceLedger, routeObjects, altitudeBand, windLaneHints, and fixtureStatus after implementation.
 ```
 
 ## Fixture checks to add next
@@ -71,6 +70,7 @@ campaign_copy_marks_balloon_drift_current_route
 legacy_flight_marked_compatibility_only
 balloon_drift_config_matches_inline_runtime_defaults
 balloon_drift_config_drives_runtime_defaults
+source_manifest_lists_all_runtime_consumers
 source_fingerprint_reports_copy_config_runtime_markers
 source_snapshot_reports_visual_object_kit
 gamehost_reports_balloon_source_snapshot
@@ -87,7 +87,7 @@ npm_build_runs_source_fixture_before_vite_build
 ## Current validation status
 
 ```txt
-status: documentation-only product-config fixture row gate pass complete
+status: documentation-only source manifest consumer splice gate pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
