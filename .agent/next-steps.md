@@ -1,18 +1,18 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T10-10-34-04-00`
+**Timestamp:** `2026-07-08T11-49-04-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Product Source Acceptance Wire Map
+TheOpenAbove Source Acceptance Fixture Implementation Gate
 ```
 
 ## Goal
 
 Make the hot-air-balloon drift product authoritative without changing the public visual route.
 
-The implementation should first prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
+The implementation should prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
 
 ## Checklist
 
@@ -51,13 +51,28 @@ The implementation should first prove that product copy, package metadata, campa
 3. BALLOON_DRIFT config mirrored from current inline constants
 4. Source fingerprint + source snapshot
 5. SourceAcceptanceResult + SourceAcceptanceLedger
-6. GameHost diagnostics projection
+6. GameHost source diagnostics projection
 7. Product/config/runtime fixture harness
 8. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
 9. DOM-free route fixture harness
 10. route event result envelope
 11. route reducer and mission snapshot
 12. smoke markers for product/config/runtime parity
+```
+
+## Files to add
+
+```txt
+src/source/open-above-product.js
+src/source/balloon-drift.config.js
+src/source/source-fingerprint.js
+src/source/source-snapshot.js
+src/source/source-acceptance.js
+src/source/gamehost-source-readback.js
+src/source/route-descriptors.js
+src/source/altitude-bands.js
+src/source/wind-lane-hints.js
+scripts/open-above-source-fixture.mjs
 ```
 
 ## Fixture rows to create first
@@ -85,6 +100,7 @@ dom_free_fixture_runs_without_canvas_webgl_or_dom
 - [ ] Do not extract every inline renderer system before source authority is stable.
 - [ ] Do not push reusable kits to ProtoKits until local fixture proof exists.
 - [ ] Do not remove `FLIGHT` until live-route dependency is proven absent.
+- [ ] Do not tune wind, buoyancy, altitude, camera, terrain, tree, lake, cloud, or balloon visual constants during the source-acceptance pass.
 
 ## After this ledge
 
