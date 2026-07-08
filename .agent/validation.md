@@ -1,12 +1,12 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T11-49-04-04-00`
+**Timestamp:** `2026-07-08T13-31-29-04-00`
 
 ## Performed in this pass
 
 ```txt
 GitHub connector read: full accessible LuminaryLabs-Publish repo list through installation repository list
-GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central ledgers for sampled eligible Publish repos
+GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central latest summary and repo ledgers for sampled eligible Publish repos
 GitHub connector read: TheOpenAbove README.md
 GitHub connector read: TheOpenAbove package.json
 GitHub connector read: TheOpenAbove index.html
@@ -77,17 +77,20 @@ legacy_flight_marked_compatibility_only
 balloon_drift_config_matches_inline_runtime_defaults
 balloon_drift_config_drives_runtime_defaults
 source_fingerprint_reports_copy_config_runtime_markers
+source_snapshot_reports_visual_object_kit
 gamehost_reports_balloon_source_snapshot
 altitude_bands_have_non_overlapping_thresholds
 route_objects_define_three_lift_gates_and_one_landing
 wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
+existing_local_snapshot_shape_preserved
+existing_nexus_snapshot_shape_preserved
 ```
 
 ## Current validation status
 
 ```txt
-status: documentation-only source-acceptance-fixture-gate pass complete
+status: documentation-only balloon-source-fixture-cutover-map pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
