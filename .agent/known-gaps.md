@@ -1,13 +1,13 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T03:21:22-04:00`
+**Timestamp:** `2026-07-08T04:31:06-04:00`
 
 ## Product / source authority gaps
 
 ```txt
-README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
+README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, pitch/bank controls, and sky-perch return.
 package.json still describes free-flight exploration.
-src/data/campaign.config.js still carries legacy bird/free-flight CAMPAIGN/WORLD/FLIGHT shape.
+src/data/campaign.config.js still carries legacy CAMPAIGN/WORLD/FLIGHT shape for bird/free-flight style goals.
 src/main.js imports CAMPAIGN and WORLD but owns the live balloon drift constants inline.
 There is no canonical BALLOON_DRIFT config yet.
 There is no product-copy source object proving balloon drift is canonical.
@@ -42,6 +42,14 @@ GameHost exposes useful state but does not yet expose source fingerprint, route 
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
+```
+
+## Selection / ledger gaps
+
+```txt
+No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
+The fallback selection rule is now picking root-agent follow-up targets by remaining value rather than initial missing-doc state.
+TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
 ## Validation gaps
