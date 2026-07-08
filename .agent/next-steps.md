@@ -1,20 +1,20 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T17-21-32-04-00`
+**Timestamp:** `2026-07-08T17-31-22-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Product Config Fixture Row + GameHost Source Diagnostics Gate
+TheOpenAbove Source Manifest Consumer Splice + Fixture Check Gate
 ```
 
 ## Goal
 
 Make the hot-air-balloon drift product authoritative without changing the public visual route.
 
-The implementation should prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
+The implementation should prove that product copy, package metadata, campaign copy, drift config, source manifest, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
 
-This pass narrows the immediate next work to fixture rows, source modules, and additive `window.GameHost.getState().source` diagnostics.
+This pass narrows the immediate next work to source modules, fixture rows, additive `window.GameHost.getState().source` diagnostics, and `npm run check` integration.
 
 ## Checklist
 
@@ -33,13 +33,14 @@ This pass narrows the immediate next work to fixture rows, source modules, and a
 - [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, and meadow-landing states.
 - [ ] Add `ROUTE_OBJECTS` for three lift gates and meadow landing.
 - [ ] Add `WIND_LANE_HINTS` for readable route guidance.
+- [ ] Add `SOURCE_MANIFEST` binding product/config/route/fixture/runtime consumers.
 - [ ] Add source fingerprint and source snapshot services.
 - [ ] Add `SourceAcceptanceResult` and `SourceAcceptanceLedger` helpers.
 - [ ] Add `createGameHostSourceReadback()`.
 - [ ] Import source modules into `src/main.js` additively.
 - [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
 - [ ] Preserve existing `window.GameHost.getState().local` and `.nexusEngine` shapes.
-- [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
+- [ ] Add fixture rows for README product copy, package description, campaign text, drift config, source manifest, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
 - [ ] Add source fixture command `node scripts/open-above-source-fixture.mjs`.
 - [ ] Wire source fixture into `npm run check` only after it runs without DOM/WebGL.
 - [ ] Add route event acceptance/rejection reason catalog only after route objects exist.
@@ -57,16 +58,18 @@ This pass narrows the immediate next work to fixture rows, source modules, and a
 2. OPEN_ABOVE_PRODUCT source object
 3. BALLOON_DRIFT config mirrored from current inline constants
 4. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
-5. Source fingerprint + source snapshot
-6. SourceAcceptanceResult + SourceAcceptanceLedger
-7. GameHost source diagnostics projection
-8. Product/config/runtime fixture harness
-9. DOM-free route fixture harness
-10. src/main.js source-module consumer splice
-11. npm run check fixture integration
-12. route event result envelope
-13. route reducer and mission snapshot
-14. smoke markers for product/config/runtime parity
+5. SOURCE_MANIFEST
+6. Source fingerprint + source snapshot
+7. SourceAcceptanceResult + SourceAcceptanceLedger
+8. Source fixture harness
+9. Product/config/runtime fixture harness
+10. DOM-free route fixture harness
+11. GameHost source diagnostics projection
+12. src/main.js source-module consumer splice
+13. npm run check fixture integration
+14. route event result envelope
+15. route reducer and mission snapshot
+16. smoke markers for product/config/runtime parity
 ```
 
 ## Files to add
@@ -74,13 +77,14 @@ This pass narrows the immediate next work to fixture rows, source modules, and a
 ```txt
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
+src/source/altitude-bands.js
+src/source/route-descriptors.js
+src/source/wind-lane-hints.js
+src/source/source-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
 src/source/source-acceptance.js
 src/source/gamehost-source-readback.js
-src/source/route-descriptors.js
-src/source/altitude-bands.js
-src/source/wind-lane-hints.js
 scripts/open-above-source-fixture.mjs
 ```
 
@@ -121,6 +125,7 @@ campaign_copy_marks_balloon_drift_current_route
 legacy_flight_marked_compatibility_only
 balloon_drift_config_matches_inline_runtime_defaults
 balloon_drift_config_drives_runtime_defaults
+source_manifest_lists_all_runtime_consumers
 source_fingerprint_reports_copy_config_runtime_markers
 source_snapshot_reports_visual_object_kit
 gamehost_reports_balloon_source_snapshot
