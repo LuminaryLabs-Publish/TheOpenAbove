@@ -1,14 +1,15 @@
 {
   "schemaVersion": "3.4.0",
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
-  "lastAligned": "2026-07-08T15-09-42-04-00",
-  "status": "balloon-source-fixture-implementation-queue-planned",
-  "latestTracker": ".agent/trackers/2026-07-08T15-09-42-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T15-09-42-04-00.md",
-  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T15-09-42-04-00-balloon-source-fixture-implementation-queue.md",
-  "latestRenderAudit": ".agent/render-audit/2026-07-08T15-09-42-04-00-gamehost-source-diagnostics-readback.md",
-  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T15-09-42-04-00-balloon-route-result-boundary.md",
-  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T15-09-42-04-00-source-fixture-implementation-queue.md",
+  "lastAligned": "2026-07-08T15-11-18-04-00",
+  "status": "source-module-consumer-splice-planned",
+  "latestTracker": ".agent/trackers/2026-07-08T15-11-18-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T15-11-18-04-00.md",
+  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T15-11-18-04-00-source-module-consumer-dsk-map.md",
+  "latestRenderAudit": ".agent/render-audit/2026-07-08T15-11-18-04-00-gamehost-source-readback-splice.md",
+  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T15-11-18-04-00-balloon-source-driven-route-loop.md",
+  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T15-11-18-04-00-source-module-consumer-splice-map.md",
+  "previousSameHourTracker": ".agent/trackers/2026-07-08T15-09-42-04-00/project-breakdown.md",
   "implementedSourceBackedKits": [
     "open-above-balloon-telemetry-kit",
     "open-above-hot-air-balloon-object-kit",
@@ -50,7 +51,6 @@
     "open-above-product-copy-authority-kit",
     "open-above-readme-route-copy-parity-kit",
     "open-above-package-description-parity-kit",
-    "open-above-campaign-source-parity-kit",
     "open-above-balloon-drift-config-kit",
     "open-above-balloon-source-fingerprint-kit",
     "open-above-balloon-source-snapshot-kit",
@@ -58,6 +58,7 @@
     "open-above-source-acceptance-ledger-kit",
     "open-above-gamehost-source-readback-kit",
     "open-above-source-acceptance-fixture-kit",
+    "open-above-source-module-consumer-splice-kit",
     "open-above-altitude-band-contract-kit",
     "open-above-altitude-band-resolver-kit",
     "open-above-route-object-config-kit",
@@ -80,7 +81,14 @@
     "src/source/wind-lane-hints.js",
     "scripts/open-above-source-fixture.mjs"
   ],
-  "nextSafeLedge": "TheOpenAbove Balloon Source Fixture Implementation Queue + GameHost Source Diagnostics",
+  "mainConsumerFiles": [
+    "src/main.js",
+    "README.md",
+    "package.json",
+    "src/data/campaign.config.js",
+    "package.json scripts.check"
+  ],
+  "nextSafeLedge": "TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate",
   "acceptanceRows": [
     "product_copy_matches_balloon_drift",
     "package_description_matches_balloon_drift",
@@ -96,8 +104,6 @@
     "wind_lane_hints_match_route_objects",
     "dom_free_fixture_runs_without_canvas_webgl_or_dom",
     "existing_local_snapshot_shape_preserved",
-    "existing_nexus_snapshot_shape_preserved",
-    "runtime_visual_defaults_unchanged"
-  ],
-  "promotionRule": "Keep source and route authority repo-local until DOM-free fixture proof shows a stable reusable API candidate. Promote only after local checks pass."
+    "existing_nexus_snapshot_shape_preserved"
+  ]
 }
