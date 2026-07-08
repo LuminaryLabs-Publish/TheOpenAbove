@@ -1,14 +1,14 @@
 {
-  "schemaVersion": "3.2.0",
+  "schemaVersion": "3.3.0",
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
-  "lastAligned": "2026-07-08T11-49-04-04-00",
-  "status": "source-acceptance-fixture-implementation-gate-planned",
-  "latestTracker": ".agent/trackers/2026-07-08T11-49-04-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T11-49-04-04-00.md",
-  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T11-49-04-04-00-dsk-domain-breakdown.md",
-  "latestRenderAudit": ".agent/render-audit/2026-07-08T11-49-04-04-00-gamehost-source-readback.md",
-  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T11-49-04-04-00-balloon-source-acceptance-loop.md",
-  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T11-49-04-04-00-acceptance-fixture-implementation-plan.md",
+  "lastAligned": "2026-07-08T13-31-29-04-00",
+  "status": "balloon-source-fixture-cutover-map-planned",
+  "latestTracker": ".agent/trackers/2026-07-08T13-31-29-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T13-31-29-04-00.md",
+  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T13-31-29-04-00-balloon-source-dsk-breakdown.md",
+  "latestRenderAudit": ".agent/render-audit/2026-07-08T13-31-29-04-00-gamehost-source-readback-contract.md",
+  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T13-31-29-04-00-balloon-drift-authority-loop.md",
+  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T13-31-29-04-00-fixture-cutover-map.md",
   "implementedSourceBackedKits": [
     "open-above-balloon-telemetry-kit",
     "open-above-hot-air-balloon-object-kit",
@@ -33,6 +33,7 @@
     "open-above-burner-vent-intent-kit",
     "open-above-wind-field-kit",
     "open-above-altitude-safety-kit",
+    "open-above-ceiling-softness-kit",
     "open-above-terrain-sampler-kit",
     "open-above-world-generation-kit",
     "open-above-lake-generation-kit",
@@ -41,6 +42,7 @@
     "open-above-wind-ribbon-render-kit",
     "open-above-basket-follow-camera-kit",
     "open-above-camera-zoom-blend-kit",
+    "open-above-first-person-visibility-kit",
     "open-above-hud-telemetry-kit",
     "open-above-gamehost-debug-kit"
   ],
@@ -77,7 +79,7 @@
     "src/source/wind-lane-hints.js",
     "scripts/open-above-source-fixture.mjs"
   ],
-  "nextSafeLedge": "TheOpenAbove Source Acceptance Fixture Implementation Gate",
+  "nextSafeLedge": "TheOpenAbove Balloon Source Fixture Cutover Map",
   "acceptanceRows": [
     "product_copy_matches_balloon_drift",
     "package_description_matches_balloon_drift",
@@ -86,10 +88,13 @@
     "balloon_drift_config_matches_inline_runtime_defaults",
     "balloon_drift_config_drives_runtime_defaults",
     "source_fingerprint_reports_copy_config_runtime_markers",
+    "source_snapshot_reports_visual_object_kit",
     "gamehost_reports_balloon_source_snapshot",
     "altitude_bands_have_non_overlapping_thresholds",
     "route_objects_define_three_lift_gates_and_one_landing",
     "wind_lane_hints_match_route_objects",
-    "dom_free_fixture_runs_without_canvas_webgl_or_dom"
+    "dom_free_fixture_runs_without_canvas_webgl_or_dom",
+    "existing_local_snapshot_shape_preserved",
+    "existing_nexus_snapshot_shape_preserved"
   ]
 }
