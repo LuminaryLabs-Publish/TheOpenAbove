@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T07:10:12-04:00`
+**Timestamp:** `2026-07-08T08:39:41-04:00`
 
 ## Summary
 
-`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird or carving slice still described by durable source documents.
+`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable docs and legacy config.
 
-The live runtime is coherent as a balloon slice, but product copy, package metadata, campaign text, drift config, route objects, altitude bands, source fingerprints, GameHost diagnostics, and DOM-free fixture replay still need one authority gate before mission or renderer extraction.
+The live runtime is coherent as a balloon slice. The next implementation should make that product source authoritative through copy/config/source snapshots and DOM-free fixtures before route reducers, mission progression, or render extraction.
 
 ## Current route
 
@@ -62,16 +62,12 @@ checked LuminaryLabs-Publish repos:
 
 central ledger check:
   non-Cavalry repos are represented in repo-ledger/LuminaryLabs-Publish/
-  sampled root .agent/START_HERE.md state exists for non-Cavalry repos
+  sampled root .agent/START_HERE.md state exists for checked non-Cavalry repos
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected by fallback high-value follow-up
+  TheOpenAbove selected by fallback source-authority follow-up
 ```
-
-## Why this repo was selected
-
-The previous pass identified the correct seam: the live app is balloon drift, while README, package metadata, and campaign source still say free-flight. This run refined that into an explicit balloon drift config acceptance ledger so the next implementation can add source authority without changing the visible route.
 
 ## Evidence snapshot
 
@@ -82,14 +78,14 @@ README.md:
 package.json:
   still says standalone free-flight exploration.
 
-index.html:
-  already names Balloon Drift and mounts src/main.js.
-
 src/data/campaign.config.js:
   exports CAMPAIGN, WORLD, and legacy FLIGHT with thermals, gates, perch, pitch, roll, yaw, boost, thermal lift, and terrain clearance.
 
 src/main.js:
   imports CAMPAIGN and WORLD, seeds `${WORLD.seed}-balloon-drift`, builds balloon objects, and owns burner, vent, wind, buoyancy, altitude, camera, HUD, and GameHost snapshots inline.
+
+src/hot-air-balloon-object-kit.js:
+  exports the hot-air-balloon object kit and subdomain list for envelope panels, mouth, streamers, seams, basket, rigging, burner, and rope.
 ```
 
 ## Domains in use
@@ -97,6 +93,7 @@ src/main.js:
 ```txt
 static-page-host
 vite-static-publish-host
+third-party-cdn-runtime
 three-render-host
 nexus-engine-cdn-runtime
 nexus-telemetry-kit
@@ -110,6 +107,7 @@ balloon-rigging
 balloon-burner
 rope-geometry
 procedural-terrain
+moisture-field
 lake-generation
 tree-scatter
 cloud-scatter
@@ -122,6 +120,7 @@ wind-field
 altitude-safety
 basket-follow-camera
 camera-zoom-blend
+first-person-visibility-gate
 hud-telemetry
 window-gamehost-debug
 campaign-config
@@ -130,7 +129,6 @@ product-copy-authority
 package-description-parity
 readme-route-copy-parity
 balloon-drift-config-authority
-route-source-authority
 source-fingerprint
 source-snapshot
 altitude-band-contract
@@ -138,12 +136,9 @@ altitude-band-resolver
 route-object-descriptor
 route-object-evaluator
 route-event-result-envelope
-route-event-rejection-reason-catalog
-route-event-journal
-route-state-reducer
+route-fixture-harness
 mission-snapshot-projector
-route-fixture-replay
-balloon-config-acceptance-ledger
+region-unlock-progression
 ```
 
 ## Services in use
@@ -194,15 +189,12 @@ write-hud-html
 define-balloon-telemetry-resource
 emit-balloon-ticked-event
 expose-window-gamehost
-load-product-copy
-assert-readme-product-parity
-assert-package-product-parity
+load-canonical-product-copy
 load-balloon-drift-config
 project-source-fingerprint
 project-source-snapshot
 resolve-altitude-band
 project-route-objects
-project-route-diagnostics
 run-dom-free-source-fixture
 run-balloon-config-acceptance-row
 ```
@@ -261,33 +253,38 @@ open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
 open-above-route-object-evaluator-kit
-open-above-route-event-result-envelope-kit
-open-above-route-event-rejection-reason-kit
-open-above-route-event-journal-kit
-open-above-route-state-reducer-kit
-open-above-meadow-lift-mission-reducer-kit
-open-above-mission-snapshot-projector-kit
-open-above-region-unlock-progression-kit
-open-above-route-fixture-harness-kit
-open-above-route-replay-parity-kit
-open-above-gamehost-diagnostics-parity-kit
+open-above-balloon-config-acceptance-result-kit
 open-above-balloon-config-acceptance-ledger-kit
+open-above-route-fixture-harness-kit
+open-above-gamehost-diagnostics-parity-kit
+open-above-mission-snapshot-projector-kit
 ```
 
 ## Main finding
 
 The repo should not do renderer extraction first.
 
-It should first materialize a balloon drift config acceptance ledger proving that docs, package metadata, campaign text, drift config, GameHost diagnostics, and DOM-free fixture snapshots all agree that the live product is balloon drift.
-
-## New audit surface added
+The source authority queue should come first:
 
 ```txt
-.agent/route-source-audit/balloon-drift-config-acceptance-ledger.md
+README/package/campaign copy correction
+  -> OPEN_ABOVE_PRODUCT source object
+  -> BALLOON_DRIFT config beside compatibility-only FLIGHT
+  -> source fingerprint and source snapshot
+  -> GameHost diagnostics projection
+  -> DOM-free source/config fixture rows
+```
+
+## New audit surfaces added
+
+```txt
+.agent/architecture-audit/2026-07-08T08-39-41-04-00-dsk-domain-breakdown.md
+.agent/render-audit/2026-07-08T08-39-41-04-00-render-source-readback.md
+.agent/route-source-audit/2026-07-08T08-39-41-04-00-source-implementation-queue.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Balloon Drift Config Acceptance Ledger
+TheOpenAbove Product Source Authority Implementation Queue
 ```
