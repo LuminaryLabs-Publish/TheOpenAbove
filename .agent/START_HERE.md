@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T10-10-34-04-00`
+**Last aligned:** `2026-07-08T11-49-04-04-00`
 
 ## Purpose
 
@@ -16,23 +16,23 @@ The full accessible `LuminaryLabs-Publish` repository list was compared against 
 
 No checked non-Cavalry Publish repo was fully new, absent from the central ledger, undocumented, or missing sampled root `.agent/START_HERE.md` state.
 
-`TheOpenAbove` was selected as the oldest eligible fallback follow-up because its last sampled alignment was older than the other checked eligible roots and the live hot-air-balloon drift route still needs a product/source acceptance wire map before source edits.
+`TheOpenAbove` was selected as the oldest eligible fallback follow-up because its last observed central ledger update was older than the other checked eligible roots and the live hot-air-balloon drift route still needs source acceptance fixtures before source edits.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/HorrorCorridor      ledgered with root .agent
-LuminaryLabs-Publish/AetherVale          ledgered with root .agent
-LuminaryLabs-Publish/TheOpenAbove        selected fallback: product source acceptance wire map
+LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present / latest central review 2026-07-08T11:09:38-04:00
+LuminaryLabs-Publish/AetherVale          tracked / root .agent present / latest central update 2026-07-08T10:19:57-04:00
+LuminaryLabs-Publish/TheOpenAbove        selected fallback / latest central update 2026-07-08T10:10:34-04:00
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/PhantomCommand      ledgered with root .agent
-LuminaryLabs-Publish/PrehistoricRush     ledgered with root .agent
-LuminaryLabs-Publish/ZombieOrchard       ledgered with root .agent
-LuminaryLabs-Publish/IntoTheMeadow       ledgered with root .agent
-LuminaryLabs-Publish/MyCozyIsland        ledgered with root .agent
-LuminaryLabs-Publish/TheUnmappedHouse    ledgered with root .agent
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present / latest central update 2026-07-08T10:58:46-04:00
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present / latest central update 2026-07-08T10:39:22-04:00
+LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present / latest central update 2026-07-08T11:19:53-04:00
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present / latest central update 2026-07-08T10:48:47-04:00
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present / latest central update 2026-07-08T11:40:00-04:00
+LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present / latest central review 2026-07-08T11:28:38-04:00
 ```
 
 ## Current product read
@@ -91,12 +91,12 @@ canonical product copy
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-08T10-10-34-04-00-balloon-source-authority-dsk-map.md
-.agent/render-audit/2026-07-08T10-10-34-04-00-render-diagnostics-readback-contract.md
-.agent/gameplay-audit/2026-07-08T10-10-34-04-00-balloon-route-authority-loop.md
-.agent/route-source-audit/2026-07-08T10-10-34-04-00-product-source-acceptance-wire-map.md
-.agent/trackers/2026-07-08T10-10-34-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T10-10-34-04-00.md
+.agent/architecture-audit/2026-07-08T11-49-04-04-00-dsk-domain-breakdown.md
+.agent/render-audit/2026-07-08T11-49-04-04-00-gamehost-source-readback.md
+.agent/gameplay-audit/2026-07-08T11-49-04-04-00-balloon-source-acceptance-loop.md
+.agent/route-source-audit/2026-07-08T11-49-04-04-00-acceptance-fixture-implementation-plan.md
+.agent/trackers/2026-07-08T11-49-04-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T11-49-04-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -126,10 +126,12 @@ Do not extract renderer/world/camera systems before the current hot-air-balloon 
 
 The next implementation should preserve the public route and visual behavior while adding source objects, parity checks, source snapshots, GameHost source diagnostics, and DOM-free acceptance fixtures.
 
+Keep `FLIGHT` as compatibility-only until a fixture proves the live route no longer depends on it.
+
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Product Source Acceptance Wire Map
+TheOpenAbove Source Acceptance Fixture Implementation Gate
 ```
 
-Stop that ledge when the next coder has exact file targets, exported object names, acceptance records, reason codes, GameHost projection keys, and fixture rows for product/source parity without needing to infer them from `src/main.js`.
+Stop that ledge when `README.md`, `package.json`, `src/data/campaign.config.js`, `src/main.js`, `window.GameHost.getState().source`, and a DOM-free fixture all report the same current balloon-drift product source without changing the visible balloon route.
