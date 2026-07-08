@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-09-42-04-00`
+**Timestamp:** `2026-07-08T15-11-18-04-00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable README/package/campaign source.
 
-The live runtime is coherent as a balloon slice. The next implementation should make the hot-air-balloon product source-authoritative through product copy, config, source snapshots, GameHost source readback, and DOM-free fixtures before route reducers, mission progression, or render extraction.
+The `15:09` source-fixture implementation queue remains the active high-level direction. This pass narrows that queue into a specific source-module consumer splice: add pure source modules, prove them with fixture rows, import them in `src/main.js`, and expose additive `window.GameHost.getState().source` diagnostics without changing the visible route.
 
 ## Current route
 
@@ -16,7 +16,9 @@ index.html
   -> Three.js CDN
   -> NexusEngine main CDN
   -> src/data/campaign.config.js
-  -> hot-air-balloon object kit family
+  -> src/hot-air-balloon-object-kit.js
+  -> inline terrain / lake / tree / cloud / wind-ribbon generation
+  -> inline balloon drift / camera / HUD / GameHost loop
 ```
 
 ## Current interaction loop
@@ -47,7 +49,7 @@ src/main.js
   -> ticks Nexus telemetry kit
   -> renders Three.js frame
   -> writes HUD
-  -> exposes GameHost state
+  -> exposes GameHost local/nexus state
 ```
 
 ## Repo-list / ledger comparison
@@ -149,6 +151,7 @@ route-object-descriptor
 route-object-evaluator
 wind-lane-hint
 route-fixture-harness
+source-module-consumer-splice
 mission-snapshot-projector
 ```
 
@@ -210,6 +213,8 @@ project-wind-lane-hints
 run-source-acceptance-row
 run-dom-free-source-fixture
 project-gamehost-source-readback
+splice-source-records-into-main-runtime
+preserve-existing-gamehost-local-and-nexus-shapes
 ```
 
 ## Kits identified
@@ -263,7 +268,6 @@ Needed next:
 open-above-product-copy-authority-kit
 open-above-readme-route-copy-parity-kit
 open-above-package-description-parity-kit
-open-above-campaign-source-parity-kit
 open-above-balloon-drift-config-kit
 open-above-balloon-source-fingerprint-kit
 open-above-balloon-source-snapshot-kit
@@ -271,6 +275,7 @@ open-above-source-acceptance-result-kit
 open-above-source-acceptance-ledger-kit
 open-above-gamehost-source-readback-kit
 open-above-source-acceptance-fixture-kit
+open-above-source-module-consumer-splice-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
@@ -294,19 +299,20 @@ README/package/campaign copy correction
   -> SourceAcceptanceResult rows
   -> GameHost source diagnostics projection
   -> DOM-free source/config fixture rows
+  -> source-module consumer splice in src/main.js
 ```
 
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T15-09-42-04-00-balloon-source-fixture-implementation-queue.md
-.agent/render-audit/2026-07-08T15-09-42-04-00-gamehost-source-diagnostics-readback.md
-.agent/gameplay-audit/2026-07-08T15-09-42-04-00-balloon-route-result-boundary.md
-.agent/route-source-audit/2026-07-08T15-09-42-04-00-source-fixture-implementation-queue.md
+.agent/architecture-audit/2026-07-08T15-11-18-04-00-source-module-consumer-dsk-map.md
+.agent/render-audit/2026-07-08T15-11-18-04-00-gamehost-source-readback-splice.md
+.agent/gameplay-audit/2026-07-08T15-11-18-04-00-balloon-source-driven-route-loop.md
+.agent/route-source-audit/2026-07-08T15-11-18-04-00-source-module-consumer-splice-map.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Balloon Source Fixture Implementation Queue + GameHost Source Diagnostics
+TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate
 ```
