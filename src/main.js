@@ -207,11 +207,26 @@ function makeWindRibbons(scene) {
   return group;
 }
 
+function setMaterialOpacity(root, opacity) {
+  root?.traverse?.((node) => {
+    const material = node.material;
+    if (!material) return;
+    const materials = Array.isArray(material) ? material : [material];
+    materials.forEach((mat) => {
+      if (!mat.userData.baseOpacity) mat.userData.baseOpacity = mat.opacity ?? 1;
+      mat.transparent = true;
+      mat.opacity = mat.userData.baseOpacity * opacity;
+    });
+  });
+}
+
 function setFirstPersonVisibility(balloon, blend) {
   const parts = balloon.userData.parts;
   if (!parts) return;
-  parts.envelope.visible = blend < 0.82;
-  parts.rigging.visible = blend < 0.94;
+  parts.envelope.visible = true;
+  parts.rigging.visible = true;
+  const ropeFade = 1 - smoothstep(0.74, 1, blend) * 0.66;
+  setMaterialOpacity(parts.rigging, ropeFade);
 }
 
 function createGame() {
@@ -328,7 +343,7 @@ function createGame() {
     balloon.rotation.y = Math.atan2(state.wind.x, state.wind.z) + Math.PI + Math.sin(state.elapsed * 0.32) * 0.035;
     balloon.rotation.x = Math.sin(state.elapsed * 0.42) * 0.018;
     balloon.rotation.z = Math.cos(state.elapsed * 0.37) * 0.022;
-    animateHotAirBalloon(balloon, performance.now());
+    animateHotAirBalloon(balloon, performance.now(), state.burner);
     windRibbons.position.x = state.position.x * 0.08 + Math.sin(state.elapsed * 0.06) * 30;
     windRibbons.position.z = state.position.z * 0.08 + Math.cos(state.elapsed * 0.05) * 30;
   }
@@ -340,6 +355,9 @@ function createGame() {
     const targetBlend = 1 - smoothstep(4, 24, zoom);
     camera.userData.firstPersonBlend = lerp(camera.userData.firstPersonBlend ?? 0, targetBlend, smooth(5.6, dt));
     const blend = camera.userData.firstPersonBlend;
+    const rideBob = Math.sin(state.elapsed * 0.74) * 0.045 + Math.sin(state.elapsed * 0.29) * 0.03;
+    const rideSway = Math.sin(state.elapsed * 0.38) * 0.09;
+    const burnerVibration = state.burner > 0.45 ? Math.sin(state.elapsed * 24) * (state.burner - 0.45) * 0.026 : 0;
 
     const basketFocus = state.position.clone()
       .add(side.clone().multiplyScalar(2.7))
@@ -348,18 +366,18 @@ function createGame() {
 
     const thirdPersonPos = basketFocus.clone()
       .add(windForward.clone().multiplyScalar(-Math.max(24, zoom)))
-      .add(side.clone().multiplyScalar(Math.max(24, zoom) * 0.34))
-      .add(new THREE.Vector3(0, 8 + Math.max(24, zoom) * 0.18, 0));
-    const thirdPersonLook = basketFocus.clone();
+      .add(side.clone().multiplyScalar(Math.max(24, zoom) * 0.34 + rideSway))
+      .add(new THREE.Vector3(0, 8 + Math.max(24, zoom) * 0.18 + rideBob, 0));
+    const thirdPersonLook = basketFocus.clone().add(new THREE.Vector3(0, rideBob * 0.6, 0));
 
     const firstPersonPos = state.position.clone()
-      .add(side.clone().multiplyScalar(0.72))
-      .add(windForward.clone().multiplyScalar(1.35))
-      .add(new THREE.Vector3(0, -4.35, 0));
+      .add(side.clone().multiplyScalar(0.36 + rideSway * 0.35))
+      .add(windForward.clone().multiplyScalar(0.74))
+      .add(new THREE.Vector3(0, -3.72 + rideBob + burnerVibration, 0));
     const firstPersonLook = firstPersonPos.clone()
-      .add(windForward.clone().multiplyScalar(38))
-      .add(side.clone().multiplyScalar(1.25))
-      .add(new THREE.Vector3(0, 0.18, 0));
+      .add(windForward.clone().multiplyScalar(42))
+      .add(side.clone().multiplyScalar(0.7))
+      .add(new THREE.Vector3(0, 0.34 + rideBob * 0.5, 0));
 
     const camPos = thirdPersonPos.clone().lerp(firstPersonPos, blend);
     const lookTarget = thirdPersonLook.clone().lerp(firstPersonLook, blend);
