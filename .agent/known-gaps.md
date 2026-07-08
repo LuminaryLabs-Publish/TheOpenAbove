@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-11-18-04-00`
+**Timestamp:** `2026-07-08T17-21-32-04-00`
 
 ## Product / source authority gaps
 
@@ -24,6 +24,9 @@ src/source/source-fingerprint.js does not exist.
 src/source/source-snapshot.js does not exist.
 src/source/source-acceptance.js does not exist.
 src/source/gamehost-source-readback.js does not exist.
+src/source/route-descriptors.js does not exist.
+src/source/altitude-bands.js does not exist.
+src/source/wind-lane-hints.js does not exist.
 src/main.js has no additive source imports yet.
 window.GameHost.getState().source is not exposed yet.
 No fixture proves that adding source readback preserves existing local/nexusEngine shapes.
@@ -53,13 +56,22 @@ GameHost exposes useful local/nexus state but does not yet expose source fingerp
 Camera blend is not fixture-readable outside the browser.
 ```
 
+## Deploy/build gaps
+
+```txt
+npm run check currently points to tests/smoke.mjs only.
+The source fixture command does not exist yet.
+No DOM-free source fixture is wired into npm run check.
+No build gate proves product/config/runtime parity before vite build.
+```
+
 ## Kit gaps
 
 ```txt
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a written source-module consumer splice map, but no implementation exists for its rows.
+There is now a written fixture-row implementation contract, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
@@ -88,6 +100,8 @@ wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
 existing_local_snapshot_shape_preserved is not implemented.
 existing_nexus_snapshot_shape_preserved is not implemented.
+npm_check_runs_source_fixture is not implemented.
+npm_build_runs_source_fixture_before_vite_build is not implemented.
 ```
 
 ## Concrete missing files for next implementation
