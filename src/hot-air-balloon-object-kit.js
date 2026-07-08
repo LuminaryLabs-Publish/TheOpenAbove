@@ -82,10 +82,10 @@ export function buildHotAirBalloon(profile = defaultHotAirBalloonProfile) {
   return group;
 }
 
-export function animateHotAirBalloon(balloon, time = performance.now()) {
+export function animateHotAirBalloon(balloon, time = performance.now(), burnerHeat = 0.18) {
   const parts = balloon?.userData?.parts;
   if (!parts) return;
-  animateBurner(parts.burner, time);
+  animateBurner(parts.burner, time, burnerHeat);
   animateRigging(parts.rigging, time);
 }
 
