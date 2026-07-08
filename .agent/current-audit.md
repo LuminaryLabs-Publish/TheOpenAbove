@@ -1,10 +1,10 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T11-49-04-04-00`
+**Timestamp:** `2026-07-08T13-31-29-04-00`
 
 ## Summary
 
-`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable docs and legacy config.
+`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable README/package/campaign source.
 
 The live runtime is coherent as a balloon slice. The next implementation should make the hot-air-balloon product source-authoritative through product copy, config, source snapshots, GameHost source readback, and DOM-free fixtures before route reducers, mission progression, or render extraction.
 
@@ -54,16 +54,16 @@ src/main.js
 
 ```txt
 checked LuminaryLabs-Publish repos:
-  HorrorCorridor
   AetherVale
-  TheOpenAbove
-  TheCavalryOfRome
-  PhantomCommand
-  PrehistoricRush
-  ZombieOrchard
+  HorrorCorridor
   IntoTheMeadow
   MyCozyIsland
+  PhantomCommand
+  PrehistoricRush
+  TheCavalryOfRome
+  TheOpenAbove
   TheUnmappedHouse
+  ZombieOrchard
 
 central ledger / root-agent check:
   non-Cavalry repos are represented in repo-ledger/LuminaryLabs-Publish/
@@ -71,7 +71,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected by oldest observed eligible central-ledger update and remaining source-acceptance fixture value
+  TheOpenAbove selected by oldest observed eligible fallback and remaining source-fixture value
 ```
 
 ## Evidence snapshot
@@ -115,17 +115,20 @@ balloon-rigging
 balloon-burner
 rope-geometry
 procedural-terrain
+terrain-height-sampler
 moisture-field
+terrain-color-resolver
 lake-generation
 tree-scatter
 cloud-scatter
 wind-ribbon-rendering
 balloon-input-map
+burner-vent-intent
 balloon-vehicle-state
 balloon-drift-physics
-burner-vent-intent
 wind-field
 altitude-safety
+ceiling-softness
 basket-follow-camera
 camera-zoom-blend
 first-person-visibility-gate
@@ -145,10 +148,8 @@ altitude-band-resolver
 route-object-descriptor
 route-object-evaluator
 wind-lane-hint
-source-acceptance-fixture
 route-fixture-harness
 mission-snapshot-projector
-region-unlock-progression
 ```
 
 ## Services in use
@@ -206,8 +207,8 @@ create-balloon-source-snapshot
 resolve-altitude-band
 project-route-objects
 project-wind-lane-hints
-run-dom-free-source-fixture
 run-source-acceptance-row
+run-dom-free-source-fixture
 project-gamehost-source-readback
 ```
 
@@ -232,14 +233,17 @@ Inline / candidate:
 
 ```txt
 open-above-runtime-host-kit
-open-above-three-render-host-kit
 open-above-vite-static-publish-kit
+open-above-three-render-host-kit
+open-above-campaign-config-kit
+open-above-legacy-flight-compatibility-kit
 open-above-balloon-input-map-kit
 open-above-balloon-state-kit
 open-above-balloon-drift-physics-kit
 open-above-burner-vent-intent-kit
 open-above-wind-field-kit
 open-above-altitude-safety-kit
+open-above-ceiling-softness-kit
 open-above-terrain-sampler-kit
 open-above-world-generation-kit
 open-above-lake-generation-kit
@@ -248,6 +252,7 @@ open-above-cloud-scatter-kit
 open-above-wind-ribbon-render-kit
 open-above-basket-follow-camera-kit
 open-above-camera-zoom-blend-kit
+open-above-first-person-visibility-kit
 open-above-hud-telemetry-kit
 open-above-gamehost-debug-kit
 ```
@@ -293,14 +298,14 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T11-49-04-04-00-dsk-domain-breakdown.md
-.agent/render-audit/2026-07-08T11-49-04-04-00-gamehost-source-readback.md
-.agent/gameplay-audit/2026-07-08T11-49-04-04-00-balloon-source-acceptance-loop.md
-.agent/route-source-audit/2026-07-08T11-49-04-04-00-acceptance-fixture-implementation-plan.md
+.agent/architecture-audit/2026-07-08T13-31-29-04-00-balloon-source-dsk-breakdown.md
+.agent/render-audit/2026-07-08T13-31-29-04-00-gamehost-source-readback-contract.md
+.agent/gameplay-audit/2026-07-08T13-31-29-04-00-balloon-drift-authority-loop.md
+.agent/route-source-audit/2026-07-08T13-31-29-04-00-fixture-cutover-map.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Acceptance Fixture Implementation Gate
+TheOpenAbove Balloon Source Fixture Cutover Map
 ```
