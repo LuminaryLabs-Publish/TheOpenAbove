@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T04:31:06-04:00`
+**Timestamp:** `2026-07-08T05:48:28-04:00`
 
 ## Summary
 
-`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/carving slice still described by several source documents.
+`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird or carving slice still described by durable source documents.
 
-The live runtime is coherent and playable as a balloon slice, but product copy, source config, mission authority, and route progression are not yet centralized.
+The live runtime is coherent as a balloon slice, but product copy, package metadata, campaign text, drift config, route objects, altitude bands, mission snapshots, and fixture replay are not yet centralized enough to support safe implementation work.
 
 ## Current route
 
@@ -24,7 +24,7 @@ open app
   -> hold S / ArrowDown / Shift for vent descent
   -> procedural wind drifts the balloon
   -> wheel changes camera zoom / near-basket blend
-  -> runtime updates altitude, wind, distance, heat, and camera telemetry
+  -> runtime updates altitude, wind, distance, heat, camera mode, Nexus telemetry, and GameHost state
 ```
 
 ## Runtime loop
@@ -37,7 +37,7 @@ src/main.js
   -> builds terrain, lakes, trees, clouds, wind ribbons
   -> builds hot-air-balloon visual object
   -> samples keyboard and wheel input
-  -> integrates burner/vent/wind drift inline
+  -> integrates burner, vent, wind, buoyancy, vertical velocity, altitude, and distance inline
   -> animates balloon sub-kits
   -> ticks Nexus telemetry kit
   -> renders Three.js frame
@@ -49,24 +49,44 @@ src/main.js
 
 ```txt
 checked LuminaryLabs-Publish repos:
-  IntoTheMeadow
-  HorrorCorridor
   AetherVale
-  ZombieOrchard
-  TheUnmappedHouse
+  HorrorCorridor
+  IntoTheMeadow
   MyCozyIsland
-  TheOpenAbove
   PhantomCommand
-  TheCavalryOfRome
   PrehistoricRush
+  TheCavalryOfRome
+  TheOpenAbove
+  TheUnmappedHouse
+  ZombieOrchard
 
 central ledger check:
   non-Cavalry repos are represented in repo-ledger/LuminaryLabs-Publish/
-  checked root .agent/START_HERE.md state exists for the sampled non-Cavalry repos
+  sampled root .agent/START_HERE.md state exists for non-Cavalry repos
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected by fallback oldest eligible follow-up among checked repos
+  TheOpenAbove selected by fallback high-value follow-up
+```
+
+## Why this repo was selected
+
+The previous pass identified the correct seam: the live app is balloon drift, while README, package metadata, and campaign source still say free-flight. This run refined that into a fixture matrix so the next implementation can change source authority without changing the visible route.
+
+## Evidence snapshot
+
+```txt
+README.md:
+  still says free-flight exploration, carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
+
+package.json:
+  still says standalone free-flight exploration game.
+
+src/data/campaign.config.js:
+  exports CAMPAIGN, WORLD, and legacy FLIGHT with thermals, gates, perch, pitch, roll, yaw, boost, thermal lift, and terrain clearance.
+
+src/main.js:
+  imports CAMPAIGN and WORLD, seeds `${WORLD.seed}-balloon-drift`, builds balloon objects, and owns burner, vent, wind, buoyancy, altitude, camera, HUD, and GameHost snapshots inline.
 ```
 
 ## Domains in use
@@ -94,6 +114,7 @@ wind-ribbon-rendering
 balloon-input-map
 balloon-vehicle-state
 balloon-drift-physics
+burner-vent-intent
 wind-field
 altitude-safety
 basket-follow-camera
@@ -103,14 +124,19 @@ window-gamehost-debug
 campaign-config
 legacy-flight-compatibility
 product-copy-authority
+package-description-parity
+readme-route-copy-parity
 balloon-drift-config-authority
 route-source-authority
+source-fingerprint
+source-snapshot
 altitude-band-contract
+altitude-band-resolver
 route-object-descriptor
+route-object-evaluator
 route-event-contract
 route-state-reducer
 mission-snapshot-projector
-region-unlock-progression
 route-fixture-replay
 ```
 
@@ -162,6 +188,16 @@ write-hud-html
 define-balloon-telemetry-resource
 emit-balloon-ticked-event
 expose-window-gamehost
+load-product-copy
+assert-readme-product-parity
+assert-package-product-parity
+load-balloon-drift-config
+project-source-fingerprint
+project-source-snapshot
+resolve-altitude-band
+project-route-objects
+project-route-diagnostics
+run-dom-free-source-fixture
 ```
 
 ## Kits identified
@@ -190,6 +226,7 @@ open-above-vite-static-publish-kit
 open-above-balloon-input-map-kit
 open-above-balloon-state-kit
 open-above-balloon-drift-physics-kit
+open-above-burner-vent-intent-kit
 open-above-wind-field-kit
 open-above-altitude-safety-kit
 open-above-terrain-sampler-kit
@@ -208,6 +245,8 @@ Needed next:
 
 ```txt
 open-above-product-copy-authority-kit
+open-above-readme-route-copy-parity-kit
+open-above-package-description-parity-kit
 open-above-balloon-drift-config-kit
 open-above-balloon-source-fingerprint-kit
 open-above-balloon-source-snapshot-kit
@@ -224,18 +263,25 @@ open-above-mission-snapshot-projector-kit
 open-above-region-unlock-progression-kit
 open-above-route-fixture-harness-kit
 open-above-route-replay-parity-kit
+open-above-gamehost-diagnostics-parity-kit
 ```
 
 ## Main finding
 
-The repo does not need a new visual direction first.
+The repo should not do renderer extraction first.
 
-It needs source authority: canonical balloon product copy, balloon drift config, altitude bands, route objects, route event results, route/mission snapshots, and DOM-free fixture replay.
+It should first materialize a product-source fixture matrix proving that docs, package metadata, campaign text, drift config, GameHost diagnostics, and DOM-free fixture snapshots all agree that the live product is balloon drift.
 
 ## New audit surface added
 
 ```txt
-.agent/route-source-audit/balloon-source-authority-gap.md
+.agent/product-copy-audit/balloon-product-source-fixture-matrix.md
 ```
 
-This file isolates the main seam: README/package/campaign source still say free-flight/bird, while `src/main.js` and the HUD prove balloon drift is the live product.
+This file narrows the previous route-source audit into concrete fixture rows for the next implementation pass.
+
+## Next safe ledge
+
+```txt
+TheOpenAbove Product Source Fixture Matrix + Balloon Drift Config Gate
+```
