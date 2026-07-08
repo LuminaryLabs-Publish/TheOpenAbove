@@ -9,7 +9,8 @@ export const defaultBasketProfile = {
   color: 0x8b5a2b,
   trimColor: 0x3f2412,
   weaveColor: 0xa36a32,
-  floorColor: 0x6b3f1f
+  floorColor: 0x6b3f1f,
+  eyeHeightMeters: 1.5
 };
 
 function addPanel(group, geometry, material, position, rotation = null) {
@@ -24,7 +25,7 @@ export function buildBasket(profile = defaultBasketProfile) {
   const group = new THREE.Group();
   group.name = "hot-air-balloon-basket";
   group.userData.domain = HOT_AIR_BALLOON_BASKET_KIT_ID;
-  group.userData.eyeHeightMeters = 1.5;
+  group.userData.eyeHeightMeters = profile.eyeHeightMeters ?? defaultBasketProfile.eyeHeightMeters;
 
   const wallMat = new THREE.MeshStandardMaterial({ color: profile.color, roughness: 0.94, metalness: 0.01 });
   const trimMat = new THREE.MeshStandardMaterial({ color: profile.trimColor, roughness: 0.9 });
@@ -104,7 +105,7 @@ export function buildBasket(profile = defaultBasketProfile) {
   group.add(lantern);
 
   group.userData.basketFloorY = floorY;
-  group.userData.riderEyeY = floorY + profile.eyeHeightMeters ?? floorY + 1.5;
+  group.userData.riderEyeY = floorY + group.userData.eyeHeightMeters;
   group.userData.warmTargets = [front, back, left, right, floor];
   return group;
 }
