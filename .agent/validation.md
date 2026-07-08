@@ -1,19 +1,23 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T03:21:22-04:00`
+**Timestamp:** `2026-07-08T04:31:06-04:00`
 
 ## Performed in this pass
 
 ```txt
 GitHub connector read: full LuminaryLabs-Publish repo list
-GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central ledger for TheOpenAbove
+GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central ledger search for LuminaryLabs-Publish repos
+GitHub connector read: TheOpenAbove .agent/START_HERE.md
+GitHub connector read: TheOpenAbove .agent/current-audit.md
+GitHub connector read: TheOpenAbove .agent/known-gaps.md
+GitHub connector read: TheOpenAbove .agent/next-steps.md
+GitHub connector read: TheOpenAbove .agent/validation.md
 GitHub connector read: TheOpenAbove README.md
 GitHub connector read: TheOpenAbove package.json
-GitHub connector read: TheOpenAbove index.html
 GitHub connector read: TheOpenAbove src/main.js
 GitHub connector read: TheOpenAbove src/data/campaign.config.js
-GitHub connector read: TheOpenAbove src/hot-air-balloon-object-kit.js
-GitHub connector write: root .agent operating docs
+GitHub connector write: refreshed root .agent operating docs
+GitHub connector write: route-source-audit for balloon source authority gap
 GitHub connector write: timestamped tracker and turn ledger
 GitHub connector write: central internal change log
 GitHub connector update: central repo ledger for TheOpenAbove
@@ -54,13 +58,13 @@ Confirm S / ArrowDown / Shift vent descent.
 Confirm wheel changes camera blend.
 Confirm no console fatal error.
 Confirm window.GameHost.getState() returns balloon drift telemetry.
-Confirm new diagnostics include source fingerprint, route state, mission snapshot, and fixture status after implementation.
+Confirm new diagnostics include product copy source, source fingerprint, route state, mission snapshot, and fixture status after implementation.
 ```
 
 ## Current validation status
 
 ```txt
-status: documentation-only pass complete
+status: documentation-only follow-up pass complete
 runtime confidence: not revalidated in this pass
-main risk: docs now accurately point to next authority work, but code still needs source/config/fixture implementation
+main risk: docs now isolate the authority seam, but code still needs product/config/fixture implementation
 ```
