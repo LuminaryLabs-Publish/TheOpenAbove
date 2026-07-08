@@ -8,13 +8,14 @@ export const defaultRiggingProfile = {
   ropeStripeColor: 0x8a8a8a,
   ropeOpacity: 0.95,
   ropeSegments: 10,
-  topRadius: 1.28,
-  topY: 0.55,
+  topRadius: 0.88,
+  topY: 0.86,
   bottomY: -1.02,
   bottomWidth: 0.82,
   bottomDepth: 0.62,
-  sag: 0.11,
-  sway: 0.032
+  sag: 0.09,
+  sway: 0.028,
+  suspensionRingColor: 0x1f1610
 };
 
 export function buildRigging(profile = defaultRiggingProfile) {
@@ -22,11 +23,19 @@ export function buildRigging(profile = defaultRiggingProfile) {
   group.name = "hot-air-balloon-rigging";
   group.userData.domain = HOT_AIR_BALLOON_RIGGING_KIT_ID;
 
+  const suspensionRing = new THREE.Mesh(
+    new THREE.TorusGeometry(profile.topRadius, 0.035, 8, 48),
+    new THREE.MeshStandardMaterial({ color: profile.suspensionRingColor, roughness: 0.78, metalness: 0.18 })
+  );
+  suspensionRing.name = "hot-air-balloon-inner-suspension-ring";
+  suspensionRing.position.y = profile.topY;
+  group.add(suspensionRing);
+
   const anchors = [
-    [-profile.topRadius, profile.topY, -profile.topRadius],
-    [profile.topRadius, profile.topY, -profile.topRadius],
-    [-profile.topRadius, profile.topY, profile.topRadius],
-    [profile.topRadius, profile.topY, profile.topRadius]
+    [-profile.topRadius, profile.topY, -profile.topRadius * 0.58],
+    [profile.topRadius, profile.topY, -profile.topRadius * 0.58],
+    [-profile.topRadius, profile.topY, profile.topRadius * 0.58],
+    [profile.topRadius, profile.topY, profile.topRadius * 0.58]
   ];
   const basket = [
     [-profile.bottomWidth, profile.bottomY, -profile.bottomDepth],
@@ -54,6 +63,7 @@ export function buildRigging(profile = defaultRiggingProfile) {
   }
 
   group.userData.ropes = ropes;
+  group.userData.suspensionRing = suspensionRing;
   group.userData.connectionPoints = { anchors, basket };
   return group;
 }
