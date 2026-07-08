@@ -1,18 +1,22 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T10-10-34-04-00`
+**Timestamp:** `2026-07-08T11-49-04-04-00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable docs and legacy config.
 
-The live runtime is coherent as a balloon slice. The next implementation should make the hot-air-balloon product source-authoritative through product copy, config, source snapshots, GameHost diagnostics, and DOM-free fixtures before route reducers, mission progression, or render extraction.
+The live runtime is coherent as a balloon slice. The next implementation should make the hot-air-balloon product source-authoritative through product copy, config, source snapshots, GameHost source readback, and DOM-free fixtures before route reducers, mission progression, or render extraction.
 
 ## Current route
 
 ```txt
 index.html
   -> src/main.js
+  -> Three.js CDN
+  -> NexusEngine main CDN
+  -> src/data/campaign.config.js
+  -> hot-air-balloon object kit family
 ```
 
 ## Current interaction loop
@@ -67,7 +71,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected by oldest eligible fallback source-authority follow-up
+  TheOpenAbove selected by oldest observed eligible central-ledger update and remaining source-acceptance fixture value
 ```
 
 ## Evidence snapshot
@@ -140,7 +144,8 @@ altitude-band-contract
 altitude-band-resolver
 route-object-descriptor
 route-object-evaluator
-route-event-result-envelope
+wind-lane-hint
+source-acceptance-fixture
 route-fixture-harness
 mission-snapshot-projector
 region-unlock-progression
@@ -200,8 +205,10 @@ create-balloon-source-fingerprint
 create-balloon-source-snapshot
 resolve-altitude-band
 project-route-objects
+project-wind-lane-hints
 run-dom-free-source-fixture
 run-source-acceptance-row
+project-gamehost-source-readback
 ```
 
 ## Kits identified
@@ -256,12 +263,14 @@ open-above-balloon-source-fingerprint-kit
 open-above-balloon-source-snapshot-kit
 open-above-source-acceptance-result-kit
 open-above-source-acceptance-ledger-kit
+open-above-gamehost-source-readback-kit
+open-above-source-acceptance-fixture-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
 open-above-route-object-evaluator-kit
+open-above-wind-lane-hint-kit
 open-above-route-fixture-harness-kit
-open-above-gamehost-diagnostics-parity-kit
 open-above-mission-snapshot-projector-kit
 ```
 
@@ -276,21 +285,22 @@ README/package/campaign copy correction
   -> OPEN_ABOVE_PRODUCT source object
   -> BALLOON_DRIFT config beside compatibility-only FLIGHT
   -> source fingerprint and source snapshot
-  -> GameHost diagnostics projection
+  -> SourceAcceptanceResult rows
+  -> GameHost source diagnostics projection
   -> DOM-free source/config fixture rows
 ```
 
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T10-10-34-04-00-balloon-source-authority-dsk-map.md
-.agent/render-audit/2026-07-08T10-10-34-04-00-render-diagnostics-readback-contract.md
-.agent/gameplay-audit/2026-07-08T10-10-34-04-00-balloon-route-authority-loop.md
-.agent/route-source-audit/2026-07-08T10-10-34-04-00-product-source-acceptance-wire-map.md
+.agent/architecture-audit/2026-07-08T11-49-04-04-00-dsk-domain-breakdown.md
+.agent/render-audit/2026-07-08T11-49-04-04-00-gamehost-source-readback.md
+.agent/gameplay-audit/2026-07-08T11-49-04-04-00-balloon-source-acceptance-loop.md
+.agent/route-source-audit/2026-07-08T11-49-04-04-00-acceptance-fixture-implementation-plan.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Product Source Acceptance Wire Map
+TheOpenAbove Source Acceptance Fixture Implementation Gate
 ```
