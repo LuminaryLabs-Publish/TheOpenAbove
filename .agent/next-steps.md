@@ -1,6 +1,6 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T03:21:22-04:00`
+**Timestamp:** `2026-07-08T04:31:06-04:00`
 
 ## Next safe ledge
 
@@ -20,6 +20,7 @@ Make the hot-air-balloon drift product authoritative without changing the public
 - [ ] Keep current hot-air-balloon object visuals stable.
 - [ ] Keep NexusEngine telemetry kit install stable.
 - [ ] Update README and package description to match balloon drift.
+- [ ] Add canonical `PRODUCT_COPY` or `OPEN_ABOVE_PRODUCT` source beside campaign config.
 - [ ] Add canonical `BALLOON_DRIFT` config beside legacy `FLIGHT`.
 - [ ] Move live inline balloon constants from `src/main.js` into config without visible behavior change.
 - [ ] Keep `FLIGHT` as compatibility-only until a smoke proves it is unused by the live route.
@@ -37,6 +38,19 @@ Make the hot-air-balloon drift product authoritative without changing the public
 - [ ] Add smoke markers for docs/config/runtime parity.
 - [ ] Run `npm run check`.
 - [ ] Run `npm run build`.
+
+## Suggested build order
+
+```txt
+1. README/package copy correction
+2. product copy source object
+3. BALLOON_DRIFT config mirrored from current inline constants
+4. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
+5. source fingerprint + source snapshot
+6. GameHost diagnostics projection
+7. DOM-free route fixture harness
+8. smoke markers for product/config/runtime parity
+```
 
 ## Do not do yet
 
