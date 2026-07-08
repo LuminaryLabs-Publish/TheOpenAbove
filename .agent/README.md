@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T20-10-49-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T21-29-47-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -33,17 +33,18 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T17-29-51-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T18-49-32-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T20-10-49-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T21-29-47-04-00/project-breakdown.md
 ```
 
 ## Current repo read
 
 `TheOpenAbove` is currently a standalone Vite / Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner / vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, a Nexus Engine telemetry DSK, and `window.GameHost.getState()`.
 
-The main blocker is **authority drift**. The runtime is balloon-first, while the active product/docs/config layer still contains bird/free-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch/bank controls, a sky-perch return loop, legacy `FLIGHT` tuning, bird controller architecture, bird follow camera notes, and bird/flock roadmap language.
+The blocker remains **source authority drift**. The runtime is balloon-first, while the active product/docs/config layer still contains bird/free-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch/bank controls, a sky-perch return loop, legacy `FLIGHT` tuning, bird controller architecture, bird follow camera notes, and bird/flock roadmap language.
 
 Treat hot-air-balloon drift as canonical unless a future product decision intentionally restores the bird controller.
 
-This pass tightens the next build into **Product Copy Authority + Route Source Fixture Lock**. The most useful seam is now source-owned balloon config plus replayable route source authority: align active docs with the balloon runtime, extract live drift constants into `BALLOON_DRIFT`, add route source data, add event/result/reducer contracts, project mission/progression snapshots, and prove route legality through DOM-free smoke before broad runtime extraction.
+This pass tightens the next build into **Balloon Drift Config Authority + Route Fixture Replay Lock**. The most useful seam is now source-owned balloon drift config plus replayable route source authority: align active docs with the balloon runtime, extract live drift constants into `BALLOON_DRIFT`, add altitude bands and route source data, add route event result/reducer contracts, project mission/progression snapshots, and prove route legality through DOM-free smoke before broad runtime extraction.
 
 ## Current explicit kit inventory
 
@@ -116,11 +117,13 @@ open-above-route-replay-parity-kit
 open-above-route-event-smoke-kit
 open-above-balloon-behavior-smoke-kit
 open-above-route-result-fixture-gate-kit
+open-above-source-authority-readme-smoke-kit
+open-above-product-doc-canonical-smoke-kit
 ```
 
 ## Immediate next product direction
 
-Commit to `TheOpenAbove Product Copy Authority + Route Source Fixture Lock`:
+Commit to `TheOpenAbove Balloon Drift Config Authority + Route Fixture Replay Lock`:
 
 ```txt
 preserve current balloon visuals, burner / vent controls, camera, HUD telemetry, and GameHost shape
@@ -132,8 +135,8 @@ preserve current balloon visuals, burner / vent controls, camera, HUD telemetry,
   -> add BALLOON_DRIFT beside legacy FLIGHT in src/data/campaign.config.js
   -> move live drift constants from src/main.js into BALLOON_DRIFT without changing behavior
   -> keep FLIGHT as compatibility-only until smoke confirms no live runtime dependency
-  -> add ALTITUDE_BANDS for low-clearance, buoyancy-gate, high-drift, and landing-window states
-  -> add ROUTE_OBJECTS for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing
+  -> add ALTITUDE_BANDS for low-clearance, buoyancy-gate, high-drift, and meadow-landing states
+  -> add ROUTE_OBJECTS for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-landing
   -> add WIND_LANE_HINTS for readable route guidance
   -> create pure altitude band resolver
   -> create pure route object evaluator
@@ -152,7 +155,7 @@ preserve current balloon visuals, burner / vent controls, camera, HUD telemetry,
 ## Next acceptance target
 
 ```txt
-README/package/docs describe hot-air-balloon drift, burner, vent, route objects, altitude bands, and meadow landing.
+README/package/docs describe hot-air-balloon drift, burner, vent, route objects, altitude bands, buoyancy gates, meadow landing, and Cloud Basin unlock.
 Legacy bird/free-flight wording is removed from active product docs or clearly marked historical.
 src/data/campaign.config.js exports BALLOON_DRIFT, ALTITUDE_BANDS, ROUTE_OBJECTS, and WIND_LANE_HINTS.
 src/main.js reads live drift constants from BALLOON_DRIFT.
