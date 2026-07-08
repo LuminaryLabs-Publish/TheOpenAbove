@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-11-18-04-00`
+**Timestamp:** `2026-07-08T17-21-32-04-00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable README/package/campaign source.
 
-The `15:09` source-fixture implementation queue remains the active high-level direction. This pass narrows that queue into a specific source-module consumer splice: add pure source modules, prove them with fixture rows, import them in `src/main.js`, and expose additive `window.GameHost.getState().source` diagnostics without changing the visible route.
+This pass keeps the prior source-module consumer splice direction but narrows the immediate implementation into a product/config fixture row gate: make product copy, package metadata, campaign source, drift config, GameHost source diagnostics, and DOM-free fixtures agree before renderer/world/camera extraction.
 
 ## Current route
 
@@ -73,7 +73,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected by oldest observed eligible fallback and remaining source-fixture value
+  TheOpenAbove selected by oldest observed eligible fallback after MyCozyIsland's latest central update
 ```
 
 ## Evidence snapshot
@@ -141,6 +141,7 @@ legacy-flight-compatibility
 product-copy-authority
 package-description-parity
 readme-route-copy-parity
+campaign-current-route-authority
 balloon-drift-config-authority
 source-fingerprint
 source-snapshot
@@ -151,8 +152,7 @@ route-object-descriptor
 route-object-evaluator
 wind-lane-hint
 route-fixture-harness
-source-module-consumer-splice
-mission-snapshot-projector
+deploy-build-contract
 ```
 
 ## Services in use
@@ -268,6 +268,8 @@ Needed next:
 open-above-product-copy-authority-kit
 open-above-readme-route-copy-parity-kit
 open-above-package-description-parity-kit
+open-above-campaign-current-route-authority-kit
+open-above-legacy-flight-compatibility-kit
 open-above-balloon-drift-config-kit
 open-above-balloon-source-fingerprint-kit
 open-above-balloon-source-snapshot-kit
@@ -282,6 +284,7 @@ open-above-route-object-config-kit
 open-above-route-object-evaluator-kit
 open-above-wind-lane-hint-kit
 open-above-route-fixture-harness-kit
+open-above-deploy-build-contract-kit
 open-above-mission-snapshot-projector-kit
 ```
 
@@ -305,14 +308,15 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T15-11-18-04-00-source-module-consumer-dsk-map.md
-.agent/render-audit/2026-07-08T15-11-18-04-00-gamehost-source-readback-splice.md
-.agent/gameplay-audit/2026-07-08T15-11-18-04-00-balloon-source-driven-route-loop.md
-.agent/route-source-audit/2026-07-08T15-11-18-04-00-source-module-consumer-splice-map.md
+.agent/architecture-audit/2026-07-08T17-21-32-04-00-product-config-fixture-row-dsk-map.md
+.agent/render-audit/2026-07-08T17-21-32-04-00-gamehost-source-diagnostics-contract.md
+.agent/gameplay-audit/2026-07-08T17-21-32-04-00-balloon-route-acceptance-loop.md
+.agent/route-source-audit/2026-07-08T17-21-32-04-00-fixture-row-implementation-contract.md
+.agent/deploy-audit/2026-07-08T17-21-32-04-00-static-publish-build-contract.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate
+TheOpenAbove Product Config Fixture Row + GameHost Source Diagnostics Gate
 ```
