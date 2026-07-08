@@ -1,11 +1,14 @@
 {
-  "schemaVersion": "3.0.0",
+  "schemaVersion": "3.1.0",
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
-  "lastAligned": "2026-07-08T07:10:12-04:00",
-  "status": "root-agent-followup-balloon-drift-config-acceptance-ledger-planned",
-  "latestTracker": ".agent/trackers/2026-07-08T07-10-12-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T07-10-12-04-00.md",
-  "latestRouteSourceAudit": ".agent/route-source-audit/balloon-drift-config-acceptance-ledger.md",
+  "lastAligned": "2026-07-08T10-10-34-04-00",
+  "status": "product-source-acceptance-wire-map-planned",
+  "latestTracker": ".agent/trackers/2026-07-08T10-10-34-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T10-10-34-04-00.md",
+  "latestArchitectureAudit": ".agent/architecture-audit/2026-07-08T10-10-34-04-00-balloon-source-authority-dsk-map.md",
+  "latestRenderAudit": ".agent/render-audit/2026-07-08T10-10-34-04-00-render-diagnostics-readback-contract.md",
+  "latestGameplayAudit": ".agent/gameplay-audit/2026-07-08T10-10-34-04-00-balloon-route-authority-loop.md",
+  "latestRouteSourceAudit": ".agent/route-source-audit/2026-07-08T10-10-34-04-00-product-source-acceptance-wire-map.md",
   "implementedSourceBackedKits": [
     "open-above-balloon-telemetry-kit",
     "open-above-hot-air-balloon-object-kit",
@@ -27,6 +30,7 @@
     "open-above-balloon-input-map-kit",
     "open-above-balloon-state-kit",
     "open-above-balloon-drift-physics-kit",
+    "open-above-burner-vent-intent-kit",
     "open-above-wind-field-kit",
     "open-above-altitude-safety-kit",
     "open-above-terrain-sampler-kit",
@@ -47,6 +51,8 @@
     "open-above-balloon-drift-config-kit",
     "open-above-balloon-source-fingerprint-kit",
     "open-above-balloon-source-snapshot-kit",
+    "open-above-source-acceptance-result-kit",
+    "open-above-source-acceptance-ledger-kit",
     "open-above-altitude-band-contract-kit",
     "open-above-altitude-band-resolver-kit",
     "open-above-route-object-config-kit",
@@ -60,10 +66,9 @@
     "open-above-region-unlock-progression-kit",
     "open-above-route-fixture-harness-kit",
     "open-above-route-replay-parity-kit",
-    "open-above-gamehost-diagnostics-parity-kit",
-    "open-above-balloon-config-acceptance-ledger-kit"
+    "open-above-gamehost-diagnostics-parity-kit"
   ],
-  "nextSafeLedge": "TheOpenAbove Balloon Drift Config Acceptance Ledger",
+  "nextSafeLedge": "TheOpenAbove Product Source Acceptance Wire Map",
   "acceptanceRows": [
     "product_copy_matches_balloon_drift",
     "package_description_matches_balloon_drift",
@@ -71,10 +76,11 @@
     "legacy_flight_marked_compatibility_only",
     "balloon_drift_config_matches_inline_runtime_defaults",
     "balloon_drift_config_drives_runtime_defaults",
-    "altitude_bands_have_non_overlapping_thresholds",
-    "route_objects_define_three_lift_gates_and_one_landing",
     "source_fingerprint_reports_copy_config_runtime_markers",
     "gamehost_reports_balloon_source_snapshot",
+    "altitude_bands_have_non_overlapping_thresholds",
+    "route_objects_define_three_lift_gates_and_one_landing",
+    "wind_lane_hints_match_route_objects",
     "dom_free_fixture_runs_without_canvas_webgl_or_dom"
   ]
 }
