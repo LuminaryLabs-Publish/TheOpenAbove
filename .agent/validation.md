@@ -1,25 +1,28 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T05:48:28-04:00`
+**Timestamp:** `2026-07-08T07:10:12-04:00`
 
 ## Performed in this pass
 
 ```txt
-GitHub connector read: full LuminaryLabs-Publish repo list through installation repository list
+GitHub connector read: full accessible LuminaryLabs-Publish repo list through repository search
 GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central ledger search for LuminaryLabs-Publish repos
+GitHub connector read: TheOpenAbove README.md
+GitHub connector read: TheOpenAbove package.json
+GitHub connector read: TheOpenAbove index.html
+GitHub connector read: TheOpenAbove src/main.js
+GitHub connector read: TheOpenAbove src/data/campaign.config.js
+GitHub connector read: TheOpenAbove src/hot-air-balloon-object-kit.js
 GitHub connector read: TheOpenAbove .agent/START_HERE.md
 GitHub connector read: TheOpenAbove .agent/current-audit.md
 GitHub connector read: TheOpenAbove .agent/known-gaps.md
 GitHub connector read: TheOpenAbove .agent/next-steps.md
 GitHub connector read: TheOpenAbove .agent/validation.md
-GitHub connector read: TheOpenAbove .agent/route-source-audit/balloon-source-authority-gap.md
-GitHub connector read: TheOpenAbove README.md
-GitHub connector read: TheOpenAbove package.json
-GitHub connector read: TheOpenAbove src/main.js
-GitHub connector read: TheOpenAbove src/data/campaign.config.js
-GitHub connector write: refreshed root .agent operating docs
-GitHub connector write: product-copy audit fixture matrix
+GitHub connector read: TheOpenAbove .agent/product-copy-audit/balloon-product-source-fixture-matrix.md
 GitHub connector write: timestamped tracker and turn ledger
+GitHub connector write: balloon drift config acceptance ledger audit
+GitHub connector update: root .agent operating docs
+GitHub connector update: kit registry
 GitHub connector update: central repo ledger for TheOpenAbove
 GitHub connector write: central internal change log
 ```
@@ -65,22 +68,23 @@ Confirm new diagnostics include product copy source, source fingerprint, source 
 ## Fixture checks to add next
 
 ```txt
-readme_product_copy_is_balloon_drift
-package_description_is_balloon_drift
-campaign_region_copy_is_balloon_drift
-legacy_flight_is_compatibility_only
-balloon_drift_config_matches_runtime_defaults
-altitude_bands_cover_ground_lift_high_and_landing
-route_objects_include_three_lift_gates_and_landing
-gamehost_reports_product_source_snapshot
-gamehost_reports_source_fingerprint
-dom_free_route_fixture_replays_source_snapshot
+product_copy_matches_balloon_drift
+package_description_matches_balloon_drift
+campaign_copy_marks_balloon_drift_current_route
+legacy_flight_marked_compatibility_only
+balloon_drift_config_matches_inline_runtime_defaults
+balloon_drift_config_drives_runtime_defaults
+altitude_bands_have_non_overlapping_thresholds
+route_objects_define_three_lift_gates_and_one_landing
+source_fingerprint_reports_copy_config_runtime_markers
+gamehost_reports_balloon_source_snapshot
+dom_free_fixture_runs_without_canvas_webgl_or_dom
 ```
 
 ## Current validation status
 
 ```txt
-status: documentation-only fixture-matrix pass complete
+status: documentation-only config-acceptance-ledger pass complete
 runtime confidence: not revalidated in this pass
-main risk: docs now define the fixture rows, but runtime source still needs product/config/fixture implementation
+main risk: docs now define the exact acceptance rows, but runtime source still needs product/config/fixture implementation
 ```
