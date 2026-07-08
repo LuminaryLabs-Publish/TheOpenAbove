@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T03:21:22-04:00`
+**Last aligned:** `2026-07-08T04:31:06-04:00`
 
 ## Purpose
 
@@ -10,13 +10,13 @@ This `.agent/` folder is the repo-local operating memory for scheduled and manua
 
 Read this folder before changing implementation code.
 
-## Selection reason
+## Current selection result
 
-The full current `LuminaryLabs-Publish` repo list was compared against the tracked repo ledger in `LuminaryLabs-Dev/LuminaryLabs`.
+The full current `LuminaryLabs-Publish` repo list was compared against tracked repo-ledger state in `LuminaryLabs-Dev/LuminaryLabs`.
 
-All accessible Publish repos were represented in the central ledger, and `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
+All checked non-excluded Publish repos are represented in the central ledger and have some root `.agent` state. `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected because the central ledger referenced `.agent` tracker paths for this repo, but the actual publish repo was missing root `.agent/START_HERE.md` when checked during this run.
+`TheOpenAbove` was selected by fallback oldest eligible follow-up among checked repos because its live app has a high-value authority seam: the public route is now a hot-air-balloon drift game, while README/package/campaign source still carries legacy free-flight/bird language and the runtime owns balloon drift constants inline.
 
 ## Current product read
 
@@ -41,8 +41,9 @@ The runtime imports Three.js and NexusEngine from CDN, builds procedural terrain
 .agent/architecture-audit/domain-service-breakdown.md
 .agent/render-audit/balloon-render-surface-audit.md
 .agent/gameplay-audit/balloon-drift-loop-audit.md
-.agent/trackers/2026-07-08T03-21-22-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T03-21-22-04-00.md
+.agent/route-source-audit/balloon-source-authority-gap.md
+.agent/trackers/2026-07-08T04-31-06-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T04-31-06-04-00.md
 .agent/kit-registry.json
 ```
 
