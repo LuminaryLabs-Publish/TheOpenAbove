@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T05:48:28-04:00`
+**Last aligned:** `2026-07-08T07:10:12-04:00`
 
 ## Purpose
 
@@ -16,7 +16,7 @@ The full accessible `LuminaryLabs-Publish` repo list was compared against tracke
 
 No checked non-excluded Publish repo was found that was fully new, central-ledger absent, or missing root `.agent/START_HERE.md` state.
 
-`TheOpenAbove` was selected as the current follow-up target because its root audit already identified the correct product-source seam, but the next implementation still needs a smaller fixture matrix before code changes: product copy, package description, campaign text, `BALLOON_DRIFT`, altitude bands, route objects, source snapshots, and GameHost diagnostics must agree before mission or renderer extraction.
+`TheOpenAbove` was selected as the current fallback follow-up target because the previous pass identified the correct product/source drift, and this pass narrows the next implementation into a concrete balloon drift config acceptance ledger.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
@@ -30,7 +30,7 @@ LuminaryLabs-Publish/MyCozyIsland        ledgered with root .agent
 LuminaryLabs-Publish/PhantomCommand      ledgered with root .agent
 LuminaryLabs-Publish/PrehistoricRush     ledgered with root .agent
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/TheOpenAbove        selected follow-up: product-source fixture matrix refined
+LuminaryLabs-Publish/TheOpenAbove        selected follow-up: balloon config acceptance ledger
 LuminaryLabs-Publish/TheUnmappedHouse    ledgered with root .agent
 LuminaryLabs-Publish/ZombieOrchard       ledgered with root .agent
 ```
@@ -60,9 +60,18 @@ The live runtime imports Three.js and NexusEngine from CDNs, builds procedural t
 .agent/gameplay-audit/balloon-drift-loop-audit.md
 .agent/route-source-audit/balloon-source-authority-gap.md
 .agent/product-copy-audit/balloon-product-source-fixture-matrix.md
-.agent/trackers/2026-07-08T05-48-28-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T05-48-28-04-00.md
+.agent/route-source-audit/balloon-drift-config-acceptance-ledger.md
+.agent/trackers/2026-07-08T07-10-12-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T07-10-12-04-00.md
 .agent/kit-registry.json
+```
+
+Prior breakdowns:
+
+```txt
+.agent/trackers/2026-07-08T03-21-22-04-00/project-breakdown.md
+.agent/trackers/2026-07-08T04-31-06-04-00/project-breakdown.md
+.agent/trackers/2026-07-08T05-48-28-04-00/project-breakdown.md
 ```
 
 ## Source files to inspect next
@@ -95,7 +104,7 @@ Do not let README copy, package copy, legacy `FLIGHT`, DOM/HUD text, renderer fr
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Product Source Fixture Matrix + Balloon Drift Config Gate
+TheOpenAbove Balloon Drift Config Acceptance Ledger
 ```
 
 Keep the public route, balloon visuals, burner and vent controls, basket-follow camera, Nexus telemetry kit, and GameHost baseline stable while proving product-copy/config/runtime parity through source-backed snapshots and DOM-free fixture records.
