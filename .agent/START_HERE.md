@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T13-31-29-04-00`
+**Last aligned:** `2026-07-08T15-09-42-04-00`
 
 ## Purpose
 
@@ -12,27 +12,27 @@ Read this folder before changing implementation code.
 
 ## Current selection result
 
-The full accessible `LuminaryLabs-Publish` repository list was compared against tracked repo-ledger state in `LuminaryLabs-Dev/LuminaryLabs`.
+The accessible `LuminaryLabs-Publish` repo list was compared against tracked repo-ledger state in `LuminaryLabs-Dev/LuminaryLabs`.
 
-No checked non-Cavalry Publish repo was fully new, absent from the central ledger, undocumented, or missing sampled root `.agent/START_HERE.md` state.
-
-`TheOpenAbove` was selected as the oldest observed eligible fallback follow-up because its central ledger had not been refreshed since `2026-07-08T11-49-04-04-00`, while its public route still has a high-value product/source mismatch.
+No checked non-Cavalry Publish repo was fully new, absent from the central ledger, undocumented, recently added but undocumented, or missing sampled root `.agent/START_HERE.md` state.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
+
+`TheOpenAbove` was selected as the oldest observed eligible fallback follow-up. Its central ledger was older than the other current non-Cavalry repo-local follow-ups, and the public route still has a high-value source-authority mismatch.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/AetherVale          tracked / root .agent observed
-LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent observed
-LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent observed
-LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent observed / recent central update observed
-LuminaryLabs-Publish/PhantomCommand      tracked / root .agent observed
-LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent observed / recent central update observed
+LuminaryLabs-Publish/AetherVale          tracked / root .agent observed / central update observed after TheOpenAbove
+LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent observed / central update observed after TheOpenAbove
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent observed / central update observed after TheOpenAbove
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent observed / central update observed after TheOpenAbove
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent observed / central update observed after TheOpenAbove
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent observed / central update observed after TheOpenAbove
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/TheOpenAbove        selected follow-up: balloon source fixture cutover map
-LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent observed
-LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent observed
+LuminaryLabs-Publish/TheOpenAbove        selected follow-up: source fixture implementation queue
+LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent observed / central update observed after TheOpenAbove
+LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent observed / central update observed after TheOpenAbove
 ```
 
 ## Current product read
@@ -92,12 +92,12 @@ canonical README/package/campaign copy
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-08T13-31-29-04-00-balloon-source-dsk-breakdown.md
-.agent/render-audit/2026-07-08T13-31-29-04-00-gamehost-source-readback-contract.md
-.agent/gameplay-audit/2026-07-08T13-31-29-04-00-balloon-drift-authority-loop.md
-.agent/route-source-audit/2026-07-08T13-31-29-04-00-fixture-cutover-map.md
-.agent/trackers/2026-07-08T13-31-29-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T13-31-29-04-00.md
+.agent/architecture-audit/2026-07-08T15-09-42-04-00-balloon-source-fixture-implementation-queue.md
+.agent/render-audit/2026-07-08T15-09-42-04-00-gamehost-source-diagnostics-readback.md
+.agent/gameplay-audit/2026-07-08T15-09-42-04-00-balloon-route-result-boundary.md
+.agent/route-source-audit/2026-07-08T15-09-42-04-00-source-fixture-implementation-queue.md
+.agent/trackers/2026-07-08T15-09-42-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T15-09-42-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -132,7 +132,7 @@ Keep `FLIGHT` as compatibility-only until a fixture proves the live route no lon
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Balloon Source Fixture Cutover Map
+TheOpenAbove Balloon Source Fixture Implementation Queue + GameHost Source Diagnostics
 ```
 
 Stop that ledge when `README.md`, `package.json`, `src/data/campaign.config.js`, `src/main.js`, `window.GameHost.getState().source`, and a DOM-free fixture all report the same current balloon-drift product source without changing the visible balloon route.
