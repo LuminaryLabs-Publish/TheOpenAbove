@@ -5,7 +5,7 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 ## Latest tracker
 
 ```txt
-.agent/trackers/2026-07-07T18-49-32-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T20-10-49-04-00/project-breakdown.md
 ```
 
 ## Latest kit registry
@@ -32,15 +32,18 @@ This folder stores repo-local agent findings for `LuminaryLabs-Publish/TheOpenAb
 .agent/trackers/2026-07-07T16-21-09-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T17-29-51-04-00/project-breakdown.md
 .agent/trackers/2026-07-07T18-49-32-04-00/project-breakdown.md
+.agent/trackers/2026-07-07T20-10-49-04-00/project-breakdown.md
 ```
 
 ## Current repo read
 
 `TheOpenAbove` is currently a standalone Vite / Three.js publish repo for a cozy hot-air-balloon wind-drift experience. The live runtime uses burner / vent input, procedural valley terrain, lakes, trees, clouds, wind ribbons, a basket-follow camera, a hot-air-balloon object family, a Nexus Engine telemetry DSK, and `window.GameHost.getState()`.
 
-The source-of-truth layer is still split. `README.md`, `package.json`, and `src/data/campaign.config.js` still preserve older free-flight / bird-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch / bank controls, legacy `FLIGHT` tuning, and sky perch return. Treat balloon drift as canonical unless a future product decision intentionally restores the bird controller.
+The main blocker is **authority drift**. The runtime is balloon-first, while the active product/docs/config layer still contains bird/free-flight language: carving, gliding, diving, boosting, thermals, wind gates, pitch/bank controls, a sky-perch return loop, legacy `FLIGHT` tuning, bird controller architecture, bird follow camera notes, and bird/flock roadmap language.
 
-This pass tightens the next build into **Balloon Config Cutover + Route Result Fixture Gate**. The most useful seam is now source-owned balloon config plus replayable route results: extract live drift constants into `BALLOON_DRIFT`, add route source data, add event/result/reducer contracts, project mission/progression snapshots, and prove route legality through DOM-free smoke before broad runtime extraction.
+Treat hot-air-balloon drift as canonical unless a future product decision intentionally restores the bird controller.
+
+This pass tightens the next build into **Product Copy Authority + Route Source Fixture Lock**. The most useful seam is now source-owned balloon config plus replayable route source authority: align active docs with the balloon runtime, extract live drift constants into `BALLOON_DRIFT`, add route source data, add event/result/reducer contracts, project mission/progression snapshots, and prove route legality through DOM-free smoke before broad runtime extraction.
 
 ## Current explicit kit inventory
 
@@ -80,14 +83,16 @@ open-above-static-marker-smoke-kit
 ## Next cutover kit inventory
 
 ```txt
+open-above-product-copy-authority-kit
+open-above-product-copy-drift-audit-kit
 open-above-balloon-drift-config-kit
 open-above-balloon-drift-config-smoke-kit
 open-above-legacy-flight-compatibility-kit
-open-above-product-copy-alignment-kit
 open-above-balloon-source-snapshot-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-wind-lane-hint-config-kit
+open-above-route-source-authority-kit
 open-above-route-object-config-kit
 open-above-route-object-state-kit
 open-above-route-object-evaluator-kit
@@ -115,16 +120,19 @@ open-above-route-result-fixture-gate-kit
 
 ## Immediate next product direction
 
-Commit to `TheOpenAbove Balloon Config Cutover + Route Result Fixture Gate`:
+Commit to `TheOpenAbove Product Copy Authority + Route Source Fixture Lock`:
 
 ```txt
 preserve current balloon visuals, burner / vent controls, camera, HUD telemetry, and GameHost shape
-  -> update README.md and package.json away from free-flight / bird-flight language
-  -> update Meadow Lift copy away from thermals, wind gates, pitch, bank, boost, and sky-perch return
+  -> update README.md away from bird free-flight terms
+  -> update package.json description away from free-flight terms
+  -> update docs/GAME_DESIGN.md to balloon drift, burner/vent, altitude bands, buoyancy gates, and meadow landing
+  -> update docs/TECHNICAL_ARCHITECTURE.md to balloon controller, balloon drift model, basket-follow camera, route source authority, and fixture harness
+  -> update docs/ROADMAP.md around balloon config authority, route fixtures, Meadow Lift completion, and Cloud Basin unlock
   -> add BALLOON_DRIFT beside legacy FLIGHT in src/data/campaign.config.js
   -> move live drift constants from src/main.js into BALLOON_DRIFT without changing behavior
   -> keep FLIGHT as compatibility-only until smoke confirms no live runtime dependency
-  -> add ALTITUDE_BANDS for low-clearance, route-gate, high-drift, and landing-window states
+  -> add ALTITUDE_BANDS for low-clearance, buoyancy-gate, high-drift, and landing-window states
   -> add ROUTE_OBJECTS for buoyancy-gate-01, buoyancy-gate-02, buoyancy-gate-03, and meadow-perch-landing
   -> add WIND_LANE_HINTS for readable route guidance
   -> create pure altitude band resolver
@@ -144,23 +152,23 @@ preserve current balloon visuals, burner / vent controls, camera, HUD telemetry,
 ## Next acceptance target
 
 ```txt
-README.md describes hot-air-balloon drift, burner, vent, route gates, and landing
-package.json description no longer says free-flight exploration
-src/data/campaign.config.js exports BALLOON_DRIFT, ALTITUDE_BANDS, ROUTE_OBJECTS, and WIND_LANE_HINTS
-FLIGHT is marked compatibility-only or is protected by smoke coverage proving it is not live authority
-src/main.js reads live drift constants from BALLOON_DRIFT
-route event records include eventId, objectId, eventType, accepted, reason, before, after, and snapshotTick
-accepted route attempts include reason=accepted
-out-of-order route attempts reject with reason=out_of_order
-wrong-altitude route attempts reject with reason=invalid_altitude_band
-already-completed route objects reject with reason=already_completed
-unknown route objects reject with reason=unknown_route_object
-outside-radius attempts reject with reason=outside_radius
-in-order route fixture completes three buoyancy gates
-valid landing fixture completes meadow-lift
-cloud-basin unlocks only after meadow-lift completion
-window.GameHost.getState().local exposes mission, progression, routeObjects, routeEvents, routeDiagnostics, and routeFixture
-HUD shows one compact mission line without adding noisy UI
-DOM-free smoke proves in-order, out-of-order, invalid-altitude, already-completed, unknown-object, outside-radius, landing, and unlock behavior
-host/render/world/camera/physics extraction remains explicitly out of scope
+README/package/docs describe hot-air-balloon drift, burner, vent, route objects, altitude bands, and meadow landing.
+Legacy bird/free-flight wording is removed from active product docs or clearly marked historical.
+src/data/campaign.config.js exports BALLOON_DRIFT, ALTITUDE_BANDS, ROUTE_OBJECTS, and WIND_LANE_HINTS.
+src/main.js reads live drift constants from BALLOON_DRIFT.
+Current balloon visuals, burner/vent feel, camera, HUD, and GameHost remain stable.
+RouteEventResult includes eventId, objectId, eventType, accepted, reason, before, after, and snapshotTick.
+Accepted attempts use reason=accepted.
+Out-of-order attempts reject with reason=out_of_order.
+Wrong-altitude attempts reject with reason=invalid_altitude_band.
+Already-completed route objects reject with reason=already_completed.
+Unknown route objects reject with reason=unknown_route_object.
+Outside-radius attempts reject with reason=outside_radius.
+In-order fixture completes three buoyancy gates.
+Valid landing fixture completes meadow-lift.
+Cloud Basin unlocks only after meadow-lift completion.
+window.GameHost.getState().local exposes mission, progression, routeObjects, routeEvents, routeDiagnostics, and routeFixture.
+HUD shows one compact mission line without adding noisy UI.
+DOM-free smoke proves in-order, out-of-order, invalid-altitude, already-completed, unknown-object, outside-radius, landing, and unlock behavior.
+host/render/world/camera/physics extraction remains explicitly out of scope.
 ```
