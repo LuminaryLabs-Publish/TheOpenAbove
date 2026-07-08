@@ -1,19 +1,19 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T10-10-34-04-00`
+**Timestamp:** `2026-07-08T11-49-04-04-00`
 
 ## Performed in this pass
 
 ```txt
 GitHub connector read: full accessible LuminaryLabs-Publish repo list through installation repository list
-GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central ledger for TheOpenAbove
-GitHub connector read: sampled root .agent/START_HERE.md state for checked eligible Publish repos
+GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central ledgers for sampled eligible Publish repos
 GitHub connector read: TheOpenAbove README.md
 GitHub connector read: TheOpenAbove package.json
 GitHub connector read: TheOpenAbove index.html
 GitHub connector read: TheOpenAbove src/main.js
 GitHub connector read: TheOpenAbove src/data/campaign.config.js
 GitHub connector read: TheOpenAbove src/hot-air-balloon-object-kit.js
+GitHub connector read: TheOpenAbove .agent/START_HERE.md
 GitHub connector read: TheOpenAbove .agent/current-audit.md
 GitHub connector read: TheOpenAbove .agent/known-gaps.md
 GitHub connector read: TheOpenAbove .agent/next-steps.md
@@ -63,8 +63,8 @@ Confirm Space / W / ArrowUp lift.
 Confirm S / ArrowDown / Shift vent descent.
 Confirm wheel changes camera blend.
 Confirm no console fatal error.
-Confirm window.GameHost.getState() returns balloon drift telemetry.
-Confirm new diagnostics include product copy source, source fingerprint, source snapshot, source acceptance ledger, route state, mission snapshot, and fixture status after implementation.
+Confirm window.GameHost.getState() returns existing local/nexus balloon drift telemetry.
+Confirm window.GameHost.getState().source returns product, config, fingerprint, snapshot, acceptanceLedger, routeObjects, altitudeBand, windLaneHints, and fixtureStatus after implementation.
 ```
 
 ## Fixture checks to add next
@@ -87,7 +87,9 @@ dom_free_fixture_runs_without_canvas_webgl_or_dom
 ## Current validation status
 
 ```txt
-status: documentation-only product-source-acceptance-wire-map pass complete
+status: documentation-only source-acceptance-fixture-gate pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
+branch created: no
+pushed to main: yes
 ```
