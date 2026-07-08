@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T17-21-32-04-00`
+**Last aligned:** `2026-07-08T17-31-22-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, absent from the central ledge
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest observed eligible central-ledger fallback after the latest `MyCozyIsland` central update. The unresolved seam is still source authority: the visible route is hot-air-balloon drift, while README/package/campaign source still carry older free-flight product language and `src/main.js` owns the live balloon drift constants inline.
+`TheOpenAbove` was selected because repo-local state had advanced beyond the central ledger and the unresolved seam is still source authority: the visible route is hot-air-balloon drift, while README/package/campaign source still carry older free-flight product language and `src/main.js` owns live balloon drift constants inline.
 
 ## Publish repos checked
 
 ```txt
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent observed
 LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent observed
 LuminaryLabs-Publish/AetherVale          tracked / root .agent observed
-LuminaryLabs-Publish/TheOpenAbove        selected fallback / previous central update 2026-07-08T15-11-18-04-00
-LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/PhantomCommand      tracked / root .agent observed
-LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent observed
 LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent observed
-LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent observed
-LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent observed / latest central update 2026-07-08T17-00-36-04-00
 LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent observed
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent observed
+LuminaryLabs-Publish/TheOpenAbove        selected / central ledger catch-up + source manifest gate
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent observed
+LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent observed
 ```
 
 ## Current product read
@@ -58,7 +58,7 @@ The route title/meta/HUD are already hot-air-balloon Balloon Drift. Durable READ
 ```txt
 open index.html
   -> canvas#game and HUD mount
-  -> src/main.js imports Three.js CDN, NexusEngine main CDN, CAMPAIGN/WORLD, and hot-air-balloon object kit
+  -> src/main.js imports Three.js CDN, NexusEngine main CDN, CAMPAIGN, WORLD, and hot-air-balloon object kit
   -> procedural terrain, lakes, trees, clouds, wind ribbons, and balloon visual object are built
   -> keyboard state maps Space/W/ArrowUp to burner and S/ArrowDown/Shift to vent
   -> wheel input changes camera zoom and first-person basket blend
@@ -78,14 +78,15 @@ canonical README/package/campaign copy
   -> OPEN_ABOVE_PRODUCT
   -> BALLOON_DRIFT config mirrored from current inline constants
   -> ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS
+  -> SOURCE_MANIFEST
   -> BalloonSourceFingerprint
   -> BalloonSourceSnapshot
   -> SourceAcceptanceResult rows
   -> SourceAcceptanceLedger
   -> GameHost source diagnostics
   -> DOM-free source fixture
-  -> route acceptance ledger
-  -> mission snapshot reducer later
+  -> source manifest consumer splice
+  -> fixture check integration
 ```
 
 ## First files to read
@@ -95,6 +96,19 @@ canonical README/package/campaign copy
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
+.agent/architecture-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-cutover-dsk-map.md
+.agent/render-audit/2026-07-08T17-31-22-04-00-gamehost-source-fixture-readback.md
+.agent/gameplay-audit/2026-07-08T17-31-22-04-00-balloon-drift-config-replay-loop.md
+.agent/route-source-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-splice-acceptance.md
+.agent/deploy-audit/2026-07-08T17-31-22-04-00-fixture-check-integration.md
+.agent/trackers/2026-07-08T17-31-22-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T17-31-22-04-00.md
+.agent/kit-registry.json
+```
+
+Earlier handoff remains relevant:
+
+```txt
 .agent/architecture-audit/2026-07-08T17-21-32-04-00-product-config-fixture-row-dsk-map.md
 .agent/render-audit/2026-07-08T17-21-32-04-00-gamehost-source-diagnostics-contract.md
 .agent/gameplay-audit/2026-07-08T17-21-32-04-00-balloon-route-acceptance-loop.md
@@ -102,18 +116,6 @@ canonical README/package/campaign copy
 .agent/deploy-audit/2026-07-08T17-21-32-04-00-static-publish-build-contract.md
 .agent/trackers/2026-07-08T17-21-32-04-00/project-breakdown.md
 .agent/turn-ledger/2026-07-08T17-21-32-04-00.md
-.agent/kit-registry.json
-```
-
-Earlier handoff remains relevant:
-
-```txt
-.agent/architecture-audit/2026-07-08T15-11-18-04-00-source-module-consumer-dsk-map.md
-.agent/render-audit/2026-07-08T15-11-18-04-00-gamehost-source-readback-splice.md
-.agent/gameplay-audit/2026-07-08T15-11-18-04-00-balloon-source-driven-route-loop.md
-.agent/route-source-audit/2026-07-08T15-11-18-04-00-source-module-consumer-splice-map.md
-.agent/trackers/2026-07-08T15-11-18-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T15-11-18-04-00.md
 ```
 
 ## Source files to inspect next
@@ -149,7 +151,7 @@ Keep `FLIGHT` as compatibility-only until a fixture proves the live route no lon
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Product Config Fixture Row + GameHost Source Diagnostics Gate
+TheOpenAbove Source Manifest Consumer Splice + Fixture Check Gate
 ```
 
-Stop that ledge when source modules exist, fixture rows prove source/config/runtime parity, and `window.GameHost.getState().source` is present additively while preserving the existing `.local` and `.nexusEngine` state shapes.
+Stop that ledge when source modules, source manifest, fixture rows, `src/main.js` source readback, and `npm run check` integration prove README/package/campaign/runtime/GameHost parity while preserving existing `.local` and `.nexusEngine` state shapes.
