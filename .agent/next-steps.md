@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-11-18-04-00`
+**Timestamp:** `2026-07-08T17-21-32-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate
+TheOpenAbove Product Config Fixture Row + GameHost Source Diagnostics Gate
 ```
 
 ## Goal
@@ -14,7 +14,7 @@ Make the hot-air-balloon drift product authoritative without changing the public
 
 The implementation should prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
 
-This pass narrows the immediate next work to the exact source modules and consumer splice points that should feed `src/main.js` and `window.GameHost.getState().source`.
+This pass narrows the immediate next work to fixture rows, source modules, and additive `window.GameHost.getState().source` diagnostics.
 
 ## Checklist
 
@@ -40,6 +40,8 @@ This pass narrows the immediate next work to the exact source modules and consum
 - [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
 - [ ] Preserve existing `window.GameHost.getState().local` and `.nexusEngine` shapes.
 - [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
+- [ ] Add source fixture command `node scripts/open-above-source-fixture.mjs`.
+- [ ] Wire source fixture into `npm run check` only after it runs without DOM/WebGL.
 - [ ] Add route event acceptance/rejection reason catalog only after route objects exist.
 - [ ] Add route event journal after result envelope exists.
 - [ ] Add route state reducer after journal proof exists.
@@ -61,9 +63,10 @@ This pass narrows the immediate next work to the exact source modules and consum
 8. Product/config/runtime fixture harness
 9. DOM-free route fixture harness
 10. src/main.js source-module consumer splice
-11. route event result envelope
-12. route reducer and mission snapshot
-13. smoke markers for product/config/runtime parity
+11. npm run check fixture integration
+12. route event result envelope
+13. route reducer and mission snapshot
+14. smoke markers for product/config/runtime parity
 ```
 
 ## Files to add
@@ -99,6 +102,9 @@ burner lift multiplier: 3.7
 vent descent multiplier: 3.2
 vertical velocity clamp: -8..8
 terrain clearance: 30
+ceiling soft threshold: 270
+ceiling softness coefficient: 0.024
+altitude damping: 0.74
 camera zoom default: 44
 camera zoom wheel step: 4
 camera zoom clamp: 0..92
@@ -124,6 +130,8 @@ wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
 existing_local_snapshot_shape_preserved
 existing_nexus_snapshot_shape_preserved
+npm_check_runs_source_fixture
+npm_build_runs_source_fixture_before_vite_build
 ```
 
 ## Do not do yet
