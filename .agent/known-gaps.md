@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T10-10-34-04-00`
+**Timestamp:** `2026-07-08T11-49-04-04-00`
 
 ## Product / source authority gaps
 
@@ -23,7 +23,6 @@ No RouteObject descriptors exist for the current balloon drift route.
 No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, or meadow-landing states.
 No WindLaneHint descriptors exist.
 No SourceAcceptanceResult envelope exists in source.
-No RouteEventResult envelope exists.
 No route event rejection reason catalog exists.
 No route event journal exists.
 No mission state reducer exists for the current balloon route.
@@ -46,14 +45,14 @@ Camera blend is not fixture-readable outside the browser.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a written source-acceptance wire map, but no implementation exists for its rows.
+There is now a written source acceptance implementation plan, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
 
 ```txt
 No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
-The fallback selection rule is now picking root-agent follow-up targets by remaining source-authority value and oldest eligible sampled alignment rather than initial missing-doc state.
+The fallback selection rule is picking root-agent follow-up targets by remaining source-authority value and oldest eligible observed central update.
 TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
@@ -72,6 +71,21 @@ altitude_bands_have_non_overlapping_thresholds is not implemented.
 route_objects_define_three_lift_gates_and_one_landing is not implemented.
 wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
+```
+
+## Concrete missing files for next implementation
+
+```txt
+src/source/open-above-product.js
+src/source/balloon-drift.config.js
+src/source/source-fingerprint.js
+src/source/source-snapshot.js
+src/source/source-acceptance.js
+src/source/gamehost-source-readback.js
+src/source/route-descriptors.js
+src/source/altitude-bands.js
+src/source/wind-lane-hints.js
+scripts/open-above-source-fixture.mjs
 ```
 
 ## Validation gaps
