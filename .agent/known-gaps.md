@@ -1,11 +1,11 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-09-42-04-00`
+**Timestamp:** `2026-07-08T15-11-18-04-00`
 
 ## Product / source authority gaps
 
 ```txt
-README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, pitch/bank controls, and sky-perch return.
+README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
 package.json still describes free-flight exploration.
 src/data/campaign.config.js still carries legacy CAMPAIGN/WORLD/FLIGHT shape for bird/free-flight style goals.
 src/main.js imports CAMPAIGN and WORLD but owns the live balloon drift constants inline.
@@ -15,12 +15,26 @@ There is no source fingerprint/snapshot proving docs/config/runtime agreement.
 There is no implemented acceptance fixture proving README, package, campaign, runtime, HUD, GameHost, and fixture state all describe the same product.
 ```
 
+## Consumer splice gaps
+
+```txt
+src/source/open-above-product.js does not exist.
+src/source/balloon-drift.config.js does not exist.
+src/source/source-fingerprint.js does not exist.
+src/source/source-snapshot.js does not exist.
+src/source/source-acceptance.js does not exist.
+src/source/gamehost-source-readback.js does not exist.
+src/main.js has no additive source imports yet.
+window.GameHost.getState().source is not exposed yet.
+No fixture proves that adding source readback preserves existing local/nexusEngine shapes.
+```
+
 ## Gameplay authority gaps
 
 ```txt
 Burner, vent, wind, altitude, and distance integration live inline in src/main.js.
 No RouteObject descriptors exist for the current balloon drift route.
-No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, ceiling-softness, or meadow-landing states.
+No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, or meadow-landing states.
 No WindLaneHint descriptors exist.
 No SourceAcceptanceResult envelope exists in source.
 No route event rejection reason catalog exists.
@@ -45,7 +59,7 @@ Camera blend is not fixture-readable outside the browser.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-The source fixture implementation queue now exists, but no implementation exists for its rows.
+There is now a written source-module consumer splice map, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
@@ -74,7 +88,6 @@ wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
 existing_local_snapshot_shape_preserved is not implemented.
 existing_nexus_snapshot_shape_preserved is not implemented.
-runtime_visual_defaults_unchanged is not implemented.
 ```
 
 ## Concrete missing files for next implementation
@@ -102,7 +115,3 @@ No npm run build was performed.
 No browser route check was performed.
 No live GitHub Pages verification was performed.
 ```
-
-## Current unresolved seam
-
-The implementation queue is now precise. The next pass should materialize source modules and fixture rows, then expose source diagnostics through `window.GameHost.getState().source` without changing visible route behavior.
