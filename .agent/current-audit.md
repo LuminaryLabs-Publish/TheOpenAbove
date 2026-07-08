@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T08:39:41-04:00`
+**Timestamp:** `2026-07-08T10-10-34-04-00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable docs and legacy config.
 
-The live runtime is coherent as a balloon slice. The next implementation should make that product source authoritative through copy/config/source snapshots and DOM-free fixtures before route reducers, mission progression, or render extraction.
+The live runtime is coherent as a balloon slice. The next implementation should make the hot-air-balloon product source-authoritative through product copy, config, source snapshots, GameHost diagnostics, and DOM-free fixtures before route reducers, mission progression, or render extraction.
 
 ## Current route
 
@@ -34,6 +34,7 @@ src/main.js
   -> imports Three.js CDN
   -> imports NexusEngine CDN
   -> imports CAMPAIGN and WORLD
+  -> imports hot-air-balloon object kit
   -> builds terrain, lakes, trees, clouds, wind ribbons
   -> builds hot-air-balloon visual object
   -> samples keyboard and wheel input
@@ -49,24 +50,24 @@ src/main.js
 
 ```txt
 checked LuminaryLabs-Publish repos:
-  AetherVale
   HorrorCorridor
-  IntoTheMeadow
-  MyCozyIsland
+  AetherVale
+  TheOpenAbove
+  TheCavalryOfRome
   PhantomCommand
   PrehistoricRush
-  TheCavalryOfRome
-  TheOpenAbove
-  TheUnmappedHouse
   ZombieOrchard
+  IntoTheMeadow
+  MyCozyIsland
+  TheUnmappedHouse
 
-central ledger check:
+central ledger / root-agent check:
   non-Cavalry repos are represented in repo-ledger/LuminaryLabs-Publish/
   sampled root .agent/START_HERE.md state exists for checked non-Cavalry repos
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected by fallback source-authority follow-up
+  TheOpenAbove selected by oldest eligible fallback source-authority follow-up
 ```
 
 ## Evidence snapshot
@@ -77,6 +78,9 @@ README.md:
 
 package.json:
   still says standalone free-flight exploration.
+
+index.html:
+  describes and titles the live page as a cozy hot-air-balloon / Balloon Drift route.
 
 src/data/campaign.config.js:
   exports CAMPAIGN, WORLD, and legacy FLIGHT with thermals, gates, perch, pitch, roll, yaw, boost, thermal lift, and terrain clearance.
@@ -131,6 +135,7 @@ readme-route-copy-parity
 balloon-drift-config-authority
 source-fingerprint
 source-snapshot
+source-acceptance-ledger
 altitude-band-contract
 altitude-band-resolver
 route-object-descriptor
@@ -191,12 +196,12 @@ emit-balloon-ticked-event
 expose-window-gamehost
 load-canonical-product-copy
 load-balloon-drift-config
-project-source-fingerprint
-project-source-snapshot
+create-balloon-source-fingerprint
+create-balloon-source-snapshot
 resolve-altitude-band
 project-route-objects
 run-dom-free-source-fixture
-run-balloon-config-acceptance-row
+run-source-acceptance-row
 ```
 
 ## Kits identified
@@ -249,12 +254,12 @@ open-above-package-description-parity-kit
 open-above-balloon-drift-config-kit
 open-above-balloon-source-fingerprint-kit
 open-above-balloon-source-snapshot-kit
+open-above-source-acceptance-result-kit
+open-above-source-acceptance-ledger-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
 open-above-route-object-evaluator-kit
-open-above-balloon-config-acceptance-result-kit
-open-above-balloon-config-acceptance-ledger-kit
 open-above-route-fixture-harness-kit
 open-above-gamehost-diagnostics-parity-kit
 open-above-mission-snapshot-projector-kit
@@ -278,13 +283,14 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T08-39-41-04-00-dsk-domain-breakdown.md
-.agent/render-audit/2026-07-08T08-39-41-04-00-render-source-readback.md
-.agent/route-source-audit/2026-07-08T08-39-41-04-00-source-implementation-queue.md
+.agent/architecture-audit/2026-07-08T10-10-34-04-00-balloon-source-authority-dsk-map.md
+.agent/render-audit/2026-07-08T10-10-34-04-00-render-diagnostics-readback-contract.md
+.agent/gameplay-audit/2026-07-08T10-10-34-04-00-balloon-route-authority-loop.md
+.agent/route-source-audit/2026-07-08T10-10-34-04-00-product-source-acceptance-wire-map.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Product Source Authority Implementation Queue
+TheOpenAbove Product Source Acceptance Wire Map
 ```
