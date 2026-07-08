@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T17-21-32-04-00`
+**Timestamp:** `2026-07-08T17-31-22-04-00`
 
 ## Product / source authority gaps
 
@@ -11,6 +11,7 @@ src/data/campaign.config.js still carries legacy CAMPAIGN/WORLD/FLIGHT shape for
 src/main.js imports CAMPAIGN and WORLD but owns the live balloon drift constants inline.
 There is no canonical OPEN_ABOVE_PRODUCT source object yet.
 There is no canonical BALLOON_DRIFT config yet.
+There is no SOURCE_MANIFEST yet.
 There is no source fingerprint/snapshot proving docs/config/runtime agreement.
 There is no implemented acceptance fixture proving README, package, campaign, runtime, HUD, GameHost, and fixture state all describe the same product.
 ```
@@ -20,13 +21,15 @@ There is no implemented acceptance fixture proving README, package, campaign, ru
 ```txt
 src/source/open-above-product.js does not exist.
 src/source/balloon-drift.config.js does not exist.
+src/source/altitude-bands.js does not exist.
+src/source/route-descriptors.js does not exist.
+src/source/wind-lane-hints.js does not exist.
+src/source/source-manifest.js does not exist.
 src/source/source-fingerprint.js does not exist.
 src/source/source-snapshot.js does not exist.
 src/source/source-acceptance.js does not exist.
 src/source/gamehost-source-readback.js does not exist.
-src/source/route-descriptors.js does not exist.
-src/source/altitude-bands.js does not exist.
-src/source/wind-lane-hints.js does not exist.
+scripts/open-above-source-fixture.mjs does not exist.
 src/main.js has no additive source imports yet.
 window.GameHost.getState().source is not exposed yet.
 No fixture proves that adding source readback preserves existing local/nexusEngine shapes.
@@ -71,14 +74,14 @@ No build gate proves product/config/runtime parity before vite build.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a written fixture-row implementation contract, but no implementation exists for its rows.
+There is now a source-manifest consumer splice acceptance contract, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
 
 ```txt
 No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
-The fallback selection rule is picking root-agent follow-up targets by remaining source-authority value and oldest eligible observed central update.
+The fallback selection rule is picking root-agent follow-up targets by remaining source-authority value and central-ledger alignment.
 TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
@@ -91,6 +94,7 @@ campaign_copy_marks_balloon_drift_current_route is not implemented.
 legacy_flight_marked_compatibility_only is not implemented.
 balloon_drift_config_matches_inline_runtime_defaults is not implemented.
 balloon_drift_config_drives_runtime_defaults is not implemented.
+source_manifest_lists_all_runtime_consumers is not implemented.
 source_fingerprint_reports_copy_config_runtime_markers is not implemented.
 source_snapshot_reports_visual_object_kit is not implemented.
 gamehost_reports_balloon_source_snapshot is not implemented.
@@ -109,13 +113,14 @@ npm_build_runs_source_fixture_before_vite_build is not implemented.
 ```txt
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
+src/source/altitude-bands.js
+src/source/route-descriptors.js
+src/source/wind-lane-hints.js
+src/source/source-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
 src/source/source-acceptance.js
 src/source/gamehost-source-readback.js
-src/source/route-descriptors.js
-src/source/altitude-bands.js
-src/source/wind-lane-hints.js
 scripts/open-above-source-fixture.mjs
 ```
 
