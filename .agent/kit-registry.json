@@ -1,9 +1,11 @@
 {
   "schemaVersion": "3.0.0",
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
-  "lastAligned": "2026-07-08T03:21:22-04:00",
-  "status": "root-agent-normalized-product-copy-authority-balloon-drift-config-fixture-gate-planned",
-  "latestTracker": ".agent/trackers/2026-07-08T03-21-22-04-00/project-breakdown.md",
+  "lastAligned": "2026-07-08T07:10:12-04:00",
+  "status": "root-agent-followup-balloon-drift-config-acceptance-ledger-planned",
+  "latestTracker": ".agent/trackers/2026-07-08T07-10-12-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-08T07-10-12-04-00.md",
+  "latestRouteSourceAudit": ".agent/route-source-audit/balloon-drift-config-acceptance-ledger.md",
   "implementedSourceBackedKits": [
     "open-above-balloon-telemetry-kit",
     "open-above-hot-air-balloon-object-kit",
@@ -40,6 +42,8 @@
   ],
   "nextCutKits": [
     "open-above-product-copy-authority-kit",
+    "open-above-readme-route-copy-parity-kit",
+    "open-above-package-description-parity-kit",
     "open-above-balloon-drift-config-kit",
     "open-above-balloon-source-fingerprint-kit",
     "open-above-balloon-source-snapshot-kit",
@@ -55,7 +59,22 @@
     "open-above-mission-snapshot-projector-kit",
     "open-above-region-unlock-progression-kit",
     "open-above-route-fixture-harness-kit",
-    "open-above-route-replay-parity-kit"
+    "open-above-route-replay-parity-kit",
+    "open-above-gamehost-diagnostics-parity-kit",
+    "open-above-balloon-config-acceptance-ledger-kit"
   ],
-  "nextSafeLedge": "TheOpenAbove Product Copy Authority + Balloon Drift Config Fixture Gate"
+  "nextSafeLedge": "TheOpenAbove Balloon Drift Config Acceptance Ledger",
+  "acceptanceRows": [
+    "product_copy_matches_balloon_drift",
+    "package_description_matches_balloon_drift",
+    "campaign_copy_marks_balloon_drift_current_route",
+    "legacy_flight_marked_compatibility_only",
+    "balloon_drift_config_matches_inline_runtime_defaults",
+    "balloon_drift_config_drives_runtime_defaults",
+    "altitude_bands_have_non_overlapping_thresholds",
+    "route_objects_define_three_lift_gates_and_one_landing",
+    "source_fingerprint_reports_copy_config_runtime_markers",
+    "gamehost_reports_balloon_source_snapshot",
+    "dom_free_fixture_runs_without_canvas_webgl_or_dom"
+  ]
 }
