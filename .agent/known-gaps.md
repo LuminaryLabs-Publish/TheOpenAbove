@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T08:39:41-04:00`
+**Timestamp:** `2026-07-08T10-10-34-04-00`
 
 ## Product / source authority gaps
 
@@ -22,7 +22,7 @@ Burner, vent, wind, altitude, and distance integration live inline in src/main.j
 No RouteObject descriptors exist for the current balloon drift route.
 No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, or meadow-landing states.
 No WindLaneHint descriptors exist.
-No BalloonConfigAcceptanceResult envelope exists in source.
+No SourceAcceptanceResult envelope exists in source.
 No RouteEventResult envelope exists.
 No route event rejection reason catalog exists.
 No route event journal exists.
@@ -35,7 +35,7 @@ No progression snapshot exists for unlocking Cloud Basin from balloon route comp
 ```txt
 Renderer creation, world generation, physics integration, camera, HUD, and GameHost exposure are all colocated in src/main.js.
 Clouds, trees, lakes, terrain, and wind ribbons are generated as renderer-side loops instead of descriptor-backed domains.
-HUD text is renderer/DOM-owned rather than projected from a mission snapshot.
+HUD text is renderer/DOM-owned rather than projected from a source or mission snapshot.
 GameHost exposes useful local/nexus state but does not yet expose source fingerprint, source snapshot, route diagnostics, mission snapshot, product-copy parity, or fixture status.
 Camera blend is not fixture-readable outside the browser.
 ```
@@ -46,14 +46,14 @@ Camera blend is not fixture-readable outside the browser.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a written implementation queue, but no implementation exists for its rows.
+There is now a written source-acceptance wire map, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
 
 ```txt
 No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
-The fallback selection rule is now picking root-agent follow-up targets by remaining source-authority value rather than initial missing-doc state.
+The fallback selection rule is now picking root-agent follow-up targets by remaining source-authority value and oldest eligible sampled alignment rather than initial missing-doc state.
 TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
@@ -70,6 +70,7 @@ source_fingerprint_reports_copy_config_runtime_markers is not implemented.
 gamehost_reports_balloon_source_snapshot is not implemented.
 altitude_bands_have_non_overlapping_thresholds is not implemented.
 route_objects_define_three_lift_gates_and_one_landing is not implemented.
+wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
 ```
 
