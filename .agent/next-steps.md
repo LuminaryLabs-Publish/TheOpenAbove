@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T05:48:28-04:00`
+**Timestamp:** `2026-07-08T07:10:12-04:00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Product Source Fixture Matrix + Balloon Drift Config Gate
+TheOpenAbove Balloon Drift Config Acceptance Ledger
 ```
 
 ## Goal
@@ -23,18 +23,19 @@ The implementation should not start by extracting renderer systems. It should fi
 - [ ] Keep NexusEngine telemetry kit install stable.
 - [ ] Update README away from free-flight, bird, carving, boost, thermals, wind gates, and sky-perch language.
 - [ ] Update package description to match the live hot-air-balloon drift product.
+- [ ] Update campaign region copy so Meadow Lift describes balloon drift, burner/vent, wind guidance, and landing.
 - [ ] Add canonical `PRODUCT_COPY` or `OPEN_ABOVE_PRODUCT` source beside campaign config.
 - [ ] Add canonical `BALLOON_DRIFT` config beside legacy `FLIGHT`.
 - [ ] Preserve `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
 - [ ] Move current inline wind, buoyancy, burner, vent, altitude, ceiling, and camera constants from `src/main.js` into config with no visible behavior change.
-- [ ] Add `ALTITUDE_BANDS` for low-clearance, lift-gate, high-drift, and meadow-landing states.
-- [ ] Add `ROUTE_OBJECTS` for three buoyancy gates and meadow landing.
+- [ ] Add `ALTITUDE_BANDS` for low-clearance, burner-lift, high-drift, and meadow-landing states.
+- [ ] Add `ROUTE_OBJECTS` for three lift gates and meadow landing.
 - [ ] Add `WIND_LANE_HINTS` for readable route guidance.
 - [ ] Add source fingerprint and source snapshot services.
 - [ ] Expose product/config/runtime parity through `window.GameHost` diagnostics.
-- [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, GameHost source snapshot, and DOM-free route replay.
-- [ ] Add `RouteEventResult` envelopes only after the source fixture rows pass.
-- [ ] Add route event acceptance/rejection reason catalog after route objects exist.
+- [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, GameHost source snapshot, source fingerprint, and DOM-free route replay.
+- [ ] Add `BalloonConfigAcceptanceResult` envelope for row pass/fail records.
+- [ ] Add route event acceptance/rejection reason catalog only after route objects exist.
 - [ ] Add route event journal after result envelope exists.
 - [ ] Add route state reducer after journal proof exists.
 - [ ] Add mission snapshot projector after route state reducer proof exists.
@@ -45,31 +46,33 @@ The implementation should not start by extracting renderer systems. It should fi
 ## Suggested build order
 
 ```txt
-1. README/package copy correction
+1. README/package/campaign copy correction
 2. PRODUCT_COPY / OPEN_ABOVE_PRODUCT source object
 3. BALLOON_DRIFT config mirrored from current inline constants
 4. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
 5. source fingerprint + source snapshot
 6. GameHost diagnostics projection
-7. DOM-free product-source fixture harness
-8. route event result envelope
-9. route reducer and mission snapshot
-10. smoke markers for product/config/runtime parity
+7. DOM-free balloon config acceptance fixture harness
+8. BalloonConfigAcceptanceResult row envelope
+9. route event result envelope
+10. route reducer and mission snapshot
+11. smoke markers for product/config/runtime parity
 ```
 
 ## Fixture rows to create first
 
 ```txt
-readme_product_copy_is_balloon_drift
-package_description_is_balloon_drift
-campaign_region_copy_is_balloon_drift
-legacy_flight_is_compatibility_only
-balloon_drift_config_matches_runtime_defaults
-altitude_bands_cover_ground_lift_high_and_landing
-route_objects_include_three_lift_gates_and_landing
-gamehost_reports_product_source_snapshot
-gamehost_reports_source_fingerprint
-dom_free_route_fixture_replays_source_snapshot
+product_copy_matches_balloon_drift
+package_description_matches_balloon_drift
+campaign_copy_marks_balloon_drift_current_route
+legacy_flight_marked_compatibility_only
+balloon_drift_config_matches_inline_runtime_defaults
+balloon_drift_config_drives_runtime_defaults
+altitude_bands_have_non_overlapping_thresholds
+route_objects_define_three_lift_gates_and_one_landing
+source_fingerprint_reports_copy_config_runtime_markers
+gamehost_reports_balloon_source_snapshot
+dom_free_fixture_runs_without_canvas_webgl_or_dom
 ```
 
 ## Do not do yet
@@ -84,6 +87,7 @@ dom_free_route_fixture_replays_source_snapshot
 
 ```txt
 balloon product/source authority
+  -> balloon config acceptance ledger
   -> route event result authority
   -> mission/progression snapshot authority
   -> host diagnostics proof
