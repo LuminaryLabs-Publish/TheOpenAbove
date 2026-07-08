@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T13-31-29-04-00`
+**Timestamp:** `2026-07-08T15-09-42-04-00`
 
 ## Product / source authority gaps
 
@@ -20,7 +20,7 @@ There is no implemented acceptance fixture proving README, package, campaign, ru
 ```txt
 Burner, vent, wind, altitude, and distance integration live inline in src/main.js.
 No RouteObject descriptors exist for the current balloon drift route.
-No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, or meadow-landing states.
+No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, ceiling-softness, or meadow-landing states.
 No WindLaneHint descriptors exist.
 No SourceAcceptanceResult envelope exists in source.
 No route event rejection reason catalog exists.
@@ -45,7 +45,7 @@ Camera blend is not fixture-readable outside the browser.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a written source fixture cutover map, but no implementation exists for its rows.
+The source fixture implementation queue now exists, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
@@ -74,6 +74,7 @@ wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
 existing_local_snapshot_shape_preserved is not implemented.
 existing_nexus_snapshot_shape_preserved is not implemented.
+runtime_visual_defaults_unchanged is not implemented.
 ```
 
 ## Concrete missing files for next implementation
@@ -101,3 +102,7 @@ No npm run build was performed.
 No browser route check was performed.
 No live GitHub Pages verification was performed.
 ```
+
+## Current unresolved seam
+
+The implementation queue is now precise. The next pass should materialize source modules and fixture rows, then expose source diagnostics through `window.GameHost.getState().source` without changing visible route behavior.
