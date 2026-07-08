@@ -1,18 +1,18 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T07:10:12-04:00`
+**Timestamp:** `2026-07-08T08:39:41-04:00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Balloon Drift Config Acceptance Ledger
+TheOpenAbove Product Source Authority Implementation Queue
 ```
 
 ## Goal
 
 Make the hot-air-balloon drift product authoritative without changing the public visual route.
 
-The implementation should not start by extracting renderer systems. It should first prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
+The implementation should first prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
 
 ## Checklist
 
@@ -24,15 +24,15 @@ The implementation should not start by extracting renderer systems. It should fi
 - [ ] Update README away from free-flight, bird, carving, boost, thermals, wind gates, and sky-perch language.
 - [ ] Update package description to match the live hot-air-balloon drift product.
 - [ ] Update campaign region copy so Meadow Lift describes balloon drift, burner/vent, wind guidance, and landing.
-- [ ] Add canonical `PRODUCT_COPY` or `OPEN_ABOVE_PRODUCT` source beside campaign config.
+- [ ] Add canonical `OPEN_ABOVE_PRODUCT` source object.
 - [ ] Add canonical `BALLOON_DRIFT` config beside legacy `FLIGHT`.
 - [ ] Preserve `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
 - [ ] Move current inline wind, buoyancy, burner, vent, altitude, ceiling, and camera constants from `src/main.js` into config with no visible behavior change.
-- [ ] Add `ALTITUDE_BANDS` for low-clearance, burner-lift, high-drift, and meadow-landing states.
+- [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, and meadow-landing states.
 - [ ] Add `ROUTE_OBJECTS` for three lift gates and meadow landing.
 - [ ] Add `WIND_LANE_HINTS` for readable route guidance.
 - [ ] Add source fingerprint and source snapshot services.
-- [ ] Expose product/config/runtime parity through `window.GameHost` diagnostics.
+- [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
 - [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, GameHost source snapshot, source fingerprint, and DOM-free route replay.
 - [ ] Add `BalloonConfigAcceptanceResult` envelope for row pass/fail records.
 - [ ] Add route event acceptance/rejection reason catalog only after route objects exist.
@@ -47,16 +47,17 @@ The implementation should not start by extracting renderer systems. It should fi
 
 ```txt
 1. README/package/campaign copy correction
-2. PRODUCT_COPY / OPEN_ABOVE_PRODUCT source object
+2. OPEN_ABOVE_PRODUCT source object
 3. BALLOON_DRIFT config mirrored from current inline constants
-4. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
-5. source fingerprint + source snapshot
-6. GameHost diagnostics projection
-7. DOM-free balloon config acceptance fixture harness
+4. Source fingerprint + source snapshot
+5. GameHost diagnostics projection
+6. Product/config/runtime fixture harness
+7. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
 8. BalloonConfigAcceptanceResult row envelope
-9. route event result envelope
-10. route reducer and mission snapshot
-11. smoke markers for product/config/runtime parity
+9. DOM-free route fixture harness
+10. route event result envelope
+11. route reducer and mission snapshot
+12. smoke markers for product/config/runtime parity
 ```
 
 ## Fixture rows to create first
@@ -68,10 +69,10 @@ campaign_copy_marks_balloon_drift_current_route
 legacy_flight_marked_compatibility_only
 balloon_drift_config_matches_inline_runtime_defaults
 balloon_drift_config_drives_runtime_defaults
-altitude_bands_have_non_overlapping_thresholds
-route_objects_define_three_lift_gates_and_one_landing
 source_fingerprint_reports_copy_config_runtime_markers
 gamehost_reports_balloon_source_snapshot
+altitude_bands_have_non_overlapping_thresholds
+route_objects_define_three_lift_gates_and_one_landing
 dom_free_fixture_runs_without_canvas_webgl_or_dom
 ```
 
@@ -82,12 +83,13 @@ dom_free_fixture_runs_without_canvas_webgl_or_dom
 - [ ] Do not add new regions before route authority exists.
 - [ ] Do not extract every inline renderer system before source authority is stable.
 - [ ] Do not push reusable kits to ProtoKits until local fixture proof exists.
+- [ ] Do not remove `FLIGHT` until live-route dependency is proven absent.
 
 ## After this ledge
 
 ```txt
 balloon product/source authority
-  -> balloon config acceptance ledger
+  -> balloon config acceptance fixtures
   -> route event result authority
   -> mission/progression snapshot authority
   -> host diagnostics proof
