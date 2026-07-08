@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T11-49-04-04-00`
+**Timestamp:** `2026-07-08T13-31-29-04-00`
 
 ## Product / source authority gaps
 
@@ -45,7 +45,7 @@ Camera blend is not fixture-readable outside the browser.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a written source acceptance implementation plan, but no implementation exists for its rows.
+There is now a written source fixture cutover map, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
@@ -66,11 +66,14 @@ legacy_flight_marked_compatibility_only is not implemented.
 balloon_drift_config_matches_inline_runtime_defaults is not implemented.
 balloon_drift_config_drives_runtime_defaults is not implemented.
 source_fingerprint_reports_copy_config_runtime_markers is not implemented.
+source_snapshot_reports_visual_object_kit is not implemented.
 gamehost_reports_balloon_source_snapshot is not implemented.
 altitude_bands_have_non_overlapping_thresholds is not implemented.
 route_objects_define_three_lift_gates_and_one_landing is not implemented.
 wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
+existing_local_snapshot_shape_preserved is not implemented.
+existing_nexus_snapshot_shape_preserved is not implemented.
 ```
 
 ## Concrete missing files for next implementation
