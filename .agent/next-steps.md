@@ -1,18 +1,20 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-09-42-04-00`
+**Timestamp:** `2026-07-08T15-11-18-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Balloon Source Fixture Implementation Queue + GameHost Source Diagnostics
+TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate
 ```
 
 ## Goal
 
 Make the hot-air-balloon drift product authoritative without changing the public visual route.
 
-The implementation should prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, route descriptors, and DOM-free fixture snapshots all agree on the current balloon-drift product.
+The implementation should prove that product copy, package metadata, campaign copy, drift config, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
+
+This pass narrows the immediate next work to the exact source modules and consumer splice points that should feed `src/main.js` and `window.GameHost.getState().source`.
 
 ## Checklist
 
@@ -27,15 +29,17 @@ The implementation should prove that product copy, package metadata, campaign co
 - [ ] Add canonical `OPEN_ABOVE_PRODUCT` source object.
 - [ ] Add canonical `BALLOON_DRIFT` config beside legacy `FLIGHT`.
 - [ ] Preserve or mark `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
-- [ ] Move current inline wind, buoyancy, burner, vent, altitude, ceiling, clearance, and camera constants from `src/main.js` into config with no visible behavior change.
-- [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, ceiling-softness, and meadow-landing states.
+- [ ] Mirror current inline wind, buoyancy, burner, vent, altitude, ceiling, clearance, and camera constants into config with no visible behavior change.
+- [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, and meadow-landing states.
 - [ ] Add `ROUTE_OBJECTS` for three lift gates and meadow landing.
 - [ ] Add `WIND_LANE_HINTS` for readable route guidance.
 - [ ] Add source fingerprint and source snapshot services.
 - [ ] Add `SourceAcceptanceResult` and `SourceAcceptanceLedger` helpers.
+- [ ] Add `createGameHostSourceReadback()`.
+- [ ] Import source modules into `src/main.js` additively.
 - [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
-- [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
 - [ ] Preserve existing `window.GameHost.getState().local` and `.nexusEngine` shapes.
+- [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
 - [ ] Add route event acceptance/rejection reason catalog only after route objects exist.
 - [ ] Add route event journal after result envelope exists.
 - [ ] Add route state reducer after journal proof exists.
@@ -50,15 +54,16 @@ The implementation should prove that product copy, package metadata, campaign co
 1. README/package/campaign copy correction
 2. OPEN_ABOVE_PRODUCT source object
 3. BALLOON_DRIFT config mirrored from current inline constants
-4. Source fingerprint + source snapshot
-5. SourceAcceptanceResult + SourceAcceptanceLedger
-6. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
+4. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
+5. Source fingerprint + source snapshot
+6. SourceAcceptanceResult + SourceAcceptanceLedger
 7. GameHost source diagnostics projection
 8. Product/config/runtime fixture harness
 9. DOM-free route fixture harness
-10. route event result envelope
-11. route reducer and mission snapshot
-12. smoke markers for product/config/runtime parity
+10. src/main.js source-module consumer splice
+11. route event result envelope
+12. route reducer and mission snapshot
+13. smoke markers for product/config/runtime parity
 ```
 
 ## Files to add
@@ -74,6 +79,31 @@ src/source/route-descriptors.js
 src/source/altitude-bands.js
 src/source/wind-lane-hints.js
 scripts/open-above-source-fixture.mjs
+```
+
+## Runtime constants to mirror first
+
+```txt
+initial position: [0, 105, 0]
+initial velocity: [8, 0, -10]
+initial wind: [8, 0, -10]
+initial burner: 0.22
+rest burner: 0.18
+burner target: 1
+vent target: 1
+burner smooth rate: 3.2
+vent smooth rate: 3.6
+wind angle base: -0.86
+wind speed base: 9.4
+burner lift multiplier: 3.7
+vent descent multiplier: 3.2
+vertical velocity clamp: -8..8
+terrain clearance: 30
+camera zoom default: 44
+camera zoom wheel step: 4
+camera zoom clamp: 0..92
+first-person blend smooth rate: 5.6
+camera position smooth rate: 3.1
 ```
 
 ## Fixture rows to create first
@@ -94,33 +124,6 @@ wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
 existing_local_snapshot_shape_preserved
 existing_nexus_snapshot_shape_preserved
-runtime_visual_defaults_unchanged
-```
-
-## Runtime constants to mirror first
-
-```txt
-initial position: [0, 105, 0]
-initial velocity: [8, 0, -10]
-initial wind: [8, 0, -10]
-initial burner: 0.22
-burner idle: 0.18
-burner active: 1
-vent active: 1
-burner smooth rate: 3.2
-vent smooth rate: 3.6
-wind angle base: -0.86
-wind speed base: 9.4
-buoyancy base: 0.36
-burner lift: 3.7
-vent descent: 3.2
-altitude damping: 0.74
-ceiling start: 270
-ceiling softness: 0.024
-vertical velocity clamp: [-8, 8]
-terrain clearance: 30
-camera default zoom: 44
-camera zoom clamp: [0, 92]
 ```
 
 ## Do not do yet
