@@ -11,6 +11,10 @@ const TAU = Math.PI * 2;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value) || 0));
 const lerp = (a, b, t) => a + (b - a) * clamp(t, 0, 1);
 const smooth = (rate, dt) => 1 - Math.exp(-rate * dt);
+const smoothstep = (edge0, edge1, value) => {
+  const t = clamp((value - edge0) / Math.max(0.0001, edge1 - edge0), 0, 1);
+  return t * t * (3 - 2 * t);
+};
 
 function showFatal(error) {
   errorPanel.hidden = false;
@@ -203,6 +207,13 @@ function makeWindRibbons(scene) {
   return group;
 }
 
+function setFirstPersonVisibility(balloon, blend) {
+  const parts = balloon.userData.parts;
+  if (!parts) return;
+  parts.envelope.visible = blend < 0.82;
+  parts.rigging.visible = blend < 0.94;
+}
+
 function createGame() {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xbde8ff);
@@ -256,6 +267,8 @@ function createGame() {
       vent: Number(state.vent.toFixed(3)),
       windSpeed: Number(state.wind.length().toFixed(2)),
       distance: Number(state.distance.toFixed(2)),
+      cameraZoom: Number((camera.userData.zoom ?? 44).toFixed(2)),
+      firstPersonBlend: Number((camera.userData.firstPersonBlend ?? 0).toFixed(3)),
       position: state.position.toArray().map((v) => Number(v.toFixed(3))),
       velocity: state.velocity.toArray().map((v) => Number(v.toFixed(3))),
       wind: state.wind.toArray().map((v) => Number(v.toFixed(3))),
@@ -269,9 +282,10 @@ function createGame() {
   addEventListener("keyup", (event) => keys.delete(event.code));
   addEventListener("blur", () => keys.clear());
   addEventListener("wheel", (event) => {
-    camera.userData.zoom = clamp((camera.userData.zoom ?? 21) + Math.sign(event.deltaY) * 3, 9, 75);
+    camera.userData.zoom = clamp((camera.userData.zoom ?? 44) + Math.sign(event.deltaY) * 4, 0, 92);
   }, { passive: true });
-  camera.userData.zoom = 21;
+  camera.userData.zoom = 44;
+  camera.userData.firstPersonBlend = 0;
 
   function resize() {
     const width = innerWidth || 1;
@@ -322,23 +336,43 @@ function createGame() {
   function draw(dt) {
     const windForward = state.wind.clone().normalize();
     const side = new THREE.Vector3(-windForward.z, 0, windForward.x).normalize();
-    const zoom = camera.userData.zoom ?? 21;
+    const zoom = camera.userData.zoom ?? 44;
+    const targetBlend = 1 - smoothstep(4, 24, zoom);
+    camera.userData.firstPersonBlend = lerp(camera.userData.firstPersonBlend ?? 0, targetBlend, smooth(5.6, dt));
+    const blend = camera.userData.firstPersonBlend;
+
     const basketFocus = state.position.clone()
       .add(side.clone().multiplyScalar(2.7))
       .add(windForward.clone().multiplyScalar(3.5))
       .add(new THREE.Vector3(0, -5.7, 0));
-    const camPos = basketFocus.clone()
-      .add(windForward.clone().multiplyScalar(-zoom))
-      .add(side.clone().multiplyScalar(zoom * 0.34))
-      .add(new THREE.Vector3(0, 7 + zoom * 0.16, 0));
+
+    const thirdPersonPos = basketFocus.clone()
+      .add(windForward.clone().multiplyScalar(-Math.max(24, zoom)))
+      .add(side.clone().multiplyScalar(Math.max(24, zoom) * 0.34))
+      .add(new THREE.Vector3(0, 8 + Math.max(24, zoom) * 0.18, 0));
+    const thirdPersonLook = basketFocus.clone();
+
+    const firstPersonPos = state.position.clone()
+      .add(side.clone().multiplyScalar(0.72))
+      .add(windForward.clone().multiplyScalar(1.35))
+      .add(new THREE.Vector3(0, -4.35, 0));
+    const firstPersonLook = firstPersonPos.clone()
+      .add(windForward.clone().multiplyScalar(38))
+      .add(side.clone().multiplyScalar(1.25))
+      .add(new THREE.Vector3(0, 0.18, 0));
+
+    const camPos = thirdPersonPos.clone().lerp(firstPersonPos, blend);
+    const lookTarget = thirdPersonLook.clone().lerp(firstPersonLook, blend);
     camera.position.lerp(camPos, smooth(3.1, dt));
-    camera.lookAt(basketFocus);
+    camera.lookAt(lookTarget);
+    setFirstPersonVisibility(balloon, blend);
     renderer.render(scene, camera);
   }
 
   function updateHud() {
     const heat = state.burner > 0.45 ? "burner warm" : "coasting";
-    hud.innerHTML = `<strong>The Open Above: Balloon Drift</strong><br>${state.message}<br><small>${heat} · Altitude ${Math.round(state.altitude)}m · Wind ${state.wind.length().toFixed(1)}m/s · Drift ${Math.round(state.distance)}m · Scroll zoom · Nexus Engine Realtime Core</small>`;
+    const cameraMode = (camera.userData.firstPersonBlend ?? 0) > 0.72 ? "basket view" : "third person";
+    hud.innerHTML = `<strong>The Open Above: Balloon Drift</strong><br>${state.message}<br><small>${heat} · ${cameraMode} · Altitude ${Math.round(state.altitude)}m · Wind ${state.wind.length().toFixed(1)}m/s · Drift ${Math.round(state.distance)}m · Scroll zoom · Nexus Engine Realtime Core</small>`;
   }
 
   let last = performance.now();
