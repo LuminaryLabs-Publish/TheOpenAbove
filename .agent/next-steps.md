@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T11-49-04-04-00`
+**Timestamp:** `2026-07-08T13-31-29-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Acceptance Fixture Implementation Gate
+TheOpenAbove Balloon Source Fixture Cutover Map
 ```
 
 ## Goal
@@ -26,7 +26,7 @@ The implementation should prove that product copy, package metadata, campaign co
 - [ ] Update campaign region copy so Meadow Lift describes balloon drift, burner/vent, wind guidance, and landing.
 - [ ] Add canonical `OPEN_ABOVE_PRODUCT` source object.
 - [ ] Add canonical `BALLOON_DRIFT` config beside legacy `FLIGHT`.
-- [ ] Preserve `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
+- [ ] Preserve or mark `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
 - [ ] Move current inline wind, buoyancy, burner, vent, altitude, ceiling, clearance, and camera constants from `src/main.js` into config with no visible behavior change.
 - [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, and meadow-landing states.
 - [ ] Add `ROUTE_OBJECTS` for three lift gates and meadow landing.
@@ -35,6 +35,7 @@ The implementation should prove that product copy, package metadata, campaign co
 - [ ] Add `SourceAcceptanceResult` and `SourceAcceptanceLedger` helpers.
 - [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
 - [ ] Add fixture rows for README product copy, package description, campaign text, drift config, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
+- [ ] Preserve existing `window.GameHost.getState().local` and `.nexusEngine` shapes.
 - [ ] Add route event acceptance/rejection reason catalog only after route objects exist.
 - [ ] Add route event journal after result envelope exists.
 - [ ] Add route state reducer after journal proof exists.
@@ -51,9 +52,9 @@ The implementation should prove that product copy, package metadata, campaign co
 3. BALLOON_DRIFT config mirrored from current inline constants
 4. Source fingerprint + source snapshot
 5. SourceAcceptanceResult + SourceAcceptanceLedger
-6. GameHost source diagnostics projection
-7. Product/config/runtime fixture harness
-8. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
+6. ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS descriptors
+7. GameHost source diagnostics projection
+8. Product/config/runtime fixture harness
 9. DOM-free route fixture harness
 10. route event result envelope
 11. route reducer and mission snapshot
@@ -85,11 +86,14 @@ legacy_flight_marked_compatibility_only
 balloon_drift_config_matches_inline_runtime_defaults
 balloon_drift_config_drives_runtime_defaults
 source_fingerprint_reports_copy_config_runtime_markers
+source_snapshot_reports_visual_object_kit
 gamehost_reports_balloon_source_snapshot
 altitude_bands_have_non_overlapping_thresholds
 route_objects_define_three_lift_gates_and_one_landing
 wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
+existing_local_snapshot_shape_preserved
+existing_nexus_snapshot_shape_preserved
 ```
 
 ## Do not do yet
