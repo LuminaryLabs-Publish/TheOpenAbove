@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T05:48:28-04:00`
+**Timestamp:** `2026-07-08T07:10:12-04:00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird or carving slice still described by durable source documents.
 
-The live runtime is coherent as a balloon slice, but product copy, package metadata, campaign text, drift config, route objects, altitude bands, mission snapshots, and fixture replay are not yet centralized enough to support safe implementation work.
+The live runtime is coherent as a balloon slice, but product copy, package metadata, campaign text, drift config, route objects, altitude bands, source fingerprints, GameHost diagnostics, and DOM-free fixture replay still need one authority gate before mission or renderer extraction.
 
 ## Current route
 
@@ -71,7 +71,7 @@ selection:
 
 ## Why this repo was selected
 
-The previous pass identified the correct seam: the live app is balloon drift, while README, package metadata, and campaign source still say free-flight. This run refined that into a fixture matrix so the next implementation can change source authority without changing the visible route.
+The previous pass identified the correct seam: the live app is balloon drift, while README, package metadata, and campaign source still say free-flight. This run refined that into an explicit balloon drift config acceptance ledger so the next implementation can add source authority without changing the visible route.
 
 ## Evidence snapshot
 
@@ -80,7 +80,10 @@ README.md:
   still says free-flight exploration, carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
 
 package.json:
-  still says standalone free-flight exploration game.
+  still says standalone free-flight exploration.
+
+index.html:
+  already names Balloon Drift and mounts src/main.js.
 
 src/data/campaign.config.js:
   exports CAMPAIGN, WORLD, and legacy FLIGHT with thermals, gates, perch, pitch, roll, yaw, boost, thermal lift, and terrain clearance.
@@ -134,10 +137,13 @@ altitude-band-contract
 altitude-band-resolver
 route-object-descriptor
 route-object-evaluator
-route-event-contract
+route-event-result-envelope
+route-event-rejection-reason-catalog
+route-event-journal
 route-state-reducer
 mission-snapshot-projector
 route-fixture-replay
+balloon-config-acceptance-ledger
 ```
 
 ## Services in use
@@ -198,6 +204,7 @@ resolve-altitude-band
 project-route-objects
 project-route-diagnostics
 run-dom-free-source-fixture
+run-balloon-config-acceptance-row
 ```
 
 ## Kits identified
@@ -264,24 +271,23 @@ open-above-region-unlock-progression-kit
 open-above-route-fixture-harness-kit
 open-above-route-replay-parity-kit
 open-above-gamehost-diagnostics-parity-kit
+open-above-balloon-config-acceptance-ledger-kit
 ```
 
 ## Main finding
 
 The repo should not do renderer extraction first.
 
-It should first materialize a product-source fixture matrix proving that docs, package metadata, campaign text, drift config, GameHost diagnostics, and DOM-free fixture snapshots all agree that the live product is balloon drift.
+It should first materialize a balloon drift config acceptance ledger proving that docs, package metadata, campaign text, drift config, GameHost diagnostics, and DOM-free fixture snapshots all agree that the live product is balloon drift.
 
 ## New audit surface added
 
 ```txt
-.agent/product-copy-audit/balloon-product-source-fixture-matrix.md
+.agent/route-source-audit/balloon-drift-config-acceptance-ledger.md
 ```
-
-This file narrows the previous route-source audit into concrete fixture rows for the next implementation pass.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Product Source Fixture Matrix + Balloon Drift Config Gate
+TheOpenAbove Balloon Drift Config Acceptance Ledger
 ```
