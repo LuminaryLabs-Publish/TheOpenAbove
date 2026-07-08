@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T15-11-18-04-00`
+**Last aligned:** `2026-07-08T17-21-32-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, absent from the central ledge
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest observed eligible fallback. The `15:09` source-fixture implementation queue is still valid; this pass narrows it into the exact source-module consumer splice that should wire `src/source/*` into `src/main.js` and additive `window.GameHost.getState().source` diagnostics.
+`TheOpenAbove` was selected as the oldest observed eligible central-ledger fallback after the latest `MyCozyIsland` central update. The unresolved seam is still source authority: the visible route is hot-air-balloon drift, while README/package/campaign source still carry older free-flight product language and `src/main.js` owns the live balloon drift constants inline.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present / latest observed 2026-07-08T13:59:50-04:00
-LuminaryLabs-Publish/AetherVale          tracked / root .agent present / latest observed 2026-07-08T13:39:15-04:00
-LuminaryLabs-Publish/TheOpenAbove        selected fallback / previous repo-local latest observed 2026-07-08T15-09-42-04-00
+LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent observed
+LuminaryLabs-Publish/AetherVale          tracked / root .agent observed
+LuminaryLabs-Publish/TheOpenAbove        selected fallback / previous central update 2026-07-08T15-11-18-04-00
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present / latest observed 2026-07-08T14:08:24-04:00
-LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present / latest observed 2026-07-08T14:51:11-04:00
-LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present / latest observed 2026-07-08T14:18:45-04:00
-LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present / latest observed 2026-07-08T13-50-37-04-00
-LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present / latest observed 2026-07-08T14-58-49-04-00
-LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present / latest observed 2026-07-08T14-31-06-04-00
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent observed
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent observed
+LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent observed
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent observed
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent observed / latest central update 2026-07-08T17-00-36-04-00
+LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent observed
 ```
 
 ## Current product read
@@ -51,7 +51,7 @@ index.html
   -> inline terrain / drift / camera / HUD / GameHost loop
 ```
 
-The route title/meta/HUD are already hot-air-balloon Balloon Drift, while durable README/package/campaign source still partially describes the older free-flight bird/glider product.
+The route title/meta/HUD are already hot-air-balloon Balloon Drift. Durable README/package/campaign source still partially describes the older free-flight bird/glider product.
 
 ## Current interaction loop
 
@@ -62,7 +62,7 @@ open index.html
   -> procedural terrain, lakes, trees, clouds, wind ribbons, and balloon visual object are built
   -> keyboard state maps Space/W/ArrowUp to burner and S/ArrowDown/Shift to vent
   -> wheel input changes camera zoom and first-person basket blend
-  -> update(dt) integrates wind, burner, vent, buoyancy, altitude safety, velocity, position, and drift distance
+  -> update(dt) integrates burner, vent, wind, buoyancy, altitude safety, velocity, position, and distance
   -> animateHotAirBalloon updates burner and rigging sub-kits
   -> Nexus telemetry kit publishes balloon snapshot/resource and balloon tick event
   -> draw(dt) resolves third-person/basket camera and first-person visibility
@@ -84,7 +84,8 @@ canonical README/package/campaign copy
   -> SourceAcceptanceLedger
   -> GameHost source diagnostics
   -> DOM-free source fixture
-  -> later route event result and mission snapshot reducers
+  -> route acceptance ledger
+  -> mission snapshot reducer later
 ```
 
 ## First files to read
@@ -94,24 +95,25 @@ canonical README/package/campaign copy
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
+.agent/architecture-audit/2026-07-08T17-21-32-04-00-product-config-fixture-row-dsk-map.md
+.agent/render-audit/2026-07-08T17-21-32-04-00-gamehost-source-diagnostics-contract.md
+.agent/gameplay-audit/2026-07-08T17-21-32-04-00-balloon-route-acceptance-loop.md
+.agent/route-source-audit/2026-07-08T17-21-32-04-00-fixture-row-implementation-contract.md
+.agent/deploy-audit/2026-07-08T17-21-32-04-00-static-publish-build-contract.md
+.agent/trackers/2026-07-08T17-21-32-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T17-21-32-04-00.md
+.agent/kit-registry.json
+```
+
+Earlier handoff remains relevant:
+
+```txt
 .agent/architecture-audit/2026-07-08T15-11-18-04-00-source-module-consumer-dsk-map.md
 .agent/render-audit/2026-07-08T15-11-18-04-00-gamehost-source-readback-splice.md
 .agent/gameplay-audit/2026-07-08T15-11-18-04-00-balloon-source-driven-route-loop.md
 .agent/route-source-audit/2026-07-08T15-11-18-04-00-source-module-consumer-splice-map.md
 .agent/trackers/2026-07-08T15-11-18-04-00/project-breakdown.md
 .agent/turn-ledger/2026-07-08T15-11-18-04-00.md
-.agent/kit-registry.json
-```
-
-Earlier same-hour handoff remains relevant:
-
-```txt
-.agent/architecture-audit/2026-07-08T15-09-42-04-00-balloon-source-fixture-implementation-queue.md
-.agent/render-audit/2026-07-08T15-09-42-04-00-gamehost-source-diagnostics-readback.md
-.agent/gameplay-audit/2026-07-08T15-09-42-04-00-balloon-route-result-boundary.md
-.agent/route-source-audit/2026-07-08T15-09-42-04-00-source-fixture-implementation-queue.md
-.agent/trackers/2026-07-08T15-09-42-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T15-09-42-04-00.md
 ```
 
 ## Source files to inspect next
@@ -147,7 +149,7 @@ Keep `FLIGHT` as compatibility-only until a fixture proves the live route no lon
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Source Module Consumer Splice Map + GameHost Source Gate
+TheOpenAbove Product Config Fixture Row + GameHost Source Diagnostics Gate
 ```
 
 Stop that ledge when source modules exist, fixture rows prove source/config/runtime parity, and `window.GameHost.getState().source` is present additively while preserving the existing `.local` and `.nexusEngine` state shapes.
