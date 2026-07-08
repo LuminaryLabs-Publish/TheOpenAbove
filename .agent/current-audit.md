@@ -1,10 +1,10 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T03:21:22-04:00`
+**Timestamp:** `2026-07-08T04:31:06-04:00`
 
 ## Summary
 
-`TheOpenAbove` has drifted from the original README free-flight / bird-control language into a hot-air-balloon drift experience.
+`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/carving slice still described by several source documents.
 
 The live runtime is coherent and playable as a balloon slice, but product copy, source config, mission authority, and route progression are not yet centralized.
 
@@ -45,6 +45,30 @@ src/main.js
   -> exposes GameHost state
 ```
 
+## Repo-list / ledger comparison
+
+```txt
+checked LuminaryLabs-Publish repos:
+  IntoTheMeadow
+  HorrorCorridor
+  AetherVale
+  ZombieOrchard
+  TheUnmappedHouse
+  MyCozyIsland
+  TheOpenAbove
+  PhantomCommand
+  TheCavalryOfRome
+  PrehistoricRush
+
+central ledger check:
+  non-Cavalry repos are represented in repo-ledger/LuminaryLabs-Publish/
+  checked root .agent/START_HERE.md state exists for the sampled non-Cavalry repos
+  TheCavalryOfRome remains excluded
+
+selection:
+  TheOpenAbove selected by fallback oldest eligible follow-up among checked repos
+```
+
 ## Domains in use
 
 ```txt
@@ -68,6 +92,7 @@ tree-scatter
 cloud-scatter
 wind-ribbon-rendering
 balloon-input-map
+balloon-vehicle-state
 balloon-drift-physics
 wind-field
 altitude-safety
@@ -78,8 +103,14 @@ window-gamehost-debug
 campaign-config
 legacy-flight-compatibility
 product-copy-authority
+balloon-drift-config-authority
 route-source-authority
+altitude-band-contract
+route-object-descriptor
 route-event-contract
+route-state-reducer
+mission-snapshot-projector
+region-unlock-progression
 route-fixture-replay
 ```
 
@@ -113,6 +144,8 @@ sample-wind-angle
 sample-wind-speed
 write-wind-vector
 compute-buoyancy
+compute-altitude-damping
+compute-ceiling-softness
 integrate-vertical-velocity
 blend-velocity-toward-wind
 integrate-position
@@ -155,6 +188,7 @@ open-above-runtime-host-kit
 open-above-three-render-host-kit
 open-above-vite-static-publish-kit
 open-above-balloon-input-map-kit
+open-above-balloon-state-kit
 open-above-balloon-drift-physics-kit
 open-above-wind-field-kit
 open-above-altitude-safety-kit
@@ -178,11 +212,16 @@ open-above-balloon-drift-config-kit
 open-above-balloon-source-fingerprint-kit
 open-above-balloon-source-snapshot-kit
 open-above-altitude-band-contract-kit
+open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
-open-above-route-event-result-kit
+open-above-route-object-evaluator-kit
+open-above-route-event-result-envelope-kit
+open-above-route-event-rejection-reason-kit
 open-above-route-event-journal-kit
 open-above-route-state-reducer-kit
+open-above-meadow-lift-mission-reducer-kit
 open-above-mission-snapshot-projector-kit
+open-above-region-unlock-progression-kit
 open-above-route-fixture-harness-kit
 open-above-route-replay-parity-kit
 ```
@@ -191,4 +230,12 @@ open-above-route-replay-parity-kit
 
 The repo does not need a new visual direction first.
 
-It needs source authority: canonical balloon product copy, balloon drift config, altitude bands, route objects, route event results, and DOM-free fixture replay.
+It needs source authority: canonical balloon product copy, balloon drift config, altitude bands, route objects, route event results, route/mission snapshots, and DOM-free fixture replay.
+
+## New audit surface added
+
+```txt
+.agent/route-source-audit/balloon-source-authority-gap.md
+```
+
+This file isolates the main seam: README/package/campaign source still say free-flight/bird, while `src/main.js` and the HUD prove balloon drift is the live product.
