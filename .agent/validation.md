@@ -1,12 +1,13 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T15-09-42-04-00`
+**Timestamp:** `2026-07-08T15-11-18-04-00`
 
 ## Performed in this pass
 
 ```txt
-GitHub connector read: full accessible LuminaryLabs-Publish repo list through repository search
-GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central repo ledgers for eligible Publish repos
+GitHub connector read: full accessible LuminaryLabs-Publish repo list through installation repository list
+GitHub connector read: sampled root .agent/START_HERE.md state for eligible Publish repos
+GitHub connector read: LuminaryLabs-Dev/LuminaryLabs central TheOpenAbove repo ledger
 GitHub connector read: TheOpenAbove README.md
 GitHub connector read: TheOpenAbove package.json
 GitHub connector read: TheOpenAbove index.html
@@ -18,6 +19,7 @@ GitHub connector read: TheOpenAbove .agent/current-audit.md
 GitHub connector read: TheOpenAbove .agent/known-gaps.md
 GitHub connector read: TheOpenAbove .agent/next-steps.md
 GitHub connector read: TheOpenAbove .agent/validation.md
+GitHub connector read: TheOpenAbove .agent/kit-registry.json
 GitHub connector write: timestamped tracker and turn ledger
 GitHub connector write: timestamped architecture audit
 GitHub connector write: timestamped render audit
@@ -84,13 +86,12 @@ wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
 existing_local_snapshot_shape_preserved
 existing_nexus_snapshot_shape_preserved
-runtime_visual_defaults_unchanged
 ```
 
 ## Current validation status
 
 ```txt
-status: documentation-only balloon-source-fixture-implementation-queue pass complete
+status: documentation-only source-module-consumer-splice pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
