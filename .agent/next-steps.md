@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T14-58-42-04-00`
+**Timestamp:** `2026-07-09T15-09-09-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Central Sync + Browser Consumer Fixture Gate
+TheOpenAbove Source Ledger Repair + Browser Consumer Fixture Gate
 ```
 
 ## Goal
@@ -38,8 +38,8 @@ This ledge must also keep central ledger parity so the same tracker, turn ledger
 
 ```txt
 Do not extract terrain, renderer, camera, or HUD into shared kits.
-Do not retune burner, vent, buoyancy, wind, camera, or rope fade constants.
-Do not change the balloon model or object-kit profile.
+Do not retune burner, vent, buoyancy, wind, or camera constants.
+Do not change the balloon model, basket detail, rigging, rope fade, or object-kit profile.
 Do not add Cloud Basin or new route progression.
 Do not remove legacy FLIGHT fields until compatibility handling is explicit.
 Do not create a branch.
