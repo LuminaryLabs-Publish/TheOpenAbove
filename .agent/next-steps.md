@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-36-24-04-00`
+**Timestamp:** `2026-07-09T11-50-08-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Parity + GameHost Source Fixture Gate
+TheOpenAbove Source Consumer Ledger + GameHost Source Readback Fixture Gate
 ```
 
 ## Goal
@@ -42,6 +42,7 @@ Do not retune burner, vent, buoyancy, wind, camera, or rope fade constants.
 Do not change the balloon model or object-kit profile.
 Do not add Cloud Basin or new route progression.
 Do not remove legacy FLIGHT fields until compatibility handling is explicit.
+Do not create a branch.
 ```
 
 ## Stop condition for the next implementation pass
