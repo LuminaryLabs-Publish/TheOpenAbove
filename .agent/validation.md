@@ -1,18 +1,20 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T22-08-07-04-00`
+**Timestamp:** `2026-07-08T22-19-38-04-00`
 
 ## Performed in this pass
 
 ```txt
 read accessible LuminaryLabs-Publish repository list
-sampled current root .agent/START_HERE.md state across checked non-Cavalry Publish repos
 read central TheOpenAbove repo ledger
+read repo-local TheOpenAbove .agent state
 read TheOpenAbove README.md
 read TheOpenAbove package.json
+read TheOpenAbove index.html
 read TheOpenAbove src/main.js
 read TheOpenAbove src/data/campaign.config.js
-read TheOpenAbove root .agent files
+read TheOpenAbove src/hot-air-balloon-object-kit.js
+read TheOpenAbove tests/smoke.mjs
 wrote timestamped tracker and turn ledger
 wrote timestamped architecture audit
 wrote timestamped render audit
@@ -92,7 +94,7 @@ npm_build_runs_source_fixture_before_vite_build
 ## Current validation status
 
 ```txt
-status: documentation-only source fixture acceptance gate pass complete
+status: documentation-only source readback catch-up pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
