@@ -1,12 +1,12 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-09T14-58-42-04-00`
+**Timestamp:** `2026-07-09T15-09-09-04-00`
 
 ## Performed in this pass
 
 ```txt
 read accessible LuminaryLabs-Publish repository list
-read central LuminaryLabs-Dev/LuminaryLabs repo ledger files
+read central LuminaryLabs-Dev/LuminaryLabs repo ledger state
 read repo-local TheOpenAbove .agent state
 read README.md
 read package.json
@@ -14,7 +14,6 @@ read index.html
 read src/main.js
 read src/data/campaign.config.js
 read src/hot-air-balloon-object-kit.js
-read tests/smoke.mjs
 updated repo-local .agent root docs
 created timestamped tracker and turn ledger
 created architecture, render, gameplay, route-source, and deploy audits
