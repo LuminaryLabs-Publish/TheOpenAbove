@@ -1,6 +1,6 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T03-20-01-04-00`
+**Timestamp:** `2026-07-09T03-29-29-04-00`
 
 ## Summary
 
@@ -8,7 +8,7 @@
 
 The live app already exposes burner and vent input, balloon drift physics, basket camera blend, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()`. The mismatch is that `README.md`, `package.json`, and `src/data/campaign.config.js` still describe the older free-flight route.
 
-This pass keeps the next cut narrow: build source modules, acceptance/readback ledgers, browser consumer fixture rows, and additive `GameHost.getState().source` diagnostics before changing visuals, physics, camera tuning, route progression, or reusable-kit boundaries.
+This pass keeps the next cut narrow: freeze the source manifest and consumer contract so implementation agents can add additive `.source` diagnostics and DOM-free fixtures without changing visible route behavior.
 
 ## Current route
 
@@ -140,10 +140,15 @@ implemented:
 
 next-cut source/readback kits:
   open-above-product-copy-authority-kit
+  open-above-readme-route-copy-parity-kit
+  open-above-package-description-parity-kit
+  open-above-campaign-current-route-authority-kit
+  open-above-legacy-flight-compatibility-kit
   open-above-balloon-drift-config-kit
   open-above-source-manifest-kit
   open-above-balloon-source-fingerprint-kit
   open-above-balloon-source-snapshot-kit
+  open-above-source-acceptance-result-kit
   open-above-source-acceptance-ledger-kit
   open-above-source-readback-ledger-kit
   open-above-gamehost-source-readback-kit
@@ -158,5 +163,5 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Authority Ledger Freeze + GameHost Browser Consumer Fixture Gate
+TheOpenAbove Source Manifest Consumer Freeze + Central Ledger Catch-Up Fixture Gate
 ```
