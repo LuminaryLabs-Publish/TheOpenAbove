@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T15-09-09-04-00`
+**Timestamp:** `2026-07-09T17-58-53-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Ledger Repair + Browser Consumer Fixture Gate
+TheOpenAbove Balloon Drift Source Readback Ledger + Browser Consumer Fixture Gate
 ```
 
 ## Goal
@@ -17,7 +17,7 @@ This ledge must also keep central ledger parity so the same tracker, turn ledger
 ## Implementation checklist
 
 - [ ] Add `src/source/open-above-product.js` with current product copy for Balloon Drift.
-- [ ] Add `src/source/balloon-drift.config.js` with the inline runtime defaults currently inside `src/main.js`.
+- [ ] Add `src/source/balloon-drift.config.js` with inline runtime defaults currently inside `src/main.js`.
 - [ ] Add `src/source/legacy-flight-compatibility.js` that explicitly marks old `FLIGHT` values as compatibility-only until removed.
 - [ ] Add `src/source/altitude-bands.js` for ground clearance, low drift, cruising, high drift, and soft ceiling ranges.
 - [ ] Add `src/source/route-descriptors.js` for lift guide, wind lane, scenic drift, basket view, and safe landing descriptors.
