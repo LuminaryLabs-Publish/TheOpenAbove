@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T00-30-24-04-00`
+**Last aligned:** `2026-07-09T00-40-20-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, absent from central tracking,
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible current sampled alignment among checked non-excluded repos. The live app remains a hot-air-balloon drift experience, while durable product/campaign/package source still describes the older free-flight route and the browser consumer readback fixture is not implemented yet.
+`TheOpenAbove` was selected because the central ledger still pointed at the older `2026-07-08T22-19-38-04-00` pass while repo-local docs had already advanced to the source-module consumer splice queue. This pass keeps that direction but makes the next gate more explicit: source readback ledger splice plus browser consumer fixture rows.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / sampled alignment 2026-07-08T22-51-43-04-00
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / sampled alignment 2026-07-09T00-00-41-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible sampled alignment 2026-07-08T22-19-38-04-00
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central alignment 2026-07-08T22-51-43-04-00
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central alignment 2026-07-09T00-00-41-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / central ledger stale at 2026-07-08T22-19-38-04-00 / repo-local source queue present
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / sampled alignment 2026-07-08T22-58-02-04-00
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / sampled alignment 2026-07-09T00-09-22-04-00
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / sampled alignment 2026-07-08T23-40-55-04-00
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / sampled alignment 2026-07-08T22-38-17-04-00
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / sampled alignment 2026-07-09T00-20-08-04-00
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / sampled alignment 2026-07-08T23-19-33-04-00
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central alignment 2026-07-08T22-58-02-04-00
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central alignment 2026-07-09T00-09-22-04-00
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central alignment 2026-07-08T23-40-55-04-00
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central alignment 2026-07-08T22-38-17-04-00
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central alignment 2026-07-09T00-20-08-04-00
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central alignment 2026-07-08T23-19-33-04-00
 ```
 
 ## Current product read
@@ -86,7 +86,7 @@ open index.html
 ```txt
 README/package/campaign/runtime markers
   -> OPEN_ABOVE_PRODUCT
-  -> BALLOON_DRIFT
+  -> BALLOON_DRIFT_CONFIG
   -> ALTITUDE_BANDS
   -> ROUTE_OBJECTS
   -> WIND_LANE_HINTS
@@ -95,10 +95,11 @@ README/package/campaign/runtime markers
   -> SourceSnapshot
   -> SourceAcceptanceResult[]
   -> SourceAcceptanceLedger
+  -> SourceReadbackLedgerSplice
+  -> BrowserConsumerFixtureRow[]
   -> GameHostSourceReadback
   -> window.GameHost.getState().source
   -> DOM-free source fixture
-  -> browser consumer readback fixture row
   -> npm run check fixture gate
 ```
 
@@ -109,13 +110,13 @@ README/package/campaign/runtime markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T00-30-24-04-00-source-module-consumer-splice-dsk-map.md
-.agent/render-audit/2026-07-09T00-30-24-04-00-gamehost-source-consumer-readback-map.md
-.agent/gameplay-audit/2026-07-09T00-30-24-04-00-balloon-drift-config-authority-loop.md
-.agent/route-source-audit/2026-07-09T00-30-24-04-00-browser-consumer-fixture-matrix.md
-.agent/deploy-audit/2026-07-09T00-30-24-04-00-source-fixture-check-gate.md
-.agent/trackers/2026-07-09T00-30-24-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T00-30-24-04-00.md
+.agent/architecture-audit/2026-07-09T00-40-20-04-00-source-readback-ledger-splice-dsk-map.md
+.agent/render-audit/2026-07-09T00-40-20-04-00-gamehost-source-readback-ledger-map.md
+.agent/gameplay-audit/2026-07-09T00-40-20-04-00-balloon-drift-consumer-loop.md
+.agent/route-source-audit/2026-07-09T00-40-20-04-00-source-readback-ledger-splice-contract.md
+.agent/deploy-audit/2026-07-09T00-40-20-04-00-check-script-source-fixture-splice.md
+.agent/trackers/2026-07-09T00-40-20-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T00-40-20-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -144,6 +145,7 @@ src/source/source-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
 src/source/source-acceptance.js
+src/source/source-readback-ledger.js
 src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
 ```
@@ -157,5 +159,5 @@ Do not extract renderer/world/camera systems, add new regions, tune physics cons
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Source Module Consumer Splice + Browser Readback Fixture Gate
+TheOpenAbove Source Readback Ledger Splice + Browser Consumer Fixture Gate
 ```
