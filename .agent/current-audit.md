@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-01-23-04-00`
+**Timestamp:** `2026-07-08T20-10-32-04-00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable README/package/campaign source.
 
-This pass keeps the prior source-manifest direction but narrows the handoff into a source-authority consumer fixture gate: add source modules and fixtures, preserve the visible route, expose additive `GameHost` source diagnostics, and wire the fixture into `npm run check` only after the DOM-free proof exists.
+This pass keeps the source-manifest direction and tightens it into a central-ledger catch-up plus source-contract gate: add product/config/source modules and fixtures, preserve the visible route, expose additive `GameHost` source diagnostics, and wire the fixture into `npm run check` only after DOM-free proof exists.
 
 ## Current route
 
@@ -73,7 +73,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected because its previous alignment was older than the other sampled non-excluded repos and source authority remains the highest-value unresolved seam for this repo
+  TheOpenAbove selected because central tracking lagged repo-local source-authority docs and the source contract remains unresolved
 ```
 
 ## Evidence snapshot
@@ -91,8 +91,8 @@ src/data/campaign.config.js:
 src/main.js:
   imports CAMPAIGN and WORLD, seeds `${WORLD.seed}-balloon-drift`, builds balloon objects, and owns burner, vent, wind, buoyancy, altitude, camera, HUD, and GameHost snapshots inline.
 
-tests/smoke.mjs:
-  proves current route markers and balloon kit markers but does not yet prove product/config/runtime/source parity.
+src/hot-air-balloon-object-kit.js:
+  composes envelope, mouth, streamers, seams, basket, rigging, burner, and rope sub-kits into the live balloon visual object.
 ```
 
 ## Domains in use
@@ -317,15 +317,15 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T20-01-23-04-00-balloon-source-authority-dsk-breakdown.md
-.agent/render-audit/2026-07-08T20-01-23-04-00-gamehost-source-readback-consumer-map.md
-.agent/gameplay-audit/2026-07-08T20-01-23-04-00-runtime-constant-parity-loop.md
-.agent/route-source-audit/2026-07-08T20-01-23-04-00-source-acceptance-row-map.md
-.agent/deploy-audit/2026-07-08T20-01-23-04-00-check-build-source-fixture-gate.md
+.agent/architecture-audit/2026-07-08T20-10-32-04-00-source-authority-catchup-dsk-map.md
+.agent/render-audit/2026-07-08T20-10-32-04-00-gamehost-source-readback-fixture-sync.md
+.agent/gameplay-audit/2026-07-08T20-10-32-04-00-balloon-drift-source-loop.md
+.agent/route-source-audit/2026-07-08T20-10-32-04-00-central-ledger-catchup-source-contract.md
+.agent/deploy-audit/2026-07-08T20-10-32-04-00-check-fixture-build-wire-map.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Balloon Drift Source Authority Consumer Fixture Gate
+TheOpenAbove Central Ledger Catch-up + Balloon Drift Source Contract Gate
 ```
