@@ -1,6 +1,6 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T15-09-09-04-00`
+**Timestamp:** `2026-07-09T17-58-53-04-00`
 
 ## Summary
 
@@ -119,6 +119,11 @@ open-above-hot-air-balloon-object-kit:
   retains compatibility wing/tail placeholders for old host attachment path
   animates burner and rigging sub-kits
 
+open-above-rope-kit:
+  computes sagging tube points between endpoints
+  builds tube geometry and stripe markers
+  updates rope mesh over time for sway
+
 inline host services:
   seeded
   terrainHeight
@@ -193,10 +198,10 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 
 ## Central tracking finding
 
-All checked non-Cavalry Publish repos already had central ledgers and sampled root `.agent` state. `TheOpenAbove` was selected because repo-local `.agent` state was ahead of the central ledger and the same source-readback blocker remained unresolved.
+All current public non-Cavalry Publish repos checked from the live organization page already had central ledgers and sampled root `.agent` state. `TheOpenAbove` was selected by the oldest eligible documented-selection fallback, and the same source-readback blocker remains unresolved.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Ledger Repair + Browser Consumer Fixture Gate
+TheOpenAbove Balloon Drift Source Readback Ledger + Browser Consumer Fixture Gate
 ```
