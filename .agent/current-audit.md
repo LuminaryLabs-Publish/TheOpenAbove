@@ -1,14 +1,14 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T06-20-00-04-00`
+**Timestamp:** `2026-07-09T09-18-29-04-00`
 
 ## Summary
 
-`TheOpenAbove` is a hot-air-balloon drift route whose live browser runtime is more accurate than the durable product/config source files.
+`TheOpenAbove` is a live Balloon Drift route whose visible runtime is clearer than its durable source authority.
 
-The live app already exposes burner and vent input, balloon drift physics, basket camera blend, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()`. The mismatch is that `README.md`, `package.json`, and `src/data/campaign.config.js` still describe the older free-flight route.
+The browser route already has burner and vent input, wind-drift motion, altitude safety, basket camera blend, hot-air-balloon object composition, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()` readback.
 
-This pass keeps the next cut narrow: refresh the source consumer ledger so implementation agents can add additive `.source` diagnostics and DOM-free fixtures without changing visible route behavior.
+The unresolved work is not a visual rewrite. The next implementation should freeze source ownership and fixture-readable readback so agents can safely update README/package/campaign/runtime source without breaking the current route.
 
 ## Current route
 
@@ -82,7 +82,10 @@ inline runtime domains:
 
 missing next:
   product-copy-authority
+  package-description-parity
+  campaign-current-route-authority
   legacy-flight-compatibility
+  balloon-drift-config
   source-consumer-manifest
   source-consumer-record
   source-fingerprint
@@ -92,6 +95,7 @@ missing next:
   source-readback-projection
   browser-consumer-fixture
   gamehost-source-diagnostics
+  central-ledger-parity
 ```
 
 ## Kit services in use
@@ -141,9 +145,20 @@ implemented:
   open-above-hot-air-balloon-burner-kit
   open-above-rope-kit
 
+inline candidate kits:
+  open-above-terrain-sampler-kit
+  open-above-world-generation-kit
+  open-above-wind-field-kit
+  open-above-burner-vent-intent-kit
+  open-above-balloon-drift-physics-kit
+  open-above-altitude-safety-kit
+  open-above-camera-zoom-blend-kit
+  open-above-basket-camera-kit
+  open-above-hud-telemetry-kit
+  open-above-gamehost-debug-kit
+
 next-cut source/readback kits:
   open-above-product-copy-authority-kit
-  open-above-readme-route-copy-parity-kit
   open-above-package-description-parity-kit
   open-above-campaign-current-route-authority-kit
   open-above-legacy-flight-compatibility-kit
@@ -159,6 +174,7 @@ next-cut source/readback kits:
   open-above-gamehost-source-readback-kit
   open-above-browser-consumer-readback-kit
   open-above-dom-free-source-fixture-kit
+  open-above-central-ledger-sync-kit
 ```
 
 ## Main finding
@@ -168,5 +184,5 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer Ledger Refresh + DOM-Free Fixture Gate
+TheOpenAbove Source Consumer Ledger Fixture Freeze + GameHost Source Readback Gate
 ```
