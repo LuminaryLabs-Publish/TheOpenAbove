@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T00-40-20-04-00`
+**Timestamp:** `2026-07-09T03-20-01-04-00`
 
 ## Product / source authority gaps
 
@@ -8,6 +8,7 @@
 README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
 package.json still describes standalone free-flight exploration.
 src/data/campaign.config.js still carries legacy CAMPAIGN/WORLD/FLIGHT shape for bird/free-flight style goals.
+index.html already names the visible Balloon Drift product.
 src/main.js is the live source of truth for burner, vent, wind, buoyancy, altitude, camera blend, HUD, and GameHost state.
 ```
 
@@ -28,7 +29,7 @@ There is no browser consumer fixture proving source diagnostics from the active 
 window.GameHost.getState().local exists.
 window.GameHost.getState().nexusEngine exists.
 window.GameHost.getState().source does not exist yet.
-GameHost does not expose product route, source mismatch status, source fingerprint, acceptance rows, or object-kit source metadata.
+GameHost does not expose product route, source mismatch status, source fingerprint, acceptance rows, object-kit source metadata, or fixture-consumer status.
 ```
 
 ## Validation gaps
@@ -48,4 +49,10 @@ The terrain, trees, lakes, clouds, and wind ribbons are inline and not yet DSK-s
 The camera blend is inline and not yet described as a source contract.
 The HUD is inline and not yet a projection contract.
 These are intentionally deferred until source authority is fixed.
+```
+
+## Current blocker
+
+```txt
+Source authority is not frozen enough for implementation agents to safely decide whether README, package metadata, campaign config, runtime constants, or GameHost diagnostics are the canonical product surface.
 ```
