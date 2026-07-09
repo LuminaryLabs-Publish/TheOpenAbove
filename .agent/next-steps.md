@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T00-40-20-04-00`
+**Timestamp:** `2026-07-09T03-20-01-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Splice + Browser Consumer Fixture Gate
+TheOpenAbove Source Authority Ledger Freeze + GameHost Browser Consumer Fixture Gate
 ```
 
 ## Goal
@@ -40,6 +40,12 @@ Do not add Cloud Basin or new route progression.
 Do not remove legacy FLIGHT fields until compatibility handling is explicit.
 ```
 
-## Stop condition
+## Stop condition for the next implementation pass
 
-Stop when `npm run check` proves the source fixture and existing smoke assertions, and browser state exposes additive `GameHost.getState().source` without changing existing local/Nexus snapshot shape.
+```txt
+node scripts/open-above-source-fixture.mjs passes
+npm run check proves the source fixture and existing smoke assertions
+npm run build completes after source fixture integration
+browser state exposes additive window.GameHost.getState().source
+existing window.GameHost.getState().local and .nexusEngine shapes remain unchanged
+```
