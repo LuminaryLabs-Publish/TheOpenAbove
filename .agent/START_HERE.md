@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T22-08-07-04-00`
+**Last aligned:** `2026-07-08T22-19-38-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, absent from the central ledge
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible sampled fallback. Its previous sampled root alignment was `2026-07-08T20-10-32-04-00`, older than the other checked non-excluded repos, and the visible Balloon Drift runtime still lacks source fixture acceptance and browser consumer readback proof.
+`TheOpenAbove` was selected because the repo-local `.agent` state had advanced beyond the central ledger, and the central ledger still needed catch-up for the Balloon Drift source fixture acceptance queue.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present / latest sampled alignment 2026-07-08T20-38-28-04-00
-LuminaryLabs-Publish/AetherVale          tracked / root .agent present / latest sampled alignment 2026-07-08T21-31-35-04-00
-LuminaryLabs-Publish/TheOpenAbove        selected / oldest sampled alignment 2026-07-08T20-10-32-04-00
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present
+LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present
+LuminaryLabs-Publish/AetherVale          tracked / root .agent present
+LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present
+LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present
+LuminaryLabs-Publish/TheOpenAbove        selected / central ledger catch-up + source fixture acceptance queue
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present / latest sampled alignment 2026-07-08T20-52-00-04-00
-LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present / latest sampled alignment 2026-07-08T21-40-45-04-00
-LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present / latest sampled alignment 2026-07-08T21-18-39-04-00
-LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present / latest sampled alignment 2026-07-08T20-21-59-04-00
-LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present / latest sampled alignment 2026-07-08T21-58-34-04-00
-LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present / latest sampled alignment 2026-07-08T21-00-12-04-00
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present
 ```
 
 ## Current product read
@@ -87,13 +87,13 @@ open index.html
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-08T22-08-07-04-00-source-fixture-acceptance-dsk-map.md
-.agent/render-audit/2026-07-08T22-08-07-04-00-gamehost-source-consumer-readback.md
-.agent/gameplay-audit/2026-07-08T22-08-07-04-00-balloon-route-source-authority-loop.md
-.agent/route-source-audit/2026-07-08T22-08-07-04-00-fixture-acceptance-consumer-wire-map.md
-.agent/deploy-audit/2026-07-08T22-08-07-04-00-check-script-fixture-gate.md
-.agent/trackers/2026-07-08T22-08-07-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T22-08-07-04-00.md
+.agent/architecture-audit/2026-07-08T22-19-38-04-00-source-readback-catchup-dsk-map.md
+.agent/render-audit/2026-07-08T22-19-38-04-00-gamehost-source-readback-contract.md
+.agent/gameplay-audit/2026-07-08T22-19-38-04-00-balloon-drift-source-acceptance-loop.md
+.agent/route-source-audit/2026-07-08T22-19-38-04-00-central-ledger-source-fixture-catchup.md
+.agent/deploy-audit/2026-07-08T22-19-38-04-00-check-build-fixture-wire-map.md
+.agent/trackers/2026-07-08T22-19-38-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T22-19-38-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -135,7 +135,7 @@ Do not extract renderer/world/camera systems, add new regions, tune physics cons
 ## Current next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Acceptance + Browser Consumer Readback Gate
+TheOpenAbove Source Readback Catch-up + Fixture Acceptance Gate
 ```
 
 Stop that ledge when fixture rows prove README, package metadata, campaign copy, `BALLOON_DRIFT`, `SOURCE_MANIFEST`, altitude bands, route objects, wind lane hints, source fingerprint, source snapshot, acceptance ledger, GameHost source readback, existing local/nexus shapes, and `npm run check` integration without requiring DOM, canvas, WebGL, Three.js renderer boot, or Nexus runtime boot.
