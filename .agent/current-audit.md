@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-10-32-04-00`
+**Timestamp:** `2026-07-08T22-08-07-04-00`
 
 ## Summary
 
-`TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable README/package/campaign source.
+`TheOpenAbove` is a hot-air-balloon drift route whose public/runtime surface is ahead of its durable source authority. The route plays as Balloon Drift, but README/package/campaign source still carries older free-flight language and `src/main.js` owns the live drift constants inline.
 
-This pass keeps the source-manifest direction and tightens it into a central-ledger catch-up plus source-contract gate: add product/config/source modules and fixtures, preserve the visible route, expose additive `GameHost` source diagnostics, and wire the fixture into `npm run check` only after DOM-free proof exists.
+This pass keeps the next work narrow: implement source fixture acceptance and browser consumer readback before renderer extraction, mission reducer work, world expansion, or reusable kit promotion.
 
 ## Current route
 
@@ -33,25 +33,6 @@ open app
   -> runtime updates altitude, wind, distance, heat, camera mode, Nexus telemetry, and GameHost state
 ```
 
-## Runtime loop
-
-```txt
-src/main.js
-  -> imports Three.js CDN
-  -> imports NexusEngine CDN
-  -> imports CAMPAIGN and WORLD
-  -> imports hot-air-balloon object kit
-  -> builds terrain, lakes, trees, clouds, wind ribbons
-  -> builds hot-air-balloon visual object
-  -> samples keyboard and wheel input
-  -> integrates burner, vent, wind, buoyancy, vertical velocity, altitude, and distance inline
-  -> animates balloon sub-kits
-  -> ticks Nexus telemetry kit
-  -> renders Three.js frame
-  -> writes HUD
-  -> exposes GameHost local/nexus state
-```
-
 ## Repo-list / ledger comparison
 
 ```txt
@@ -73,7 +54,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected because central tracking lagged repo-local source-authority docs and the source contract remains unresolved
+  TheOpenAbove selected as oldest eligible sampled fallback with unresolved source fixture acceptance and browser consumer readback proof
 ```
 
 ## Evidence snapshot
@@ -273,7 +254,6 @@ open-above-product-copy-authority-kit
 open-above-readme-route-copy-parity-kit
 open-above-package-description-parity-kit
 open-above-campaign-current-route-authority-kit
-open-above-legacy-flight-compatibility-kit
 open-above-balloon-drift-config-kit
 open-above-source-manifest-kit
 open-above-balloon-source-fingerprint-kit
@@ -285,14 +265,10 @@ open-above-source-acceptance-fixture-kit
 open-above-source-module-consumer-splice-kit
 open-above-runtime-constant-parity-kit
 open-above-altitude-band-contract-kit
-open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
-open-above-route-object-evaluator-kit
 open-above-wind-lane-hint-kit
-open-above-route-fixture-harness-kit
 open-above-browser-consumer-fixture-kit
 open-above-deploy-build-contract-kit
-open-above-mission-snapshot-projector-kit
 ```
 
 ## Main finding
@@ -305,11 +281,12 @@ The source authority queue should come first:
 README/package/campaign copy correction
   -> OPEN_ABOVE_PRODUCT source object
   -> BALLOON_DRIFT config beside compatibility-only FLIGHT
+  -> ALTITUDE_BANDS / ROUTE_OBJECTS / WIND_LANE_HINTS
   -> SOURCE_MANIFEST
   -> source fingerprint and source snapshot
-  -> SourceAcceptanceResult rows
+  -> SourceAcceptanceLedger
+  -> DOM-free source fixture rows
   -> GameHost source diagnostics projection
-  -> DOM-free source/config fixture rows
   -> source-module consumer splice in src/main.js
   -> npm run check fixture integration
 ```
@@ -317,15 +294,15 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T20-10-32-04-00-source-authority-catchup-dsk-map.md
-.agent/render-audit/2026-07-08T20-10-32-04-00-gamehost-source-readback-fixture-sync.md
-.agent/gameplay-audit/2026-07-08T20-10-32-04-00-balloon-drift-source-loop.md
-.agent/route-source-audit/2026-07-08T20-10-32-04-00-central-ledger-catchup-source-contract.md
-.agent/deploy-audit/2026-07-08T20-10-32-04-00-check-fixture-build-wire-map.md
+.agent/architecture-audit/2026-07-08T22-08-07-04-00-source-fixture-acceptance-dsk-map.md
+.agent/render-audit/2026-07-08T22-08-07-04-00-gamehost-source-consumer-readback.md
+.agent/gameplay-audit/2026-07-08T22-08-07-04-00-balloon-route-source-authority-loop.md
+.agent/route-source-audit/2026-07-08T22-08-07-04-00-fixture-acceptance-consumer-wire-map.md
+.agent/deploy-audit/2026-07-08T22-08-07-04-00-check-script-fixture-gate.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Central Ledger Catch-up + Balloon Drift Source Contract Gate
+TheOpenAbove Source Fixture Acceptance + Browser Consumer Readback Gate
 ```
