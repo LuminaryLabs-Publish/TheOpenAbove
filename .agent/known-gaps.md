@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-18-29-04-00`
+**Timestamp:** `2026-07-09T09-29-24-04-00`
 
 ## Product / source authority gaps
 
@@ -31,6 +31,14 @@ window.GameHost.getState().local exists.
 window.GameHost.getState().nexusEngine exists.
 window.GameHost.getState().source does not exist yet.
 GameHost does not expose product route, source mismatch status, source fingerprint, acceptance rows, object-kit source metadata, source consumer ledger rows, or fixture-consumer status.
+```
+
+## Central ledger gaps
+
+```txt
+The central ledger previously pointed at 2026-07-09T06-20-00-04-00.
+Repo-local .agent state had advanced to 2026-07-09T09-18-29-04-00 before this pass.
+The next source fixture must keep central ledger, repo-local kit registry, and latest tracker aligned after implementation.
 ```
 
 ## Validation gaps
