@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T15-09-09-04-00`
+**Last aligned:** `2026-07-09T17-58-53-04-00`
 
 ## Purpose
 
@@ -12,29 +12,28 @@ Read this folder before changing implementation code.
 
 ## Current selection result
 
-The accessible `LuminaryLabs-Publish` organization repo list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
+The current public `LuminaryLabs-Publish` organization repo list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
 
 No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocumented, recently added but undocumented, or missing sampled root `.agent/START_HERE.md` state.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as a central-ledger repair target because repo-local `.agent` state had advanced to `2026-07-09T14-58-42-04-00` while the central ledger still pointed to `2026-07-09T14-50-21-04-00`.
+`TheOpenAbove` was selected as the oldest eligible documented-selection fallback among the current public non-Cavalry Publish repos.
 
-This pass refreshes repo-local and central tracking to `2026-07-09T15-09-09-04-00` and keeps the next source-authority ledge focused on a fixture-readable Balloon Drift source readback layer.
+This pass refreshes repo-local and central tracking to `2026-07-09T17-58-53-04-00` and keeps the next source-authority ledge focused on a fixture-readable Balloon Drift source readback layer.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / newest public listing
 LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present
-LuminaryLabs-Publish/TheOpenAbove         selected / repo-local .agent ahead of central ledger
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present
 LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present
-LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present
 LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present
+LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
+LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible documented fallback
 ```
 
 ## Current product read
@@ -52,6 +51,7 @@ src/data/campaign.config.js: still carries thermalTarget, gateTarget, returnRadi
 index.html: current hot-air-balloon route title/description
 src/main.js: actual burner/vent/wind/altitude/basket-camera Balloon Drift runtime
 src/hot-air-balloon-object-kit.js: active visual object kit and sub-kit metadata
+tests/smoke.mjs: current hot-air-balloon route and object-kit checks
 ```
 
 ## Current interaction loop
@@ -73,28 +73,6 @@ open index.html
   -> window.GameHost.getState() exposes local and Nexus balloon telemetry
 ```
 
-## Target proof loop
-
-```txt
-README/package/campaign/runtime/object-kit markers
-  -> OpenAboveProductRecord
-  -> BalloonDriftConfigRecord
-  -> LegacyFlightCompatibilityRecord
-  -> SourceConsumerManifest
-  -> SourceConsumerRecord[]
-  -> SourceFingerprint
-  -> SourceSnapshot
-  -> SourceAcceptanceResult[]
-  -> SourceAcceptanceLedger
-  -> SourceConsumerLedger
-  -> SourceReadbackProjection
-  -> GameHostSourceReadback
-  -> window.GameHost.getState().source
-  -> DOM-free source fixture
-  -> npm run check fixture gate
-  -> central ledger parity row
-```
-
 ## First files to read
 
 ```txt
@@ -102,13 +80,13 @@ README/package/campaign/runtime/object-kit markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T15-09-09-04-00-source-ledger-repair-dsk-map.md
-.agent/render-audit/2026-07-09T15-09-09-04-00-gamehost-source-readback-central-sync.md
-.agent/gameplay-audit/2026-07-09T15-09-09-04-00-balloon-drift-source-authority-loop.md
-.agent/route-source-audit/2026-07-09T15-09-09-04-00-product-runtime-source-parity-contract.md
-.agent/deploy-audit/2026-07-09T15-09-09-04-00-source-fixture-central-ledger-gate.md
-.agent/trackers/2026-07-09T15-09-09-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T15-09-09-04-00.md
+.agent/architecture-audit/2026-07-09T17-58-53-04-00-balloon-drift-source-readback-dsk-map.md
+.agent/render-audit/2026-07-09T17-58-53-04-00-gamehost-source-consumer-readback.md
+.agent/gameplay-audit/2026-07-09T17-58-53-04-00-balloon-drift-runtime-loop.md
+.agent/route-source-audit/2026-07-09T17-58-53-04-00-product-runtime-parity-contract.md
+.agent/deploy-audit/2026-07-09T17-58-53-04-00-source-fixture-build-gate.md
+.agent/trackers/2026-07-09T17-58-53-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T17-58-53-04-00.md
 .agent/kit-registry.json
 ```
 
