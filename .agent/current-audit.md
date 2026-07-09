@@ -1,14 +1,14 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T00-30-24-04-00`
+**Timestamp:** `2026-07-09T00-40-20-04-00`
 
 ## Summary
 
-`TheOpenAbove` is a hot-air-balloon drift route whose browser runtime is clearer than its durable source authority.
+`TheOpenAbove` is a hot-air-balloon drift route whose live browser runtime is more accurate than the durable product/config source files.
 
-The live app already exposes burner/vent input, balloon drift physics, basket camera blend, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()`, but README/package/campaign source still describes the older free-flight route and no source readback fixture proves product/config/runtime parity.
+The live app already exposes burner and vent input, balloon drift physics, basket camera blend, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()`. The mismatch is that `README.md`, `package.json`, and `src/data/campaign.config.js` still describe the older free-flight route.
 
-This pass keeps the next cut narrow: source module consumer splice, GameHost `.source` readback, DOM-free fixture rows, and `npm run check` integration before renderer extraction, route progression, world expansion, or reusable kit promotion.
+This pass keeps the next cut narrow: build source modules, acceptance/readback ledgers, browser consumer fixture rows, and additive `GameHost.getState().source` diagnostics before changing visuals, physics, camera tuning, route progression, or reusable-kit boundaries.
 
 ## Current route
 
@@ -19,187 +19,116 @@ index.html
   -> NexusEngine main CDN
   -> src/data/campaign.config.js
   -> src/hot-air-balloon-object-kit.js
-  -> inline terrain / lake / tree / cloud / wind-ribbon generation
-  -> inline balloon drift / camera / HUD / GameHost loop
+  -> inline world generation
+  -> inline balloon drift state
+  -> inline camera and HUD projection
+  -> window.GameHost.getState()
 ```
 
-## Current interaction loop
+## Interaction loop
 
 ```txt
 open app
-  -> read Balloon Drift HUD
-  -> hold Space / W / ArrowUp for burner lift
-  -> hold S / ArrowDown / Shift for vent descent
-  -> procedural wind drifts the balloon
-  -> wheel changes camera zoom and near-basket blend
-  -> runtime updates altitude, wind, distance, heat, camera mode, Nexus telemetry, and GameHost state
-```
-
-## Repo-list / ledger comparison
-
-```txt
-checked LuminaryLabs-Publish repos:
-  AetherVale
-  HorrorCorridor
-  IntoTheMeadow
-  MyCozyIsland
-  PhantomCommand
-  PrehistoricRush
-  TheCavalryOfRome
-  TheOpenAbove
-  TheUnmappedHouse
-  ZombieOrchard
-
-central ledger / root-agent check:
-  non-Cavalry repos are represented in repo-ledger/LuminaryLabs-Publish/
-  sampled root .agent/START_HERE.md state exists for checked non-Cavalry repos
-  TheCavalryOfRome remains excluded
-
-selection:
-  TheOpenAbove selected as the oldest eligible current sampled alignment among checked non-excluded repos
-```
-
-## Evidence snapshot
-
-```txt
-README.md:
-  still says free-flight exploration, carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
-
-package.json:
-  still says standalone free-flight exploration.
-
-src/data/campaign.config.js:
-  exports CAMPAIGN/WORLD plus legacy FLIGHT values for pitch, roll, yaw, boost, thermals, gates, perch, and terrain clearance.
-
-src/main.js:
-  imports CAMPAIGN and WORLD, seeds `${WORLD.seed}-balloon-drift`, builds balloon objects, and owns burner, vent, wind, buoyancy, altitude, camera, HUD, and GameHost snapshots inline.
-
-src/hot-air-balloon-object-kit.js:
-  composes envelope, mouth, streamers, seams, basket, rigging, burner, and rope sub-kits into the live balloon visual object.
-
-tests/smoke.mjs:
-  validates route markers, basket experience markers, object-kit markers, rope/rigging/envelope markers, and Vite base, but not source readback or product/config/runtime parity.
+  -> canvas and HUD mount
+  -> createGame()
+  -> terrain/lakes/trees/clouds/wind ribbons are generated
+  -> buildHotAirBalloon() creates visual object from sub-kits
+  -> keydown/keyup/blur/wheel handlers mutate input/camera state
+  -> update(dt) integrates burner, vent, wind, buoyancy, altitude, velocity, position, and distance
+  -> animateHotAirBalloon() updates burner flame and rigging animation
+  -> NexusEngine telemetry kit publishes openAbove.balloonSnapshot and openAbove.balloonTicked
+  -> draw(dt) blends third-person and basket camera, rope fade, ride bob, sway, burner vibration, and first-person visibility
+  -> renderer.render(scene, camera)
+  -> HUD projects current route text and telemetry
+  -> GameHost exposes local and Nexus telemetry
 ```
 
 ## Domains in use
 
 ```txt
-runtime / host:
-  static-page-host, vite-static-publish-host, third-party-cdn-runtime, three-render-host, nexus-engine-cdn-runtime, nexus-telemetry-kit, window-gamehost-debug, source-consumer-readback
+implemented/source-backed:
+  static-browser-shell
+  vite-static-publish
+  three-render-host
+  nexusengine-realtime-telemetry
+  hot-air-balloon-object
+  balloon-envelope-panel
+  balloon-mouth
+  balloon-streamer-fit
+  balloon-fabric-seam
+  basket-object
+  rigging-object
+  burner-object
+  rope-object
 
-object / visual:
-  hot-air-balloon-object, balloon-envelope-panel, balloon-mouth, balloon-streamer-fit, balloon-fabric-seam, balloon-basket, balloon-rigging, balloon-burner, rope-geometry
+inline runtime domains:
+  terrain-height-sampling
+  terrain-coloring
+  moisture-map
+  lake-placement
+  tree-scatter
+  cloud-scatter
+  wind-ribbon-rendering
+  balloon-input-map
+  burner-vent-intent
+  wind-field
+  buoyancy-integration
+  altitude-safety
+  camera-zoom-blend
+  basket-first-person-camera
+  first-person-visibility
+  hud-telemetry
+  gamehost-debug-state
 
-world / render:
-  procedural-terrain, terrain-height-sampler, moisture-field, terrain-color-resolver, lake-generation, tree-scatter, cloud-scatter, wind-ribbon-rendering
-
-input / movement:
-  balloon-input-map, burner-vent-intent, balloon-vehicle-state, balloon-drift-physics, wind-field, altitude-safety, ceiling-softness, camera-zoom-blend
-
-camera / HUD:
-  basket-follow-camera, first-person-visibility-gate, rope-fade, ride-bob, ride-sway, burner-vibration, hud-telemetry
-
-source authority:
-  campaign-config, legacy-flight-compatibility, product-copy-authority, package-description-parity, readme-route-copy-parity, campaign-current-route-authority, balloon-drift-config-authority, source-manifest-authority, source-fingerprint, source-snapshot, source-acceptance-ledger, runtime-constant-parity, altitude-band-contract, route-object-descriptor, wind-lane-hint, browser-consumer-fixture, build-script-fixture-gate
+missing next:
+  product-copy-authority
+  source-manifest
+  source-fingerprint
+  source-snapshot
+  source-acceptance-ledger
+  source-readback-ledger
+  browser-consumer-fixture
+  gamehost-source-diagnostics
 ```
 
-## Services in use
+## Kit services in use
 
 ```txt
-current:
-  mount-canvas, mount-hud, mount-error-panel, show-fatal-runtime-error, seed-random, sample-terrain-height, sample-moisture, resolve-terrain-color, create-scene, create-camera, create-renderer, install-resize-handler, install-keyboard-input-handler, install-wheel-zoom-handler, build-terrain-geometry, build-lake-discs, scatter-trees, build-cloud-groups, build-wind-ribbon-lines, build-hot-air-balloon, animate-hot-air-balloon, smooth-burner-value, smooth-vent-value, sample-wind-angle, sample-wind-speed, write-wind-vector, compute-buoyancy, compute-altitude-damping, compute-ceiling-softness, integrate-vertical-velocity, blend-velocity-toward-wind, integrate-position, clamp-above-terrain-clearance, compute-altitude, accumulate-horizontal-distance, compute-basket-focus, compute-third-person-camera-position, compute-first-person-camera-position, blend-camera-mode, set-first-person-visibility, render-frame, write-hud-html, define-balloon-telemetry-resource, emit-balloon-ticked-event, expose-window-gamehost
+open-above-balloon-telemetry-kit:
+  defines openAbove.balloonSnapshot resource
+  defines openAbove.balloonTicked event
+  writes current snapshot into NexusEngine world resource
+  emits altitude/wind/burner telemetry per tick
+  installs engine.openAbove.getState()
 
-needed next:
-  load-open-above-product, load-balloon-drift-config, load-altitude-bands, load-route-descriptors, load-wind-lane-hints, load-source-manifest, create-source-fingerprint, create-source-snapshot, run-source-acceptance-row, append-source-acceptance-ledger-entry, create-gamehost-source-readback, splice-source-records-into-main-runtime, preserve-existing-gamehost-local-and-nexus-shapes, run-dom-free-source-fixture, run-browser-consumer-readback-row, wire-source-fixture-into-check
-```
+open-above-hot-air-balloon-object-kit:
+  composes envelope, streamers, seams, mouth, basket, rigging, burner, and rope sub-kits
+  builds procedural hot-air-balloon object
+  exposes browser global OpenAboveHotAirBalloonObjectKit
+  retains compatibility wing/tail placeholders for old host attachment path
 
-## Kits identified
-
-Implemented / source-backed:
-
-```txt
-open-above-balloon-telemetry-kit
-open-above-hot-air-balloon-object-kit
-open-above-balloon-envelope-panel-kit
-open-above-balloon-mouth-kit
-open-above-balloon-streamer-fit-kit
-open-above-balloon-fabric-seam-kit
-open-above-hot-air-balloon-basket-kit
-open-above-hot-air-balloon-rigging-kit
-open-above-hot-air-balloon-burner-kit
-open-above-rope-kit
-```
-
-Inline / candidate:
-
-```txt
-open-above-runtime-host-kit
-open-above-vite-static-publish-kit
-open-above-three-render-host-kit
-open-above-campaign-config-kit
-open-above-legacy-flight-compatibility-kit
-open-above-balloon-input-map-kit
-open-above-balloon-state-kit
-open-above-balloon-drift-physics-kit
-open-above-burner-vent-intent-kit
-open-above-wind-field-kit
-open-above-altitude-safety-kit
-open-above-ceiling-softness-kit
-open-above-terrain-sampler-kit
-open-above-world-generation-kit
-open-above-lake-generation-kit
-open-above-tree-scatter-kit
-open-above-cloud-scatter-kit
-open-above-wind-ribbon-render-kit
-open-above-basket-follow-camera-kit
-open-above-camera-zoom-blend-kit
-open-above-first-person-visibility-kit
-open-above-hud-telemetry-kit
-open-above-gamehost-debug-kit
-```
-
-Needed next:
-
-```txt
-open-above-product-copy-authority-kit
-open-above-readme-route-copy-parity-kit
-open-above-package-description-parity-kit
-open-above-campaign-current-route-authority-kit
-open-above-balloon-drift-config-kit
-open-above-source-manifest-kit
-open-above-balloon-source-fingerprint-kit
-open-above-balloon-source-snapshot-kit
-open-above-source-acceptance-result-kit
-open-above-source-acceptance-ledger-kit
-open-above-gamehost-source-readback-kit
-open-above-source-module-consumer-splice-kit
-open-above-runtime-constant-parity-kit
-open-above-altitude-band-contract-kit
-open-above-route-object-config-kit
-open-above-wind-lane-hint-kit
-open-above-dom-free-source-fixture-kit
-open-above-browser-consumer-readback-kit
-open-above-deploy-build-contract-kit
+inline host services:
+  terrainHeight
+  moistureAt
+  terrainColor
+  makeTerrain
+  makeLakes
+  makeTrees
+  makeClouds
+  makeWindRibbons
+  snapshot
+  update
+  draw
+  updateHud
+  GameHost.getState
 ```
 
 ## Main finding
 
-The next implementation should not be a renderer rewrite, camera retune, world expansion, or mission progression pass.
-
-The highest-value next cut is an additive source module consumer splice. It should source-own the Balloon Drift product/config, prove README/package/campaign/runtime agreement, expose `window.GameHost.getState().source`, and add a DOM-free fixture plus browser consumer readback rows while preserving the current `local` and `nexusEngine` host shapes.
-
-## New audit surfaces added
-
-```txt
-.agent/architecture-audit/2026-07-09T00-30-24-04-00-source-module-consumer-splice-dsk-map.md
-.agent/render-audit/2026-07-09T00-30-24-04-00-gamehost-source-consumer-readback-map.md
-.agent/gameplay-audit/2026-07-09T00-30-24-04-00-balloon-drift-config-authority-loop.md
-.agent/route-source-audit/2026-07-09T00-30-24-04-00-browser-consumer-fixture-matrix.md
-.agent/deploy-audit/2026-07-09T00-30-24-04-00-source-fixture-check-gate.md
-```
+The runtime should not be rewritten yet. The highest-value gap is source authority and browser readback: product copy, package metadata, campaign config, inline runtime defaults, visual object-kit metadata, smoke checks, and GameHost diagnostics need one consistent source ledger.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Module Consumer Splice + Browser Readback Fixture Gate
+TheOpenAbove Source Readback Ledger Splice + Browser Consumer Fixture Gate
 ```
