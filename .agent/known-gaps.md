@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T22-19-38-04-00`
+**Timestamp:** `2026-07-09T00-30-24-04-00`
 
 ## Product / source authority gaps
 
@@ -13,7 +13,7 @@ There is no canonical OPEN_ABOVE_PRODUCT source object yet.
 There is no canonical BALLOON_DRIFT config yet.
 There is no SOURCE_MANIFEST yet.
 There is no source fingerprint/snapshot proving docs/config/runtime agreement.
-There is no implemented acceptance fixture proving README, package, campaign, runtime, HUD, GameHost, and fixture state all describe the same product.
+There is no acceptance fixture proving README, package, campaign, runtime, HUD, GameHost, and fixture state all describe the same current product.
 ```
 
 ## Consumer splice gaps
@@ -40,7 +40,8 @@ No browser consumer fixture proves the new source readback is visible after runt
 
 ```txt
 Burner, vent, wind, altitude, and distance integration live inline in src/main.js.
-No RouteObject descriptors exist for the current balloon drift route.
+The visible balloon route has no canonical BALLOON_DRIFT config yet.
+No RouteObject descriptors exist for lift guidance, drift guidance, safe altitude, or meadow landing.
 No AltitudeBand descriptors exist for low-clearance, comfort-drift, high-drift, or meadow-landing states.
 No WindLaneHint descriptors exist.
 No SourceAcceptanceResult envelope exists in source.
@@ -56,8 +57,9 @@ No progression snapshot exists for unlocking Cloud Basin from balloon route comp
 Renderer creation, world generation, physics integration, camera, HUD, and GameHost exposure are all colocated in src/main.js.
 Clouds, trees, lakes, terrain, and wind ribbons are generated as renderer-side loops instead of descriptor-backed domains.
 HUD text is renderer/DOM-owned rather than projected from a source or mission snapshot.
-GameHost exposes useful local/nexus state but does not yet expose source fingerprint, source snapshot, route diagnostics, mission snapshot, product-copy parity, or fixture status.
+GameHost exposes useful local/nexus state but does not yet expose source fingerprint, source snapshot, source manifest, route diagnostics, product-copy parity, or fixture status.
 Camera blend is not fixture-readable outside the browser.
+Basket/first-person camera behavior is not source-snapshot-readable.
 ```
 
 ## Deploy/build gaps
@@ -77,6 +79,7 @@ The hot-air-balloon object family is split into useful files, but the runtime ho
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
 There is now a source-authority contract, but no implementation exists for its rows.
+There is no browser consumer readback row for window.GameHost.getState().source.
 ```
 
 ## Selection / ledger gaps
@@ -84,7 +87,7 @@ There is now a source-authority contract, but no implementation exists for its r
 ```txt
 No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
 The fallback selection rule is picking root-agent follow-up targets by oldest sampled alignment, central-ledger stale state, and remaining source-authority value.
-TheOpenAbove remains a strong follow-up target because central tracking lagged repo-local .agent state and its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
+TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
 ## Acceptance implementation gaps
@@ -99,6 +102,7 @@ balloon_drift_config_drives_runtime_defaults is not implemented.
 source_manifest_lists_all_runtime_consumers is not implemented.
 source_fingerprint_reports_copy_config_runtime_markers is not implemented.
 source_snapshot_reports_visual_object_kit is not implemented.
+source_snapshot_reports_basket_camera_defaults is not implemented.
 gamehost_reports_balloon_source_snapshot is not implemented.
 altitude_bands_have_non_overlapping_thresholds is not implemented.
 route_objects_define_lift_guides_and_landing is not implemented.
