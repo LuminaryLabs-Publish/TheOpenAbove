@@ -1,14 +1,14 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T14-58-42-04-00`
+**Timestamp:** `2026-07-09T15-09-09-04-00`
 
 ## Summary
 
-`TheOpenAbove` is a live Balloon Drift route whose browser runtime is clearer than its durable source authority.
+`TheOpenAbove` is a live Balloon Drift route whose runtime behavior is ahead of its durable source authority.
 
-The route already supports burner and vent input, wind-drift motion, altitude safety, basket camera blend, hot-air-balloon object composition, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()` readback.
+The browser runtime already supports burner and vent input, wind-drift motion, altitude safety, basket camera blend, hot-air-balloon object composition, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()` readback.
 
-The unresolved work is not a visual rewrite. The next implementation should freeze source ownership and fixture-readable readback so agents can safely update README/package/campaign/runtime source without breaking the current route.
+The unresolved work is not visual expansion. The next implementation should freeze source ownership and fixture-readable readback so agents can safely align README/package/campaign/runtime source without breaking the current route.
 
 ## Current route
 
@@ -193,10 +193,10 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 
 ## Central tracking finding
 
-All checked non-Cavalry Publish repos already had central ledgers and sampled root `.agent` state. `TheOpenAbove` remained the oldest eligible documented-selection fallback because central tracking lagged its repo-local `.agent` work.
+All checked non-Cavalry Publish repos already had central ledgers and sampled root `.agent` state. `TheOpenAbove` was selected because repo-local `.agent` state was ahead of the central ledger and the same source-readback blocker remained unresolved.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Central Sync + Browser Consumer Fixture Gate
+TheOpenAbove Source Ledger Repair + Browser Consumer Fixture Gate
 ```
