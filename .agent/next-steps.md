@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T14-50-21-04-00`
+**Timestamp:** `2026-07-09T14-58-42-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Catch-up + Browser Consumer Fixture Gate
+TheOpenAbove Source Readback Ledger Central Sync + Browser Consumer Fixture Gate
 ```
 
 ## Goal
