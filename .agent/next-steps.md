@@ -1,20 +1,18 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-10-32-04-00`
+**Timestamp:** `2026-07-08T22-08-07-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Central Ledger Catch-up + Balloon Drift Source Contract Gate
+TheOpenAbove Source Fixture Acceptance + Browser Consumer Readback Gate
 ```
 
 ## Goal
 
 Make the hot-air-balloon drift product authoritative without changing the public visual route.
 
-The implementation should prove that product copy, package metadata, campaign copy, drift config, source manifest, HUD/GameHost diagnostics, and DOM-free fixture snapshots all agree on the current balloon-drift product.
-
-This pass narrows the immediate next work to source modules, fixture rows, additive `window.GameHost.getState().source` diagnostics, and `npm run check` integration.
+The implementation should prove that product copy, package metadata, campaign copy, drift config, source manifest, HUD/GameHost diagnostics, browser consumer readback, and DOM-free fixture snapshots all agree on the current Balloon Drift product.
 
 ## Checklist
 
@@ -31,7 +29,7 @@ This pass narrows the immediate next work to source modules, fixture rows, addit
 - [ ] Preserve or mark `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
 - [ ] Mirror current inline wind, buoyancy, burner, vent, altitude, ceiling, clearance, and camera constants into config with no visible behavior change.
 - [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, and meadow-landing states.
-- [ ] Add `ROUTE_OBJECTS` for lift guidance and meadow landing.
+- [ ] Add `ROUTE_OBJECTS` for lift guidance, drift guidance, and meadow landing.
 - [ ] Add `WIND_LANE_HINTS` for readable route guidance.
 - [ ] Add `SOURCE_MANIFEST` binding product/config/route/fixture/runtime consumers.
 - [ ] Add source fingerprint and source snapshot services.
@@ -40,6 +38,7 @@ This pass narrows the immediate next work to source modules, fixture rows, addit
 - [ ] Import source modules into `src/main.js` additively.
 - [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
 - [ ] Preserve existing `window.GameHost.getState().local` and `.nexusEngine` shapes.
+- [ ] Add browser consumer readback rows for the additive `.source` field.
 - [ ] Add fixture rows for README product copy, package description, campaign text, drift config, source manifest, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
 - [ ] Add source fixture command `node scripts/open-above-source-fixture.mjs`.
 - [ ] Wire source fixture into `npm run check` only after it runs without DOM/WebGL.
@@ -66,10 +65,11 @@ This pass narrows the immediate next work to source modules, fixture rows, addit
 10. DOM-free route fixture harness
 11. GameHost source diagnostics projection
 12. src/main.js source-module consumer splice
-13. npm run check fixture integration
-14. route event result envelope
-15. route reducer and mission snapshot
-16. smoke markers for product/config/runtime parity
+13. Browser consumer readback fixture rows
+14. npm run check fixture integration
+15. route event result envelope
+16. route reducer and mission snapshot
+17. smoke markers for product/config/runtime parity
 ```
 
 ## Files to add
@@ -133,6 +133,7 @@ altitude_bands_have_non_overlapping_thresholds
 route_objects_define_lift_guides_and_landing
 wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
+browser_consumer_reads_source_projection
 existing_local_snapshot_shape_preserved
 existing_nexus_snapshot_shape_preserved
 npm_check_runs_source_fixture
