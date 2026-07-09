@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-01-23-04-00`
+**Timestamp:** `2026-07-08T20-10-32-04-00`
 
 ## Product / source authority gaps
 
@@ -74,7 +74,7 @@ No build gate proves product/config/runtime parity before vite build.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a source-authority consumer fixture contract, but no implementation exists for its rows.
+There is now a source-authority contract, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
