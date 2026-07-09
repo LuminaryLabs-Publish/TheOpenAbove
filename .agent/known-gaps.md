@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T14-58-42-04-00`
+**Timestamp:** `2026-07-09T15-09-09-04-00`
 
 ## Product / source authority gaps
 
@@ -37,7 +37,7 @@ GameHost does not expose product route, source mismatch status, source fingerpri
 
 ```txt
 Repo-local and central docs can drift when scheduled passes land close together.
-TheOpenAbove repo-local .agent had advanced to 2026-07-09T14-50-21-04-00 while the central ledger still pointed to 2026-07-09T11-50-08-04-00.
+TheOpenAbove repo-local .agent had advanced to 2026-07-09T14-58-42-04-00 while the central ledger still pointed to 2026-07-09T14-50-21-04-00.
 The next source fixture must keep central ledger, repo-local kit registry, and latest tracker aligned after implementation.
 ```
 
