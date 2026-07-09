@@ -1,6 +1,6 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T11-50-08-04-00`
+**Timestamp:** `2026-07-09T14-50-21-04-00`
 
 ## Summary
 
@@ -193,10 +193,10 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 
 ## Central tracking finding
 
-A concurrent `PrehistoricRush` docs refresh advanced that repo during this run, so `TheOpenAbove` became the oldest eligible source-readback fallback. This pass records that selection explicitly and syncs central tracking to `2026-07-09T11-50-08-04-00`.
+All checked non-Cavalry Publish repos already had central ledgers and sampled root `.agent` state. `TheOpenAbove` remained the oldest eligible documented-selection fallback, so this pass records a central catch-up/refinement around the same source-readback fixture seam.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer Ledger + GameHost Source Readback Fixture Gate
+TheOpenAbove Source Readback Ledger Catch-up + Browser Consumer Fixture Gate
 ```
