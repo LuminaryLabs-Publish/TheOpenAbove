@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T03-29-29-04-00`
+**Last aligned:** `2026-07-09T06-20-00-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocu
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected because the central ledger still pointed at `2026-07-09T00-40-20-04-00`, while repo-local `.agent` state had advanced to `2026-07-09T03-20-01-04-00`. This pass aligns both around the same unresolved source manifest consumer freeze.
+`TheOpenAbove` was selected as the oldest eligible documented fallback after same-day catch-up passes. The unresolved source consumer ledger remains the safest next ledge because the browser route is Balloon Drift while durable source/campaign/package language still retains free-flight terms.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central alignment 2026-07-09T01-09-24-04-00
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central alignment 2026-07-09T02-50-39-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / central stale at 2026-07-09T00-40-20-04-00 / repo-local 2026-07-09T03-20-01-04-00
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest 2026-07-09T04-30-54-04-00
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest 2026-07-09T05-51-49-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible central ledger alignment before this pass
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central alignment 2026-07-09T01-28-10-04-00
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central alignment 2026-07-09T03-00-46-04-00
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central alignment 2026-07-09T02-05-52-04-00
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central alignment 2026-07-09T00-50-00-04-00
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central alignment 2026-07-09T02-31-41-04-00
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central alignment 2026-07-09T02-11-07-04-00
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest 2026-07-09T04-50-00-04-00
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest 2026-07-09T06-10-35-04-00
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest 2026-07-09T05-11-22-04-00
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest 2026-07-09T03-50-12-04-00
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest 2026-07-09T05-30-27-04-00
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest 2026-07-09T05-20-42-04-00
 ```
 
 ## Current product read
@@ -88,16 +88,15 @@ open index.html
 README/package/campaign/runtime markers
   -> OPEN_ABOVE_PRODUCT
   -> BALLOON_DRIFT_CONFIG
-  -> ALTITUDE_BANDS
-  -> ROUTE_OBJECTS
-  -> WIND_LANE_HINTS
-  -> SOURCE_MANIFEST
+  -> LEGACY_FLIGHT_COMPATIBILITY
+  -> SOURCE_CONSUMER_MANIFEST
+  -> SourceConsumerRecord[]
   -> SourceFingerprint
   -> SourceSnapshot
   -> SourceAcceptanceResult[]
   -> SourceAcceptanceLedger
-  -> SourceReadbackLedgerSplice
-  -> BrowserConsumerFixtureRow[]
+  -> SourceConsumerLedger
+  -> SourceReadbackProjection
   -> GameHostSourceReadback
   -> window.GameHost.getState().source
   -> DOM-free source fixture
@@ -111,11 +110,51 @@ README/package/campaign/runtime markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T03-29-29-04-00-source-manifest-consumer-freeze-dsk-map.md
-.agent/render-audit/2026-07-09T03-29-29-04-00-gamehost-source-manifest-readback.md
-.agent/gameplay-audit/2026-07-09T03-29-29-04-00-balloon-drift-source-fixture-loop.md
-.agent/route-source-audit/2026-07-09T03-29-29-04-00-consumer-freeze-contract.md
-.agent/deploy-audit/2026-07-09T03-29-29-04-00-source-fixture-check-central-sync.md
-.agent/trackers/2026-07-09T03-29-29-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T03-29-29-04-00.md
+.agent/architecture-audit/2026-07-09T06-20-00-04-00-source-consumer-ledger-refresh-dsk-map.md
+.agent/render-audit/2026-07-09T06-20-00-04-00-gamehost-source-consumer-readback.md
+.agent/gameplay-audit/2026-07-09T06-20-00-04-00-balloon-drift-source-ledger-loop.md
+.agent/route-source-audit/2026-07-09T06-20-00-04-00-consumer-ledger-refresh-contract.md
+.agent/deploy-audit/2026-07-09T06-20-00-04-00-dom-free-fixture-check-map.md
+.agent/trackers/2026-07-09T06-20-00-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T06-20-00-04-00.md
+.agent/kit-registry.json
+```
+
+## Source files to inspect next
+
+```txt
+README.md
+package.json
+index.html
+src/main.js
+src/data/campaign.config.js
+src/hot-air-balloon-object-kit.js
+tests/smoke.mjs
+```
+
+## Source files to add next
+
+```txt
+src/source/open-above-product.js
+src/source/balloon-drift.config.js
+src/source/legacy-flight-compatibility.js
+src/source/source-consumer-manifest.js
+src/source/source-fingerprint.js
+src/source/source-snapshot.js
+src/source/source-acceptance.js
+src/source/source-consumer-ledger.js
+src/source/gamehost-source-readback.js
+scripts/open-above-source-fixture.mjs
+```
+
+## Main rule
+
+Keep the current static route, balloon visual object, `window.GameHost.getState().local`, `window.GameHost.getState().nexusEngine`, camera readability, HUD readability, burner/vent physics, and NexusEngine CDN telemetry stable.
+
+Do not extract terrain, renderer, camera, HUD, or physics until the source consumer ledger fixture proves product copy, package metadata, campaign config, runtime constants, object-kit metadata, GameHost projection, and central ledger sync.
+
+## Current next safe ledge
+
+```txt
+TheOpenAbove Source Consumer Ledger Refresh + DOM-Free Fixture Gate
 ```
