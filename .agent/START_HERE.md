@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T09-36-24-04-00`
+**Last aligned:** `2026-07-09T11-50-08-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocu
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected because repo-local `.agent` state had advanced to `2026-07-09T09-29-24-04-00` while the central ledger still pointed at `2026-07-09T09-18-29-04-00` at read time. This pass creates a fresh `2026-07-09T09-36-24-04-00` tracker/audit set and syncs central tracking to the same target.
+`TheOpenAbove` was selected as the oldest eligible documented fallback after a concurrent `PrehistoricRush` refresh advanced that repo to `2026-07-09T11-46-08-04-00`. Before this pass, `TheOpenAbove` central tracking still pointed at `2026-07-09T09-36-24-04-00` and the source-readback/GameHost-source fixture seam remained unresolved.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest observed 2026-07-09T06-28-53-04-00
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest observed 2026-07-09T07-05-52-04-00
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest observed 2026-07-09T08-50-00-04-00
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest observed 2026-07-09T07-41-29-04-00
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest observed 2026-07-09T08-02-33-04-00
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest observed 2026-07-09T08-29-38-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / repo-local newer than central ledger
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest observed 2026-07-09T07-19-41-04-00
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest observed 2026-07-09T09-50-00-04-00
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest observed 2026-07-09T10-10-32-04-00
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest observed 2026-07-09T11-30-50-04-00
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest observed 2026-07-09T10-40-00-04-00
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest observed 2026-07-09T11-00-39-04-00
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest observed 2026-07-09T11-21-06-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible source-readback fallback
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest observed 2026-07-09T10-29-02-04-00
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest observed 2026-07-09T09-10-50-04-00
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest observed 2026-07-09T11-46-08-04-00
 ```
 
 ## Current product read
@@ -56,8 +56,8 @@ index.html
 The durable source mismatch remains:
 
 ```txt
-README.md: still describes free-flight carving/gliding/diving/boosting
-package.json: describes standalone free-flight exploration
+README.md: still describes older free-flight carving/gliding/diving/boosting
+package.json: still describes standalone free-flight exploration
 src/data/campaign.config.js: carries thermalTarget, gateTarget, returnRadius, perch, start speed, and FLIGHT fields
 index.html: current hot-air-balloon route title/description
 src/main.js: actual burner/vent/wind/altitude/basket-camera Balloon Drift runtime
@@ -112,13 +112,13 @@ README/package/campaign/runtime/object-kit markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T09-36-24-04-00-source-readback-ledger-parity-dsk-map.md
-.agent/render-audit/2026-07-09T09-36-24-04-00-gamehost-source-consumer-readback.md
-.agent/gameplay-audit/2026-07-09T09-36-24-04-00-balloon-drift-source-authority-loop.md
-.agent/route-source-audit/2026-07-09T09-36-24-04-00-source-fixture-central-ledger-contract.md
-.agent/deploy-audit/2026-07-09T09-36-24-04-00-source-fixture-check-wire-map.md
-.agent/trackers/2026-07-09T09-36-24-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T09-36-24-04-00.md
+.agent/architecture-audit/2026-07-09T11-50-08-04-00-source-consumer-ledger-gamehost-readback-dsk-map.md
+.agent/render-audit/2026-07-09T11-50-08-04-00-gamehost-source-readback-consumer-freeze.md
+.agent/gameplay-audit/2026-07-09T11-50-08-04-00-balloon-drift-source-consumer-loop.md
+.agent/route-source-audit/2026-07-09T11-50-08-04-00-source-ledger-fixture-contract.md
+.agent/deploy-audit/2026-07-09T11-50-08-04-00-source-fixture-check-build-gate.md
+.agent/trackers/2026-07-09T11-50-08-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T11-50-08-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -139,19 +139,10 @@ tests/smoke.mjs
 ```txt
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
-src/source/legacy-flight-compatibility.js
-src/source/altitude-bands.js
-src/source/route-descriptors.js
-src/source/wind-lane-hints.js
 src/source/source-consumer-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
-src/source/source-acceptance.js
 src/source/source-consumer-ledger.js
 src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
 ```
-
-## Main rule
-
-Do not add new gameplay, route progression, terrain extraction, renderer extraction, camera retuning, or balloon visual changes before the current Balloon Drift source authority is fixture-readable and central tracking points at the same source ledger as repo-local `.agent`.
