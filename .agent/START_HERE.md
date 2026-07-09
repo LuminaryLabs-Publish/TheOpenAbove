@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T00-40-20-04-00`
+**Last aligned:** `2026-07-09T03-20-01-04-00`
 
 ## Purpose
 
@@ -14,25 +14,25 @@ Read this folder before changing implementation code.
 
 The accessible `LuminaryLabs-Publish` repository list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
 
-No checked non-Cavalry Publish repo was fully new, absent from central tracking, undocumented, recently added but undocumented, or missing sampled root `.agent/START_HERE.md` state.
+No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocumented, recently added but undocumented, or missing sampled root `.agent/START_HERE.md` state.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected because the central ledger still pointed at the older `2026-07-08T22-19-38-04-00` pass while repo-local docs had already advanced to the source-module consumer splice queue. This pass keeps that direction but makes the next gate more explicit: source readback ledger splice plus browser consumer fixture rows.
+`TheOpenAbove` was selected as the oldest eligible tracked fallback. The central ledger still pointed at `2026-07-09T00-40-20-04-00`, older than the other checked non-excluded repo alignments.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central alignment 2026-07-08T22-51-43-04-00
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central alignment 2026-07-09T00-00-41-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / central ledger stale at 2026-07-08T22-19-38-04-00 / repo-local source queue present
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central alignment 2026-07-09T01-09-24-04-00
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central alignment 2026-07-09T02-50-39-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible central alignment 2026-07-09T00-40-20-04-00
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central alignment 2026-07-08T22-58-02-04-00
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central alignment 2026-07-09T00-09-22-04-00
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central alignment 2026-07-08T23-40-55-04-00
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central alignment 2026-07-08T22-38-17-04-00
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central alignment 2026-07-09T00-20-08-04-00
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central alignment 2026-07-08T23-19-33-04-00
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central alignment 2026-07-09T01-28-10-04-00
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central alignment 2026-07-09T03-00-46-04-00
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central alignment 2026-07-09T02-05-52-04-00
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central alignment 2026-07-09T00-50-00-04-00
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central alignment 2026-07-09T02-31-41-04-00
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central alignment 2026-07-09T02-11-07-04-00
 ```
 
 ## Current product read
@@ -59,6 +59,7 @@ The durable source mismatch remains:
 README.md: free-flight, carving, gliding, diving, boosting, thermals, gates, sky perch
 package.json: standalone free-flight exploration
 src/data/campaign.config.js: legacy FLIGHT config and thermal/gate/perch route copy
+index.html: current hot-air-balloon route title/description
 src/main.js: actual burner/vent/wind/altitude/basket-camera Balloon Drift runtime
 ```
 
@@ -110,13 +111,13 @@ README/package/campaign/runtime markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T00-40-20-04-00-source-readback-ledger-splice-dsk-map.md
-.agent/render-audit/2026-07-09T00-40-20-04-00-gamehost-source-readback-ledger-map.md
-.agent/gameplay-audit/2026-07-09T00-40-20-04-00-balloon-drift-consumer-loop.md
-.agent/route-source-audit/2026-07-09T00-40-20-04-00-source-readback-ledger-splice-contract.md
-.agent/deploy-audit/2026-07-09T00-40-20-04-00-check-script-source-fixture-splice.md
-.agent/trackers/2026-07-09T00-40-20-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T00-40-20-04-00.md
+.agent/architecture-audit/2026-07-09T03-20-01-04-00-source-authority-ledger-freeze-dsk-map.md
+.agent/render-audit/2026-07-09T03-20-01-04-00-gamehost-source-projection-readback.md
+.agent/gameplay-audit/2026-07-09T03-20-01-04-00-balloon-drift-source-consumer-loop.md
+.agent/route-source-audit/2026-07-09T03-20-01-04-00-product-config-parity-contract.md
+.agent/deploy-audit/2026-07-09T03-20-01-04-00-source-fixture-check-gate.md
+.agent/trackers/2026-07-09T03-20-01-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T03-20-01-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -148,16 +149,4 @@ src/source/source-acceptance.js
 src/source/source-readback-ledger.js
 src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
-```
-
-## Main rule
-
-Keep `index.html -> src/main.js`, current balloon visuals, burner/vent controls, basket camera behavior, HUD shape, Nexus telemetry, `window.GameHost.getState().local`, and `window.GameHost.getState().nexusEngine` stable.
-
-Do not extract renderer/world/camera systems, add new regions, tune physics constants, or promote reusable kits before source fixture acceptance and browser consumer readback are implemented.
-
-## Current next safe ledge
-
-```txt
-TheOpenAbove Source Readback Ledger Splice + Browser Consumer Fixture Gate
 ```
