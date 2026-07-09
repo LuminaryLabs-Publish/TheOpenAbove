@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T03-20-01-04-00`
+**Timestamp:** `2026-07-09T03-29-29-04-00`
 
 ## Product / source authority gaps
 
@@ -20,7 +20,7 @@ There is no source manifest that names each durable source consumer.
 There is no source fingerprint proving README/package/campaign/runtime/object-kit parity.
 There is no source snapshot that can be consumed by fixtures or GameHost diagnostics.
 There is no source acceptance ledger for copy/config/runtime mismatch rows.
-There is no browser consumer fixture proving source diagnostics from the active route.
+There is no central ledger backed consumer freeze that can stop repeated drift between repo-local docs and LuminaryLabs-Dev/LuminaryLabs.
 ```
 
 ## GameHost gaps
@@ -54,5 +54,5 @@ These are intentionally deferred until source authority is fixed.
 ## Current blocker
 
 ```txt
-Source authority is not frozen enough for implementation agents to safely decide whether README, package metadata, campaign config, runtime constants, or GameHost diagnostics are the canonical product surface.
+Source authority is not frozen enough for implementation agents to safely decide whether README, package metadata, campaign config, runtime constants, object-kit metadata, GameHost diagnostics, or central tracking are the canonical product surface.
 ```
