@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-10-32-04-00`
+**Timestamp:** `2026-07-08T22-08-07-04-00`
 
 ## Product / source authority gaps
 
@@ -33,6 +33,7 @@ scripts/open-above-source-fixture.mjs does not exist.
 src/main.js has no additive source imports yet.
 window.GameHost.getState().source is not exposed yet.
 No fixture proves that adding source readback preserves existing local/nexusEngine shapes.
+No browser consumer fixture proves the new source readback is visible after runtime boot.
 ```
 
 ## Gameplay authority gaps
@@ -66,6 +67,7 @@ npm run check currently points to tests/smoke.mjs only.
 The source fixture command does not exist yet.
 No DOM-free source fixture is wired into npm run check.
 No build gate proves product/config/runtime parity before vite build.
+No check-script row proves the source fixture runs before the browser smoke.
 ```
 
 ## Kit gaps
@@ -81,7 +83,7 @@ There is now a source-authority contract, but no implementation exists for its r
 
 ```txt
 No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
-The fallback selection rule is picking root-agent follow-up targets by remaining source-authority value and central-ledger alignment.
+The fallback selection rule is picking root-agent follow-up targets by oldest sampled alignment and remaining source-authority value.
 TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
@@ -102,6 +104,7 @@ altitude_bands_have_non_overlapping_thresholds is not implemented.
 route_objects_define_lift_guides_and_landing is not implemented.
 wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
+browser_consumer_reads_source_projection is not implemented.
 existing_local_snapshot_shape_preserved is not implemented.
 existing_nexus_snapshot_shape_preserved is not implemented.
 npm_check_runs_source_fixture is not implemented.
