@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T22-08-07-04-00`
+**Timestamp:** `2026-07-08T22-19-38-04-00`
 
 ## Product / source authority gaps
 
@@ -83,8 +83,8 @@ There is now a source-authority contract, but no implementation exists for its r
 
 ```txt
 No checked non-Cavalry Publish repo was fully new, missing from the central ledger, or missing sampled root .agent/START_HERE.md state.
-The fallback selection rule is picking root-agent follow-up targets by oldest sampled alignment and remaining source-authority value.
-TheOpenAbove remains a strong follow-up target because its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
+The fallback selection rule is picking root-agent follow-up targets by oldest sampled alignment, central-ledger stale state, and remaining source-authority value.
+TheOpenAbove remains a strong follow-up target because central tracking lagged repo-local .agent state and its source authority drift is user-visible: README/package/campaign copy says free-flight, while the runtime is a balloon drift game.
 ```
 
 ## Acceptance implementation gaps
