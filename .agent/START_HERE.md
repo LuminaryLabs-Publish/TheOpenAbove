@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T09-18-29-04-00`
+**Last aligned:** `2026-07-09T09-29-24-04-00`
 
 ## Purpose
 
@@ -12,27 +12,27 @@ Read this folder before changing implementation code.
 
 ## Current selection result
 
-The accessible `LuminaryLabs-Publish` repository list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
+The accessible `LuminaryLabs-Publish` organization repo list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
 
 No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocumented, recently added but undocumented, or missing sampled root `.agent/START_HERE.md` state.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible documented fallback after recent same-day catch-up passes. The source consumer ledger remains the safest ledge because the visible route is Balloon Drift while package/campaign/readme source language still carries older free-flight assumptions.
+`TheOpenAbove` was selected as the oldest eligible documented fallback and central-ledger catch-up target. Repo-local `.agent` state had already advanced to `2026-07-09T09-18-29-04-00`, while the central ledger still pointed at `2026-07-09T06-20-00-04-00` before this run. This pass creates a fresh repo-local tracker and syncs central tracking to `2026-07-09T09-29-24-04-00`.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / not selected
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / not selected
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / not selected
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / not selected
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / not selected
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / not selected
-LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible central alignment before this pass
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / not selected
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest 2026-07-09T06-28-53-04-00
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest 2026-07-09T07-05-52-04-00
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest 2026-07-09T08-50-00-04-00
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest 2026-07-09T07-41-29-04-00
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest 2026-07-09T08-02-33-04-00
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest 2026-07-09T08-29-38-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / central stale at 2026-07-09T06-20-00-04-00; repo-local latest 2026-07-09T09-18-29-04-00
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest 2026-07-09T07-19-41-04-00
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / recently aligned
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest 2026-07-09T09-02-44-04-00
 ```
 
 ## Current product read
@@ -112,13 +112,13 @@ README/package/campaign/runtime/object-kit markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T09-18-29-04-00-source-consumer-ledger-fixture-freeze-dsk-map.md
-.agent/render-audit/2026-07-09T09-18-29-04-00-gamehost-source-readback-freeze.md
-.agent/gameplay-audit/2026-07-09T09-18-29-04-00-balloon-drift-source-consumer-loop.md
-.agent/route-source-audit/2026-07-09T09-18-29-04-00-fixture-freeze-contract.md
-.agent/deploy-audit/2026-07-09T09-18-29-04-00-check-build-source-fixture-map.md
-.agent/trackers/2026-07-09T09-18-29-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T09-18-29-04-00.md
+.agent/architecture-audit/2026-07-09T09-29-24-04-00-source-consumer-central-catchup-dsk-map.md
+.agent/render-audit/2026-07-09T09-29-24-04-00-gamehost-source-readback-central-parity.md
+.agent/gameplay-audit/2026-07-09T09-29-24-04-00-balloon-drift-source-authority-loop.md
+.agent/route-source-audit/2026-07-09T09-29-24-04-00-central-ledger-catchup-fixture-contract.md
+.agent/deploy-audit/2026-07-09T09-29-24-04-00-source-fixture-check-central-catchup.md
+.agent/trackers/2026-07-09T09-29-24-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T09-29-24-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -140,6 +140,9 @@ tests/smoke.mjs
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
 src/source/legacy-flight-compatibility.js
+src/source/altitude-bands.js
+src/source/route-descriptors.js
+src/source/wind-lane-hints.js
 src/source/source-consumer-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
@@ -151,12 +154,4 @@ scripts/open-above-source-fixture.mjs
 
 ## Main rule
 
-Keep the current static route, balloon visual object, `window.GameHost.getState().local`, `window.GameHost.getState().nexusEngine`, camera readability, HUD readability, burner/vent physics, and NexusEngine CDN telemetry stable.
-
-Do not extract terrain, renderer, camera, HUD, or physics until the source consumer ledger fixture proves product copy, package metadata, campaign config, runtime constants, object-kit metadata, GameHost projection, and central ledger sync.
-
-## Current next safe ledge
-
-```txt
-TheOpenAbove Source Consumer Ledger Fixture Freeze + GameHost Source Readback Gate
-```
+Do not add new gameplay, route progression, terrain extraction, renderer extraction, camera retuning, or balloon visual changes before the current Balloon Drift source authority is fixture-readable and central tracking points at the same source ledger as repo-local `.agent`.
