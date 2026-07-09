@@ -1,6 +1,6 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-29-24-04-00`
+**Timestamp:** `2026-07-09T09-36-24-04-00`
 
 ## Summary
 
@@ -74,6 +74,7 @@ inline runtime domains:
   wind-field
   buoyancy-integration
   altitude-safety
+  ceiling-softness
   camera-zoom-blend
   basket-first-person-camera
   first-person-visibility
@@ -82,6 +83,7 @@ inline runtime domains:
 
 missing next:
   product-copy-authority
+  readme-route-copy-parity
   package-description-parity
   campaign-current-route-authority
   legacy-flight-compatibility
@@ -115,8 +117,10 @@ open-above-hot-air-balloon-object-kit:
   builds procedural hot-air-balloon object
   exposes browser global OpenAboveHotAirBalloonObjectKit
   retains compatibility wing/tail placeholders for old host attachment path
+  animates burner and rigging sub-kits
 
 inline host services:
+  seeded
   terrainHeight
   moistureAt
   terrainColor
@@ -188,10 +192,10 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 
 ## Central tracking finding
 
-Repo-local `.agent` state had already advanced beyond the central ledger. This pass records the catch-up explicitly so the next source implementation can compare central and repo-local tracking without guessing which timestamp is canonical.
+Repo-local `.agent` state again moved ahead of the central ledger. This pass records the catch-up explicitly so the next source implementation can compare central and repo-local tracking without guessing which timestamp is canonical.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer Central Catch-up + GameHost Source Readback Fixture Gate
+TheOpenAbove Source Readback Ledger Parity + GameHost Source Fixture Gate
 ```
