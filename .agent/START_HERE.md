@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T03-20-01-04-00`
+**Last aligned:** `2026-07-09T03-29-29-04-00`
 
 ## Purpose
 
@@ -18,14 +18,14 @@ No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocu
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible tracked fallback. The central ledger still pointed at `2026-07-09T00-40-20-04-00`, older than the other checked non-excluded repo alignments.
+`TheOpenAbove` was selected because the central ledger still pointed at `2026-07-09T00-40-20-04-00`, while repo-local `.agent` state had advanced to `2026-07-09T03-20-01-04-00`. This pass aligns both around the same unresolved source manifest consumer freeze.
 
 ## Publish repos checked
 
 ```txt
 LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central alignment 2026-07-09T01-09-24-04-00
 LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central alignment 2026-07-09T02-50-39-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible central alignment 2026-07-09T00-40-20-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / central stale at 2026-07-09T00-40-20-04-00 / repo-local 2026-07-09T03-20-01-04-00
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
 LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central alignment 2026-07-09T01-28-10-04-00
 LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central alignment 2026-07-09T03-00-46-04-00
@@ -111,42 +111,11 @@ README/package/campaign/runtime markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T03-20-01-04-00-source-authority-ledger-freeze-dsk-map.md
-.agent/render-audit/2026-07-09T03-20-01-04-00-gamehost-source-projection-readback.md
-.agent/gameplay-audit/2026-07-09T03-20-01-04-00-balloon-drift-source-consumer-loop.md
-.agent/route-source-audit/2026-07-09T03-20-01-04-00-product-config-parity-contract.md
-.agent/deploy-audit/2026-07-09T03-20-01-04-00-source-fixture-check-gate.md
-.agent/trackers/2026-07-09T03-20-01-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T03-20-01-04-00.md
-.agent/kit-registry.json
-```
-
-## Source files to inspect next
-
-```txt
-README.md
-package.json
-index.html
-src/main.js
-src/data/campaign.config.js
-src/hot-air-balloon-object-kit.js
-tests/smoke.mjs
-.github/workflows/deploy-pages.yml
-```
-
-## Source files to add next
-
-```txt
-src/source/open-above-product.js
-src/source/balloon-drift.config.js
-src/source/altitude-bands.js
-src/source/route-descriptors.js
-src/source/wind-lane-hints.js
-src/source/source-manifest.js
-src/source/source-fingerprint.js
-src/source/source-snapshot.js
-src/source/source-acceptance.js
-src/source/source-readback-ledger.js
-src/source/gamehost-source-readback.js
-scripts/open-above-source-fixture.mjs
+.agent/architecture-audit/2026-07-09T03-29-29-04-00-source-manifest-consumer-freeze-dsk-map.md
+.agent/render-audit/2026-07-09T03-29-29-04-00-gamehost-source-manifest-readback.md
+.agent/gameplay-audit/2026-07-09T03-29-29-04-00-balloon-drift-source-fixture-loop.md
+.agent/route-source-audit/2026-07-09T03-29-29-04-00-consumer-freeze-contract.md
+.agent/deploy-audit/2026-07-09T03-29-29-04-00-source-fixture-check-central-sync.md
+.agent/trackers/2026-07-09T03-29-29-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T03-29-29-04-00.md
 ```
