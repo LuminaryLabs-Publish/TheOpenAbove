@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T11-50-08-04-00`
+**Last aligned:** `2026-07-09T14-50-21-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocu
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible documented fallback after a concurrent `PrehistoricRush` refresh advanced that repo to `2026-07-09T11-46-08-04-00`. Before this pass, `TheOpenAbove` central tracking still pointed at `2026-07-09T09-36-24-04-00` and the source-readback/GameHost-source fixture seam remained unresolved.
+`TheOpenAbove` was selected as the oldest eligible documented fallback. Its central ledger was still at `2026-07-09T11-50-08-04-00`, while later checked non-Cavalry repos had newer central timestamps, including `MyCozyIsland` at `2026-07-09T14-39-07-04-00` and `AetherVale` at `2026-07-09T14-16-00-04-00`.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest observed 2026-07-09T09-50-00-04-00
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest observed 2026-07-09T10-10-32-04-00
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest observed 2026-07-09T11-30-50-04-00
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest observed 2026-07-09T10-40-00-04-00
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest observed 2026-07-09T11-00-39-04-00
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest observed 2026-07-09T11-21-06-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible source-readback fallback
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest observed 2026-07-09T10-29-02-04-00
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest observed 2026-07-09T12-30-09-04-00
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest observed 2026-07-09T14-16-00-04-00
+LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible source-readback central catch-up target
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest observed 2026-07-09T11-46-08-04-00
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest observed 2026-07-09T13-00-37-04-00
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest observed 2026-07-09T12-00-36-04-00
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest observed 2026-07-09T13-18-48-04-00
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest observed 2026-07-09T12-08-46-04-00
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest observed 2026-07-09T14-39-07-04-00
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest observed 2026-07-09T13-38-15-04-00
 ```
 
 ## Current product read
@@ -112,13 +112,13 @@ README/package/campaign/runtime/object-kit markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T11-50-08-04-00-source-consumer-ledger-gamehost-readback-dsk-map.md
-.agent/render-audit/2026-07-09T11-50-08-04-00-gamehost-source-readback-consumer-freeze.md
-.agent/gameplay-audit/2026-07-09T11-50-08-04-00-balloon-drift-source-consumer-loop.md
-.agent/route-source-audit/2026-07-09T11-50-08-04-00-source-ledger-fixture-contract.md
-.agent/deploy-audit/2026-07-09T11-50-08-04-00-source-fixture-check-build-gate.md
-.agent/trackers/2026-07-09T11-50-08-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T11-50-08-04-00.md
+.agent/architecture-audit/2026-07-09T14-50-21-04-00-source-readback-ledger-catchup-dsk-map.md
+.agent/render-audit/2026-07-09T14-50-21-04-00-gamehost-source-readback-freeze.md
+.agent/gameplay-audit/2026-07-09T14-50-21-04-00-balloon-drift-source-ledger-loop.md
+.agent/route-source-audit/2026-07-09T14-50-21-04-00-product-runtime-compatibility-contract.md
+.agent/deploy-audit/2026-07-09T14-50-21-04-00-source-fixture-build-gate.md
+.agent/trackers/2026-07-09T14-50-21-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T14-50-21-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -139,6 +139,7 @@ tests/smoke.mjs
 ```txt
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
+src/source/legacy-flight-compatibility.js
 src/source/source-consumer-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
