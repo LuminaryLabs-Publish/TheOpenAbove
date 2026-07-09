@@ -1,18 +1,17 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-10-32-04-00`
+**Timestamp:** `2026-07-08T22-08-07-04-00`
 
 ## Performed in this pass
 
 ```txt
 read accessible LuminaryLabs-Publish repository list
+sampled current root .agent/START_HERE.md state across checked non-Cavalry Publish repos
 read central TheOpenAbove repo ledger
-read central non-Cavalry repo ledger timestamps for comparison
 read TheOpenAbove README.md
 read TheOpenAbove package.json
 read TheOpenAbove src/main.js
 read TheOpenAbove src/data/campaign.config.js
-read TheOpenAbove src/hot-air-balloon-object-kit.js
 read TheOpenAbove root .agent files
 wrote timestamped tracker and turn ledger
 wrote timestamped architecture audit
@@ -38,6 +37,8 @@ GitHub Pages live check
 visual regression check
 mobile/touch check
 runtime source edit
+branch creation
+pull request creation
 ```
 
 ## Validation commands for next implementation pass
@@ -59,8 +60,9 @@ Confirm Space / W / ArrowUp lift.
 Confirm S / ArrowDown / Shift vent descent.
 Confirm wheel changes camera blend.
 Confirm no console fatal error.
-Confirm window.GameHost.getState() returns existing local/nexus balloon drift telemetry.
-Confirm window.GameHost.getState().source returns product, driftConfig, sourceManifest, fingerprint, snapshot, acceptanceLedger, routeObjects, altitudeBand, windLaneHints, and fixtureStatus after implementation.
+Confirm window.GameHost.getState() returns existing local balloon drift telemetry.
+Confirm window.GameHost.getState() returns existing nexusEngine balloon drift telemetry.
+Confirm window.GameHost.getState().source returns product, driftConfig, sourceManifest, fingerprint, snapshot, acceptanceLedger, routeObjects, altitudeBand, windLaneHints, fixtureStatus, and browserConsumerReadback after implementation.
 ```
 
 ## Fixture checks to add next
@@ -80,6 +82,7 @@ altitude_bands_have_non_overlapping_thresholds
 route_objects_define_lift_guides_and_landing
 wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
+browser_consumer_reads_source_projection
 existing_local_snapshot_shape_preserved
 existing_nexus_snapshot_shape_preserved
 npm_check_runs_source_fixture
@@ -89,7 +92,7 @@ npm_build_runs_source_fixture_before_vite_build
 ## Current validation status
 
 ```txt
-status: documentation-only source contract gate pass complete
+status: documentation-only source fixture acceptance gate pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
