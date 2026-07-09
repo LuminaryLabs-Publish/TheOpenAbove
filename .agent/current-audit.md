@@ -1,6 +1,6 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T03-29-29-04-00`
+**Timestamp:** `2026-07-09T06-20-00-04-00`
 
 ## Summary
 
@@ -8,7 +8,7 @@
 
 The live app already exposes burner and vent input, balloon drift physics, basket camera blend, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()`. The mismatch is that `README.md`, `package.json`, and `src/data/campaign.config.js` still describe the older free-flight route.
 
-This pass keeps the next cut narrow: freeze the source manifest and consumer contract so implementation agents can add additive `.source` diagnostics and DOM-free fixtures without changing visible route behavior.
+This pass keeps the next cut narrow: refresh the source consumer ledger so implementation agents can add additive `.source` diagnostics and DOM-free fixtures without changing visible route behavior.
 
 ## Current route
 
@@ -82,11 +82,14 @@ inline runtime domains:
 
 missing next:
   product-copy-authority
-  source-manifest
+  legacy-flight-compatibility
+  source-consumer-manifest
+  source-consumer-record
   source-fingerprint
   source-snapshot
   source-acceptance-ledger
-  source-readback-ledger
+  source-consumer-ledger
+  source-readback-projection
   browser-consumer-fixture
   gamehost-source-diagnostics
 ```
@@ -145,12 +148,14 @@ next-cut source/readback kits:
   open-above-campaign-current-route-authority-kit
   open-above-legacy-flight-compatibility-kit
   open-above-balloon-drift-config-kit
-  open-above-source-manifest-kit
+  open-above-source-consumer-manifest-kit
+  open-above-source-consumer-record-kit
   open-above-balloon-source-fingerprint-kit
   open-above-balloon-source-snapshot-kit
   open-above-source-acceptance-result-kit
   open-above-source-acceptance-ledger-kit
-  open-above-source-readback-ledger-kit
+  open-above-source-consumer-ledger-kit
+  open-above-source-readback-projection-kit
   open-above-gamehost-source-readback-kit
   open-above-browser-consumer-readback-kit
   open-above-dom-free-source-fixture-kit
@@ -158,10 +163,10 @@ next-cut source/readback kits:
 
 ## Main finding
 
-The runtime should not be rewritten yet. The highest-value gap is source authority and browser readback: product copy, package metadata, campaign config, inline runtime defaults, visual object-kit metadata, smoke checks, and GameHost diagnostics need one consistent source ledger.
+The runtime should not be rewritten yet. The highest-value gap is source authority and browser readback: product copy, package metadata, campaign config, inline runtime defaults, visual object-kit metadata, smoke checks, GameHost diagnostics, and central tracking need one consistent source consumer ledger.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Manifest Consumer Freeze + Central Ledger Catch-Up Fixture Gate
+TheOpenAbove Source Consumer Ledger Refresh + DOM-Free Fixture Gate
 ```
