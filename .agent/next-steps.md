@@ -1,16 +1,18 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-18-29-04-00`
+**Timestamp:** `2026-07-09T09-29-24-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer Ledger Fixture Freeze + GameHost Source Readback Gate
+TheOpenAbove Source Consumer Central Catch-up + GameHost Source Readback Fixture Gate
 ```
 
 ## Goal
 
 Create pure source/readback modules that make the current hot-air-balloon Balloon Drift route the durable source of truth without changing the live renderer, balloon physics, camera, HUD, object-kit composition, or existing GameHost state fields.
+
+This ledge also needs to preserve central ledger parity so the same tracker, turn ledger, source fixture, and kit registry are visible from both `TheOpenAbove` and `LuminaryLabs-Dev/LuminaryLabs`.
 
 ## Implementation checklist
 
