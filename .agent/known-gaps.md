@@ -1,12 +1,12 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T17-31-22-04-00`
+**Timestamp:** `2026-07-08T20-01-23-04-00`
 
 ## Product / source authority gaps
 
 ```txt
 README.md still describes free-flight carving, gliding, diving, boosting, thermals, wind gates, and sky-perch return.
-package.json still describes free-flight exploration.
+package.json still describes standalone free-flight exploration.
 src/data/campaign.config.js still carries legacy CAMPAIGN/WORLD/FLIGHT shape for bird/free-flight style goals.
 src/main.js imports CAMPAIGN and WORLD but owns the live balloon drift constants inline.
 There is no canonical OPEN_ABOVE_PRODUCT source object yet.
@@ -74,7 +74,7 @@ No build gate proves product/config/runtime parity before vite build.
 The hot-air-balloon object family is split into useful files, but the runtime host, input, physics, wind field, altitude safety, route, mission, and progression domains are still inline or only ledger-planned.
 There is no DOM-free fixture harness for balloon route replay.
 There is no smoke proving product-copy/config/runtime parity.
-There is now a source-manifest consumer splice acceptance contract, but no implementation exists for its rows.
+There is now a source-authority consumer fixture contract, but no implementation exists for its rows.
 ```
 
 ## Selection / ledger gaps
@@ -99,7 +99,7 @@ source_fingerprint_reports_copy_config_runtime_markers is not implemented.
 source_snapshot_reports_visual_object_kit is not implemented.
 gamehost_reports_balloon_source_snapshot is not implemented.
 altitude_bands_have_non_overlapping_thresholds is not implemented.
-route_objects_define_three_lift_gates_and_one_landing is not implemented.
+route_objects_define_lift_guides_and_landing is not implemented.
 wind_lane_hints_match_route_objects is not implemented.
 dom_free_fixture_runs_without_canvas_webgl_or_dom is not implemented.
 existing_local_snapshot_shape_preserved is not implemented.
