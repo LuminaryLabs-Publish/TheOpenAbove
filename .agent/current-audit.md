@@ -1,6 +1,6 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-36-24-04-00`
+**Timestamp:** `2026-07-09T11-50-08-04-00`
 
 ## Summary
 
@@ -129,6 +129,7 @@ inline host services:
   makeTrees
   makeClouds
   makeWindRibbons
+  setFirstPersonVisibility
   snapshot
   update
   draw
@@ -192,10 +193,10 @@ The runtime should not be rewritten yet. The highest-value gap is source authori
 
 ## Central tracking finding
 
-Repo-local `.agent` state again moved ahead of the central ledger. This pass records the catch-up explicitly so the next source implementation can compare central and repo-local tracking without guessing which timestamp is canonical.
+A concurrent `PrehistoricRush` docs refresh advanced that repo during this run, so `TheOpenAbove` became the oldest eligible source-readback fallback. This pass records that selection explicitly and syncs central tracking to `2026-07-09T11-50-08-04-00`.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Parity + GameHost Source Fixture Gate
+TheOpenAbove Source Consumer Ledger + GameHost Source Readback Fixture Gate
 ```
