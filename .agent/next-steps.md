@@ -1,11 +1,11 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-08T22-19-38-04-00`
+**Timestamp:** `2026-07-09T00-30-24-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Catch-up + Fixture Acceptance Gate
+TheOpenAbove Source Module Consumer Splice + Browser Readback Fixture Gate
 ```
 
 ## Goal
@@ -21,15 +21,17 @@ The implementation should prove that product copy, package metadata, campaign co
 - [ ] Keep basket-follow camera and wheel zoom behavior stable.
 - [ ] Keep current hot-air-balloon object visuals stable.
 - [ ] Keep NexusEngine telemetry kit install stable.
+- [ ] Preserve `window.GameHost.getState().local` shape.
+- [ ] Preserve `window.GameHost.getState().nexusEngine` shape.
 - [ ] Update README away from free-flight, bird, carving, boost, thermals, wind gates, and sky-perch language.
 - [ ] Update package description to match the live hot-air-balloon drift product.
 - [ ] Update campaign region copy so Meadow Lift describes balloon drift, burner/vent, wind guidance, and landing.
 - [ ] Add canonical `OPEN_ABOVE_PRODUCT` source object.
 - [ ] Add canonical `BALLOON_DRIFT` config beside legacy `FLIGHT`.
 - [ ] Preserve or mark `FLIGHT` as compatibility-only until a smoke proves the live route no longer reads it.
-- [ ] Mirror current inline wind, buoyancy, burner, vent, altitude, ceiling, clearance, and camera constants into config with no visible behavior change.
+- [ ] Mirror current inline wind, buoyancy, burner, vent, altitude, ceiling, clearance, camera, basket, and HUD constants into config with no visible behavior change.
 - [ ] Add `ALTITUDE_BANDS` for low-clearance, comfort-drift, high-drift, and meadow-landing states.
-- [ ] Add `ROUTE_OBJECTS` for lift guidance, drift guidance, and meadow landing.
+- [ ] Add `ROUTE_OBJECTS` for lift guidance, drift guidance, readable altitude, and meadow landing.
 - [ ] Add `WIND_LANE_HINTS` for readable route guidance.
 - [ ] Add `SOURCE_MANIFEST` binding product/config/route/fixture/runtime consumers.
 - [ ] Add source fingerprint and source snapshot services.
@@ -37,7 +39,6 @@ The implementation should prove that product copy, package metadata, campaign co
 - [ ] Add `createGameHostSourceReadback()`.
 - [ ] Import source modules into `src/main.js` additively.
 - [ ] Expose product/config/runtime parity through `window.GameHost.getState().source` diagnostics.
-- [ ] Preserve existing `window.GameHost.getState().local` and `.nexusEngine` shapes.
 - [ ] Add browser consumer readback rows for the additive `.source` field.
 - [ ] Add fixture rows for README product copy, package description, campaign text, drift config, source manifest, altitude bands, route objects, wind lane hints, GameHost source snapshot, source fingerprint, and DOM-free route replay.
 - [ ] Add source fixture command `node scripts/open-above-source-fixture.mjs`.
@@ -109,11 +110,17 @@ terrain clearance: 30
 ceiling soft threshold: 270
 ceiling softness coefficient: 0.024
 altitude damping: 0.74
+camera fov: 58
+camera near/far: 0.1 / 5200
 camera zoom default: 44
 camera zoom wheel step: 4
 camera zoom clamp: 0..92
 first-person blend smooth rate: 5.6
 camera position smooth rate: 3.1
+basket focus side offset: 2.7
+basket focus forward offset: 3.5
+basket focus vertical offset: -5.7
+first-person vertical offset: -3.72
 ```
 
 ## Fixture rows to create first
@@ -128,6 +135,7 @@ balloon_drift_config_drives_runtime_defaults
 source_manifest_lists_all_runtime_consumers
 source_fingerprint_reports_copy_config_runtime_markers
 source_snapshot_reports_visual_object_kit
+source_snapshot_reports_basket_camera_defaults
 gamehost_reports_balloon_source_snapshot
 altitude_bands_have_non_overlapping_thresholds
 route_objects_define_lift_guides_and_landing
@@ -142,7 +150,7 @@ npm_build_runs_source_fixture_before_vite_build
 
 ## Do not do yet
 
-- [ ] Do not rewrite the whole renderer.
+- [ ] Do not rewrite the renderer.
 - [ ] Do not replace the balloon visual kit.
 - [ ] Do not add new regions before route authority exists.
 - [ ] Do not extract every inline renderer system before source authority is stable.
