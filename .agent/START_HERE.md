@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T17-58-53-04-00`
+**Last aligned:** `2026-07-09T19-21-19-04-00`
 
 ## Purpose
 
@@ -20,12 +20,12 @@ No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocu
 
 `TheOpenAbove` was selected as the oldest eligible documented-selection fallback among the current public non-Cavalry Publish repos.
 
-This pass refreshes repo-local and central tracking to `2026-07-09T17-58-53-04-00` and keeps the next source-authority ledge focused on a fixture-readable Balloon Drift source readback layer.
+This pass refreshes repo-local and central tracking to `2026-07-09T19-21-19-04-00` and keeps the next source-authority ledge focused on a fixture-readable Balloon Drift source readback layer.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / newest public listing
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present
 LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present
 LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present
 LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present
@@ -80,13 +80,13 @@ open index.html
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T17-58-53-04-00-balloon-drift-source-readback-dsk-map.md
-.agent/render-audit/2026-07-09T17-58-53-04-00-gamehost-source-consumer-readback.md
-.agent/gameplay-audit/2026-07-09T17-58-53-04-00-balloon-drift-runtime-loop.md
-.agent/route-source-audit/2026-07-09T17-58-53-04-00-product-runtime-parity-contract.md
-.agent/deploy-audit/2026-07-09T17-58-53-04-00-source-fixture-build-gate.md
-.agent/trackers/2026-07-09T17-58-53-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T17-58-53-04-00.md
+.agent/architecture-audit/2026-07-09T19-21-19-04-00-source-ledger-central-refresh-dsk-map.md
+.agent/render-audit/2026-07-09T19-21-19-04-00-gamehost-source-readback-fixture.md
+.agent/gameplay-audit/2026-07-09T19-21-19-04-00-balloon-drift-runtime-source-loop.md
+.agent/route-source-audit/2026-07-09T19-21-19-04-00-product-runtime-parity-readback-contract.md
+.agent/deploy-audit/2026-07-09T19-21-19-04-00-source-fixture-check-build-gate.md
+.agent/trackers/2026-07-09T19-21-19-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T19-21-19-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -118,6 +118,12 @@ src/source/source-acceptance.js
 src/source/source-consumer-ledger.js
 src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
+```
+
+## Next safe ledge
+
+```txt
+TheOpenAbove Source Ledger Central Refresh + Browser Consumer Fixture Gate
 ```
 
 ## Operating rules
