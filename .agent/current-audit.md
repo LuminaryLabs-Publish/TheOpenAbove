@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T17-31-22-04-00`
+**Timestamp:** `2026-07-08T20-01-23-04-00`
 
 ## Summary
 
 `TheOpenAbove` is currently a hot-air-balloon drift experience, not the older free-flight bird/glider route still described by durable README/package/campaign source.
 
-This pass keeps the prior product/config fixture direction but narrows the implementation into a source-manifest consumer splice gate: add source modules and fixtures, preserve the route, expose additive GameHost source diagnostics, then wire the fixture into `npm run check`.
+This pass keeps the prior source-manifest direction but narrows the handoff into a source-authority consumer fixture gate: add source modules and fixtures, preserve the visible route, expose additive `GameHost` source diagnostics, and wire the fixture into `npm run check` only after the DOM-free proof exists.
 
 ## Current route
 
@@ -25,7 +25,7 @@ index.html
 
 ```txt
 open app
-  -> read balloon drift HUD
+  -> read Balloon Drift HUD
   -> hold Space / W / ArrowUp for burner lift
   -> hold S / ArrowDown / Shift for vent descent
   -> procedural wind drifts the balloon
@@ -73,7 +73,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected because repo-local .agent state advanced beyond central ledger state and source authority remains the highest-value unresolved seam for this repo
+  TheOpenAbove selected because its previous alignment was older than the other sampled non-excluded repos and source authority remains the highest-value unresolved seam for this repo
 ```
 
 ## Evidence snapshot
@@ -85,9 +85,6 @@ README.md:
 package.json:
   still says standalone free-flight exploration.
 
-index.html:
-  describes and titles the live page as a cozy hot-air-balloon / Balloon Drift route.
-
 src/data/campaign.config.js:
   exports CAMPAIGN, WORLD, and legacy FLIGHT with thermals, gates, perch, pitch, roll, yaw, boost, thermal lift, and terrain clearance.
 
@@ -95,7 +92,7 @@ src/main.js:
   imports CAMPAIGN and WORLD, seeds `${WORLD.seed}-balloon-drift`, builds balloon objects, and owns burner, vent, wind, buoyancy, altitude, camera, HUD, and GameHost snapshots inline.
 
 tests/smoke.mjs:
-  proves current route markers but does not yet prove product/config/runtime/source parity.
+  proves current route markers and balloon kit markers but does not yet prove product/config/runtime/source parity.
 ```
 
 ## Domains in use
@@ -147,6 +144,8 @@ source-manifest-authority
 source-fingerprint
 source-snapshot
 source-acceptance-ledger
+source-consumer-fixture
+runtime-constant-parity
 altitude-band-contract
 altitude-band-resolver
 route-object-descriptor
@@ -155,6 +154,7 @@ wind-lane-hint
 route-fixture-harness
 browser-consumer-fixture
 build-script-fixture-gate
+mission-snapshot-projector
 ```
 
 ## Services in use
@@ -218,6 +218,7 @@ run-source-manifest-fixture
 project-gamehost-source-readback
 splice-source-records-into-main-runtime
 preserve-existing-gamehost-local-and-nexus-shapes
+wire-source-fixture-into-check
 ```
 
 ## Kits identified
@@ -282,6 +283,7 @@ open-above-source-acceptance-ledger-kit
 open-above-gamehost-source-readback-kit
 open-above-source-acceptance-fixture-kit
 open-above-source-module-consumer-splice-kit
+open-above-runtime-constant-parity-kit
 open-above-altitude-band-contract-kit
 open-above-altitude-band-resolver-kit
 open-above-route-object-config-kit
@@ -315,15 +317,15 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-cutover-dsk-map.md
-.agent/render-audit/2026-07-08T17-31-22-04-00-gamehost-source-fixture-readback.md
-.agent/gameplay-audit/2026-07-08T17-31-22-04-00-balloon-drift-config-replay-loop.md
-.agent/route-source-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-splice-acceptance.md
-.agent/deploy-audit/2026-07-08T17-31-22-04-00-fixture-check-integration.md
+.agent/architecture-audit/2026-07-08T20-01-23-04-00-balloon-source-authority-dsk-breakdown.md
+.agent/render-audit/2026-07-08T20-01-23-04-00-gamehost-source-readback-consumer-map.md
+.agent/gameplay-audit/2026-07-08T20-01-23-04-00-runtime-constant-parity-loop.md
+.agent/route-source-audit/2026-07-08T20-01-23-04-00-source-acceptance-row-map.md
+.agent/deploy-audit/2026-07-08T20-01-23-04-00-check-build-source-fixture-gate.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Manifest Consumer Splice + Fixture Check Gate
+TheOpenAbove Balloon Drift Source Authority Consumer Fixture Gate
 ```
