@@ -1,16 +1,18 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T17-31-22-04-00`
+**Timestamp:** `2026-07-08T20-01-23-04-00`
 
 ## Performed in this pass
 
 ```txt
 read accessible LuminaryLabs-Publish repository list
 read central TheOpenAbove repo ledger
+read central MyCozyIsland and PrehistoricRush repo ledgers for current alignment comparison
 read TheOpenAbove README.md
 read TheOpenAbove package.json
 read TheOpenAbove src/main.js
 read TheOpenAbove src/data/campaign.config.js
+read TheOpenAbove src/hot-air-balloon-object-kit.js
 read TheOpenAbove tests/smoke.mjs
 read TheOpenAbove root .agent files
 wrote timestamped tracker and turn ledger
@@ -75,7 +77,7 @@ source_fingerprint_reports_copy_config_runtime_markers
 source_snapshot_reports_visual_object_kit
 gamehost_reports_balloon_source_snapshot
 altitude_bands_have_non_overlapping_thresholds
-route_objects_define_three_lift_gates_and_one_landing
+route_objects_define_lift_guides_and_landing
 wind_lane_hints_match_route_objects
 dom_free_fixture_runs_without_canvas_webgl_or_dom
 existing_local_snapshot_shape_preserved
@@ -87,7 +89,7 @@ npm_build_runs_source_fixture_before_vite_build
 ## Current validation status
 
 ```txt
-status: documentation-only source manifest consumer splice gate pass complete
+status: documentation-only balloon drift source authority consumer fixture pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
