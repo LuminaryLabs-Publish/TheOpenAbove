@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T20-01-23-04-00`
+**Last aligned:** `2026-07-08T20-10-32-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, absent from the central ledge
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the current fallback because its previous central/root alignment was older than the other sampled non-excluded repos and the unresolved source-authority seam is still user-visible: the runtime is hot-air-balloon Balloon Drift, while README/package/campaign source still describe an older free-flight route.
+`TheOpenAbove` was selected as the current fallback/catch-up target because the central ledger was behind repo-local `.agent` state and the source-authority seam remains open: the visible route is hot-air-balloon Balloon Drift, while README/package/campaign source still partially describes the older free-flight route.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present / sampled alignment 2026-07-08T18-09-21-04-00
-LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present / sampled alignment 2026-07-08T18-19-43-04-00
-LuminaryLabs-Publish/AetherVale          tracked / root .agent present / sampled alignment 2026-07-08T18-58-10-04-00
-LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present / sampled alignment 2026-07-08T19-21-15-04-00
-LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present / sampled alignment 2026-07-08T18-51-55-04-00
-LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present / sampled alignment 2026-07-08T19-40-00-04-00
-LuminaryLabs-Publish/TheOpenAbove        selected / source authority fallback / previous alignment 2026-07-08T17-31-22-04-00
-LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present / sampled alignment 2026-07-08T18-41-41-04-00
+LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present / central latest 2026-07-08T18-19-43-04-00
+LuminaryLabs-Publish/AetherVale          tracked / root .agent present / central latest 2026-07-08T18-58-10-04-00
+LuminaryLabs-Publish/TheOpenAbove        selected / source authority + central catch-up
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present / sampled alignment 2026-07-08T19-30-31-04-00
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present / central latest 2026-07-08T18-41-41-04-00
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present / central latest 2026-07-08T19-30-31-04-00
+LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present / central latest 2026-07-08T19-21-15-04-00
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present / central latest 2026-07-08T18-09-21-04-00
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present / central latest 2026-07-08T19-50-20-04-00
+LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present / central latest 2026-07-08T18-51-55-04-00
 ```
 
 ## Current product read
@@ -96,6 +96,19 @@ canonical README/package/campaign copy
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
+.agent/architecture-audit/2026-07-08T20-10-32-04-00-source-authority-catchup-dsk-map.md
+.agent/render-audit/2026-07-08T20-10-32-04-00-gamehost-source-readback-fixture-sync.md
+.agent/gameplay-audit/2026-07-08T20-10-32-04-00-balloon-drift-source-loop.md
+.agent/route-source-audit/2026-07-08T20-10-32-04-00-central-ledger-catchup-source-contract.md
+.agent/deploy-audit/2026-07-08T20-10-32-04-00-check-fixture-build-wire-map.md
+.agent/trackers/2026-07-08T20-10-32-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T20-10-32-04-00.md
+.agent/kit-registry.json
+```
+
+Previous handoff remains relevant:
+
+```txt
 .agent/architecture-audit/2026-07-08T20-01-23-04-00-balloon-source-authority-dsk-breakdown.md
 .agent/render-audit/2026-07-08T20-01-23-04-00-gamehost-source-readback-consumer-map.md
 .agent/gameplay-audit/2026-07-08T20-01-23-04-00-runtime-constant-parity-loop.md
@@ -103,17 +116,4 @@ canonical README/package/campaign copy
 .agent/deploy-audit/2026-07-08T20-01-23-04-00-check-build-source-fixture-gate.md
 .agent/trackers/2026-07-08T20-01-23-04-00/project-breakdown.md
 .agent/turn-ledger/2026-07-08T20-01-23-04-00.md
-.agent/kit-registry.json
-```
-
-Previous handoff remains relevant:
-
-```txt
-.agent/architecture-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-cutover-dsk-map.md
-.agent/render-audit/2026-07-08T17-31-22-04-00-gamehost-source-fixture-readback.md
-.agent/gameplay-audit/2026-07-08T17-31-22-04-00-balloon-drift-config-replay-loop.md
-.agent/route-source-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-splice-acceptance.md
-.agent/deploy-audit/2026-07-08T17-31-22-04-00-fixture-check-integration.md
-.agent/trackers/2026-07-08T17-31-22-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T17-31-22-04-00.md
 ```
