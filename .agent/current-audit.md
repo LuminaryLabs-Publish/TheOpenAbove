@@ -1,12 +1,14 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-08T22-08-07-04-00`
+**Timestamp:** `2026-07-08T22-19-38-04-00`
 
 ## Summary
 
-`TheOpenAbove` is a hot-air-balloon drift route whose public/runtime surface is ahead of its durable source authority. The route plays as Balloon Drift, but README/package/campaign source still carries older free-flight language and `src/main.js` owns the live drift constants inline.
+`TheOpenAbove` is a hot-air-balloon drift route whose public/runtime surface is ahead of its durable source authority.
 
-This pass keeps the next work narrow: implement source fixture acceptance and browser consumer readback before renderer extraction, mission reducer work, world expansion, or reusable kit promotion.
+The route itself is clearly Balloon Drift, but README/package/campaign source still carries older free-flight language and `src/main.js` owns the live drift constants inline.
+
+This pass keeps the next work narrow: source readback, fixture acceptance, and central ledger catch-up before renderer extraction, mission reducer work, world expansion, or reusable kit promotion.
 
 ## Current route
 
@@ -54,7 +56,7 @@ central ledger / root-agent check:
   TheCavalryOfRome remains excluded
 
 selection:
-  TheOpenAbove selected as oldest eligible sampled fallback with unresolved source fixture acceptance and browser consumer readback proof
+  TheOpenAbove selected because its repo-local .agent state had advanced beyond central ledger state and the source fixture acceptance queue remains unresolved
 ```
 
 ## Evidence snapshot
@@ -66,6 +68,9 @@ README.md:
 package.json:
   still says standalone free-flight exploration.
 
+index.html:
+  declares The Open Above: Balloon Drift and loads ./src/main.js.
+
 src/data/campaign.config.js:
   exports CAMPAIGN, WORLD, and legacy FLIGHT with thermals, gates, perch, pitch, roll, yaw, boost, thermal lift, and terrain clearance.
 
@@ -74,6 +79,9 @@ src/main.js:
 
 src/hot-air-balloon-object-kit.js:
   composes envelope, mouth, streamers, seams, basket, rigging, burner, and rope sub-kits into the live balloon visual object.
+
+tests/smoke.mjs:
+  validates the current balloon route markers and object-kit markers, but not source-readback or product/config/runtime parity.
 ```
 
 ## Domains in use
@@ -294,15 +302,15 @@ README/package/campaign copy correction
 ## New audit surfaces added
 
 ```txt
-.agent/architecture-audit/2026-07-08T22-08-07-04-00-source-fixture-acceptance-dsk-map.md
-.agent/render-audit/2026-07-08T22-08-07-04-00-gamehost-source-consumer-readback.md
-.agent/gameplay-audit/2026-07-08T22-08-07-04-00-balloon-route-source-authority-loop.md
-.agent/route-source-audit/2026-07-08T22-08-07-04-00-fixture-acceptance-consumer-wire-map.md
-.agent/deploy-audit/2026-07-08T22-08-07-04-00-check-script-fixture-gate.md
+.agent/architecture-audit/2026-07-08T22-19-38-04-00-source-readback-catchup-dsk-map.md
+.agent/render-audit/2026-07-08T22-19-38-04-00-gamehost-source-readback-contract.md
+.agent/gameplay-audit/2026-07-08T22-19-38-04-00-balloon-drift-source-acceptance-loop.md
+.agent/route-source-audit/2026-07-08T22-19-38-04-00-central-ledger-source-fixture-catchup.md
+.agent/deploy-audit/2026-07-08T22-19-38-04-00-check-build-fixture-wire-map.md
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Acceptance + Browser Consumer Readback Gate
+TheOpenAbove Source Readback Catch-up + Fixture Acceptance Gate
 ```
