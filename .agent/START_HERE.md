@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T14-58-42-04-00`
+**Last aligned:** `2026-07-09T15-09-09-04-00`
 
 ## Purpose
 
@@ -18,40 +18,30 @@ No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocu
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible documented fallback and central-ledger catch-up target. Repo-local `.agent` had already advanced to `2026-07-09T14-50-21-04-00`, while the central ledger still pointed to `2026-07-09T11-50-08-04-00`; this run normalizes repo-local and central tracking to `2026-07-09T14-58-42-04-00`.
+`TheOpenAbove` was selected as a central-ledger repair target because repo-local `.agent` state had advanced to `2026-07-09T14-58-42-04-00` while the central ledger still pointed to `2026-07-09T14-50-21-04-00`.
+
+This pass refreshes repo-local and central tracking to `2026-07-09T15-09-09-04-00` and keeps the next source-authority ledge focused on a fixture-readable Balloon Drift source readback layer.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present / central latest observed 2026-07-09T12-08-46-04-00
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present / central latest observed 2026-07-09T12-30-09-04-00
-LuminaryLabs-Publish/AetherVale           tracked / root .agent present / central latest observed 2026-07-09T14-16-00-04-00
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present / central latest observed 2026-07-09T13-18-48-04-00
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present / central latest observed 2026-07-09T13-38-15-04-00
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present / central latest observed 2026-07-09T14-39-07-04-00
-LuminaryLabs-Publish/TheOpenAbove         selected / oldest central-ledger fallback / repo-local .agent ahead of central
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present / central latest observed 2026-07-09T13-00-37-04-00
+LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present
+LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present
+LuminaryLabs-Publish/AetherVale           tracked / root .agent present
+LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present
+LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present
+LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present
+LuminaryLabs-Publish/TheOpenAbove         selected / repo-local .agent ahead of central ledger
+LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present / central latest observed 2026-07-09T12-00-36-04-00
+LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present
 ```
 
 ## Current product read
 
 `TheOpenAbove` is a standalone Vite / Three.js hot-air-balloon drift route using NexusEngine main through CDN telemetry.
 
-The active route is:
-
-```txt
-index.html
-  -> canvas#game, #hud, #error
-  -> src/main.js
-  -> Three.js CDN
-  -> NexusEngine main CDN
-  -> src/data/campaign.config.js
-  -> src/hot-air-balloon-object-kit.js
-  -> inline terrain / lake / tree / cloud / wind-ribbon generation
-  -> inline balloon drift / camera / HUD / GameHost loop
-```
+The live browser route is Balloon Drift.
 
 The durable source mismatch remains:
 
@@ -112,13 +102,13 @@ README/package/campaign/runtime/object-kit markers
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T14-58-42-04-00-source-readback-ledger-central-sync-dsk-map.md
-.agent/render-audit/2026-07-09T14-58-42-04-00-gamehost-source-readback-consumer-map.md
-.agent/gameplay-audit/2026-07-09T14-58-42-04-00-balloon-drift-source-consumer-loop.md
-.agent/route-source-audit/2026-07-09T14-58-42-04-00-product-runtime-compatibility-contract.md
-.agent/deploy-audit/2026-07-09T14-58-42-04-00-source-fixture-build-gate.md
-.agent/trackers/2026-07-09T14-58-42-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T14-58-42-04-00.md
+.agent/architecture-audit/2026-07-09T15-09-09-04-00-source-ledger-repair-dsk-map.md
+.agent/render-audit/2026-07-09T15-09-09-04-00-gamehost-source-readback-central-sync.md
+.agent/gameplay-audit/2026-07-09T15-09-09-04-00-balloon-drift-source-authority-loop.md
+.agent/route-source-audit/2026-07-09T15-09-09-04-00-product-runtime-source-parity-contract.md
+.agent/deploy-audit/2026-07-09T15-09-09-04-00-source-fixture-central-ledger-gate.md
+.agent/trackers/2026-07-09T15-09-09-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T15-09-09-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -150,4 +140,13 @@ src/source/source-acceptance.js
 src/source/source-consumer-ledger.js
 src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
+```
+
+## Operating rules
+
+```txt
+Only push to main.
+Do not create branches.
+Do not work on TheCavalryOfRome.
+Keep scheduled repo breakdowns moving; do not pause the loop.
 ```
