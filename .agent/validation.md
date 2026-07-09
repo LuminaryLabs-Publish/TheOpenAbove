@@ -1,19 +1,18 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T20-01-23-04-00`
+**Timestamp:** `2026-07-08T20-10-32-04-00`
 
 ## Performed in this pass
 
 ```txt
 read accessible LuminaryLabs-Publish repository list
 read central TheOpenAbove repo ledger
-read central MyCozyIsland and PrehistoricRush repo ledgers for current alignment comparison
+read central non-Cavalry repo ledger timestamps for comparison
 read TheOpenAbove README.md
 read TheOpenAbove package.json
 read TheOpenAbove src/main.js
 read TheOpenAbove src/data/campaign.config.js
 read TheOpenAbove src/hot-air-balloon-object-kit.js
-read TheOpenAbove tests/smoke.mjs
 read TheOpenAbove root .agent files
 wrote timestamped tracker and turn ledger
 wrote timestamped architecture audit
@@ -22,6 +21,7 @@ wrote timestamped gameplay audit
 wrote timestamped route-source audit
 wrote timestamped deploy audit
 updated root .agent operating docs
+updated kit registry
 updated central repo ledger for TheOpenAbove
 wrote central internal change log
 ```
@@ -89,7 +89,7 @@ npm_build_runs_source_fixture_before_vite_build
 ## Current validation status
 
 ```txt
-status: documentation-only balloon drift source authority consumer fixture pass complete
+status: documentation-only source contract gate pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
