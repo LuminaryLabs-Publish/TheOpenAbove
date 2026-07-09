@@ -1,12 +1,12 @@
 # Current Audit — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-18-29-04-00`
+**Timestamp:** `2026-07-09T09-29-24-04-00`
 
 ## Summary
 
-`TheOpenAbove` is a live Balloon Drift route whose visible runtime is clearer than its durable source authority.
+`TheOpenAbove` is a live Balloon Drift route whose browser runtime is clearer than its durable source authority.
 
-The browser route already has burner and vent input, wind-drift motion, altitude safety, basket camera blend, hot-air-balloon object composition, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()` readback.
+The route already supports burner and vent input, wind-drift motion, altitude safety, basket camera blend, hot-air-balloon object composition, HUD telemetry, NexusEngine telemetry, and `window.GameHost.getState()` readback.
 
 The unresolved work is not a visual rewrite. The next implementation should freeze source ownership and fixture-readable readback so agents can safely update README/package/campaign/runtime source without breaking the current route.
 
@@ -86,6 +86,8 @@ missing next:
   campaign-current-route-authority
   legacy-flight-compatibility
   balloon-drift-config
+  runtime-constant-parity
+  altitude-band-contract
   source-consumer-manifest
   source-consumer-record
   source-fingerprint
@@ -159,10 +161,13 @@ inline candidate kits:
 
 next-cut source/readback kits:
   open-above-product-copy-authority-kit
+  open-above-readme-route-copy-parity-kit
   open-above-package-description-parity-kit
   open-above-campaign-current-route-authority-kit
   open-above-legacy-flight-compatibility-kit
   open-above-balloon-drift-config-kit
+  open-above-runtime-constant-parity-kit
+  open-above-altitude-band-contract-kit
   open-above-source-consumer-manifest-kit
   open-above-source-consumer-record-kit
   open-above-balloon-source-fingerprint-kit
@@ -179,10 +184,14 @@ next-cut source/readback kits:
 
 ## Main finding
 
-The runtime should not be rewritten yet. The highest-value gap is source authority and browser readback: product copy, package metadata, campaign config, inline runtime defaults, visual object-kit metadata, smoke checks, GameHost diagnostics, and central tracking need one consistent source consumer ledger.
+The runtime should not be rewritten yet. The highest-value gap is source authority and browser readback: product copy, package metadata, campaign config, inline runtime defaults, visual object-kit metadata, smoke checks, GameHost diagnostics, repo-local `.agent` docs, and central tracking need one consistent source consumer ledger.
+
+## Central tracking finding
+
+Repo-local `.agent` state had already advanced beyond the central ledger. This pass records the catch-up explicitly so the next source implementation can compare central and repo-local tracking without guessing which timestamp is canonical.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer Ledger Fixture Freeze + GameHost Source Readback Gate
+TheOpenAbove Source Consumer Central Catch-up + GameHost Source Readback Fixture Gate
 ```
