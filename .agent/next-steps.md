@@ -1,18 +1,18 @@
 # Next Steps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T09-29-24-04-00`
+**Timestamp:** `2026-07-09T09-36-24-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer Central Catch-up + GameHost Source Readback Fixture Gate
+TheOpenAbove Source Readback Ledger Parity + GameHost Source Fixture Gate
 ```
 
 ## Goal
 
 Create pure source/readback modules that make the current hot-air-balloon Balloon Drift route the durable source of truth without changing the live renderer, balloon physics, camera, HUD, object-kit composition, or existing GameHost state fields.
 
-This ledge also needs to preserve central ledger parity so the same tracker, turn ledger, source fixture, and kit registry are visible from both `TheOpenAbove` and `LuminaryLabs-Dev/LuminaryLabs`.
+This ledge must also keep central ledger parity so the same tracker, turn ledger, source fixture, and kit registry are visible from both `TheOpenAbove` and `LuminaryLabs-Dev/LuminaryLabs`.
 
 ## Implementation checklist
 
@@ -25,7 +25,7 @@ This ledge also needs to preserve central ledger parity so the same tracker, tur
 - [ ] Add `src/source/source-consumer-manifest.js` listing README, package, campaign config, runtime, object kit, smoke, GameHost, repo-local `.agent`, and central ledger consumers.
 - [ ] Add `src/source/source-fingerprint.js` to produce stable copy/config/runtime/object-kit fingerprints.
 - [ ] Add `src/source/source-snapshot.js` to report current route, object type, controls, camera mode, source status, and object-kit metadata.
-- [ ] Add `src/source/source-acceptance.js` with acceptance rows for copy/config/runtime parity.
+- [ ] Add `src/source/source-acceptance.js` with acceptance rows for copy/config/runtime mismatch or compatibility status.
 - [ ] Add `src/source/source-consumer-ledger.js` to combine manifest, fingerprint, snapshot, acceptance rows, and consumer ownership.
 - [ ] Add `src/source/gamehost-source-readback.js` to project additive `source` diagnostics.
 - [ ] Add `scripts/open-above-source-fixture.mjs` that runs without DOM, canvas, WebGL, or browser globals.
