@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T15-09-09-04-00`
+**Timestamp:** `2026-07-09T17-58-53-04-00`
 
 ## Product / source authority gaps
 
@@ -11,6 +11,7 @@ src/data/campaign.config.js still carries legacy thermal/gate/perch/start/FLIGHT
 index.html already names the visible Balloon Drift product.
 src/main.js is the live source of truth for burner, vent, wind, buoyancy, altitude, camera blend, HUD, and GameHost state.
 src/hot-air-balloon-object-kit.js is the live source of truth for the balloon object and sub-kit metadata.
+tests/smoke.mjs already checks the hot-air-balloon route and basket/object-kit surface.
 ```
 
 ## Runtime authority gaps
@@ -37,7 +38,6 @@ GameHost does not expose product route, source mismatch status, source fingerpri
 
 ```txt
 Repo-local and central docs can drift when scheduled passes land close together.
-TheOpenAbove repo-local .agent had advanced to 2026-07-09T14-58-42-04-00 while the central ledger still pointed to 2026-07-09T14-50-21-04-00.
 The next source fixture must keep central ledger, repo-local kit registry, and latest tracker aligned after implementation.
 ```
 
