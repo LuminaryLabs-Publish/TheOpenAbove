@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-08T17-31-22-04-00`
+**Last aligned:** `2026-07-08T20-01-23-04-00`
 
 ## Purpose
 
@@ -18,21 +18,21 @@ No checked non-Cavalry Publish repo was fully new, absent from the central ledge
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected because repo-local state had advanced beyond the central ledger and the unresolved seam is still source authority: the visible route is hot-air-balloon drift, while README/package/campaign source still carry older free-flight product language and `src/main.js` owns live balloon drift constants inline.
+`TheOpenAbove` was selected as the current fallback because its previous central/root alignment was older than the other sampled non-excluded repos and the unresolved source-authority seam is still user-visible: the runtime is hot-air-balloon Balloon Drift, while README/package/campaign source still describe an older free-flight route.
 
 ## Publish repos checked
 
 ```txt
-LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent observed
-LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent observed
-LuminaryLabs-Publish/AetherVale          tracked / root .agent observed
-LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent observed
-LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent observed
-LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent observed
-LuminaryLabs-Publish/TheOpenAbove        selected / central ledger catch-up + source manifest gate
-LuminaryLabs-Publish/PhantomCommand      tracked / root .agent observed
+LuminaryLabs-Publish/IntoTheMeadow       tracked / root .agent present / sampled alignment 2026-07-08T18-09-21-04-00
+LuminaryLabs-Publish/HorrorCorridor      tracked / root .agent present / sampled alignment 2026-07-08T18-19-43-04-00
+LuminaryLabs-Publish/AetherVale          tracked / root .agent present / sampled alignment 2026-07-08T18-58-10-04-00
+LuminaryLabs-Publish/ZombieOrchard       tracked / root .agent present / sampled alignment 2026-07-08T19-21-15-04-00
+LuminaryLabs-Publish/TheUnmappedHouse    tracked / root .agent present / sampled alignment 2026-07-08T18-51-55-04-00
+LuminaryLabs-Publish/MyCozyIsland        tracked / root .agent present / sampled alignment 2026-07-08T19-40-00-04-00
+LuminaryLabs-Publish/TheOpenAbove        selected / source authority fallback / previous alignment 2026-07-08T17-31-22-04-00
+LuminaryLabs-Publish/PhantomCommand      tracked / root .agent present / sampled alignment 2026-07-08T18-41-41-04-00
 LuminaryLabs-Publish/TheCavalryOfRome    excluded by rule
-LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent observed
+LuminaryLabs-Publish/PrehistoricRush     tracked / root .agent present / sampled alignment 2026-07-08T19-30-31-04-00
 ```
 
 ## Current product read
@@ -96,6 +96,19 @@ canonical README/package/campaign copy
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
+.agent/architecture-audit/2026-07-08T20-01-23-04-00-balloon-source-authority-dsk-breakdown.md
+.agent/render-audit/2026-07-08T20-01-23-04-00-gamehost-source-readback-consumer-map.md
+.agent/gameplay-audit/2026-07-08T20-01-23-04-00-runtime-constant-parity-loop.md
+.agent/route-source-audit/2026-07-08T20-01-23-04-00-source-acceptance-row-map.md
+.agent/deploy-audit/2026-07-08T20-01-23-04-00-check-build-source-fixture-gate.md
+.agent/trackers/2026-07-08T20-01-23-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-08T20-01-23-04-00.md
+.agent/kit-registry.json
+```
+
+Previous handoff remains relevant:
+
+```txt
 .agent/architecture-audit/2026-07-08T17-31-22-04-00-source-manifest-consumer-cutover-dsk-map.md
 .agent/render-audit/2026-07-08T17-31-22-04-00-gamehost-source-fixture-readback.md
 .agent/gameplay-audit/2026-07-08T17-31-22-04-00-balloon-drift-config-replay-loop.md
@@ -103,55 +116,4 @@ canonical README/package/campaign copy
 .agent/deploy-audit/2026-07-08T17-31-22-04-00-fixture-check-integration.md
 .agent/trackers/2026-07-08T17-31-22-04-00/project-breakdown.md
 .agent/turn-ledger/2026-07-08T17-31-22-04-00.md
-.agent/kit-registry.json
 ```
-
-Earlier handoff remains relevant:
-
-```txt
-.agent/architecture-audit/2026-07-08T17-21-32-04-00-product-config-fixture-row-dsk-map.md
-.agent/render-audit/2026-07-08T17-21-32-04-00-gamehost-source-diagnostics-contract.md
-.agent/gameplay-audit/2026-07-08T17-21-32-04-00-balloon-route-acceptance-loop.md
-.agent/route-source-audit/2026-07-08T17-21-32-04-00-fixture-row-implementation-contract.md
-.agent/deploy-audit/2026-07-08T17-21-32-04-00-static-publish-build-contract.md
-.agent/trackers/2026-07-08T17-21-32-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-08T17-21-32-04-00.md
-```
-
-## Source files to inspect next
-
-```txt
-README.md
-package.json
-index.html
-src/main.js
-src/data/campaign.config.js
-src/hot-air-balloon-object-kit.js
-src/balloon-envelope-panel-kit.js
-src/balloon-mouth-kit.js
-src/balloon-streamer-fit-kit.js
-src/balloon-fabric-seam-kit.js
-src/hot-air-balloon-basket-kit.js
-src/hot-air-balloon-rigging-kit.js
-src/hot-air-balloon-burner-kit.js
-src/rope-kit.js
-tests/smoke.mjs
-```
-
-## Main rule
-
-Keep the visible hot-air-balloon route stable.
-
-Do not restore the older free-flight/bird controller unless there is an explicit product decision to do that.
-
-Do not extract renderer/world/camera domains before source authority is fixture-proven.
-
-Keep `FLIGHT` as compatibility-only until a fixture proves the live route no longer depends on it.
-
-## Current next safe ledge
-
-```txt
-TheOpenAbove Source Manifest Consumer Splice + Fixture Check Gate
-```
-
-Stop that ledge when source modules, source manifest, fixture rows, `src/main.js` source readback, and `npm run check` integration prove README/package/campaign/runtime/GameHost parity while preserving existing `.local` and `.nexusEngine` state shapes.
