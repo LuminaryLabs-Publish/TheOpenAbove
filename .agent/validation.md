@@ -1,6 +1,6 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-08T22-19-38-04-00`
+**Timestamp:** `2026-07-09T00-30-24-04-00`
 
 ## Performed in this pass
 
@@ -10,7 +10,6 @@ read central TheOpenAbove repo ledger
 read repo-local TheOpenAbove .agent state
 read TheOpenAbove README.md
 read TheOpenAbove package.json
-read TheOpenAbove index.html
 read TheOpenAbove src/main.js
 read TheOpenAbove src/data/campaign.config.js
 read TheOpenAbove src/hot-air-balloon-object-kit.js
@@ -79,6 +78,7 @@ balloon_drift_config_drives_runtime_defaults
 source_manifest_lists_all_runtime_consumers
 source_fingerprint_reports_copy_config_runtime_markers
 source_snapshot_reports_visual_object_kit
+source_snapshot_reports_basket_camera_defaults
 gamehost_reports_balloon_source_snapshot
 altitude_bands_have_non_overlapping_thresholds
 route_objects_define_lift_guides_and_landing
@@ -94,7 +94,7 @@ npm_build_runs_source_fixture_before_vite_build
 ## Current validation status
 
 ```txt
-status: documentation-only source readback catch-up pass complete
+status: documentation-only source module consumer splice planning pass complete
 runtime confidence: not revalidated in this pass
 main risk: docs now define exact implementation targets, but runtime source still needs product/config/fixture implementation
 branch created: no
