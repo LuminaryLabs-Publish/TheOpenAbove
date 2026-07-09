@@ -1,6 +1,6 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-09T06-20-00-04-00`
+**Timestamp:** `2026-07-09T09-18-29-04-00`
 
 ## Performed in this pass
 
@@ -9,6 +9,7 @@ read accessible LuminaryLabs-Publish repository list
 read central TheOpenAbove repo ledger
 read repo-local TheOpenAbove .agent state
 read package.json
+read index.html
 read src/data/campaign.config.js
 read src/main.js
 read src/hot-air-balloon-object-kit.js
