@@ -1,6 +1,6 @@
 # Known Gaps — TheOpenAbove
 
-**Timestamp:** `2026-07-09T17-58-53-04-00`
+**Timestamp:** `2026-07-09T19-21-19-04-00`
 
 ## Product / source authority gaps
 
@@ -65,4 +65,16 @@ These are intentionally deferred until source authority is fixed.
 
 ```txt
 Source authority is not frozen enough for implementation agents to safely decide whether README, package metadata, campaign config, runtime constants, object-kit metadata, GameHost diagnostics, smoke checks, repo-local .agent docs, or central tracking are the canonical product surface.
+```
+
+## Do not start next
+
+```txt
+renderer extraction
+terrain extraction
+camera retune
+balloon visual changes
+route expansion
+Cloud Basin content
+legacy FLIGHT field removal before compatibility handling exists
 ```
