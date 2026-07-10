@@ -7,7 +7,7 @@ import { createCloudWeatherMap } from "./atmosphere/cloud-weather-map-kit.js";
 import { createVolumetricClouds } from "./atmosphere/volumetric-cloud-kit.js";
 import { createTerrainSurface } from "./landscape/terrain-surface-kit.js";
 import { createVegetationClusters } from "./landscape/vegetation-cluster-kit.js";
-import { createGrassDetail } from "./landscape/grass-detail-kit.js";
+import { createGrassFieldDomain } from "./grass-field/grass-field-domain.js";
 import { createWaterSurfaces } from "./landscape/water-surface-kit.js";
 import { createDistantLandmarks } from "./landscape/distant-landmark-kit.js";
 import { createHdrComposer } from "./post-process/hdr-composer-kit.js";
@@ -20,31 +20,18 @@ export function createVisualDomain({ canvas, worldConfig }) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x9fc8df);
   const camera = new THREE.PerspectiveCamera(56, 1, 0.08, 6200);
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: quality.id !== "low",
-    powerPreference: "high-performance",
-    alpha: false
-  });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: quality.id !== "low", powerPreference: "high-performance", alpha: false });
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.physicallyCorrectLights = true;
 
   const terrain = createTerrainSurface(scene, worldConfig, quality);
   const vegetation = createVegetationClusters(scene, worldConfig, quality);
-  const grass = createGrassDetail(scene, worldConfig, quality);
+  const grass = createGrassFieldDomain(scene, worldConfig, quality, terrain);
   const landmarks = createDistantLandmarks(scene);
   const weather = createCloudWeatherMap(worldConfig.seed || 1);
   const sun = createSunLight(scene, quality);
-  const sky = createPhysicalSky(scene, {
-    zenithColor: 0x75abd0,
-    horizonColor: 0xf0c9a1,
-    groundHazeColor: 0xd7c2ad,
-    turbidity: 4.2,
-    rayleigh: 1.0,
-    mie: 0.55,
-    sunIntensity: 0.9
-  });
+  const sky = createPhysicalSky(scene, { zenithColor: 0x75abd0, horizonColor: 0xf0c9a1, groundHazeColor: 0xd7c2ad, turbidity: 4.2, rayleigh: 1.0, mie: 0.55, sunIntensity: 0.9 });
   const clouds = createVolumetricClouds(scene, quality, weather);
   const aerial = createAerialPerspective(scene, { color: 0xd8c6ae, density: 0.00022 });
   const water = createWaterSurfaces(scene, sun.direction);
@@ -52,16 +39,7 @@ export function createVisualDomain({ canvas, worldConfig }) {
   const composer = createHdrComposer(renderer, scene, camera, quality);
   const resolution = createDynamicResolutionController(renderer, composer.composer, quality);
 
-  const state = {
-    exposure: 1,
-    averageLuminance: 0.18,
-    sunFacing: 0,
-    sunOnScreen: 0,
-    quality: quality.id,
-    renderScale: resolution.state.scale,
-    drawCalls: 0,
-    triangles: 0
-  };
+  const state = { exposure: 1, averageLuminance: 0.18, sunFacing: 0, sunOnScreen: 0, quality: quality.id, renderScale: resolution.state.scale, drawCalls: 0, triangles: 0, grass: grass.getState() };
 
   function resize() {
     const width = Math.max(1, innerWidth || 1);
@@ -81,19 +59,12 @@ export function createVisualDomain({ canvas, worldConfig }) {
     clouds.update(camera, sun.direction, elapsed);
     aerial.update(camera, sun.direction, weather.state);
     terrain.update(camera, weather.state);
-    grass.update(elapsed);
+    grass.update(elapsed, camera);
     water.update(elapsed, sun.direction);
     lens.update(camera, sun.sunWorldPosition, cameraContext.firstPersonBlend);
-    const post = composer.update({
-      elapsed,
-      deltaTime: dt,
-      sunWorldPosition: sun.sunWorldPosition,
-      atmosphereDensity: aerial.fog.density / 0.00022,
-      cameraContext,
-      burner: flightState.burner
-    });
-    Object.assign(state, post);
+    Object.assign(state, composer.update({ elapsed, deltaTime: dt, sunWorldPosition: sun.sunWorldPosition, atmosphereDensity: aerial.fog.density / 0.00022, cameraContext, burner: flightState.burner }));
     state.renderScale = resolution.state.scale;
+    state.grass = grass.getState();
     return state;
   }
 
@@ -106,28 +77,12 @@ export function createVisualDomain({ canvas, worldConfig }) {
 
   function dispose() {
     removeEventListener("resize", resize);
+    grass.dispose();
     terrain.dispose?.();
     composer.dispose();
   }
 
-  return {
-    id: VISUAL_DOMAIN_ID,
-    quality,
-    scene,
-    camera,
-    renderer,
-    composer,
-    resolution,
-    landscape: { terrain, vegetation, grass, water, landmarks },
-    illumination: { sun, sky, aerial },
-    atmosphere: { weather, clouds },
-    lens,
-    state,
-    update,
-    render,
-    resize,
-    dispose
-  };
+  return { id: VISUAL_DOMAIN_ID, quality, scene, camera, renderer, composer, resolution, landscape: { terrain, vegetation, grass, water, landmarks }, illumination: { sun, sky, aerial }, atmosphere: { weather, clouds }, lens, state, update, render, resize, dispose };
 }
 
 window.OpenAboveVisualDomain = { id: VISUAL_DOMAIN_ID, createVisualDomain };
