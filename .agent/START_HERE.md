@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T04-40-52-04-00`
+**Last aligned:** `2026-07-10T06-08-36-04-00`
 
 **Repo:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -9,7 +9,7 @@
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate
+TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
 ```
 
 ## Read this first
@@ -17,7 +17,7 @@ TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate
 Start with the latest tracker:
 
 ```txt
-.agent/trackers/2026-07-10T04-40-52-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T06-08-36-04-00/project-breakdown.md
 ```
 
 Then read:
@@ -28,45 +28,31 @@ Then read:
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-10T04-40-52-04-00-headless-source-gamehost-readback-dsk-map.md
-.agent/render-audit/2026-07-10T04-40-52-04-00-visual-domain-source-proof-gap.md
-.agent/gameplay-audit/2026-07-10T04-40-52-04-00-balloon-drift-source-loop.md
-.agent/route-source-audit/2026-07-10T04-40-52-04-00-product-campaign-runtime-source-contract.md
-.agent/deploy-audit/2026-07-10T04-40-52-04-00-headless-source-fixture-check-gate.md
-.agent/turn-ledger/2026-07-10T04-40-52-04-00.md
+.agent/architecture-audit/2026-07-10T06-08-36-04-00-source-fixture-ledger-dsk-map.md
+.agent/render-audit/2026-07-10T06-08-36-04-00-renderer-contract-source-readback-gap.md
+.agent/gameplay-audit/2026-07-10T06-08-36-04-00-balloon-drift-source-fixture-loop.md
+.agent/route-source-audit/2026-07-10T06-08-36-04-00-product-campaign-source-ledger-contract.md
+.agent/deploy-audit/2026-07-10T06-08-36-04-00-source-fixture-check-gate.md
+.agent/turn-ledger/2026-07-10T06-08-36-04-00.md
 ```
 
 ## Current product read
 
-`TheOpenAbove` is a live cinematic Balloon Drift route.
+`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon Balloon Drift route.
 
-The route has useful runtime, visual, object, camera, presentation, telemetry, and headless editor kit boundaries.
+The live route is:
+
+```txt
+index.html -> src/main.js -> visual-domain + balloon object + simulation + camera rig + presentation + telemetry -> GameHost
+```
+
+The route has useful runtime, visual, object, camera, presentation, telemetry, smoke-test, and headless editor kit boundaries.
 
 The next blocker is not visual quality. It is source/readback proof.
 
-## Current interaction loop
-
-```txt
-index.html
-  -> importmap loads Three.js 0.165.0
-  -> script loads ./src/main.js
-  -> src/main.js imports NexusEngine main CDN, CAMPAIGN/WORLD, hot-air-balloon object kit, balloon simulation, balloon telemetry, visual-domain, camera-rig, and presentation-domain
-  -> createVisualDomain({ canvas, worldConfig: WORLD })
-  -> buildHotAirBalloon()
-  -> visual.scene.add(balloon)
-  -> createBalloonSimulation({ terrainHeight, startPosition: [0, 105, 0] })
-  -> simulation.applyToBalloon(balloon)
-  -> createBalloonCameraRig(visual.camera, balloon, { initialZoom: 48, maxZoom: 112 })
-  -> createBalloonPresentationDomain(balloon)
-  -> getSnapshot() wraps simulation snapshot with region, camera, and visual stats
-  -> createBalloonTelemetryEngine(NexusEngine, getSnapshot)
-  -> frame updates simulation, balloon pose, object animation, presentation, camera rig, visual domain, Nexus telemetry, renderer, and HUD
-  -> window.GameHost.getState() returns local and nexusEngine snapshots
-```
-
 ## Main finding
 
-Do not start next with renderer extraction, visual-domain rewrite, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
+Do not start next with renderer extraction, terrain extraction, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
 
 The durable blocker is source proof:
 
