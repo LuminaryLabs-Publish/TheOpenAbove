@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T01-20-47-04-00`
+**Last aligned:** `2026-07-10T02-38-56-04-00`
 
 **Repo:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -9,7 +9,7 @@
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
+TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
 ```
 
 ## Read this first
@@ -17,7 +17,7 @@ TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
 Start with the latest tracker:
 
 ```txt
-.agent/trackers/2026-07-10T01-20-47-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T02-38-56-04-00/project-breakdown.md
 ```
 
 Then read:
@@ -28,30 +28,21 @@ Then read:
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-10T01-20-47-04-00-source-consumer-gamehost-readback-dsk-map.md
-.agent/render-audit/2026-07-10T01-20-47-04-00-visual-domain-render-source-readback.md
-.agent/gameplay-audit/2026-07-10T01-20-47-04-00-balloon-drift-simulation-source-loop.md
-.agent/route-source-audit/2026-07-10T01-20-47-04-00-product-campaign-runtime-parity.md
-.agent/deploy-audit/2026-07-10T01-20-47-04-00-source-fixture-check-build-gate.md
-.agent/turn-ledger/2026-07-10T01-20-47-04-00.md
+.agent/architecture-audit/2026-07-10T02-38-56-04-00-headless-source-readback-dsk-map.md
+.agent/render-audit/2026-07-10T02-38-56-04-00-visual-domain-headless-readback-gap.md
+.agent/gameplay-audit/2026-07-10T02-38-56-04-00-balloon-simulation-source-fixture-loop.md
+.agent/route-source-audit/2026-07-10T02-38-56-04-00-product-campaign-headless-parity.md
+.agent/deploy-audit/2026-07-10T02-38-56-04-00-headless-source-fixture-build-gate.md
+.agent/turn-ledger/2026-07-10T02-38-56-04-00.md
 ```
 
 ## Current product read
 
 `TheOpenAbove` is a live cinematic Balloon Drift route.
 
-The browser route starts at `index.html`, loads Three.js through an importmap, then runs `src/main.js`.
+The route now has useful runtime kit boundaries plus Nexus headless editor package commands.
 
-`src/main.js` composes the actual route from dedicated runtime kits:
-
-```txt
-createVisualDomain
-buildHotAirBalloon
-createBalloonSimulation
-createBalloonCameraRig
-createBalloonPresentationDomain
-createBalloonTelemetryEngine
-```
+The next blocker is not visual quality. It is source/readback proof.
 
 ## Current interaction loop
 
@@ -59,7 +50,7 @@ createBalloonTelemetryEngine
 index.html
   -> importmap loads Three.js 0.165.0
   -> script loads ./src/main.js
-  -> src/main.js imports NexusEngine main CDN, CAMPAIGN/WORLD, balloon object kit, simulation kit, telemetry kit, visual-domain, camera-rig, and presentation-domain
+  -> src/main.js imports NexusEngine main CDN, CAMPAIGN/WORLD, hot-air-balloon object kit, balloon simulation, balloon telemetry, visual-domain, camera-rig, and presentation-domain
   -> createVisualDomain({ canvas, worldConfig: WORLD })
   -> buildHotAirBalloon()
   -> visual.scene.add(balloon)
@@ -77,14 +68,15 @@ index.html
 
 Do not start next with renderer extraction, visual-domain rewrite, camera retuning, balloon visual changes, simulation constant retuning, or route expansion.
 
-The durable blocker is source/readback proof:
+The repo has headless editor commands, but `tools/headless-editor-environment.mjs` currently validates renderer/build contracts, not source/readback facts.
+
+The durable blocker is still source proof:
 
 ```txt
-README still carries older free-flight wording.
-campaign config still contains legacy FLIGHT/thermal/gate/perch fields.
-src/main.js is the actual route composer.
+README and campaign data still contain legacy free-flight concepts.
+src/main.js is the current Balloon Drift route composer.
 window.GameHost.getState() has no .source block.
-No source manifest, source fingerprint, source snapshot, source acceptance rows, or DOM-free source fixture exist yet.
+No source manifest, source fingerprint, source snapshot, source acceptance rows, or headless source fixture exist yet.
 ```
 
 ## Next implementation files
@@ -112,4 +104,5 @@ Do not work on Cavalry of Rome.
 Keep GameHost legacy fields compatible.
 Add source readback additively.
 Do not delete legacy campaign fields until compatibility rows exist.
+Use the headless editor harness as a source proof caller after the source fixture exists.
 ```
