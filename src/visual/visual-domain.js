@@ -3,7 +3,6 @@ import { detectQualityTier, createDynamicResolutionController } from "./quality-
 import { createPhysicalSky } from "./illumination/physical-sky-kit.js";
 import { createSunLight } from "./illumination/sun-light-kit.js";
 import { createAerialPerspective } from "./illumination/aerial-perspective-kit.js";
-import { createCloudShadowOverlay } from "./illumination/cloud-shadow-kit.js";
 import { createCloudWeatherMap } from "./atmosphere/cloud-weather-map-kit.js";
 import { createVolumetricClouds } from "./atmosphere/volumetric-cloud-kit.js";
 import { createTerrainSurface } from "./landscape/terrain-surface-kit.js";
@@ -19,7 +18,7 @@ export const VISUAL_DOMAIN_ID = "open-above-visual-domain";
 export function createVisualDomain({ canvas, worldConfig }) {
   const quality = detectQualityTier();
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x05070d);
+  scene.background = new THREE.Color(0x9fc8df);
   const camera = new THREE.PerspectiveCamera(56, 1, 0.08, 6200);
   const renderer = new THREE.WebGLRenderer({
     canvas,
@@ -37,10 +36,17 @@ export function createVisualDomain({ canvas, worldConfig }) {
   const landmarks = createDistantLandmarks(scene);
   const weather = createCloudWeatherMap(worldConfig.seed || 1);
   const sun = createSunLight(scene, quality);
-  const sky = createPhysicalSky(scene);
+  const sky = createPhysicalSky(scene, {
+    zenithColor: 0x75abd0,
+    horizonColor: 0xf0c9a1,
+    groundHazeColor: 0xd7c2ad,
+    turbidity: 4.2,
+    rayleigh: 1.0,
+    mie: 0.55,
+    sunIntensity: 0.9
+  });
   const clouds = createVolumetricClouds(scene, quality, weather);
-  const aerial = createAerialPerspective(scene);
-  const cloudShadows = createCloudShadowOverlay(scene, terrain.mesh, weather);
+  const aerial = createAerialPerspective(scene, { color: 0xd8c6ae, density: 0.00022 });
   const water = createWaterSurfaces(scene, sun.direction);
   const lens = createLensResponse(scene);
   const composer = createHdrComposer(renderer, scene, camera, quality);
@@ -74,7 +80,7 @@ export function createVisualDomain({ canvas, worldConfig }) {
     sky.update(camera, sun.direction);
     clouds.update(camera, sun.direction, elapsed);
     aerial.update(camera, sun.direction, weather.state);
-    cloudShadows.update();
+    terrain.update(camera, weather.state);
     grass.update(elapsed);
     water.update(elapsed, sun.direction);
     lens.update(camera, sun.sunWorldPosition, cameraContext.firstPersonBlend);
@@ -82,7 +88,7 @@ export function createVisualDomain({ canvas, worldConfig }) {
       elapsed,
       deltaTime: dt,
       sunWorldPosition: sun.sunWorldPosition,
-      atmosphereDensity: aerial.fog.density / 0.00038,
+      atmosphereDensity: aerial.fog.density / 0.00022,
       cameraContext,
       burner: flightState.burner
     });
@@ -100,6 +106,7 @@ export function createVisualDomain({ canvas, worldConfig }) {
 
   function dispose() {
     removeEventListener("resize", resize);
+    terrain.dispose?.();
     composer.dispose();
   }
 
@@ -112,7 +119,7 @@ export function createVisualDomain({ canvas, worldConfig }) {
     composer,
     resolution,
     landscape: { terrain, vegetation, grass, water, landmarks },
-    illumination: { sun, sky, aerial, cloudShadows },
+    illumination: { sun, sky, aerial },
     atmosphere: { weather, clouds },
     lens,
     state,
