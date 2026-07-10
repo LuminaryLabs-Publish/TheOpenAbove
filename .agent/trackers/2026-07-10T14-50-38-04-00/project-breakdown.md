@@ -8,30 +8,28 @@
 
 ## Summary
 
-`TheOpenAbove` remains the oldest eligible documented fallback after comparing the full accessible `LuminaryLabs-Publish` inventory against the central ledger and root `.agent` state. This pass updates documentation only and narrows the next implementation target from generic source readback to a frame-correlated source, input, simulation, camera, render, telemetry, HUD, and GameHost proof chain.
+`TheOpenAbove` was the oldest eligible documented fallback after the complete accessible `LuminaryLabs-Publish` inventory was compared against central ledger timestamps and root `.agent` state. This documentation-only pass narrows the next implementation target to a frame-correlated source, input, simulation, camera, visual, telemetry, render, HUD, and GameHost proof chain.
 
 ## Plan ledger
 
 ### Goal
 
-Document the current Balloon Drift interaction loop, every active domain, every service, and every kit, then define the smallest implementation ledge that can prove how source rows and input results are consumed during a specific runtime frame without changing the visible experience.
+Document the current Balloon Drift interaction loop, every active domain, every service, and every kit, then define the smallest proof-focused implementation ledge without changing visible behavior.
 
 ### Checklist
 
-- [x] List the complete accessible `LuminaryLabs-Publish` repository inventory.
-- [x] Compare every eligible repository against `LuminaryLabs-Dev/LuminaryLabs/repo-ledger`.
+- [x] List the complete accessible Publish inventory.
+- [x] Compare all eligible repositories against the central repo ledger.
 - [x] Confirm no new, untracked, or root-`.agent`-missing repository takes priority.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select exactly one repository.
-- [x] Read the active route composer, campaign/world config, simulation kit, camera rig, package scripts, headless editor environment, and existing `.agent` state.
+- [x] Read the active route, config, simulation, camera, package, headless, and existing audit state.
 - [x] Identify the interaction loop.
-- [x] Identify domains, services, and kits.
+- [x] Identify all domains, services, and kits.
 - [x] Add timestamped architecture, render, gameplay, route-source, interaction, source-authority, telemetry, headless-editor, and deploy audits.
-- [x] Refresh root `.agent` navigation and status docs.
-- [x] Refresh the machine-readable kit registry.
-- [x] Record validation limits honestly.
+- [x] Refresh root `.agent` navigation, status, validation, and kit registry files.
 - [x] Push repo-local findings directly to `main` without a branch or PR.
-- [ ] Synchronize the central repo ledger and internal change log.
+- [x] Synchronize `LuminaryLabs-Dev/LuminaryLabs` repo ledger and internal change log.
 
 ## Repository selection comparison
 
@@ -48,77 +46,71 @@ LuminaryLabs-Publish/MyCozyIsland         tracked / ledger 2026-07-10T14-42-01-0
 LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
 ```
 
-All nine eligible repositories are centrally tracked and have root `.agent` state. `TheOpenAbove` is therefore selected by the oldest documented-selection rule.
+All nine eligible repositories were centrally tracked and had root `.agent` state.
 
 ## Interaction loop
 
 ```txt
 index.html
-  -> Three.js 0.165.0 and NexusEngine main CDN imports
-  -> src/main.js creates visual domain and balloon object
-  -> simulation installs keyboard listeners
-  -> camera rig installs wheel listener
-  -> requestAnimationFrame
-       -> simulation.update(dt)
-       -> simulation.applyToBalloon(balloon)
-       -> animateHotAirBalloon(...)
-       -> balloonPresentation.update(...)
-       -> cameraRig.update(dt, state)
-       -> visual.update({ dt, elapsed, flightState, cameraContext })
-       -> Nexus telemetry engine.tick(dt)
-       -> visual.render(dt, frameMs)
+  -> Three.js 0.165.0 and NexusEngine main CDN
+  -> src/main.js creates visual, balloon, simulation, camera, presentation, and telemetry systems
+  -> keyboard events mutate burner/vent key state
+  -> wheel events mutate camera zoom
+  -> animation frame
+       -> simulation update
+       -> balloon transform and animation
+       -> presentation update
+       -> camera update
+       -> visual update
+       -> Nexus telemetry tick
+       -> render submission
        -> HUD projection
-       -> next animation frame
-  -> window.GameHost.getState()
-       -> current Nexus snapshot
-       -> current local simulation/camera/visual snapshot
-  -> headless editor
-       -> static file and regex inspection
-       -> npm check/build commands
+  -> GameHost latest local/Nexus readback
+  -> headless static inspection and npm command routing
 ```
 
-## Domains in use
+## Domains
 
 ```txt
-browser shell and Vite static publishing
-Three.js import runtime and NexusEngine CDN adapter
-campaign, world, and legacy free-flight configuration
-keyboard burner/vent input and wheel zoom input
-wind, buoyancy, damping, altitude safety, ground clearance, and drift integration
-hot-air-balloon object construction and animation
-camera follow, basket-view blend, clipping fade, and projection updates
-balloon fabric, basket, rope, and burner presentation
-visual domain, renderer, quality tier, dynamic resolution, physical sky, sun, atmosphere, volumetric clouds, streamed terrain, vegetation, grass, water, landmarks, HDR composition, neutral grade, and lens response
-HUD and Nexus telemetry projection
-legacy GameHost current-state readback
-static smoke contracts and Nexus headless editor contracts
-planned source authority, input result, frame correlation, consumer attribution, and fixture proof
+browser and Vite shell
+Three.js and NexusEngine CDN adapters
+campaign, world, and legacy free-flight source
+keyboard and wheel input
+wind, buoyancy, damping, ceiling, terrain-clearance, altitude, velocity, and distance simulation
+hot-air-balloon object and presentation
+camera follow, basket-view blend, projection, and clipping
+visual renderer and quality policy
+sky, sun, atmosphere, volumetric clouds, streamed terrain, vegetation, grass, water, and landmarks
+HDR composition, neutral grade, and lens response
+Nexus telemetry and HUD projection
+legacy GameHost readback
+static smoke and headless validation
+planned source authority, input result, frame correlation, consumer attribution, GameHost proof, and fixture domains
 central ledger synchronization
 ```
 
-## Services offered by the kits
+## Services
 
 ```txt
-route mounting, import resolution, fatal-error display, and HUD mounting
-canonical campaign/world constant lookup plus legacy field compatibility
-keyboard intent capture and blur reset
-wheel zoom capture and bounded zoom mutation
-wind and vertical-flight state integration
-terrain-relative altitude and collision clearance
-balloon transform application and visual animation
-camera pose, mode, blend, FOV, clipping, and diagnostic state
-renderer/scene/camera creation and environment composition
-terrain streaming, vegetation, grass, cloud, water, lighting, and post-process updates
-balloon material and rig presentation updates
-NexusEngine telemetry publication
-local JSON-safe simulation/camera/visual snapshots
+route mounting and import resolution
+fatal-error and HUD projection
+campaign/world constant lookup and legacy compatibility classification
+keyboard intent and blur reset
+wheel zoom and clamping
+balloon drift simulation and terrain-relative safety
+balloon construction, transforms, and animation
+camera pose, blend, FOV, clipping, and diagnostics
+environment creation and frame updates
+quality, render scale, render statistics, and draw submission
+Nexus telemetry publication
+latest local/Nexus snapshots
 static renderer/build inspection and npm command execution
-planned source fingerprints, source snapshots, acceptance rows, consumer rows, input rows, frame rows, correlation IDs, GameHost projection, and DOM-free fixtures
+planned source fingerprints, input results, frame IDs, consumer rows, bounded journals, GameHost proof, and deterministic fixtures
 ```
 
 ## Kits
 
-### Implemented source-backed kits
+### Implemented or runtime-implied
 
 ```txt
 open-above-balloon-simulation-kit
@@ -146,11 +138,6 @@ open-above-neutral-color-grade-kit
 open-above-lens-response-kit
 open-above-headless-editor-environment
 open-above-static-smoke-test-kit
-```
-
-### Runtime-implied kits
-
-```txt
 open-above-route-shell-kit
 open-above-importmap-kit
 open-above-runtime-composer-kit
@@ -175,9 +162,12 @@ open-above-source-acceptance-ledger-kit
 open-above-source-consumer-ledger-kit
 open-above-input-result-ledger-kit
 open-above-frame-correlation-ledger-kit
-open-above-render-consumption-row-kit
-open-above-telemetry-consumption-row-kit
-open-above-hud-consumption-row-kit
+open-above-simulation-consumer-row-kit
+open-above-camera-consumer-row-kit
+open-above-visual-consumer-row-kit
+open-above-telemetry-consumer-row-kit
+open-above-render-consumer-row-kit
+open-above-hud-consumer-row-kit
 open-above-gamehost-source-frame-readback-kit
 open-above-headless-source-frame-fixture-kit
 open-above-browser-source-frame-fixture-kit
@@ -185,9 +175,7 @@ open-above-browser-source-frame-fixture-kit
 
 ## Main finding
 
-The route already has usable runtime boundaries. The missing contract is temporal attribution.
-
-Keyboard and wheel listeners mutate hidden state. `src/main.js` then performs simulation, camera, visual, telemetry, render, and HUD work in a fixed sequence, but no shared frame ID or input correlation ID proves which source and input rows produced a given local snapshot. `GameHost.getState()` exposes only the latest aggregate state, while the headless editor performs static source inspection rather than executing a deterministic source/input/frame fixture.
+The runtime boundaries are useful, but the system cannot explain causality. Keyboard and wheel listeners produce no normalized outcomes. `src/main.js` performs all runtime consumers in a fixed order, but no shared frame ID, source fingerprint, or consumed input sequence range connects them. GameHost exposes latest aggregate state only, and the headless editor performs static inspection rather than deterministic source/input/frame proof.
 
 ## Next safe ledge
 
@@ -197,4 +185,4 @@ TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture G
 
 ## Validation
 
-Documentation only. Runtime source, dependencies, package scripts, route behavior, and deployment configuration were not changed. No branch or PR was created. Existing npm, headless, browser, and GPU checks were not run. The proposed source/input/frame fixture does not exist yet.
+Documentation only. Runtime source, dependencies, package scripts, route behavior, and deployment configuration did not change. No branch or PR was created. Existing npm, headless, browser, GPU, and deployment checks were not run. Repo-local and central documentation were pushed directly to `main`.
