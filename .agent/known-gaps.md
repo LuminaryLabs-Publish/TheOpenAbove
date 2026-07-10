@@ -1,120 +1,82 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T17-51-35-04-00`
+**Last aligned:** `2026-07-10T19-18-39-04-00`
 
 ## Primary gap
 
-The route has no runtime-session authority spanning construction, listener installation, animation-frame ownership, partial-start rollback, stop, disposal, restart, and lifecycle readback.
+The route lacks a session identity and generation fence spanning construction, callbacks, listener ownership, animation frames, partial-start rollback, stop, disposal, restart, and GameHost readback.
 
 ## Current lifecycle gaps
 
 ```txt
 createGame() returns no session owner.
-The recursive requestAnimationFrame handle is not retained.
-There is no cancelAnimationFrame path.
-simulation.dispose() is never called by the route composer.
-cameraRig.dispose() is never called by the route composer.
-visual.dispose() is never called by the route composer.
-GameHost exposes no stop, dispose, restart, or lifecycle state.
-Fatal startup after partial construction has no rollback path.
-No pagehide, unload, or HMR disposal policy exists.
+The recursive requestAnimationFrame ID is discarded.
+No cancelAnimationFrame path exists.
+No callback checks an active session generation.
+Simulation, camera, and visual dispose methods are never composed by the route.
+Fatal startup after partial construction has no rollback.
+GameHost exposes live mutable objects with no terminal snapshot.
 No listener ownership ledger exists.
 No resource ownership/disposal ledger exists.
-No session transition journal exists.
-No proof prevents parallel frame chains on repeated creation.
-No proof prevents stale listeners from consuming new-session input.
-No proof shows old state remains frozen after stop/dispose.
-No lifecycle restart fixture exists.
+No lifecycle or rejection journal exists.
+No proof prevents parallel frame chains.
+No proof prevents stale input or frame callbacks after restart.
+No proof freezes old state after stop/dispose.
+No lifecycle fixture exists.
+```
+
+## Input and callback race gaps
+
+```txt
+keydown, keyup, blur, wheel, and resize listeners are global.
+Listener removal has no owner/session/result row.
+Stop does not invalidate callbacks before teardown.
+Held keyboard state has no restart policy.
+A queued frame can continue through simulation and render after stop.
+An old GameHost reference can remain reachable after restart.
 ```
 
 ## Render-resource gaps
 
 ```txt
 visual.dispose() removes resize and disposes grass, terrain, and composer only.
-The renderer is not explicitly disposed by the visual-domain path.
-Balloon geometry/material ownership is not included in root teardown.
+The route does not call visual.dispose().
+Renderer ownership is not classified.
+Balloon geometry/material ownership is not classified.
 Vegetation, landmarks, weather, sun, sky, clouds, aerial, water, and lens teardown is not centrally classified.
-No row distinguishes retained, unsupported, skipped, disposed, or failed resources.
-No soft-restart versus hard-destroy renderer policy is documented in runtime code.
+No terminal row distinguishes disposed, retained, unsupported, skipped, stale, or failed resources.
+No soft-restart versus hard-destroy renderer policy exists in runtime code.
 ```
 
-## Existing frame-phase gaps retained
+## Frame-phase gaps retained
 
 ```txt
 Telemetry publishes before render.
 Dynamic-resolution sampling can change scale during render.
 Renderer statistics are written after telemetry publication.
 HUD/GameHost.local can expose post-render stats with pre-sample scale.
-GameHost.nexusEngine can represent an earlier telemetry phase.
+GameHost.nexusEngine can represent an earlier phase.
 No committed frame ID joins simulation, camera, visual, render, telemetry, HUD, and GameHost.
 No input sequence range is attached to a committed frame.
-```
-
-## Required lifecycle rows
-
-```txt
-session-created
-session-starting
-component-created
-listener-installed
-resource-registered
-frame-requested
-session-running
-stop-requested
-frame-cancelled
-listener-removed
-resource-dispose-requested
-resource-disposed
-resource-retained
-resource-dispose-skipped
-resource-dispose-failed
-session-stopped
-dispose-requested
-session-disposed
-restart-requested
-session-restarted
-startup-failed
-rollback-completed
-operation-rejected
-fixture-summary
-```
-
-## Required lifecycle statuses
-
-```txt
-created
-starting
-running
-stopping
-stopped
-disposing
-disposed
-restarting
-failed
-already-running
-already-stopped
-already-disposed
-accepted
-rejected
-skipped
-unsupported
-partial-failure
+Frame identity is not scoped under session identity.
 ```
 
 ## Required guarantees
 
 ```txt
 one active session per canvas
+one accepted generation at a time
 one recursive frame chain per session
-stop prevents all future state mutation
-dispose is idempotent
-all owned listeners are removable
-all registered resources reach terminal teardown status
-partial startup failure rolls back in reverse order
-restart creates a new sessionId
-stale callbacks cannot mutate the new session
-GameHost reports terminal status for disposed sessions
-journals are bounded and JSON-safe
+stale callbacks return rejected without mutation
+stop prevents future state mutation
+stop and dispose are idempotent
+all owned listeners are removable and terminally recorded
+all registered resources reach terminal status
+partial startup rolls back in reverse order
+restart creates a new sessionId and generation
+held input is cleared at the session boundary
+old GameHost authority cannot command the new session
+terminal proof is immutable, bounded and JSON-safe
 ```
 
 ## Non-gaps for the next pass
@@ -122,8 +84,8 @@ journals are bounded and JSON-safe
 ```txt
 The route boots through Vite.
 Simulation, camera, visual, telemetry, smoke, and headless files are separated.
-Simulation and camera already expose listener-disposal methods.
-Visual and composer already expose partial resource-disposal methods.
+Simulation and camera expose listener-disposal methods.
+Visual and composer expose partial resource-disposal methods.
 The active grass system is deterministic by world seed and chunk coordinates.
 Build already depends on npm run check.
 ```
@@ -140,11 +102,11 @@ simulation constant changes
 new regions or objectives
 quality threshold retuning
 legacy grass deletion
-frame-proof implementation that lacks session identity
+frame proof without session identity
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Runtime Session Lifecycle Authority + Dispose/Reboot Fixture Gate
+TheOpenAbove Session Generation Fence + Terminal GameHost Fixture Gate
 ```
