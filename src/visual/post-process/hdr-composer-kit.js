@@ -1,9 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/RenderPass.js";
-import { createAutoExposureKit } from "./auto-exposure-kit.js";
-import { createGodRayKit } from "./god-ray-kit.js";
-import { createBloomKit } from "./bloom-kit.js";
 import { createColorGradeKit } from "./color-grade-kit.js";
 
 export const HDR_COMPOSER_KIT_ID = "open-above-hdr-composer-kit";
@@ -46,17 +43,12 @@ export function createHdrComposer(renderer, scene, camera, quality) {
   const composer = new EffectComposer(renderer, target);
   const depthTextures = installIndependentDepthTextures(composer, width, height);
   composer.setPixelRatio(1);
+
   const renderPass = new RenderPass(scene, camera);
-  renderPass.name = "OpenAboveHdrSceneRenderPass";
-  const autoExposure = createAutoExposureKit({ initialExposure: 1.0, adaptationRate: 1.1 });
-  const godRays = createGodRayKit(quality);
-  const bloom = createBloomKit(quality);
+  renderPass.name = "OpenAboveNeutralSceneRenderPass";
   const colorGrade = createColorGradeKit();
 
   composer.addPass(renderPass);
-  composer.addPass(autoExposure.pass);
-  composer.addPass(godRays.pass);
-  composer.addPass(bloom.pass);
   composer.addPass(colorGrade.pass);
 
   function resize(nextWidth, nextHeight) {
@@ -70,26 +62,16 @@ export function createHdrComposer(renderer, scene, camera, quality) {
     }
   }
 
-  function update({ elapsed, deltaTime, sunWorldPosition, atmosphereDensity, cameraContext, burner }) {
-    const godState = godRays.update(camera, sunWorldPosition, atmosphereDensity);
-    autoExposure.updateContext({
-      firstPersonBlend: cameraContext.firstPersonBlend,
-      burner,
-      sunFacing: godState.facing
-    });
-    bloom.update({ sunFacing: godState.facing * godState.onScreen, burner });
-    colorGrade.update({
-      exposure: autoExposure.state.currentExposure,
-      elapsed,
-      sunScreen: godRays.pass.material.uniforms.uSunScreen.value,
-      sunStrength: godState.onScreen,
-      firstPersonBlend: cameraContext.firstPersonBlend
-    });
+  function update() {
+    colorGrade.update();
     return {
-      exposure: autoExposure.state.currentExposure,
-      averageLuminance: autoExposure.state.averageLuminance,
-      sunFacing: godState.facing,
-      sunOnScreen: godState.onScreen
+      exposure: 1.0,
+      averageLuminance: 0.18,
+      sunFacing: 0,
+      sunOnScreen: 0,
+      bloomEnabled: false,
+      godRaysEnabled: false,
+      autoExposureEnabled: false
     };
   }
 
@@ -98,8 +80,6 @@ export function createHdrComposer(renderer, scene, camera, quality) {
   }
 
   function dispose() {
-    autoExposure.pass.dispose();
-    godRays.pass.dispose();
     for (const texture of depthTextures) texture.dispose();
     target.dispose();
     composer.dispose?.();
@@ -109,9 +89,9 @@ export function createHdrComposer(renderer, scene, camera, quality) {
     id: HDR_COMPOSER_KIT_ID,
     composer,
     renderPass,
-    autoExposure,
-    godRays,
-    bloom,
+    autoExposure: null,
+    godRays: null,
+    bloom: null,
     colorGrade,
     depthTextures,
     resize,
