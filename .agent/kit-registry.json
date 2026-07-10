@@ -1,21 +1,20 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-10T16-20-09-04-00",
-  "status": "render-phase-authority-adaptive-resolution-fixture-gate-planned",
-  "latestTracker": ".agent/trackers/2026-07-10T16-20-09-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T16-20-09-04-00.md",
+  "lastAligned": "2026-07-10T17-51-35-04-00",
+  "status": "runtime-session-lifecycle-dispose-reboot-fixture-gate-planned",
+  "latestTracker": ".agent/trackers/2026-07-10T17-51-35-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T17-51-35-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-10T16-20-09-04-00-render-phase-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-10T16-20-09-04-00-telemetry-render-scale-phase-skew.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-10T16-20-09-04-00-balloon-drift-frame-phase-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-10T16-20-09-04-00-input-to-frame-consumption-map.md",
-    "grassSystem": ".agent/grass-system-audit/2026-07-10T16-20-09-04-00-grass-field-kit-truth-map.md",
-    "telemetry": ".agent/telemetry-audit/2026-07-10T16-20-09-04-00-pre-render-snapshot-publication-gap.md",
-    "deploy": ".agent/deploy-audit/2026-07-10T16-20-09-04-00-render-phase-fixture-check-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-10T17-51-35-04-00-runtime-session-lifecycle-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-10T17-51-35-04-00-renderer-resource-disposal-coverage-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-10T17-51-35-04-00-balloon-session-start-frame-stop-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-10T17-51-35-04-00-listener-ownership-restart-result-map.md",
+    "lifecycle": ".agent/lifecycle-audit/2026-07-10T17-51-35-04-00-runtime-session-teardown-reboot-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-10T17-51-35-04-00-lifecycle-restart-fixture-check-gate.md"
   },
   "selection": {
-    "reason": "oldest eligible documented fallback after full Publish inventory, central ledger, and root .agent comparison",
+    "reason": "oldest eligible documented fallback after full Publish inventory, central ledger, and repo-local agent recency comparison",
     "excluded": [
       "LuminaryLabs-Publish/TheCavalryOfRome"
     ],
@@ -24,20 +23,22 @@
   },
   "interactionLoop": [
     "browser route and CDN imports",
-    "runtime composition",
-    "keyboard burner/vent state",
-    "wheel zoom state",
+    "visual construction and resize-listener installation",
+    "balloon construction",
+    "simulation construction and keyboard-listener installation",
+    "camera construction and wheel-listener installation",
+    "presentation and telemetry construction",
+    "initial state publication",
+    "recursive animation-frame scheduling",
     "simulation update",
     "balloon transform and presentation",
     "camera update",
-    "visual pre-render update",
-    "Nexus telemetry tick",
-    "render submission",
-    "adaptive-resolution sample",
-    "renderer statistics write",
+    "visual update",
+    "telemetry tick",
+    "render and adaptive-resolution sample",
     "HUD projection",
-    "GameHost local and Nexus readback",
-    "headless static inspection and npm routing"
+    "GameHost live-object readback",
+    "missing stop/dispose/rollback/restart composition"
   ],
   "domains": [
     "browser-shell",
@@ -91,12 +92,17 @@
     "nexus-telemetry",
     "hud-projection",
     "gamehost-readback",
+    "resource-disposal",
     "static-smoke-contract",
     "headless-renderer-contract",
+    "planned-runtime-session-authority",
+    "planned-lifecycle-state",
+    "planned-animation-frame-ownership",
+    "planned-listener-ownership",
+    "planned-resource-ownership",
+    "planned-partial-start-rollback",
+    "planned-lifecycle-fixture",
     "planned-frame-phase-authority",
-    "planned-adaptive-quality-decision-ledger",
-    "planned-source-input-correlation",
-    "planned-dom-free-fixture",
     "central-ledger-sync"
   ],
   "services": [
@@ -105,15 +111,16 @@
     "keyboard burner/vent state and wheel zoom capture",
     "wind, buoyancy, damping, ceiling, terrain-clearance, altitude, velocity, distance, and snapshot simulation",
     "balloon construction, transform application, and presentation animation",
-    "camera follow, basket view, FOV, clipping fade, zoom, and state readback",
-    "sky, sun, atmosphere, clouds, terrain, vegetation, water, and landmark composition",
-    "deterministic grass seed, density, exclusion, placement, LOD, culling, chunk rebuild, animation, and state",
-    "hardware quality-tier detection, dynamic render scale, frame-cost smoothing, resize, and render statistics",
-    "HDR composition, neutral grading, and lens response",
-    "NexusEngine resource/event telemetry publication",
-    "HUD and GameHost latest-state projection",
+    "camera follow, basket view, FOV, clipping fade, zoom, state readback, and wheel-listener disposal",
+    "sky, sun, atmosphere, clouds, terrain, vegetation, water, landmark, and grass composition",
+    "hardware quality detection, dynamic render scale, resize, render submission, and statistics",
+    "HDR composition, depth-target ownership, neutral grading, and lens response",
+    "NexusEngine telemetry publication",
+    "HUD and GameHost projection",
+    "simulation keyboard-listener disposal",
+    "visual resize-listener and partial resource disposal",
     "static smoke assertions and headless check/build routing",
-    "planned committed-frame, adaptive-quality decision, consumer, GameHost, and fixture proof"
+    "planned session creation, frame ownership, listener/resource registration, rollback, teardown, restart, and lifecycle proof"
   ],
   "activeSourceBackedKits": [
     "open-above-balloon-simulation-kit",
@@ -163,18 +170,23 @@
     "open-above-nexusengine-cdn-adapter-kit"
   ],
   "nextCutKits": [
+    "open-above-runtime-session-authority-kit",
+    "open-above-runtime-lifecycle-state-kit",
+    "open-above-runtime-start-transaction-kit",
+    "open-above-animation-frame-ownership-kit",
+    "open-above-listener-ownership-ledger-kit",
+    "open-above-resource-ownership-ledger-kit",
+    "open-above-partial-start-rollback-kit",
+    "open-above-ordered-teardown-kit",
+    "open-above-session-result-journal-kit",
+    "open-above-gamehost-lifecycle-proof-kit",
+    "open-above-lifecycle-restart-fixture-kit",
     "open-above-frame-phase-authority-kit",
     "open-above-adaptive-quality-decision-ledger-kit",
-    "open-above-render-result-row-kit",
-    "open-above-telemetry-publication-row-kit",
-    "open-above-committed-frame-snapshot-kit",
-    "open-above-gamehost-frame-proof-kit",
-    "open-above-grass-kit-truth-ledger-kit",
-    "open-above-render-phase-fixture-kit",
-    "open-above-browser-frame-parity-kit"
+    "open-above-committed-frame-snapshot-kit"
   ],
-  "mainFinding": "Telemetry publishes before render; dynamic-resolution sampling and renderer statistics happen during/after render; HUD and GameHost local can therefore expose post-render statistics with a pre-sample render scale while GameHost nexusEngine retains the earlier telemetry snapshot.",
-  "nextSafeLedge": "TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate",
+  "mainFinding": "The route constructs a full runtime and starts recursive frames but has no root session owner. Kit-level dispose methods exist yet are never coordinated or invoked, animation-frame ownership is not retained, partial startup has no rollback, GameHost has no lifecycle surface, and repeated creation can leave parallel loops, duplicate listeners, and unproven resource cleanup.",
+  "nextSafeLedge": "TheOpenAbove Runtime Session Lifecycle Authority + Dispose/Reboot Fixture Gate",
   "validation": {
     "runtimeSourceChanged": false,
     "packageScriptsChanged": false,
@@ -186,9 +198,9 @@
     "headlessCheck": "not run",
     "browserSmoke": "not run",
     "gpuValidation": "not run",
-    "renderPhaseFixture": "not run because proof files do not exist yet",
+    "lifecycleFixture": "not run because proof files do not exist yet",
     "repoLocalPushedToMain": true,
-    "centralLedgerSynced": true,
-    "centralChangeLogSynced": true
+    "centralLedgerPendingAtRecordTime": true,
+    "centralChangeLogPendingAtRecordTime": true
   }
 }
