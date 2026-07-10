@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T06-08-36-04-00`
+**Last aligned:** `2026-07-10T07-41-42-04-00`
 
 **Repo:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -9,7 +9,7 @@
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
+TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
 ```
 
 ## Read this first
@@ -17,7 +17,7 @@ TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
 Start with the latest tracker:
 
 ```txt
-.agent/trackers/2026-07-10T06-08-36-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T07-41-42-04-00/project-breakdown.md
 ```
 
 Then read:
@@ -28,12 +28,13 @@ Then read:
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-10T06-08-36-04-00-source-fixture-ledger-dsk-map.md
-.agent/render-audit/2026-07-10T06-08-36-04-00-renderer-contract-source-readback-gap.md
-.agent/gameplay-audit/2026-07-10T06-08-36-04-00-balloon-drift-source-fixture-loop.md
-.agent/route-source-audit/2026-07-10T06-08-36-04-00-product-campaign-source-ledger-contract.md
-.agent/deploy-audit/2026-07-10T06-08-36-04-00-source-fixture-check-gate.md
-.agent/turn-ledger/2026-07-10T06-08-36-04-00.md
+.agent/architecture-audit/2026-07-10T07-41-42-04-00-source-readback-headless-fixture-dsk-map.md
+.agent/render-audit/2026-07-10T07-41-42-04-00-renderer-build-source-proof-gap.md
+.agent/gameplay-audit/2026-07-10T07-41-42-04-00-balloon-drift-gamehost-source-loop.md
+.agent/route-source-audit/2026-07-10T07-41-42-04-00-legacy-current-source-parity-contract.md
+.agent/interaction-audit/2026-07-10T07-41-42-04-00-burner-vent-input-source-result-map.md
+.agent/deploy-audit/2026-07-10T07-41-42-04-00-source-fixture-headless-check-gate.md
+.agent/turn-ledger/2026-07-10T07-41-42-04-00.md
 ```
 
 ## Current product read
