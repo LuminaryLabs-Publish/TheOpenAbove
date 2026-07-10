@@ -1,29 +1,29 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T04-40-52-04-00`
+**Last aligned:** `2026-07-10T06-08-36-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate
+TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
 ```
 
 ## Goal
 
 Add source/readback proof without changing the visible route.
 
-Use the existing headless editor surface as a validation caller after the source fixture exists.
+Use the existing smoke test and headless editor surface as validation callers after the source fixture exists.
 
 ## Implementation order
 
 ```txt
 1. Add canonical product and route source modules.
-2. Add legacy campaign compatibility classification.
-3. Add source manifest, fingerprint, snapshot, and acceptance ledger modules.
+2. Add legacy campaign/free-flight compatibility classification.
+3. Add source manifest, fingerprint, snapshot, acceptance ledger, and consumer ledger modules.
 4. Add additive GameHost source readback.
 5. Add DOM-free source fixture.
-6. Extend or wrap the headless editor environment so project.check proves source rows too.
-7. Wire the fixture into npm run check.
+6. Extend project.check/headless runtime.getState so headless checks prove source rows too.
+7. Wire the source fixture into npm run check before the existing smoke test.
 8. Run npm run check.
 9. Run npm run headless:check.
 10. Run npm run build if check passes.
@@ -48,10 +48,11 @@ scripts/open-above-source-fixture.mjs
 
 ```txt
 canonical Balloon Drift route source can load without DOM
-legacy FLIGHT/campaign fields are classified explicitly
+legacy README/campaign/FLIGHT fields are classified explicitly
 source fingerprints are stable
 source snapshots are serializable
 source acceptance rows are emitted
+source consumer rows identify src/main.js, simulation, visual-domain, smoke, and headless consumers
 GameHost source projection has expected shape
 headless project.check includes source rows
 fixture exits non-zero on missing required rows
@@ -74,6 +75,7 @@ window.GameHost.getState()
        -> fingerprint
        -> snapshot
        -> acceptanceRows
+       -> consumerRows
        -> fixtureVersion
        -> headlessStatus
 ```
@@ -82,6 +84,7 @@ window.GameHost.getState()
 
 ```txt
 renderer extraction
+terrain extraction
 visual-domain rewrite
 camera retune
 balloon visual changes
