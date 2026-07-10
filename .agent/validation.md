@@ -1,67 +1,61 @@
-# Validation — TheOpenAbove
+# Validation: TheOpenAbove
 
-**Timestamp:** `2026-07-09T23-51-04-04-00`
+**Last aligned:** `2026-07-10T01-20-47-04-00`
 
-## Performed in this pass
+## This pass
 
-```txt
-read current public LuminaryLabs-Publish repository list
-compared central ledger recency for current public non-Cavalry repos
-read repo-local TheOpenAbove .agent state
-read README.md
-read package.json
-read index.html
-read tests/smoke.mjs
-read src/main.js
-read src/runtime/balloon-simulation-kit.js
-read src/runtime/balloon-telemetry-kit.js
-read src/visual/visual-domain.js
-read src/visual/camera-presentation/balloon-camera-rig-kit.js
-read src/visual/balloon-presentation/balloon-presentation-domain.js
-read src/data/campaign.config.js
-read src/hot-air-balloon-object-kit.js
-updated repo-local .agent root docs
-created timestamped tracker and turn ledger
-created architecture, render, gameplay, route-source, and deploy audits
-updated kit registry
-updated LuminaryLabs-Dev/LuminaryLabs central repo ledger
-created central internal change-log entry
-pushed updates to main only through direct GitHub file writes
-```
+Documentation-only repo breakdown.
 
-## Not performed
+## Validation performed
 
 ```txt
-runtime source edit: no
-package scripts edit: no
-npm install: no
-npm run check: no
-npm run build: no
-browser route check: no
-GitHub Pages live check: no
-DOM-free source fixture: no, fixture files do not exist yet
-browser consumer fixture: no, fixture files do not exist yet
+runtime source changed: no
+package scripts changed: no
 branch created: no
 pull request created: no
+npm install: not run
+npm run check: not run
+npm run build: not run
+browser smoke: not run
+DOM-free source fixture: not run because proof files do not exist yet
+pushed to main: yes, documentation only
 ```
 
-## Current available validation commands
+## Available package commands
 
 ```txt
 npm run check
 npm run build
+npm start
+npm run dev
 ```
 
-## Next required validation
+## Validation gap
+
+`npm run check` exists, but it does not yet prove source consumer readback.
+
+The next implementation should add:
 
 ```txt
-node scripts/open-above-source-fixture.mjs
-npm run check
-npm run build
-browser readback of window.GameHost.getState().source
-central ledger readback against repo-local latest tracker
+scripts/open-above-source-fixture.mjs
 ```
 
-## Validation interpretation
+Then wire it into `npm run check` before `vite build`.
 
-This was a documentation and audit pass only. It intentionally did not modify runtime source, product copy, source modules, smoke tests, package scripts, or visual behavior.
+## Required future fixture assertions
+
+```txt
+canonical route source loads without DOM
+legacy campaign fields are classified explicitly
+source fingerprint is stable
+source snapshot is serializable
+source acceptance rows exist
+GameHost source projection shape is stable
+fixture exits non-zero on required-row failures
+```
+
+## Next safe ledge
+
+```txt
+TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
+```
