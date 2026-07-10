@@ -1,11 +1,11 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T11-51-35-04-00`
+**Last aligned:** `2026-07-10T13-21-23-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Authority Readback Ledger Refresh + GameHost Headless Fixture Gate
+TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
 ```
 
 ## Goal
@@ -106,6 +106,6 @@ npm run check includes source fixture
 npm run headless:check includes source fixture output
 source fixture passes
 GameHost exposes .source additively
-central ledger points to the source authority pass
+central ledger points to the source result readback pass
 root .agent docs point to the implementation timestamp
 ```
