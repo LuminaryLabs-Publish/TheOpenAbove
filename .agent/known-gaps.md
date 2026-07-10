@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T06-08-36-04-00`
+**Last aligned:** `2026-07-10T07-41-42-04-00`
 
 ## Primary gap
 
@@ -13,9 +13,9 @@ README still carries older free-flight wording and pitch/bank/boost controls.
 src/data/campaign.config.js still carries legacy thermal, gate, perch, start speed, and FLIGHT-style fields.
 src/main.js is the actual Balloon Drift route composer, but no source manifest records that relationship.
 window.GameHost.getState() returns local and nexusEngine snapshots, but no .source block.
-No source fingerprint proves which product, campaign, runtime, and headless rows were consumed.
+No source fingerprint proves which product, campaign, runtime, smoke, headless, and GameHost rows were consumed.
 No source snapshot serializes the current route source state.
-No source acceptance ledger records accepted, legacy-compatible, ignored, or deferred fields.
+No source acceptance ledger records accepted, legacy-compatible, ignored, missing, or deferred fields.
 The headless editor environment validates renderer/build contracts, but not source/readback rows.
 The smoke test validates renderer and source-file contracts, but not source authority or GameHost source projection.
 No DOM-free source fixture proves source/readback rows before browser rendering.
@@ -61,12 +61,12 @@ simulation_config_current
 visual_domain_config_current
 smoke_contract_current
 headless_environment_current
-gamehost_source_readback_current
-source_fixture_rows_current
+gamehost_source_readback_missing
+source_fixture_rows_missing
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
+TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
 ```
