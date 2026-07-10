@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T04-40-52-04-00`
+**Last aligned:** `2026-07-10T06-08-36-04-00`
 
 ## This pass
 
@@ -41,6 +41,12 @@ npm run headless:check
 npm run headless:build
 ```
 
+## Current validation coverage
+
+`npm run check` currently runs `node tests/smoke.mjs`.
+
+The current smoke/headless path validates renderer and build contracts such as required files, importmap route, visual-domain usage, neutral lighting, streamed terrain, water fog, and headless editor capabilities.
+
 ## Validation gap
 
 `npm run check` exists, and headless editor commands exist, but neither currently proves source consumer readback.
@@ -57,10 +63,11 @@ Then wire it into `npm run check` and the headless editor `project.check` path b
 
 ```txt
 canonical route source loads without DOM
-legacy campaign fields are classified explicitly
+legacy README/campaign/FLIGHT fields are classified explicitly
 source fingerprint is stable
 source snapshot is serializable
 source acceptance rows exist
+source consumer rows identify current runtime consumers
 GameHost source projection shape is stable
 headless project.check reports source fixture rows
 fixture exits non-zero on required-row failures
@@ -69,5 +76,5 @@ fixture exits non-zero on required-row failures
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate
+TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
 ```
