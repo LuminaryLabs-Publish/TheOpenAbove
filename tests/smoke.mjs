@@ -84,6 +84,12 @@ assert.match(composer, /createAutoExposureKit/);
 assert.match(composer, /createGodRayKit/);
 assert.match(composer, /createBloomKit/);
 assert.match(composer, /createColorGradeKit/);
+assert.match(composer, /installIndependentDepthTextures/);
+assert.match(composer, /firstDepth/);
+assert.match(composer, /secondDepth/);
+assert.match(composer, /composer\.renderTarget1\.depthTexture = firstDepth/);
+assert.match(composer, /composer\.renderTarget2\.depthTexture = secondDepth/);
+assert.doesNotMatch(composer, /if \(!buffer\.depthTexture\)/);
 
 const exposure = readFileSync("src/visual/post-process/auto-exposure-kit.js", "utf8");
 assert.match(exposure, /readRenderTargetPixels/);
