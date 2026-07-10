@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T02-38-56-04-00`
+**Last aligned:** `2026-07-10T04-40-52-04-00`
 
 ## Status
 
 `TheOpenAbove` is a browser-hosted cinematic Balloon Drift route built from local runtime, visual, object, camera, presentation, and telemetry kits.
 
-The route now also has package-level Nexus headless editor commands.
+The route also has package-level Nexus headless editor commands.
 
 The route is not blocked on visual modularity. It is blocked on source/readback proof, especially connecting product/campaign/runtime source to GameHost and headless fixture rows.
 
@@ -17,10 +17,9 @@ package.json
 index.html
 src/main.js
 src/runtime/balloon-simulation-kit.js
-src/runtime/balloon-telemetry-kit.js
 src/visual/visual-domain.js
+src/visual/camera-presentation/balloon-camera-rig-kit.js
 src/data/campaign.config.js
-src/hot-air-balloon-object-kit.js
 tools/headless-editor-environment.mjs
 .agent/START_HERE.md
 .agent/current-audit.md
@@ -109,7 +108,11 @@ rope-material
 burner-illumination
 hud-telemetry
 gamehost-readback
-source-consumer-proof-next
+source-manifest-next
+source-fingerprint-next
+source-snapshot-next
+source-acceptance-ledger-next
+source-consumer-ledger-next
 headless-source-fixture-next
 central-ledger-sync
 ```
@@ -202,5 +205,5 @@ The next work is source/readback proof that reconciles product copy, legacy camp
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
+TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate
 ```
