@@ -35,7 +35,8 @@ browser smoke: not run
 GPU/WebGL validation: not run
 DOM-free source/input/frame fixture: not run because it does not exist yet
 repo-local docs pushed to main: yes
-central ledger update: pending at time of this repo-local record
+central ledger pushed to main: yes
+central internal change log pushed to main: yes
 ```
 
 ## Available package commands
