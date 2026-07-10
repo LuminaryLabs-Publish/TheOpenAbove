@@ -1,11 +1,11 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T10-29-57-04-00`
+**Last aligned:** `2026-07-10T11-51-35-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
+TheOpenAbove Source Authority Readback Ledger Refresh + GameHost Headless Fixture Gate
 ```
 
 ## Goal
@@ -19,14 +19,15 @@ Use the existing smoke test and headless editor surface as validation callers af
 ```txt
 1. Add canonical product and route source modules.
 2. Add legacy campaign/free-flight compatibility classification.
-3. Add source manifest, fingerprint, snapshot, acceptance ledger, and consumer ledger modules.
-4. Add additive GameHost source readback.
-5. Add DOM-free source fixture.
-6. Extend project.check/headless runtime.getState so headless checks prove source rows too.
-7. Wire the source fixture into npm run check before the existing smoke test.
-8. Run npm run check.
-9. Run npm run headless:check.
-10. Run npm run build if check passes.
+3. Add source authority ledger, manifest, fingerprint, snapshot, acceptance ledger, and consumer ledger modules.
+4. Add keyboard and wheel input result rows.
+5. Add additive GameHost source readback.
+6. Add DOM-free source fixture.
+7. Extend project.check/headless runtime.getState so headless checks prove source rows too.
+8. Wire the source fixture into npm run check before the existing smoke test.
+9. Run npm run check.
+10. Run npm run headless:check.
+11. Run npm run build if check passes.
 ```
 
 ## Files to add
@@ -35,11 +36,13 @@ Use the existing smoke test and headless editor surface as validation callers af
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
 src/source/legacy-flight-compatibility.js
+src/source/source-authority-ledger.js
 src/source/source-consumer-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
 src/source/source-acceptance.js
 src/source/source-consumer-ledger.js
+src/source/input-result-ledger.js
 src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
 ```
@@ -53,6 +56,7 @@ source fingerprints are stable
 source snapshots are serializable
 source acceptance rows are emitted
 source consumer rows identify src/main.js, simulation, visual-domain, telemetry, HUD, smoke, headless, and GameHost consumers
+keyboard and wheel input result rows have stable vocabulary
 GameHost source projection has expected additive shape
 headless project.check includes source rows
 fixture exits non-zero on missing required rows
@@ -76,6 +80,7 @@ window.GameHost.getState()
        -> snapshot
        -> acceptanceRows
        -> consumerRows
+       -> inputRows
        -> fixtureVersion
        -> headlessStatus
 ```
@@ -101,6 +106,6 @@ npm run check includes source fixture
 npm run headless:check includes source fixture output
 source fixture passes
 GameHost exposes .source additively
-central ledger points to the source fixture pass
+central ledger points to the source authority pass
 root .agent docs point to the implementation timestamp
 ```
