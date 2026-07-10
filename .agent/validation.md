@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T11-51-35-04-00`
+**Last aligned:** `2026-07-10T13-21-23-04-00`
 
 ## This pass
 
@@ -50,7 +50,7 @@ The current smoke/headless path validates renderer and build contracts such as r
 
 ## Validation gap
 
-`npm run check` exists, and headless editor commands exist, but neither currently proves source authority or GameHost source readback.
+`npm run check` exists, and headless editor commands exist, but neither currently proves source result authority or GameHost source readback.
 
 The next implementation should add:
 
@@ -78,5 +78,5 @@ fixture exits non-zero on required-row failures
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Authority Readback Ledger Refresh + GameHost Headless Fixture Gate
+TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
 ```
