@@ -1,11 +1,11 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T08-59-04-04-00`
+**Last aligned:** `2026-07-10T10-29-57-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
+TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
 ```
 
 ## Goal
