@@ -108,8 +108,8 @@ The audit proves that local disposal methods exist but are not coordinated or in
 
 ```txt
 repo-local docs pushed to main: yes
-central ledger sync: pending at this record stage
-central internal change log: pending at this record stage
+central ledger pushed to main: yes
+central internal change log pushed to main: yes
 ```
 
 ## Next safe ledge
