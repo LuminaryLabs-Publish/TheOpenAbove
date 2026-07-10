@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T08-59-04-04-00`
+**Last aligned:** `2026-07-10T10-29-57-04-00`
 
 ## Status
 
 `TheOpenAbove` is a Vite-hosted cinematic Balloon Drift route. The useful runtime split is already present across visual, object, simulation, camera, presentation, telemetry, smoke-test, and headless editor kits.
 
-The blocker is source/GameHost readback proof, not visuals.
+The blocker is source fixture and GameHost readback proof, not visuals.
 
 ## Active files read
 
@@ -97,16 +97,17 @@ central-ledger-sync
 
 ## Kit services
 
-- Route shell service: canvas, HUD, error shell, importmap, module route.
-- Visual domain service: renderer, scene, camera, terrain, vegetation, grass, sky, clouds, water, composer, effects, quality policy, render stats.
-- Object kit service: balloon envelope, mouth, streamers, seams, basket, rigging, burner, ropes.
-- Simulation service: keyboard intent, wind, buoyancy, altitude, ground clearance, position, velocity, distance.
-- Camera service: zoom, follow mode, basket blend, clipping, diagnostics.
-- Presentation service: fabric, basket, rope, burner animation.
+- Route shell service: canvas, HUD, error shell, importmap, and module route.
+- Visual domain service: renderer, scene, camera, terrain, vegetation, grass, sky, clouds, water, composer, effects, quality policy, and render stats.
+- Object kit service: balloon envelope, mouth, streamers, seams, basket, rigging, burner, and ropes.
+- Simulation service: keyboard intent, wind, buoyancy, altitude, ground clearance, position, velocity, and distance.
+- Camera service: zoom, follow mode, basket blend, clipping, and diagnostics.
+- Presentation service: fabric, basket, rope, and burner animation.
 - Telemetry service: NexusEngine route telemetry from local snapshots.
-- Headless editor service: project.inspect, renderer.validate, project.check, project.build, runtime.getState.
+- Headless editor service: project.inspect, renderer.validate, project.check, project.build, and runtime.getState.
 - Smoke test service: static route and renderer contract assertions.
 - GameHost service: local/Nexus readback without source proof yet.
+- Next proof services: product/campaign/runtime source manifest, source fingerprint, source snapshot, source acceptance ledger, source consumer ledger, GameHost source readback, and headless source fixture.
 
 ## Implemented kits
 
@@ -160,10 +161,10 @@ open-above-browser-consumer-fixture-kit
 
 Do not start next with renderer extraction, terrain extraction, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
 
-The next work is source/GameHost readback proof that reconciles README legacy copy, campaign legacy fields, `src/main.js` as current route composer, smoke/headless checks, and `GameHost` diagnostics.
+The next work is source fixture and GameHost readback proof that reconciles README legacy copy, campaign legacy fields, `src/main.js` as current route composer, smoke/headless checks, and `GameHost` diagnostics.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
+TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
 ```
