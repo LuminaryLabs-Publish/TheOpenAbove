@@ -1,117 +1,119 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T14-50-38-04-00`
+**Last aligned:** `2026-07-10T16-20-09-04-00`
 
 ## Plan ledger
 
 ### Goal
 
-Add deterministic, bounded, JSON-safe source/input/frame proof around the existing Balloon Drift route without changing visible behavior or removing compatibility fields.
+Make one committed frame the authority for telemetry, adaptive-resolution decisions, render statistics, HUD projection, and GameHost readback without changing the visible Balloon Drift experience.
 
 ### Full checklist
 
-- [ ] Add canonical product and Balloon Drift route source modules.
-- [ ] Classify current, optional, legacy-compatible, ignored, deferred, and missing source fields.
-- [ ] Generate one stable source manifest, fingerprint, and serializable snapshot.
-- [ ] Add normalized keyboard input result rows.
-- [ ] Add normalized wheel input result rows.
-- [ ] Add monotonic input sequence numbers and frame IDs.
-- [ ] Record the input sequence range consumed by each simulation frame.
-- [ ] Record simulation, camera, visual, telemetry, render, and HUD consumer rows.
-- [ ] Add a bounded parent frame-correlation journal.
-- [ ] Add additive `GameHost.source` and `GameHost.runtimeProof` readback.
-- [ ] Preserve existing `GameHost.local` and `GameHost.nexusEngine` fields.
-- [ ] Add a deterministic DOM-free source/input/frame fixture.
-- [ ] Add headless `source.inspect`, `source.validate`, `runtime.fixture`, and `runtime.getProofState` capabilities.
-- [ ] Make `npm run check` execute the fixture before the existing smoke test.
+- [ ] Add a monotonic runtime `frameId` allocated before simulation.
+- [ ] Keep normalized keyboard and wheel result IDs available to the frame record.
+- [ ] Add an explicit pre-render visual update row.
+- [ ] Make `visual.render(dt, frameMs)` return a JSON-safe render result.
+- [ ] Record render-scale before and after `resolution.sample()`.
+- [ ] Record smoothed frame cost, sample counter, decision reason, resize decision, draw calls, and triangles.
+- [ ] Copy the post-sample scale into committed visual state in the same frame.
+- [ ] Publish Nexus telemetry from the committed frame or explicitly mark a pre-render publication phase.
+- [ ] Make HUD consume the committed frame snapshot rather than a mixed mutable object.
+- [ ] Add additive `GameHost.runtimeProof` readback with bounded frame and quality-decision journals.
+- [ ] Preserve `GameHost.local` and `GameHost.nexusEngine` compatibility fields.
+- [ ] Add consumer rows for simulation, camera, visual update, telemetry, render, HUD, and GameHost.
+- [ ] Add status values for `sampled`, `held`, `downscaled`, `upscaled`, `resized`, `rendered`, `published`, `projected`, `skipped`, and `failed`.
+- [ ] Add a grass kit truth row classifying active grass-field kits and the inactive legacy grass-detail kit.
+- [ ] Add a DOM-free fixture that can drive at least 180 synthetic frame-cost samples.
+- [ ] Prove no decision before sample 90, one deterministic decision at sample 90, and deterministic recovery behavior.
+- [ ] Prove telemetry, HUD, and GameHost reference the same committed frame and post-sample scale.
+- [ ] Add headless `runtime.fixture` and `runtime.getProofState` capabilities.
+- [ ] Make `npm run check` execute the phase fixture before the current static smoke assertions.
 - [ ] Make headless `project.check` report the same fixture result.
 - [ ] Run `npm run check`.
 - [ ] Run `npm run headless:check`.
 - [ ] Run `npm run build` after checks pass.
-- [ ] Run browser smoke and compare browser GameHost readback against fixture shape.
+- [ ] Run browser smoke and compare GameHost proof shape with fixture shape.
 - [ ] Update repo-local and central ledgers after implementation.
 
 ## Recommended files
 
 ```txt
-src/source/open-above-product.js
-src/source/balloon-drift.config.js
-src/source/legacy-flight-compatibility.js
-src/proof/source-manifest.js
-src/proof/source-fingerprint.js
-src/proof/source-snapshot.js
-src/proof/source-acceptance-ledger.js
-src/proof/source-consumer-ledger.js
-src/proof/input-result-ledger.js
-src/proof/frame-correlation-ledger.js
+src/proof/frame-phase-ledger.js
+src/proof/adaptive-quality-decision-ledger.js
 src/proof/runtime-consumer-ledger.js
-src/proof/gamehost-proof-readback.js
-scripts/open-above-source-frame-fixture.mjs
+src/proof/committed-frame-snapshot.js
+src/proof/gamehost-frame-proof.js
+src/proof/grass-kit-truth-ledger.js
+scripts/open-above-render-phase-fixture.mjs
 ```
 
 ## Required frame flow
 
 ```txt
 begin frame
-  -> allocate frameId
-  -> capture sourceFingerprint
-  -> capture pending input sequence range
-  -> simulation update and snapshot row
-  -> balloon transform/presentation consumer rows
-  -> camera update and snapshot row
-  -> visual update row
-  -> telemetry publication row
-  -> render consumption row
-  -> HUD projection row
-  -> commit frame correlation row
-  -> expose bounded readback
+  -> allocate frameId and input range
+  -> simulation update row
+  -> balloon/presentation row
+  -> camera row
+  -> visual pre-render update row
+  -> render submission
+  -> adaptive-resolution sample and decision row
+  -> renderer statistics row
+  -> commit one immutable frame snapshot
+  -> publish Nexus telemetry from committed frame
+  -> project HUD from committed frame
+  -> expose GameHost proof readback
 ```
 
 ## Fixture must prove
 
 ```txt
-canonical source loads without DOM
-legacy campaign/FLIGHT fields are classified
-fingerprints are stable
+frame IDs are monotonic
 all rows are JSON-safe
-IDs and sequences are monotonic
-keyboard accepted/released/repeated/blur-clear cases are explicit
-wheel accepted/clamped/no-change cases are explicit
-simulation consumes the expected input range
-camera references the expected wheel result
-telemetry, render, and HUD reference the same frame
-consumer skips and failures produce rows
+pre-render and post-render phases are explicit
+render scale before/after is recorded
+sampleFrames resets deterministically at 90
+smoothedMs transitions are deterministic
+no-change decisions are recorded
+upscale/downscale decisions include reason and bounds
+resize happens only when scale changes
+render calls and triangles belong to the same frame
+telemetry, HUD, and GameHost reference one committed frame
 journal eviction is deterministic
-GameHost compatibility fields remain present
-fixture fails non-zero on contract violations
+active grass kits are distinguished from legacy inactive grass-detail
+compatibility fields remain present
+contract violations fail non-zero
 ```
 
 ## Avoid until proof exists
 
 ```txt
-renderer or terrain rewrites
-visual quality retuning
-camera behavior changes
+renderer replacement
+terrain or cloud rewrite
+camera retuning
 balloon visual changes
 simulation constant changes
-route expansion
-legacy campaign deletion
-new gameplay systems
+grass art or density retuning
+quality thresholds retuning
+new route content
+legacy source deletion
 ```
 
 ## Done when
 
 ```txt
-npm run check includes and passes the source/input/frame fixture
+npm run check passes the render-phase fixture and existing smoke
 npm run headless:check reports the same proof result
-npm run build passes after the proof gate
-GameHost exposes bounded additive proof readback
-browser and fixture readback shapes agree
+npm run build passes
+GameHost exposes bounded additive frame and quality-decision proof
+Nexus telemetry, HUD, and GameHost agree on frameId and post-sample scale
+browser and fixture proof shapes agree
 central ledger points to the implementation timestamp
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
+TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
 ```
