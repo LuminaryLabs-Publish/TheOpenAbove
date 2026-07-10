@@ -4,13 +4,18 @@ import { GLSL_NOISE } from "../shader-noise.js";
 export const WATER_SURFACE_KIT_ID = "open-above-water-surface-kit";
 
 export function createWaterSurfaces(scene, sunDirection) {
+  const fogColor = scene.fog?.color?.clone?.() ?? new THREE.Color(0xd8b38f);
+  const fogDensity = Number(scene.fog?.density ?? 0.00038);
   const uniforms = {
     uTime: { value: 0 },
     uSunDirection: { value: sunDirection.clone() },
     uSkyColor: { value: new THREE.Color(0x8bcce8) },
     uDeepColor: { value: new THREE.Color(0x285f70) },
-    uShallowColor: { value: new THREE.Color(0x69afad) }
+    uShallowColor: { value: new THREE.Color(0x69afad) },
+    uFogColor: { value: fogColor },
+    uFogDensity: { value: fogDensity }
   };
+
   const material = new THREE.ShaderMaterial({
     name: "OpenAboveWaterSurfaceMaterial",
     uniforms,
@@ -32,6 +37,8 @@ export function createWaterSurfaces(scene, sunDirection) {
       uniform vec3 uSkyColor;
       uniform vec3 uDeepColor;
       uniform vec3 uShallowColor;
+      uniform vec3 uFogColor;
+      uniform float uFogDensity;
       varying vec3 vWorldPosition;
       varying vec3 vWorldNormal;
       ${GLSL_NOISE}
@@ -47,13 +54,18 @@ export function createWaterSurfaces(scene, sunDirection) {
         vec3 base = mix(uDeepColor, uShallowColor, depthHint);
         vec3 color = mix(base, uSkyColor, 0.24 + fresnel * 0.68);
         color += vec3(1.0, 0.72, 0.38) * sunGlint * 5.0;
+
+        float distanceToCamera = length(cameraPosition - vWorldPosition);
+        float fogFactor = 1.0 - exp(-uFogDensity * uFogDensity * distanceToCamera * distanceToCamera);
+        color = mix(color, uFogColor, clamp(fogFactor, 0.0, 1.0));
+
         gl_FragColor = vec4(color, 0.82);
       }
     `,
     transparent: true,
     depthWrite: false,
     side: THREE.DoubleSide,
-    fog: true
+    fog: false
   });
 
   const group = new THREE.Group();
@@ -74,6 +86,8 @@ export function createWaterSurfaces(scene, sunDirection) {
   function update(elapsed, nextSunDirection) {
     uniforms.uTime.value = elapsed;
     uniforms.uSunDirection.value.copy(nextSunDirection).normalize();
+    if (scene.fog?.color) uniforms.uFogColor.value.copy(scene.fog.color);
+    uniforms.uFogDensity.value = Number(scene.fog?.density ?? fogDensity);
   }
 
   return { id: WATER_SURFACE_KIT_ID, group, material, uniforms, update };
