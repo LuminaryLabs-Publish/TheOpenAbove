@@ -1,97 +1,119 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T14-50-38-04-00`
+**Last aligned:** `2026-07-10T16-20-09-04-00`
 
 ## Primary gap
 
-The runtime can expose the latest state but cannot prove causality across source, input, simulation, camera, visual, telemetry, rendering, HUD, and GameHost consumers.
+The runtime has no committed-frame authority spanning visual update, telemetry publication, render submission, adaptive-resolution sampling, render statistics, HUD projection, and GameHost readback.
 
 ## Current gaps
 
 ```txt
-src/data/campaign.config.js mixes current Balloon Drift source with legacy thermal/gate/perch/start-speed/FLIGHT fields.
-src/main.js is the real composition authority, but no source manifest or fingerprint records that authority.
-keyboard handlers mutate a hidden Set without accepted, released, repeated, unsupported, cleared, or no-change rows.
-wheel handling mutates zoom without accepted, clamped, zero-delta, or no-change rows.
-frames have no monotonic frame ID shared across simulation, camera, visual, telemetry, render, and HUD.
-simulation snapshots have no source fingerprint or consumed input sequence range.
-camera state has no source fingerprint, wheel result ID, or frame ID.
-visual state has no correlated simulation/camera snapshot IDs.
-telemetry tick has no publication result row.
-render submission has no render-consumption row.
-HUD projection has no consumer row.
-GameHost exposes latest aggregate state only and has no bounded proof journals.
-headless runtime.getState returns static inspection results rather than deterministic runtime proof.
-no reusable DOM-free source/input/frame fixture exists.
-npm run check does not execute source/input/frame correlation assertions.
+src/main.js calls engine.tick(dt) before visual.render(dt, frameMs).
+visual.update() copies resolution.state.scale before resolution.sample() runs.
+visual.render() can change scale and resize after telemetry has already sampled state.
+visual.render() writes drawCalls and triangles after telemetry publication.
+HUD reads a shared mutable visual state after render, but renderScale can still be pre-sample.
+GameHost.local is generated on demand and can contain a different phase mix than GameHost.nexusEngine.
+No row records scaleBefore, scaleAfter, smoothedMs, sampleFrames, decision reason, or resize result.
+No frame ID joins simulation, camera, visual update, telemetry, render, HUD, and GameHost.
+No input sequence range is attached to a committed frame.
+No bounded frame-phase or adaptive-quality decision journal exists.
+No DOM-free fixture drives the 90-sample dynamic-resolution decision boundary.
+The headless environment reports static inspection rather than runtime frame-phase proof.
+The static smoke checks source text and required files but cannot detect phase disagreement.
+The prior kit registry lists open-above-grass-detail-kit as implemented without marking it inactive.
+The active grass-field domain and its six supporting kits were not fully represented in the prior kit inventory.
+The legacy grass-detail implementation has no explicit deprecation, compatibility, or removal ledger.
 ```
 
 ## Required proof rows
 
 ```txt
-source manifest row
-source fingerprint row
-legacy compatibility row
-keyboard input result row
-wheel input result row
-frame correlation row
-simulation consumer row
-camera consumer row
-visual consumer row
-telemetry publication row
-render consumption row
-HUD projection row
-GameHost projection row
-fixture summary row
+frame-begin row
+input-range row
+simulation row
+balloon-presentation row
+camera row
+visual-pre-render row
+render-submission row
+adaptive-quality-decision row
+renderer-statistics row
+committed-frame row
+telemetry-publication row
+HUD-projection row
+GameHost-projection row
+grass-kit-truth row
+fixture-summary row
 ```
 
-## Required statuses
+## Required quality-decision statuses
 
 ```txt
-accepted
-released
-cleared
-repeated
-unsupported
-clamped
+sampled
+held
+warming-up
+downscaled
+upscaled
+at-minimum
+at-tier-cap
+resized
 no-change
-consumed
-published
 rendered
+published
 projected
 skipped
-rejected
 failed
+```
+
+## Grass registry truth
+
+### Active
+
+```txt
+open-above-grass-world-seed-kit
+open-above-grass-biome-density-kit
+open-above-grass-exclusion-mask-kit
+open-above-grass-chunk-placement-kit
+open-above-grass-lod-kit
+open-above-grass-compute-culling-kit
+open-above-grass-field-domain
+```
+
+### Source-backed but inactive
+
+```txt
+open-above-grass-detail-kit
 ```
 
 ## Non-gaps for the next pass
 
 ```txt
-The Balloon Drift route is functional and visually structured.
-Simulation, camera, presentation, visual, telemetry, smoke, and headless boundaries already exist.
-The package description is aligned to the hot-air-balloon experience.
-The browser exposes a useful GameHost compatibility surface.
+The Balloon Drift route boots through Vite.
+The runtime already separates simulation, camera, presentation, visual, telemetry, smoke, and headless files.
+Dynamic resolution already has bounded scale changes and a 90-sample cadence.
+The active grass system is deterministic by world seed and chunk coordinates.
+GameHost already exposes compatibility state and live runtime objects.
 Build already depends on npm run check.
-Headless commands already route project inspection, renderer validation, check, build, and state requests.
 ```
 
 ## Do not prioritize next
 
 ```txt
+visual fidelity expansion
 renderer replacement
-terrain extraction or rewrite
-cloud, water, grass, or lighting retuning
+terrain extraction
+cloud, water, lighting, or grass retuning
 camera framing changes
 balloon geometry changes
 simulation constant changes
-new regions or route objectives
-legacy field deletion without compatibility rows
-new gameplay systems
-README-only cleanup
+new regions or objectives
+quality threshold changes before decision proof
+legacy grass deletion without compatibility evidence
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
+TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
 ```
