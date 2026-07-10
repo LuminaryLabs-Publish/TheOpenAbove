@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T16-20-09-04-00`
+**Last aligned:** `2026-07-10T17-51-35-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -8,20 +8,22 @@
 
 ## Summary
 
-`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon drift route using Three.js and NexusEngine from public CDN imports. The route already has source-backed simulation, camera, visual, terrain, volumetric atmosphere, grass, post-process, telemetry, smoke, and headless-editor boundaries.
+`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon drift route using Three.js and NexusEngine from public CDN imports. It already has separated simulation, camera, presentation, visual, terrain, grass, volumetric atmosphere, adaptive quality, telemetry, smoke, and headless-editor boundaries.
 
-The newest audit finding is a frame-phase authority split: telemetry is sampled before render, dynamic resolution makes its decision during render, render statistics are written after draw submission, and HUD/GameHost consume a mixed post-render object whose `renderScale` can still describe the pre-sample state.
+The newest audit finding is a root runtime-lifecycle gap. The route constructs a complete session, installs global listeners, starts recursive animation frames, and publishes live objects through `GameHost`, but it has no composed owner that can stop, dispose, roll back, or restart that session.
 
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
+TheOpenAbove Runtime Session Lifecycle Authority + Dispose/Reboot Fixture Gate
 ```
+
+The previously documented frame-phase authority remains required, but its frame IDs should be scoped under a lifecycle-owned `sessionId`.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-10T16-20-09-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T17-51-35-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
@@ -32,62 +34,64 @@ TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
 Then read:
 
 ```txt
-.agent/architecture-audit/2026-07-10T16-20-09-04-00-render-phase-authority-dsk-map.md
-.agent/render-audit/2026-07-10T16-20-09-04-00-telemetry-render-scale-phase-skew.md
-.agent/gameplay-audit/2026-07-10T16-20-09-04-00-balloon-drift-frame-phase-loop.md
-.agent/interaction-audit/2026-07-10T16-20-09-04-00-input-to-frame-consumption-map.md
-.agent/grass-system-audit/2026-07-10T16-20-09-04-00-grass-field-kit-truth-map.md
-.agent/telemetry-audit/2026-07-10T16-20-09-04-00-pre-render-snapshot-publication-gap.md
-.agent/deploy-audit/2026-07-10T16-20-09-04-00-render-phase-fixture-check-gate.md
-.agent/turn-ledger/2026-07-10T16-20-09-04-00.md
+.agent/architecture-audit/2026-07-10T17-51-35-04-00-runtime-session-lifecycle-authority-dsk-map.md
+.agent/render-audit/2026-07-10T17-51-35-04-00-renderer-resource-disposal-coverage-gap.md
+.agent/gameplay-audit/2026-07-10T17-51-35-04-00-balloon-session-start-frame-stop-loop.md
+.agent/interaction-audit/2026-07-10T17-51-35-04-00-listener-ownership-restart-result-map.md
+.agent/lifecycle-audit/2026-07-10T17-51-35-04-00-runtime-session-teardown-reboot-contract.md
+.agent/deploy-audit/2026-07-10T17-51-35-04-00-lifecycle-restart-fixture-check-gate.md
+.agent/turn-ledger/2026-07-10T17-51-35-04-00.md
 ```
 
-## Active frame loop
+## Active session loop
 
 ```txt
-requestAnimationFrame
-  -> simulation.update(dt)
-  -> apply balloon transform
-  -> animate balloon and presentation
-  -> cameraRig.update(dt, state)
-  -> visual.update(...)
-       copies resolution.state.scale into visual state
-  -> engine.tick(dt)
-       publishes a pre-render snapshot
-  -> visual.render(dt, frameMs)
-       submits composer render
-       samples frame cost
-       may change resolution scale and resize
-       writes draw-call and triangle totals
-  -> updateHud()
-       reads the shared visual state after render
-  -> GameHost.getState()
-       local snapshot is generated on demand
-       Nexus snapshot remains the earlier telemetry publication
+createGame()
+  -> create visual domain and install resize listener
+  -> create balloon
+  -> create simulation and install keydown/keyup/blur listeners
+  -> create camera rig and install wheel listener
+  -> create presentation and telemetry
+  -> seed initial state
+  -> requestAnimationFrame recursion
+       -> simulation
+       -> transform/presentation
+       -> camera
+       -> visual update
+       -> telemetry
+       -> render/adaptive resolution
+       -> HUD
+  -> window.GameHost live-object readback
 ```
+
+## Missing end loop
+
+```txt
+no returned session owner
+no retained animation-frame request ID
+no cancelAnimationFrame path
+no route-level call to simulation.dispose()
+no route-level call to cameraRig.dispose()
+no route-level call to visual.dispose()
+no partial-start rollback
+no GameHost stop/dispose/restart surface
+no lifecycle journal or fixture
+```
+
+## Local teardown capability already present
+
+```txt
+simulation.dispose() -> keyboard/blur listeners
+cameraRig.dispose() -> wheel listener
+visual.dispose() -> resize listener plus grass/terrain/composer cleanup
+composer.dispose() -> depth textures, target, composer
+```
+
+The problem is composition and proof, not the total absence of disposal primitives.
 
 ## Main finding
 
-The current state surfaces do not represent one committed frame phase:
-
-```txt
-Nexus telemetry:
-  pre-render draw statistics
-  pre-sample render scale
-
-HUD and GameHost.local after render:
-  current draw statistics
-  pre-sample render scale
-
-GameHost.nexusEngine:
-  last telemetry tick, which predates the current render submission
-```
-
-`createDynamicResolutionController.sample()` can change scale every 90 samples, but the changed scale is not copied back into `visual.state.renderScale` until the next `visual.update()`. This makes adaptive-quality decisions difficult to prove and can create one-frame disagreement across telemetry, HUD, and GameHost.
-
-## Kit truth correction
-
-The active grass path is `open-above-grass-field-domain` plus world-seed, biome-density, exclusion-mask, chunk-placement, LOD, and compute-culling kits. `open-above-grass-detail-kit` still exists in source but is not imported by `visual-domain.js`; treat it as a legacy inactive implementation, not the active grass service.
+The runtime assumes one page load, one session, and no teardown. Re-running `createGame()` in HMR, repeated browser fixtures, or an explicit restart can create parallel frame loops and duplicate global listeners. A fatal error after partial construction displays the error but does not roll back already-created listeners or resources.
 
 ## Guardrails
 
@@ -95,9 +99,10 @@ The active grass path is `open-above-grass-field-domain` plus world-seed, biome-
 Push only to main.
 Do not create branches or pull requests.
 Do not work on TheCavalryOfRome.
-Do not retune visible simulation, camera, terrain, clouds, water, grass, lighting, or post-process behavior during the proof pass.
-Preserve GameHost.local and GameHost.nexusEngine compatibility.
-Add phase and adaptive-quality readback additively.
-Keep journals bounded, deterministic, JSON-safe, and disposable.
-Do not delete the legacy grass-detail implementation until compatibility and replacement evidence are explicit.
+Do not retune simulation, camera, terrain, clouds, water, grass, lighting, post-process, or quality thresholds during lifecycle work.
+Preserve current GameHost fields additively.
+Keep stop/dispose idempotent.
+Keep lifecycle rows bounded, deterministic, and JSON-safe.
+Allow only one active session/frame chain per canvas.
+Do not delete the inactive grass-detail implementation during this pass.
 ```
