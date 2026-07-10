@@ -1,9 +1,9 @@
 {
   "name": "the-open-above",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Standalone free-flight exploration game built from The Open Above experiment.",
+  "description": "Cinematic hot air balloon wind-drift experience powered by Nexus Engine Realtime Core.",
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "dev": "vite --host 0.0.0.0",
