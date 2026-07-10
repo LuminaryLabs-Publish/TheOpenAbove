@@ -1,52 +1,45 @@
-# Current Audit — TheOpenAbove
+# Current Audit: TheOpenAbove
 
-**Timestamp:** `2026-07-09T23-51-04-04-00`
+**Last aligned:** `2026-07-10T01-20-47-04-00`
 
-## Summary
+## Status
 
-`TheOpenAbove` is a live cinematic Balloon Drift route. The runtime is now split into dedicated simulation, telemetry, visual-domain, camera-rig, balloon-presentation, and object-composition kits.
+`TheOpenAbove` is a browser-hosted cinematic Balloon Drift route built from local runtime kits and rendered with Three.js.
 
-The unresolved work is source/readback proof. The next implementation should not start with visual extraction or route retuning. It should add source authority, source snapshots, acceptance rows, `GameHost.getState().source`, and a DOM-free source fixture.
+The route is not blocked on visual modularity. It is blocked on source/readback proof.
 
-## Current route
+## Active files read for this audit
+
+```txt
+package.json
+index.html
+src/main.js
+.agent/START_HERE.md
+.agent/current-audit.md
+.agent/known-gaps.md
+.agent/next-steps.md
+.agent/validation.md
+.agent/kit-registry.json
+```
+
+## Current interaction loop
 
 ```txt
 index.html
-  -> src/main.js
-  -> Three.js CDN
-  -> NexusEngine main CDN
-  -> src/data/campaign.config.js
-  -> src/runtime/balloon-simulation-kit.js
-  -> src/runtime/balloon-telemetry-kit.js
-  -> src/visual/visual-domain.js
-  -> src/visual/camera-presentation/balloon-camera-rig-kit.js
-  -> src/visual/balloon-presentation/balloon-presentation-domain.js
-  -> src/hot-air-balloon-object-kit.js
-  -> window.GameHost.getState()
-```
-
-## Interaction loop
-
-```txt
-open app
-  -> canvas, HUD, and error panel mount
-  -> createGame()
+  -> importmap loads Three.js 0.165.0
+  -> script loads ./src/main.js
+  -> src/main.js imports NexusEngine main CDN, CAMPAIGN/WORLD, balloon object kit, simulation kit, telemetry kit, visual-domain, camera-rig, and presentation-domain
   -> createVisualDomain({ canvas, worldConfig: WORLD })
   -> buildHotAirBalloon()
-  -> createBalloonSimulation({ terrainHeight, startPosition })
-  -> createBalloonCameraRig(visual.camera, balloon)
-  -> createBalloonPresentationDomain(balloon)
-  -> createBalloonTelemetryEngine(NexusEngine, getSnapshot)
-  -> frame(dt)
-  -> simulation.update(dt)
+  -> visual.scene.add(balloon)
+  -> createBalloonSimulation({ terrainHeight, startPosition: [0, 105, 0] })
   -> simulation.applyToBalloon(balloon)
-  -> animateHotAirBalloon(balloon, now, state.burner)
-  -> balloonPresentation.update(state.elapsed, state.burner)
-  -> cameraRig.update(dt, state)
-  -> visual.update({ dt, elapsed, flightState, cameraContext })
-  -> engine.tick(dt)
-  -> visual.render(dt, frameMs)
-  -> updateHud()
+  -> createBalloonCameraRig(visual.camera, balloon, { initialZoom: 48, maxZoom: 112 })
+  -> createBalloonPresentationDomain(balloon)
+  -> getSnapshot() wraps simulation snapshot with region, camera, and visual stats
+  -> createBalloonTelemetryEngine(NexusEngine, getSnapshot)
+  -> frame updates simulation, balloon pose, object animation, presentation, camera rig, visual domain, Nexus telemetry, renderer, and HUD
+  -> window.GameHost.getState() returns local and nexusEngine snapshots
 ```
 
 ## Domains in use
@@ -54,8 +47,8 @@ open app
 ```txt
 static-browser-shell
 vite-static-publish
-three-cdn-runtime
-nexusengine-realtime-telemetry
+three-importmap-runtime
+nexusengine-cdn-runtime
 campaign-config
 legacy-flight-config
 balloon-drift-simulation
@@ -106,34 +99,27 @@ rope-material
 burner-illumination
 hud-telemetry
 gamehost-readback
-smoke-validation
-source-readback-next
+source-consumer-readback-next
+dom-free-source-fixture-next
 central-ledger-sync
 ```
 
-## Kit services in use
+## Current services
 
 ```txt
-open-above-balloon-simulation-kit:
-  keyboard lifecycle, burner/vent easing, wind layer calculation, buoyancy, damping, ceiling softness, ground clearance, velocity/position integration, balloon pose application, snapshot, dispose
-
-open-above-balloon-telemetry-kit:
-  Nexus resources, BalloonTicked event, simulate system, engine.openAbove.getState(), engine.openAbove.getVisualState()
-
-open-above-visual-domain:
-  renderer/camera/scene creation, quality tier, terrain/vegetation/grass/water/landmarks, sky/sun/cloud/fog/shadow updates, HDR composer, dynamic resolution, render stats
-
-open-above-balloon-camera-rig-kit:
-  wheel zoom, third-person camera, basket-view blend, ride bob/sway, burner vibration, clipping fade, camera state
-
-open-above-balloon-presentation-domain:
-  envelope fabric material, basket material, rope material, burner illumination, presentation update
-
-open-above-hot-air-balloon-object-kit:
-  procedural balloon assembly, object subdomain metadata, compatibility attachment, burner/rigging animation, browser global exposure
+route shell service: mounts canvas, HUD, error shell, importmap, and module route.
+visual domain service: creates renderer, scene, camera, terrain, vegetation, sky, clouds, water, composer, effects, quality policy, and render stats.
+object kit service: composes the hot-air balloon envelope, mouth, streamers, seams, basket, rigging, burner, and rope.
+simulation service: consumes keyboard intent and integrates wind, buoyancy, altitude, ground clearance, position, velocity, and distance.
+camera service: resolves wheel zoom, third-person follow, basket-view blend, clipping, and camera diagnostics.
+presentation service: updates fabric, basket, rope, and burner presentation based on simulation and visual conditions.
+telemetry service: publishes local balloon snapshots through NexusEngine and exposes route telemetry.
+HUD service: projects altitude, distance, speed, burner, vent, region, wind, quality, frame, and camera telemetry into DOM text.
+GameHost service: exposes local and Nexus snapshots, but not source/readback proof yet.
+central ledger service: records repo-local docs, selected ledge, findings, validation, and pushed commits.
 ```
 
-## Kits identified
+## Implemented kits
 
 ```txt
 open-above-balloon-simulation-kit
@@ -176,12 +162,32 @@ open-above-hot-air-balloon-burner-kit
 open-above-rope-kit
 ```
 
+## Next-cut kits
+
+```txt
+open-above-product-copy-authority-kit
+open-above-readme-route-copy-parity-kit
+open-above-campaign-current-route-authority-kit
+open-above-legacy-flight-compatibility-kit
+open-above-balloon-drift-config-kit
+open-above-source-consumer-manifest-kit
+open-above-source-fingerprint-kit
+open-above-source-snapshot-kit
+open-above-source-acceptance-ledger-kit
+open-above-source-consumer-ledger-kit
+open-above-gamehost-source-readback-kit
+open-above-browser-consumer-fixture-kit
+open-above-central-ledger-sync-kit
+```
+
 ## Main finding
 
-`package.json` has caught up to the hot-air-balloon route and now exposes `check`/`build`. `README.md` and `src/data/campaign.config.js` still preserve older free-flight/mission language and compatibility fields. `GameHost` still exposes local and Nexus snapshots only; it does not expose source proof.
+The runtime is already kit-split enough to avoid a visual rewrite.
+
+The next work is source/readback proof that reconciles product copy, legacy campaign fields, current route composition, browser consumer state, and `GameHost` diagnostics.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Visual Domain Source Readback + Browser Fixture Gate
+TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
 ```
