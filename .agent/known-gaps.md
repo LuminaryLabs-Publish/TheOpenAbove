@@ -1,57 +1,64 @@
-# Known Gaps — TheOpenAbove
+# Known Gaps: TheOpenAbove
 
-**Timestamp:** `2026-07-09T23-51-04-04-00`
+**Last aligned:** `2026-07-10T01-20-47-04-00`
 
-## Source authority gaps
+## Primary gap
 
-```txt
-README.md still describes carving, gliding, diving, boosting, thermals, wind gates, and sky perch return.
-package.json is now aligned to the cinematic hot-air-balloon wind-drift route.
-src/data/campaign.config.js still carries legacy thermal/gate/perch/start-speed/FLIGHT shape for older free-flight goals.
-src/main.js is the live route composer for simulation, telemetry, visual-domain, camera-rig, presentation-domain, HUD, and GameHost.
-src/runtime/balloon-simulation-kit.js is the live source of truth for burner, vent, wind, buoyancy, altitude, and movement integration.
-src/visual/visual-domain.js is the live source of truth for visual-domain composition.
-tests/smoke.mjs checks the cinematic visual-domain route but not source parity rows.
-```
+The current blocker is source/readback proof, not render quality or gameplay feel.
 
-## Readback gaps
+## Gaps
 
 ```txt
-No source consumer manifest names README, package, campaign config, runtime kits, smoke tests, GameHost, repo-local .agent, and central ledger consumers.
-No source fingerprint proves copy/config/runtime/object/visual-domain parity.
-No source snapshot can be consumed by fixtures or GameHost diagnostics.
-No acceptance ledger records README legacy copy, campaign compatibility, package alignment, simulation defaults, visual-domain subkits, or GameHost source status.
-window.GameHost.getState().source does not exist yet.
+README still carries older free-flight wording and controls.
+src/data/campaign.config.js still carries legacy thermal, gate, perch, start speed, and FLIGHT-style fields.
+src/main.js is the actual Balloon Drift route composer, but no source manifest records that relationship.
+window.GameHost.getState() returns local and nexusEngine snapshots, but no .source block.
+No source fingerprint records prove which product, campaign, and runtime records were consumed.
+No source snapshot records serialize the current route source state.
+No source acceptance ledger records accepted, legacy-compatible, ignored, or deferred fields.
+No DOM-free source fixture proves source/readback rows before browser rendering.
+npm run check does not yet include a source fixture.
 ```
 
-## Runtime proof gaps
+## Non-gaps for the next pass
 
 ```txt
-Keyboard intent has no stable accepted/rejected/no-change result row.
-Simulation ticks have no before/after result rows.
-Ground clamp and ceiling softness have no reason-coded readback rows.
-Visual-domain render stats are aggregate only.
-Camera rig exposes live state, but no source-owned camera snapshot contract.
-Presentation-domain kits are installed, but no fixture-readable presentation snapshot exists.
+The visual route is already useful.
+The runtime is already split into simulation, telemetry, visual-domain, camera-rig, presentation-domain, and object kits.
+The package description is aligned to the current hot-air-balloon wind drift route.
+The browser route has a GameHost readback surface, though it needs additive source proof.
 ```
 
-## Validation gaps
-
-```txt
-No scripts/open-above-source-fixture.mjs exists yet.
-npm run check does not yet run source/readback rows.
-No browser consumer fixture proves GameHost source readback.
-No central-ledger parity fixture exists.
-```
-
-## Do not start next
+## Do not prioritize next
 
 ```txt
 renderer extraction
 visual-domain rewrite
 camera retune
-balloon visual changes
+balloon object visual changes
 simulation constant retune
-Cloud Basin content
-legacy FLIGHT field removal before compatibility handling exists
+route expansion
+legacy campaign field deletion
+README-only cleanup
+```
+
+## Required proof rows next
+
+```txt
+route_copy_current
+readme_copy_legacy_compatible
+package_description_current
+campaign_world_current
+campaign_flight_legacy_compatible
+runtime_imports_current
+simulation_config_current
+visual_domain_config_current
+gamehost_source_readback_current
+source_fixture_rows_current
+```
+
+## Next safe ledge
+
+```txt
+TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
 ```
