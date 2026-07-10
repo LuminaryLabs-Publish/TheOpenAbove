@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T14-50-38-04-00`
+**Last aligned:** `2026-07-10T16-20-09-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -8,18 +8,20 @@
 
 ## Summary
 
-`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon drift route. Its simulation, camera, visual, presentation, telemetry, smoke, and headless boundaries are already useful. The next blocker is a JSON-safe source/input/frame correlation chain that proves which normalized input results and source fingerprint produced each simulation, camera, telemetry, render, HUD, and GameHost row.
+`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon drift route using Three.js and NexusEngine from public CDN imports. The route already has source-backed simulation, camera, visual, terrain, volumetric atmosphere, grass, post-process, telemetry, smoke, and headless-editor boundaries.
+
+The newest audit finding is a frame-phase authority split: telemetry is sampled before render, dynamic resolution makes its decision during render, render statistics are written after draw submission, and HUD/GameHost consume a mixed post-render object whose `renderScale` can still describe the pre-sample state.
 
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
+TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
 ```
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-10T14-50-38-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T16-20-09-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
@@ -27,62 +29,75 @@ TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture G
 .agent/kit-registry.json
 ```
 
-Then read the latest system audits:
+Then read:
 
 ```txt
-.agent/architecture-audit/2026-07-10T14-50-38-04-00-source-input-frame-correlation-dsk-map.md
-.agent/render-audit/2026-07-10T14-50-38-04-00-render-frame-consumer-correlation-gap.md
-.agent/gameplay-audit/2026-07-10T14-50-38-04-00-balloon-drift-input-frame-loop.md
-.agent/route-source-audit/2026-07-10T14-50-38-04-00-product-runtime-source-correlation-contract.md
-.agent/interaction-audit/2026-07-10T14-50-38-04-00-keyboard-wheel-event-result-correlation-map.md
-.agent/source-authority-audit/2026-07-10T14-50-38-04-00-gamehost-source-frame-correlation-contract.md
-.agent/telemetry-audit/2026-07-10T14-50-38-04-00-nexus-frame-correlation-readback.md
-.agent/headless-editor-audit/2026-07-10T14-50-38-04-00-source-frame-fixture-command-surface.md
-.agent/deploy-audit/2026-07-10T14-50-38-04-00-source-frame-fixture-check-gate.md
-.agent/turn-ledger/2026-07-10T14-50-38-04-00.md
+.agent/architecture-audit/2026-07-10T16-20-09-04-00-render-phase-authority-dsk-map.md
+.agent/render-audit/2026-07-10T16-20-09-04-00-telemetry-render-scale-phase-skew.md
+.agent/gameplay-audit/2026-07-10T16-20-09-04-00-balloon-drift-frame-phase-loop.md
+.agent/interaction-audit/2026-07-10T16-20-09-04-00-input-to-frame-consumption-map.md
+.agent/grass-system-audit/2026-07-10T16-20-09-04-00-grass-field-kit-truth-map.md
+.agent/telemetry-audit/2026-07-10T16-20-09-04-00-pre-render-snapshot-publication-gap.md
+.agent/deploy-audit/2026-07-10T16-20-09-04-00-render-phase-fixture-check-gate.md
+.agent/turn-ledger/2026-07-10T16-20-09-04-00.md
 ```
 
-## Active route
+## Active frame loop
 
 ```txt
-index.html
-  -> src/main.js
-  -> campaign/world source
-  -> visual domain + balloon object
-  -> keyboard simulation + wheel camera input
-  -> frame sequence: simulation, object, presentation, camera, visual, telemetry, render, HUD
-  -> window.GameHost.getState()
+requestAnimationFrame
+  -> simulation.update(dt)
+  -> apply balloon transform
+  -> animate balloon and presentation
+  -> cameraRig.update(dt, state)
+  -> visual.update(...)
+       copies resolution.state.scale into visual state
+  -> engine.tick(dt)
+       publishes a pre-render snapshot
+  -> visual.render(dt, frameMs)
+       submits composer render
+       samples frame cost
+       may change resolution scale and resize
+       writes draw-call and triangle totals
+  -> updateHud()
+       reads the shared visual state after render
+  -> GameHost.getState()
+       local snapshot is generated on demand
+       Nexus snapshot remains the earlier telemetry publication
 ```
 
 ## Main finding
 
-`src/main.js` knows the complete consumer order, but the runtime emits no shared frame ID, input sequence range, or source fingerprint across those consumers. Keyboard and wheel listeners mutate hidden state, `GameHost` returns only latest aggregate snapshots, and the headless editor performs static inspection rather than deterministic source/input/frame proof.
-
-## Next implementation files
+The current state surfaces do not represent one committed frame phase:
 
 ```txt
-src/source/open-above-product.js
-src/source/balloon-drift.config.js
-src/source/legacy-flight-compatibility.js
-src/proof/source-manifest.js
-src/proof/source-fingerprint.js
-src/proof/source-acceptance-ledger.js
-src/proof/input-result-ledger.js
-src/proof/frame-correlation-ledger.js
-src/proof/consumer-ledger.js
-src/proof/gamehost-proof-readback.js
-scripts/open-above-source-frame-fixture.mjs
+Nexus telemetry:
+  pre-render draw statistics
+  pre-sample render scale
+
+HUD and GameHost.local after render:
+  current draw statistics
+  pre-sample render scale
+
+GameHost.nexusEngine:
+  last telemetry tick, which predates the current render submission
 ```
+
+`createDynamicResolutionController.sample()` can change scale every 90 samples, but the changed scale is not copied back into `visual.state.renderScale` until the next `visual.update()`. This makes adaptive-quality decisions difficult to prove and can create one-frame disagreement across telemetry, HUD, and GameHost.
+
+## Kit truth correction
+
+The active grass path is `open-above-grass-field-domain` plus world-seed, biome-density, exclusion-mask, chunk-placement, LOD, and compute-culling kits. `open-above-grass-detail-kit` still exists in source but is not imported by `visual-domain.js`; treat it as a legacy inactive implementation, not the active grass service.
 
 ## Guardrails
 
 ```txt
 Push only to main.
-Do not create branches or PRs.
+Do not create branches or pull requests.
 Do not work on TheCavalryOfRome.
-Keep GameHost.local and GameHost.nexusEngine compatible.
-Add proof readback additively.
-Do not retune simulation, camera, renderer, terrain, clouds, water, or post-processing during the proof pass.
-Do not delete legacy campaign/FLIGHT fields until compatibility rows exist.
-Keep proof journals bounded, deterministic, disposable, and JSON-safe.
+Do not retune visible simulation, camera, terrain, clouds, water, grass, lighting, or post-process behavior during the proof pass.
+Preserve GameHost.local and GameHost.nexusEngine compatibility.
+Add phase and adaptive-quality readback additively.
+Keep journals bounded, deterministic, JSON-safe, and disposable.
+Do not delete the legacy grass-detail implementation until compatibility and replacement evidence are explicit.
 ```
