@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T16-20-09-04-00`
+**Last aligned:** `2026-07-10T17-51-35-04-00`
 
 ## Scope
 
@@ -11,21 +11,18 @@ Documentation-only repository breakdown and audit refresh. Runtime source, packa
 ```txt
 full accessible LuminaryLabs-Publish inventory reviewed: yes
 central ledger timestamps compared: yes
-all nine eligible root .agent/START_HERE.md files confirmed: yes
+repo-local recency considered where central state could lag: yes
+all nine eligible repositories confirmed documented: yes
 TheCavalryOfRome excluded: yes
 selected only one product repository: yes
 selected repo root .agent state read: yes
-src/main.js frame order read: yes
-balloon simulation kit read: yes
-balloon telemetry kit read: yes
-visual domain read: yes
-dynamic resolution controller read: yes
-camera rig read: yes
-active grass field domain read: yes
-grass seed/density/exclusion/placement kits read: yes
-legacy grass detail implementation read: yes
-static smoke test read: yes
-headless editor environment read: yes
+package scripts read: yes
+src/main.js construction/frame ownership read: yes
+simulation listener/dispose path read: yes
+camera listener/dispose path read: yes
+visual construction/resize/dispose path read: yes
+dynamic-resolution controller read: yes
+HDR composer resource/dispose path read: yes
 runtime source changed: no
 package scripts changed: no
 dependencies changed: no
@@ -46,64 +43,77 @@ npm run headless:check: not run
 npm run headless:build: not run
 browser smoke: not run
 GPU/WebGL validation: not run
-render-phase fixture: not run because it does not exist yet
-adaptive-resolution decision fixture: not run because it does not exist yet
+lifecycle fixture: not run because it does not exist yet
+restart fixture: not run because it does not exist yet
+partial-start rollback fixture: not run because it does not exist yet
 ```
 
 ## Existing coverage
 
-`npm run check` currently runs `tests/smoke.mjs`. It verifies required files and text contracts for visual-domain composition, deterministic grass placement, grass LOD constants, WebGPU/CPU culling paths, streamed terrain, explicit water fog, neutral exposure, disabled cinematic passes, and headless command names.
+`npm run check` currently runs `tests/smoke.mjs`. It verifies required files and source-text contracts for visual composition, deterministic grass placement, LOD/culling paths, terrain, water fog, post-processing posture, and headless command names.
 
-The headless environment checks renderer-related source text and routes npm check/build commands. It does not instantiate the browser runtime or execute the frame loop.
+The headless environment routes inspection/check/build commands but does not instantiate the browser runtime, own animation frames, count listeners, dispose resources, or restart a session.
 
-## Missing coverage
+## Missing lifecycle coverage
 
 ```txt
-committed frame ID
+session ID and lifecycle state
+single active session per canvas
+single recursive frame chain
+frame cancellation
+listener ownership and removal
+resource ownership and terminal disposal status
+ordered teardown
+idempotent stop/dispose
+partial-start rollback
+old-session state freeze
+restart with new session ID
+stale callback/input rejection
+GameHost lifecycle projection
+bounded lifecycle journals
+DOM-light/browser proof-shape parity
+```
+
+## Existing frame-phase coverage still missing
+
+```txt
+committed frame ID scoped under session ID
 input sequence range
-pre-render versus post-render phase rows
+pre-render versus post-render rows
 render-scale before/after sampling
-smoothed frame-cost and sample counter rows
 adaptive-quality decision reason
-resize decision and result
-same-frame draw-call/triangle attribution
-telemetry publication phase
-HUD committed-frame projection
-GameHost local/Nexus parity
-active versus legacy grass kit classification
-90-sample deterministic decision boundary
-bounded journal eviction
-DOM-free and browser proof-shape parity
+same-frame renderer statistics
+telemetry/HUD/GameHost frame parity
 ```
 
 ## Required future validation order
 
 ```txt
-1. node scripts/open-above-render-phase-fixture.mjs
+1. node scripts/open-above-lifecycle-fixture.mjs
 2. npm run check
 3. npm run headless:inspect
 4. npm run headless:check
 5. npm run build
 6. browser smoke
-7. compare GameHost runtimeProof with fixture output
-8. verify telemetry, HUD, and GameHost share frameId and post-sample scale
-9. verify Pages deployment without route changes
+7. browser GameHost.lifecycle stop/dispose/restart proof
+8. compare browser and fixture proof shapes
+9. verify Pages deployment without visible route changes
 ```
 
 ## Current conclusion
 
-The documentation now identifies the phase split and the active grass kit graph. Runtime correctness for the proposed frame authority remains unverified because no implementation or fixture was added. Do not claim telemetry/render/HUD/GameHost frame parity until the fixture exists and passes.
+The audit proves that local disposal methods exist but are not coordinated or invoked by the route composer. Runtime correctness for stop, disposal, rollback, and restart remains unverified because no session authority or lifecycle fixture exists. Do not claim teardown or restart safety until that fixture exists and passes.
 
 ## Push state
 
 ```txt
 repo-local docs pushed to main: yes
-central ledger pushed to main: yes
-central internal change log pushed to main: yes
+central ledger sync: pending at this record stage
+central internal change log: pending at this record stage
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
+TheOpenAbove Runtime Session Lifecycle Authority + Dispose/Reboot Fixture Gate
 ```
