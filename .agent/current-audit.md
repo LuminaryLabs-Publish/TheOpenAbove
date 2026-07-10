@@ -1,45 +1,55 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T13-21-23-04-00`
+**Last aligned:** `2026-07-10T14-50-38-04-00`
 
 ## Status
 
-`TheOpenAbove` is a Vite-hosted cinematic Balloon Drift route. The useful runtime split is already present across visual, object, simulation, camera, presentation, telemetry, smoke-test, and headless editor kits.
+`TheOpenAbove` is a Vite-hosted cinematic Balloon Drift route powered by Three.js and NexusEngine main through CDN imports. The runtime already has practical simulation, object, camera, presentation, visual, telemetry, smoke-test, and headless-editor boundaries.
 
-The blocker is source result authority and GameHost/headless readback proof, not visuals.
+The current blocker is not fidelity or route scope. It is causal readback: no stable source fingerprint, normalized input result journal, shared frame ID, or consumer row correlates the work performed by simulation, camera, visual, telemetry, rendering, HUD, and GameHost.
 
-## Active files read
+## Active files reviewed
 
 ```txt
+README.md
 package.json
 index.html
 src/main.js
 src/data/campaign.config.js
 src/runtime/balloon-simulation-kit.js
-src/visual/visual-domain.js
 src/visual/camera-presentation/balloon-camera-rig-kit.js
 tools/headless-editor-environment.mjs
-tests/smoke.mjs
 .agent root docs
+central Publish repo ledgers
 ```
 
-## Current interaction loop
+## Interaction loop
 
 ```txt
 index.html
-  -> importmap loads Three.js 0.165.0
-  -> canvas#game, #hud, and #error mount
-  -> ./src/main.js imports NexusEngine main CDN
-  -> src/main.js imports CAMPAIGN/WORLD config
-  -> createVisualDomain creates renderer, scene, camera, terrain, vegetation, grass, water, sky, sun, clouds, composer, quality, and render stats
-  -> buildHotAirBalloon creates the route object
-  -> createBalloonSimulation owns keyboard listeners, wind, buoyancy, burner, vent, altitude, velocity, and pose application
-  -> createBalloonCameraRig resolves wheel zoom, follow mode, basket blend, clipping, and diagnostics
-  -> createBalloonPresentationDomain updates fabric, basket, rope, and burner presentation
-  -> createBalloonTelemetryEngine publishes local snapshots into NexusEngine
-  -> requestAnimationFrame updates simulation, object animation, presentation, camera, visual domain, telemetry, renderer, and HUD
-  -> window.GameHost.getState() returns { nexusEngine, local } only
-  -> tools/headless-editor-environment.mjs validates renderer/build contracts through static source inspection and npm scripts
+  -> Three.js 0.165.0
+  -> NexusEngine main CDN
+  -> src/main.js
+       -> createVisualDomain
+       -> buildHotAirBalloon
+       -> createBalloonSimulation
+       -> createBalloonCameraRig
+       -> createBalloonPresentationDomain
+       -> createBalloonTelemetryEngine
+  -> keyboard events mutate simulation key Set
+  -> wheel events mutate camera zoom
+  -> animation frame
+       -> simulation.update(dt)
+       -> apply balloon transform
+       -> animate object
+       -> update balloon presentation
+       -> update camera
+       -> update visual domain
+       -> tick Nexus telemetry
+       -> render
+       -> project HUD
+  -> GameHost.getState returns latest Nexus and local snapshots
+  -> headless editor performs static inspection and npm command routing
 ```
 
 ## Domains in use
@@ -51,17 +61,23 @@ three-importmap-runtime
 nexusengine-cdn-runtime
 nexus-headless-editor-environment
 campaign-config
-legacy-flight-config
 world-config
-balloon-drift-simulation
+legacy-flight-config
 keyboard-input
+wheel-zoom-input
 burner-intent
 vent-intent
 wind-field
 buoyancy-integration
-altitude-safety
-ground-clearance
+vertical-damping
+ceiling-soft-limit
+terrain-clearance
+altitude-and-distance-state
 hot-air-balloon-object
+balloon-presentation
+camera-follow
+basket-view-blend
+clipping-fade
 visual-domain
 quality-tier
 dynamic-resolution
@@ -70,8 +86,7 @@ sun-light
 aerial-perspective
 cloud-weather-map
 volumetric-clouds
-streamed-terrain-surface
-terrain-chunk-streaming
+streamed-terrain
 vegetation-clusters
 grass-detail
 water-surfaces
@@ -79,49 +94,48 @@ distant-landmarks
 hdr-composer
 neutral-color-grade
 lens-response
-camera-rig
-basket-view-camera
-wheel-zoom-input
-clipping-fade
-balloon-presentation
-hud-telemetry
 nexus-telemetry
+hud-projection
 legacy-gamehost-readback
-smoke-test-contract
+static-smoke-contract
 headless-renderer-contract
-source-result-authority-next
-source-fingerprint-next
-source-snapshot-next
-source-acceptance-ledger-next
-source-consumer-ledger-next
-input-result-ledger-next
-gamehost-source-readback-next
-headless-source-fixture-next
-browser-source-fixture-next
+planned-source-authority
+planned-input-result-journal
+planned-frame-correlation-journal
+planned-consumer-attribution
+planned-gamehost-proof-readback
+planned-dom-free-fixture
 central-ledger-sync
 ```
 
-## Kit services
+## Services offered
 
-- Route shell service: canvas, HUD, error shell, importmap, and module route.
-- Runtime composer service: `src/main.js` wires visual, object, simulation, camera, presentation, telemetry, HUD, and GameHost.
-- Campaign/world config service: product/region/world constants, with legacy free-flight fields still present.
-- Visual domain service: renderer, scene, camera, terrain, vegetation, grass, sky, clouds, water, composer, effects, quality policy, and render stats.
-- Object kit service: balloon envelope, mouth, streamers, seams, basket, rigging, burner, and ropes.
-- Simulation service: keyboard intent, wind, buoyancy, altitude, ground clearance, position, velocity, and distance.
-- Camera service: wheel zoom, follow mode, basket blend, clipping, and diagnostics.
-- Presentation service: fabric, basket, rope, and burner animation.
-- Telemetry service: NexusEngine route telemetry from local snapshots.
-- Headless editor service: project.inspect, renderer.validate, project.check, project.build, and runtime.getState.
-- Smoke test service: static route and renderer contract assertions.
-- GameHost service: local/Nexus readback without source proof yet.
-- Next proof services: product/campaign/runtime source authority, source fingerprint, source snapshot, source acceptance ledger, source consumer ledger, input result ledger, GameHost source readback, and headless source fixture.
+- Route shell: canvas, HUD, error panel, import map, and live module mount.
+- Configuration: campaign, region, world, sky, terrain, and legacy free-flight constants.
+- Keyboard input: burner/vent key tracking and blur reset.
+- Wheel input: bounded zoom mutation.
+- Simulation: wind, buoyancy, venting, damping, ceiling control, terrain clearance, altitude, velocity, position, distance, and snapshots.
+- Balloon object: geometry, basket, ropes, burner, envelope, transforms, and animation.
+- Camera: wind-relative follow, basket-view blend, FOV, clipping fade, and camera diagnostics.
+- Presentation: fabric, basket, rope, and burner animation.
+- Visual domain: renderer, scene, environment, quality policy, render scale, render stats, and draw submission.
+- Environment: sky, sun, atmosphere, clouds, terrain streaming, vegetation, grass, water, and landmarks.
+- Post-processing: HDR composition, neutral color grade, and lens response.
+- Telemetry: local snapshot publication into NexusEngine.
+- HUD: projection of drift, camera, altitude, wind, exposure, quality, and engine copy.
+- GameHost: live object access plus latest local/Nexus state.
+- Smoke/headless: static source/renderer assertions and npm check/build command routing.
+- Planned proof: source manifest/fingerprint, compatibility classification, input results, frame correlation, consumer rows, bounded readback, and deterministic fixture.
 
-## Implemented kits
+## Implemented source-backed kits
 
 ```txt
 open-above-balloon-simulation-kit
 open-above-balloon-telemetry-kit
+open-above-hot-air-balloon-object-kit
+open-above-balloon-camera-rig-kit
+open-above-clipping-fade-kit
+open-above-balloon-presentation-domain
 open-above-visual-domain
 open-above-quality-tier-kit
 open-above-dynamic-resolution-kit
@@ -139,24 +153,20 @@ open-above-distant-landmark-kit
 open-above-hdr-composer-kit
 open-above-neutral-color-grade-kit
 open-above-lens-response-kit
-open-above-balloon-camera-rig-kit
-open-above-clipping-fade-kit
-open-above-balloon-presentation-domain
-open-above-hot-air-balloon-object-kit
 open-above-headless-editor-environment
 open-above-static-smoke-test-kit
 ```
 
-## Runtime implied kits
+## Runtime-implied kits
 
 ```txt
 open-above-route-shell-kit
 open-above-importmap-kit
 open-above-runtime-composer-kit
-open-above-hud-projection-kit
-open-above-error-panel-kit
 open-above-keyboard-input-kit
 open-above-wheel-zoom-input-kit
+open-above-hud-projection-kit
+open-above-error-panel-kit
 open-above-gamehost-legacy-readback-kit
 open-above-nexusengine-cdn-adapter-kit
 ```
@@ -164,31 +174,33 @@ open-above-nexusengine-cdn-adapter-kit
 ## Next-cut kits
 
 ```txt
-open-above-product-copy-authority-kit
-open-above-readme-route-copy-parity-kit
-open-above-campaign-current-route-authority-kit
-open-above-legacy-flight-compatibility-kit
+open-above-product-source-authority-kit
 open-above-balloon-drift-config-kit
-open-above-source-result-authority-ledger-kit
-open-above-source-consumer-manifest-kit
+open-above-legacy-flight-compatibility-kit
+open-above-source-manifest-kit
 open-above-source-fingerprint-kit
 open-above-source-snapshot-kit
 open-above-source-acceptance-ledger-kit
 open-above-source-consumer-ledger-kit
 open-above-input-result-ledger-kit
-open-above-gamehost-source-readback-kit
-open-above-headless-source-fixture-kit
-open-above-browser-source-fixture-kit
+open-above-frame-correlation-ledger-kit
+open-above-simulation-consumer-row-kit
+open-above-camera-consumer-row-kit
+open-above-visual-consumer-row-kit
+open-above-telemetry-consumer-row-kit
+open-above-render-consumer-row-kit
+open-above-hud-consumer-row-kit
+open-above-gamehost-source-frame-readback-kit
+open-above-headless-source-frame-fixture-kit
+open-above-browser-source-frame-fixture-kit
 ```
 
 ## Main finding
 
-Do not start next with renderer extraction, terrain extraction, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
-
-The next work is source result authority and readback proof that reconciles current route source, legacy campaign fields, input result rows, smoke/headless checks, and `GameHost` diagnostics.
+`src/main.js` contains the only complete account of runtime ordering. Keyboard and wheel events have no normalized outcomes. The local snapshot is current-state only. Telemetry, rendering, and HUD have no consumer rows. `GameHost` has no bounded source/input/frame proof block. The headless editor validates static text and npm scripts rather than deterministic runtime rows.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
+TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
 ```
