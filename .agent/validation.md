@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T08-59-04-04-00`
+**Last aligned:** `2026-07-10T10-29-57-04-00`
 
 ## This pass
 
@@ -24,7 +24,7 @@ npm run headless:build: not run
 browser smoke: not run
 DOM-free source fixture: not run because proof files do not exist yet
 repo-local docs pushed to main: yes
-central docs pushed to main: yes
+central docs pushed to main: pending central sync
 ```
 
 ## Available package commands
@@ -76,5 +76,5 @@ fixture exits non-zero on required-row failures
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
+TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
 ```
