@@ -18,24 +18,49 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-      - name: Checkout main
+      - name: Checkout The Open Above
         uses: actions/checkout@v7
         with:
           ref: main
+
+      - name: Checkout NexusEngine headless editor
+        uses: actions/checkout@v7
+        with:
+          repository: LuminaryLabs-Dev/NexusEngine
+          ref: main
+          path: .nexus-engine
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 24
+
       - name: Install
         run: npm install
-      - name: Build
-        run: npm run build
+
+      - name: Headless editor status
+        run: npm run headless:status
+
+      - name: Headless editor inspect
+        run: npm run headless:inspect
+
+      - name: Headless renderer validation
+        run: npm run headless:renderer
+
+      - name: Headless smoke validation
+        run: npm run headless:check
+
+      - name: Headless production build
+        run: npm run headless:build
+
       - name: Configure Pages
         uses: actions/configure-pages@v6
+
       - name: Add nojekyll marker
         run: touch dist/.nojekyll
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
