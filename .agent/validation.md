@@ -1,6 +1,6 @@
 # Validation — TheOpenAbove
 
-**Timestamp:** `2026-07-09T19-21-19-04-00`
+**Timestamp:** `2026-07-09T23-51-04-04-00`
 
 ## Performed in this pass
 
@@ -13,6 +13,11 @@ read package.json
 read index.html
 read tests/smoke.mjs
 read src/main.js
+read src/runtime/balloon-simulation-kit.js
+read src/runtime/balloon-telemetry-kit.js
+read src/visual/visual-domain.js
+read src/visual/camera-presentation/balloon-camera-rig-kit.js
+read src/visual/balloon-presentation/balloon-presentation-domain.js
 read src/data/campaign.config.js
 read src/hot-air-balloon-object-kit.js
 updated repo-local .agent root docs
@@ -28,6 +33,7 @@ pushed updates to main only through direct GitHub file writes
 
 ```txt
 runtime source edit: no
+package scripts edit: no
 npm install: no
 npm run check: no
 npm run build: no
@@ -58,4 +64,4 @@ central ledger readback against repo-local latest tracker
 
 ## Validation interpretation
 
-This was a documentation and audit pass only. It intentionally did not modify `src/main.js`, product copy, source modules, smoke tests, or runtime behavior.
+This was a documentation and audit pass only. It intentionally did not modify runtime source, product copy, source modules, smoke tests, package scripts, or visual behavior.
