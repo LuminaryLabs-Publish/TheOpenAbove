@@ -1,10 +1,10 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T08-59-04-04-00`
+**Last aligned:** `2026-07-10T10-29-57-04-00`
 
 ## Primary gap
 
-The current blocker is source/GameHost readback proof, not render quality, camera feel, or gameplay expansion.
+The current blocker is source fixture and GameHost readback proof, not render quality, camera feel, or gameplay expansion.
 
 ## Gaps
 
@@ -71,5 +71,5 @@ source_fixture_rows_missing
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
+TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
 ```
