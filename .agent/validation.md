@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T01-20-47-04-00`
+**Last aligned:** `2026-07-10T02-38-56-04-00`
 
 ## This pass
 
@@ -16,9 +16,15 @@ pull request created: no
 npm install: not run
 npm run check: not run
 npm run build: not run
+npm run headless:status: not run
+npm run headless:inspect: not run
+npm run headless:renderer: not run
+npm run headless:check: not run
+npm run headless:build: not run
 browser smoke: not run
 DOM-free source fixture: not run because proof files do not exist yet
-pushed to main: yes, documentation only
+repo-local docs pushed to main: yes
+central docs pushed to main: pending this pass
 ```
 
 ## Available package commands
@@ -28,11 +34,16 @@ npm run check
 npm run build
 npm start
 npm run dev
+npm run headless:status
+npm run headless:inspect
+npm run headless:renderer
+npm run headless:check
+npm run headless:build
 ```
 
 ## Validation gap
 
-`npm run check` exists, but it does not yet prove source consumer readback.
+`npm run check` exists, and headless editor commands exist, but neither currently proves source consumer readback.
 
 The next implementation should add:
 
@@ -40,7 +51,7 @@ The next implementation should add:
 scripts/open-above-source-fixture.mjs
 ```
 
-Then wire it into `npm run check` before `vite build`.
+Then wire it into `npm run check` and the headless editor `project.check` path before claiming source/readback parity.
 
 ## Required future fixture assertions
 
@@ -51,11 +62,12 @@ source fingerprint is stable
 source snapshot is serializable
 source acceptance rows exist
 GameHost source projection shape is stable
+headless project.check reports source fixture rows
 fixture exits non-zero on required-row failures
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
+TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
 ```
