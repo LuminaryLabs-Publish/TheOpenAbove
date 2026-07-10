@@ -1,28 +1,41 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T14-50-38-04-00`
+**Last aligned:** `2026-07-10T16-20-09-04-00`
 
 ## Scope
 
-Documentation-only project breakdown and audit refresh.
+Documentation-only repository breakdown and audit refresh. Runtime source, package scripts, dependencies, route behavior, and deployment configuration were not changed.
 
 ## Validation performed
 
 ```txt
-full accessible Publish repository inventory reviewed: yes
+full accessible LuminaryLabs-Publish inventory reviewed: yes
 central ledger timestamps compared: yes
-selected repository root .agent state read: yes
-active route composer read: yes
-campaign/world source read: yes
-simulation kit read: yes
+all nine eligible root .agent/START_HERE.md files confirmed: yes
+TheCavalryOfRome excluded: yes
+selected only one product repository: yes
+selected repo root .agent state read: yes
+src/main.js frame order read: yes
+balloon simulation kit read: yes
+balloon telemetry kit read: yes
+visual domain read: yes
+dynamic resolution controller read: yes
 camera rig read: yes
-package command surface read: yes
+active grass field domain read: yes
+grass seed/density/exclusion/placement kits read: yes
+legacy grass detail implementation read: yes
+static smoke test read: yes
 headless editor environment read: yes
 runtime source changed: no
 package scripts changed: no
 dependencies changed: no
 branch created: no
 pull request created: no
+```
+
+## Commands and runtime checks
+
+```txt
 npm install: not run
 npm run check: not run
 npm run build: not run
@@ -33,68 +46,64 @@ npm run headless:check: not run
 npm run headless:build: not run
 browser smoke: not run
 GPU/WebGL validation: not run
-DOM-free source/input/frame fixture: not run because it does not exist yet
-repo-local docs pushed to main: yes
-central ledger pushed to main: yes
-central internal change log pushed to main: yes
-```
-
-## Available package commands
-
-```txt
-npm start
-npm run dev
-npm run check
-npm run build
-npm run headless:status
-npm run headless:inspect
-npm run headless:renderer
-npm run headless:check
-npm run headless:build
+render-phase fixture: not run because it does not exist yet
+adaptive-resolution decision fixture: not run because it does not exist yet
 ```
 
 ## Existing coverage
 
-`npm run check` currently runs `node tests/smoke.mjs`. The smoke and headless paths cover required route files, import/runtime contracts, framebuffer depth targets, neutral exposure and grade, disabled cinematic passes, streamed terrain, soft cloud shadows, explicit water fog, npm check, and Vite build routing.
+`npm run check` currently runs `tests/smoke.mjs`. It verifies required files and text contracts for visual-domain composition, deterministic grass placement, grass LOD constants, WebGPU/CPU culling paths, streamed terrain, explicit water fog, neutral exposure, disabled cinematic passes, and headless command names.
+
+The headless environment checks renderer-related source text and routes npm check/build commands. It does not instantiate the browser runtime or execute the frame loop.
 
 ## Missing coverage
 
 ```txt
-canonical route source manifest
-source fingerprint stability
-legacy campaign/FLIGHT classification
-keyboard input results
-wheel input results
-input sequence ranges
-shared frame IDs
-simulation/camera/visual consumer rows
-telemetry publication rows
-render consumption rows
-HUD projection rows
-bounded GameHost proof readback
-DOM-free fixture parity
-browser-versus-fixture readback shape
+committed frame ID
+input sequence range
+pre-render versus post-render phase rows
+render-scale before/after sampling
+smoothed frame-cost and sample counter rows
+adaptive-quality decision reason
+resize decision and result
+same-frame draw-call/triangle attribution
+telemetry publication phase
+HUD committed-frame projection
+GameHost local/Nexus parity
+active versus legacy grass kit classification
+90-sample deterministic decision boundary
+bounded journal eviction
+DOM-free and browser proof-shape parity
 ```
 
 ## Required future validation order
 
 ```txt
-1. node scripts/open-above-source-frame-fixture.mjs
+1. node scripts/open-above-render-phase-fixture.mjs
 2. npm run check
 3. npm run headless:inspect
 4. npm run headless:check
 5. npm run build
 6. browser smoke
-7. compare GameHost proof readback with fixture result
-8. verify Pages deployment without route changes
+7. compare GameHost runtimeProof with fixture output
+8. verify telemetry, HUD, and GameHost share frameId and post-sample scale
+9. verify Pages deployment without route changes
 ```
 
 ## Current conclusion
 
-The documentation is updated, but runtime correctness for the proposed proof domain is unverified because no runtime implementation was added. Do not claim source/input/frame correlation until the fixture exists and passes.
+The documentation now identifies the phase split and the active grass kit graph. Runtime correctness for the proposed frame authority remains unverified because no implementation or fixture was added. Do not claim telemetry/render/HUD/GameHost frame parity until the fixture exists and passes.
+
+## Push state
+
+```txt
+repo-local docs pushed to main: yes
+central ledger pushed to main: pending until central sync in this run
+central internal change log pushed to main: pending until central sync in this run
+```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
+TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
 ```
