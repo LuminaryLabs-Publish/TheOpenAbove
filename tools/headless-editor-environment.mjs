@@ -18,12 +18,18 @@ function inspectProject() {
     "src/main.js",
     "src/visual/visual-domain.js",
     "src/visual/post-process/hdr-composer-kit.js",
-    "src/visual/post-process/god-ray-kit.js",
+    "src/visual/post-process/color-grade-kit.js",
+    "src/visual/landscape/terrain-surface-kit.js",
+    "src/visual/landscape/terrain-chunk-streaming-kit.js",
     "src/visual/landscape/water-surface-kit.js",
     "tests/smoke.mjs"
   ];
   const missing = required.filter((path) => !existsSync(resolve(root, path)));
+  const visual = readFileSync(resolve(root, "src/visual/visual-domain.js"), "utf8");
   const composer = readFileSync(resolve(root, "src/visual/post-process/hdr-composer-kit.js"), "utf8");
+  const grade = readFileSync(resolve(root, "src/visual/post-process/color-grade-kit.js"), "utf8");
+  const terrain = readFileSync(resolve(root, "src/visual/landscape/terrain-surface-kit.js"), "utf8");
+  const chunks = readFileSync(resolve(root, "src/visual/landscape/terrain-chunk-streaming-kit.js"), "utf8");
   const water = readFileSync(resolve(root, "src/visual/landscape/water-surface-kit.js"), "utf8");
   const checks = {
     requiredFilesPresent: missing.length === 0,
@@ -31,6 +37,26 @@ function inspectProject() {
       /renderTarget1\.depthTexture = firstDepth/.test(composer)
       && /renderTarget2\.depthTexture = secondDepth/.test(composer),
     noSharedDepthGuard: !/if \(!buffer\.depthTexture\)/.test(composer),
+    neutralExposure: /exposure: 1\.0/.test(composer) && /autoExposureEnabled: false/.test(composer),
+    cinematicPassesDisabled:
+      /bloomEnabled: false/.test(composer)
+      && /godRaysEnabled: false/.test(composer)
+      && !/composer\.addPass\(bloom\.pass\)/.test(composer)
+      && !/composer\.addPass\(godRays\.pass\)/.test(composer),
+    neutralColorGrade:
+      /uContrast: \{ value: 1\.0 \}/.test(grade)
+      && !/uVignette/.test(grade)
+      && !/uGrain/.test(grade),
+    noMultiplyTerrainOverlay:
+      !/createCloudShadowOverlay/.test(visual)
+      && !/MultiplyBlending/.test(chunks),
+    streamedTerrain:
+      /createTerrainChunkStreamer/.test(terrain)
+      && /chunks = new Map/.test(chunks)
+      && /lodForDistance/.test(chunks),
+    softTerrainCloudShadow:
+      /gl_FragColor\.rgb \*= cloudLight/.test(chunks)
+      && /mix\(1\.0, 0\.74/.test(chunks),
     waterUsesExplicitFog: /uFogColor/.test(water) && /uFogDensity/.test(water) && /fog:\s*false/.test(water),
     waterDisablesImplicitFog: !/fog:\s*true/.test(water)
   };
@@ -44,7 +70,7 @@ export function createEnvironment() {
     domains: ["project", "renderer", "build", "runtime"],
     metadata: {
       repository: "LuminaryLabs-Publish/TheOpenAbove",
-      purpose: "Validate source contracts and production build through the NexusEngine headless editor runtime."
+      purpose: "Validate neutral lighting, streamed terrain, shader safety, and production build through the NexusEngine headless editor runtime."
     },
     capabilities: {
       "project.inspect": {
@@ -62,15 +88,10 @@ export function createEnvironment() {
       },
       "renderer.validate": {
         domain: "renderer",
-        description: "Validate framebuffer and custom shader safety contracts.",
+        description: "Validate framebuffer, lighting baseline, terrain streaming, and shader safety contracts.",
         execute() {
           const inspection = inspectProject();
-          const rendererChecks = {
-            independentDepthTargets: inspection.checks.independentDepthTargets,
-            noSharedDepthGuard: inspection.checks.noSharedDepthGuard,
-            explicitWaterFog: inspection.checks.waterUsesExplicitFog,
-            implicitWaterFogDisabled: inspection.checks.waterDisablesImplicitFog
-          };
+          const rendererChecks = { ...inspection.checks };
           const ok = Object.values(rendererChecks).every(Boolean);
           return {
             ok,
