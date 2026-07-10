@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T11-51-35-04-00`
+**Last aligned:** `2026-07-10T13-21-23-04-00`
 
 ## Status
 
 `TheOpenAbove` is a Vite-hosted cinematic Balloon Drift route. The useful runtime split is already present across visual, object, simulation, camera, presentation, telemetry, smoke-test, and headless editor kits.
 
-The blocker is source authority and GameHost/headless readback proof, not visuals.
+The blocker is source result authority and GameHost/headless readback proof, not visuals.
 
 ## Active files read
 
@@ -89,7 +89,7 @@ nexus-telemetry
 legacy-gamehost-readback
 smoke-test-contract
 headless-renderer-contract
-source-authority-next
+source-result-authority-next
 source-fingerprint-next
 source-snapshot-next
 source-acceptance-ledger-next
@@ -169,7 +169,7 @@ open-above-readme-route-copy-parity-kit
 open-above-campaign-current-route-authority-kit
 open-above-legacy-flight-compatibility-kit
 open-above-balloon-drift-config-kit
-open-above-source-authority-ledger-kit
+open-above-source-result-authority-ledger-kit
 open-above-source-consumer-manifest-kit
 open-above-source-fingerprint-kit
 open-above-source-snapshot-kit
@@ -185,10 +185,10 @@ open-above-browser-source-fixture-kit
 
 Do not start next with renderer extraction, terrain extraction, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
 
-The next work is source authority and readback proof that reconciles current route source, legacy campaign fields, input result rows, smoke/headless checks, and `GameHost` diagnostics.
+The next work is source result authority and readback proof that reconciles current route source, legacy campaign fields, input result rows, smoke/headless checks, and `GameHost` diagnostics.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Authority Readback Ledger Refresh + GameHost Headless Fixture Gate
+TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
 ```
