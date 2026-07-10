@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T02-38-56-04-00`
+**Last aligned:** `2026-07-10T04-40-52-04-00`
 
 **Repo:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -9,7 +9,7 @@
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
+TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate
 ```
 
 ## Read this first
@@ -17,7 +17,7 @@ TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
 Start with the latest tracker:
 
 ```txt
-.agent/trackers/2026-07-10T02-38-56-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T04-40-52-04-00/project-breakdown.md
 ```
 
 Then read:
@@ -28,19 +28,19 @@ Then read:
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-10T02-38-56-04-00-headless-source-readback-dsk-map.md
-.agent/render-audit/2026-07-10T02-38-56-04-00-visual-domain-headless-readback-gap.md
-.agent/gameplay-audit/2026-07-10T02-38-56-04-00-balloon-simulation-source-fixture-loop.md
-.agent/route-source-audit/2026-07-10T02-38-56-04-00-product-campaign-headless-parity.md
-.agent/deploy-audit/2026-07-10T02-38-56-04-00-headless-source-fixture-build-gate.md
-.agent/turn-ledger/2026-07-10T02-38-56-04-00.md
+.agent/architecture-audit/2026-07-10T04-40-52-04-00-headless-source-gamehost-readback-dsk-map.md
+.agent/render-audit/2026-07-10T04-40-52-04-00-visual-domain-source-proof-gap.md
+.agent/gameplay-audit/2026-07-10T04-40-52-04-00-balloon-drift-source-loop.md
+.agent/route-source-audit/2026-07-10T04-40-52-04-00-product-campaign-runtime-source-contract.md
+.agent/deploy-audit/2026-07-10T04-40-52-04-00-headless-source-fixture-check-gate.md
+.agent/turn-ledger/2026-07-10T04-40-52-04-00.md
 ```
 
 ## Current product read
 
 `TheOpenAbove` is a live cinematic Balloon Drift route.
 
-The route now has useful runtime kit boundaries plus Nexus headless editor package commands.
+The route has useful runtime, visual, object, camera, presentation, telemetry, and headless editor kit boundaries.
 
 The next blocker is not visual quality. It is source/readback proof.
 
@@ -66,16 +66,15 @@ index.html
 
 ## Main finding
 
-Do not start next with renderer extraction, visual-domain rewrite, camera retuning, balloon visual changes, simulation constant retuning, or route expansion.
+Do not start next with renderer extraction, visual-domain rewrite, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
 
-The repo has headless editor commands, but `tools/headless-editor-environment.mjs` currently validates renderer/build contracts, not source/readback facts.
-
-The durable blocker is still source proof:
+The durable blocker is source proof:
 
 ```txt
 README and campaign data still contain legacy free-flight concepts.
 src/main.js is the current Balloon Drift route composer.
 window.GameHost.getState() has no .source block.
+Headless editor commands validate renderer/build contracts, not source rows.
 No source manifest, source fingerprint, source snapshot, source acceptance rows, or headless source fixture exist yet.
 ```
 
