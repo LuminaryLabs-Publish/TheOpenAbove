@@ -1,6 +1,6 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T06-08-36-04-00`
+**Last aligned:** `2026-07-10T07-41-42-04-00`
 
 ## Status
 
@@ -8,7 +8,7 @@
 
 It has package-level smoke/build scripts and Nexus headless editor commands.
 
-The route is not blocked on visual modularity. It is blocked on source/readback proof, especially connecting product/campaign/runtime source to `GameHost` and headless fixture rows.
+The route is not blocked on visual modularity. It is blocked on source/readback proof, especially connecting product, README, campaign, runtime, headless, smoke, and `GameHost` rows.
 
 ## Active files read for this audit
 
@@ -18,8 +18,6 @@ index.html
 README.md
 src/main.js
 src/data/campaign.config.js
-src/runtime/balloon-simulation-kit.js
-src/visual/visual-domain.js
 tools/headless-editor-environment.mjs
 tests/smoke.mjs
 .agent/START_HERE.md
@@ -38,10 +36,9 @@ index.html
   -> canvas#game, #hud, and #error mount
   -> ./src/main.js imports NexusEngine main CDN
   -> src/main.js imports CAMPAIGN/WORLD config
-  -> src/main.js imports hot-air-balloon object kit, balloon simulation, telemetry, visual-domain, camera-rig, and presentation-domain
   -> createVisualDomain({ canvas, worldConfig: WORLD }) creates scene, camera, WebGLRenderer, quality tier, streamed terrain, vegetation, grass, water, sky, sun, clouds, aerial perspective, HDR composer, lens response, and dynamic resolution
   -> buildHotAirBalloon() creates the route object and adds it to the visual scene
-  -> createBalloonSimulation({ terrainHeight, startPosition: [0, 105, 0] }) owns key listeners, wind, buoyancy, burner, vent, altitude, velocity, distance, and balloon pose application
+  -> createBalloonSimulation({ terrainHeight, startPosition: [0, 105, 0] }) owns key listeners, wind, buoyancy, burner, vent, altitude, velocity, and balloon pose application
   -> createBalloonCameraRig(...) resolves scroll zoom, follow mode, basket-view blend, and camera diagnostics
   -> createBalloonPresentationDomain(balloon) updates envelope, basket, rope, and burner presentation
   -> createBalloonTelemetryEngine(NexusEngine, getSnapshot) publishes route telemetry into NexusEngine
@@ -202,5 +199,5 @@ The next work is source/readback proof that reconciles product copy, legacy camp
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate
+TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
 ```
