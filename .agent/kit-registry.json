@@ -1,16 +1,17 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-10T06-08-36-04-00",
-  "status": "source-fixture-ledger-gamehost-headless-gate-planned",
-  "latestTracker": ".agent/trackers/2026-07-10T06-08-36-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T06-08-36-04-00.md",
+  "lastAligned": "2026-07-10T07-41-42-04-00",
+  "status": "source-readback-ledger-headless-fixture-gate-planned",
+  "latestTracker": ".agent/trackers/2026-07-10T07-41-42-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T07-41-42-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-10T06-08-36-04-00-source-fixture-ledger-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-10T06-08-36-04-00-renderer-contract-source-readback-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-10T06-08-36-04-00-balloon-drift-source-fixture-loop.md",
-    "routeSource": ".agent/route-source-audit/2026-07-10T06-08-36-04-00-product-campaign-source-ledger-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-10T06-08-36-04-00-source-fixture-check-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-10T07-41-42-04-00-source-readback-headless-fixture-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-10T07-41-42-04-00-renderer-build-source-proof-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-10T07-41-42-04-00-balloon-drift-gamehost-source-loop.md",
+    "routeSource": ".agent/route-source-audit/2026-07-10T07-41-42-04-00-legacy-current-source-parity-contract.md",
+    "interaction": ".agent/interaction-audit/2026-07-10T07-41-42-04-00-burner-vent-input-source-result-map.md",
+    "deploy": ".agent/deploy-audit/2026-07-10T07-41-42-04-00-source-fixture-headless-check-gate.md"
   },
   "currentInteractionLoop": [
     "index.html",
@@ -49,6 +50,14 @@
     "ground-clearance",
     "balloon-pose-application",
     "hot-air-balloon-object",
+    "balloon-envelope-panel",
+    "balloon-mouth",
+    "balloon-streamer-fit",
+    "balloon-fabric-seam",
+    "hot-air-balloon-basket",
+    "hot-air-balloon-rigging",
+    "hot-air-balloon-burner",
+    "rope-object",
     "visual-domain",
     "quality-tier",
     "dynamic-resolution",
@@ -73,6 +82,7 @@
     "hud-telemetry",
     "gamehost-readback",
     "smoke-test-contract",
+    "headless-renderer-contract",
     "source-manifest-next",
     "source-fingerprint-next",
     "source-snapshot-next",
@@ -137,7 +147,7 @@
     "open-above-browser-consumer-fixture-kit",
     "open-above-central-ledger-sync-kit"
   ],
-  "nextSafeLedge": "TheOpenAbove Source Fixture Ledger Refresh + GameHost Headless Gate",
+  "nextSafeLedge": "TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate",
   "validation": {
     "runtimeSourceChanged": false,
     "branchCreated": false,
