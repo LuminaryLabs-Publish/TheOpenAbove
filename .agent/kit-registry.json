@@ -177,6 +177,7 @@
     "gpuValidation": "not run",
     "sourceInputFrameFixture": "not run because proof files do not exist yet",
     "repoLocalPushedToMain": true,
-    "centralLedgerPendingAtRecordTime": true
+    "centralLedgerSynced": true,
+    "centralChangeLogSynced": true
   }
 }
