@@ -1,111 +1,117 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T13-21-23-04-00`
+**Last aligned:** `2026-07-10T14-50-38-04-00`
 
-## Next safe ledge
+## Plan ledger
 
-```txt
-TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
-```
+### Goal
 
-## Goal
+Add deterministic, bounded, JSON-safe source/input/frame proof around the existing Balloon Drift route without changing visible behavior or removing compatibility fields.
 
-Add source/readback proof without changing the visible route.
+### Full checklist
 
-Use the existing smoke test and headless editor surface as validation callers after the source fixture exists.
+- [ ] Add canonical product and Balloon Drift route source modules.
+- [ ] Classify current, optional, legacy-compatible, ignored, deferred, and missing source fields.
+- [ ] Generate one stable source manifest, fingerprint, and serializable snapshot.
+- [ ] Add normalized keyboard input result rows.
+- [ ] Add normalized wheel input result rows.
+- [ ] Add monotonic input sequence numbers and frame IDs.
+- [ ] Record the input sequence range consumed by each simulation frame.
+- [ ] Record simulation, camera, visual, telemetry, render, and HUD consumer rows.
+- [ ] Add a bounded parent frame-correlation journal.
+- [ ] Add additive `GameHost.source` and `GameHost.runtimeProof` readback.
+- [ ] Preserve existing `GameHost.local` and `GameHost.nexusEngine` fields.
+- [ ] Add a deterministic DOM-free source/input/frame fixture.
+- [ ] Add headless `source.inspect`, `source.validate`, `runtime.fixture`, and `runtime.getProofState` capabilities.
+- [ ] Make `npm run check` execute the fixture before the existing smoke test.
+- [ ] Make headless `project.check` report the same fixture result.
+- [ ] Run `npm run check`.
+- [ ] Run `npm run headless:check`.
+- [ ] Run `npm run build` after checks pass.
+- [ ] Run browser smoke and compare browser GameHost readback against fixture shape.
+- [ ] Update repo-local and central ledgers after implementation.
 
-## Implementation order
-
-```txt
-1. Add canonical product and route source modules.
-2. Add legacy campaign/free-flight compatibility classification.
-3. Add source authority ledger, manifest, fingerprint, snapshot, acceptance ledger, and consumer ledger modules.
-4. Add keyboard and wheel input result rows.
-5. Add additive GameHost source readback.
-6. Add DOM-free source fixture.
-7. Extend project.check/headless runtime.getState so headless checks prove source rows too.
-8. Wire the source fixture into npm run check before the existing smoke test.
-9. Run npm run check.
-10. Run npm run headless:check.
-11. Run npm run build if check passes.
-```
-
-## Files to add
+## Recommended files
 
 ```txt
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
 src/source/legacy-flight-compatibility.js
-src/source/source-authority-ledger.js
-src/source/source-consumer-manifest.js
-src/source/source-fingerprint.js
-src/source/source-snapshot.js
-src/source/source-acceptance.js
-src/source/source-consumer-ledger.js
-src/source/input-result-ledger.js
-src/source/gamehost-source-readback.js
-scripts/open-above-source-fixture.mjs
+src/proof/source-manifest.js
+src/proof/source-fingerprint.js
+src/proof/source-snapshot.js
+src/proof/source-acceptance-ledger.js
+src/proof/source-consumer-ledger.js
+src/proof/input-result-ledger.js
+src/proof/frame-correlation-ledger.js
+src/proof/runtime-consumer-ledger.js
+src/proof/gamehost-proof-readback.js
+scripts/open-above-source-frame-fixture.mjs
+```
+
+## Required frame flow
+
+```txt
+begin frame
+  -> allocate frameId
+  -> capture sourceFingerprint
+  -> capture pending input sequence range
+  -> simulation update and snapshot row
+  -> balloon transform/presentation consumer rows
+  -> camera update and snapshot row
+  -> visual update row
+  -> telemetry publication row
+  -> render consumption row
+  -> HUD projection row
+  -> commit frame correlation row
+  -> expose bounded readback
 ```
 
 ## Fixture must prove
 
 ```txt
-canonical Balloon Drift route source can load without DOM
-legacy README/campaign/FLIGHT fields are classified explicitly
-source fingerprints are stable
-source snapshots are serializable
-source acceptance rows are emitted
-source consumer rows identify src/main.js, simulation, visual-domain, telemetry, HUD, smoke, headless, and GameHost consumers
-keyboard and wheel input result rows have stable vocabulary
-GameHost source projection has expected additive shape
-headless project.check includes source rows
-fixture exits non-zero on missing required rows
-```
-
-## GameHost rule
-
-Add source readback additively.
-
-Do not remove or rename existing `local` or `nexusEngine` readback fields.
-
-Expected future shape:
-
-```txt
-window.GameHost.getState()
-  -> local
-  -> nexusEngine
-  -> source
-       -> manifest
-       -> fingerprint
-       -> snapshot
-       -> acceptanceRows
-       -> consumerRows
-       -> inputRows
-       -> fixtureVersion
-       -> headlessStatus
+canonical source loads without DOM
+legacy campaign/FLIGHT fields are classified
+fingerprints are stable
+all rows are JSON-safe
+IDs and sequences are monotonic
+keyboard accepted/released/repeated/blur-clear cases are explicit
+wheel accepted/clamped/no-change cases are explicit
+simulation consumes the expected input range
+camera references the expected wheel result
+telemetry, render, and HUD reference the same frame
+consumer skips and failures produce rows
+journal eviction is deterministic
+GameHost compatibility fields remain present
+fixture fails non-zero on contract violations
 ```
 
 ## Avoid until proof exists
 
 ```txt
-renderer extraction
-terrain extraction
-visual-domain rewrite
-camera retune
+renderer or terrain rewrites
+visual quality retuning
+camera behavior changes
 balloon visual changes
-simulation constant retune
+simulation constant changes
 route expansion
-legacy campaign field deletion
-README-only rewrite
+legacy campaign deletion
+new gameplay systems
 ```
 
 ## Done when
 
 ```txt
-npm run check includes source fixture
-npm run headless:check includes source fixture output
-source fixture passes
-GameHost exposes .source additively
-central ledger points to the source result readback pass
-root .agent docs point to the implementation timestamp
+npm run check includes and passes the source/input/frame fixture
+npm run headless:check reports the same proof result
+npm run build passes after the proof gate
+GameHost exposes bounded additive proof readback
+browser and fixture readback shapes agree
+central ledger points to the implementation timestamp
+```
+
+## Next safe ledge
+
+```txt
+TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
 ```
