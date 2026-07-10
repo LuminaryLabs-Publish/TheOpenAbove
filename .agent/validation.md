@@ -24,7 +24,7 @@ npm run headless:build: not run
 browser smoke: not run
 DOM-free source fixture: not run because proof files do not exist yet
 repo-local docs pushed to main: yes
-central docs pushed to main: pending this pass
+central docs pushed to main: yes
 ```
 
 ## Available package commands
