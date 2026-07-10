@@ -1,16 +1,16 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-10T01-20-47-04-00",
-  "status": "source-consumer-gamehost-readback-browser-fixture-gate-planned",
-  "latestTracker": ".agent/trackers/2026-07-10T01-20-47-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T01-20-47-04-00.md",
+  "lastAligned": "2026-07-10T02-38-56-04-00",
+  "status": "headless-source-readback-browser-fixture-gate-planned",
+  "latestTracker": ".agent/trackers/2026-07-10T02-38-56-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T02-38-56-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-10T01-20-47-04-00-source-consumer-gamehost-readback-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-10T01-20-47-04-00-visual-domain-render-source-readback.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-10T01-20-47-04-00-balloon-drift-simulation-source-loop.md",
-    "routeSource": ".agent/route-source-audit/2026-07-10T01-20-47-04-00-product-campaign-runtime-parity.md",
-    "deploy": ".agent/deploy-audit/2026-07-10T01-20-47-04-00-source-fixture-check-build-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-10T02-38-56-04-00-headless-source-readback-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-10T02-38-56-04-00-visual-domain-headless-readback-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-10T02-38-56-04-00-balloon-simulation-source-fixture-loop.md",
+    "routeSource": ".agent/route-source-audit/2026-07-10T02-38-56-04-00-product-campaign-headless-parity.md",
+    "deploy": ".agent/deploy-audit/2026-07-10T02-38-56-04-00-headless-source-fixture-build-gate.md"
   },
   "currentInteractionLoop": [
     "index.html",
@@ -26,15 +26,18 @@
     "createBalloonTelemetryEngine",
     "frame update",
     "HUD projection",
-    "window.GameHost.getState"
+    "window.GameHost.getState",
+    "tools/headless-editor-environment.mjs"
   ],
   "domains": [
     "static-browser-shell",
     "vite-static-publish",
     "three-importmap-runtime",
     "nexusengine-cdn-runtime",
+    "nexus-headless-editor-environment",
     "campaign-config",
     "legacy-flight-config",
+    "world-config",
     "balloon-drift-simulation",
     "browser-keyboard-input",
     "burner-intent",
@@ -50,8 +53,8 @@
     "balloon-presentation",
     "hud-telemetry",
     "gamehost-readback",
-    "source-consumer-readback-next",
-    "dom-free-source-fixture-next",
+    "source-consumer-proof-next",
+    "headless-source-fixture-next",
     "central-ledger-sync"
   ],
   "implementedKits": [
@@ -92,7 +95,8 @@
     "open-above-hot-air-balloon-basket-kit",
     "open-above-hot-air-balloon-rigging-kit",
     "open-above-hot-air-balloon-burner-kit",
-    "open-above-rope-kit"
+    "open-above-rope-kit",
+    "open-above-headless-editor-environment"
   ],
   "nextCutKits": [
     "open-above-product-copy-authority-kit",
@@ -106,16 +110,19 @@
     "open-above-source-acceptance-ledger-kit",
     "open-above-source-consumer-ledger-kit",
     "open-above-gamehost-source-readback-kit",
+    "open-above-headless-source-fixture-kit",
     "open-above-browser-consumer-fixture-kit",
     "open-above-central-ledger-sync-kit"
   ],
-  "nextSafeLedge": "TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate",
+  "nextSafeLedge": "TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate",
   "validation": {
     "runtimeSourceChanged": false,
     "branchCreated": false,
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
+    "headlessStatus": "not run",
+    "headlessCheck": "not run",
     "browserSmoke": "not run",
     "sourceFixture": "not run because proof files do not exist yet",
     "pushedToMain": true
