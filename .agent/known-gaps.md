@@ -1,17 +1,18 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T10-29-57-04-00`
+**Last aligned:** `2026-07-10T11-51-35-04-00`
 
 ## Primary gap
 
-The current blocker is source fixture and GameHost readback proof, not render quality, camera feel, or gameplay expansion.
+The current blocker is source authority and GameHost/headless readback proof, not render quality, camera feel, or gameplay expansion.
 
 ## Gaps
 
 ```txt
-README still carries older free-flight wording and pitch/bank/boost controls.
 src/data/campaign.config.js still carries legacy thermal, gate, perch, start speed, and FLIGHT-style fields.
-src/main.js is the actual Balloon Drift route composer, but no source manifest records that relationship.
+src/main.js is the actual Balloon Drift route composer, but no source authority ledger records that relationship.
+keyboard input mutates a Set without accepted/rejected/no-change result rows.
+wheel input mutates camera zoom without accepted/clamped/no-change result rows.
 window.GameHost.getState() returns local and nexusEngine snapshots, but no .source block.
 No source fingerprint proves which product, campaign, runtime, smoke, headless, and GameHost rows were consumed.
 No source snapshot serializes the current route source state.
@@ -53,12 +54,13 @@ headless-only build plumbing without source rows
 
 ```txt
 route_copy_current
-readme_copy_legacy_compatible
 package_description_current
 campaign_world_current
 campaign_flight_legacy_compatible
 runtime_imports_current
 simulation_config_current
+keyboard_input_result_missing
+wheel_zoom_result_missing
 visual_domain_config_current
 telemetry_consumer_current
 hud_consumer_current
@@ -71,5 +73,5 @@ source_fixture_rows_missing
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
+TheOpenAbove Source Authority Readback Ledger Refresh + GameHost Headless Fixture Gate
 ```
