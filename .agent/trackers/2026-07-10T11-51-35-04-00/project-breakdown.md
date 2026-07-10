@@ -227,5 +227,5 @@ npm run headless:check: not run
 browser smoke: not run
 DOM-free source fixture: not run because proof files do not exist yet
 pushed to main: yes
-central ledger updated: pending in this run
+central ledger updated: yes
 ```
