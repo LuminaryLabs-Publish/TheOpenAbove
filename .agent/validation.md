@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T07-41-42-04-00`
+**Last aligned:** `2026-07-10T08-59-04-04-00`
 
 ## This pass
 
@@ -76,5 +76,5 @@ fixture exits non-zero on required-row failures
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
+TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
 ```

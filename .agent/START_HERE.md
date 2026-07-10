@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T07-41-42-04-00`
+**Last aligned:** `2026-07-10T08-59-04-04-00`
 
 **Repo:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -9,7 +9,7 @@
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
+TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
 ```
 
 ## Read this first
@@ -17,7 +17,7 @@ TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
 Start with the latest tracker:
 
 ```txt
-.agent/trackers/2026-07-10T07-41-42-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T08-59-04-04-00/project-breakdown.md
 ```
 
 Then read:
@@ -28,13 +28,13 @@ Then read:
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-10T07-41-42-04-00-source-readback-headless-fixture-dsk-map.md
-.agent/render-audit/2026-07-10T07-41-42-04-00-renderer-build-source-proof-gap.md
-.agent/gameplay-audit/2026-07-10T07-41-42-04-00-balloon-drift-gamehost-source-loop.md
-.agent/route-source-audit/2026-07-10T07-41-42-04-00-legacy-current-source-parity-contract.md
-.agent/interaction-audit/2026-07-10T07-41-42-04-00-burner-vent-input-source-result-map.md
-.agent/deploy-audit/2026-07-10T07-41-42-04-00-source-fixture-headless-check-gate.md
-.agent/turn-ledger/2026-07-10T07-41-42-04-00.md
+.agent/architecture-audit/2026-07-10T08-59-04-04-00-source-gamehost-readback-ledger-dsk-map.md
+.agent/render-audit/2026-07-10T08-59-04-04-00-renderer-source-consumption-readback-gap.md
+.agent/gameplay-audit/2026-07-10T08-59-04-04-00-balloon-drift-source-result-loop.md
+.agent/route-source-audit/2026-07-10T08-59-04-04-00-legacy-current-source-parity-contract.md
+.agent/interaction-audit/2026-07-10T08-59-04-04-00-burner-vent-input-result-map.md
+.agent/deploy-audit/2026-07-10T08-59-04-04-00-source-readback-fixture-gate.md
+.agent/turn-ledger/2026-07-10T08-59-04-04-00.md
 ```
 
 ## Current product read
@@ -44,12 +44,14 @@ Then read:
 The live route is:
 
 ```txt
-index.html -> src/main.js -> visual-domain + balloon object + simulation + camera rig + presentation + telemetry -> GameHost
+index.html
+  -> src/main.js
+  -> visual-domain + balloon object + simulation + camera rig + presentation + telemetry
+  -> HUD projection
+  -> window.GameHost.getState()
 ```
 
-The route has useful runtime, visual, object, camera, presentation, telemetry, smoke-test, and headless editor kit boundaries.
-
-The next blocker is not visual quality. It is source/readback proof.
+The visual/runtime boundaries are useful. The next blocker is not visuals, camera feel, or more route content. It is source and GameHost readback proof.
 
 ## Main finding
 
@@ -62,7 +64,7 @@ README and campaign data still contain legacy free-flight concepts.
 src/main.js is the current Balloon Drift route composer.
 window.GameHost.getState() has no .source block.
 Headless editor commands validate renderer/build contracts, not source rows.
-No source manifest, source fingerprint, source snapshot, source acceptance rows, or headless source fixture exist yet.
+No source manifest, fingerprint, snapshot, acceptance ledger, consumer ledger, or DOM-free source fixture exists yet.
 ```
 
 ## Next implementation files

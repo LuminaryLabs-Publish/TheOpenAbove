@@ -1,10 +1,10 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T07-41-42-04-00`
+**Last aligned:** `2026-07-10T08-59-04-04-00`
 
 ## Primary gap
 
-The current blocker is source/readback proof, not render quality, camera feel, or gameplay expansion.
+The current blocker is source/GameHost readback proof, not render quality, camera feel, or gameplay expansion.
 
 ## Gaps
 
@@ -16,6 +16,7 @@ window.GameHost.getState() returns local and nexusEngine snapshots, but no .sour
 No source fingerprint proves which product, campaign, runtime, smoke, headless, and GameHost rows were consumed.
 No source snapshot serializes the current route source state.
 No source acceptance ledger records accepted, legacy-compatible, ignored, missing, or deferred fields.
+No source consumer ledger identifies runtime, smoke, headless, HUD, simulation, visual, telemetry, and GameHost consumers.
 The headless editor environment validates renderer/build contracts, but not source/readback rows.
 The smoke test validates renderer and source-file contracts, but not source authority or GameHost source projection.
 No DOM-free source fixture proves source/readback rows before browser rendering.
@@ -59,6 +60,8 @@ campaign_flight_legacy_compatible
 runtime_imports_current
 simulation_config_current
 visual_domain_config_current
+telemetry_consumer_current
+hud_consumer_current
 smoke_contract_current
 headless_environment_current
 gamehost_source_readback_missing
@@ -68,5 +71,5 @@ source_fixture_rows_missing
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
+TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
 ```

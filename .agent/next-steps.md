@@ -1,11 +1,11 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T07-41-42-04-00`
+**Last aligned:** `2026-07-10T08-59-04-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Readback Ledger Catch-up + Headless Fixture Gate
+TheOpenAbove Source GameHost Readback Ledger Refresh + Headless Fixture Gate
 ```
 
 ## Goal
@@ -52,8 +52,8 @@ legacy README/campaign/FLIGHT fields are classified explicitly
 source fingerprints are stable
 source snapshots are serializable
 source acceptance rows are emitted
-source consumer rows identify src/main.js, simulation, visual-domain, smoke, and headless consumers
-GameHost source projection has expected shape
+source consumer rows identify src/main.js, simulation, visual-domain, telemetry, HUD, smoke, headless, and GameHost consumers
+GameHost source projection has expected additive shape
 headless project.check includes source rows
 fixture exits non-zero on missing required rows
 ```
