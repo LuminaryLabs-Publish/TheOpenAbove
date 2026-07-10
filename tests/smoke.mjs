@@ -130,6 +130,11 @@ assert.match(grass, /uGrassTime/);
 const water = readFileSync("src/visual/landscape/water-surface-kit.js", "utf8");
 assert.match(water, /fresnel/);
 assert.match(water, /sunGlint/);
+assert.match(water, /uFogColor/);
+assert.match(water, /uFogDensity/);
+assert.match(water, /distanceToCamera/);
+assert.match(water, /fog:\s*false/);
+assert.doesNotMatch(water, /fog:\s*true/);
 
 const camera = readFileSync("src/visual/camera-presentation/balloon-camera-rig-kit.js", "utf8");
 assert.match(camera, /riderEyeY/);
