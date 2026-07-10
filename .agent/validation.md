@@ -98,8 +98,8 @@ The documentation now identifies the phase split and the active grass kit graph.
 
 ```txt
 repo-local docs pushed to main: yes
-central ledger pushed to main: pending until central sync in this run
-central internal change log pushed to main: pending until central sync in this run
+central ledger pushed to main: yes
+central internal change log pushed to main: yes
 ```
 
 ## Next safe ledge
