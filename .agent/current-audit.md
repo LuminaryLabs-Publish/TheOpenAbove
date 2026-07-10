@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T16-20-09-04-00`
+**Last aligned:** `2026-07-10T17-51-35-04-00`
 
 ## Status
 
 `TheOpenAbove` is a static Vite/Three.js Balloon Drift experience with NexusEngine telemetry, deterministic terrain and grass placement, volumetric atmosphere, adaptive render scale, browser GameHost readback, static smoke checks, and a Nexus headless-editor command surface.
 
-The highest-value next work is not visual expansion. It is to make frame-phase authority explicit so simulation, camera, visual update, telemetry, render submission, adaptive-resolution decisions, HUD, and GameHost can all be attributed to one committed frame.
+The highest-value next work is runtime-session lifecycle authority. The route can create and run a session but cannot stop, dispose, roll back, or restart it through one deterministic owner.
 
 ## Files reviewed
 
@@ -14,18 +14,10 @@ The highest-value next work is not visual expansion. It is to make frame-phase a
 package.json
 src/main.js
 src/runtime/balloon-simulation-kit.js
-src/runtime/balloon-telemetry-kit.js
 src/visual/visual-domain.js
 src/visual/quality-tier-kit.js
 src/visual/camera-presentation/balloon-camera-rig-kit.js
-src/visual/grass-field/grass-field-domain.js
-src/visual/grass-field/grass-world-seed-kit.js
-src/visual/grass-field/grass-biome-density-kit.js
-src/visual/grass-field/grass-exclusion-mask-kit.js
-src/visual/grass-field/grass-chunk-placement-kit.js
-src/visual/landscape/grass-detail-kit.js
-tests/smoke.mjs
-tools/headless-editor-environment.mjs
+src/visual/post-process/hdr-composer-kit.js
 .agent root state
 central Publish repo ledgers
 ```
@@ -35,26 +27,29 @@ central Publish repo ledgers
 ```txt
 open route
   -> resolve Three.js and NexusEngine CDN modules
-  -> create visual domain and environment
-  -> build balloon object
-  -> create keyboard-driven drift simulation
-  -> create wheel-driven camera rig
+  -> create visual domain and resize listener
+  -> create balloon object
+  -> create simulation and keyboard/blur listeners
+  -> create camera rig and wheel listener
   -> create presentation domain
   -> create Nexus telemetry runtime
+  -> seed camera, visual, and telemetry state
   -> requestAnimationFrame
        -> update simulation
-       -> apply object transform
-       -> animate object and presentation
+       -> apply balloon transform
+       -> animate balloon and presentation
        -> update camera
-       -> update visual environment and copy current resolution scale
-       -> tick telemetry using getSnapshot()
+       -> update environment
+       -> tick telemetry
        -> render composer
-       -> sample frame cost and possibly change resolution scale
-       -> write renderer calls and triangles
+       -> sample adaptive resolution
+       -> write renderer statistics
        -> project HUD
-  -> expose live objects and latest snapshots through GameHost
-  -> expose static project/renderer/check/build commands through headless editor
+       -> queue next frame
+  -> expose live objects and snapshots through GameHost
 ```
+
+There is no corresponding stop/dispose/restart loop.
 
 ## Domains in use
 
@@ -112,28 +107,34 @@ hud-projection
 gamehost-readback
 static-smoke-contract
 headless-renderer-contract
+resource-disposal
+planned-runtime-session-authority
+planned-lifecycle-state
+planned-frame-ownership
+planned-listener-ownership
+planned-resource-ownership
+planned-partial-start-rollback
+planned-lifecycle-fixture
 planned-frame-phase-authority
-planned-adaptive-quality-decision-ledger
-planned-source-input-correlation
-planned-dom-free-fixture
 central-ledger-sync
 ```
 
 ## Services offered
 
-- Route shell: canvas, HUD, fatal-error projection, import resolution, and module boot.
+- Route shell: canvas, HUD, fatal-error projection, import resolution, and boot.
 - Source configuration: campaign, region, world, weather, terrain, and legacy flight constants.
 - Input: burner/vent key state, blur clearing, wheel zoom, bounds, and camera mode transition.
 - Simulation: wind, buoyancy, venting, damping, ceiling control, terrain clearance, altitude, velocity, distance, transforms, and snapshots.
 - Balloon object/presentation: geometry, materials, basket, ropes, burner, envelope, transform application, and animation.
-- Camera: wind-relative follow, basket view, FOV, clipping fade, zoom bounds, and state readback.
-- Environment: sky, sun, aerial perspective, weather map, volumetric clouds, streamed terrain, vegetation, water, and landmarks.
-- Grass: deterministic world/chunk seeds, density classification, exclusions, candidate generation, per-distance LOD, backend culling, instanced patch construction, chunk rebuild, wind animation, and aggregate state.
-- Render policy: hardware tier selection, dynamic render scale, frame-cost smoothing, resize, render submission, calls, and triangle totals.
-- Post-processing: HDR composer, neutral grade, lens response, and explicit fog handling.
+- Camera: wind-relative follow, basket view, FOV, clipping fade, zoom bounds, state readback, and wheel-listener disposal.
+- Environment: sky, sun, aerial perspective, weather map, volumetric clouds, streamed terrain, vegetation, water, landmarks, and grass.
+- Grass: deterministic world/chunk seeds, density, exclusions, candidate generation, LOD, culling, instancing, rebuild, wind animation, state, and disposal.
+- Render policy: hardware tier selection, dynamic render scale, frame-cost smoothing, resize, submission, calls, and triangle totals.
+- Post-processing: HDR composer, neutral grade, lens response, depth textures, and composer disposal.
 - Telemetry: Nexus resources/events for balloon and visual snapshots.
-- Presentation readback: HUD, GameHost.local, GameHost.nexusEngine, and live runtime object handles.
-- Validation: required-file smoke assertions, renderer-text contract checks, npm check/build routing, and static headless state.
+- Presentation readback: HUD, GameHost.local, GameHost.nexusEngine, and live runtime handles.
+- Validation: required-file smoke assertions, renderer-text contracts, npm check/build routing, and static headless state.
+- Partial lifecycle: simulation input disposal, camera input disposal, visual resize/resource disposal.
 
 ## All kits
 
@@ -179,9 +180,7 @@ open-above-static-smoke-test-kit
 open-above-grass-detail-kit
 ```
 
-`visual-domain.js` imports `createGrassFieldDomain`; it does not import `createGrassDetail`. The legacy implementation remains available in source but is not part of the active render composition.
-
-### Runtime-implied adapter kits
+### Runtime-implied adapters
 
 ```txt
 open-above-route-shell-kit
@@ -195,7 +194,23 @@ open-above-gamehost-legacy-readback-kit
 open-above-nexusengine-cdn-adapter-kit
 ```
 
-### Next-cut proof kits
+### Next-cut lifecycle proof kits
+
+```txt
+open-above-runtime-session-authority-kit
+open-above-runtime-lifecycle-state-kit
+open-above-runtime-start-transaction-kit
+open-above-animation-frame-ownership-kit
+open-above-listener-ownership-ledger-kit
+open-above-resource-ownership-ledger-kit
+open-above-partial-start-rollback-kit
+open-above-ordered-teardown-kit
+open-above-session-result-journal-kit
+open-above-gamehost-lifecycle-proof-kit
+open-above-lifecycle-restart-fixture-kit
+```
+
+### Companion frame-proof kits
 
 ```txt
 open-above-frame-phase-authority-kit
@@ -204,25 +219,14 @@ open-above-render-result-row-kit
 open-above-telemetry-publication-row-kit
 open-above-committed-frame-snapshot-kit
 open-above-gamehost-frame-proof-kit
-open-above-grass-kit-truth-ledger-kit
-open-above-render-phase-fixture-kit
-open-above-browser-frame-parity-kit
 ```
 
 ## Main finding
 
-`src/main.js` ticks telemetry before `visual.render()`. `visual.update()` copies `resolution.state.scale` before `resolution.sample()` runs. `visual.render()` then submits the frame, may change scale and resize, and writes renderer statistics. As a result, one visible frame can expose different phase combinations:
-
-```txt
-Nexus telemetry = pre-render stats + pre-sample scale
-HUD/GameHost.local = post-render stats + pre-sample scale
-GameHost.nexusEngine = prior telemetry publication
-```
-
-The active grass system is also under-documented: the current runtime uses a seven-part grass-field stack while the prior registry centered the inactive `open-above-grass-detail-kit`.
+`src/main.js` owns construction and recursive frame scheduling but returns no session object. `simulation.dispose()`, `cameraRig.dispose()`, and `visual.dispose()` exist yet are never called. The animation-frame request is not retained, partial startup failure has no rollback, and `GameHost` exposes no lifecycle control or terminal status. Repeated creation can therefore leave parallel frame chains, duplicate listeners, hidden sessions, and unproven GPU/resource cleanup.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Render Phase Authority Ledger + Adaptive Resolution Fixture Gate
+TheOpenAbove Runtime Session Lifecycle Authority + Dispose/Reboot Fixture Gate
 ```
