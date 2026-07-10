@@ -1,16 +1,16 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-10T02-38-56-04-00",
-  "status": "headless-source-readback-browser-fixture-gate-planned",
-  "latestTracker": ".agent/trackers/2026-07-10T02-38-56-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T02-38-56-04-00.md",
+  "lastAligned": "2026-07-10T04-40-52-04-00",
+  "status": "headless-source-gamehost-readback-browser-fixture-gate-planned",
+  "latestTracker": ".agent/trackers/2026-07-10T04-40-52-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T04-40-52-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-10T02-38-56-04-00-headless-source-readback-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-10T02-38-56-04-00-visual-domain-headless-readback-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-10T02-38-56-04-00-balloon-simulation-source-fixture-loop.md",
-    "routeSource": ".agent/route-source-audit/2026-07-10T02-38-56-04-00-product-campaign-headless-parity.md",
-    "deploy": ".agent/deploy-audit/2026-07-10T02-38-56-04-00-headless-source-fixture-build-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-10T04-40-52-04-00-headless-source-gamehost-readback-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-10T04-40-52-04-00-visual-domain-source-proof-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-10T04-40-52-04-00-balloon-drift-source-loop.md",
+    "routeSource": ".agent/route-source-audit/2026-07-10T04-40-52-04-00-product-campaign-runtime-source-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-10T04-40-52-04-00-headless-source-fixture-check-gate.md"
   },
   "currentInteractionLoop": [
     "index.html",
@@ -53,7 +53,11 @@
     "balloon-presentation",
     "hud-telemetry",
     "gamehost-readback",
-    "source-consumer-proof-next",
+    "source-manifest-next",
+    "source-fingerprint-next",
+    "source-snapshot-next",
+    "source-acceptance-ledger-next",
+    "source-consumer-ledger-next",
     "headless-source-fixture-next",
     "central-ledger-sync"
   ],
@@ -114,7 +118,7 @@
     "open-above-browser-consumer-fixture-kit",
     "open-above-central-ledger-sync-kit"
   ],
-  "nextSafeLedge": "TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate",
+  "nextSafeLedge": "TheOpenAbove Headless Source GameHost Readback Refresh + Browser Fixture Gate",
   "validation": {
     "runtimeSourceChanged": false,
     "branchCreated": false,
