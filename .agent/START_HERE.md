@@ -2,7 +2,7 @@
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
-**Last aligned:** `2026-07-09T19-21-19-04-00`
+**Last aligned:** `2026-07-09T23-51-04-04-00`
 
 ## Purpose
 
@@ -14,63 +14,42 @@ Read this folder before changing implementation code.
 
 The current public `LuminaryLabs-Publish` organization repo list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
 
-No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocumented, recently added but undocumented, or missing sampled root `.agent/START_HERE.md` state.
+No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocumented, recently added but undocumented, or missing sampled root `.agent` state.
 
 `LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
 
-`TheOpenAbove` was selected as the oldest eligible documented-selection fallback among the current public non-Cavalry Publish repos.
-
-This pass refreshes repo-local and central tracking to `2026-07-09T19-21-19-04-00` and keeps the next source-authority ledge focused on a fixture-readable Balloon Drift source readback layer.
-
-## Publish repos checked
-
-```txt
-LuminaryLabs-Publish/MyCozyIsland         tracked / root .agent present
-LuminaryLabs-Publish/TheUnmappedHouse     tracked / root .agent present
-LuminaryLabs-Publish/ZombieOrchard        tracked / root .agent present
-LuminaryLabs-Publish/PhantomCommand       tracked / root .agent present
-LuminaryLabs-Publish/HorrorCorridor       tracked / root .agent present
-LuminaryLabs-Publish/PrehistoricRush      tracked / root .agent present
-LuminaryLabs-Publish/IntoTheMeadow        tracked / root .agent present
-LuminaryLabs-Publish/TheCavalryOfRome     excluded by rule
-LuminaryLabs-Publish/TheOpenAbove         selected / oldest eligible documented fallback
-```
+`TheOpenAbove` was selected as the oldest eligible central-ledger fallback. This pass refreshes repo-local and central tracking to `2026-07-09T23-51-04-04-00`.
 
 ## Current product read
 
-`TheOpenAbove` is a standalone Vite / Three.js hot-air-balloon drift route using NexusEngine main through CDN telemetry.
+`TheOpenAbove` is a Vite / Three.js cinematic hot-air-balloon Balloon Drift route using NexusEngine telemetry.
 
-The live browser route is Balloon Drift.
-
-The durable source mismatch remains:
+The live route now composes dedicated runtime kits:
 
 ```txt
-README.md: still describes older free-flight carving/gliding/diving/boosting
-package.json: still describes standalone free-flight exploration
-src/data/campaign.config.js: still carries thermalTarget, gateTarget, returnRadius, perch, start speed, and FLIGHT fields
-index.html: current hot-air-balloon route title/description
-src/main.js: actual burner/vent/wind/altitude/basket-camera Balloon Drift runtime
-src/hot-air-balloon-object-kit.js: active visual object kit and sub-kit metadata
-tests/smoke.mjs: current hot-air-balloon route and object-kit checks
+src/main.js
+  -> createVisualDomain
+  -> buildHotAirBalloon
+  -> createBalloonSimulation
+  -> createBalloonCameraRig
+  -> createBalloonPresentationDomain
+  -> createBalloonTelemetryEngine
 ```
+
+The next gap is not visual extraction. It is source/readback proof for product copy, campaign compatibility, simulation/visual/camera/presentation source snapshots, `GameHost.getState().source`, and DOM-free source fixture rows.
 
 ## Current interaction loop
 
 ```txt
 open index.html
-  -> canvas and HUD mount
-  -> src/main.js imports Three.js CDN, NexusEngine main CDN, CAMPAIGN, WORLD, and hot-air-balloon object kit
-  -> terrain, lakes, trees, clouds, wind ribbons, and balloon visual object are created
-  -> Space / W / ArrowUp maps to burner lift
-  -> S / ArrowDown / Shift maps to vent descent
-  -> wheel mutates camera zoom and near-basket blend
-  -> update(dt) integrates burner, vent, wind angle, wind speed, buoyancy, damping, ceiling softness, velocity, position, altitude, and distance
-  -> animateHotAirBalloon updates burner and rigging sub-kits
-  -> Nexus telemetry kit publishes balloon resource and tick event
-  -> draw(dt) resolves third-person/basket camera, first-person visibility, rope fade, ride bob, sway, and burner vibration
-  -> Three.js renders the frame
-  -> HUD writes route status and telemetry
-  -> window.GameHost.getState() exposes local and Nexus balloon telemetry
+  -> canvas, HUD, and error panel mount
+  -> src/main.js imports Three.js, NexusEngine, campaign config, balloon object kit, simulation kit, telemetry kit, visual domain, camera rig, and presentation domain
+  -> visual domain creates scene, camera, renderer, quality, terrain, vegetation, grass, water, clouds, sky, sun, HDR composer, and dynamic resolution
+  -> balloon object kit composes envelope, mouth, streamers, seams, basket, rigging, burner, and rope
+  -> simulation installs keyboard consumers for burner and vent intent
+  -> camera rig installs wheel zoom and derives third-person/basket-view blend
+  -> frame updates simulation, balloon pose, object animation, presentation, camera, visual domain, Nexus telemetry, render, and HUD
+  -> window.GameHost.getState() exposes local and nexusEngine snapshots
 ```
 
 ## First files to read
@@ -80,13 +59,13 @@ open index.html
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T19-21-19-04-00-source-ledger-central-refresh-dsk-map.md
-.agent/render-audit/2026-07-09T19-21-19-04-00-gamehost-source-readback-fixture.md
-.agent/gameplay-audit/2026-07-09T19-21-19-04-00-balloon-drift-runtime-source-loop.md
-.agent/route-source-audit/2026-07-09T19-21-19-04-00-product-runtime-parity-readback-contract.md
-.agent/deploy-audit/2026-07-09T19-21-19-04-00-source-fixture-check-build-gate.md
-.agent/trackers/2026-07-09T19-21-19-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T19-21-19-04-00.md
+.agent/architecture-audit/2026-07-09T23-51-04-04-00-visual-domain-source-readback-dsk-map.md
+.agent/render-audit/2026-07-09T23-51-04-04-00-visual-domain-render-readback-gap.md
+.agent/gameplay-audit/2026-07-09T23-51-04-04-00-balloon-simulation-telemetry-loop.md
+.agent/route-source-audit/2026-07-09T23-51-04-04-00-product-copy-campaign-source-parity.md
+.agent/deploy-audit/2026-07-09T23-51-04-04-00-source-fixture-check-build-gate.md
+.agent/trackers/2026-07-09T23-51-04-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-09T23-51-04-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -97,6 +76,11 @@ README.md
 package.json
 index.html
 src/main.js
+src/runtime/balloon-simulation-kit.js
+src/runtime/balloon-telemetry-kit.js
+src/visual/visual-domain.js
+src/visual/camera-presentation/balloon-camera-rig-kit.js
+src/visual/balloon-presentation/balloon-presentation-domain.js
 src/data/campaign.config.js
 src/hot-air-balloon-object-kit.js
 tests/smoke.mjs
@@ -108,9 +92,6 @@ tests/smoke.mjs
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
 src/source/legacy-flight-compatibility.js
-src/source/altitude-bands.js
-src/source/route-descriptors.js
-src/source/wind-lane-hints.js
 src/source/source-consumer-manifest.js
 src/source/source-fingerprint.js
 src/source/source-snapshot.js
@@ -123,7 +104,7 @@ scripts/open-above-source-fixture.mjs
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Ledger Central Refresh + Browser Consumer Fixture Gate
+TheOpenAbove Visual Domain Source Readback + Browser Fixture Gate
 ```
 
 ## Operating rules
