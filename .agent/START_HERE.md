@@ -1,92 +1,93 @@
-# TheOpenAbove Agent Start
+# START HERE: TheOpenAbove
 
-**Repository:** `LuminaryLabs-Publish/TheOpenAbove`
+**Last aligned:** `2026-07-10T01-20-47-04-00`
 
-**Last aligned:** `2026-07-09T23-51-04-04-00`
+**Repo:** `LuminaryLabs-Publish/TheOpenAbove`
 
-## Purpose
+**Branch:** `main`
 
-This `.agent/` folder is the repo-local operating memory for scheduled and manual breakdown work on `TheOpenAbove`.
-
-Read this folder before changing implementation code.
-
-## Current selection result
-
-The current public `LuminaryLabs-Publish` organization repo list was compared against the tracked/documented repo ledger in `LuminaryLabs-Dev/LuminaryLabs` and sampled root `.agent/START_HERE.md` state.
-
-No checked non-Cavalry Publish repo was fully new, central-ledger absent, undocumented, recently added but undocumented, or missing sampled root `.agent` state.
-
-`LuminaryLabs-Publish/TheCavalryOfRome` remains excluded by standing rule.
-
-`TheOpenAbove` was selected as the oldest eligible central-ledger fallback. This pass refreshes repo-local and central tracking to `2026-07-09T23-51-04-04-00`.
-
-## Current product read
-
-`TheOpenAbove` is a Vite / Three.js cinematic hot-air-balloon Balloon Drift route using NexusEngine telemetry.
-
-The live route now composes dedicated runtime kits:
+## Current safe ledge
 
 ```txt
-src/main.js
-  -> createVisualDomain
-  -> buildHotAirBalloon
-  -> createBalloonSimulation
-  -> createBalloonCameraRig
-  -> createBalloonPresentationDomain
-  -> createBalloonTelemetryEngine
+TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
 ```
 
-The next gap is not visual extraction. It is source/readback proof for product copy, campaign compatibility, simulation/visual/camera/presentation source snapshots, `GameHost.getState().source`, and DOM-free source fixture rows.
+## Read this first
 
-## Current interaction loop
+Start with the latest tracker:
 
 ```txt
-open index.html
-  -> canvas, HUD, and error panel mount
-  -> src/main.js imports Three.js, NexusEngine, campaign config, balloon object kit, simulation kit, telemetry kit, visual domain, camera rig, and presentation domain
-  -> visual domain creates scene, camera, renderer, quality, terrain, vegetation, grass, water, clouds, sky, sun, HDR composer, and dynamic resolution
-  -> balloon object kit composes envelope, mouth, streamers, seams, basket, rigging, burner, and rope
-  -> simulation installs keyboard consumers for burner and vent intent
-  -> camera rig installs wheel zoom and derives third-person/basket-view blend
-  -> frame updates simulation, balloon pose, object animation, presentation, camera, visual domain, Nexus telemetry, render, and HUD
-  -> window.GameHost.getState() exposes local and nexusEngine snapshots
+.agent/trackers/2026-07-10T01-20-47-04-00/project-breakdown.md
 ```
 
-## First files to read
+Then read:
 
 ```txt
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-09T23-51-04-04-00-visual-domain-source-readback-dsk-map.md
-.agent/render-audit/2026-07-09T23-51-04-04-00-visual-domain-render-readback-gap.md
-.agent/gameplay-audit/2026-07-09T23-51-04-04-00-balloon-simulation-telemetry-loop.md
-.agent/route-source-audit/2026-07-09T23-51-04-04-00-product-copy-campaign-source-parity.md
-.agent/deploy-audit/2026-07-09T23-51-04-04-00-source-fixture-check-build-gate.md
-.agent/trackers/2026-07-09T23-51-04-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-09T23-51-04-04-00.md
 .agent/kit-registry.json
+.agent/architecture-audit/2026-07-10T01-20-47-04-00-source-consumer-gamehost-readback-dsk-map.md
+.agent/render-audit/2026-07-10T01-20-47-04-00-visual-domain-render-source-readback.md
+.agent/gameplay-audit/2026-07-10T01-20-47-04-00-balloon-drift-simulation-source-loop.md
+.agent/route-source-audit/2026-07-10T01-20-47-04-00-product-campaign-runtime-parity.md
+.agent/deploy-audit/2026-07-10T01-20-47-04-00-source-fixture-check-build-gate.md
+.agent/turn-ledger/2026-07-10T01-20-47-04-00.md
 ```
 
-## Source files to inspect next
+## Current product read
+
+`TheOpenAbove` is a live cinematic Balloon Drift route.
+
+The browser route starts at `index.html`, loads Three.js through an importmap, then runs `src/main.js`.
+
+`src/main.js` composes the actual route from dedicated runtime kits:
 
 ```txt
-README.md
-package.json
-index.html
-src/main.js
-src/runtime/balloon-simulation-kit.js
-src/runtime/balloon-telemetry-kit.js
-src/visual/visual-domain.js
-src/visual/camera-presentation/balloon-camera-rig-kit.js
-src/visual/balloon-presentation/balloon-presentation-domain.js
-src/data/campaign.config.js
-src/hot-air-balloon-object-kit.js
-tests/smoke.mjs
+createVisualDomain
+buildHotAirBalloon
+createBalloonSimulation
+createBalloonCameraRig
+createBalloonPresentationDomain
+createBalloonTelemetryEngine
 ```
 
-## Source files to add next
+## Current interaction loop
+
+```txt
+index.html
+  -> importmap loads Three.js 0.165.0
+  -> script loads ./src/main.js
+  -> src/main.js imports NexusEngine main CDN, CAMPAIGN/WORLD, balloon object kit, simulation kit, telemetry kit, visual-domain, camera-rig, and presentation-domain
+  -> createVisualDomain({ canvas, worldConfig: WORLD })
+  -> buildHotAirBalloon()
+  -> visual.scene.add(balloon)
+  -> createBalloonSimulation({ terrainHeight, startPosition: [0, 105, 0] })
+  -> simulation.applyToBalloon(balloon)
+  -> createBalloonCameraRig(visual.camera, balloon, { initialZoom: 48, maxZoom: 112 })
+  -> createBalloonPresentationDomain(balloon)
+  -> getSnapshot() wraps simulation snapshot with region, camera, and visual stats
+  -> createBalloonTelemetryEngine(NexusEngine, getSnapshot)
+  -> frame updates simulation, balloon pose, object animation, presentation, camera rig, visual domain, Nexus telemetry, renderer, and HUD
+  -> window.GameHost.getState() returns local and nexusEngine snapshots
+```
+
+## Main finding
+
+Do not start next with renderer extraction, visual-domain rewrite, camera retuning, balloon visual changes, simulation constant retuning, or route expansion.
+
+The durable blocker is source/readback proof:
+
+```txt
+README still carries older free-flight wording.
+campaign config still contains legacy FLIGHT/thermal/gate/perch fields.
+src/main.js is the actual route composer.
+window.GameHost.getState() has no .source block.
+No source manifest, source fingerprint, source snapshot, source acceptance rows, or DOM-free source fixture exist yet.
+```
+
+## Next implementation files
 
 ```txt
 src/source/open-above-product.js
@@ -101,17 +102,14 @@ src/source/gamehost-source-readback.js
 scripts/open-above-source-fixture.mjs
 ```
 
-## Next safe ledge
+## Guardrails
 
 ```txt
-TheOpenAbove Visual Domain Source Readback + Browser Fixture Gate
-```
-
-## Operating rules
-
-```txt
-Only push to main.
-Do not create branches.
-Do not work on TheCavalryOfRome.
-Keep scheduled repo breakdowns moving; do not pause the loop.
+Push only to main.
+Do not create a branch.
+Do not open a PR.
+Do not work on Cavalry of Rome.
+Keep GameHost legacy fields compatible.
+Add source readback additively.
+Do not delete legacy campaign fields until compatibility rows exist.
 ```
