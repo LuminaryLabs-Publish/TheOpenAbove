@@ -1,12 +1,14 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T01-20-47-04-00`
+**Last aligned:** `2026-07-10T02-38-56-04-00`
 
 ## Status
 
-`TheOpenAbove` is a browser-hosted cinematic Balloon Drift route built from local runtime kits and rendered with Three.js.
+`TheOpenAbove` is a browser-hosted cinematic Balloon Drift route built from local runtime, visual, object, camera, presentation, and telemetry kits.
 
-The route is not blocked on visual modularity. It is blocked on source/readback proof.
+The route now also has package-level Nexus headless editor commands.
+
+The route is not blocked on visual modularity. It is blocked on source/readback proof, especially connecting product/campaign/runtime source to GameHost and headless fixture rows.
 
 ## Active files read for this audit
 
@@ -14,6 +16,12 @@ The route is not blocked on visual modularity. It is blocked on source/readback 
 package.json
 index.html
 src/main.js
+src/runtime/balloon-simulation-kit.js
+src/runtime/balloon-telemetry-kit.js
+src/visual/visual-domain.js
+src/data/campaign.config.js
+src/hot-air-balloon-object-kit.js
+tools/headless-editor-environment.mjs
 .agent/START_HERE.md
 .agent/current-audit.md
 .agent/known-gaps.md
@@ -49,8 +57,10 @@ static-browser-shell
 vite-static-publish
 three-importmap-runtime
 nexusengine-cdn-runtime
+nexus-headless-editor-environment
 campaign-config
 legacy-flight-config
+world-config
 balloon-drift-simulation
 browser-keyboard-input
 burner-intent
@@ -85,8 +95,8 @@ water-surfaces
 distant-landmarks
 hdr-composer
 auto-exposure
-bloom
 god-rays
+bloom
 color-grade
 lens-response
 camera-rig
@@ -99,8 +109,8 @@ rope-material
 burner-illumination
 hud-telemetry
 gamehost-readback
-source-consumer-readback-next
-dom-free-source-fixture-next
+source-consumer-proof-next
+headless-source-fixture-next
 central-ledger-sync
 ```
 
@@ -114,6 +124,7 @@ simulation service: consumes keyboard intent and integrates wind, buoyancy, alti
 camera service: resolves wheel zoom, third-person follow, basket-view blend, clipping, and camera diagnostics.
 presentation service: updates fabric, basket, rope, and burner presentation based on simulation and visual conditions.
 telemetry service: publishes local balloon snapshots through NexusEngine and exposes route telemetry.
+headless editor service: exposes project.inspect, renderer.validate, project.check, project.build, and runtime.getState for renderer/build contract checks.
 HUD service: projects altitude, distance, speed, burner, vent, region, wind, quality, frame, and camera telemetry into DOM text.
 GameHost service: exposes local and Nexus snapshots, but not source/readback proof yet.
 central ledger service: records repo-local docs, selected ledge, findings, validation, and pushed commits.
@@ -160,6 +171,7 @@ open-above-hot-air-balloon-basket-kit
 open-above-hot-air-balloon-rigging-kit
 open-above-hot-air-balloon-burner-kit
 open-above-rope-kit
+open-above-headless-editor-environment
 ```
 
 ## Next-cut kits
@@ -176,6 +188,7 @@ open-above-source-snapshot-kit
 open-above-source-acceptance-ledger-kit
 open-above-source-consumer-ledger-kit
 open-above-gamehost-source-readback-kit
+open-above-headless-source-fixture-kit
 open-above-browser-consumer-fixture-kit
 open-above-central-ledger-sync-kit
 ```
@@ -184,10 +197,10 @@ open-above-central-ledger-sync-kit
 
 The runtime is already kit-split enough to avoid a visual rewrite.
 
-The next work is source/readback proof that reconciles product copy, legacy campaign fields, current route composition, browser consumer state, and `GameHost` diagnostics.
+The next work is source/readback proof that reconciles product copy, legacy campaign fields, current route composition, headless editor checks, browser consumer state, and `GameHost` diagnostics.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
+TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
 ```
