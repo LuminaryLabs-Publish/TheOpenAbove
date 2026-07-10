@@ -1,77 +1,97 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T13-21-23-04-00`
+**Last aligned:** `2026-07-10T14-50-38-04-00`
 
 ## Primary gap
 
-The current blocker is source result authority and GameHost/headless readback proof, not render quality, camera feel, or gameplay expansion.
+The runtime can expose the latest state but cannot prove causality across source, input, simulation, camera, visual, telemetry, rendering, HUD, and GameHost consumers.
 
-## Gaps
+## Current gaps
 
 ```txt
-src/data/campaign.config.js still carries legacy thermal, gate, perch, start speed, and FLIGHT-style fields.
-src/main.js is the actual Balloon Drift route composer, but no source result authority ledger records that relationship.
-keyboard input mutates a Set without accepted/rejected/no-change result rows.
-wheel input mutates camera zoom without accepted/clamped/no-change result rows.
-window.GameHost.getState() returns local and nexusEngine snapshots, but no .source block.
-No source fingerprint proves which product, campaign, runtime, smoke, headless, and GameHost rows were consumed.
-No source snapshot serializes the current route source state.
-No source acceptance ledger records accepted, legacy-compatible, ignored, missing, or deferred fields.
-No source consumer ledger identifies runtime, smoke, headless, HUD, simulation, visual, telemetry, and GameHost consumers.
-The headless editor environment validates renderer/build contracts, but not source/readback rows.
-The smoke test validates renderer and source-file contracts, but not source authority or GameHost source projection.
-No DOM-free source fixture proves source/readback rows before browser rendering.
-npm run check does not yet include a source fixture.
+src/data/campaign.config.js mixes current Balloon Drift source with legacy thermal/gate/perch/start-speed/FLIGHT fields.
+src/main.js is the real composition authority, but no source manifest or fingerprint records that authority.
+keyboard handlers mutate a hidden Set without accepted, released, repeated, unsupported, cleared, or no-change rows.
+wheel handling mutates zoom without accepted, clamped, zero-delta, or no-change rows.
+frames have no monotonic frame ID shared across simulation, camera, visual, telemetry, render, and HUD.
+simulation snapshots have no source fingerprint or consumed input sequence range.
+camera state has no source fingerprint, wheel result ID, or frame ID.
+visual state has no correlated simulation/camera snapshot IDs.
+telemetry tick has no publication result row.
+render submission has no render-consumption row.
+HUD projection has no consumer row.
+GameHost exposes latest aggregate state only and has no bounded proof journals.
+headless runtime.getState returns static inspection results rather than deterministic runtime proof.
+no reusable DOM-free source/input/frame fixture exists.
+npm run check does not execute source/input/frame correlation assertions.
+```
+
+## Required proof rows
+
+```txt
+source manifest row
+source fingerprint row
+legacy compatibility row
+keyboard input result row
+wheel input result row
+frame correlation row
+simulation consumer row
+camera consumer row
+visual consumer row
+telemetry publication row
+render consumption row
+HUD projection row
+GameHost projection row
+fixture summary row
+```
+
+## Required statuses
+
+```txt
+accepted
+released
+cleared
+repeated
+unsupported
+clamped
+no-change
+consumed
+published
+rendered
+projected
+skipped
+rejected
+failed
 ```
 
 ## Non-gaps for the next pass
 
 ```txt
-The visual route is already useful.
-The runtime is split into simulation, telemetry, visual-domain, camera-rig, presentation-domain, and object kits.
-The package description is aligned to the current hot-air-balloon wind drift route.
-The browser route has a GameHost readback surface, though it needs additive source proof.
-The repo has headless editor commands ready to host a stronger source fixture gate.
-The smoke test already checks neutral lighting, streamed terrain, water fog, and renderer safety contracts.
+The Balloon Drift route is functional and visually structured.
+Simulation, camera, presentation, visual, telemetry, smoke, and headless boundaries already exist.
+The package description is aligned to the hot-air-balloon experience.
+The browser exposes a useful GameHost compatibility surface.
+Build already depends on npm run check.
+Headless commands already route project inspection, renderer validation, check, build, and state requests.
 ```
 
 ## Do not prioritize next
 
 ```txt
-renderer extraction
-terrain extraction
-visual-domain rewrite
-camera retune
-balloon object visual changes
-simulation constant retune
-route expansion
-legacy campaign field deletion
+renderer replacement
+terrain extraction or rewrite
+cloud, water, grass, or lighting retuning
+camera framing changes
+balloon geometry changes
+simulation constant changes
+new regions or route objectives
+legacy field deletion without compatibility rows
+new gameplay systems
 README-only cleanup
-headless-only build plumbing without source rows
-```
-
-## Required proof rows next
-
-```txt
-route_copy_current
-package_description_current
-campaign_world_current
-campaign_flight_legacy_compatible
-runtime_imports_current
-simulation_config_current
-keyboard_input_result_missing
-wheel_zoom_result_missing
-visual_domain_config_current
-telemetry_consumer_current
-hud_consumer_current
-smoke_contract_current
-headless_environment_current
-gamehost_source_readback_missing
-source_fixture_rows_missing
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
+TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
 ```
