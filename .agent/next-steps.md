@@ -1,16 +1,18 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T01-20-47-04-00`
+**Last aligned:** `2026-07-10T02-38-56-04-00`
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Consumer GameHost Readback Catch-up + Browser Fixture Gate
+TheOpenAbove Headless Source Readback Catch-up + Browser Fixture Gate
 ```
 
 ## Goal
 
 Add source/readback proof without changing the visible route.
+
+Use the existing headless editor surface as a validation caller after the source fixture exists.
 
 ## Implementation order
 
@@ -20,9 +22,11 @@ Add source/readback proof without changing the visible route.
 3. Add source manifest, fingerprint, snapshot, and acceptance ledger modules.
 4. Add additive GameHost source readback.
 5. Add DOM-free source fixture.
-6. Wire the fixture into npm run check.
-7. Run npm run check.
-8. Run npm run build if check passes.
+6. Extend or wrap the headless editor environment so project.check proves source rows too.
+7. Wire the fixture into npm run check.
+8. Run npm run check.
+9. Run npm run headless:check.
+10. Run npm run build if check passes.
 ```
 
 ## Files to add
@@ -49,6 +53,7 @@ source fingerprints are stable
 source snapshots are serializable
 source acceptance rows are emitted
 GameHost source projection has expected shape
+headless project.check includes source rows
 fixture exits non-zero on missing required rows
 ```
 
@@ -70,6 +75,7 @@ window.GameHost.getState()
        -> snapshot
        -> acceptanceRows
        -> fixtureVersion
+       -> headlessStatus
 ```
 
 ## Avoid until proof exists
@@ -89,6 +95,7 @@ README-only rewrite
 
 ```txt
 npm run check includes source fixture
+npm run headless:check includes source fixture output
 source fixture passes
 GameHost exposes .source additively
 central ledger points to the source fixture pass
