@@ -143,7 +143,7 @@ export function installSoftCloudShadow(material) {
     shader.uniforms.uCloudShadowStrength = { value: state.strength };
     shader.vertexShader = shader.vertexShader
       .replace("#include <common>", `#include <common>\nvarying vec3 vCloudShadowWorldPosition;`)
-      .replace("#include <worldpos_vertex>", `#include <worldpos_vertex>\nvCloudShadowWorldPosition = worldPosition.xyz;`);
+      .replace("#include <begin_vertex>", `#include <begin_vertex>\nvCloudShadowWorldPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;`);
     shader.fragmentShader = shader.fragmentShader
       .replace("#include <common>", `#include <common>\nvarying vec3 vCloudShadowWorldPosition;\nuniform vec2 uCloudShadowOffset;\nuniform float uCloudShadowCoverage;\nuniform float uCloudShadowStrength;\n${GLSL_NOISE}`)
       .replace("#include <dithering_fragment>", `
@@ -156,7 +156,7 @@ export function installSoftCloudShadow(material) {
       `);
     state.shader = shader;
   };
-  material.customProgramCacheKey = () => "open-above-terrain-soft-cloud-shadow-v1";
+  material.customProgramCacheKey = () => "open-above-terrain-soft-cloud-shadow-v2";
   material.needsUpdate = true;
 
   return {
