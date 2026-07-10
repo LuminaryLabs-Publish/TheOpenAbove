@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T10-29-57-04-00`
+**Last aligned:** `2026-07-10T11-51-35-04-00`
 
 ## This pass
 
@@ -25,6 +25,7 @@ browser smoke: not run
 DOM-free source fixture: not run because proof files do not exist yet
 repo-local docs pushed to main: yes
 central docs pushed to main: yes
+central ledger updated: yes
 ```
 
 ## Available package commands
@@ -49,7 +50,7 @@ The current smoke/headless path validates renderer and build contracts such as r
 
 ## Validation gap
 
-`npm run check` exists, and headless editor commands exist, but neither currently proves source consumer readback.
+`npm run check` exists, and headless editor commands exist, but neither currently proves source authority or GameHost source readback.
 
 The next implementation should add:
 
@@ -68,6 +69,7 @@ source fingerprint is stable
 source snapshot is serializable
 source acceptance rows exist
 source consumer rows identify current runtime consumers
+keyboard and wheel input result rows have stable vocabulary
 GameHost source projection shape is stable
 headless project.check reports source fixture rows
 fixture exits non-zero on required-row failures
@@ -76,5 +78,5 @@ fixture exits non-zero on required-row failures
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Source Fixture Consumer Ledger Refresh + GameHost Headless Gate
+TheOpenAbove Source Authority Readback Ledger Refresh + GameHost Headless Fixture Gate
 ```
