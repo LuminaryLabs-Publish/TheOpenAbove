@@ -1,74 +1,62 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T13-21-23-04-00`
+**Last aligned:** `2026-07-10T14-50-38-04-00`
 
-**Repo:** `LuminaryLabs-Publish/TheOpenAbove`
+**Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
 **Branch:** `main`
+
+## Summary
+
+`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon drift route. Its simulation, camera, visual, presentation, telemetry, smoke, and headless boundaries are already useful. The next blocker is a JSON-safe source/input/frame correlation chain that proves which normalized input results and source fingerprint produced each simulation, camera, telemetry, render, HUD, and GameHost row.
 
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Source Result Readback Ledger Refresh + GameHost Headless Fixture Gate
+TheOpenAbove Source Input Frame Correlation Ledger + GameHost Headless Fixture Gate
 ```
 
 ## Read this first
 
-Start with the latest tracker:
-
 ```txt
-.agent/trackers/2026-07-10T13-21-23-04-00/project-breakdown.md
-```
-
-Then read:
-
-```txt
+.agent/trackers/2026-07-10T14-50-38-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-10T13-21-23-04-00-source-result-readback-ledger-dsk-map.md
-.agent/render-audit/2026-07-10T13-21-23-04-00-renderer-source-result-readback-gap.md
-.agent/gameplay-audit/2026-07-10T13-21-23-04-00-balloon-drift-source-result-loop.md
-.agent/route-source-audit/2026-07-10T13-21-23-04-00-product-campaign-runtime-result-contract.md
-.agent/interaction-audit/2026-07-10T13-21-23-04-00-keyboard-wheel-source-result-map.md
-.agent/source-authority-audit/2026-07-10T13-21-23-04-00-gamehost-source-result-readback-contract.md
-.agent/headless-editor-audit/2026-07-10T13-21-23-04-00-source-result-command-surface.md
-.agent/deploy-audit/2026-07-10T13-21-23-04-00-source-result-headless-fixture-gate.md
-.agent/turn-ledger/2026-07-10T13-21-23-04-00.md
 ```
 
-## Current product read
+Then read the latest system audits:
 
-`TheOpenAbove` is a Vite-hosted cinematic hot-air-balloon Balloon Drift route.
+```txt
+.agent/architecture-audit/2026-07-10T14-50-38-04-00-source-input-frame-correlation-dsk-map.md
+.agent/render-audit/2026-07-10T14-50-38-04-00-render-frame-consumer-correlation-gap.md
+.agent/gameplay-audit/2026-07-10T14-50-38-04-00-balloon-drift-input-frame-loop.md
+.agent/route-source-audit/2026-07-10T14-50-38-04-00-product-runtime-source-correlation-contract.md
+.agent/interaction-audit/2026-07-10T14-50-38-04-00-keyboard-wheel-event-result-correlation-map.md
+.agent/source-authority-audit/2026-07-10T14-50-38-04-00-gamehost-source-frame-correlation-contract.md
+.agent/telemetry-audit/2026-07-10T14-50-38-04-00-nexus-frame-correlation-readback.md
+.agent/headless-editor-audit/2026-07-10T14-50-38-04-00-source-frame-fixture-command-surface.md
+.agent/deploy-audit/2026-07-10T14-50-38-04-00-source-frame-fixture-check-gate.md
+.agent/turn-ledger/2026-07-10T14-50-38-04-00.md
+```
 
-The live route is:
+## Active route
 
 ```txt
 index.html
   -> src/main.js
-  -> visual-domain + balloon object + simulation + camera rig + presentation + telemetry
-  -> HUD projection
+  -> campaign/world source
+  -> visual domain + balloon object
+  -> keyboard simulation + wheel camera input
+  -> frame sequence: simulation, object, presentation, camera, visual, telemetry, render, HUD
   -> window.GameHost.getState()
 ```
 
-The visual/runtime boundaries are useful. The next blocker is not visuals, camera feel, or route expansion. It is source result authority, input result rows, and GameHost/headless source readback proof.
-
 ## Main finding
 
-Do not start next with renderer extraction, terrain extraction, camera retuning, balloon visual changes, simulation constant retuning, route expansion, or legacy campaign deletion.
-
-The durable blocker is source result proof:
-
-```txt
-src/main.js is the current Balloon Drift route composer.
-src/data/campaign.config.js still contains legacy free-flight fields.
-keyboard and wheel inputs mutate without result rows.
-window.GameHost.getState() has no .source block.
-Headless editor commands validate renderer/build contracts, not source rows.
-No source manifest, fingerprint, snapshot, acceptance ledger, consumer ledger, input result ledger, or DOM-free source fixture exists yet.
-```
+`src/main.js` knows the complete consumer order, but the runtime emits no shared frame ID, input sequence range, or source fingerprint across those consumers. Keyboard and wheel listeners mutate hidden state, `GameHost` returns only latest aggregate snapshots, and the headless editor performs static inspection rather than deterministic source/input/frame proof.
 
 ## Next implementation files
 
@@ -76,26 +64,25 @@ No source manifest, fingerprint, snapshot, acceptance ledger, consumer ledger, i
 src/source/open-above-product.js
 src/source/balloon-drift.config.js
 src/source/legacy-flight-compatibility.js
-src/source/source-authority-ledger.js
-src/source/source-consumer-manifest.js
-src/source/source-fingerprint.js
-src/source/source-snapshot.js
-src/source/source-acceptance.js
-src/source/source-consumer-ledger.js
-src/source/input-result-ledger.js
-src/source/gamehost-source-readback.js
-scripts/open-above-source-fixture.mjs
+src/proof/source-manifest.js
+src/proof/source-fingerprint.js
+src/proof/source-acceptance-ledger.js
+src/proof/input-result-ledger.js
+src/proof/frame-correlation-ledger.js
+src/proof/consumer-ledger.js
+src/proof/gamehost-proof-readback.js
+scripts/open-above-source-frame-fixture.mjs
 ```
 
 ## Guardrails
 
 ```txt
 Push only to main.
-Do not create a branch.
-Do not open a PR.
-Do not work on Cavalry of Rome.
-Keep GameHost legacy fields compatible.
-Add source readback additively.
-Do not delete legacy campaign fields until compatibility rows exist.
-Use the headless editor harness as a source proof caller after the source fixture exists.
+Do not create branches or PRs.
+Do not work on TheCavalryOfRome.
+Keep GameHost.local and GameHost.nexusEngine compatible.
+Add proof readback additively.
+Do not retune simulation, camera, renderer, terrain, clouds, water, or post-processing during the proof pass.
+Do not delete legacy campaign/FLIGHT fields until compatibility rows exist.
+Keep proof journals bounded, deterministic, disposable, and JSON-safe.
 ```
