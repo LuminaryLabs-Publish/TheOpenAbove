@@ -1,4 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-chunk-streaming-kit.js";
 
 export const TERRAIN_SURFACE_KIT_ID = "open-above-terrain-surface-kit";
 
@@ -39,14 +40,14 @@ function makeDetailTextures(seed) {
     for (let x = 0; x < size; x += 1) {
       const i = (y * size + x) * 4;
       const h = sample(x, y);
-      const variation = Math.floor((h - 0.5) * 34);
-      colorData[i] = 178 + variation;
-      colorData[i + 1] = 187 + variation;
-      colorData[i + 2] = 145 + Math.floor(variation * 0.45);
+      const variation = Math.floor((h - 0.5) * 22);
+      colorData[i] = 194 + variation;
+      colorData[i + 1] = 204 + variation;
+      colorData[i + 2] = 163 + Math.floor(variation * 0.45);
       colorData[i + 3] = 255;
       const dx = sample(x + 1, y) - sample(x - 1, y);
       const dy = sample(x, y + 1) - sample(x, y - 1);
-      const n = new THREE.Vector3(-dx * 2.4, 1, -dy * 2.4).normalize();
+      const n = new THREE.Vector3(-dx * 1.7, 1, -dy * 1.7).normalize();
       normalData[i] = Math.floor((n.x * 0.5 + 0.5) * 255);
       normalData[i + 1] = Math.floor((n.y * 0.5 + 0.5) * 255);
       normalData[i + 2] = Math.floor((n.z * 0.5 + 0.5) * 255);
@@ -56,70 +57,78 @@ function makeDetailTextures(seed) {
   const color = new THREE.DataTexture(colorData, size, size, THREE.RGBAFormat);
   color.colorSpace = THREE.SRGBColorSpace;
   color.wrapS = color.wrapT = THREE.RepeatWrapping;
-  color.repeat.set(72, 72);
+  color.repeat.set(16, 16);
   color.needsUpdate = true;
   const normal = new THREE.DataTexture(normalData, size, size, THREE.RGBAFormat);
   normal.wrapS = normal.wrapT = THREE.RepeatWrapping;
-  normal.repeat.set(92, 92);
+  normal.repeat.set(22, 22);
   normal.needsUpdate = true;
   return { color, normal };
 }
 
-function terrainColor(x, z, h, slope) {
+export function terrainColor(x, z, h, slope) {
   const moisture = moistureAt(x, z);
-  const grass = new THREE.Color(0x5f813e);
-  const dry = new THREE.Color(0x9c8b4f);
-  const rock = new THREE.Color(0x77756d);
-  const wet = new THREE.Color(0x405f3e);
-  const shore = new THREE.Color(0xaa9468);
-  let color = grass.clone().lerp(dry, THREE.MathUtils.clamp((h - 22) / 115, 0, 0.68));
-  color.lerp(wet, moisture * 0.55);
-  color.lerp(shore, moisture * THREE.MathUtils.clamp((28 - h) / 42, 0, 1) * 0.65);
-  color.lerp(rock, THREE.MathUtils.clamp(slope * 1.45 + (h - 92) / 95, 0, 0.82));
+  const grass = new THREE.Color(0x779858);
+  const dry = new THREE.Color(0xb0a169);
+  const rock = new THREE.Color(0x918f84);
+  const wet = new THREE.Color(0x55755a);
+  const shore = new THREE.Color(0xc0aa7d);
+  let color = grass.clone().lerp(dry, THREE.MathUtils.clamp((h - 22) / 115, 0, 0.62));
+  color.lerp(wet, moisture * 0.38);
+  color.lerp(shore, moisture * THREE.MathUtils.clamp((28 - h) / 42, 0, 1) * 0.48);
+  color.lerp(rock, THREE.MathUtils.clamp(slope * 1.25 + (h - 104) / 110, 0, 0.68));
   const macro = Math.sin(x * 0.0041 + z * 0.0032) * 0.5 + 0.5;
-  color.offsetHSL(0, 0, (macro - 0.5) * 0.08);
+  color.offsetHSL(0, -0.02, 0.035 + (macro - 0.5) * 0.055);
   return color;
 }
 
 export function createTerrainSurface(scene, worldConfig, quality) {
-  const size = (worldConfig.terrainSize || 2600) * 1.55;
-  const segments = Math.max(72, quality.terrainSegments);
-  const geometry = new THREE.PlaneGeometry(size, size, segments, segments);
-  geometry.rotateX(-Math.PI / 2);
-  const position = geometry.attributes.position;
-  const colors = new Float32Array(position.count * 3);
-  const step = size / segments;
-  for (let i = 0; i < position.count; i += 1) {
-    const x = position.getX(i);
-    const z = position.getZ(i);
-    const h = terrainHeight(x, z);
-    position.setY(i, h);
-    const dx = terrainHeight(x + step, z) - terrainHeight(x - step, z);
-    const dz = terrainHeight(x, z + step) - terrainHeight(x, z - step);
-    const slope = Math.hypot(dx, dz) / Math.max(step * 2, 1);
-    const color = terrainColor(x, z, h, slope);
-    colors[i * 3] = color.r;
-    colors[i * 3 + 1] = color.g;
-    colors[i * 3 + 2] = color.b;
-  }
-  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  geometry.computeVertexNormals();
   const detail = makeDetailTextures(worldConfig.seed || 1);
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true,
     map: detail.color,
     normalMap: detail.normal,
-    normalScale: new THREE.Vector2(0.34, 0.34),
-    roughness: 0.91,
-    metalness: 0.01
+    normalScale: new THREE.Vector2(0.22, 0.22),
+    roughness: 0.88,
+    metalness: 0,
+    envMapIntensity: 0.3
   });
   material.name = "OpenAboveTerrainSurfaceMaterial";
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.name = "open-above-terrain-surface";
-  mesh.receiveShadow = true;
-  mesh.castShadow = false;
-  scene.add(mesh);
-  return { id: TERRAIN_SURFACE_KIT_ID, mesh, geometry, material, terrainHeight, moistureAt, size };
+  const cloudShadow = installSoftCloudShadow(material);
+  const streamer = createTerrainChunkStreamer({
+    scene,
+    terrainHeight,
+    terrainColor,
+    material,
+    chunkSize: 520,
+    chunkRadius: quality.id === "low" ? 2 : 3,
+    lodSegments: quality.id === "high" ? [72, 40, 20] : quality.id === "medium" ? [56, 32, 16] : [40, 24, 12]
+  });
+
+  function update(camera, weatherState) {
+    streamer.update(camera);
+    cloudShadow.update(weatherState);
+  }
+
+  return {
+    id: TERRAIN_SURFACE_KIT_ID,
+    mesh: streamer.group,
+    group: streamer.group,
+    material,
+    terrainHeight,
+    moistureAt,
+    terrainColor,
+    streamer,
+    cloudShadow,
+    update,
+    dispose: streamer.dispose
+  };
 }
 
-window.OpenAboveTerrainSurfaceKit = { id: TERRAIN_SURFACE_KIT_ID, createTerrainSurface, terrainHeight, moistureAt };
+window.OpenAboveTerrainSurfaceKit = {
+  id: TERRAIN_SURFACE_KIT_ID,
+  createTerrainSurface,
+  terrainHeight,
+  moistureAt,
+  terrainColor
+};
