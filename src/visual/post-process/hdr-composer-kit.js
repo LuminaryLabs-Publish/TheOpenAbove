@@ -8,6 +8,25 @@ import { createColorGradeKit } from "./color-grade-kit.js";
 
 export const HDR_COMPOSER_KIT_ID = "open-above-hdr-composer-kit";
 
+function createDepthTexture(width, height) {
+  const depthTexture = new THREE.DepthTexture(width, height, THREE.UnsignedIntType);
+  depthTexture.format = THREE.DepthFormat;
+  depthTexture.minFilter = THREE.NearestFilter;
+  depthTexture.magFilter = THREE.NearestFilter;
+  depthTexture.generateMipmaps = false;
+  return depthTexture;
+}
+
+function installIndependentDepthTextures(composer, width, height) {
+  const firstDepth = createDepthTexture(width, height);
+  const secondDepth = createDepthTexture(width, height);
+  composer.renderTarget1.depthTexture = firstDepth;
+  composer.renderTarget2.depthTexture = secondDepth;
+  composer.renderTarget1.depthBuffer = true;
+  composer.renderTarget2.depthBuffer = true;
+  return [firstDepth, secondDepth];
+}
+
 export function createHdrComposer(renderer, scene, camera, quality) {
   renderer.toneMapping = THREE.NoToneMapping;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -22,16 +41,10 @@ export function createHdrComposer(renderer, scene, camera, quality) {
     stencilBuffer: false,
     samples: quality.id === "high" ? 2 : 0
   });
-  target.depthTexture = new THREE.DepthTexture(width, height, THREE.UnsignedIntType);
-  target.depthTexture.format = THREE.DepthFormat;
+  target.depthTexture = createDepthTexture(width, height);
 
   const composer = new EffectComposer(renderer, target);
-  for (const buffer of [composer.renderTarget1, composer.renderTarget2]) {
-    if (!buffer.depthTexture) {
-      buffer.depthTexture = new THREE.DepthTexture(width, height, THREE.UnsignedIntType);
-      buffer.depthTexture.format = THREE.DepthFormat;
-    }
-  }
+  const depthTextures = installIndependentDepthTextures(composer, width, height);
   composer.setPixelRatio(1);
   const renderPass = new RenderPass(scene, camera);
   renderPass.name = "OpenAboveHdrSceneRenderPass";
@@ -47,7 +60,14 @@ export function createHdrComposer(renderer, scene, camera, quality) {
   composer.addPass(colorGrade.pass);
 
   function resize(nextWidth, nextHeight) {
-    composer.setSize(Math.max(1, nextWidth), Math.max(1, nextHeight));
+    const safeWidth = Math.max(1, nextWidth);
+    const safeHeight = Math.max(1, nextHeight);
+    composer.setSize(safeWidth, safeHeight);
+    for (const texture of depthTextures) {
+      texture.image.width = safeWidth;
+      texture.image.height = safeHeight;
+      texture.needsUpdate = true;
+    }
   }
 
   function update({ elapsed, deltaTime, sunWorldPosition, atmosphereDensity, cameraContext, burner }) {
@@ -80,6 +100,7 @@ export function createHdrComposer(renderer, scene, camera, quality) {
   function dispose() {
     autoExposure.pass.dispose();
     godRays.pass.dispose();
+    for (const texture of depthTextures) texture.dispose();
     target.dispose();
     composer.dispose?.();
   }
@@ -92,6 +113,7 @@ export function createHdrComposer(renderer, scene, camera, quality) {
     godRays,
     bloom,
     colorGrade,
+    depthTextures,
     resize,
     update,
     render,
