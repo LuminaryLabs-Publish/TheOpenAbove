@@ -1,123 +1,109 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T09-21-50-04-00`
+**Last aligned:** `2026-07-11T11-31-06-04-00`
 
 ## Scope
 
-Documentation-only audit of the active product-source boundary. This pass inspected repository rules, public documentation, package metadata, legacy campaign data, runtime composition, balloon controls, Air Mail route/domain code and existing smoke coverage. It changed no runtime source or deployment configuration.
+Documentation-only audit of the Air Mail mission restart boundary. This pass inspected repository rules, current audit state, runtime composition, balloon input/state, mail reset, delivery admission, airstream state, camera state, telemetry timing and existing smoke coverage.
 
 ## Plan ledger
 
-**Goal:** separate source-backed product identity findings from executable proof and record exactly what is and is not validated.
+**Goal:** separate source-backed restart findings from executable proof and define the exact fixture gate required before claiming mission restart support.
 
 - [x] Review the complete Publish inventory.
 - [x] Compare all eligible repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read `AGENTS.md`, `README.md` and `package.json`.
-- [x] Read `src/data/campaign.config.js`.
-- [x] Read `src/main.js` and the active runtime composition.
-- [x] Read balloon simulation input and snapshot behavior.
-- [x] Read Air Mail route and domain source.
+- [x] Read `AGENTS.md`, root `.agent` state and package scripts.
+- [x] Read `src/main.js`.
+- [x] Read balloon simulation input and state ownership.
+- [x] Read mail domain, parcel reset and delivery progress.
+- [x] Read airstream and camera ownership.
+- [x] Read telemetry publication order.
 - [x] Read current smoke assertions.
-- [x] Trace mixed mode, objective, control and projection identity.
-- [x] Identify all domains, services and kits.
-- [x] Define source authority and fixture requirements.
+- [x] Identify all domains, kits and services.
+- [x] Define mission epoch, reset transaction and first-frame fixtures.
 - [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
-- [x] Push documentation directly to `main`.
 
-## Validation performed
-
-```txt
-full Publish inventory reviewed: yes
-eligible repositories compared with central ledger: yes
-TheCavalryOfRome excluded: yes
-selected only TheOpenAbove: yes
-AGENTS.md read: yes
-README.md read: yes
-package.json read: yes
-legacy campaign source read: yes
-main composition read: yes
-balloon input contract read: yes
-Air Mail route/domain read: yes
-smoke test read: yes
-active domains cataloged: yes
-active, implied and inactive kits cataloged: yes
-kit-family services cataloged: yes
-runtime source changed: no
-branch created: no
-pull request created: no
-push target: main
-```
-
-## Source-backed findings
-
-The current source establishes:
+## Source inspection completed
 
 ```txt
-README and AGENTS describe Meadow Lift thermals, gates and perch completion
-README documents pitch, bank, boost and R restart controls
-campaign.config.js declares meadow-lift and cloud-basin
-main.js imports legacy CAMPAIGN/WORLD and independently creates Air Mail
-snapshot region is meadow-lift while simulation status is mail-flight
-mail route declares meadow-mail-run, parcel-001 and Brookhaven
-HUD and simulation strings hard-code Brookhaven
-runtime controls are burner and vent, not pitch/bank/boost
-A/D and R have no active runtime behavior
-Shift vent and wheel zoom are active but missing from README controls
-no selected mode, supersession result or source fingerprint exists
+KeyR consumed: no
+ResetMission command: no
+mission epoch: no
+simulation reset service: no
+airstream reset service: no
+camera reset service: no
+mail parcel reset service: yes
+complete mission reset service: no
+post-reset delivery lockout: no
+first post-reset simulation receipt: no
+first post-reset render receipt: no
 ```
+
+## Source-backed failure case
+
+```txt
+place balloon inside destination volume
+invoke mail.reset()
+assert parcel.delivered becomes false
+run one mail.update with unchanged position
+parcel can become delivered again
+```
+
+This follows directly from parcel-only reset plus destination-volume admission on every update. It has not been executed as a fixture in this documentation pass.
 
 ## Existing proof
 
-`npm run check` currently proves:
+`npm run check` currently proves source presence and selected implementation patterns. It does not prove:
 
 ```txt
-required source files exist
-main composes visual, airstream and mail domains
-balloon simulation contains airstream integration and Brookhaven messaging
-airstream/mail pure tests execute
-graphical system source patterns exist
-headless environment exposes expected routes
+KeyR reset behavior
+mission epoch creation
+atomic subsystem reset
+held-input retirement
+stale route/delivery proof rejection
+reset idempotency
+reset rollback
+reset-inside-destination behavior
+first post-reset frame correlation
+browser/GameHost/headless reset parity
 ```
 
-It does not prove product-mode selection, supersession, control parity, HUD source projection, public documentation parity or committed product-frame identity.
-
-## Existing commands
+## Required pure fixtures
 
 ```txt
-npm run check
-npm run build
-npm run headless:status
-npm run headless:inspect
-npm run headless:renderer
-npm run headless:check
-npm run headless:build
+fixture:air-mail-reset-pure
+fixture:air-mail-reset-held-input
+fixture:air-mail-reset-stale-proof
+fixture:air-mail-reset-repeat
+fixture:air-mail-reset-rollback
 ```
 
-## Missing fixture commands
+## Required host/browser fixtures
 
 ```txt
-npm run fixture:product-manifest
-npm run fixture:mode-supersession
-npm run fixture:control-contract
-npm run fixture:hud-source-parity
-npm run fixture:documentation-parity
-npm run fixture:product-frame-identity
+fixture:air-mail-reset-host
+fixture:air-mail-reset-keyboard
+fixture:air-mail-reset-inside-destination
+fixture:air-mail-reset-first-frame
+fixture:air-mail-reset-render-failure
 ```
 
-## Required fixture evidence
+## Required assertions
 
 ```txt
-exactly one product mode is admitted
-Air Mail supersession or coexistence with Meadow Lift is explicit
-legacy objectives are inactive when Air Mail is selected
-runtime controls match public control projections
-HUD destination and instructions come from source data
-runtime, telemetry, GameHost and headless status share one source fingerprint
-same source manifest creates the same initial fingerprint
-conflicting sources reject before runtime construction
+one accepted reset creates one new mission epoch
+all mission-owned subsystem state changes atomically
+held burner and vent input are neutral
+predecessor commands and delivery proof are stale
+reset inside Brookhaven cannot immediately redeliver
+duplicate command returns the original result
+stale epoch rejects without mutation
+partial failure yields rollback or terminal failed state
+HUD, telemetry, GameHost, headless and canvas agree on epoch
+first simulation tick and rendered frame are observable
 ```
 
 ## Commands not run
@@ -143,15 +129,11 @@ route behavior changed: no
 gameplay behavior changed: no
 render behavior changed: no
 deployment workflow changed: no
+branch created: no
+pull request created: no
 .agent documentation changed: yes
-central ledger changed: yes
-central internal change log added: yes
 ```
 
-## Push state
+## Completion boundary
 
-```txt
-repo-local docs pushed to main: yes
-central ledger updated: yes
-central internal change log added: yes
-```
+Do not claim restart support because `mail.reset()` exists. Completion requires a fixed-tick, mission-epoch transaction with input retirement, atomic subsystem commit, stale-proof rejection and a correlated first post-reset frame.
