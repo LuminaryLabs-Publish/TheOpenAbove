@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T13-10-35-04-00`
+**Last aligned:** `2026-07-11T14-50-59-04-00`
 
 ## Primary ordered gaps
 
@@ -9,156 +9,112 @@
 2. import-pure balloon module and compatibility admission
 3. root session/frame/listener/resource ownership
 4. ordered teardown and full-runtime restart proof
-5. fixed-step clock, visibility and sequenced input authority
-6. product manifest, selected mode and supersession authority
-7. product acceptance contract and public/runtime parity
+5. fixed-step clock visibility and sequenced input authority
+6. product manifest selected mode and supersession authority
+7. product acceptance and public/runtime parity
 8. versioned Air Mail route and parcel source
 9. correct-current delivery admission and route proof
 10. complete mission reset transaction and mission epoch
-11. committed simulation/render/telemetry/GameHost correlation
+11. committed simulation/render/HUD/telemetry/GameHost correlation
 12. terrain surface and horizon revision authority
 13. bounded near+horizon terrain generation
 ```
 
-## Product acceptance gaps
+## Committed observation gaps
 
 ```txt
-README describes bird free-flight instead of Air Mail balloon flight
-AGENTS defines Meadow Lift as the current slice
-README controls describe pitch, bank and boost
-runtime controls are burner, vent and wheel zoom
-README and AGENTS claim R restart
-runtime has no R consumer
-README and AGENTS objectives require thermals, gates and perch return
-runtime objective is correct-current parcel delivery to Brookhaven
-package description and runtime disagree with README/AGENTS identity
-no versioned AcceptanceContract
-no control or objective contract fingerprint
-no generated README or AGENTS projection
-no typed acceptance-parity result
-no bounded acceptance evidence journal
+telemetry snapshots before visual.render
+renderer drawCalls and triangles update after telemetry publication
+dynamic resolution samples after telemetry publication
+HUD projects after telemetry publication
+no simulationTickId to browser RAF mapping
+no renderFrameId
+no deliveryResultId
+no render submission result
+no HUD acknowledgement
+no telemetry publication barrier
+no required-consumer acknowledgement set
+no state or frame fingerprint
+no bounded committed-frame journal
 ```
 
-## Automated-proof gap
+## External readback gaps
 
 ```txt
-npm run check
-  -> verifies required files exist
-  -> verifies selected source patterns
-  -> runs pure airstream/mail checks
-  -> does not open the browser
-  -> does not execute public controls
-  -> does not execute README or AGENTS objectives
-  -> does not inspect HUD/help copy
-  -> does not prove restart availability
-  -> does not compare deployed Pages behavior
+GameHost exposes scene renderer camera balloon visual simulation airstream mail and cameraRig
+external callers can retain mutable subsystem references
+getState returns no session mission tick frame or observation revision
+Nexus telemetry and local snapshot are not correlated by a shared receipt
+old readback callers cannot be fenced after reset or restart
+headless tools cannot prove they observed a committed visible frame
 ```
 
-A stale public contract can therefore coexist with a green source-pattern smoke.
-
-## Control mismatch
+## Delivery-to-frame gap
 
 ```txt
-README W/S/A/D/Space meaning:
-  W/S pitch
-  A/D bank
-  Space boost
-
-runtime meaning:
-  Space / W / ArrowUp -> burner
-  S / ArrowDown / Shift -> vent
-  wheel -> camera zoom
-  A / D -> no balloon steering binding
-  R -> no mission restart binding
+mail.update can commit parcel delivery
+state.message is changed immediately
+telemetry publishes the new parcel state before rendering
+HUD updates after rendering
+no receipt proves which visible frame first showed delivery
+no exactly-once consumer acknowledgement exists
 ```
 
-## Objective mismatch
+## Render-state gap
 
 ```txt
-README / AGENTS:
-  catch three thermals
-  clear five wind gates
-  return to sky perch
-  unlock Cloud Basin
-
-runtime:
-  find visible meadow current
-  enter the Brookhaven route
-  carry parcel-001
-  enter the Brookhaven delivery volume
+visual.update mutates current planning state
+visual.render submits the frame
+resolution.sample may change future scale
+drawCalls and triangles are assigned after submission
+telemetry captured earlier values
+no distinction between planned effective submitted and observed quality
 ```
 
-## Product identity gaps
+## Retained product acceptance gaps
 
 ```txt
-campaign.config.js still identifies meadow-lift and Cloud Basin
-runtime snapshot combines mail-flight with meadow-lift region identity
-HUD hard-codes Air Mail and Brookhaven copy
-README and AGENTS retain legacy bird product copy
-no selectedMode, modeVersion or supersession proof
-no product, controls, objectives or acceptance fingerprint
-no projection revision shared by runtime and docs
+README and AGENTS still describe Meadow Lift bird flight
+runtime is Air Mail hot-air-balloon delivery
+R restart is documented but has no consumer
+no product/acceptance fingerprint or deployed parity evidence
 ```
 
-## Mission restart gaps
-
-```txt
-KeyR has no consumer
-no typed ResetMission command
-no runtimeSessionId or missionEpoch
-mail.reset clears parcel fields only
-balloon simulation, airstream and camera expose no reset service
-no post-reset delivery lockout
-no first post-reset simulation/render receipt
-```
-
-## Lifecycle gaps
+## Retained lifecycle and restart gaps
 
 ```txt
 root RAF id is not retained
-createGame returns no session owner
-mail, airstream, camera, simulation and visual disposal are not composed
 full-runtime restart and mission reset are not distinct
-GameHost exposes mutable subsystem objects
-old callers cannot be fenced after a successor mission starts
-```
-
-## Render and projection gaps
-
-```txt
-HUD copy is independently hard-coded
-README and AGENTS copy is independently maintained
-no shared product/acceptance revision reaches HUD or canvas proof
-telemetry snapshots before visual.render
-no visible-frame acknowledgement for the accepted contract
-no proof that the deployed canvas corresponds to the documented mode
+mail.reset clears parcel fields only
+simulation airstream camera and presentation expose no composed reset
+no mission epoch or stale-caller fence
 ```
 
 ## Required fixture gaps
 
 ```txt
-fixture:product-manifest
-fixture:acceptance-contract
-fixture:control-parity
-fixture:objective-parity
-fixture:hud-docs-agent-parity
-fixture:acceptance-evidence
-fixture:browser-acceptance
-fixture:pages-acceptance
-fixture:air-mail-route
-fixture:air-mail-reset-keyboard
-fixture:air-mail-reset-inside-destination
+fixture:observation-order
+fixture:delivery-visible-frame
+fixture:render-stat-frame
+fixture:effective-quality-frame
+fixture:hud-telemetry-parity
+fixture:consumer-ack-barrier
+fixture:stale-frame-ack
+fixture:cross-epoch-frame-ack
+fixture:gamehost-detachment
+fixture:headless-committed-observation
+fixture:browser-committed-observation
+fixture:pages-committed-observation
 ```
 
 ## Required guarantees
 
 ```txt
-one accepted product source defines one selected mode
-all control labels correspond to installed runtime bindings
-all objective labels correspond to executable gameplay rules
-restart is advertised only when a ResetMission consumer exists
-README, AGENTS, HUD, telemetry and headless tools share one revision
-source, browser and Pages acceptance results share one fingerprint
-mismatched or stale projections fail with typed results
-all evidence is bounded, detached and JSON-safe
+one committed observation identifies one runtime session mission epoch tick and frame
+delivery state becomes externally committed with the visible frame that represents it
+renderer and quality statistics are labeled by the frame they describe
+HUD telemetry GameHost and headless observations share one revision and fingerprint
+mutable subsystem objects are never the public observation contract
+stale partial and cross-epoch acknowledgements cannot commit a frame
+evidence is bounded detached and JSON-safe
 ```
