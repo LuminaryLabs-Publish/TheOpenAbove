@@ -3,6 +3,15 @@ import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-ch
 
 export const TERRAIN_SURFACE_KIT_ID = "open-above-terrain-surface-kit";
 
+const FRUTIGER_TERRAIN_PALETTE = Object.freeze({
+  valleyGreen: new THREE.Color(0x3f7850),
+  meadowGreen: new THREE.Color(0x67a653),
+  sunlitGreen: new THREE.Color(0x9bc65b),
+  dryGreen: new THREE.Color(0xb5bd68),
+  wetGreen: new THREE.Color(0x376d58),
+  softRock: new THREE.Color(0x8d927d)
+});
+
 export function terrainHeight(x, z) {
   const radius = Math.hypot(x, z);
   const broad = Math.sin(x * 0.0032) * 34 + Math.cos(z * 0.0038) * 29;
@@ -20,76 +29,67 @@ export function moistureAt(x, z) {
   return THREE.MathUtils.clamp(lake + secondLake * 0.72 + river * 0.5, 0, 1);
 }
 
-function seeded(seed) {
-  let s = (Number(seed) || 1) >>> 0;
-  return () => {
-    s = (s * 1664525 + 1013904223) >>> 0;
-    return s / 4294967296;
-  };
+function normalizedWave(first, second) {
+  return THREE.MathUtils.clamp((Math.sin(first) + Math.cos(second)) * 0.25 + 0.5, 0, 1);
 }
 
-function makeDetailTextures(seed) {
-  const size = 64;
-  const random = seeded(seed);
-  const colorData = new Uint8Array(size * size * 4);
-  const normalData = new Uint8Array(size * size * 4);
-  const heights = new Float32Array(size * size);
-  for (let i = 0; i < heights.length; i += 1) heights[i] = random() * 0.4 + random() * 0.6;
-  const sample = (x, y) => heights[((y + size) % size) * size + ((x + size) % size)];
-  for (let y = 0; y < size; y += 1) {
-    for (let x = 0; x < size; x += 1) {
-      const i = (y * size + x) * 4;
-      const h = sample(x, y);
-      const variation = Math.floor((h - 0.5) * 8);
-      colorData[i] = 196 + variation;
-      colorData[i + 1] = 205 + variation;
-      colorData[i + 2] = 166 + Math.floor(variation * 0.4);
-      colorData[i + 3] = 255;
-      const dx = sample(x + 1, y) - sample(x - 1, y);
-      const dy = sample(x, y + 1) - sample(x, y - 1);
-      const n = new THREE.Vector3(-dx * 0.55, 1, -dy * 0.55).normalize();
-      normalData[i] = Math.floor((n.x * 0.5 + 0.5) * 255);
-      normalData[i + 1] = Math.floor((n.y * 0.5 + 0.5) * 255);
-      normalData[i + 2] = Math.floor((n.z * 0.5 + 0.5) * 255);
-      normalData[i + 3] = 255;
-    }
-  }
-  const color = new THREE.DataTexture(colorData, size, size, THREE.RGBAFormat);
-  color.colorSpace = THREE.SRGBColorSpace;
-  color.wrapS = color.wrapT = THREE.RepeatWrapping;
-  color.repeat.set(4, 4);
-  color.needsUpdate = true;
-  const normal = new THREE.DataTexture(normalData, size, size, THREE.RGBAFormat);
-  normal.wrapS = normal.wrapT = THREE.RepeatWrapping;
-  normal.repeat.set(6, 6);
-  normal.needsUpdate = true;
-  return { color, normal };
+function smoothWorldField(value, low = 0.18, high = 0.82) {
+  return THREE.MathUtils.smoothstep(THREE.MathUtils.clamp(value, 0, 1), low, high);
+}
+
+function blendAroundMidpoint(color, field, darker, lighter, strength) {
+  const offset = field - 0.5;
+  if (offset < 0) color.lerp(darker, -offset * strength * 2);
+  else color.lerp(lighter, offset * strength * 2);
 }
 
 export function terrainColor(x, z, h, slope) {
-  const moisture = moistureAt(x, z);
-  const grass = new THREE.Color(0x779858);
-  const dry = new THREE.Color(0xb0a169);
-  const rock = new THREE.Color(0x918f84);
-  const wet = new THREE.Color(0x55755a);
-  const shore = new THREE.Color(0xc0aa7d);
-  let color = grass.clone().lerp(dry, THREE.MathUtils.clamp((h - 22) / 115, 0, 0.62));
-  color.lerp(wet, moisture * 0.38);
-  color.lerp(shore, moisture * THREE.MathUtils.clamp((28 - h) / 42, 0, 1) * 0.48);
-  color.lerp(rock, THREE.MathUtils.clamp(slope * 1.25 + (h - 104) / 110, 0, 0.68));
-  const macro = Math.sin(x * 0.0018 + z * 0.0013) * 0.5 + 0.5;
-  color.offsetHSL(0, -0.02, 0.025 + (macro - 0.5) * 0.035);
+  const {
+    valleyGreen,
+    meadowGreen,
+    sunlitGreen,
+    dryGreen,
+    wetGreen,
+    softRock
+  } = FRUTIGER_TERRAIN_PALETTE;
+
+  const moisture = THREE.MathUtils.smoothstep(moistureAt(x, z), 0.08, 0.82);
+  const lowland = 1 - THREE.MathUtils.smoothstep(h, -36, 24);
+  const highland = THREE.MathUtils.smoothstep(h, 12, 82);
+  const dryHighland = THREE.MathUtils.smoothstep(h, 42, 116) * (1 - moisture);
+  const steepness = THREE.MathUtils.smoothstep(slope, 0.2, 0.5);
+
+  const largeField = smoothWorldField(normalizedWave(
+    x * 0.00108 + z * 0.00072,
+    z * 0.00102 - x * 0.00043
+  ), 0.16, 0.84);
+  const mediumField = smoothWorldField(normalizedWave(
+    x * 0.00285 - z * 0.0017,
+    z * 0.0031 + x * 0.00135
+  ), 0.18, 0.82);
+  const localField = smoothWorldField(normalizedWave(
+    x * 0.0061 + z * 0.00415,
+    z * 0.00545 - x * 0.00375
+  ), 0.22, 0.78);
+
+  const color = meadowGreen.clone();
+  color.lerp(valleyGreen, lowland * 0.56);
+  color.lerp(sunlitGreen, highland * 0.24);
+  color.lerp(wetGreen, moisture * 0.48);
+  color.lerp(dryGreen, dryHighland * 0.2);
+
+  blendAroundMidpoint(color, largeField, valleyGreen, sunlitGreen, 0.14);
+  blendAroundMidpoint(color, mediumField, meadowGreen, dryGreen, 0.07);
+  blendAroundMidpoint(color, localField, wetGreen, meadowGreen, 0.02);
+
+  color.lerp(softRock, steepness * 0.62);
   return color;
 }
 
 export function createTerrainSurface(scene, worldConfig, quality) {
-  const detail = makeDetailTextures(worldConfig.seed || 1);
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true,
-    map: detail.color,
-    normalMap: detail.normal,
-    normalScale: new THREE.Vector2(0.08, 0.08),
-    roughness: 0.9,
+    roughness: 0.88,
     metalness: 0,
     envMapIntensity: 0.3
   });
