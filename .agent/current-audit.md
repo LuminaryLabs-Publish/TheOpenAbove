@@ -1,92 +1,107 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T19-18-39-04-00`
+**Last aligned:** `2026-07-10T19-58-34-04-00`
 
 ## Status
 
-`TheOpenAbove` is a static Vite/Three.js Balloon Drift route with NexusEngine telemetry, deterministic terrain and grass placement, volumetric atmosphere, adaptive render scale, browser GameHost readback, static smoke checks, and a Nexus headless-editor command surface.
+```txt
+status: immutable-runtime-admission-boot-capability-fixture-gate-planned
+runtime source changed: no
+branch: main
+root .agent state: refreshed
+central ledger sync: complete
+```
 
-The highest-value next work is a session generation fence plus terminal GameHost projection. Local kits can remove some listeners and resources, but no root authority invalidates stale callbacks or proves that old sessions cannot mutate a replacement session.
+`TheOpenAbove` remains a static Vite/Three.js Balloon Drift route with NexusEngine telemetry, deterministic terrain and grass, volumetric atmosphere, adaptive render scale, browser GameHost readback, static smoke checks, and a Nexus headless-editor command surface.
+
+## Selection
+
+All nine eligible non-Cavalry repositories were centrally tracked and had root `.agent` state. `TheOpenAbove` was selected because its repo-local audit had advanced beyond the central ledger, leaving the current session-generation audit unsynchronized centrally. `TheCavalryOfRome` remained excluded.
 
 ## Files reviewed
 
 ```txt
+index.html
 package.json
 tests/smoke.mjs
+tools/headless-editor-environment.mjs
 src/main.js
-src/runtime/balloon-simulation-kit.js
-src/visual/visual-domain.js
-src/visual/camera-presentation/balloon-camera-rig-kit.js
 .agent root state
-central Publish repo ledgers
+central Publish repository ledgers
 ```
 
 ## Interaction loop
 
 ```txt
-open route
-  -> resolve Three.js and NexusEngine CDN modules
-  -> create visual domain and resize listener
-  -> create balloon object
-  -> create simulation and keyboard/blur listeners
-  -> create camera rig and wheel listener
-  -> create presentation domain and telemetry
-  -> seed camera, visual and telemetry state
-  -> requestAnimationFrame recursion
-       -> simulation update
-       -> balloon transform and presentation
-       -> camera update
-       -> environment update
-       -> telemetry tick
-       -> render and adaptive-resolution sample
-       -> renderer statistics
-       -> HUD projection
-       -> queue next frame
-  -> expose live runtime objects and snapshots through GameHost
+index.html
+  -> browser resolves static ESM graph
+       -> Three.js 0.165.0
+       -> NexusEngine @main
+       -> local modules
+  -> createGame()
+       -> visual domain and resize listener
+       -> balloon object
+       -> simulation and keyboard/blur listeners
+       -> camera rig and wheel listener
+       -> presentation and telemetry
+       -> initial state
+       -> recursive requestAnimationFrame
+            -> simulation update
+            -> balloon transform/presentation
+            -> camera update
+            -> visual update
+            -> telemetry tick
+            -> render/adaptive-resolution sample
+            -> HUD projection
+            -> next frame
+  -> GameHost live-object and snapshot readback
 ```
 
 ## Domains in use
 
 ```txt
 browser shell and Vite static publishing
-Three.js and NexusEngine CDN runtimes
+static ESM graph resolution
+Three.js CDN runtime
+NexusEngine CDN runtime
 runtime composition
 campaign, world and legacy-flight source configuration
-keyboard and wheel input
-burner and vent intent
+keyboard, blur and wheel input
 wind, buoyancy, damping, ceiling and terrain-clearance simulation
 altitude, velocity and distance state
 hot-air-balloon object and presentation
-camera follow, basket-view blend and clipping fade
+camera follow, basket-view blend, clipping fade and zoom
 visual composition
 quality-tier detection and dynamic resolution
-physical sky, sun, aerial perspective and weather map
+physical sky, sun, aerial perspective and weather
 volumetric clouds
 terrain surface and chunk streaming
 vegetation clusters
-world-seeded grass density, exclusions, placement, LOD, culling and instancing
-water surfaces and distant landmarks
-HDR composer, neutral grade and lens response
+deterministic grass seed, density, exclusions, placement, LOD, culling and instancing
+water and distant landmarks
+HDR composer, neutral grading and lens response
 Nexus telemetry
-HUD and GameHost readback
-partial resource disposal
+HUD and GameHost projection
+partial resource/listener disposal
 static smoke and headless command contracts
+planned immutable source manifest and module admission
+planned capability preflight, boot transaction, source fingerprint and failure projection
 planned session identity, generation, ownership, rollback and terminal proof
 ```
 
 ## Services offered
 
-- Route shell: canvas, HUD, fatal-error projection, import resolution, and boot.
-- Source configuration: campaign, region, world, weather, terrain, and legacy flight constants.
-- Input: burner/vent key state, blur clearing, wheel zoom, bounds, and camera-mode transition.
-- Simulation: wind, buoyancy, venting, damping, ceiling control, terrain clearance, altitude, velocity, distance, transforms, and snapshots.
-- Balloon: geometry, materials, basket, ropes, burner, envelope, transform application, and presentation animation.
-- Camera: wind-relative follow, basket view, FOV, clipping fade, zoom bounds, state readback, and wheel-listener disposal.
-- Environment: sky, sun, aerial perspective, weather, clouds, terrain, vegetation, water, landmarks, and grass.
-- Grass: deterministic world/chunk seeds, density, exclusions, candidate generation, LOD, culling, instancing, rebuild, wind animation, state, and disposal.
-- Rendering: hardware tier selection, dynamic render scale, frame-cost sampling, resize, HDR composition, render submission, calls, triangles, and partial disposal.
-- Telemetry/readback: Nexus resources/events, HUD, GameHost.local, GameHost.nexusEngine, and live handles.
-- Validation: required-file and source-text smoke assertions, npm check/build routing, and headless command routing.
+- Route shell: canvas, HUD, error panel, module entry and boot.
+- Source configuration: campaign, region, world, weather, terrain and legacy flight constants.
+- Input: burner/vent key state, blur clearing, wheel zoom and camera transition.
+- Simulation: wind, buoyancy, venting, damping, ceiling, terrain clearance, altitude, velocity, distance, transforms and snapshots.
+- Balloon: geometry, materials, basket, ropes, burner, envelope, transforms and animation.
+- Camera: follow, basket view, FOV, clipping fade, zoom, state and wheel disposal.
+- Environment: sky, sun, aerial perspective, weather, clouds, terrain, vegetation, grass, water and landmarks.
+- Grass: world/chunk seeds, density, exclusions, candidates, LOD, culling, instancing, animation, state and disposal.
+- Rendering: quality tier, dynamic scale, frame-cost sampling, resize, HDR composition, render submission and statistics.
+- Telemetry/readback: Nexus resources/events, HUD, GameHost local state and live handles.
+- Validation: local source-text smoke assertions and headless check/build routing.
 
 ## Kit inventory
 
@@ -146,12 +161,42 @@ open-above-gamehost-legacy-readback-kit
 open-above-nexusengine-cdn-adapter-kit
 ```
 
+## Source findings
+
+```txt
+src/main.js imports Three.js from an exact 0.165.0 URL.
+src/main.js imports NexusEngine from LuminaryLabs-Dev/NexusEngine@main.
+The same TheOpenAbove commit can therefore resolve different NexusEngine code over time.
+No manifest records an immutable NexusEngine revision or required export matrix.
+The route-level try/catch begins after static module linking and cannot classify all CDN failures.
+tests/smoke.mjs verifies local files and source text only.
+headless project.check delegates to the same local smoke.
+GameHost exposes live runtime objects but no requested/resolved source proof or boot result.
+```
+
 ## Main finding
 
-`src/main.js` owns construction and recursive scheduling but returns no root session object. The frame request is discarded, callbacks have no session generation, partial startup has no rollback, and `window.GameHost` publishes live mutable handles without a terminal disposed projection. Calling local `dispose()` methods alone would not prove that already-queued callbacks or stale host references cannot affect a restarted session.
+The next blocker is immutable runtime admission. The route cannot currently prove which NexusEngine revision it executed, whether required capabilities were accepted before construction, or why a static module graph failed. This must be resolved before the session-generation fence can produce reproducible lifecycle proof.
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Session Generation Fence + Terminal GameHost Fixture Gate
+TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
+```
+
+## Validation
+
+```txt
+runtime source changed: no
+package scripts changed: no
+dependencies changed: no
+routes changed: no
+deployment changed: no
+branch created: no
+pull request created: no
+existing checks run: no
+runtime-admission fixture: unavailable
+repo-local docs pushed to main: yes
+central ledger updated: yes
+central change log added: yes
 ```
