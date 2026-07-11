@@ -1,52 +1,52 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-11T05-25-29-04-00`
+**Last aligned:** `2026-07-11T07-18-44-04-00`
 
 ## Status
 
 ```txt
-status: air-mail-route-authority-and-horizon-consumption-planned
+status: air-mail-restart-transaction-authority-audited
 runtime source changed by this pass: no
-recent runtime commit reconciled: yes
 branch: main
 root .agent state: refreshed
 central ledger sync: complete
 central change log: complete
 ```
 
-## Selection and runtime reconciliation
+## Plan ledger
 
-All ten accessible `LuminaryLabs-Publish` repositories were reviewed. `TheCavalryOfRome` was excluded. All nine eligible repositories were centrally tracked with root `.agent` state.
+**Goal:** document the complete Air Mail runtime and define one clean mission restart that cannot retain stale input, movement, route, delivery, camera or frame state.
 
-`TheOpenAbove` was selected because current `main` contains an undocumented product change:
-
-```txt
-a67cc952995727a3ddb29e61ed66a72f338a58fd
-feat: add air-mail airstream routes and horizon terrain
-```
-
-The commit changes the active game from open-ended Balloon Drift toward an executable altitude-routing mail loop.
+- [x] Compare the full Publish inventory with the central ledger.
+- [x] Exclude `TheCavalryOfRome`.
+- [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
+- [x] Trace the active interaction loop.
+- [x] Identify all active domains and runtime-implied adapters.
+- [x] Catalog all active, inactive and proposed kits.
+- [x] Catalog the services offered by each kit family.
+- [x] Trace `mail.reset()` and its consumers.
+- [x] Identify the immediate-redelivery regression.
+- [x] Define mission epoch, reset command, transaction result and first-frame proof.
+- [x] Refresh required root `.agent` files and add timestamped audits.
+- [ ] Runtime implementation and executable fixtures remain future work.
 
 ## Interaction loop
 
 ```txt
-static ESM resolution
-  -> construct visual domain
-  -> construct near and horizon terrain
-  -> construct balloon object and simulation
-  -> construct three airstream routes, field, visuals and diagnostics
-  -> construct one mail route, parcel, three towns and delivery visuals
-  -> keydown/keyup/blur mutate private burner/vent key state
-  -> wheel changes camera zoom
+static ESM boot
+  -> create visual domain and terrain streamers
+  -> create balloon object and simulation
+  -> create three airstream routes and visual corridors
+  -> create one parcel, three towns and delivery volumes
+  -> keyboard callbacks mutate a private key Set
   -> RAF computes capped variable dt
-  -> simulation samples the airstream field at the current balloon position
-  -> airstream force replaces wind and advances balloon movement
-  -> mail progress records influential route and samples destination volume
+  -> simulation samples flow and advances balloon state
+  -> mail progress samples destination volume
   -> delivery may commit
-  -> route/town/balloon/camera/environment state updates
-  -> Nexus telemetry snapshots the pre-render state
-  -> HDR render and dynamic-resolution sample execute
-  -> HUD projects hard-coded Brookhaven wording
+  -> airstream, balloon, camera and visual state update
+  -> telemetry snapshots
+  -> renderer submits
+  -> HUD projects
   -> next RAF repeats
 ```
 
@@ -54,74 +54,92 @@ static ESM resolution
 
 ```txt
 carry parcel-001 for Brookhaven
-  -> observe three visible currents
-  -> burner climbs toward a higher current
-  -> vent descends toward a lower current
-  -> enter and remain near a route centerline
-  -> horizontal velocity follows the sampled route
-  -> approach Brookhaven
-  -> enter its delivery radius and altitude tolerance
+  -> use burner and vent to select altitude
+  -> enter one of three visible currents
+  -> ride routed flow toward a town
+  -> enter Brookhaven delivery volume
   -> parcel becomes delivered
 ```
 
-There is no direct horizontal steering. Altitude is the routing control.
+## Restart loop currently exposed
+
+```txt
+GameHost.mail.reset()
+  -> reset parcel status fields
+  -> clear lastEvent
+  -> return mail snapshot
+```
+
+No browser `R` path invokes it. No root mission reset exists.
+
+## Primary finding
+
+A parcel reset is not a mission reset. The following state survives `mail.reset()`:
+
+```txt
+balloon position and velocity
+vertical velocity, wind and altitude
+burner and vent state
+simulation elapsed and distance
+private held-key Set
+simulation airstream sample
+airstream-domain active route and last sample
+camera zoom/mode/smoothing state
+terrain and presentation center
+telemetry history and frame phase
+HUD/frame identity
+GameHost live object graph
+```
+
+Because the balloon can remain inside Brookhaven and `mail.update()` executes on the next RAF, a reset parcel can be delivered again immediately.
 
 ## Domains in use
 
 ```txt
 browser shell and Vite publishing
-static ESM and CDN source admission
-legacy Meadow Lift campaign source
-new air-mail route source
+static ESM/CDN source admission
+legacy campaign configuration
+Air Mail route, parcel and town configuration
 keyboard, blur and wheel input
-variable-dt RAF cadence
-balloon buoyancy, venting and terrain clearance
-airstream route validation and immutable route data
-nearest-segment route sampling
-airstream overlap blending and ambient wind
+variable RAF timing
+balloon buoyancy, wind and terrain clearance
+airstream route validation, nearest-segment sampling and overlap blending
 airstream-to-balloon force adaptation
-airstream state, visualization and optional debug projection
-mail parcel state
-mail route and town data
-delivery-volume geometry
-delivery progress and one-shot completion
-mail town and destination-marker rendering
-camera follow, basket mode, clipping and zoom
+airstream state, visuals and diagnostics
+mail parcel state, route data and delivery-volume sampling
+one-shot delivery mutation and town visuals
+camera follow, zoom, clipping and presentation
 quality tier and dynamic resolution
-physical sky, sun, aerial perspective, weather and volumetric clouds
-near terrain chunk streaming
-far-horizon terrain streaming
-world-space terrain color fields
+physical sky, sun, atmosphere, weather and clouds
+near and far-horizon terrain streaming
 vegetation, deterministic grass, water and landmarks
-HDR composition, color grading and lens response
-Nexus telemetry, HUD and GameHost projection
-partial lifecycle and disposal
-source smoke, pure airstream/mail tests and headless routing
-Pages deployment
+HDR composition, grading and lens response
+telemetry, HUD and GameHost projection
+partial disposal and lifecycle
+source smoke, pure tests, headless routing and Pages deployment
 ```
 
 ## Services offered
 
-- Route source: validates stable route IDs, points, radius, speed, lift, turbulence, destination and color.
-- Route sampler: finds the nearest 3D route segment, computes influence, capture state, tangent, velocity and contributors.
-- Field service: evaluates all routes and blends the dominant routed velocity with altitude-sensitive ambient wind.
-- Balloon-force adapter: normalizes a field sample and writes wind plus airstream state into the balloon simulation.
-- Airstream domain: composes field, visible route ribbons/wisps, optional debug state, snapshots and disposal.
-- Parcel service: constructs and resets parcel state.
-- Mail route service: supplies three towns, one default parcel and the declared correct current.
-- Delivery volume: computes ground-relative destination center, horizontal distance, altitude delta and inside/outside state.
-- Delivery progress: records selected route, updates parcel messaging and emits a one-shot `mail-delivered` object.
-- Mail town rendering: builds town houses, mail markers, delivery rings, destination pulse and disposal.
-- Mail domain: composes route, parcel, towns, visuals, progress, snapshot, reset and disposal.
-- Simulation: polls burner/vent state, samples flow, applies buoyancy, advances movement, enforces terrain clearance and snapshots.
-- Terrain: streams near chunks and a coarse far-horizon annulus from the same height/color/material source.
-- Rendering: presents route ribbons, town markers, balloon, terrain, atmosphere, grass, water and HDR output.
-- Readback: projects simulation, airstream, mail, terrain-count and visual summaries through telemetry/HUD/GameHost.
-- Validation: executes pure field/mail assertions plus source-shape smoke checks through `npm run check`.
+- Balloon simulation: input polling, flow sampling, buoyancy, position/velocity integration, terrain clearance, mesh projection, snapshots and listener disposal.
+- Airstream route kit: immutable route validation and normalized route descriptors.
+- Airstream sampler: nearest 3D segment, center distance, influence, capture state, tangent and routed velocity.
+- Airstream field: route evaluation, overlap blending and ambient fallback.
+- Balloon force adapter: writes flow velocity and selected route into simulation state.
+- Airstream domain: state, route visuals, diagnostics, snapshots and disposal.
+- Mail parcel kit: parcel construction and parcel-field reset.
+- Mail route kit: town descriptors, parcel descriptor and declared correct current.
+- Delivery volume: ground-relative center, horizontal distance, altitude delta and inside/outside sample.
+- Delivery progress: selected-route mutation, parcel messages and one-shot delivery event.
+- Mail domain: parcel/town composition, update, snapshot, parcel-only reset and visual disposal.
+- Camera/presentation: follow framing, zoom, mode, clipping and material/rig animation.
+- Visual domain: environment, terrain, grass, water, atmosphere, postprocess, render statistics and disposal.
+- Telemetry/HUD/GameHost: aggregate runtime projection and mutable debug access.
+- Validation/deployment: source smoke, pure route/mail assertions, headless routes, Vite build and Pages workflow.
 
 ## Active source-backed kits
 
-### Runtime and gameplay composition
+### Runtime and gameplay
 
 ```txt
 open-above-balloon-simulation-kit
@@ -141,7 +159,7 @@ open-above-delivery-progress-kit
 open-above-mail-town-kit
 ```
 
-### Balloon object and presentation
+### Balloon and presentation
 
 ```txt
 open-above-hot-air-balloon-object-kit
@@ -216,7 +234,7 @@ open-above-raf-clock-adapter-kit
 open-above-pages-deploy-kit
 ```
 
-## Source-backed inactive or legacy surfaces
+## Inactive or legacy source-backed surfaces
 
 ```txt
 open-above-hot-air-balloon-envelope-kit
@@ -232,48 +250,32 @@ open-above-bird-flight-input-kit
 open-above-bird-flight-physics-kit
 ```
 
-These files remain source-backed but are not part of the active Air Mail composition.
-
-## New runtime workload
-
-The far-horizon streamer adds a second synchronous terrain membership and geometry-build path.
-
-At high quality, source constants imply an initial camera-centered set of approximately:
+## Proposed restart kits
 
 ```txt
-near terrain chunks: 37
-near terrain vertices: 60,597
-horizon terrain chunks: 136
-horizon terrain vertices: 7,624
-combined terrain vertices: 68,221
-minimum height evaluations for height+slope: 341,105
+open-above-mission-epoch-kit
+open-above-reset-command-kit
+open-above-reset-admission-kit
+open-above-input-retirement-kit
+open-above-balloon-reset-kit
+open-above-airstream-reset-kit
+open-above-mail-reset-transaction-kit
+open-above-camera-reset-kit
+open-above-reset-result-kit
+open-above-first-post-reset-frame-kit
+open-above-air-mail-restart-fixture-kit
 ```
-
-This is a source-derived census, not a browser timing result.
-
-## Main findings
-
-1. `correctAirstreamId` is stored by the mail domain but is not consumed by delivery admission.
-2. Delivery commits solely from destination-volume membership, so arriving through the wrong current or ambient drift still succeeds.
-3. `selectedAirstreamId` is mutable last-seen state, not a durable route traversal proof.
-4. No route-entry/exit ledger, minimum dwell, segment progression, current-retention, wrong-route rejection or delivery receipt exists.
-5. The old `CAMPAIGN` region remains `meadow-lift`; Air Mail has a second unversioned source of product truth.
-6. Browser `R` restart remains unwired even though `mail.reset()` exists and repository instructions require restart.
-7. HUD text hard-codes Brookhaven instead of projecting the active route/parcel/town data.
-8. Simulation and turbulent flow use variable RAF elapsed time, so mission trajectories are not cadence-invariant.
-9. Telemetry runs before render and cannot correlate delivery with a committed rendered frame.
-10. Horizon terrain adds 136 coarse chunks at the initial origin estimate and shares the existing synchronous rebuild path without a build budget or result journal.
-11. The pure tests are useful but do not test wrong-current delivery rejection, browser reset, same-command cadence parity, route progression, renderer consumption or GameHost detachment.
 
 ## Ordered safe ledges
 
 ```txt
-1. Immutable Runtime Admission + Boot Capability Fixture Gate
-2. Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
-3. Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
-4. Fixed-Step Simulation Clock + Visibility/Input Parity Fixture Gate
-5. Air-Mail Route Authority + Correct-Current Delivery Fixture Gate
-6. Terrain Surface/Horizon Authority + Continuity/Work-Budget Fixture Gate
+1. immutable runtime admission
+2. import purity and frame ownership
+3. runtime session lifecycle and ordered disposal
+4. fixed-step clock and sequenced input
+5. Air Mail route/delivery authority
+5a. Air Mail restart transaction and mission epoch
+6. terrain near/horizon continuity and work budget
 ```
 
-Documentation only. This pass changed no runtime source, dependency, script, route behavior, renderer behavior or deployment configuration.
+Documentation only. No runtime source, dependency, script, route behavior, renderer behavior or deployment configuration changed.
