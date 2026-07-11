@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T09-21-50-04-00`
+**Last aligned:** `2026-07-11T11-31-06-04-00`
 
 ## Primary ordered gaps
 
@@ -20,6 +20,83 @@
 13. bounded near+horizon terrain generation
 ```
 
+## Mission restart gaps
+
+```txt
+KeyR has no consumer
+no typed ResetMission command
+no runtimeSessionId or missionEpoch
+no mission phase transition to restarting
+no resetTransactionId or duplicate handling
+no canonical initial mission snapshot
+private held-key Set has no reset adapter
+balloon simulation has no reset service
+airstream domain has no reset service
+camera rig has no reset service
+presentation and visual reset policy absent
+telemetry has no reset receipt or epoch projection
+mail.reset clears parcel fields only
+pre-reset route and delivery proof are not epoch-bound
+no post-reset delivery lockout
+no first post-reset simulation tick receipt
+no first post-reset render receipt
+```
+
+## Immediate state-divergence risk
+
+```txt
+balloon inside Brookhaven
+  -> mail.reset()
+  -> parcel delivered=false
+  -> balloon position unchanged
+  -> next mail.update samples same destination volume
+  -> parcel delivered=true again
+```
+
+The current API can therefore report a reset parcel without a reset mission, then immediately reverse that parcel state.
+
+## Input gaps
+
+```txt
+documented R restart is ignored
+burner and vent are private held-key state
+no input command sequence
+no expected mission epoch on input
+no queued-command retirement
+no held-input acknowledgement after reset
+```
+
+## Simulation gaps
+
+```txt
+startPosition is not retained as a canonical reset snapshot
+initial velocity, wind, burner, vent, message and airstream state are not reusable through reset
+elapsed and distance cannot be reset through a public service
+reset result and failure policy absent
+```
+
+## Mail and airstream gaps
+
+```txt
+parcel reset is in-place and unversioned
+correct-current proof is not enforced
+selected current is mutable last-seen state
+airstream active route and last sample survive parcel reset
+no route-proof revision or stale-proof rejection
+no reset-specific delivery admission phase
+```
+
+## Camera, presentation and render gaps
+
+```txt
+camera zoom, first-person blend, mode, target and position survive parcel reset
+balloon presentation animation continues from predecessor elapsed time
+visual quality and dynamic-resolution state have no declared reset policy
+telemetry snapshots before visual.render
+no shared missionEpoch/simulationTickId/renderFrameId
+no first post-reset canvas acknowledgement
+```
+
 ## Product identity gaps
 
 ```txt
@@ -27,134 +104,59 @@ README and AGENTS describe Meadow Lift free-flight
 campaign.config.js still selects meadow-lift and Cloud Basin
 active runtime is Air Mail hot-air-balloon routing
 no selectedMode or modeVersion
-no supersession, migration or coexistence policy
-no product/source manifest fingerprint
+no supersession or migration policy
 runtime snapshot combines mail-flight with meadow-lift
-package description describes generic wind drift, not the active mission
-no save/replay compatibility boundary for mode changes
+HUD and simulation copy hard-code Brookhaven
 ```
 
-## Control contract gaps
-
-```txt
-README documents pitch, bank, boost and R restart
-runtime uses burner and vent altitude control
-A/D/Left/Right are documented but ignored
-R is documented but ignored
-Shift vent is active but undocumented
-wheel zoom is active but absent from README controls
-private key Set has no typed command model
-no binding observation, revision or parity fixture
-```
-
-## Projection gaps
-
-```txt
-HUD hard-codes Brookhaven and meadow current
-simulation message hard-codes Brookhaven
-route source already owns destinationTownId and correctAirstreamId
-telemetry and GameHost expose no product/source fingerprint
-headless status cannot prove selected mode
-public documentation is manually maintained outside source authority
-```
-
-## Air Mail source gaps
-
-```txt
-active route exists in an unversioned module
-no route schema version
-no route/parcel/town manifest fingerprint
-no explicit relation to legacy CAMPAIGN
-correctAirstreamId is stored but not enforced
-no mission phase or typed completion result
-no next-parcel or progression policy
-```
-
-## Airstream authority gaps
-
-```txt
-route field depends on variable RAF elapsed
-no simulation tick ID is attached to samples
-no route-entry or route-exit event
-no dwell-time or segment-progression proof
-selected route is mutable last-seen state
-no wrong-current result
-no bounded route sample journal
-no airstream reset generation
-```
-
-## Restart authority gaps
-
-```txt
-KeyR has no consumer
-no typed ResetMission command
-no runtimeSessionId or missionEpoch
-mail.reset clears parcel fields only
-balloon simulation and airstream domain have no reset method
-held input, movement, elapsed, camera and telemetry survive
-reset inside Brookhaven can immediately redeliver
-no first post-reset tick/render receipt
-```
-
-## Render and readback gaps
-
-```txt
-telemetry snapshots before visual.render
-HUD and telemetry may describe state not yet presented
-GameHost exposes mutable domains, scene, renderer, camera and simulation
-no shared productSourceFingerprint/missionEpoch/simulationTickId/renderFrameId
-no committed product-frame observation
-no detached bounded route, parcel, reset, terrain or render journals
-```
-
-## Horizon terrain gaps
-
-```txt
-near and horizon streamers rebuild independently
-both build geometry synchronously in the RAF path
-no shared terrain source revision
-no cross-streamer seam preflight
-no build queue, frame budget, cancellation or atomic replacement
-no horizon chunk-build observation rows
-```
+Restart must bind to the accepted product and mission manifest rather than hard-coded legacy or Air Mail strings.
 
 ## Lifecycle gaps
 
 ```txt
 root RAF id is not retained
 createGame returns no session owner
-mail, airstream and visual disposers are not composed by root
-balloon object module starts compatibility RAF work at import time
-GameHost replacement and teardown are not authoritative
-mission reset and full-runtime restart are not distinguished
+mail, airstream, camera, simulation and visual disposal are not composed
+full-runtime restart and mission reset are not distinct
+GameHost exposes mutable subsystem objects
+old callers cannot be fenced after a successor mission starts
 ```
 
-## Validation gaps
+## Terrain gaps
 
 ```txt
-no product manifest fixture
-no mode supersession fixture
-no control binding parity fixture
-no HUD source parity fixture
-no README/AGENTS parity fixture
-no runtime/headless source identity fixture
-no wrong-current delivery fixture
-no full mission reset fixture
-no multi-refresh-rate route parity fixture
-no near+horizon workload or seam fixture
+near and horizon streamers rebuild independently
+no shared terrain source revision
+no seam preflight
+no frame work budget or cancellation
+no typed build result or bounded chunk-build journal
+```
+
+## Required fixture gaps
+
+```txt
+fixture:air-mail-reset-pure
+fixture:air-mail-reset-host
+fixture:air-mail-reset-keyboard
+fixture:air-mail-reset-held-input
+fixture:air-mail-reset-inside-destination
+fixture:air-mail-reset-stale-proof
+fixture:air-mail-reset-repeat
+fixture:air-mail-reset-rollback
+fixture:air-mail-reset-first-frame
+fixture:air-mail-reset-render-failure
 ```
 
 ## Required guarantees
 
 ```txt
-one runtime session selects exactly one versioned product mode
-legacy Meadow Lift source is explicitly archived, migrated or selectable
-controls are generated from one canonical contract
-HUD and public copy project from accepted source data
-runtime, telemetry, GameHost and headless tools share one source fingerprint
-correct-current proof is required before delivery
-restart creates a new mission epoch
-render/HUD/telemetry/GameHost consume one committed mission frame
-near and horizon terrain share continuity and work-budget contracts
-all proof is bounded, detached and JSON-safe
+one accepted reset creates exactly one new mission epoch
+all mission-owned subsystem state commits atomically
+held and queued predecessor input is retired
+predecessor route and delivery proof cannot be reused
+reset inside Brookhaven cannot immediately redeliver
+repeat and stale reset requests are typed and side-effect free
+HUD, telemetry, GameHost and canvas agree on the new epoch
+the first post-reset simulation tick and render frame are observable
+all journals are bounded, detached and JSON-safe
 ```
