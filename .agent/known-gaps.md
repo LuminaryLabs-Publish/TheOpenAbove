@@ -1,111 +1,111 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T19-58-34-04-00`
+**Last aligned:** `2026-07-10T21-31-01-04-00`
 
-## Primary gap
+## Primary ordered gaps
 
-The route has no explicit runtime dependency-admission authority. A fixed `TheOpenAbove` commit imports NexusEngine from a mutable branch and cannot prove the exact source, capability set, or boot decision used by a browser session.
+```txt
+1. immutable runtime admission
+2. import-pure balloon object kit and compatibility admission
+3. root session/frame/listener/resource ownership
+4. ordered teardown and restart proof
+```
 
-## Source identity gaps
+## Runtime source identity gaps
 
 ```txt
 NexusEngine is imported from LuminaryLabs-Dev/NexusEngine@main.
-No immutable NexusEngine commit or release is declared.
-No versioned route source manifest exists.
-No requested-versus-resolved source record exists.
-No source or manifest fingerprint exists.
-No production policy rejects mutable required source coordinates.
-GameHost does not expose source proof.
-HUD does not expose boot/source status.
+No immutable NexusEngine coordinate is declared.
+No versioned source manifest or source fingerprint exists.
+Static module failures can occur before the route try/catch.
+No capability preflight validates consumed remote APIs.
+GameHost exposes no source or boot proof.
 ```
 
-## Module admission gaps
+## Import-purity gaps
 
 ```txt
-Remote dependencies are static imports in src/main.js.
-Module resolution, parsing, linking or evaluation can fail before createGame().
-The route-level try/catch is not a complete module-load error boundary.
-No typed accepted, degraded or rejected admission result exists.
-No required-versus-optional dependency policy exists.
-No retry or reload result exists.
+hot-air-balloon-object-kit schedules attachWhenReady during module evaluation.
+Importing buildHotAirBalloon creates process lifetime unexpectedly.
+The compatibility installer is not an explicit command.
+No host-shape admission result exists.
+Unsupported legacy hosts still enter a recursive compatibility tick.
+No import-only fixture counts RAFs or listeners.
 ```
 
-## Capability gaps
+## Frame ownership gaps
 
 ```txt
-No preflight validates the NexusEngine APIs consumed by createBalloonTelemetryEngine.
-No preflight validates the Three.js APIs consumed by active visual kits.
-No compatibility matrix exists.
-No explicit optional telemetry degradation policy exists.
-Runtime construction begins without an accepted capability record.
+main route RAF request ID is discarded.
+compatibility RAF request IDs are discarded.
+No frame owner, label, sessionId or generation exists.
+No stale-generation callback fence exists.
+No stop or cancel-all-frames transaction exists.
 ```
 
-## Boot transaction gaps
+## Listener and resource gaps
 
 ```txt
-No bootId or boot state machine exists.
-No construction-step journal exists.
-No admission-to-session handoff exists.
-Rejected admission cannot prove zero listeners, frames and resources.
-Partial construction failure has no route-owned rollback transaction.
-No terminal immutable boot proof exists.
+simulation.dispose() exists but is never composed.
+cameraRig.dispose() exists but is never composed.
+visual.dispose() exists but is never composed and is partial.
+No route-owned listener ledger exists.
+No balloon geometry/material disposal transaction exists.
+No renderer/resource terminal counts exist.
+No pagehide/unload lifecycle contract exists.
+```
+
+## GameHost gaps
+
+```txt
+No start result.
+No stop result.
+No dispose result.
+No restart result.
+No session or generation state.
+No frame/listener/resource ownership snapshot.
+No detached terminal lifecycle proof.
 ```
 
 ## Validation gaps
 
 ```txt
-tests/smoke.mjs checks local files and source text only.
-headless project.check delegates to the same smoke.
-No check resolves the production CDN graph.
-No check rejects NexusEngine @main.
-No check validates required exports.
-No check injects remote resolution or compatibility failure.
-No browser/fixture boot-proof parity exists.
-No fixture:runtime-admission package script exists.
+tests/smoke.mjs checks source text only.
+No fixture resolves immutable runtime admission.
+No fixture instruments module evaluation.
+No fixture proves import schedules zero frames.
+No fixture proves unsupported legacy installation owns nothing.
+No fixture proves stop cancels all callbacks and listeners.
+No fixture proves restart creates one active generation.
 ```
-
-## Lifecycle gaps retained
-
-```txt
-createGame() returns no root session owner.
-The animation-frame request ID is discarded.
-No sessionId or generation fence exists.
-No route-owned listener/resource ledger exists.
-Local dispose methods are not composed by the route.
-No terminal GameHost lifecycle snapshot exists.
-```
-
-These remain next after immutable runtime admission.
 
 ## Required guarantees
 
 ```txt
-required production sources are immutable
-requested and resolved coordinates are inspectable
-capabilities are checked before construction
-rejected boot allocates no runtime session
-rejected boot installs no runtime listeners or frames
-accepted boot produces one source fingerprint and session handoff
-construction failure produces one rollback result
-source and boot proof remain bounded and JSON-safe
-session generation scopes all later callbacks and resources
+required runtime sources are immutable and capability-admitted
+reusable kit imports are side-effect free
+explicit compatibility installation returns a typed result
+one active runtime session owns all frames/listeners/resources
+stop and dispose are idempotent
+stale callbacks cannot mutate a newer generation
+terminal proof is bounded, detached and JSON-safe
 ```
 
-## Do not prioritize next
+## Do not prioritize
 
 ```txt
 visual fidelity expansion
 renderer replacement
-terrain/cloud/water/grass rewrite
-camera or balloon changes
+terrain, cloud, water or grass rewrite
+camera or balloon retuning
 simulation constant changes
-new regions or objectives
-quality threshold retuning
-legacy grass deletion
+new routes, regions or objectives
 ```
 
-## Next safe ledge
+## Next safe ledges
 
 ```txt
-TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
+1. TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
+2. TheOpenAbove Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
+3. TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
 ```
