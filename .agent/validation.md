@@ -1,28 +1,28 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T07-18-44-04-00`
+**Last aligned:** `2026-07-11T09-21-50-04-00`
 
 ## Scope
 
-Documentation-only audit of the active Air Mail restart path. The pass inspected the browser host, balloon simulation, airstream domain, mail parcel/progress/domain code and existing tests. It changed no runtime source or deployment configuration.
+Documentation-only audit of the active product-source boundary. This pass inspected repository rules, public documentation, package metadata, legacy campaign data, runtime composition, balloon controls, Air Mail route/domain code and existing smoke coverage. It changed no runtime source or deployment configuration.
 
 ## Plan ledger
 
-**Goal:** separate source-backed findings from executable proof and record exactly what the current reset surface establishes.
+**Goal:** separate source-backed product identity findings from executable proof and record exactly what is and is not validated.
 
 - [x] Review the complete Publish inventory.
 - [x] Compare all eligible repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read repository rules and current `.agent` state.
-- [x] Read `src/main.js` and the active RAF composition.
-- [x] Read balloon simulation input/state/disposal code.
-- [x] Read airstream state/snapshot/disposal code.
-- [x] Read mail parcel, progress and domain reset code.
-- [x] Read current pure airstream/mail tests.
-- [x] Trace the immediate-redelivery failure mode from source.
+- [x] Read `AGENTS.md`, `README.md` and `package.json`.
+- [x] Read `src/data/campaign.config.js`.
+- [x] Read `src/main.js` and the active runtime composition.
+- [x] Read balloon simulation input and snapshot behavior.
+- [x] Read Air Mail route and domain source.
+- [x] Read current smoke assertions.
+- [x] Trace mixed mode, objective, control and projection identity.
 - [x] Identify all domains, services and kits.
-- [x] Define the restart transaction and fixture matrix.
+- [x] Define source authority and fixture requirements.
 - [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
 - [x] Push documentation directly to `main`.
@@ -35,14 +35,15 @@ eligible repositories compared with central ledger: yes
 TheCavalryOfRome excluded: yes
 selected only TheOpenAbove: yes
 AGENTS.md read: yes
-current root .agent state read: yes
+README.md read: yes
+package.json read: yes
+legacy campaign source read: yes
 main composition read: yes
-balloon simulation read: yes
-airstream domain read: yes
-mail parcel/progress/domain reset read: yes
-pure airstream/mail tests read: yes
+balloon input contract read: yes
+Air Mail route/domain read: yes
+smoke test read: yes
 active domains cataloged: yes
-active and inactive kits cataloged: yes
+active, implied and inactive kits cataloged: yes
 kit-family services cataloged: yes
 runtime source changed: no
 branch created: no
@@ -52,36 +53,36 @@ push target: main
 
 ## Source-backed findings
 
-The source establishes:
+The current source establishes:
 
 ```txt
-KeyR has no consumer
-mail.reset is callable through the mutable GameHost mail object
-mail.reset resets parcel fields and lastEvent only
-balloon simulation has no reset method
-held input, movement, elapsed and distance survive parcel reset
-airstream domain has no reset method
-camera and render state are not reset
-mail.update runs every RAF
-volume membership alone commits delivery
-therefore reset inside Brookhaven can immediately redeliver
+README and AGENTS describe Meadow Lift thermals, gates and perch completion
+README documents pitch, bank, boost and R restart controls
+campaign.config.js declares meadow-lift and cloud-basin
+main.js imports legacy CAMPAIGN/WORLD and independently creates Air Mail
+snapshot region is meadow-lift while simulation status is mail-flight
+mail route declares meadow-mail-run, parcel-001 and Brookhaven
+HUD and simulation strings hard-code Brookhaven
+runtime controls are burner and vent, not pitch/bank/boost
+A/D and R have no active runtime behavior
+Shift vent and wheel zoom are active but missing from README controls
+no selected mode, supersession result or source fingerprint exists
 ```
 
 ## Existing proof
 
-`tests/airstream-mail.mjs` currently proves:
+`npm run check` currently proves:
 
 ```txt
-identical route samples are deterministic
-three altitudes select three routes
-route flow points toward its destination
-overlap blending produces finite velocity
-wrong-town position does not deliver Brookhaven mail
-Brookhaven volume membership delivers once
-resetMailParcel clears parcel.delivered and parcel.status
+required source files exist
+main composes visual, airstream and mail domains
+balloon simulation contains airstream integration and Brookhaven messaging
+airstream/mail pure tests execute
+graphical system source patterns exist
+headless environment exposes expected routes
 ```
 
-The test does not construct or reset the full mission graph.
+It does not prove product-mode selection, supersession, control parity, HUD source projection, public documentation parity or committed product-frame identity.
 
 ## Existing commands
 
@@ -98,27 +99,25 @@ npm run headless:build
 ## Missing fixture commands
 
 ```txt
-npm run fixture:air-mail-reset-pure
-npm run fixture:air-mail-reset-host
-npm run fixture:air-mail-reset-held-input
-npm run fixture:air-mail-reset-stale-proof
-npm run fixture:air-mail-reset-first-frame
-npm run fixture:air-mail-reset-repeat
+npm run fixture:product-manifest
+npm run fixture:mode-supersession
+npm run fixture:control-contract
+npm run fixture:hud-source-parity
+npm run fixture:documentation-parity
+npm run fixture:product-frame-identity
 ```
 
 ## Required fixture evidence
 
 ```txt
-KeyR creates one ResetMission command
-reset advances missionEpoch exactly once
-balloon returns to declared initial state
-held burner and vent input are retired
-route and delivery proof from the old epoch are rejected
-reset inside Brookhaven remains undelivered on first post-reset tick
-repeated reset follows a deterministic accepted/no-op policy
-first simulation tick and first rendered frame identify the new epoch
-HUD, telemetry and GameHost match the presented first frame
-all observations are bounded, detached and JSON-safe
+exactly one product mode is admitted
+Air Mail supersession or coexistence with Meadow Lift is explicit
+legacy objectives are inactive when Air Mail is selected
+runtime controls match public control projections
+HUD destination and instructions come from source data
+runtime, telemetry, GameHost and headless status share one source fingerprint
+same source manifest creates the same initial fingerprint
+conflicting sources reject before runtime construction
 ```
 
 ## Commands not run
