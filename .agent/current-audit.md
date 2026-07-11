@@ -1,89 +1,124 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-11T18-01-38-04-00`
+**Last aligned:** `2026-07-11T19-28-28-04-00`
 
 ## Status
 
 ```txt
-status: grass-spatial-culling-backend-truth-authority-audited
+status: import-purity-compatibility-frame-ownership-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: complete
-central internal change log: complete
+central ledger sync: pending until repo-local completion
+central internal change log: pending until repo-local completion
 ```
 
 ## Summary
 
-The active grass stack correctly generates deterministic camera-centered chunks. Candidate and instance transforms use absolute world coordinates, but each chunk `InstancedMesh` remains at the default scene origin. The per-frame manual culling pass uses `camera.position.distanceTo(mesh.position)`, so all active chunks share one camera-to-origin distance.
+`src/hot-air-balloon-object-kit.js` is imported by the active Air Mail host and schedules `requestAnimationFrame(attachWhenReady)` at module scope. `src/main.js` separately schedules the active game loop. Once `window.GameHost` appears, the compatibility path starts a second recursive frame loop even when no compatible legacy vehicle was found.
 
-The cull threshold is `520 * 4.2 = 2184 m`. Beyond that camera radius, every newly rebuilt grass chunk can remain invisible even when it surrounds the camera and contains accepted instances. The culling kit also labels capable browsers `webgpu-compute` without creating a GPU pipeline or dispatching work.
+The current product therefore has one intended Air Mail loop plus one hidden compatibility scene-traversal loop. If startup throws before GameHost publication, the compatibility wait loop continues polling despite the fatal UI.
 
 ## Plan ledger
 
-**Goal:** define one grass spatial-culling authority that keeps camera center, chunk bounds, LOD, backend execution, visible-set commit and rendered-frame observation aligned.
+**Goal:** define one explicit authority for module purity, compatibility installation, recurring frame registration, runtime generation and failure/disposal retirement.
 
-- [x] Compare the complete Publish inventory and central ledger.
+- [x] Compare the full Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` under the oldest eligible fallback rule.
-- [x] Read current root `.agent` state and retained grass/render audits.
-- [x] Read grass seed, biome, exclusion, placement, LOD, culling and field-domain sources.
-- [x] Read visual-domain frame order and existing smoke assertions.
-- [x] Identify the interaction loop, domains, kits and services.
-- [x] Trace camera-centered chunk rebuild and origin-based manual culling.
-- [x] Record the backend capability/execution mismatch.
-- [x] Define chunk identity, bounds, policy, backend, decision, commit, observation and fixture contracts.
-- [x] Add timestamped architecture and system audits.
-- [x] Refresh required root `.agent` files.
-- [x] Synchronize the central ledger and internal change log.
-- [ ] Runtime implementation and executable grass fixtures remain future work.
+- [x] Select only `TheOpenAbove` after reconciling repo-local timestamps.
+- [x] Read current root `.agent` state and retained lifecycle audits.
+- [x] Inspect `src/main.js` and `src/hot-air-balloon-object-kit.js`.
+- [x] Identify successful-startup and failed-startup callback paths.
+- [x] Inventory all domains, kits and service families.
+- [x] Define explicit install, frame registration, stale-callback and disposal contracts.
+- [x] Add timestamped tracker and system audits.
+- [x] Refresh root `.agent` state.
+- [ ] Implement runtime changes and execute browser fixtures.
 
 ## Interaction loop
 
 ```txt
-browser boot
-  -> visual domain
-  -> terrain surface
-  -> grass field domain
+import phase
+  -> main imports balloon object kit
+  -> balloon object kit schedules attachWhenReady
 
-first and center-change updates
-  -> round camera x/z to 520 m chunk coordinates
-  -> classify required offsets by chunk distance and quality
-  -> generate deterministic candidates in absolute world space
-  -> create one InstancedMesh per chunk
-  -> encode absolute transforms in instance matrices
-  -> leave each mesh object at global origin
+host construction
+  -> create visual, active balloon, airstream, mail, simulation, camera and telemetry
+  -> publish window.GameHost
+  -> schedule active frame
 
-all visual updates
-  -> compute camera distance to each mesh.position
-  -> every mesh.position is 0,0,0
-  -> culling helper returns one origin-based Boolean per chunk
-  -> assign mesh.visible
-  -> render
-  -> expose backend, chunk count and accepted instance count
+active frame
+  -> simulation and delivery
+  -> airstream and presentation
+  -> camera and visual update
+  -> telemetry
+  -> render and HUD
+  -> next active frame
+
+compatibility frame
+  -> traverse scene for legacy vehicle markers
+  -> current product returns no target
+  -> animate no object
+  -> next compatibility frame
+```
+
+## Source-backed findings
+
+```txt
+module evaluation side effect:
+  requestAnimationFrame(attachWhenReady)
+
+before GameHost:
+  attachWhenReady reschedules itself
+
+when GameHost exists:
+  installHotAirBalloonVisual may return null
+  compatibility tick still starts
+
+compatibility tick:
+  findVehicle(host.scene)
+  scene.traverse every frame
+  requestAnimationFrame(tick)
+
+active host:
+  builds balloon directly
+  calls animateHotAirBalloon from main frame
+  schedules independent requestAnimationFrame(frame)
+```
+
+## Consequences
+
+```txt
+successful startup has two independent RAF chains
+current compatibility chain performs recurring no-target scene traversal
+failed startup can retain a live wait loop indefinitely
+retry can retain predecessor callbacks
+optional legacy installation has no product-mode admission
+callbacks have no session, generation, frame-loop ID or disposer
+GameHost and telemetry cannot observe hidden callback ownership
 ```
 
 ## Domains in use
 
 ```txt
-browser shell and Vite publishing
-mutable CDN and ESM runtime admission
+browser shell and Vite/Pages publishing
+mutable CDN and runtime admission
+module import and compatibility installation
+runtime session, startup, failure and frame ownership
 legacy Meadow Lift and active Air Mail product sources
-product controls, objectives, acceptance and supersession
-keyboard, blur, wheel and variable RAF input/time
+keyboard, blur, wheel and variable RAF time
 balloon simulation, terrain clearance and snapshots
-airstream route, field, force, visual and diagnostics
+airstream route, sampler, field, force, visual and debug
 mail parcel, route, town, volume, progress, reset and disposal
-mission lifecycle, restart, delivery and epoch authority
-camera, balloon presentation, clipping and procedural construction
+mission delivery, restart and epoch authority
+balloon geometry, materials, rigging, burner, rope and animation
+camera follow, basket mode, clipping and zoom
 quality, dynamic resolution, sky, weather, clouds and lighting
-terrain source, near/horizon streaming, LOD classification and replacement
-vegetation, streamed grass, water and landmarks
-grass deterministic placement, LOD, manual culling and aggregate readback
+terrain source, near/horizon streaming, LOD transition and edge policy
+vegetation, deterministic grass, culling, water and landmarks
 HDR rendering, lens response and renderer diagnostics
 Nexus telemetry, HUD, GameHost and headless readback
-runtime lifecycle, checks, build and Pages deployment
-committed observation, terrain transition and grass spatial-culling authority
+checks, pure tests, build and Pages deployment
 ```
 
 ## Kit inventory
@@ -98,96 +133,52 @@ runtime-implied adapters: 12
 inactive legacy kits: 11
 ```
 
-The complete kit names and service groups are recorded in `.agent/kit-registry.json` and the current timestamped tracker.
+The complete names and grouped services are retained in `.agent/kit-registry.json` and the timestamped tracker.
 
 ## Services offered
 
 ```txt
+boot, fatal UI and global host publication
 burner, vent, blur and wheel input
-balloon buoyancy, wind integration, clearance, state projection and disposal
+balloon simulation, terrain clearance, transforms, snapshots and disposal
 airstream validation, sampling, blending, force adaptation, visuals and diagnostics
-parcel construction, reset, route, town, delivery-volume, progress and one-shot events
-procedural balloon geometry, materials, rigging, burner, ropes and animation
-camera follow, basket mode, zoom, clipping and disposal
-quality selection, dynamic resolution, sky, clouds, lighting and atmosphere
-terrain height/color, near chunks, horizon annulus, geometry LOD and disposal
-vegetation clustering and deterministic streamed grass placement
-grass quality/distance LOD, shader wind, chunk rebuild and manual visibility
-water, landmarks, HDR composition, lens response and renderer statistics
-Nexus resources/events, HUD, errors, GameHost and headless readback
+mail parcel construction, reset, route, town, delivery volume, progress and events
+procedural balloon object, envelope, basket, rigging, burner, rope and animation
+camera follow, basket blend, zoom, clipping and disposal
+quality, atmosphere, terrain, grass, water, landmarks and HDR rendering
+Nexus resources/events, telemetry, HUD, GameHost and headless readback
 source checks, pure tests, Vite build and Pages deployment
+legacy compatibility target discovery, replacement and animation
 ```
-
-## Main finding
-
-```txt
-candidate location:
-  absolute world x/y/z
-
-instance transform:
-  absolute world position
-
-chunk mesh transform:
-  0,0,0
-
-manual distance:
-  camera.position.distanceTo(mesh.position)
-  same result for every active chunk
-
-maximum distance:
-  520 * 4.2 = 2184 m
-```
-
-Consequences:
-
-```txt
-camera inside origin radius:
-  all active chunks pass the same manual distance test
-
-camera outside origin radius:
-  all active chunks fail the same test
-  camera-centered rebuilds do not restore visibility
-```
-
-## Backend finding
-
-```txt
-backend label:
-  navigator.gpu ? webgpu-compute : cpu-chunk-culling
-
-actual implementation:
-  CPU scalar comparison only
-  no adapter/device/pipeline/buffers/dispatch
-  dispatchedWorkgroups increments for CPU calls
-```
-
-The public backend label and workgroup count are therefore not execution evidence.
 
 ## Required parent domain
 
 ```txt
-open-above-grass-spatial-culling-authority-domain
-  -> chunk identity and world bounds
-  -> camera-center and quality revisions
-  -> LOD and cull policy classification
-  -> backend capability, selection and execution truth
-  -> typed per-chunk cull decisions
-  -> stale-result rejection
-  -> atomic visible-set commit
-  -> detached observation and frame acknowledgement
-  -> bounded journal and traversal fixture gate
+open-above-import-purity-frame-authority-domain
+  -> module-side-effect-policy-kit
+  -> compatibility-install-command-kit
+  -> compatibility-target-discovery-kit
+  -> compatibility-install-result-kit
+  -> frame-loop-registration-kit
+  -> frame-loop-identity-kit
+  -> runtime-generation-fence-kit
+  -> compatibility-loop-disposal-kit
+  -> scene-traversal-budget-kit
+  -> startup-failure-loop-retirement-kit
+  -> compatibility-observation-kit
+  -> import-purity-fixture-kit
+  -> browser-frame-owner-smoke-kit
 ```
 
 ## Required invariant
 
 ```txt
-for every committed active grass chunk:
-  cull distance uses that chunk's committed world bounds
-  intended LOD and visibility use the same camera/quality revision
-  center-neighborhood visibility is independent of global-origin distance
-  reported backend equals the path that executed
-  GPU work counts reflect actual dispatches only
-  accepted, visible and rendered counts remain distinct and observable
+kit import creates zero recurring work
+optional compatibility behavior requires explicit admission
+no-compatible-target creates zero recurring work
+all RAF callbacks belong to one runtime session and generation
+failure and disposal retire every callback before terminal publication
+active frame-loop count and owner IDs are observable
 ```
 
 ## Ordered safe ledges
@@ -201,10 +192,9 @@ for every committed active grass chunk:
 5. Air Mail route and delivery authority
 5a. mission restart transaction and epoch
 5b. committed observation frame authority
-6. terrain source, LOD transition and horizon continuity authority
+6. terrain source and LOD transition authority
 6a. bounded terrain build and atomic replacement
 7. grass spatial culling and backend truth authority
-7a. origin-crossing visible-set and frame fixture gate
 ```
 
-Documentation only. No runtime source, package, renderer or deployment behavior changed.
+Documentation only. No runtime source, package, rendering or deployment behavior changed.
