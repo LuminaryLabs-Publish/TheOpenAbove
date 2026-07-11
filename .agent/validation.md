@@ -1,25 +1,29 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T05-25-29-04-00`
+**Last aligned:** `2026-07-11T07-18-44-04-00`
 
 ## Scope
 
-Documentation-only reconciliation of runtime commit `a67cc952995727a3ddb29e61ed66a72f338a58fd`, which added the active Air Mail route, airstream domain, mail-delivery domain, town visuals, far-horizon terrain, and pure airstream/mail tests.
+Documentation-only audit of the active Air Mail restart path. The pass inspected the browser host, balloon simulation, airstream domain, mail parcel/progress/domain code and existing tests. It changed no runtime source or deployment configuration.
 
 ## Plan ledger
 
-**Goal:** distinguish source inspection from executable proof and record exactly what the current test surface does and does not establish.
+**Goal:** separate source-backed findings from executable proof and record exactly what the current reset surface establishes.
 
-- [x] Review the full Publish inventory and central ledger timestamps.
+- [x] Review the complete Publish inventory.
+- [x] Compare all eligible repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read the new runtime commit and active integration path.
-- [x] Read airstream route, sampler, field, force, visual and domain sources.
-- [x] Read mail route, parcel, volume, progress, town and domain sources.
-- [x] Read balloon simulation, main loop, telemetry, terrain surface and horizon streamer.
-- [x] Read `tests/airstream-mail.mjs`, `tests/smoke.mjs` and `package.json`.
-- [x] Derive the near+horizon source workload census.
-- [x] Change no runtime source, package script, dependency or deployment configuration.
+- [x] Read repository rules and current `.agent` state.
+- [x] Read `src/main.js` and the active RAF composition.
+- [x] Read balloon simulation input/state/disposal code.
+- [x] Read airstream state/snapshot/disposal code.
+- [x] Read mail parcel, progress and domain reset code.
+- [x] Read current pure airstream/mail tests.
+- [x] Trace the immediate-redelivery failure mode from source.
+- [x] Identify all domains, services and kits.
+- [x] Define the restart transaction and fixture matrix.
+- [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
 - [x] Push documentation directly to `main`.
 
@@ -27,24 +31,57 @@ Documentation-only reconciliation of runtime commit `a67cc952995727a3ddb29e61ed6
 
 ```txt
 full Publish inventory reviewed: yes
-central ledger timestamps compared: yes
-nine eligible repositories tracked with root .agent: yes
+eligible repositories compared with central ledger: yes
 TheCavalryOfRome excluded: yes
 selected only TheOpenAbove: yes
-new Air Mail commit reviewed: yes
+AGENTS.md read: yes
+current root .agent state read: yes
 main composition read: yes
-balloon simulation and force integration read: yes
-airstream domain and all six component kits read: yes
-mail delivery domain and all component kits read: yes
-near and horizon terrain composition read: yes
+balloon simulation read: yes
+airstream domain read: yes
+mail parcel/progress/domain reset read: yes
 pure airstream/mail tests read: yes
-source smoke read: yes
-package scripts read: yes
-runtime source changed by this pass: no
+active domains cataloged: yes
+active and inactive kits cataloged: yes
+kit-family services cataloged: yes
+runtime source changed: no
 branch created: no
 pull request created: no
 push target: main
 ```
+
+## Source-backed findings
+
+The source establishes:
+
+```txt
+KeyR has no consumer
+mail.reset is callable through the mutable GameHost mail object
+mail.reset resets parcel fields and lastEvent only
+balloon simulation has no reset method
+held input, movement, elapsed and distance survive parcel reset
+airstream domain has no reset method
+camera and render state are not reset
+mail.update runs every RAF
+volume membership alone commits delivery
+therefore reset inside Brookhaven can immediately redeliver
+```
+
+## Existing proof
+
+`tests/airstream-mail.mjs` currently proves:
+
+```txt
+identical route samples are deterministic
+three altitudes select three routes
+route flow points toward its destination
+overlap blending produces finite velocity
+wrong-town position does not deliver Brookhaven mail
+Brookhaven volume membership delivers once
+resetMailParcel clears parcel.delivered and parcel.status
+```
+
+The test does not construct or reset the full mission graph.
 
 ## Existing commands
 
@@ -58,70 +95,30 @@ npm run headless:check
 npm run headless:build
 ```
 
-`npm run check` imports `tests/airstream-mail.mjs` from the smoke suite.
-
-## Existing pure proof
-
-The pure test currently proves:
+## Missing fixture commands
 
 ```txt
-identical route position and elapsed inputs produce identical field samples
-a route centerline has high influence
-far-away positions return ambient flow
-three starting altitudes select three distinct routes
-the Brookhaven route velocity points generally toward its destination
-overlapping routes produce finite blended velocity
-airstream force writes the selected route into balloon state
-wrong-town position does not complete the Brookhaven parcel
-Brookhaven volume membership completes delivery once
-parcel reset clears delivered status
+npm run fixture:air-mail-reset-pure
+npm run fixture:air-mail-reset-host
+npm run fixture:air-mail-reset-held-input
+npm run fixture:air-mail-reset-stale-proof
+npm run fixture:air-mail-reset-first-frame
+npm run fixture:air-mail-reset-repeat
 ```
 
-## Existing source-shape proof
-
-The smoke suite currently checks:
+## Required fixture evidence
 
 ```txt
-new airstream and mail files exist
-main composes the airstream and mail domains
-simulation consumes the airstream sampler
-mail progress and town visuals are referenced
-near and horizon terrain are composed
-legacy random terrain textures remain absent
-grass remains deterministic and streamed
-postprocess remains neutral
-headless environment exposes validation/check/build routes
-```
-
-## Source-derived workload census
-
-At the origin with high-quality constants:
-
-```txt
-near terrain chunks: 37
-near terrain vertices: 60,597
-horizon terrain chunks: 136
-horizon segments: 36 chunks at 10, 32 chunks at 6, 68 chunks at 4
-horizon terrain vertices: 7,624
-combined terrain vertices: 68,221
-minimum height evaluations for height and four slope samples: 341,105
-```
-
-This is a source-derived initial-set census, not a measured duration or frame-budget result.
-
-## Missing commands
-
-```txt
-npm run fixture:runtime-admission
-npm run fixture:import-purity
-npm run fixture:runtime-lifecycle
-npm run fixture:clock-route-parity
-npm run fixture:air-mail-route
-npm run fixture:air-mail-wrong-current
-npm run fixture:air-mail-reset
-npm run fixture:air-mail-frame-correlation
-npm run fixture:terrain-near-horizon-seams
-npm run fixture:terrain-work-budget
+KeyR creates one ResetMission command
+reset advances missionEpoch exactly once
+balloon returns to declared initial state
+held burner and vent input are retired
+route and delivery proof from the old epoch are rejected
+reset inside Brookhaven remains undelivered on first post-reset tick
+repeated reset follows a deterministic accepted/no-op policy
+first simulation tick and first rendered frame identify the new epoch
+HUD, telemetry and GameHost match the presented first frame
+all observations are bounded, detached and JSON-safe
 ```
 
 ## Commands not run
@@ -135,31 +132,21 @@ browser smoke
 Pages smoke
 ```
 
-The connector environment provided repository source and commit inspection, not a checked-out browser/GPU runtime.
+The connector environment provided repository source and write access, not a checked-out browser/GPU runtime. No command execution is claimed.
 
-## Missing causal proof
-
-```txt
-correctAirstreamId is not enforced by delivery progress
-no test rejects arrival through the Sunvale or Cloudmere route
-no test rejects ambient arrival at Brookhaven
-no route-entry, dwell, segment or exit journal is tested
-no browser R reset is tested
-no variable-refresh parity is tested
-no telemetry/render/GameHost delivery-frame correlation is tested
-no near/horizon seam or measured build-budget test exists
-```
-
-## Required proof
+## Change-state validation
 
 ```txt
-correct-current traversal is necessary and sufficient for delivery
-wrong-current and ambient arrivals return explicit rejection results
-same command schedule produces the same route and delivery fingerprint at multiple render rates
-reset creates a clean mission epoch
-one delivery transaction correlates simulation, mail, renderer, HUD, telemetry and GameHost
-near and horizon terrain satisfy shared continuity and work-budget policies
-all exported proof rows are bounded, detached and JSON-safe
+runtime JavaScript changed: no
+package scripts changed: no
+dependencies changed: no
+route behavior changed: no
+gameplay behavior changed: no
+render behavior changed: no
+deployment workflow changed: no
+.agent documentation changed: yes
+central ledger changed: yes
+central internal change log added: yes
 ```
 
 ## Push state
