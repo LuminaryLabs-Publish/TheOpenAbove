@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-11T13-10-35-04-00`
+**Last aligned:** `2026-07-11T14-50-59-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -8,29 +8,29 @@
 
 ## Summary
 
-`TheOpenAbove` currently ships a hot-air-balloon Air Mail mission, while `README.md` and `AGENTS.md` still define the superseded Meadow Lift bird-flight product, controls, objectives and manual acceptance smoke.
+`TheOpenAbove` advances simulation, delivery, airstream, camera and visual state in one RAF callback, then publishes Nexus telemetry before the renderer and HUD consume that frame. The published telemetry can therefore carry the current simulation and delivery state while retaining the previous rendered draw-call, triangle and dynamic-resolution observations.
 
-The active runtime consumes burner and vent input, routes a parcel to Brookhaven, and exposes no working `R` restart. The package smoke validates file presence and source patterns, but it does not validate the public controls, repository instructions, mission identity or manual acceptance contract. The current ledge is one versioned acceptance contract projected into runtime, HUD, README, AGENTS, tests, headless tooling and deployment proof.
+`window.GameHost` also exposes mutable subsystem objects directly and offers no committed frame ID, snapshot revision, delivery-event correlation or consumer acknowledgement. The next safe ledge is one immutable observation transaction spanning simulation, delivery, render, HUD, telemetry and external readback.
 
 ## Current ledge
 
 ```txt
-TheOpenAbove Product Acceptance Contract Authority
-+ Runtime / Controls / Docs / Smoke Parity Fixture Gate
+TheOpenAbove Committed Observation Frame Authority
++ Delivery / Render / HUD / Telemetry / GameHost Correlation Fixture Gate
 ```
 
 ## Plan ledger
 
-**Goal:** make one admitted product manifest the source of truth for the playable mode, controls, objectives, documentation and executable acceptance proof.
+**Goal:** publish one immutable frame observation only after every required consumer has processed the same admitted simulation tick and delivery result.
 
 - [x] Compare the full Publish repository inventory with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have ledger and root `.agent` coverage.
+- [x] Confirm all nine eligible repositories have central ledger and root `.agent` coverage.
 - [x] Select only `TheOpenAbove` under the oldest eligible fallback rule.
-- [x] Trace the current Air Mail runtime, input, HUD, package scripts, smoke test, README and AGENTS guidance.
+- [x] Trace the current RAF ordering through simulation, delivery, airstream, camera, visual update, telemetry, render, HUD and GameHost.
 - [x] Identify all active domains, kits and offered services.
-- [x] Record the Meadow Lift versus Air Mail acceptance split.
-- [x] Define versioned acceptance, projection, parity and evidence kits.
+- [x] Record the telemetry-before-render and mutable-readback gaps.
+- [x] Define tick, frame, observation, consumer-acknowledgement and correlation kits.
 - [x] Add timestamped architecture and system-specific audits.
 - [x] Change no runtime or deployment behavior.
 - [x] Push directly to `main`; create no branch or pull request.
@@ -38,55 +38,49 @@ TheOpenAbove Product Acceptance Contract Authority
 ## Read first
 
 ```txt
-.agent/trackers/2026-07-11T13-10-35-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-11T13-10-35-04-00.md
+.agent/trackers/2026-07-11T14-50-59-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-11T14-50-59-04-00.md
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
 .agent/validation.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-11T13-10-35-04-00-product-acceptance-contract-dsk-map.md
-.agent/render-audit/2026-07-11T13-10-35-04-00-runtime-hud-doc-product-identity-gap.md
-.agent/gameplay-audit/2026-07-11T13-10-35-04-00-meadow-lift-guidance-air-mail-runtime-loop.md
-.agent/interaction-audit/2026-07-11T13-10-35-04-00-control-contract-acceptance-parity-map.md
-.agent/acceptance-audit/2026-07-11T13-10-35-04-00-repository-guidance-runtime-proof-contract.md
-.agent/deploy-audit/2026-07-11T13-10-35-04-00-product-acceptance-fixture-gate.md
+.agent/architecture-audit/2026-07-11T14-50-59-04-00-committed-observation-frame-authority-dsk-map.md
+.agent/render-audit/2026-07-11T14-50-59-04-00-telemetry-render-hud-gamehost-ordering-gap.md
+.agent/gameplay-audit/2026-07-11T14-50-59-04-00-delivery-event-to-visible-frame-loop.md
+.agent/interaction-audit/2026-07-11T14-50-59-04-00-gamehost-readback-frame-admission-map.md
+.agent/observation-authority-audit/2026-07-11T14-50-59-04-00-committed-snapshot-consumer-ack-contract.md
+.agent/deploy-audit/2026-07-11T14-50-59-04-00-observation-frame-correlation-fixture-gate.md
 ```
 
-## Current mismatch
+## Current frame order
 
 ```txt
-README / AGENTS
-  -> bird free-flight
-  -> pitch, bank and boost
-  -> three thermals
-  -> five wind gates
-  -> return to perch
-  -> R restart
-
-active runtime
-  -> hot-air-balloon Air Mail
-  -> burner: Space / W / ArrowUp
-  -> vent: S / ArrowDown / Shift
-  -> Brookhaven parcel delivery
-  -> scroll camera zoom
-  -> R has no consumer
-
-npm run check
-  -> source/file pattern assertions
-  -> no docs, controls, objective or browser acceptance parity proof
+simulation.update
+  -> mail.update
+  -> airstream.update
+  -> balloon/camera/presentation update
+  -> visual.update
+  -> telemetry engine.tick and snapshot publication
+  -> visual.render and dynamic-resolution sample
+  -> HUD mutation
+  -> next RAF
 ```
+
+`visual.render()` is where renderer statistics and the next dynamic-resolution sample are committed. Telemetry snapshots earlier, so `snapshot.visual.drawCalls`, `triangles` and `renderScale` are not proven to describe the visible frame that follows.
 
 ## Required authority flow
 
 ```txt
-ProductManifest
-  -> validate selected mode and supersession
-  -> derive immutable ControlContract and ObjectiveContract
-  -> project runtime bindings, HUD, README and AGENTS copy
-  -> generate machine-readable acceptance cases
-  -> execute pure, host, browser and deployment fixtures
-  -> publish one product/acceptance fingerprint and evidence result
+SimulationTickReceipt
+  -> DeliveryResult
+  -> RenderFramePlan
+  -> render world
+  -> commit renderer and resolution observations
+  -> project HUD
+  -> collect required consumer acknowledgements
+  -> publish immutable CommittedObservation
+  -> expose detached GameHost/headless read models
 ```
 
 ## Priority order
@@ -99,7 +93,8 @@ ProductManifest
 4a. Product Source Supersession and Acceptance Contract Parity
 5. Air Mail Route and Delivery Authority
 5a. Air Mail Mission Restart Transaction and Mission Epoch
+5b. Committed Observation Frame Authority
 6. Terrain Surface/Horizon Continuity and Work Budget
 ```
 
-Documentation only. Runtime implementation and executable parity fixtures remain future work.
+Documentation only. Runtime implementation and executable correlation fixtures remain future work.
