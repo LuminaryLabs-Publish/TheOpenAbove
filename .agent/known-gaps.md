@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T11-31-06-04-00`
+**Last aligned:** `2026-07-11T13-10-35-04-00`
 
 ## Primary ordered gaps
 
@@ -11,7 +11,7 @@
 4. ordered teardown and full-runtime restart proof
 5. fixed-step clock, visibility and sequenced input authority
 6. product manifest, selected mode and supersession authority
-7. canonical control contract and public/runtime parity
+7. product acceptance contract and public/runtime parity
 8. versioned Air Mail route and parcel source
 9. correct-current delivery admission and route proof
 10. complete mission reset transaction and mission epoch
@@ -20,96 +20,97 @@
 13. bounded near+horizon terrain generation
 ```
 
+## Product acceptance gaps
+
+```txt
+README describes bird free-flight instead of Air Mail balloon flight
+AGENTS defines Meadow Lift as the current slice
+README controls describe pitch, bank and boost
+runtime controls are burner, vent and wheel zoom
+README and AGENTS claim R restart
+runtime has no R consumer
+README and AGENTS objectives require thermals, gates and perch return
+runtime objective is correct-current parcel delivery to Brookhaven
+package description and runtime disagree with README/AGENTS identity
+no versioned AcceptanceContract
+no control or objective contract fingerprint
+no generated README or AGENTS projection
+no typed acceptance-parity result
+no bounded acceptance evidence journal
+```
+
+## Automated-proof gap
+
+```txt
+npm run check
+  -> verifies required files exist
+  -> verifies selected source patterns
+  -> runs pure airstream/mail checks
+  -> does not open the browser
+  -> does not execute public controls
+  -> does not execute README or AGENTS objectives
+  -> does not inspect HUD/help copy
+  -> does not prove restart availability
+  -> does not compare deployed Pages behavior
+```
+
+A stale public contract can therefore coexist with a green source-pattern smoke.
+
+## Control mismatch
+
+```txt
+README W/S/A/D/Space meaning:
+  W/S pitch
+  A/D bank
+  Space boost
+
+runtime meaning:
+  Space / W / ArrowUp -> burner
+  S / ArrowDown / Shift -> vent
+  wheel -> camera zoom
+  A / D -> no balloon steering binding
+  R -> no mission restart binding
+```
+
+## Objective mismatch
+
+```txt
+README / AGENTS:
+  catch three thermals
+  clear five wind gates
+  return to sky perch
+  unlock Cloud Basin
+
+runtime:
+  find visible meadow current
+  enter the Brookhaven route
+  carry parcel-001
+  enter the Brookhaven delivery volume
+```
+
+## Product identity gaps
+
+```txt
+campaign.config.js still identifies meadow-lift and Cloud Basin
+runtime snapshot combines mail-flight with meadow-lift region identity
+HUD hard-codes Air Mail and Brookhaven copy
+README and AGENTS retain legacy bird product copy
+no selectedMode, modeVersion or supersession proof
+no product, controls, objectives or acceptance fingerprint
+no projection revision shared by runtime and docs
+```
+
 ## Mission restart gaps
 
 ```txt
 KeyR has no consumer
 no typed ResetMission command
 no runtimeSessionId or missionEpoch
-no mission phase transition to restarting
-no resetTransactionId or duplicate handling
-no canonical initial mission snapshot
-private held-key Set has no reset adapter
-balloon simulation has no reset service
-airstream domain has no reset service
-camera rig has no reset service
-presentation and visual reset policy absent
-telemetry has no reset receipt or epoch projection
 mail.reset clears parcel fields only
-pre-reset route and delivery proof are not epoch-bound
+balloon simulation, airstream and camera expose no reset service
 no post-reset delivery lockout
-no first post-reset simulation tick receipt
-no first post-reset render receipt
+no first post-reset simulation/render receipt
 ```
-
-## Immediate state-divergence risk
-
-```txt
-balloon inside Brookhaven
-  -> mail.reset()
-  -> parcel delivered=false
-  -> balloon position unchanged
-  -> next mail.update samples same destination volume
-  -> parcel delivered=true again
-```
-
-The current API can therefore report a reset parcel without a reset mission, then immediately reverse that parcel state.
-
-## Input gaps
-
-```txt
-documented R restart is ignored
-burner and vent are private held-key state
-no input command sequence
-no expected mission epoch on input
-no queued-command retirement
-no held-input acknowledgement after reset
-```
-
-## Simulation gaps
-
-```txt
-startPosition is not retained as a canonical reset snapshot
-initial velocity, wind, burner, vent, message and airstream state are not reusable through reset
-elapsed and distance cannot be reset through a public service
-reset result and failure policy absent
-```
-
-## Mail and airstream gaps
-
-```txt
-parcel reset is in-place and unversioned
-correct-current proof is not enforced
-selected current is mutable last-seen state
-airstream active route and last sample survive parcel reset
-no route-proof revision or stale-proof rejection
-no reset-specific delivery admission phase
-```
-
-## Camera, presentation and render gaps
-
-```txt
-camera zoom, first-person blend, mode, target and position survive parcel reset
-balloon presentation animation continues from predecessor elapsed time
-visual quality and dynamic-resolution state have no declared reset policy
-telemetry snapshots before visual.render
-no shared missionEpoch/simulationTickId/renderFrameId
-no first post-reset canvas acknowledgement
-```
-
-## Product identity gaps
-
-```txt
-README and AGENTS describe Meadow Lift free-flight
-campaign.config.js still selects meadow-lift and Cloud Basin
-active runtime is Air Mail hot-air-balloon routing
-no selectedMode or modeVersion
-no supersession or migration policy
-runtime snapshot combines mail-flight with meadow-lift
-HUD and simulation copy hard-code Brookhaven
-```
-
-Restart must bind to the accepted product and mission manifest rather than hard-coded legacy or Air Mail strings.
 
 ## Lifecycle gaps
 
@@ -122,41 +123,42 @@ GameHost exposes mutable subsystem objects
 old callers cannot be fenced after a successor mission starts
 ```
 
-## Terrain gaps
+## Render and projection gaps
 
 ```txt
-near and horizon streamers rebuild independently
-no shared terrain source revision
-no seam preflight
-no frame work budget or cancellation
-no typed build result or bounded chunk-build journal
+HUD copy is independently hard-coded
+README and AGENTS copy is independently maintained
+no shared product/acceptance revision reaches HUD or canvas proof
+telemetry snapshots before visual.render
+no visible-frame acknowledgement for the accepted contract
+no proof that the deployed canvas corresponds to the documented mode
 ```
 
 ## Required fixture gaps
 
 ```txt
-fixture:air-mail-reset-pure
-fixture:air-mail-reset-host
+fixture:product-manifest
+fixture:acceptance-contract
+fixture:control-parity
+fixture:objective-parity
+fixture:hud-docs-agent-parity
+fixture:acceptance-evidence
+fixture:browser-acceptance
+fixture:pages-acceptance
+fixture:air-mail-route
 fixture:air-mail-reset-keyboard
-fixture:air-mail-reset-held-input
 fixture:air-mail-reset-inside-destination
-fixture:air-mail-reset-stale-proof
-fixture:air-mail-reset-repeat
-fixture:air-mail-reset-rollback
-fixture:air-mail-reset-first-frame
-fixture:air-mail-reset-render-failure
 ```
 
 ## Required guarantees
 
 ```txt
-one accepted reset creates exactly one new mission epoch
-all mission-owned subsystem state commits atomically
-held and queued predecessor input is retired
-predecessor route and delivery proof cannot be reused
-reset inside Brookhaven cannot immediately redeliver
-repeat and stale reset requests are typed and side-effect free
-HUD, telemetry, GameHost and canvas agree on the new epoch
-the first post-reset simulation tick and render frame are observable
-all journals are bounded, detached and JSON-safe
+one accepted product source defines one selected mode
+all control labels correspond to installed runtime bindings
+all objective labels correspond to executable gameplay rules
+restart is advertised only when a ResetMission consumer exists
+README, AGENTS, HUD, telemetry and headless tools share one revision
+source, browser and Pages acceptance results share one fingerprint
+mismatched or stale projections fail with typed results
+all evidence is bounded, detached and JSON-safe
 ```
