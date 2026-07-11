@@ -1,12 +1,12 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T00-49-45-04-00`
+**Last aligned:** `2026-07-11T03-01-38-04-00`
 
 ## Plan ledger
 
 ### Goal
 
-Make browser boot reproducible, make reusable modules import-pure, give one session ownership of every frame/listener/resource, separate fixed simulation ticks from render cadence, then activate Meadow Lift as deterministic mission authority.
+Make browser boot reproducible, make reusable modules import-pure, give one session ownership of every frame/listener/resource, separate fixed simulation ticks from render cadence, then make the new smooth terrain surface versioned, LOD-consistent and bounded before activating Meadow Lift as deterministic mission authority.
 
 ### Checklist
 
@@ -31,6 +31,7 @@ Make browser boot reproducible, make reusable modules import-pure, give one sess
 - [ ] Make `createGame()` return a root session owner.
 - [ ] Compose all listener, geometry, material, renderer and composer disposers.
 - [ ] Add idempotent `stop()`, `dispose()` and `restart()`.
+- [ ] Dispose the shared terrain material and clear cloud-shadow shader references.
 - [ ] Publish detached terminal lifecycle proof.
 - [ ] Add `fixture:runtime-lifecycle`.
 
@@ -48,7 +49,22 @@ Make browser boot reproducible, make reusable modules import-pure, give one sess
 - [ ] Add swept objective-contact support before thin objective volumes.
 - [ ] Add `fixture:clock-parity` for 20/30/60/120 Hz, stalls and visibility.
 
-#### Gate 5: Meadow Lift objective authority
+#### Gate 5: terrain surface authority and continuity
+
+- [ ] Define a versioned terrain-surface descriptor containing palette, field frequencies, blend strengths, height/moisture source revisions and material settings.
+- [ ] Publish a deterministic terrain-surface fingerprint.
+- [ ] Separate authoritative slope sampling from render LOD vertex spacing.
+- [ ] Use one fixed world-space slope radius or an analytic/central-gradient service across every LOD.
+- [ ] Define an edge-normal policy for equal and mixed LOD neighbors.
+- [ ] Preflight height, color and normal edge continuity before replacing an active chunk.
+- [ ] Return typed chunk-build results with chunk key, LOD, vertex count, duration and surface revision.
+- [ ] Queue and budget chunk generation across frames or move pure geometry generation off the render thread.
+- [ ] Publish active chunk/LOD, build journal and seam results through detached GameHost observations.
+- [ ] Add `fixture:terrain-surface` for deterministic palette samples and fingerprints.
+- [ ] Add `fixture:terrain-lod-seams` for shared-edge height/color/normal parity.
+- [ ] Add `fixture:terrain-rebuild-budget` for initial load and camera-boundary transitions.
+
+#### Gate 6: Meadow Lift objective authority
 
 - [ ] Version and validate the mission manifest.
 - [ ] Generate three thermals, five gates and one perch zone deterministically.
@@ -59,32 +75,32 @@ Make browser boot reproducible, make reusable modules import-pure, give one sess
 - [ ] Publish renderer-neutral objective descriptors and bounded mission journals.
 - [ ] Add `fixture:meadow-lift-route`.
 
-## Recommended clock DSKs
+## Recommended terrain DSKs
 
 ```txt
-open-above-runtime-clock-authority-kit
-open-above-monotonic-time-adapter-kit
-open-above-fixed-step-accumulator-kit
-open-above-simulation-tick-kit
-open-above-render-frame-kit
-open-above-input-sample-buffer-kit
-open-above-visibility-suspension-policy-kit
-open-above-clock-overrun-result-kit
-open-above-swept-objective-contact-kit
-open-above-clock-observation-kit
-open-above-clock-parity-fixture-kit
+open-above-terrain-surface-descriptor-kit
+open-above-terrain-palette-kit
+open-above-terrain-color-field-kit
+open-above-lod-invariant-slope-sampler-kit
+open-above-terrain-normal-continuity-kit
+open-above-terrain-chunk-build-budget-kit
+open-above-terrain-surface-revision-kit
+open-above-terrain-surface-observation-kit
+open-above-terrain-seam-fixture-kit
+open-above-terrain-chunk-rebuild-fixture-kit
 ```
 
-## Required clock proof
+## Required terrain proof
 
 ```txt
-same input sequence gives same state at 20/30/60/120 Hz
-render frame counts may differ while simulation ticks and fingerprints match
-stalls are bounded by maxSubsteps and report discarded backlog
-visibility changes produce typed suspend/resume results
-input sequences are consumed once at target ticks
-mission elapsed derives from committed ticks
-telemetry distinguishes session, render frame and simulation tick
+same world coordinate produces the same authoritative height, moisture, slope and color at every render LOD
+shared chunk edges have equal heights and bounded color/normal deltas
+surface descriptor and fingerprint are stable for a fixed source revision
+palette and blend outputs remain finite and within normalized RGB bounds
+initial radius build and one-chunk camera transitions respect declared work budgets
+chunk replacement is atomic after required continuity checks
+GameHost reports detached active-LOD, build and seam rows
+source smoke remains a secondary guard, not the numeric proof source
 ```
 
 ## Validation order
@@ -93,6 +109,9 @@ telemetry distinguishes session, render frame and simulation tick
 fixture:runtime-admission
 fixture:runtime-lifecycle
 fixture:clock-parity
+fixture:terrain-surface
+fixture:terrain-lod-seams
+fixture:terrain-rebuild-budget
 fixture:meadow-lift-route
 npm run check
 npm run headless:check
