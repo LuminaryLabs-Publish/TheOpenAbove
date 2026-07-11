@@ -1,109 +1,115 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T11-31-06-04-00`
+**Last aligned:** `2026-07-11T13-10-35-04-00`
 
 ## Scope
 
-Documentation-only audit of the Air Mail mission restart boundary. This pass inspected repository rules, current audit state, runtime composition, balloon input/state, mail reset, delivery admission, airstream state, camera state, telemetry timing and existing smoke coverage.
+Documentation-only audit of the product acceptance boundary. This pass inspected repository instructions, public copy, package scripts, current runtime composition, balloon input, HUD copy, smoke assertions, headless scripts and deployment assumptions.
 
 ## Plan ledger
 
-**Goal:** separate source-backed restart findings from executable proof and define the exact fixture gate required before claiming mission restart support.
+**Goal:** separate source-backed product/acceptance mismatches from executable proof and define the exact fixture gate required before claiming README, AGENTS, HUD and runtime parity.
 
 - [x] Review the complete Publish inventory.
 - [x] Compare all eligible repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read `AGENTS.md`, root `.agent` state and package scripts.
-- [x] Read `src/main.js`.
-- [x] Read balloon simulation input and state ownership.
-- [x] Read mail domain, parcel reset and delivery progress.
-- [x] Read airstream and camera ownership.
-- [x] Read telemetry publication order.
-- [x] Read current smoke assertions.
-- [x] Identify all domains, kits and services.
-- [x] Define mission epoch, reset transaction and first-frame fixtures.
+- [x] Read `AGENTS.md`, `README.md`, `package.json` and current `.agent` state.
+- [x] Read `src/main.js` and `src/runtime/balloon-simulation-kit.js`.
+- [x] Read `tests/smoke.mjs` and identify its proof boundary.
+- [x] Identify the interaction loop, domains, kits and services.
+- [x] Define product, controls, objectives, docs, HUD and evidence parity fixtures.
 - [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
 
 ## Source inspection completed
 
 ```txt
-KeyR consumed: no
-ResetMission command: no
-mission epoch: no
-simulation reset service: no
-airstream reset service: no
-camera reset service: no
-mail parcel reset service: yes
-complete mission reset service: no
-post-reset delivery lockout: no
-first post-reset simulation receipt: no
-first post-reset render receipt: no
+active runtime product: Air Mail hot-air-balloon mission
+active destination: Brookhaven
+burner bindings: Space / W / ArrowUp
+vent bindings: S / ArrowDown / Shift
+camera zoom: wheel
+R restart consumer: no
+README product: Meadow Lift bird free-flight
+README controls: pitch / bank / boost / R
+AGENTS manual smoke: thermal / gate / perch / R
+source smoke checks documentation parity: no
+source smoke opens browser: no
+source smoke checks deployed Pages: no
 ```
 
 ## Source-backed failure case
 
 ```txt
-place balloon inside destination volume
-invoke mail.reset()
-assert parcel.delivered becomes false
-run one mail.update with unchanged position
-parcel can become delivered again
+read README or AGENTS
+  -> attempt A/D bank or pitch-style flight
+  -> runtime exposes no equivalent steering binding
+  -> attempt three thermals / five gates / perch completion
+  -> active Air Mail runtime exposes different objective graph
+  -> press R
+  -> no runtime consumer
+  -> run npm run check
+  -> source-pattern smoke can still pass
 ```
 
-This follows directly from parcel-only reset plus destination-volume admission on every update. It has not been executed as a fixture in this documentation pass.
+This follows directly from the checked-in public guidance, runtime bindings and smoke assertions. It was not executed as a browser fixture in this documentation pass.
 
 ## Existing proof
 
-`npm run check` currently proves source presence and selected implementation patterns. It does not prove:
+`npm run check` currently proves required files and selected implementation patterns. It does not prove:
 
 ```txt
-KeyR reset behavior
-mission epoch creation
-atomic subsystem reset
-held-input retirement
-stale route/delivery proof rejection
-reset idempotency
-reset rollback
-reset-inside-destination behavior
-first post-reset frame correlation
-browser/GameHost/headless reset parity
+selected product identity
+mode supersession
+runtime/public control parity
+runtime/public objective parity
+HUD/documentation parity
+restart availability parity
+manual smoke executability
+browser acceptance completion
+deployed Pages acceptance
+product/acceptance fingerprint agreement
 ```
 
 ## Required pure fixtures
 
 ```txt
-fixture:air-mail-reset-pure
-fixture:air-mail-reset-held-input
-fixture:air-mail-reset-stale-proof
-fixture:air-mail-reset-repeat
-fixture:air-mail-reset-rollback
+fixture:product-manifest
+fixture:acceptance-contract
+fixture:control-parity
+fixture:objective-parity
+fixture:documentation-projection
+fixture:agent-guidance-projection
+fixture:hud-contract-projection
+fixture:acceptance-fingerprint
+fixture:acceptance-evidence
 ```
 
 ## Required host/browser fixtures
 
 ```txt
-fixture:air-mail-reset-host
-fixture:air-mail-reset-keyboard
-fixture:air-mail-reset-inside-destination
-fixture:air-mail-reset-first-frame
-fixture:air-mail-reset-render-failure
+fixture:runtime-binding-observation
+fixture:browser-acceptance
+fixture:browser-control-contract
+fixture:browser-objective-contract
+fixture:browser-restart-availability
+fixture:headless-acceptance-parity
+fixture:pages-acceptance
 ```
 
 ## Required assertions
 
 ```txt
-one accepted reset creates one new mission epoch
-all mission-owned subsystem state changes atomically
-held burner and vent input are neutral
-predecessor commands and delivery proof are stale
-reset inside Brookhaven cannot immediately redeliver
-duplicate command returns the original result
-stale epoch rejects without mutation
-partial failure yields rollback or terminal failed state
-HUD, telemetry, GameHost, headless and canvas agree on epoch
-first simulation tick and rendered frame are observable
+one admitted product manifest selects Air Mail
+legacy Meadow Lift is archived, migrated or explicitly selectable
+all declared controls have installed runtime consumers
+all installed public controls are declared
+all objectives map to executable domain rules
+restart is documented only when ResetMission is installed
+README, AGENTS, HUD, telemetry and headless observations share one revision
+browser and Pages evidence share the admitted product/acceptance fingerprint
+stale or partial projections fail with typed results
 ```
 
 ## Commands not run
@@ -136,4 +142,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim restart support because `mail.reset()` exists. Completion requires a fixed-tick, mission-epoch transaction with input retirement, atomic subsystem commit, stale-proof rejection and a correlated first post-reset frame.
+Do not claim that repository guidance or public controls match the product because `npm run check` passes. Completion requires one admitted product/acceptance contract, generated projections, runtime binding observations, browser objective proof and deployed Pages evidence with a shared fingerprint.
