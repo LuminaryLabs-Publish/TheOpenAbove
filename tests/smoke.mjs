@@ -46,9 +46,20 @@ assert.doesNotMatch(visual, /createGrassDetail/);
 
 const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
 assert.match(terrain, /createTerrainChunkStreamer/);
-assert.match(terrain, /normalScale: new THREE\.Vector2\(0\.08, 0\.08\)/);
-assert.match(terrain, /color\.repeat\.set\(4, 4\)/);
+assert.match(terrain, /installSoftCloudShadow\(material\)/);
+assert.match(terrain, /export function terrainColor/);
+assert.match(terrain, /smoothWorldField/);
+assert.match(terrain, /largeField/);
+assert.match(terrain, /mediumField/);
+assert.match(terrain, /localField/);
+assert.match(terrain, /roughness: 0\.88/);
 assert.match(terrain, /chunkSize: 520/);
+assert.doesNotMatch(terrain, /makeDetailTextures/);
+assert.doesNotMatch(terrain, /DataTexture/);
+assert.doesNotMatch(terrain, /normalMap/);
+assert.doesNotMatch(terrain, /map:\s*detail\.color/);
+assert.doesNotMatch(terrain, /color\.repeat\.set/);
+assert.doesNotMatch(terrain, /normal\.repeat\.set/);
 
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
 assert.match(grassDomain, /open-above-grass-field-domain/);
@@ -93,4 +104,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above deterministic streamed grass field smoke passed.");
+console.log("The Open Above smooth world-space terrain and streamed grass smoke passed.");
