@@ -1,11 +1,11 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-11T07-18-44-04-00`
+**Last aligned:** `2026-07-11T09-21-50-04-00`
 
 ## Status
 
 ```txt
-status: air-mail-restart-transaction-authority-audited
+status: product-source-supersession-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
@@ -15,124 +15,132 @@ central change log: complete
 
 ## Plan ledger
 
-**Goal:** document the complete Air Mail runtime and define one clean mission restart that cannot retain stale input, movement, route, delivery, camera or frame state.
+**Goal:** identify the active product mode, reconcile legacy Meadow Lift source with Air Mail, and define one source authority that owns runtime construction, controls, objectives, HUD, snapshots, tests and public documentation.
 
 - [x] Compare the full Publish inventory with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
+- [x] Read repository rules, public docs, package metadata, campaign source, runtime composition, simulation, mail source and tests.
 - [x] Trace the active interaction loop.
-- [x] Identify all active domains and runtime-implied adapters.
-- [x] Catalog all active, inactive and proposed kits.
-- [x] Catalog the services offered by each kit family.
-- [x] Trace `mail.reset()` and its consumers.
-- [x] Identify the immediate-redelivery regression.
-- [x] Define mission epoch, reset command, transaction result and first-frame proof.
+- [x] Identify active, missing, implied and inactive domains.
+- [x] Catalog all active source-backed kits and kit-family services.
+- [x] Identify mixed Meadow Lift and Air Mail identity.
+- [x] Identify runtime/public control drift.
+- [x] Define product manifest, supersession, control contract, projection and fixture kits.
 - [x] Refresh required root `.agent` files and add timestamped audits.
-- [ ] Runtime implementation and executable fixtures remain future work.
+- [ ] Runtime implementation and executable product-source fixtures remain future work.
 
 ## Interaction loop
 
 ```txt
 static ESM boot
+  -> load legacy CAMPAIGN/WORLD descriptors
   -> create visual domain and terrain streamers
   -> create balloon object and simulation
-  -> create three airstream routes and visual corridors
-  -> create one parcel, three towns and delivery volumes
-  -> keyboard callbacks mutate a private key Set
-  -> RAF computes capped variable dt
-  -> simulation samples flow and advances balloon state
-  -> mail progress samples destination volume
-  -> delivery may commit
-  -> airstream, balloon, camera and visual state update
-  -> telemetry snapshots
-  -> renderer submits
-  -> HUD projects
-  -> next RAF repeats
+  -> independently create three airstream routes
+  -> independently create Air Mail route, parcel and towns
+  -> keyboard callbacks mutate private held-key state
+  -> variable-dt RAF advances balloon and airstream state
+  -> delivery volume may commit parcel delivery
+  -> camera and visual domains update
+  -> telemetry snapshots before render
+  -> HDR render and hard-coded HUD projection
+  -> mutable GameHost exposes live objects and mixed identity snapshot
 ```
-
-## Active product loop
-
-```txt
-carry parcel-001 for Brookhaven
-  -> use burner and vent to select altitude
-  -> enter one of three visible currents
-  -> ride routed flow toward a town
-  -> enter Brookhaven delivery volume
-  -> parcel becomes delivered
-```
-
-## Restart loop currently exposed
-
-```txt
-GameHost.mail.reset()
-  -> reset parcel status fields
-  -> clear lastEvent
-  -> return mail snapshot
-```
-
-No browser `R` path invokes it. No root mission reset exists.
 
 ## Primary finding
 
-A parcel reset is not a mission reset. The following state survives `mail.reset()`:
+The repository has no authoritative selected-mode source.
 
 ```txt
-balloon position and velocity
-vertical velocity, wind and altitude
-burner and vent state
-simulation elapsed and distance
-private held-key Set
-simulation airstream sample
-airstream-domain active route and last sample
-camera zoom/mode/smoothing state
-terrain and presentation center
-telemetry history and frame phase
-HUD/frame identity
-GameHost live object graph
+public product source
+  README.md and AGENTS.md
+  -> Meadow Lift, thermals, gates, return perch, Cloud Basin
+  -> pitch, bank, boost and R restart controls
+
+legacy runtime source
+  src/data/campaign.config.js
+  -> region meadow-lift
+  -> thermalTarget, gateTarget, returnRadius, timeLimitSeconds
+  -> bird/free-flight parameters
+
+active gameplay source
+  src/gameplay/mail-delivery-domain/mail-route-kit.js
+  -> meadow-mail-run
+  -> parcel-001
+  -> Brookhaven
+  -> meadow-to-brookhaven
 ```
 
-Because the balloon can remain inside Brookhaven and `mail.update()` executes on the next RAF, a reset parcel can be delivered again immediately.
+`src/main.js` combines these sources without a supersession or selection result. It labels snapshots with `region: meadow-lift` while the simulation reports `status: mail-flight`, and it hard-codes Brookhaven HUD strings instead of projecting from the mail route.
+
+## Control drift
+
+```txt
+documented:
+  W/Up pitch up
+  S/Down pitch down
+  A/Left bank left
+  D/Right bank right
+  Space boost
+  R restart
+
+runtime:
+  Space/W/Up burner
+  S/Down/Shift vent
+  wheel camera zoom
+  A/D/Left/Right ignored
+  R ignored
+```
 
 ## Domains in use
 
 ```txt
 browser shell and Vite publishing
-static ESM/CDN source admission
-legacy campaign configuration
-Air Mail route, parcel and town configuration
+mutable ESM/CDN source admission
+legacy Meadow Lift campaign and world data
+active Air Mail route, parcel and town data
 keyboard, blur and wheel input
-variable RAF timing
-balloon buoyancy, wind and terrain clearance
-airstream route validation, nearest-segment sampling and overlap blending
-airstream-to-balloon force adaptation
-airstream state, visuals and diagnostics
-mail parcel state, route data and delivery-volume sampling
-one-shot delivery mutation and town visuals
-camera follow, zoom, clipping and presentation
+variable RAF clock
+balloon buoyancy, airstream flow and terrain clearance
+airstream route validation, sampling, blending and visuals
+mail parcel state, delivery volume and town visuals
+camera follow, basket mode, clipping and zoom
 quality tier and dynamic resolution
-physical sky, sun, atmosphere, weather and clouds
-near and far-horizon terrain streaming
+physical sky, lighting, weather and clouds
+near and horizon terrain streaming
 vegetation, deterministic grass, water and landmarks
 HDR composition, grading and lens response
-telemetry, HUD and GameHost projection
-partial disposal and lifecycle
+telemetry, HUD and mutable GameHost projection
+partial lifecycle and disposal
 source smoke, pure tests, headless routing and Pages deployment
+```
+
+Missing authority domains:
+
+```txt
+product manifest
+selected mode and supersession graph
+runtime source selection and admission result
+control contract and binding observation
+objective source adapter
+product identity fingerprint
+HUD and documentation projection
+committed product-frame identity
 ```
 
 ## Services offered
 
-- Balloon simulation: input polling, flow sampling, buoyancy, position/velocity integration, terrain clearance, mesh projection, snapshots and listener disposal.
-- Airstream route kit: immutable route validation and normalized route descriptors.
-- Airstream sampler: nearest 3D segment, center distance, influence, capture state, tangent and routed velocity.
+- Balloon simulation: browser input polling, flow sampling, buoyancy, velocity/position integration, terrain clearance, balloon projection, snapshot and listener disposal.
+- Airstream route kit: immutable route validation and descriptors.
+- Airstream sampler: nearest segment, influence, capture state, tangent and routed velocity.
 - Airstream field: route evaluation, overlap blending and ambient fallback.
-- Balloon force adapter: writes flow velocity and selected route into simulation state.
-- Airstream domain: state, route visuals, diagnostics, snapshots and disposal.
-- Mail parcel kit: parcel construction and parcel-field reset.
-- Mail route kit: town descriptors, parcel descriptor and declared correct current.
-- Delivery volume: ground-relative center, horizontal distance, altitude delta and inside/outside sample.
-- Delivery progress: selected-route mutation, parcel messages and one-shot delivery event.
+- Balloon force adapter: writes flow and selected route into simulation state.
+- Airstream domain: route visuals, diagnostics, snapshots and disposal.
+- Mail parcel/route: parcel construction/reset, town descriptors, destination and declared correct current.
+- Delivery volume/progress: ground-relative admission sample, selected-route mutation and one-shot delivery event.
 - Mail domain: parcel/town composition, update, snapshot, parcel-only reset and visual disposal.
-- Camera/presentation: follow framing, zoom, mode, clipping and material/rig animation.
+- Camera/presentation: follow framing, zoom, basket mode, clipping, materials and rig animation.
 - Visual domain: environment, terrain, grass, water, atmosphere, postprocess, render statistics and disposal.
 - Telemetry/HUD/GameHost: aggregate runtime projection and mutable debug access.
 - Validation/deployment: source smoke, pure route/mail assertions, headless routes, Vite build and Pages workflow.
@@ -159,7 +167,7 @@ open-above-delivery-progress-kit
 open-above-mail-town-kit
 ```
 
-### Balloon and presentation
+### Balloon object and presentation
 
 ```txt
 open-above-hot-air-balloon-object-kit
@@ -234,36 +242,21 @@ open-above-raf-clock-adapter-kit
 open-above-pages-deploy-kit
 ```
 
-## Inactive or legacy source-backed surfaces
+## Proposed product-source authority kits
 
 ```txt
-open-above-hot-air-balloon-envelope-kit
-open-above-grass-detail-kit
-open-above-bloom-kit
-open-above-god-ray-kit
-open-above-auto-exposure-kit
-open-above-bird-camera-kit
-open-above-bird-posture-kit
-open-above-bird-dive-domain-kit
-open-above-bird-flight-frame-kit
-open-above-bird-flight-input-kit
-open-above-bird-flight-physics-kit
-```
-
-## Proposed restart kits
-
-```txt
-open-above-mission-epoch-kit
-open-above-reset-command-kit
-open-above-reset-admission-kit
-open-above-input-retirement-kit
-open-above-balloon-reset-kit
-open-above-airstream-reset-kit
-open-above-mail-reset-transaction-kit
-open-above-camera-reset-kit
-open-above-reset-result-kit
-open-above-first-post-reset-frame-kit
-open-above-air-mail-restart-fixture-kit
+open-above-product-source-authority-domain
+open-above-product-manifest-kit
+open-above-mode-supersession-kit
+open-above-runtime-source-selection-kit
+open-above-control-contract-kit
+open-above-objective-source-adapter-kit
+open-above-product-identity-fingerprint-kit
+open-above-source-admission-result-kit
+open-above-hud-content-projection-kit
+open-above-documentation-projection-kit
+open-above-headless-source-observation-kit
+open-above-source-parity-fixture-kit
 ```
 
 ## Ordered safe ledges
@@ -273,9 +266,10 @@ open-above-air-mail-restart-fixture-kit
 2. import purity and frame ownership
 3. runtime session lifecycle and ordered disposal
 4. fixed-step clock and sequenced input
-5. Air Mail route/delivery authority
+4a. product source supersession and parity
+5. Air Mail route and delivery authority
 5a. Air Mail restart transaction and mission epoch
 6. terrain near/horizon continuity and work budget
 ```
 
-Documentation only. No runtime source, dependency, script, route behavior, renderer behavior or deployment configuration changed.
+Documentation only. No runtime source, dependency, package script, route behavior, renderer behavior or deployment configuration changed.
