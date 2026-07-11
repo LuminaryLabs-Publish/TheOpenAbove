@@ -1,12 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T05-25-29-04-00`
+**Last aligned:** `2026-07-11T07-18-44-04-00`
 
 ## Plan ledger
 
-### Goal
-
-Preserve the new altitude-routing mail game while making runtime admission, frame ownership, fixed-step input, route traversal, correct-current delivery, reset, observations, and near+horizon terrain work deterministic and verifiable.
+**Goal:** preserve altitude-routing Air Mail while establishing immutable source admission, one runtime owner, fixed-step commands, correct-current delivery, a complete mission restart and bounded terrain work.
 
 ### Checklist
 
@@ -28,10 +26,11 @@ Preserve the new altitude-routing mail game while making runtime admission, fram
 
 #### Gate 3: lifecycle and teardown
 
-- [ ] Make `createGame()` return a root session owner.
+- [ ] Make `createGame()` return a root runtime-session owner.
 - [ ] Compose simulation, camera, mail, airstream, visual, telemetry and GameHost disposal.
-- [ ] Add idempotent `stop()`, `dispose()` and `restart()`.
-- [ ] Retire listeners, RAFs, geometry, materials and globals before a successor session.
+- [ ] Retain and cancel RAF IDs.
+- [ ] Add idempotent `stop()`, `dispose()` and full-runtime `restart()`.
+- [ ] Retire listeners, geometry, materials and globals before a successor session.
 - [ ] Add `fixture:runtime-lifecycle`.
 
 #### Gate 4: fixed-step clock and input admission
@@ -40,72 +39,89 @@ Preserve the new altitude-routing mail game while making runtime admission, fram
 - [ ] Separate simulation tick IDs from render frame IDs.
 - [ ] Use fixed `1/60` simulation ticks with a bounded accumulator.
 - [ ] Declare `maxSubsteps`, overrun and dropped-time behavior.
-- [ ] Convert key transitions into sequenced burner/vent/reset commands.
+- [ ] Convert key transitions into sequenced burner, vent and reset commands.
 - [ ] Commit input state only at tick boundaries.
 - [ ] Keep camera smoothing, visuals and dynamic resolution on render cadence.
 - [ ] Add `fixture:clock-route-parity` for 20/30/60/120 Hz, stalls and visibility changes.
 
-#### Gate 5: Air Mail route authority
+#### Gate 5: Air Mail route and delivery authority
 
 - [ ] Create one versioned Air Mail manifest for route, parcel, towns and airstream IDs.
-- [ ] Declare the previous Meadow Lift campaign as superseded, migrated or separately selectable.
-- [ ] Add stable mission, parcel, route, town, command, tick and transaction IDs.
-- [ ] Add explicit mission phases: `ready`, `in-transit`, `approach`, `delivered`, `failed`, `restarting`.
-- [ ] Record route-entry, route-exit, dwell and segment-progression rows.
+- [ ] Declare Meadow Lift as superseded, migrated or separately selectable.
+- [ ] Add mission, parcel, route, town, command, tick and transaction IDs.
+- [ ] Add phases: `ready`, `in-transit`, `approach`, `delivered`, `restarting`, `failed`.
+- [ ] Record route entry, exit, dwell and segment progression.
 - [ ] Define correct-current proof for `meadow-to-brookhaven`.
 - [ ] Reject destination-volume entry without valid route proof.
-- [ ] Return typed accepted, rejected and no-op delivery results.
-- [ ] Include selected route, proof range and destination-volume sample in the delivery receipt.
-- [ ] Wire `R` to a typed reset command and new mission epoch.
+- [ ] Return accepted, rejected and no-op delivery results.
+- [ ] Include selected route and proof range in the delivery receipt.
 - [ ] Project route/parcel/town data into HUD without Brookhaven literals.
 - [ ] Publish bounded detached mission journals through telemetry and GameHost.
-- [ ] Add `fixture:air-mail-route`.
-- [ ] Add `fixture:air-mail-wrong-current`.
-- [ ] Add `fixture:air-mail-reset`.
-- [ ] Add `fixture:air-mail-frame-correlation`.
+- [ ] Add `fixture:air-mail-route` and `fixture:air-mail-wrong-current`.
+
+#### Gate 5a: Air Mail mission restart transaction
+
+- [ ] Add `missionEpoch` and `resetTransactionId` authority.
+- [ ] Add a typed `ResetMission` command consumed at a fixed tick boundary.
+- [ ] Wire `KeyR` and GameHost/headless reset through the same command adapter.
+- [ ] Reject stale runtime-session and mission-epoch commands.
+- [ ] Enter `restarting` phase before any state mutation.
+- [ ] Retire held burner/vent input and queued pre-reset commands.
+- [ ] Reset balloon position, velocity, wind, vertical velocity, burner, vent, elapsed and distance.
+- [ ] Reset airstream active route, influence, capture state and last sample.
+- [ ] Reset parcel, selected route, route proof and delivery results.
+- [ ] Reset camera mode, zoom and smoothing state to declared initial values.
+- [ ] Prevent delivery admission until reset staging commits.
+- [ ] Commit a typed `ResetMissionResult` with before/after fingerprints.
+- [ ] Commit and correlate the first post-reset simulation tick and rendered frame.
+- [ ] Ensure reset from inside Brookhaven cannot immediately redeliver.
+- [ ] Add `fixture:air-mail-reset-pure`.
+- [ ] Add `fixture:air-mail-reset-host`.
+- [ ] Add `fixture:air-mail-reset-held-input`.
+- [ ] Add `fixture:air-mail-reset-stale-proof`.
+- [ ] Add `fixture:air-mail-reset-first-frame`.
+- [ ] Add `fixture:air-mail-reset-repeat`.
 
 #### Gate 6: terrain surface and horizon authority
 
-- [ ] Extend the terrain descriptor to include near and horizon streamer parameters.
+- [ ] Extend the terrain descriptor with near and horizon streamer parameters.
 - [ ] Publish a shared terrain source revision and fingerprint.
-- [ ] Use LOD-invariant authoritative slope sampling across near and horizon meshes.
+- [ ] Use LOD-invariant authoritative slope sampling.
 - [ ] Define near/near, horizon/horizon and near/horizon edge policies.
 - [ ] Preflight height, color and normal continuity before replacement.
 - [ ] Return typed build results for both streamers.
-- [ ] Queue and budget geometry generation across frames or move pure generation off-thread.
-- [ ] Publish active near/horizon chunk maps, build journals and seam results.
-- [ ] Add `fixture:terrain-surface`.
-- [ ] Add `fixture:terrain-near-horizon-seams`.
-- [ ] Add `fixture:terrain-work-budget`.
+- [ ] Queue and budget geometry generation across frames or off-thread.
+- [ ] Publish active chunk maps, build journals and seam results.
+- [ ] Add terrain continuity and work-budget fixtures.
 
-## Recommended Air Mail DSKs
+## Proposed restart DSKs
 
 ```txt
-open-above-air-mail-manifest-kit
-open-above-air-mail-source-revision-kit
-open-above-air-mail-mission-phase-kit
-open-above-airstream-traversal-ledger-kit
-open-above-airstream-route-proof-kit
-open-above-delivery-admission-kit
-open-above-delivery-result-kit
-open-above-delivery-receipt-kit
+open-above-mission-epoch-kit
+open-above-reset-command-kit
+open-above-reset-admission-kit
+open-above-input-retirement-kit
+open-above-balloon-reset-kit
+open-above-airstream-reset-kit
 open-above-mail-reset-transaction-kit
-open-above-air-mail-observation-kit
-open-above-air-mail-route-fixture-kit
-open-above-air-mail-frame-correlation-fixture-kit
+open-above-camera-reset-kit
+open-above-reset-result-kit
+open-above-first-post-reset-frame-kit
+open-above-air-mail-restart-fixture-kit
 ```
 
-## Required route proof
+## Required restart proof
 
 ```txt
-same manifest and command schedule produce the same mission fingerprint
-the correct route can complete Brookhaven delivery
-wrong routes cannot complete Brookhaven delivery
-ambient arrival cannot complete delivery
-route entry, dwell, segment progress and exit rows are ordered and bounded
-delivery fires once and includes the route-proof range
-R creates a clean mission epoch with no retained route or delivery state
-HUD, telemetry, renderer and GameHost identify the same committed mission frame
+one KeyR press produces at most one accepted reset
+reset advances missionEpoch exactly once
+old input and route proof cannot mutate the successor epoch
+balloon returns to the declared start state
+first post-reset tick remains undelivered
+reset inside Brookhaven does not immediately redeliver
+held burner/vent state does not leak across reset
+HUD, telemetry, renderer and GameHost identify the same first post-reset frame
+same manifest and reset command produce the same successor fingerprint
 ```
 
 ## Validation order
@@ -117,8 +133,12 @@ fixture:runtime-lifecycle
 fixture:clock-route-parity
 fixture:air-mail-route
 fixture:air-mail-wrong-current
-fixture:air-mail-reset
-fixture:air-mail-frame-correlation
+fixture:air-mail-reset-pure
+fixture:air-mail-reset-host
+fixture:air-mail-reset-held-input
+fixture:air-mail-reset-stale-proof
+fixture:air-mail-reset-first-frame
+fixture:air-mail-reset-repeat
 fixture:terrain-surface
 fixture:terrain-near-horizon-seams
 fixture:terrain-work-budget
