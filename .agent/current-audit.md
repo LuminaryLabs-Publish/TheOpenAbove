@@ -1,11 +1,11 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-11T11-31-06-04-00`
+**Last aligned:** `2026-07-11T13-10-35-04-00`
 
 ## Status
 
 ```txt
-status: air-mail-mission-restart-authority-audited
+status: product-acceptance-contract-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
@@ -14,95 +14,100 @@ central ledger sync: pending until repo-local push completes
 
 ## Summary
 
-The active Air Mail mission has no atomic restart boundary. `KeyR` is documented but not consumed; `createBalloonSimulation()` has no reset service; `createAirstreamDomain()` and `createBalloonCameraRig()` have no reset service; and `mail.reset()` mutates only parcel fields.
+The active product is a hot-air-balloon Air Mail mission, but the repository's public and agent-facing acceptance surfaces still describe the superseded Meadow Lift bird-flight slice. `README.md` and `AGENTS.md` define pitch, bank, boost, thermals, wind gates, perch completion and `R` restart. The runtime instead binds burner, vent and wheel zoom, routes a parcel to Brookhaven, and has no `R` consumer.
 
-Because delivery admission evaluates the live balloon position every frame, parcel-only reset inside Brookhaven can immediately redeliver on the next update. Restart must become an epoch-changing transaction across every mission-owned subsystem.
+`npm run check` validates source presence and selected implementation patterns. It does not prove that public controls, objectives, HUD, repository guidance, browser behavior and deployed behavior describe the same admitted product.
 
 ## Plan ledger
 
-**Goal:** define one mission restart authority that resets state coherently, rejects stale proof and publishes the first committed post-reset frame.
+**Goal:** define one versioned acceptance contract derived from the admitted product source and consumed by runtime bindings, HUD, documentation, tests, headless tooling and deployment evidence.
 
 - [x] Compare the complete Publish inventory with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove` under the oldest eligible fallback rule.
-- [x] Read repo rules and current audit history.
-- [x] Trace keyboard, simulation, mail, airstream, camera, telemetry, visual and GameHost paths.
+- [x] Read `AGENTS.md`, `README.md`, `package.json`, `src/main.js`, balloon input and `tests/smoke.mjs`.
+- [x] Trace the runtime interaction loop and public/manual acceptance loop.
 - [x] Identify all domains, kits and services.
-- [x] Trace parcel-only reset and immediate-redelivery behavior.
-- [x] Define mission epoch, reset transaction, result, journal and first-frame kits.
+- [x] Record the control, objective, restart and product-identity mismatches.
+- [x] Define acceptance schema, projections, parity results, evidence and fixtures.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh required root `.agent` files.
-- [ ] Runtime implementation and executable fixtures remain future work.
+- [ ] Runtime implementation and executable parity fixtures remain future work.
 
 ## Interaction loop
 
 ```txt
-boot
-  -> construct visual, balloon, airstream and mail domains
-  -> construct simulation, camera, presentation and telemetry
-  -> private key Set receives burner/vent state
+browser boot
+  -> load Three.js and mutable NexusEngine main
+  -> create visual, balloon, airstream and mail domains
+  -> create balloon simulation, camera, presentation and telemetry
+  -> receive burner/vent input through private keyboard state
   -> variable-dt RAF advances simulation and delivery
-  -> update airstream, balloon, camera and visual domains
-  -> publish telemetry before render
-  -> render and update HUD
-```
+  -> update airstream, balloon, camera, visual and telemetry
+  -> render Air Mail HUD and publish mutable GameHost
 
-Restart route today:
-
-```txt
-KeyR -> no consumer
-GameHost.mail.reset -> parcel-only mutation
-next mail.update -> live destination-volume admission
+repository acceptance loop
+  -> contributor reads README and AGENTS
+  -> follows Meadow Lift bird controls/objectives
+  -> runs npm run check and npm run build
+  -> source-pattern smoke passes without opening the product
+  -> stale public acceptance contract can be reported as valid
 ```
 
 ## Domains in use
 
 ```txt
-browser shell and Vite publish
-mutable CDN/ESM admission
-legacy Meadow Lift product source
-active Air Mail route/parcel/town source
+browser shell and Vite publishing
+mutable CDN/ESM dependency admission
+legacy Meadow Lift campaign and public documentation source
+active Air Mail route, parcel, town and runtime source
+product identity, mode selection and supersession
+control and objective contracts
+repository guidance and public documentation projection
 keyboard, blur and wheel input
 variable RAF clock
 balloon physics and terrain clearance
 airstream route, sample, blend, force, visual and debug
 mail parcel, route, town, delivery volume and progress
 mission session, phase, epoch and restart authority
-camera and clipping presentation
+camera, clipping and balloon presentation
 procedural balloon object and materials
-quality, dynamic resolution, sky, weather and clouds
+quality, resolution, sky, weather and clouds
 near/horizon terrain, vegetation, grass, water and landmarks
 HDR composition, grade and lens response
 telemetry, HUD and mutable GameHost projection
-lifecycle, disposal, testing, headless and Pages deployment
+source smoke, acceptance fixtures and evidence
+headless operations, Vite build and Pages deployment
+runtime lifecycle and disposal
 ```
 
 ## Complete kit inventory
-
-The exact source-backed and runtime-implied inventory is recorded in:
-
-```txt
-.agent/trackers/2026-07-11T11-31-06-04-00/project-breakdown.md
-.agent/kit-registry.json
-```
-
-Inventory groups:
 
 ```txt
 runtime/gameplay source-backed kits: 15
 balloon/presentation source-backed kits: 14
 visual environment source-backed kits: 26
 tooling source-backed kits: 3
-runtime-implied adapters: 13
+runtime-implied adapters: 12
+inactive legacy kits: 11
+```
+
+The exact inventory and per-kit service map are recorded in:
+
+```txt
+.agent/trackers/2026-07-11T13-10-35-04-00/project-breakdown.md
+.agent/kit-registry.json
 ```
 
 ## Services offered
 
 ```txt
-balloon input polling, wind sampling, buoyancy, integration, terrain clearance and snapshots
-airstream route validation, sampling, blending, force application, visuals and diagnostics
-parcel construction, parcel-field reset, route/town source, volume sampling and delivery events
-camera zoom, basket blending, clipping and balloon presentation
+browser key polling, burner/vent control, blur retirement and wheel zoom
+balloon buoyancy, wind integration, terrain clearance, mesh projection, snapshots and listener disposal
+airstream route validation, nearest-segment sampling, field blending, force application, visuals and diagnostics
+parcel construction/reset, route/town source, delivery-volume sampling and delivery events
+camera follow, basket mode, zoom, clipping and disposal
+procedural balloon geometry, rigging, burner, rope, materials and animation
 quality, terrain, atmosphere, grass, water and HDR rendering
 telemetry resources/events, HUD projection and GameHost readback
 source smoke, pure tests, headless project operations, Vite build and Pages deployment
@@ -111,67 +116,61 @@ source smoke, pure tests, headless project operations, Vite build and Pages depl
 ## Primary finding
 
 ```txt
-complete ResetMission command: absent
-KeyR binding: absent
-mission epoch: absent
-canonical initial mission snapshot: absent
-simulation reset: absent
-airstream reset: absent
-camera reset: absent
-telemetry reset receipt: absent
-parcel-only reset: present
-post-reset delivery lockout: absent
-first post-reset frame receipt: absent
+runtime product: Air Mail hot-air-balloon mission
+package description: Air Mail-compatible hot-air-balloon experience
+README product: Meadow Lift bird free-flight
+AGENTS product and manual smoke: Meadow Lift bird free-flight
+runtime controls: burner / vent / wheel zoom
+README controls: pitch / bank / boost / R restart
+runtime R restart: absent
+runtime objectives: enter correct current and deliver to Brookhaven
+README/AGENTS objectives: thermals / wind gates / perch / Cloud Basin
+npm run check docs parity: absent
+npm run check browser interaction proof: absent
+acceptance schema/fingerprint/evidence: absent
 ```
 
-`resetMailParcel()` clears parcel fields but retains the balloon's current position and elapsed time. `updateDeliveryProgress()` delivers whenever the live position is inside the destination volume. The next frame can therefore redeliver a just-reset parcel.
+A contributor can satisfy the current automated check while the documented product, controls, objectives and restart instructions remain impossible in the shipped runtime.
 
 ## Required parent domain
 
 ```txt
-open-above-mission-restart-authority-domain
+open-above-product-acceptance-authority-domain
 ```
 
 Core coordinating kits:
 
 ```txt
-open-above-mission-session-kit
-open-above-mission-epoch-kit
-open-above-reset-command-kit
-open-above-reset-admission-kit
-open-above-input-retirement-kit
-open-above-initial-mission-snapshot-kit
-open-above-reset-transaction-kit
-open-above-reset-result-kit
-open-above-reset-journal-kit
-open-above-post-reset-delivery-lock-kit
-open-above-first-post-reset-frame-kit
-open-above-reset-fixture-kit
-```
-
-Subsystem adapters:
-
-```txt
-open-above-simulation-reset-adapter-kit
-open-above-airstream-reset-adapter-kit
-open-above-mail-reset-adapter-kit
-open-above-camera-reset-adapter-kit
-open-above-presentation-reset-adapter-kit
-open-above-telemetry-reset-adapter-kit
+open-above-acceptance-contract-schema-kit
+open-above-product-mode-admission-kit
+open-above-control-contract-kit
+open-above-objective-contract-kit
+open-above-manual-smoke-contract-kit
+open-above-documentation-projection-kit
+open-above-agent-guidance-projection-kit
+open-above-hud-contract-projection-kit
+open-above-runtime-binding-observation-kit
+open-above-acceptance-parity-result-kit
+open-above-acceptance-fingerprint-kit
+open-above-acceptance-evidence-kit
+open-above-acceptance-journal-kit
+open-above-product-acceptance-fixture-kit
+open-above-browser-acceptance-smoke-kit
+open-above-pages-acceptance-smoke-kit
 ```
 
 ## Required invariant
 
 ```txt
-accepted reset
-  = one new mission epoch
-  = neutral input
-  = canonical simulation state
-  = empty airstream/delivery proof
-  = in-transit parcel
-  = reset camera/presentation policy
-  = telemetry/HUD/GameHost epoch agreement
-  = one first committed post-reset frame
+one accepted product source
+  = one selected mode and mission
+  = one control contract
+  = one objective contract
+  = one HUD projection
+  = one README and AGENTS projection
+  = one executable acceptance matrix
+  = one product/acceptance fingerprint
+  = one bounded evidence result
 ```
 
 ## Ordered safe ledges
@@ -181,7 +180,7 @@ accepted reset
 2. import purity and frame ownership
 3. runtime session lifecycle and ordered disposal
 4. fixed-step clock and sequenced input
-4a. product source supersession and parity
+4a. product source supersession and acceptance contract parity
 5. Air Mail route and delivery authority
 5a. Air Mail mission restart transaction and mission epoch
 6. terrain near/horizon continuity and work budget
