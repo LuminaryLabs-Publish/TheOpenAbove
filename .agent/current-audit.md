@@ -9,7 +9,8 @@ status: terrain-lod-transition-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local documentation head is known
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -33,7 +34,7 @@ A horizon chunk can therefore keep obsolete geometry after moving into another d
 - [x] Define classification, transition, budget, edge, replacement, observation and fixture contracts.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh required root `.agent` files.
-- [ ] Synchronize the central ledger and internal change log after the repo-local head is known.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Runtime implementation and executable terrain fixtures remain future work.
 
 ## Interaction loop
