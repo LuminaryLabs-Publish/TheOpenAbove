@@ -1,11 +1,11 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T21-31-01-04-00`
+**Last aligned:** `2026-07-10T23-20-41-04-00`
 
 ## Status
 
 ```txt
-status: runtime-admission-first-import-purity-frame-ownership-second
+status: runtime-admission-import-purity-lifecycle-first-campaign-objective-authority-fourth
 runtime source changed: no
 branch: main
 root .agent state: refreshed
@@ -13,19 +13,22 @@ central ledger sync: complete
 central change log: complete
 ```
 
-`TheOpenAbove` remains a static Vite/Three.js Balloon Drift route with NexusEngine telemetry, procedural balloon rendering, physical atmosphere, deterministic terrain and grass, adaptive render scale, GameHost readback, static smoke checks and headless command routing.
+`TheOpenAbove` remains a static Vite/Three.js Balloon Drift route with NexusEngine telemetry, procedural balloon rendering, physical atmosphere, deterministic terrain and grass, adaptive render scale, GameHost readback, static smoke checks, and headless command routing.
 
 ## Selection
 
-All nine eligible non-Cavalry repositories were centrally tracked and had root `.agent` state. `TheOpenAbove` was the oldest eligible documented repository when this pass began. `TheCavalryOfRome` remained excluded.
+The complete accessible Publish inventory contained ten repositories. `TheCavalryOfRome` remained excluded. All nine eligible repositories were centrally tracked and had root `.agent` state. `TheOpenAbove` was the oldest eligible direct ledger entry at selection and was the only product repository changed.
 
 ## Files reviewed
 
 ```txt
+AGENTS.md
+README.md
+package.json
 src/main.js
-src/hot-air-balloon-object-kit.js
+src/data/campaign.config.js
 src/runtime/balloon-simulation-kit.js
-src/visual/camera-presentation/balloon-camera-rig-kit.js
+src/runtime/balloon-telemetry-kit.js
 src/visual/visual-domain.js
 tests/smoke.mjs
 .agent root state
@@ -35,15 +38,18 @@ central Publish ledgers
 ## Interaction loop
 
 ```txt
-browser resolves static ESM graph
-  -> hot-air-balloon-object-kit evaluates
-       -> requestAnimationFrame(attachWhenReady)
-  -> createGame builds direct balloon route
-  -> GameHost is published
-  -> attachWhenReady observes host
-       -> legacy wing/tail vehicle not found
-       -> compatibility tick starts anyway
-  -> primary route RAF advances simulation, presentation, camera, visual, telemetry, render and HUD
+static ESM resolution
+  -> create visual domain, balloon, simulation, camera, presentation and telemetry
+  -> publish GameHost live references
+  -> keyboard input controls burner/vent
+  -> wheel input controls camera zoom
+  -> requestAnimationFrame computes clamped variable dt
+  -> simulation updates wind, buoyancy, altitude and distance
+  -> balloon, camera, atmosphere, terrain, grass, water and postprocess update
+  -> Nexus telemetry snapshots aggregate state before render
+  -> renderer submits and adaptive resolution samples frame cost
+  -> HUD projects drift state
+  -> no objective evaluation or mission transition occurs
 ```
 
 ## Domains in use
@@ -67,8 +73,10 @@ import-time compatibility installation
 animation-frame ownership and runtime lifecycle
 partial listener/resource disposal
 static smoke and headless command routing
-planned immutable source admission
+declared Meadow Lift mission source
+planned immutable runtime admission
 planned session generation, teardown and restart authority
+planned route objective, phase, progress, completion and unlock authority
 ```
 
 ## Services offered
@@ -81,6 +89,7 @@ planned session generation, teardown and restart authority
 - Grass: deterministic seed, density, exclusions, placement, LOD, culling, instancing, animation, state and disposal.
 - Rendering: quality classification, dynamic resolution, resize, HDR composition, render submission and statistics.
 - Telemetry/readback: Nexus resources/events, HUD and GameHost live state.
+- Campaign source: region metadata, objective target values, world counts, perch coordinates and planned unlock relationship.
 - Validation: local source assertions and headless check/build command routing.
 
 ## Kit inventory
@@ -135,15 +144,20 @@ open-above-hud-projection-kit
 open-above-error-panel-kit
 open-above-gamehost-legacy-readback-kit
 open-above-nexusengine-cdn-adapter-kit
+open-above-campaign-source-kit
 ```
 
 ## Main findings
 
-1. NexusEngine is still imported from mutable `main`, so immutable runtime admission remains the first gate.
-2. `hot-air-balloon-object-kit.js` is not import-pure. It schedules `attachWhenReady` during module evaluation.
-3. The active direct-balloon route has no legacy wing/tail vehicle, but the compatibility code still starts a perpetual no-op RAF.
-4. The main RAF handle is discarded, while simulation, camera and visual disposers are never composed.
-5. GameHost exposes live objects but no session, generation, frame-owner, listener-owner, resource-owner or terminal lifecycle rows.
+1. NexusEngine is imported from mutable `main`, so immutable runtime admission remains the first gate.
+2. `hot-air-balloon-object-kit.js` schedules a compatibility RAF during module evaluation.
+3. Neither the compatibility RAF nor the primary route RAF is owned by a root session lifecycle.
+4. The README and `AGENTS.md` define a mission loop that is not present in the active runtime.
+5. `CAMPAIGN.regions[0].objectives` defines thermal, gate, return-radius and time-limit targets, but no runtime consumer evaluates them.
+6. `WORLD.gateCount`, `WORLD.thermalCount`, `WORLD.perch`, `WORLD.start`, and `FLIGHT` are not part of the active Balloon Drift authority chain.
+7. The simulation exposes only `drifting` status, aggregate distance and physical state; it has no mission phase, progress, completion, failure, unlock or restart result.
+8. The visual domain creates no thermal, gate or perch objective projection, and telemetry/GameHost publish no campaign proof.
+9. `tests/smoke.mjs` validates source strings and visual composition only; it cannot detect an endless-drift product loop.
 
 ## Ordered safe ledges
 
@@ -151,6 +165,7 @@ open-above-nexusengine-cdn-adapter-kit
 1. TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
 2. TheOpenAbove Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
 3. TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
+4. TheOpenAbove Meadow Lift Objective Authority + Deterministic Route Fixture Gate
 ```
 
 ## Validation

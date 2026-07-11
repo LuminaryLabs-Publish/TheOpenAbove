@@ -1,17 +1,17 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-10T21-31-01-04-00",
-  "status": "runtime-admission-first-import-purity-frame-ownership-second",
-  "latestTracker": ".agent/trackers/2026-07-10T21-31-01-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T21-31-01-04-00.md",
+  "lastAligned": "2026-07-10T23-20-41-04-00",
+  "status": "runtime-admission-import-purity-lifecycle-first-campaign-objective-authority-fourth",
+  "latestTracker": ".agent/trackers/2026-07-10T23-20-41-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T23-20-41-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-10T21-31-01-04-00-import-purity-frame-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-10T21-31-01-04-00-hidden-compatibility-raf-render-lifetime-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-10T21-31-01-04-00-balloon-route-frame-ownership-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-10T21-31-01-04-00-import-side-effect-admission-map.md",
-    "lifecycle": ".agent/lifecycle-audit/2026-07-10T21-31-01-04-00-session-frame-listener-resource-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-10T21-31-01-04-00-import-purity-frame-lifecycle-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-10T23-20-41-04-00-meadow-lift-objective-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-10T23-20-41-04-00-objective-volume-render-consumption-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-10T23-20-41-04-00-declared-mission-endless-drift-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-10T23-20-41-04-00-input-command-objective-result-map.md",
+    "campaignAuthority": ".agent/campaign-authority-audit/2026-07-10T23-20-41-04-00-meadow-lift-phase-progress-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-10T23-20-41-04-00-deterministic-route-fixture-gate.md"
   },
   "selection": {
     "reason": "oldest eligible documented-selection fallback after full Publish inventory and central ledger comparison",
@@ -21,11 +21,13 @@
   },
   "interactionLoop": [
     "static-esm-resolution",
-    "balloon-object-module-import-side-effect",
     "direct-balloon-route-construction",
-    "gamehost-publication",
-    "unsupported-legacy-host-compatibility-loop",
-    "primary-simulation-camera-visual-telemetry-render-hud-loop"
+    "gamehost-live-object-publication",
+    "keyboard-burner-vent-and-wheel-zoom-input",
+    "primary-variable-dt-raf",
+    "simulation-camera-environment-telemetry-render-hud-update",
+    "no-mission-objective-evaluation",
+    "indefinite-drift"
   ],
   "domains": [
     "browser-shell",
@@ -47,8 +49,10 @@
     "animation-frame-ownership",
     "partial-listener-and-resource-disposal",
     "static-smoke-and-headless-routing",
+    "declared-meadow-lift-mission-source",
     "planned-runtime-admission",
-    "planned-session-generation-teardown-and-restart"
+    "planned-session-generation-teardown-and-restart",
+    "planned-route-objective-phase-progress-completion-and-unlock"
   ],
   "services": [
     "route canvas, HUD, error panel and module boot",
@@ -59,6 +63,7 @@
     "sky, lighting, clouds, terrain, vegetation, grass, water and landmarks",
     "quality classification, dynamic resolution, HDR render and statistics",
     "Nexus telemetry, HUD and GameHost readback",
+    "campaign region metadata, target counts, perch coordinates and unlock relationship",
     "local source smoke and headless command routing"
   ],
   "activeSourceBackedKits": [
@@ -104,7 +109,8 @@
     "open-above-hud-projection-kit",
     "open-above-error-panel-kit",
     "open-above-gamehost-legacy-readback-kit",
-    "open-above-nexusengine-cdn-adapter-kit"
+    "open-above-nexusengine-cdn-adapter-kit",
+    "open-above-campaign-source-kit"
   ],
   "nextCutKits": [
     "open-above-runtime-source-manifest-kit",
@@ -122,13 +128,26 @@
     "open-above-ordered-teardown-kit",
     "open-above-terminal-gamehost-lifecycle-kit",
     "open-above-import-purity-fixture-kit",
-    "open-above-runtime-lifecycle-fixture-kit"
+    "open-above-runtime-lifecycle-fixture-kit",
+    "open-above-campaign-manifest-kit",
+    "open-above-route-objective-authority-kit",
+    "open-above-thermal-volume-kit",
+    "open-above-wind-gate-kit",
+    "open-above-perch-return-zone-kit",
+    "open-above-objective-progress-kit",
+    "open-above-mission-phase-kit",
+    "open-above-restart-command-kit",
+    "open-above-mission-result-journal-kit",
+    "open-above-route-render-projection-kit",
+    "open-above-campaign-observation-kit",
+    "open-above-meadow-lift-fixture-kit"
   ],
-  "mainFinding": "The balloon object kit schedules a compatibility RAF as an import side effect. The active direct-balloon route has no supported legacy vehicle, but the compatibility loop still runs forever. Neither that loop nor the primary route loop is owned by a root session lifecycle authority.",
+  "mainFinding": "The product contract declares three thermals, five gates, return-to-perch completion, timeout, restart and Cloud Basin unlock, but the active Balloon Drift runtime only executes physical drift and presentation. No mission objective entities, phase, progress, result, unlock, render projection or deterministic route fixture exists.",
   "orderedSafeLedges": [
     "TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate",
     "TheOpenAbove Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
-    "TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate"
+    "TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate",
+    "TheOpenAbove Meadow Lift Objective Authority + Deterministic Route Fixture Gate"
   ],
   "validation": {
     "runtimeSourceChanged": false,
@@ -141,6 +160,7 @@
     "headlessCheck": "not run",
     "browserSmoke": "not run",
     "runtimeAdmissionFixture": "unavailable",
-    "runtimeLifecycleFixture": "unavailable"
+    "runtimeLifecycleFixture": "unavailable",
+    "meadowLiftRouteFixture": "unavailable"
   }
 }

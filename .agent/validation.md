@@ -1,10 +1,10 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T21-31-01-04-00`
+**Last aligned:** `2026-07-10T23-20-41-04-00`
 
 ## Scope
 
-Documentation-only repository breakdown and audit refresh. Runtime source, package scripts, dependencies, route behavior, rendering behavior and deployment configuration were not changed.
+Documentation-only repository breakdown and audit refresh. Runtime source, package scripts, dependencies, route behavior, rendering behavior, and deployment configuration were not changed.
 
 ## Validation performed
 
@@ -12,14 +12,15 @@ Documentation-only repository breakdown and audit refresh. Runtime source, packa
 full accessible LuminaryLabs-Publish inventory reviewed: yes
 central ledger timestamps compared: yes
 all nine eligible repositories confirmed tracked: yes
+all nine eligible repositories confirmed with root .agent state: yes
 TheCavalryOfRome excluded: yes
 selected only TheOpenAbove: yes
-src/main.js route composition and primary RAF read: yes
-src/hot-air-balloon-object-kit.js import side effects read: yes
-simulation listener/dispose path read: yes
-camera wheel/dispose path read: yes
-visual resize/resource dispose path read: yes
-smoke test coverage read: yes
+AGENTS.md and README product loop read: yes
+campaign/world source read: yes
+main route composition read: yes
+simulation and telemetry paths read: yes
+visual composition and render path read: yes
+smoke and package command coverage read: yes
 runtime source changed: no
 package scripts changed: no
 dependencies changed: no
@@ -45,6 +46,7 @@ npm run headless:build
 ```txt
 npm run fixture:runtime-admission
 npm run fixture:runtime-lifecycle
+npm run fixture:meadow-lift-route
 ```
 
 ## Commands and runtime checks
@@ -62,28 +64,27 @@ browser smoke: not run
 Pages smoke: not run
 runtime-admission fixture: unavailable
 runtime-lifecycle fixture: unavailable
+Meadow Lift route fixture: unavailable
 ```
 
 ## Existing coverage
 
-`tests/smoke.mjs` checks required local files and source-text patterns for visual composition, deterministic grass, terrain, water, postprocessing and headless command names. It does not execute the browser module graph, instrument animation-frame scheduling, count listeners, admit compatibility installation or exercise teardown/restart.
+`tests/smoke.mjs` checks required local files and source-text patterns for visual composition, deterministic grass, terrain, water, postprocessing, and headless command names. It does not execute the browser module graph, run the documented mission loop, generate thermals/gates/perch objectives, evaluate completion or timeout, admit restart, or verify Cloud Basin unlock.
 
-## Missing proof
+## Missing campaign proof
 
 ```txt
-immutable NexusEngine resolution and capability admission
-module import schedules zero RAF callbacks and listeners
-unsupported legacy balloon host owns zero callbacks/resources
-accepted route owns exactly one primary RAF
-sessionId/generation fencing
-stop cancels all owned RAF callbacks
-stop removes keyboard, blur, wheel and resize listeners
-ordered resource disposal
-idempotent stop/dispose
-restart produces one new active generation
-stale callbacks mutate nothing
-terminal GameHost proof is detached and JSON-safe
-browser/headless/fixture proof parity
+campaign/world source validation and fingerprint
+configured objective counts equal generated objective counts
+same seed produces identical objective IDs and transforms
+thermal and gate contacts are accepted once
+return is rejected until prerequisite progress is complete
+valid perch return commits completion once
+time limit commits failure once
+restart clears mission progress and creates a new generation
+Cloud Basin unlock follows exactly one completion result
+render/HUD/GameHost rows correlate with the same mission frame
+same command sequence produces identical final mission fingerprint
 ```
 
 ## Required validation order
@@ -91,17 +92,18 @@ browser/headless/fixture proof parity
 ```txt
 1. node runtime-admission fixture
 2. node runtime-lifecycle/import-purity fixture
-3. npm run check
-4. npm run headless:inspect
-5. npm run headless:check
-6. npm run build
-7. browser smoke
-8. Pages smoke
+3. node Meadow Lift deterministic route fixture
+4. npm run check
+5. npm run headless:inspect
+6. npm run headless:check
+7. npm run build
+8. browser smoke
+9. Pages smoke
 ```
 
 ## Current conclusion
 
-The source inspection proves an import-time compatibility RAF exists and is not owned by the active route. Runtime success, import purity, teardown safety and restart safety are not claimed because the required fixtures do not exist and no browser/runtime commands were executed.
+Source inspection proves that the authored Meadow Lift objectives are not executed by the active Balloon Drift route. Runtime success, lifecycle safety, mission completion, failure, restart, unlock, and end-to-end product-loop correctness are not claimed because the required fixtures do not exist and no browser/runtime commands were executed.
 
 ## Push state
 
