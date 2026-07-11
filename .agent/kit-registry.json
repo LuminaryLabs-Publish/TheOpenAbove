@@ -1,30 +1,40 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-11T00-49-45-04-00",
-  "status": "runtime-admission-import-purity-lifecycle-clock-first-campaign-objective-authority-fifth",
-  "latestTracker": ".agent/trackers/2026-07-11T00-49-45-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T00-49-45-04-00.md",
+  "lastAligned": "2026-07-11T03-01-38-04-00",
+  "status": "runtime-admission-import-purity-lifecycle-clock-terrain-surface-first-campaign-objective-sixth",
+  "latestTracker": ".agent/trackers/2026-07-11T03-01-38-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T03-01-38-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-11T00-49-45-04-00-fixed-step-clock-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-11T00-49-45-04-00-render-frame-simulation-tick-separation-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-11T00-49-45-04-00-raf-cadence-mission-time-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-11T00-49-45-04-00-input-sample-tick-admission-map.md",
-    "timeAuthority": ".agent/time-authority-audit/2026-07-11T00-49-45-04-00-visibility-cadence-clock-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-11T00-49-45-04-00-clock-parity-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-11T03-01-38-04-00-terrain-surface-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-11T03-01-38-04-00-world-gradient-lod-seam-rebuild-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-11T03-01-38-04-00-camera-chunk-transition-frame-cost-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-11T03-01-38-04-00-camera-chunk-transition-admission-map.md",
+    "terrainSystem": ".agent/terrain-system-audit/2026-07-11T03-01-38-04-00-gradient-slope-normal-continuity-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-11T03-01-38-04-00-terrain-surface-numeric-fixture-gate.md"
   },
   "selection": {
-    "reason": "oldest eligible documented-selection fallback after full Publish inventory and central ledger comparison",
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"],
+    "reason": "recent terrain runtime and smoke commits were newer than the central audit, so TheOpenAbove was undocumented relative to current main",
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ],
     "inventoryCount": 10,
-    "eligibleCount": 9
+    "eligibleCount": 9,
+    "reconciledCommits": [
+      "5ce61d3a995ab5dfa0d26bd2bd38f4072de91b7b",
+      "aa447b2ccdb06ea43e9940a45f7e5263169b579b"
+    ]
   },
   "interactionLoop": [
     "static-esm-resolution",
     "direct-balloon-route-construction",
+    "visual-domain-terrain-construction",
     "global-input-listener-installation",
     "primary-variable-dt-raf",
-    "clamped-single-simulation-step",
+    "camera-centered-terrain-chunk-selection",
+    "synchronous-chunk-membership-rebuild",
+    "lod-scaled-slope-and-world-color-generation",
+    "per-chunk-normal-generation",
     "simulation-camera-environment-telemetry-render-hud-update"
   ],
   "domains": [
@@ -39,7 +49,12 @@
     "camera-follow-basket-view-clipping-and-zoom",
     "quality-tier-and-dynamic-resolution",
     "physical-sky-sun-aerial-weather-and-clouds",
-    "terrain-surface-and-chunk-streaming",
+    "terrain-height-and-moisture-source",
+    "world-space-terrain-color-fields",
+    "lod-dependent-finite-difference-slope-sampling",
+    "terrain-chunk-identity-membership-rebuild-and-disposal",
+    "per-chunk-vertex-color-and-normal-generation",
+    "soft-cloud-shadow-shader-adaptation",
     "vegetation-deterministic-grass-water-and-landmarks",
     "hdr-grade-and-lens-response",
     "nexus-telemetry",
@@ -50,6 +65,7 @@
     "static-smoke-and-headless-routing",
     "declared-meadow-lift-mission-source",
     "planned-fixed-step-clock-visibility-and-input-admission",
+    "planned-terrain-surface-revision-continuity-and-build-budget",
     "planned-route-objective-authority"
   ],
   "services": [
@@ -59,7 +75,10 @@
     "wind buoyancy damping ceiling and terrain-clearance simulation",
     "balloon construction animation and legacy installation",
     "camera follow basket blend zoom clipping and disposal",
-    "sky lighting clouds terrain vegetation grass water and landmarks",
+    "sky lighting clouds vegetation grass water and landmarks",
+    "deterministic terrain height moisture palette and world-space color evaluation",
+    "camera-centered chunk selection distance LOD synchronous geometry generation release and disposal",
+    "vertex-color generation per-chunk normals bounds and shared cloud-shadow material",
     "quality dynamic resolution HDR render and statistics",
     "Nexus telemetry HUD and GameHost readback",
     "campaign targets perch and unlock source",
@@ -98,7 +117,9 @@
     "open-above-headless-editor-environment",
     "open-above-static-smoke-test-kit"
   ],
-  "inactiveLegacyKits": ["open-above-grass-detail-kit"],
+  "inactiveLegacyKits": [
+    "open-above-grass-detail-kit"
+  ],
   "runtimeImpliedKits": [
     "open-above-route-shell-kit",
     "open-above-importmap-kit",
@@ -112,35 +133,59 @@
     "open-above-campaign-source-kit",
     "open-above-raf-clock-adapter-kit"
   ],
-  "clockAuthorityKits": [
-    "open-above-runtime-clock-authority-kit",
-    "open-above-monotonic-time-adapter-kit",
-    "open-above-fixed-step-accumulator-kit",
-    "open-above-simulation-tick-kit",
-    "open-above-render-frame-kit",
-    "open-above-input-sample-buffer-kit",
-    "open-above-visibility-suspension-policy-kit",
-    "open-above-clock-overrun-result-kit",
-    "open-above-swept-objective-contact-kit",
-    "open-above-clock-observation-kit",
-    "open-above-clock-parity-fixture-kit"
+  "terrainAuthorityKits": [
+    "open-above-terrain-surface-descriptor-kit",
+    "open-above-terrain-palette-kit",
+    "open-above-terrain-color-field-kit",
+    "open-above-lod-invariant-slope-sampler-kit",
+    "open-above-terrain-normal-continuity-kit",
+    "open-above-terrain-chunk-build-budget-kit",
+    "open-above-terrain-surface-revision-kit",
+    "open-above-terrain-surface-observation-kit",
+    "open-above-terrain-seam-fixture-kit",
+    "open-above-terrain-chunk-rebuild-fixture-kit"
   ],
-  "mainFinding": "Authoritative physics, input polling, telemetry and future mission elapsed currently advance from one clamped variable RAF step. Slow frames and hidden-tab time are silently discarded. Fixed-step clock and input admission authority are required before timed Meadow Lift objectives.",
+  "terrainSurface": {
+    "palette": {
+      "valleyGreen": "#3f7850",
+      "meadowGreen": "#67a653",
+      "sunlitGreen": "#9bc65b",
+      "dryGreen": "#b5bd68",
+      "wetGreen": "#376d58",
+      "softRock": "#8d927d"
+    },
+    "chunkSize": 520,
+    "highQualityLodSegments": [
+      72,
+      40,
+      20
+    ],
+    "initialHighQualityChunkCount": 37,
+    "initialHighQualityVertexCount": 60597,
+    "repeatedColorTexture": false,
+    "normalMap": false,
+    "authoritativeSlopeIsLodInvariant": false,
+    "numericFixtureAvailable": false
+  },
+  "mainFinding": "The smooth world-space terrain gradient is deterministic and removes repeated random textures, but its rock blend consumes a slope sampled at the current render LOD spacing. Per-chunk normals and synchronous rebuilds also lack continuity, budget and detached proof contracts.",
   "orderedSafeLedges": [
     "Immutable Runtime Admission + Boot Capability Fixture Gate",
     "Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
     "Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate",
     "Fixed-Step Simulation Clock + Visibility/Cadence Parity Fixture Gate",
+    "Terrain Surface Authority + LOD Continuity/Chunk-Rebuild Fixture Gate",
     "Meadow Lift Objective Authority + Deterministic Route Fixture Gate"
   ],
   "validation": {
-    "runtimeSourceChanged": false,
+    "runtimeSourceChangedByThisPass": false,
     "packageScriptsChanged": false,
     "dependenciesChanged": false,
     "branchCreated": false,
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
-    "clockParityFixture": "unavailable"
+    "terrainSurfaceFixture": "unavailable",
+    "terrainLodSeamFixture": "unavailable",
+    "terrainRebuildBudgetFixture": "unavailable"
   }
 }
