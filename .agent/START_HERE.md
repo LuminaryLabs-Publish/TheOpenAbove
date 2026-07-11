@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-11T18-01-38-04-00`
+**Last aligned:** `2026-07-11T19-28-28-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -8,123 +8,148 @@
 
 ## Summary
 
-The active grass domain rebuilds deterministic chunks around the moving camera, but the instances use absolute world-space transforms while each `InstancedMesh` remains at the global origin. Manual culling measures camera distance to `mesh.position`, so every chunk receives the same origin-based visibility decision.
-
-The current threshold is `520 * 4.2 = 2184 m`. After the camera crosses that radius, all newly generated camera-centered grass chunks can remain invisible. The culling helper can also report `webgpu-compute` without constructing or dispatching a GPU compute pipeline.
-
-## Current ledge
-
-```txt
-TheOpenAbove Grass Spatial Culling Authority
-+ Chunk Bounds / Backend Truth / Origin-Crossing Frame Fixture Gate
-```
+The active Air Mail runtime imports `hot-air-balloon-object-kit.js`, which starts a compatibility `requestAnimationFrame` chain at module evaluation time. The host later starts its own Air Mail RAF. Successful startup therefore leaves a second unowned scene-traversal loop, while failed startup can leave the import-time wait loop polling forever because `window.GameHost` is never published.
 
 ## Plan ledger
 
-**Goal:** keep streamed grass spatially attached to the current camera neighborhood and make culling backend, work and visible-frame observations truthful.
+**Goal:** make reusable kit imports side-effect free and require every recurring callback to be explicitly registered, generation-fenced and retired by one runtime session.
 
-- [x] Compare all ten accessible Publish repositories with central tracking.
+- [x] Compare all ten accessible `LuminaryLabs-Publish` repositories.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` as the oldest eligible central entry.
-- [x] Trace grass seed, placement, LOD, rebuild, culling, observation and render order.
-- [x] Identify the interaction loop, domains, kits and services.
-- [x] Prove the camera-to-global-origin culling path from checked-in source.
-- [x] Record the WebGPU capability-versus-execution mismatch.
-- [x] Define chunk identity, bounds, backend selection, typed decisions, visible-set commit and frame acknowledgement kits.
+- [x] Confirm all nine eligible repositories have central ledger and root `.agent` coverage.
+- [x] Reconcile central and repo-local timestamps.
+- [x] Select only `TheOpenAbove` as the oldest stable eligible repository.
+- [x] Trace module evaluation, GameHost publication, active RAF and compatibility RAF behavior.
+- [x] Identify the interaction loop, domains, kits and offered services.
+- [x] Define explicit compatibility installation and frame-loop ownership contracts.
 - [x] Add timestamped architecture and system audits.
-- [x] Refresh all required root `.agent` documents.
-- [x] Change no runtime or deployment behavior.
-- [x] Push only to `main`; create no branch or pull request.
-- [ ] Runtime implementation and executable traversal fixtures remain future work.
+- [x] Refresh required root `.agent` files.
+- [x] Push documentation directly to `main` with no branch or pull request.
+- [ ] Implement and execute import-purity, single-frame-owner and failed-startup retirement fixtures.
 
-## Read first
+## Read this first
 
 ```txt
-.agent/trackers/2026-07-11T18-01-38-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-11T18-01-38-04-00.md
+.agent/trackers/2026-07-11T19-28-28-04-00/project-breakdown.md
 .agent/current-audit.md
-.agent/known-gaps.md
 .agent/next-steps.md
+.agent/known-gaps.md
 .agent/validation.md
+.agent/architecture-audit/2026-07-11T19-28-28-04-00-import-purity-frame-authority-dsk-map.md
+.agent/render-audit/2026-07-11T19-28-28-04-00-orphan-compatibility-scene-traversal-gap.md
+.agent/gameplay-audit/2026-07-11T19-28-28-04-00-success-failure-dual-raf-loop.md
+.agent/interaction-audit/2026-07-11T19-28-28-04-00-module-import-gamehost-frame-map.md
+.agent/import-purity-audit/2026-07-11T19-28-28-04-00-explicit-compatibility-installer-contract.md
+.agent/performance-audit/2026-07-11T19-28-28-04-00-per-frame-scene-traversal-work-contract.md
+.agent/deploy-audit/2026-07-11T19-28-28-04-00-import-purity-lifecycle-fixture-gate.md
+.agent/turn-ledger/2026-07-11T19-28-28-04-00.md
 .agent/kit-registry.json
-.agent/architecture-audit/2026-07-11T18-01-38-04-00-grass-spatial-culling-authority-dsk-map.md
-.agent/render-audit/2026-07-11T18-01-38-04-00-camera-centered-grass-origin-culling-gap.md
-.agent/gameplay-audit/2026-07-11T18-01-38-04-00-balloon-traversal-grass-visibility-loop.md
-.agent/interaction-audit/2026-07-11T18-01-38-04-00-camera-center-grass-cull-result-map.md
-.agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md
-.agent/performance-audit/2026-07-11T18-01-38-04-00-grass-culling-work-backend-observation-contract.md
-.agent/deploy-audit/2026-07-11T18-01-38-04-00-grass-traversal-culling-fixture-gate.md
 ```
 
-## Current grass update order
+## Interaction loop
 
 ```txt
-visual.update
-  -> grass.update(elapsed, camera)
-  -> round camera position to 520 m center
-  -> rebuild required deterministic chunks when center changes
-  -> place instances at absolute world coordinates
-  -> keep chunk mesh transform at 0,0,0
-  -> calculate each chunk distance from camera to mesh.position
-  -> apply one origin-based visibility result per chunk
-  -> render
+module loader
+  -> imports hot-air-balloon-object-kit.js
+  -> module schedules attachWhenReady RAF
+
+createGame
+  -> constructs active Air Mail domains
+  -> publishes window.GameHost
+  -> schedules active Air Mail RAF
+
+compatibility path
+  -> traverses scene for legacy wing/tail vehicle
+  -> current Air Mail composition has no active target
+  -> starts recurring compatibility tick anyway
+  -> traverses scene every frame forever
+
+startup failure before GameHost
+  -> showFatal displays error
+  -> attachWhenReady continues polling every frame
 ```
 
-## Concrete failure case
+## Main findings
 
 ```txt
-camera center moves beyond 2184 m from origin
-  -> active chunk set rebuilds around camera
-  -> accepted instance count remains nonzero
-  -> every new mesh remains positioned at origin
-  -> every cull distance remains camera-to-origin
-  -> every active grass mesh becomes invisible
+module-scope RAF: present
+explicit compatibility command: absent
+compatibility install result: absent
+no-target terminal result: absent
+frame-loop IDs: absent
+runtime-generation fence: absent
+compatibility disposer: absent
+failed-startup callback retirement: absent
+active frame-loop observation: absent
+scene-traversal work budget: absent
 ```
 
-## Backend truth case
+## Domains in use
 
 ```txt
-navigator.gpu exists
-  -> backend reports webgpu-compute
-
-actual path
-  -> CPU Boolean comparison
-  -> no GPU pipeline or dispatch
-  -> dispatchedWorkgroups still increments
+browser shell, DOM, Vite and Pages
+mutable CDN/runtime admission
+module import and compatibility installation
+runtime session, startup, failure and frame ownership
+legacy Meadow Lift and active Air Mail product sources
+input and variable RAF time
+balloon simulation and terrain clearance
+airstream routing, force, visuals and diagnostics
+mail route, parcel, towns, delivery and reset
+mission lifecycle, restart and epoch
+balloon construction, rigging, burner and animation
+camera and presentation
+quality, atmosphere, terrain, grass, water and HDR rendering
+Nexus telemetry, HUD, GameHost and headless readback
+checks, build and deployment
 ```
 
-## Required authority flow
+## Kits and services
 
 ```txt
-camera frame + quality revision + runtime epoch
-  -> accept camera-center revision
-  -> enumerate required grass chunks
-  -> derive stable chunk identities and bounds
-  -> classify intended LOD
-  -> select an actually available backend
-  -> execute culling against chunk bounds
-  -> reject stale or incomplete results
-  -> atomically commit visible set
-  -> submit frame and acknowledge visible grass counts
-  -> publish detached observation and bounded journal row
+active source-backed kits: 58
+runtime-implied adapters: 12
+inactive legacy kits: 11
 ```
 
-## Priority order
+Services cover runtime boot, input, balloon simulation, airstream sampling, mail delivery, procedural balloon construction, camera projection, terrain and grass streaming, atmosphere, rendering, telemetry, HUD, diagnostics, tests, build, headless inspection and Pages deployment. The complete names and per-family mapping are in the timestamped tracker and `.agent/kit-registry.json`.
+
+## Required parent domain
 
 ```txt
-1. Immutable Runtime Admission
-2. Import Purity and Frame Ownership
-3. Runtime Session Lifecycle and Ordered Disposal
-4. Fixed-Step Clock and Sequenced Input
-4a. Product Source Supersession and Acceptance Contract Parity
-5. Air Mail Route and Delivery Authority
-5a. Air Mail Mission Restart Transaction and Mission Epoch
-5b. Committed Observation Frame Authority
-6. Terrain Source, LOD Transition and Horizon Continuity Authority
-6a. Bounded Terrain Build and Atomic Replacement
-7. Grass Spatial Culling and Backend Truth Authority
-7a. Origin-Crossing / Visible-Set / Frame Fixture Gate
+open-above-import-purity-frame-authority-domain
+  -> module side-effect policy
+  -> explicit compatibility install command and result
+  -> one-shot target discovery
+  -> frame-loop identity and registration
+  -> runtime-generation fencing
+  -> compatibility disposal
+  -> startup-failure callback retirement
+  -> scene-traversal work observation
+  -> import and browser fixture gates
 ```
 
-Documentation only. Runtime implementation and executable grass traversal fixtures remain future work.
+## Ordered implementation queue
+
+```txt
+1. immutable runtime admission
+2. import purity and frame ownership
+3. runtime session lifecycle and ordered disposal
+4. fixed-step clock and sequenced input
+4a. product source and acceptance parity
+5. Air Mail route and delivery authority
+5a. mission restart transaction and epoch
+5b. committed observation frame authority
+6. terrain source and LOD transition authority
+6a. bounded terrain build and atomic replacement
+7. grass spatial culling and backend truth authority
+```
+
+## Next safe ledge
+
+```txt
+Import-Pure Balloon Object Kit
++ Explicit Compatibility Installer
++ Single Frame Owner
++ Failed-Startup Zero-Callback Fixture Gate
+```
