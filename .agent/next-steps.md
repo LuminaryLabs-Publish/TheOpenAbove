@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T07-18-44-04-00`
+**Last aligned:** `2026-07-11T09-21-50-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve altitude-routing Air Mail while establishing immutable source admission, one runtime owner, fixed-step commands, correct-current delivery, a complete mission restart and bounded terrain work.
+**Goal:** preserve the Air Mail balloon experience while establishing immutable runtime admission, one session owner, fixed-step commands, one authoritative product source, correct-current delivery, clean restart and bounded terrain work.
 
 ### Checklist
 
@@ -13,7 +13,7 @@
 - [ ] Add a versioned runtime source manifest.
 - [ ] Replace NexusEngine `@main` with an immutable coordinate.
 - [ ] Validate NexusEngine, Three.js and postprocess capabilities before construction.
-- [ ] Return typed boot results and source fingerprints.
+- [ ] Return typed boot results and module-graph fingerprints.
 - [ ] Add `fixture:runtime-admission`.
 
 #### Gate 2: import purity and frame ownership
@@ -38,16 +38,35 @@
 - [ ] Add a session-owned monotonic clock adapter.
 - [ ] Separate simulation tick IDs from render frame IDs.
 - [ ] Use fixed `1/60` simulation ticks with a bounded accumulator.
-- [ ] Declare `maxSubsteps`, overrun and dropped-time behavior.
+- [ ] Declare substep, overrun and dropped-time behavior.
 - [ ] Convert key transitions into sequenced burner, vent and reset commands.
-- [ ] Commit input state only at tick boundaries.
+- [ ] Commit held-input state only at tick boundaries.
 - [ ] Keep camera smoothing, visuals and dynamic resolution on render cadence.
-- [ ] Add `fixture:clock-route-parity` for 20/30/60/120 Hz, stalls and visibility changes.
+- [ ] Add `fixture:clock-route-parity`.
+
+#### Gate 4a: product source supersession authority
+
+- [ ] Add `open-above-product-source-authority-domain`.
+- [ ] Create one versioned product manifest.
+- [ ] Select one active mode per runtime session.
+- [ ] Declare Air Mail as superseding, migrating from or coexisting with Meadow Lift.
+- [ ] Archive or adapt legacy Meadow Lift objective/world data explicitly.
+- [ ] Add immutable product, mode, objective, route and control revisions.
+- [ ] Add a runtime source-selection and admission result.
+- [ ] Add one canonical balloon control contract.
+- [ ] Project HUD destination and instructions from route/source data.
+- [ ] Project README and AGENTS control tables from the accepted contract.
+- [ ] Publish source identity through telemetry, GameHost and headless status.
+- [ ] Add `fixture:product-manifest`.
+- [ ] Add `fixture:mode-supersession`.
+- [ ] Add `fixture:control-contract`.
+- [ ] Add `fixture:hud-source-parity`.
+- [ ] Add `fixture:documentation-parity`.
+- [ ] Add `fixture:product-frame-identity`.
 
 #### Gate 5: Air Mail route and delivery authority
 
-- [ ] Create one versioned Air Mail manifest for route, parcel, towns and airstream IDs.
-- [ ] Declare Meadow Lift as superseded, migrated or separately selectable.
+- [ ] Move route, parcel, towns and airstream IDs under the accepted product manifest.
 - [ ] Add mission, parcel, route, town, command, tick and transaction IDs.
 - [ ] Add phases: `ready`, `in-transit`, `approach`, `delivered`, `restarting`, `failed`.
 - [ ] Record route entry, exit, dwell and segment progression.
@@ -55,32 +74,21 @@
 - [ ] Reject destination-volume entry without valid route proof.
 - [ ] Return accepted, rejected and no-op delivery results.
 - [ ] Include selected route and proof range in the delivery receipt.
-- [ ] Project route/parcel/town data into HUD without Brookhaven literals.
-- [ ] Publish bounded detached mission journals through telemetry and GameHost.
+- [ ] Publish bounded detached mission journals.
 - [ ] Add `fixture:air-mail-route` and `fixture:air-mail-wrong-current`.
 
 #### Gate 5a: Air Mail mission restart transaction
 
 - [ ] Add `missionEpoch` and `resetTransactionId` authority.
 - [ ] Add a typed `ResetMission` command consumed at a fixed tick boundary.
-- [ ] Wire `KeyR` and GameHost/headless reset through the same command adapter.
-- [ ] Reject stale runtime-session and mission-epoch commands.
-- [ ] Enter `restarting` phase before any state mutation.
+- [ ] Wire `KeyR` and GameHost/headless reset through the same adapter.
 - [ ] Retire held burner/vent input and queued pre-reset commands.
-- [ ] Reset balloon position, velocity, wind, vertical velocity, burner, vent, elapsed and distance.
-- [ ] Reset airstream active route, influence, capture state and last sample.
-- [ ] Reset parcel, selected route, route proof and delivery results.
-- [ ] Reset camera mode, zoom and smoothing state to declared initial values.
+- [ ] Reset balloon, airstream, parcel, route proof, camera and presentation state.
 - [ ] Prevent delivery admission until reset staging commits.
-- [ ] Commit a typed `ResetMissionResult` with before/after fingerprints.
-- [ ] Commit and correlate the first post-reset simulation tick and rendered frame.
-- [ ] Ensure reset from inside Brookhaven cannot immediately redeliver.
-- [ ] Add `fixture:air-mail-reset-pure`.
-- [ ] Add `fixture:air-mail-reset-host`.
-- [ ] Add `fixture:air-mail-reset-held-input`.
-- [ ] Add `fixture:air-mail-reset-stale-proof`.
-- [ ] Add `fixture:air-mail-reset-first-frame`.
-- [ ] Add `fixture:air-mail-reset-repeat`.
+- [ ] Commit a typed reset result with before/after fingerprints.
+- [ ] Correlate the first post-reset simulation tick and rendered frame.
+- [ ] Ensure reset inside Brookhaven cannot immediately redeliver.
+- [ ] Add pure, host, held-input, stale-proof, first-frame and repeat-reset fixtures.
 
 #### Gate 6: terrain surface and horizon authority
 
@@ -94,34 +102,34 @@
 - [ ] Publish active chunk maps, build journals and seam results.
 - [ ] Add terrain continuity and work-budget fixtures.
 
-## Proposed restart DSKs
+## Proposed product-source DSKs
 
 ```txt
-open-above-mission-epoch-kit
-open-above-reset-command-kit
-open-above-reset-admission-kit
-open-above-input-retirement-kit
-open-above-balloon-reset-kit
-open-above-airstream-reset-kit
-open-above-mail-reset-transaction-kit
-open-above-camera-reset-kit
-open-above-reset-result-kit
-open-above-first-post-reset-frame-kit
-open-above-air-mail-restart-fixture-kit
+open-above-product-source-authority-domain
+open-above-product-manifest-kit
+open-above-mode-supersession-kit
+open-above-runtime-source-selection-kit
+open-above-control-contract-kit
+open-above-objective-source-adapter-kit
+open-above-product-identity-fingerprint-kit
+open-above-source-admission-result-kit
+open-above-hud-content-projection-kit
+open-above-documentation-projection-kit
+open-above-headless-source-observation-kit
+open-above-source-parity-fixture-kit
 ```
 
-## Required restart proof
+## Required source proof
 
 ```txt
-one KeyR press produces at most one accepted reset
-reset advances missionEpoch exactly once
-old input and route proof cannot mutate the successor epoch
-balloon returns to the declared start state
-first post-reset tick remains undelivered
-reset inside Brookhaven does not immediately redeliver
-held burner/vent state does not leak across reset
-HUD, telemetry, renderer and GameHost identify the same first post-reset frame
-same manifest and reset command produce the same successor fingerprint
+exactly one mode is admitted
+Air Mail relation to Meadow Lift is explicit
+runtime region/mode/mission IDs belong to one manifest
+HUD destination equals source destination
+public controls equal accepted runtime bindings
+GameHost, telemetry, headless and rendered frame share one source fingerprint
+same manifest creates the same initial state fingerprint
+conflicting or incomplete sources reject before runtime construction
 ```
 
 ## Validation order
@@ -131,6 +139,12 @@ fixture:runtime-admission
 fixture:import-purity
 fixture:runtime-lifecycle
 fixture:clock-route-parity
+fixture:product-manifest
+fixture:mode-supersession
+fixture:control-contract
+fixture:hud-source-parity
+fixture:documentation-parity
+fixture:product-frame-identity
 fixture:air-mail-route
 fixture:air-mail-wrong-current
 fixture:air-mail-reset-pure
