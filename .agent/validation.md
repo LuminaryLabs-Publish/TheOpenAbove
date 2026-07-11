@@ -1,171 +1,138 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T18-01-38-04-00`
+**Last aligned:** `2026-07-11T19-28-28-04-00`
 
 ## Scope
 
-Documentation-only audit of grass chunk spatial identity, camera-centered membership, manual culling distance, backend execution truth, visible-set commit and render observation. This pass inspected checked-in source and did not execute the browser, WebGL renderer, WebGPU compute, Node tests, build, headless editor or deployed Pages site.
+Documentation-only audit of module-evaluation side effects, compatibility target discovery, active and compatibility RAF ownership, successful-startup hidden work, failed-startup callback retention, scene-traversal cost and disposal proof.
 
 ## Plan ledger
 
-**Goal:** distinguish generated grass membership from the grass actually visible and rendered, then define the fixture gate required before camera-centered or WebGPU grass culling can be claimed.
+**Goal:** separate source-backed control-flow findings from executable proof and define the minimum fixture gate for import purity and one authoritative frame owner.
 
-- [x] Review the complete Publish repository inventory.
-- [x] Compare all eligible repositories with the central ledger.
+- [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read `src/visual/grass-field/grass-world-seed-kit.js` through the current registry and prior audits.
-- [x] Read `src/visual/grass-field/grass-chunk-placement-kit.js`.
-- [x] Read `src/visual/grass-field/grass-lod-kit.js`.
-- [x] Read `src/visual/grass-field/grass-compute-culling-kit.js`.
-- [x] Read `src/visual/grass-field/grass-field-domain.js`.
-- [x] Read `src/visual/visual-domain.js`.
-- [x] Read `tests/smoke.mjs`.
-- [x] Identify the interaction loop, domains, kits and services.
-- [x] Define chunk identity, bounds, cull policy, backend truth, visible-set and frame fixtures.
-- [x] Change no runtime source, dependency, package script or workflow.
+- [x] Read current root `.agent` state and retained lifecycle audits.
+- [x] Read `src/main.js`.
+- [x] Read `src/hot-air-balloon-object-kit.js`.
+- [x] Confirm module-scope RAF scheduling.
+- [x] Confirm current host owns a separate recursive RAF.
+- [x] Confirm no-target compatibility tick still recurs.
+- [x] Confirm fatal startup does not retire the wait loop.
+- [x] Identify all domains, kits and service families.
+- [x] Define pure, browser, lifecycle and Pages fixtures.
+- [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
 ## Source-backed behavior
 
 ```txt
-chunk membership
-  -> camera position rounded to 520 m chunk coordinates
-  -> required offsets classified by quality and distance
+module evaluation
+  -> requestAnimationFrame(attachWhenReady)
 
-placement
-  -> candidate x/z derived from chunk coordinate and chunk size
-  -> candidate transforms are absolute world-space values
+attachWhenReady without GameHost
+  -> requestAnimationFrame(attachWhenReady)
 
-mesh construction
-  -> candidate transforms encoded in instance matrices
-  -> InstancedMesh object remains at default origin
+attachWhenReady with GameHost
+  -> installHotAirBalloonVisual(host)
+  -> requestAnimationFrame(tick)
 
-manual culling
-  -> distance = camera.position.distanceTo(mesh.position)
-  -> maxDistance = 520 * 4.2 = 2184 m
-  -> every active mesh uses the same origin-based distance
+compatibility tick
+  -> findVehicle(host.scene)
+  -> scene.traverse(...)
+  -> animateHotAirBalloon(balloonOrUndefined)
+  -> requestAnimationFrame(tick)
+
+active host frame
+  -> animateHotAirBalloon(activeBalloon, now, burner)
+  -> render and HUD
+  -> requestAnimationFrame(frame)
 ```
 
-## Source-backed result
+## Source-backed conclusions
 
 ```txt
-camera within 2184 m of origin
-  -> all active chunks receive the same passing range result
-
-camera beyond 2184 m of origin
-  -> all active chunks receive the same failing range result
-  -> newly generated center chunks remain invisible
+successful current startup creates two recursive RAF chains
+current compatibility chain can traverse the scene with no target every frame
+failed startup before GameHost publication leaves a recursive wait loop
+neither compatibility chain retains a handle or exposes disposal
+callbacks carry no runtime generation or owner identity
 ```
 
-This result follows directly from checked-in control flow. It was not executed in a browser during this pass.
+These conclusions follow from checked-in control flow. They were not measured in a browser during this pass.
 
-## Backend source result
+## Existing proof surface
+
+`npm run check` executes `tests/smoke.mjs`. The current checks do not instrument:
 
 ```txt
-navigator.gpu exists
-  -> backend = webgpu-compute
-
-cullChunk execution
-  -> CPU distance comparison
-  -> dispatchedWorkgroups increments
-
-missing
-  -> adapter
-  -> device
-  -> pipeline
-  -> buffers
-  -> encoder
-  -> dispatchWorkgroups
+requestAnimationFrame registration count
+module-import side effects
+callback ownership
+callback cancellation
+scene traversal count
+failed-startup live work
+retry predecessor callbacks
+compatibility installation and disposal
+Pages frame-owner count
 ```
 
-The current backend label and workgroup counter are not valid GPU execution proof.
-
-## Existing proof
-
-`npm run check` runs `tests/smoke.mjs`. Current grass assertions verify source files, names, imports, constants, WGSL text and backend labels. No current fixture proves:
+## Required pure fixture
 
 ```txt
-chunk world center or bounds
-per-chunk cull distance
-camera-centered visibility
-origin-radius crossing
-long-distance grass retention
-return-path visible-set parity
-selected-versus-executed backend truth
-actual GPU dispatch
-accepted-versus-visible counts
-visible-set atomic commit
-first visible grass frame
-Pages traversal parity
+fixture:balloon-kit-import-purity
+  import module with instrumented globals
+  assert RAF calls = 0
+  assert timers = 0
+  assert listeners = 0
+  assert scene mutations = 0
+  assert GameHost reads/polling = 0
 ```
 
-## Required pure fixtures
+## Required browser fixtures
 
 ```txt
-fixture:grass-chunk-identity
-fixture:grass-chunk-center
-fixture:grass-chunk-world-bounds
-fixture:grass-bounds-distance
-fixture:grass-lod-classification
-fixture:grass-cull-policy
-fixture:grass-backend-selection
-fixture:grass-backend-execution-truth
-fixture:grass-visible-set-commit
-fixture:grass-state-fingerprint
+fixture:single-active-frame-owner
+fixture:no-target-no-compatibility-loop
+fixture:failed-startup-zero-live-callbacks
+fixture:retry-no-predecessor-callbacks
+fixture:compatibility-single-install
+fixture:compatibility-stale-generation
+fixture:compatibility-install-and-dispose
+fixture:pages-single-frame-owner
 ```
 
-## Required host/browser fixtures
+## Required observations
 
 ```txt
-fixture:grass-origin-neighborhood
-fixture:grass-first-center-transition
-fixture:grass-origin-radius-crossing
-fixture:grass-camera-centered-retention
-fixture:grass-return-path-parity
-fixture:grass-quality-lod-transition
-fixture:grass-cpu-backend-observation
-fixture:grass-webgpu-backend-observation
-fixture:grass-first-visible-frame
-fixture:grass-pages-traversal-parity
+runtimeSessionId
+runtimeGeneration
+frameLoopId
+frameLoopOwnerId
+frameLoopPurpose
+activeFrameLoopCount
+scheduledCallbackCount
+cancelledCallbackCount
+compatibilityInstallResult
+compatibilityTargetScanCount
+compatibilityNodesVisited
+firstCommittedFrameId
+terminalFailureOrDisposeResult
 ```
-
-## Required CPU proof
-
-```txt
-selected backend = cpu-chunk-culling
-executed backend = cpu-chunk-culling
-GPU dispatch count = 0
-GPU workgroup count = 0
-per-chunk decisions use committed world bounds
-```
-
-## Required WebGPU proof
-
-```txt
-adapter and device acquired
-pipeline and buffers constructed
-dispatch submitted
-workgroup count observed from actual dispatch
-results read and committed
-failure and fallback results typed
-```
-
-WGSL source and `navigator.gpu` presence are insufficient.
 
 ## Commands not run
 
 ```txt
 npm install
 npm run check
+npm run headless:check
 npm run build
-headless commands
 browser smoke
-WebGPU smoke
 Pages smoke
 ```
 
-The connector environment provided source and write access, not a checked-out browser/GPU runtime. No command execution is claimed.
+The connector environment provided repository source and write access, not a checked-out browser runtime. No command execution is claimed.
 
 ## Change-state validation
 
@@ -184,4 +151,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim camera-centered grass visibility until the origin-crossing browser fixture proves the current camera neighborhood remains visible and every committed decision references its own chunk bounds. Do not claim WebGPU compute culling until backend observations prove an actual pipeline and dispatch produced the committed visible set.
+Do not claim import purity until importing `hot-air-balloon-object-kit.js` produces zero RAF registrations and ambient GameHost polling. Do not claim one authoritative runtime frame owner until the browser and deployed Pages fixtures report exactly one required Air Mail loop and zero no-target compatibility callbacks. Do not claim failed-startup cleanup until a failure-injection fixture reports zero live callbacks after terminal failure publication.
