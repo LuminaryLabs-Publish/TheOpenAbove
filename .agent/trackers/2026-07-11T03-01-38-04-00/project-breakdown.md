@@ -8,7 +8,7 @@
 
 ## Summary
 
-This documentation-only pass reconciles the smooth world-space terrain change and its source-text smoke coverage. The new terrain art direction is materially cleaner and deterministic, but the runtime has no versioned surface descriptor, LOD-invariant slope contract, mixed-LOD normal policy, bounded chunk-build authority or numeric fixture.
+This documentation-only pass reconciles the smooth world-space terrain change and its source-text smoke coverage. The new terrain art direction is deterministic and removes repeated random textures, but the runtime has no versioned surface descriptor, LOD-invariant slope contract, mixed-LOD normal policy, bounded chunk-build authority or numeric fixture.
 
 ## Plan ledger
 
@@ -34,7 +34,7 @@ Document the complete terrain interaction, domain, kit and service graph, then d
 - [x] Refresh required root `.agent` files.
 - [x] Add timestamped architecture, render, gameplay, interaction, terrain-system and deploy audits.
 - [x] Push repo-local documentation directly to `main`.
-- [ ] Synchronize the central ledger and internal change log.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Runtime implementation and fixtures remain future work.
 
 ## Selection result
@@ -54,7 +54,7 @@ TheUnmappedHouse
 ZombieOrchard
 ```
 
-`TheCavalryOfRome` was excluded. `TheOpenAbove` was prioritized because these runtime commits were newer than the previous central documentation state:
+`TheCavalryOfRome` was excluded. `TheOpenAbove` was prioritized because these commits were newer than the previous central documentation state:
 
 ```txt
 5ce61d3a995ab5dfa0d26bd2bd38f4072de91b7b
@@ -65,16 +65,13 @@ aa447b2ccdb06ea43e9940a45f7e5263169b579b
 
 ```txt
 load route and resolve ESM
-  -> construct visual domain
-  -> construct terrain surface
-  -> construct terrain chunk streamer
-  -> construct vegetation, grass, water, sky, weather and postprocess
+  -> construct visual domain and terrain streamer
   -> construct balloon simulation, object, camera, presentation and telemetry
   -> sample keyboard and wheel input
   -> RAF advances flight and camera
   -> terrain update rounds camera position to one chunk center
   -> center change computes required chunk and LOD set
-  -> stale or wrong-LOD meshes are removed and their geometry disposed
+  -> stale or wrong-LOD geometry is removed
   -> missing chunks are built synchronously
   -> each vertex samples height, LOD-scaled slope and world-space color
   -> geometry receives vertex colors, computed normals and bounds
@@ -87,29 +84,24 @@ load route and resolve ESM
 
 ```txt
 application shell and static publishing
-ESM and CDN source admission
+ESM/CDN source admission
 world and campaign source
 browser input
 RAF and visibility cadence
-balloon flight simulation
-procedural balloon presentation
+balloon simulation and presentation
 camera and clipping
 quality and dynamic resolution
-physical sky, lighting, weather and clouds
+sky, lighting, weather and clouds
 terrain height and moisture
-terrain palette and world-space color fields
-finite-difference slope sampling
-chunk identity and camera-centered membership
-terrain LOD selection
-synchronous geometry generation
-vertex-color buffers
-per-chunk normal and bounds generation
-shared terrain material and cloud-shadow shader
+world-space terrain palette and color fields
+LOD-dependent slope sampling
+chunk identity, membership, LOD and synchronous build
+vertex colors, normals, bounds and cloud shadows
 vegetation, grass, water and landmarks
 HDR composition and lens response
 telemetry, HUD and GameHost projection
-headless routing, smoke tests and Pages deployment
 runtime lifecycle and disposal
+headless routing, smoke tests and Pages deployment
 planned fixed-step time authority
 planned terrain surface authority
 planned Meadow Lift objective authority
@@ -117,128 +109,54 @@ planned Meadow Lift objective authority
 
 ## Kits and services
 
-### Terrain kits
+The complete inventory remains in `.agent/current-audit.md` and `.agent/kit-registry.json`. Terrain-specific services are:
 
 ```txt
 open-above-terrain-surface-kit
-  terrain height
-  moisture field
-  world-space terrain color
-  shared standard material
-  cloud-shadow installation
+  height
+  moisture
+  palette and world-space color
+  shared material
   terrain-streamer composition
 
 open-above-terrain-chunk-streaming-kit
-  chunk keying
-  distance-based LOD
-  camera-centered membership
-  synchronous geometry construction
-  vertex heights and colors
+  chunk key and membership
+  camera-distance LOD
+  synchronous geometry build
+  height and color buffers
   computed normals and bounds
-  chunk release and disposal
-  cloud-shadow shader patch and weather update
+  chunk release/disposal
+  cloud-shadow shader adaptation
 ```
 
-### Other source-backed kits
+The pass proposes:
 
 ```txt
-open-above-balloon-simulation-kit
-open-above-balloon-telemetry-kit
-open-above-hot-air-balloon-object-kit
-open-above-balloon-camera-rig-kit
-open-above-clipping-fade-kit
-open-above-balloon-presentation-domain
-open-above-visual-domain
-open-above-quality-tier-kit
-open-above-dynamic-resolution-kit
-open-above-physical-sky-kit
-open-above-sun-light-kit
-open-above-aerial-perspective-kit
-open-above-cloud-weather-map-kit
-open-above-volumetric-cloud-kit
-open-above-vegetation-cluster-kit
-open-above-grass-world-seed-kit
-open-above-grass-biome-density-kit
-open-above-grass-exclusion-mask-kit
-open-above-grass-chunk-placement-kit
-open-above-grass-lod-kit
-open-above-grass-compute-culling-kit
-open-above-grass-field-domain
-open-above-water-surface-kit
-open-above-distant-landmark-kit
-open-above-hdr-composer-kit
-open-above-neutral-color-grade-kit
-open-above-lens-response-kit
-open-above-headless-editor-environment
-open-above-static-smoke-test-kit
+open-above-terrain-surface-descriptor-kit
+open-above-terrain-palette-kit
+open-above-terrain-color-field-kit
+open-above-lod-invariant-slope-sampler-kit
+open-above-terrain-normal-continuity-kit
+open-above-terrain-chunk-build-budget-kit
+open-above-terrain-surface-revision-kit
+open-above-terrain-surface-observation-kit
+open-above-terrain-seam-fixture-kit
+open-above-terrain-chunk-rebuild-fixture-kit
 ```
-
-### Runtime-implied kits
-
-```txt
-open-above-route-shell-kit
-open-above-importmap-kit
-open-above-runtime-composer-kit
-open-above-keyboard-input-kit
-open-above-wheel-zoom-input-kit
-open-above-hud-projection-kit
-open-above-error-panel-kit
-open-above-gamehost-legacy-readback-kit
-open-above-nexusengine-cdn-adapter-kit
-open-above-campaign-source-kit
-open-above-raf-clock-adapter-kit
-```
-
-## Terrain source read
-
-The new surface removes:
-
-```txt
-seeded random texture generation
-64x64 color DataTexture
-64x64 normal DataTexture
-repeat wrapping and repeat scales
-material color map
-material normal map and normal scale
-```
-
-It adds:
-
-```txt
-six-color Frutiger Aero palette
-height and moisture weighting
-large, medium and local smooth world fields
-soft-rock blending from slope
-vertex-color-only material
-```
-
-## Workload read
-
-High-quality radius-three terrain membership can include:
-
-```txt
-37 chunks
-5 near chunks at 72 segments
-16 middle chunks at 40 segments
-16 far chunks at 20 segments
-60,597 vertices
-302,985 minimum terrainHeight calls for center and finite-difference slope
-```
-
-This is an operation census from source constants. It is not a measured timing result.
 
 ## Main finding
 
-The new color field is deterministic in world coordinates, but its slope input is not independent of render LOD:
+The new color field is deterministic in world coordinates, but its slope input is derived from `sampleStep = chunkSize / segments`. A shared world coordinate can receive a different soft-rock blend at another LOD. Chunk normals are computed separately, mixed-resolution edges have no continuity contract, and rebuild work is synchronous with no frame budget.
+
+High-quality initial membership can include:
 
 ```txt
-sampleStep = chunkSize / segments
-slope = finite difference at sampleStep
-terrainColor(..., slope)
-softRock weight = smoothstep(slope, 0.2, 0.5)
+37 chunks
+60,597 vertices
+302,985 minimum terrainHeight evaluations for height and slope
 ```
 
-A shared world coordinate can therefore receive a different rock blend when generated at another LOD. Chunk normals are also computed separately, and mixed-resolution edges have no continuity contract. Because the normal map was removed, geometric normal discontinuity is now the only normal detail and may be more visible. Rebuild work remains synchronous and has no queue or frame budget.
+The current smoke test verifies source strings, not numeric color output, LOD parity, seam continuity or measured transition cost.
 
 ## Next safe ledge
 
@@ -279,4 +197,7 @@ Pages smoke: not run
 numeric terrain fixture: unavailable
 LOD seam fixture: unavailable
 rebuild budget fixture: unavailable
+repo-local docs pushed to main: yes
+central ledger synchronized: yes
+central internal change log added: yes
 ```
