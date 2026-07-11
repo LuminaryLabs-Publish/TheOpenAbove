@@ -1,19 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-11T16-30-25-04-00",
-  "status": "terrain-lod-transition-authority-audited",
-  "latestTracker": ".agent/trackers/2026-07-11T16-30-25-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T16-30-25-04-00.md",
+  "lastAligned": "2026-07-11T18-01-38-04-00",
+  "status": "grass-spatial-culling-backend-truth-authority-audited",
+  "latestTracker": ".agent/trackers/2026-07-11T18-01-38-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T18-01-38-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-11T16-30-25-04-00-terrain-lod-transition-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-11T16-30-25-04-00-retained-horizon-chunk-lod-staleness-gap.md",
-    "interaction": ".agent/interaction-audit/2026-07-11T16-30-25-04-00-camera-center-lod-reclassification-map.md",
-    "terrainSystem": ".agent/terrain-system-audit/2026-07-11T16-30-25-04-00-horizon-lod-reclassification-contract.md",
-    "performance": ".agent/performance-audit/2026-07-11T16-30-25-04-00-terrain-lod-build-budget-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-11T16-30-25-04-00-terrain-lod-transition-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-11T18-01-38-04-00-grass-spatial-culling-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-11T18-01-38-04-00-camera-centered-grass-origin-culling-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-11T18-01-38-04-00-balloon-traversal-grass-visibility-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-11T18-01-38-04-00-camera-center-grass-cull-result-map.md",
+    "grassSystem": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md",
+    "performance": ".agent/performance-audit/2026-07-11T18-01-38-04-00-grass-culling-work-backend-observation-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-11T18-01-38-04-00-grass-traversal-culling-fixture-gate.md"
   },
   "retainedAudits": {
+    "terrainLod": ".agent/terrain-system-audit/2026-07-11T16-30-25-04-00-horizon-lod-reclassification-contract.md",
     "committedObservation": ".agent/observation-authority-audit/2026-07-11T14-50-59-04-00-committed-snapshot-consumer-ack-contract.md",
     "productAcceptance": ".agent/acceptance-audit/2026-07-11T13-10-35-04-00-repository-guidance-runtime-proof-contract.md",
     "missionRestart": ".agent/mission-restart-audit/2026-07-11T11-31-06-04-00-mission-epoch-atomic-reset-contract.md",
@@ -21,7 +23,8 @@
     "mailAuthority": ".agent/mail-authority-audit/2026-07-11T05-25-29-04-00-correct-current-delivery-transaction.md",
     "terrainWorkload": ".agent/terrain-system-audit/2026-07-11T05-25-29-04-00-horizon-streaming-workload-contract.md",
     "terrainSurface": ".agent/terrain-system-audit/2026-07-11T03-01-38-04-00-gradient-slope-normal-continuity-contract.md",
-    "lifecycle": ".agent/lifecycle-audit/2026-07-10T21-31-01-04-00-session-frame-listener-resource-contract.md"
+    "lifecycle": ".agent/lifecycle-audit/2026-07-10T21-31-01-04-00-session-frame-listener-resource-contract.md",
+    "grassTruthMap": ".agent/grass-system-audit/2026-07-10T16-20-09-04-00-grass-field-kit-truth-map.md"
   },
   "selection": {
     "reason": "oldest eligible central-ledger entry after full Publish inventory comparison",
@@ -35,15 +38,15 @@
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
     "timestamps": {
-      "TheOpenAbove": "2026-07-11T14-50-59-04-00",
-      "HorrorCorridor": "2026-07-11T15-01-33-04-00",
-      "PhantomCommand": "2026-07-11T15-08-41-04-00",
-      "ZombieOrchard": "2026-07-11T15-20-27-04-00",
-      "TheUnmappedHouse": "2026-07-11T15-30-50-04-00",
-      "AetherVale": "2026-07-11T15-38-27-04-00",
-      "IntoTheMeadow": "2026-07-11T15-49-49-04-00",
-      "PrehistoricRush": "2026-07-11T15-59-12-04-00",
-      "MyCozyIsland": "2026-07-11T16-10-58-04-00"
+      "TheOpenAbove": "2026-07-11T16-30-25-04-00",
+      "HorrorCorridor": "2026-07-11T16-38-10-04-00",
+      "PhantomCommand": "2026-07-11T16-49-51-04-00",
+      "ZombieOrchard": "2026-07-11T17-01-11-04-00",
+      "TheUnmappedHouse": "2026-07-11T17-10-50-04-00",
+      "AetherVale": "2026-07-11T17-20-20-04-00",
+      "IntoTheMeadow": "2026-07-11T17-30-56-04-00",
+      "PrehistoricRush": "2026-07-11T17-39-47-04-00",
+      "MyCozyIsland": "2026-07-11T17-50-37-04-00"
     }
   },
   "interactionLoop": [
@@ -52,9 +55,10 @@
     "keyboard-burner-vent-wheel-input",
     "variable-dt-raf",
     "balloon-simulation-and-camera-update",
-    "near-terrain-center-classification-and-lod-replacement",
-    "horizon-terrain-center-membership-without-retained-lod-reclassification",
-    "render-and-resolution-sample",
+    "camera-centered-grass-membership-and-lod-classification",
+    "absolute-world-instance-placement-on-origin-positioned-chunk-meshes",
+    "origin-distance-manual-culling-for-every-active-grass-chunk",
+    "terrain-grass-hdr-render-and-resolution-sample",
     "hud-and-external-observation"
   ],
   "domains": [
@@ -71,10 +75,11 @@
     "quality-resolution-sky-weather-cloud-and-lighting",
     "terrain-source-near-streaming-horizon-streaming-lod-transition-and-edge-policy",
     "vegetation-grass-water-and-landmarks",
+    "grass-deterministic-placement-lod-manual-culling-and-state-projection",
     "hdr-rendering-lens-response-and-renderer-diagnostics",
     "nexus-telemetry-hud-gamehost-and-headless-readback",
     "runtime-lifecycle-source-smoke-pure-tests-build-and-pages",
-    "committed-frame-observation-and-terrain-transition-authority"
+    "committed-frame-observation-terrain-transition-and-grass-spatial-culling-authority"
   ],
   "services": [
     "burner vent blur and wheel input",
@@ -85,6 +90,7 @@
     "camera follow basket mode zoom clipping and disposal",
     "quality sky clouds terrain streaming grass water HDR rendering dynamic resolution and renderer diagnostics",
     "terrain height color near chunks horizon annulus geometry LOD and disposal",
+    "deterministic grass seed biome exclusion placement LOD shader wind chunk rebuild manual culling and aggregate readback",
     "Nexus resource event telemetry HUD error GameHost and headless readback",
     "source checks pure tests Vite build and Pages deployment"
   ],
@@ -183,34 +189,45 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedTerrainLodKits": [
-    "open-above-terrain-lod-transition-authority-domain",
-    "open-above-terrain-chunk-identity-kit",
-    "open-above-terrain-source-revision-kit",
-    "open-above-terrain-lod-policy-kit",
-    "open-above-terrain-lod-classification-kit",
-    "open-above-terrain-lod-transition-plan-kit",
-    "open-above-terrain-geometry-build-request-kit",
-    "open-above-terrain-build-budget-kit",
-    "open-above-terrain-geometry-build-result-kit",
-    "open-above-terrain-edge-stitch-policy-kit",
-    "open-above-terrain-atomic-replacement-kit",
-    "open-above-terrain-chunk-observation-kit",
-    "open-above-terrain-lod-journal-kit",
-    "open-above-terrain-lod-fixture-kit"
+  "plannedGrassCullingKits": [
+    "open-above-grass-spatial-culling-authority-domain",
+    "open-above-grass-chunk-identity-kit",
+    "open-above-grass-chunk-world-bounds-kit",
+    "open-above-grass-camera-center-revision-kit",
+    "open-above-grass-lod-classification-kit",
+    "open-above-grass-cull-policy-kit",
+    "open-above-grass-cull-distance-kit",
+    "open-above-grass-backend-capability-kit",
+    "open-above-grass-backend-selection-kit",
+    "open-above-grass-culling-execution-kit",
+    "open-above-grass-cull-decision-kit",
+    "open-above-grass-visible-set-commit-kit",
+    "open-above-grass-stale-decision-rejection-kit",
+    "open-above-grass-cull-observation-kit",
+    "open-above-grass-frame-acknowledgement-kit",
+    "open-above-grass-culling-journal-kit",
+    "open-above-grass-traversal-fixture-kit"
   ],
-  "terrainLodFinding": {
-    "nearStoresActualLod": true,
-    "nearReclassifiesRetainedKeys": true,
-    "horizonStoresActualLod": false,
-    "horizonReclassifiesRetainedKeys": false,
-    "horizonClassificationRunsOnlyAtCreation": true,
-    "activeTerrainPathIndependent": false,
-    "buildBudgetAvailable": false,
-    "atomicReplacementAvailable": false,
-    "intendedActualObservationAvailable": false
+  "grassCullingFinding": {
+    "chunkSize": 520,
+    "manualCullMultiplier": 4.2,
+    "manualCullRadiusMeters": 2184,
+    "candidateTransformsUseAbsoluteWorldSpace": true,
+    "instanceMatricesUseAbsoluteWorldSpace": true,
+    "chunkMeshesHaveWorldCenters": false,
+    "chunkWorldBoundsAvailable": false,
+    "manualCullUsesMeshPosition": true,
+    "allChunkMeshesRemainAtOrigin": true,
+    "allChunksShareOriginDistance": true,
+    "cameraCenteredChunksCanDisappearOutsideOriginRadius": true,
+    "backendDerivedFromNavigatorGpuOnly": true,
+    "gpuPipelineConstructed": false,
+    "gpuDispatchExecuted": false,
+    "cpuCallsIncrementDispatchedWorkgroups": true,
+    "visibleChunkObservationAvailable": false,
+    "visibleInstanceObservationAvailable": false
   },
-  "mainFinding": "The horizon streamer evaluates 10/6/4 segment policy only when geometry is created and retains existing keys without storing or rechecking their LOD. Camera movement can therefore leave a 4-segment chunk inside the current 10-segment band or retain over-detailed geometry farther away, making visible terrain and cost traversal-history dependent.",
+  "mainFinding": "Grass chunks are generated around the camera with absolute world-space instance transforms, but every InstancedMesh remains at the global origin and manual culling measures camera distance to mesh.position. All chunks therefore pass or fail together at the 2184 m origin radius. The culling helper may also report webgpu-compute and workgroups despite executing only CPU Boolean comparisons.",
   "orderedSafeLedges": [
     "Immutable Runtime Admission + Boot Capability Fixture Gate",
     "Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
@@ -221,7 +238,9 @@
     "Air-Mail Restart Transaction + Mission Epoch/First-Frame Fixture Gate",
     "Committed Observation Frame Authority + Delivery/Render/HUD/Telemetry/GameHost Correlation Fixture Gate",
     "Terrain Source and LOD Transition Authority + Retained-Key Reclassification Fixture Gate",
-    "Bounded Terrain Build and Atomic Replacement + Edge/Frame Fixture Gate"
+    "Bounded Terrain Build and Atomic Replacement + Edge/Frame Fixture Gate",
+    "Grass Spatial Culling and Backend Truth Authority + Chunk-Bounds Fixture Gate",
+    "Grass Origin-Crossing Visible-Set and Frame + Pages Parity Fixture Gate"
   ],
   "validation": {
     "runtimeSourceChangedByThisPass": false,
@@ -231,11 +250,12 @@
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
-    "terrainLodClassificationFixture": "unavailable",
-    "horizonRetainedUpgradeFixture": "unavailable",
-    "horizonRetainedDowngradeFixture": "unavailable",
-    "terrainBuildBudgetFixture": "unavailable",
-    "terrainAtomicReplacementFixture": "unavailable",
-    "terrainPagesParityFixture": "unavailable"
+    "grassChunkBoundsFixture": "unavailable",
+    "grassOriginCrossingFixture": "unavailable",
+    "grassCameraCenteredRetentionFixture": "unavailable",
+    "grassCpuBackendTruthFixture": "unavailable",
+    "grassWebGpuBackendTruthFixture": "unavailable",
+    "grassFirstVisibleFrameFixture": "unavailable",
+    "grassPagesTraversalParityFixture": "unavailable"
   }
 }
