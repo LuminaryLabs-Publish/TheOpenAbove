@@ -1,78 +1,79 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-11T14-50-59-04-00`
+**Last aligned:** `2026-07-11T16-30-25-04-00`
 
 ## Status
 
 ```txt
-status: committed-observation-frame-authority-audited
+status: terrain-lod-transition-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: complete
-central internal change log: complete
+central ledger sync: pending until repo-local documentation head is known
 ```
 
 ## Summary
 
-The active Air Mail loop mutates simulation, delivery, airstream, balloon presentation, camera and visual state, then calls the Nexus telemetry engine before rendering and HUD projection. The telemetry system synchronously calls `getSnapshot()`, stores that object as Nexus resources and emits `openAbove.balloonTicked`.
+The near terrain streamer records each mesh LOD and rebuilds retained keys whose required LOD changes. The horizon streamer computes a 10, 6 or 4 segment geometry only when a key is first created, stores no segment or LOD identity, and never reclassifies retained keys after camera-center movement.
 
-`visual.render()` runs afterward. It submits the frame, samples dynamic resolution and only then updates `state.drawCalls` and `state.triangles`. Consequently, current simulation and parcel state can be paired with previous-frame render statistics. No frame identity or acknowledgement proves which visible frame consumed a delivery event, quality state, HUD string or telemetry snapshot.
+A horizon chunk can therefore keep obsolete geometry after moving into another distance band. The same camera pose can render different horizon density after different traversal paths, and correcting the mismatch naively would add unbounded synchronous geometry work.
 
 ## Plan ledger
 
-**Goal:** define one committed observation boundary that correlates simulation, delivery, rendering, HUD, telemetry and external readback.
+**Goal:** define one terrain LOD transition authority that keeps current classification, built geometry, edge policy, work budget, replacement state and visible-frame observation aligned.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove` under the oldest eligible fallback rule.
-- [x] Read `src/main.js`, telemetry, visual and mail-delivery sources.
+- [x] Read the current root `.agent` state and retained terrain audits.
+- [x] Read terrain surface, near streaming, horizon streaming and visual-domain sources.
 - [x] Identify the interaction loop, domains, kits and services.
-- [x] Record the exact publication and rendering order.
-- [x] Define typed tick, frame, delivery and consumer acknowledgement contracts.
+- [x] Trace near and horizon retained-chunk behavior.
+- [x] Record the horizon LOD staleness path and path-dependence.
+- [x] Define classification, transition, budget, edge, replacement, observation and fixture contracts.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh required root `.agent` files.
-- [x] Synchronize the central ledger and internal change log.
-- [ ] Runtime implementation and executable correlation fixtures remain future work.
+- [ ] Synchronize the central ledger and internal change log after the repo-local head is known.
+- [ ] Runtime implementation and executable terrain fixtures remain future work.
 
 ## Interaction loop
 
 ```txt
 browser boot
-  -> construct visual, balloon, airstream, mail, simulation, camera, presentation and telemetry
-  -> install private keyboard/wheel input and expose mutable GameHost
+  -> visual domain
+  -> terrain surface
+  -> near and horizon streamers
 
 each RAF
-  -> derive clamped variable dt
-  -> advance balloon simulation
-  -> admit mail delivery result
-  -> update airstream, balloon, camera, presentation and visual plan
-  -> publish Nexus telemetry from current mutable state
-  -> submit visual frame and sample dynamic resolution
-  -> update renderer statistics
-  -> mutate HUD HTML
-  -> schedule next RAF
+  -> simulation, camera and visual update
+  -> near center update at 520 m grid
+  -> near required map includes intended LOD
+  -> horizon center update at 1040 m grid
+  -> horizon required set includes keys only
+  -> retained horizon keys bypass geometry classification
+  -> HDR render consumes current terrain groups
 ```
 
 ## Domains in use
 
 ```txt
 browser shell and Vite publishing
-mutable CDN/ESM admission
+mutable CDN/ESM runtime admission
 legacy Meadow Lift and active Air Mail product sources
-product controls objectives acceptance and supersession
-keyboard blur wheel and variable RAF input/time
-balloon simulation terrain clearance and state snapshots
-airstream route sampling blending force visuals and diagnostics
-mail parcel route town delivery volume progress and reset
-mission lifecycle restart and delivery authority
-camera balloon presentation clipping and procedural construction
-quality resolution sky lighting weather cloud terrain vegetation grass water landmark and HDR rendering
-Nexus telemetry resources events and clock frame
-HUD and error projection
-GameHost and headless external readback
-runtime lifecycle disposal source checks build and Pages deployment
-committed tick frame observation and consumer acknowledgement authority
+product controls, objectives, acceptance and supersession
+keyboard, blur, wheel and variable RAF input/time
+balloon simulation, clearance and snapshots
+airstream route, field, force, visual and diagnostics
+mail parcel, route, town, volume, progress and reset
+mission lifecycle, restart, delivery and epoch authority
+camera, presentation, clipping and procedural balloon construction
+quality, dynamic resolution, sky, weather, clouds and lighting
+terrain source, near/horizon streaming, LOD classification and replacement
+vegetation, grass, water and landmarks
+HDR rendering, lens response and renderer diagnostics
+Nexus telemetry, HUD, GameHost and headless readback
+runtime lifecycle, checks, build and Pages deployment
+committed observation and terrain transition authority
 ```
 
 ## Kit inventory
@@ -92,66 +93,71 @@ The complete kit names and service groups remain in `.agent/kit-registry.json` a
 ## Services offered
 
 ```txt
-burner vent blur and wheel input
-balloon buoyancy wind integration terrain clearance state projection snapshots and disposal
-airstream route validation sampling field blend force visuals and diagnostics
-parcel route town volume and one-shot delivery-event services
-procedural balloon geometry materials rigging burner rope and animation
-camera follow basket mode zoom clipping and disposal
-quality sky clouds terrain streaming grass water HDR render and dynamic resolution
-Nexus resource/event telemetry HUD error GameHost and headless readback
-source and pure checks Vite build and Pages deployment
+burner, vent, blur and wheel input
+balloon buoyancy, wind integration, clearance, state projection and disposal
+airstream validation, sampling, blending, force adaptation, visuals and diagnostics
+parcel construction, route, town, delivery-volume, progress, event and reset services
+procedural balloon geometry, materials, rigging, burner, ropes and animation
+camera follow, basket mode, zoom, clipping and disposal
+quality selection, dynamic resolution, sky, clouds, lighting and atmosphere
+terrain height/color, near chunks, horizon annulus, geometry LOD and disposal
+vegetation, grass placement/culling/LOD, water and landmark projection
+HDR composition, lens response, frame submission and renderer statistics
+Nexus resources/events, HUD, errors, GameHost and headless readback
+source checks, pure tests, Vite build and Pages deployment
 ```
 
 ## Main finding
 
 ```txt
-simulation and delivery state: current RAF
-visual planning state: current RAF
-Nexus telemetry publication: before render
-renderer statistics: updated after render
-dynamic-resolution decision: sampled after render
-HUD projection: after telemetry and render
-GameHost subsystem objects: mutable and directly exposed
-simulationTickId: absent
-renderFrameId: absent
-deliveryResultId: absent
-observationRevision: absent
-required-consumer acknowledgements: absent
-immutable committed observation: absent
+near required record: key + intended lod
+near mesh record: x + z + actual lod
+near retained mismatch: removed and rebuilt
+
+horizon required record: key only
+horizon mesh record: x + z only
+horizon intended segments: calculated only during buildGeometry
+horizon retained mismatch: not detectable
 ```
 
-The current `openAbove.balloonTicked.frame` uses Nexus Engine's internal clock frame, but there is no declared mapping from that value to the browser RAF, submitted renderer frame, HUD projection or delivery event.
+Concrete path:
+
+```txt
+chunk 5:0 from center 0:0
+  5200 m -> 4 segments
+
+same retained key from center 2:0
+  3120 m -> policy requires 10 segments
+  actual remains 4 segments
+```
+
+The reverse over-detail path is also reachable.
 
 ## Required parent domain
 
 ```txt
-open-above-committed-observation-frame-authority-domain
-  -> simulation tick receipt
-  -> delivery result identity
-  -> render frame plan
-  -> render submission result
-  -> dynamic-resolution result
-  -> HUD projection acknowledgement
-  -> telemetry publication barrier
-  -> required-consumer acknowledgement set
-  -> immutable committed observation
-  -> detached external read model
-  -> bounded frame journal and fixture gate
+open-above-terrain-lod-transition-authority-domain
+  -> chunk identity and terrain-source revision
+  -> LOD policy and classification
+  -> transition planning and work admission
+  -> geometry build results
+  -> edge/stitch validation
+  -> atomic replacement and frame retirement
+  -> intended/actual chunk observations
+  -> bounded journal and fixture gate
 ```
 
 ## Required invariant
 
 ```txt
-one committed observation
-  = one runtime session and mission epoch
-  = one simulation tick
-  = one admitted delivery result
-  = one render frame and effective quality state
-  = one HUD projection
-  = one telemetry publication
-  = one required-consumer acknowledgement set
-  = one state and frame fingerprint
+for every committed active terrain key:
+  actual terrain revision = current terrain revision
+  actual geometry LOD = current intended LOD
+
+or
+
+  a typed budget-deferred transition explicitly reports the mismatch
+  while complete prior geometry remains visible
 ```
 
 ## Ordered safe ledges
@@ -165,7 +171,8 @@ one committed observation
 5. Air Mail route and delivery authority
 5a. mission restart transaction and epoch
 5b. committed observation frame authority
-6. terrain surface and horizon continuity/work budget
+6. terrain source, LOD transition and horizon continuity authority
+6a. bounded terrain build and atomic replacement
 ```
 
-Documentation only. No runtime source, dependency, package script, route behavior, renderer behavior or deployment configuration changed.
+Documentation only. No runtime source, package, renderer or deployment behavior changed.
