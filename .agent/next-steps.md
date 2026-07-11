@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T14-50-59-04-00`
+**Last aligned:** `2026-07-11T16-30-25-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve the Air Mail experience while making every externally visible observation refer to one committed simulation tick, delivery result and rendered frame.
+**Goal:** preserve the Air Mail experience while establishing authoritative runtime identity, route/restart semantics, committed visible-frame observation and terrain streaming whose actual geometry matches current LOD policy.
 
 ### Checklist
 
@@ -65,44 +65,60 @@
 - [ ] Reject stale, partial and cross-epoch consumer acknowledgements.
 - [ ] Add delivery-to-visible-frame, quality-frame and GameHost-detachment fixtures.
 
-#### Gate 6: terrain surface and horizon authority
-- [ ] Add one terrain source revision and fingerprint.
-- [ ] Define near/horizon edge and replacement policy.
-- [ ] Queue and budget terrain geometry generation.
-- [ ] Publish build journals and seam results.
-- [ ] Add continuity and work-budget fixtures.
+#### Gate 6: terrain source and LOD transition authority
+- [ ] Add stable near and horizon chunk identities.
+- [ ] Add terrain-source, quality-policy and classification revisions.
+- [ ] Move segment selection into a pure classifier used for every required key.
+- [ ] Store intended and actual LOD/segment identities for every active chunk.
+- [ ] Reclassify retained horizon keys on every accepted center revision.
+- [ ] Diff committed geometry against current intended classification.
+- [ ] Add typed create, release, replacement, deferred and failure results.
+- [ ] Add a shared near/horizon edge and stitch policy.
+- [ ] Publish intended and actual active-terrain observations.
+- [ ] Add path-independence and three-band traversal fixtures.
 
-## Observation authority kit order
+#### Gate 6a: bounded terrain build and atomic replacement
+- [ ] Define per-frame build, vertex, sample, allocation and disposal budgets.
+- [ ] Prioritize uncovered terrain and upgrades entering the near-horizon band.
+- [ ] Build detached geometry candidates.
+- [ ] Reject stale candidates after camera, quality or terrain revision changes.
+- [ ] Keep complete old geometry visible while replacement is deferred.
+- [ ] Commit complete replacements atomically.
+- [ ] Correlate the first visible replacement frame.
+- [ ] Retire old geometry after submitted-frame ownership releases it.
+- [ ] Add no-gap, edge-continuity, budget and retirement fixtures.
+
+## Terrain LOD kit order
 
 ```txt
-1. open-above-runtime-session-observation-id-kit
-2. open-above-simulation-tick-receipt-kit
-3. open-above-delivery-result-kit
-4. open-above-render-frame-id-kit
-5. open-above-render-frame-plan-kit
-6. open-above-render-submission-result-kit
-7. open-above-effective-quality-result-kit
-8. open-above-hud-projection-ack-kit
-9. open-above-telemetry-publication-barrier-kit
-10. open-above-frame-consumer-ack-kit
-11. open-above-committed-observation-kit
-12. open-above-observation-fingerprint-kit
-13. open-above-detached-gamehost-read-model-kit
-14. open-above-observation-journal-kit
-15. open-above-observation-frame-fixture-kit
+1. open-above-terrain-chunk-identity-kit
+2. open-above-terrain-source-revision-kit
+3. open-above-terrain-lod-policy-kit
+4. open-above-terrain-lod-classification-kit
+5. open-above-terrain-lod-transition-plan-kit
+6. open-above-terrain-geometry-build-request-kit
+7. open-above-terrain-build-budget-kit
+8. open-above-terrain-geometry-build-result-kit
+9. open-above-terrain-edge-stitch-policy-kit
+10. open-above-terrain-atomic-replacement-kit
+11. open-above-terrain-chunk-observation-kit
+12. open-above-terrain-lod-journal-kit
+13. open-above-terrain-lod-fixture-kit
 ```
 
-## Required fixture cases
+## Required terrain fixture cases
 
 ```txt
-delivery event and parcel status appear in the same committed observation
-renderer statistics belong to the acknowledged render frame
-dynamic-resolution state belongs to the frame after its sample is applied
-HUD text and telemetry share one observation revision
-GameHost snapshots are detached and immutable
-stale acknowledgements cannot commit a successor frame
-cross-mission-epoch acknowledgements are rejected
-a failed required consumer prevents committed observation publication
+retained horizon chunk upgrades 4 -> 6 -> 10 segments
+retained horizon chunk downgrades 10 -> 6 -> 4 segments
+same final camera pose produces the same active-terrain fingerprint after different paths
+terrain-source revision invalidates old geometry
+quality revision invalidates old classification
+budget exhaustion retains complete previous geometry
+stale build candidates cannot commit
+replacement creates no uncovered frame
+near/horizon edges remain inside positional and normal tolerances
+first visible replacement frame matches the committed observation
 ```
 
 ## Validation order
@@ -117,9 +133,14 @@ fixture:air-mail-route
 fixture:air-mail-reset
 fixture:observation-order
 fixture:delivery-visible-frame
-fixture:render-stat-frame
 fixture:hud-telemetry-parity
-fixture:gamehost-detachment
+fixture:terrain-lod-classification
+fixture:horizon-retained-upgrade
+fixture:horizon-retained-downgrade
+fixture:terrain-path-independence
+fixture:terrain-build-budget
+fixture:terrain-atomic-replacement
+fixture:terrain-edge-continuity
 npm run check
 npm run headless:check
 npm run build
@@ -127,4 +148,4 @@ browser acceptance smoke
 Pages acceptance smoke
 ```
 
-Do not expose a state as committed merely because simulation mutated. Commit external observation only after the required frame consumers acknowledge the same tick and mission epoch.
+Do not claim distance-based terrain LOD from policy alone. The committed active chunk observation must prove the geometry actually rendered matches the current classification or carries an explicit, bounded deferred transition.
