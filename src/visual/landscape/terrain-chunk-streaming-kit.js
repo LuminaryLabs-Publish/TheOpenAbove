@@ -7,6 +7,18 @@ function chunkKey(x, z) {
   return `${x}:${z}`;
 }
 
+function chunkBounds(cx, cz, chunkSize) {
+  const half = chunkSize * 0.5;
+  const centerX = cx * chunkSize;
+  const centerZ = cz * chunkSize;
+  return {
+    minX: centerX - half,
+    maxX: centerX + half,
+    minZ: centerZ - half,
+    maxZ: centerZ + half
+  };
+}
+
 function lodForDistance(distanceInChunks) {
   if (distanceInChunks <= 1.25) return 0;
   if (distanceInChunks <= 2.25) return 1;
@@ -18,6 +30,7 @@ export function createTerrainChunkStreamer({
   terrainHeight,
   terrainColor,
   material,
+  worldSurface = null,
   chunkSize = 520,
   chunkRadius = 3,
   lodSegments = [64, 32, 16]
@@ -82,6 +95,7 @@ export function createTerrainChunkStreamer({
         const cz = nextCenterZ + dz;
         const distance = Math.hypot(dx, dz);
         if (distance > chunkRadius + 0.35) continue;
+        if (worldSurface && !worldSurface.intersectsBounds(chunkBounds(cx, cz, chunkSize))) continue;
         const lod = lodForDistance(distance);
         required.set(chunkKey(cx, cz), { cx, cz, lod });
       }
@@ -124,6 +138,7 @@ export function createTerrainChunkStreamer({
     chunkSize,
     chunkRadius,
     lodSegments,
+    worldSurface,
     update,
     dispose
   };

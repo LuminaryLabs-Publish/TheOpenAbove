@@ -6,6 +6,18 @@ function key(x, z) {
   return `${x}:${z}`;
 }
 
+function chunkBounds(cx, cz, chunkSize) {
+  const half = chunkSize * 0.5;
+  const centerX = cx * chunkSize;
+  const centerZ = cz * chunkSize;
+  return {
+    minX: centerX - half,
+    maxX: centerX + half,
+    minZ: centerZ - half,
+    maxZ: centerZ + half
+  };
+}
+
 function segmentsForDistance(distance) {
   if (distance < 3400) return 10;
   if (distance < 5000) return 6;
@@ -17,6 +29,7 @@ export function createTerrainHorizonStreamer({
   terrainHeight,
   terrainColor,
   material,
+  worldSurface = null,
   nearChunkSize = 520,
   radiusInNearChunks = 12,
   innerRadiusInNearChunks = 3.35
@@ -87,6 +100,7 @@ export function createTerrainHorizonStreamer({
         const halfDiagonal = chunkSize * Math.SQRT2 * 0.5;
         if (distance + halfDiagonal <= innerDistance) continue;
         if (distance - halfDiagonal > maxDistance) continue;
+        if (worldSurface && !worldSurface.intersectsBounds(chunkBounds(cx, cz, chunkSize))) continue;
         required.add(key(cx, cz));
       }
     }
@@ -129,6 +143,7 @@ export function createTerrainHorizonStreamer({
     radiusInNearChunks,
     innerRadiusInNearChunks,
     maxDistance,
+    worldSurface,
     update,
     dispose
   };

@@ -1,4 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import { createDiskWorldSurface } from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Agents/NexusEngine-ProtoKits@dd8d68f5635a64f34043edd3ac757067a02eb43c/protokits/disk-world-surface-kit/surface.js";
 import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-chunk-streaming-kit.js";
 import { createTerrainHorizonStreamer } from "./terrain-horizon-streaming-kit.js";
 
@@ -88,6 +89,15 @@ export function terrainColor(x, z, h, slope) {
 }
 
 export function createTerrainSurface(scene, worldConfig, quality) {
+  const surfaceConfig = worldConfig.surface ?? {};
+  const worldSurface = createDiskWorldSurface(surfaceConfig);
+  const edgeFloor = Number.isFinite(surfaceConfig.edgeFloor) ? surfaceConfig.edgeFloor : -120;
+  const boundedTerrainHeight = (x, z) => THREE.MathUtils.lerp(
+    edgeFloor,
+    terrainHeight(x, z),
+    worldSurface.edgeMask({ x, z })
+  );
+
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true,
     roughness: 0.88,
@@ -99,18 +109,20 @@ export function createTerrainSurface(scene, worldConfig, quality) {
   const nearRadius = quality.id === "low" ? 2 : 3;
   const streamer = createTerrainChunkStreamer({
     scene,
-    terrainHeight,
+    terrainHeight: boundedTerrainHeight,
     terrainColor,
     material,
+    worldSurface,
     chunkSize: 520,
     chunkRadius: nearRadius,
     lodSegments: quality.id === "high" ? [72, 40, 20] : quality.id === "medium" ? [56, 32, 16] : [40, 24, 12]
   });
   const horizon = createTerrainHorizonStreamer({
     scene,
-    terrainHeight,
+    terrainHeight: boundedTerrainHeight,
     terrainColor,
     material,
+    worldSurface,
     nearChunkSize: 520,
     radiusInNearChunks: quality.id === "low" ? 9 : 12,
     innerRadiusInNearChunks: nearRadius + 0.35
@@ -133,9 +145,11 @@ export function createTerrainSurface(scene, worldConfig, quality) {
     mesh: streamer.group,
     group: streamer.group,
     material,
-    terrainHeight,
+    terrainHeight: boundedTerrainHeight,
+    baseTerrainHeight: terrainHeight,
     moistureAt,
     terrainColor,
+    worldSurface,
     streamer,
     horizon,
     cloudShadow,

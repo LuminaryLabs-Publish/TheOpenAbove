@@ -26,6 +26,14 @@ export const CAMPAIGN = Object.freeze({
 
 export const WORLD = Object.freeze({
   seed: "open-above-meadow-lift",
+  surface: Object.freeze({
+    id: "open-above-world",
+    kind: "bounded-disk",
+    center: Object.freeze({ x: 0, z: 0 }),
+    radius: 10000,
+    edgeBlendWidth: 600,
+    edgeFloor: -120
+  }),
   terrainSize: 2400,
   terrainSegments: 128,
   treeCount: 360,

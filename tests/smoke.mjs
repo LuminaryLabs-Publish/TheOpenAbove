@@ -5,6 +5,7 @@ import "./airstream-mail.mjs";
 const requiredFiles = [
   "index.html",
   "src/main.js",
+  "src/data/campaign.config.js",
   "src/runtime/balloon-simulation-kit.js",
   "src/runtime/balloon-telemetry-kit.js",
   "src/runtime/airstream-domain/index.js",
@@ -57,7 +58,14 @@ assert.match(main, /createAirstreamDomain/);
 assert.match(main, /createMailDeliveryDomain/);
 assert.match(main, /sampleAirstream: airstream\.sample/);
 assert.match(main, /mail\.update/);
+assert.match(main, /worldSurface: visual\.landscape\.terrain\.worldSurface\.getDescriptor\(\)/);
 assert.doesNotMatch(main, /renderer\.render\(/);
+
+const worldConfig = readFileSync("src/data/campaign.config.js", "utf8");
+assert.match(worldConfig, /kind: "bounded-disk"/);
+assert.match(worldConfig, /radius: 10000/);
+assert.match(worldConfig, /edgeBlendWidth: 600/);
+assert.match(worldConfig, /edgeFloor: -120/);
 
 const simulation = readFileSync("src/runtime/balloon-simulation-kit.js", "utf8");
 assert.match(simulation, /sampleAirstream/);
@@ -80,6 +88,11 @@ assert.match(visual, /grass\.getState\(\)/);
 assert.doesNotMatch(visual, /createGrassDetail/);
 
 const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
+assert.match(terrain, /createDiskWorldSurface/);
+assert.match(terrain, /NexusEngine-ProtoKits@dd8d68f5635a64f34043edd3ac757067a02eb43c/);
+assert.match(terrain, /boundedTerrainHeight/);
+assert.match(terrain, /worldSurface\.edgeMask/);
+assert.match(terrain, /worldSurface,/);
 assert.match(terrain, /createTerrainChunkStreamer/);
 assert.match(terrain, /createTerrainHorizonStreamer/);
 assert.match(terrain, /installSoftCloudShadow\(material\)/);
@@ -98,12 +111,19 @@ assert.doesNotMatch(terrain, /map:\s*detail\.color/);
 assert.doesNotMatch(terrain, /color\.repeat\.set/);
 assert.doesNotMatch(terrain, /normal\.repeat\.set/);
 
+const nearTerrain = readFileSync("src/visual/landscape/terrain-chunk-streaming-kit.js", "utf8");
+assert.match(nearTerrain, /worldSurface = null/);
+assert.match(nearTerrain, /worldSurface\.intersectsBounds/);
+assert.match(nearTerrain, /chunkBounds/);
+
 const horizon = readFileSync("src/visual/landscape/terrain-horizon-streaming-kit.js", "utf8");
 assert.match(horizon, /open-above-far-horizon-terrain/);
 assert.match(horizon, /receiveShadow = false/);
 assert.match(horizon, /radiusInNearChunks/);
 assert.match(horizon, /terrainHeight/);
 assert.match(horizon, /terrainColor/);
+assert.match(horizon, /worldSurface = null/);
+assert.match(horizon, /worldSurface\.intersectsBounds/);
 
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
 assert.match(grassDomain, /open-above-grass-field-domain/);
@@ -148,4 +168,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above air-mail, airstream, endless terrain, and streamed grass smoke passed.");
+console.log("The Open Above bounded disk world, air-mail, airstream, terrain, and grass smoke passed.");

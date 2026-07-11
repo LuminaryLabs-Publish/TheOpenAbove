@@ -56,7 +56,8 @@ function createGame() {
     terrain: {
       nearChunks: visual.landscape.terrain.streamer.chunks.size,
       horizonChunks: visual.landscape.terrain.horizon.chunks.size,
-      horizonDistance: visual.landscape.terrain.horizon.maxDistance
+      horizonDistance: visual.landscape.terrain.horizon.maxDistance,
+      worldSurface: visual.landscape.terrain.worldSurface.getDescriptor()
     },
     visual: {
       quality: visualState.quality,
