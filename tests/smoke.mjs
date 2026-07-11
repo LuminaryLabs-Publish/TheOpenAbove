@@ -1,11 +1,27 @@
 import { readFileSync, existsSync } from "node:fs";
 import assert from "node:assert/strict";
+import "./airstream-mail.mjs";
 
 const requiredFiles = [
   "index.html",
   "src/main.js",
   "src/runtime/balloon-simulation-kit.js",
   "src/runtime/balloon-telemetry-kit.js",
+  "src/runtime/airstream-domain/index.js",
+  "src/runtime/airstream-domain/airstream-domain.js",
+  "src/runtime/airstream-domain/airstream-field-kit.js",
+  "src/runtime/airstream-domain/airstream-route-kit.js",
+  "src/runtime/airstream-domain/airstream-sampler-kit.js",
+  "src/runtime/airstream-domain/airstream-balloon-force-kit.js",
+  "src/runtime/airstream-domain/airstream-visual-kit.js",
+  "src/runtime/airstream-domain/airstream-debug-kit.js",
+  "src/gameplay/mail-delivery-domain/index.js",
+  "src/gameplay/mail-delivery-domain/mail-delivery-domain.js",
+  "src/gameplay/mail-delivery-domain/mail-parcel-kit.js",
+  "src/gameplay/mail-delivery-domain/mail-town-kit.js",
+  "src/gameplay/mail-delivery-domain/mail-route-kit.js",
+  "src/gameplay/mail-delivery-domain/delivery-volume-kit.js",
+  "src/gameplay/mail-delivery-domain/delivery-progress-kit.js",
   "src/visual/visual-domain.js",
   "src/visual/quality-tier-kit.js",
   "src/visual/shader-noise.js",
@@ -18,6 +34,7 @@ const requiredFiles = [
   "src/visual/post-process/color-grade-kit.js",
   "src/visual/landscape/terrain-surface-kit.js",
   "src/visual/landscape/terrain-chunk-streaming-kit.js",
+  "src/visual/landscape/terrain-horizon-streaming-kit.js",
   "src/visual/grass-field/grass-world-seed-kit.js",
   "src/visual/grass-field/grass-biome-density-kit.js",
   "src/visual/grass-field/grass-exclusion-mask-kit.js",
@@ -36,7 +53,25 @@ for (const file of requiredFiles) assert.equal(existsSync(file), true, `${file} 
 
 const main = readFileSync("src/main.js", "utf8");
 assert.match(main, /createVisualDomain/);
+assert.match(main, /createAirstreamDomain/);
+assert.match(main, /createMailDeliveryDomain/);
+assert.match(main, /sampleAirstream: airstream\.sample/);
+assert.match(main, /mail\.update/);
 assert.doesNotMatch(main, /renderer\.render\(/);
+
+const simulation = readFileSync("src/runtime/balloon-simulation-kit.js", "utf8");
+assert.match(simulation, /sampleAirstream/);
+assert.match(simulation, /applyAirstreamToBalloonState/);
+assert.match(simulation, /Mail for Brookhaven/);
+
+const airstreamDomain = readFileSync("src/runtime/airstream-domain/airstream-domain.js", "utf8");
+assert.match(airstreamDomain, /createAirstreamField/);
+assert.match(airstreamDomain, /createAirstreamVisual/);
+assert.match(airstreamDomain, /createAirstreamDebug/);
+
+const mailDomain = readFileSync("src/gameplay/mail-delivery-domain/mail-delivery-domain.js", "utf8");
+assert.match(mailDomain, /updateDeliveryProgress/);
+assert.match(mailDomain, /createMailTownVisuals/);
 
 const visual = readFileSync("src/visual/visual-domain.js", "utf8");
 assert.match(visual, /createGrassFieldDomain/);
@@ -46,6 +81,7 @@ assert.doesNotMatch(visual, /createGrassDetail/);
 
 const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
 assert.match(terrain, /createTerrainChunkStreamer/);
+assert.match(terrain, /createTerrainHorizonStreamer/);
 assert.match(terrain, /installSoftCloudShadow\(material\)/);
 assert.match(terrain, /export function terrainColor/);
 assert.match(terrain, /smoothWorldField/);
@@ -54,12 +90,20 @@ assert.match(terrain, /mediumField/);
 assert.match(terrain, /localField/);
 assert.match(terrain, /roughness: 0\.88/);
 assert.match(terrain, /chunkSize: 520/);
+assert.match(terrain, /radiusInNearChunks: quality\.id === "low" \? 9 : 12/);
 assert.doesNotMatch(terrain, /makeDetailTextures/);
 assert.doesNotMatch(terrain, /DataTexture/);
 assert.doesNotMatch(terrain, /normalMap/);
 assert.doesNotMatch(terrain, /map:\s*detail\.color/);
 assert.doesNotMatch(terrain, /color\.repeat\.set/);
 assert.doesNotMatch(terrain, /normal\.repeat\.set/);
+
+const horizon = readFileSync("src/visual/landscape/terrain-horizon-streaming-kit.js", "utf8");
+assert.match(horizon, /open-above-far-horizon-terrain/);
+assert.match(horizon, /receiveShadow = false/);
+assert.match(horizon, /radiusInNearChunks/);
+assert.match(horizon, /terrainHeight/);
+assert.match(horizon, /terrainColor/);
 
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
 assert.match(grassDomain, /open-above-grass-field-domain/);
@@ -104,4 +148,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above smooth world-space terrain and streamed grass smoke passed.");
+console.log("The Open Above air-mail, airstream, endless terrain, and streamed grass smoke passed.");

@@ -1,5 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-chunk-streaming-kit.js";
+import { createTerrainHorizonStreamer } from "./terrain-horizon-streaming-kit.js";
 
 export const TERRAIN_SURFACE_KIT_ID = "open-above-terrain-surface-kit";
 
@@ -95,22 +96,52 @@ export function createTerrainSurface(scene, worldConfig, quality) {
   });
   material.name = "OpenAboveTerrainSurfaceMaterial";
   const cloudShadow = installSoftCloudShadow(material);
+  const nearRadius = quality.id === "low" ? 2 : 3;
   const streamer = createTerrainChunkStreamer({
     scene,
     terrainHeight,
     terrainColor,
     material,
     chunkSize: 520,
-    chunkRadius: quality.id === "low" ? 2 : 3,
+    chunkRadius: nearRadius,
     lodSegments: quality.id === "high" ? [72, 40, 20] : quality.id === "medium" ? [56, 32, 16] : [40, 24, 12]
+  });
+  const horizon = createTerrainHorizonStreamer({
+    scene,
+    terrainHeight,
+    terrainColor,
+    material,
+    nearChunkSize: 520,
+    radiusInNearChunks: quality.id === "low" ? 9 : 12,
+    innerRadiusInNearChunks: nearRadius + 0.35
   });
 
   function update(camera, weatherState) {
     streamer.update(camera);
+    horizon.update(camera);
     cloudShadow.update(weatherState);
   }
 
-  return { id: TERRAIN_SURFACE_KIT_ID, mesh: streamer.group, group: streamer.group, material, terrainHeight, moistureAt, terrainColor, streamer, cloudShadow, update, dispose: streamer.dispose };
+  function dispose() {
+    horizon.dispose();
+    streamer.dispose();
+    material.dispose();
+  }
+
+  return {
+    id: TERRAIN_SURFACE_KIT_ID,
+    mesh: streamer.group,
+    group: streamer.group,
+    material,
+    terrainHeight,
+    moistureAt,
+    terrainColor,
+    streamer,
+    horizon,
+    cloudShadow,
+    update,
+    dispose
+  };
 }
 
 window.OpenAboveTerrainSurfaceKit = { id: TERRAIN_SURFACE_KIT_ID, createTerrainSurface, terrainHeight, moistureAt, terrainColor };

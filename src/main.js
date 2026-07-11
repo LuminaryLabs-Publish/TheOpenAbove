@@ -4,6 +4,8 @@ import { CAMPAIGN, WORLD } from "./data/campaign.config.js";
 import { buildHotAirBalloon, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
 import { createBalloonSimulation } from "./runtime/balloon-simulation-kit.js";
 import { createBalloonTelemetryEngine } from "./runtime/balloon-telemetry-kit.js";
+import { createAirstreamDomain } from "./runtime/airstream-domain/index.js";
+import { createMailDeliveryDomain } from "./gameplay/mail-delivery-domain/index.js";
 import { createVisualDomain } from "./visual/visual-domain.js";
 import { createBalloonCameraRig } from "./visual/camera-presentation/balloon-camera-rig-kit.js";
 import { createBalloonPresentationDomain } from "./visual/balloon-presentation/balloon-presentation-domain.js";
@@ -15,7 +17,7 @@ const errorPanel = document.querySelector("#error");
 function showFatal(error) {
   errorPanel.hidden = false;
   errorPanel.textContent = String(error?.stack || error?.message || error);
-  hud.innerHTML = "<strong>The Open Above</strong><br>Cinematic runtime error. See panel.";
+  hud.innerHTML = "<strong>The Open Above</strong><br>Mail-flight runtime error. See panel.";
 }
 
 function createGame() {
@@ -23,8 +25,18 @@ function createGame() {
   const balloon = buildHotAirBalloon();
   visual.scene.add(balloon);
 
+  const airstream = createAirstreamDomain({
+    scene: visual.scene,
+    debug: false
+  });
+  const mail = createMailDeliveryDomain({
+    scene: visual.scene,
+    terrainHeight: visual.landscape.terrain.terrainHeight
+  });
+
   const simulation = createBalloonSimulation({
     terrainHeight: visual.landscape.terrain.terrainHeight,
+    sampleAirstream: airstream.sample,
     startPosition: [0, 105, 0]
   });
   simulation.applyToBalloon(balloon);
@@ -39,6 +51,13 @@ function createGame() {
     cameraZoom: Number(cameraRig.state.zoom.toFixed(2)),
     firstPersonBlend: Number(cameraRig.state.firstPersonBlend.toFixed(3)),
     cameraMode: cameraRig.state.mode,
+    airstream: airstream.snapshot(),
+    mail: mail.snapshot(),
+    terrain: {
+      nearChunks: visual.landscape.terrain.streamer.chunks.size,
+      horizonChunks: visual.landscape.terrain.horizon.chunks.size,
+      horizonDistance: visual.landscape.terrain.horizon.maxDistance
+    },
     visual: {
       quality: visualState.quality,
       exposure: Number((visualState.exposure ?? 1).toFixed(3)),
@@ -55,8 +74,16 @@ function createGame() {
 
   function updateHud() {
     const state = simulation.state;
+    const parcel = mail.parcel;
     const heat = state.burner > 0.45 ? "burner warm" : "coasting";
-    hud.innerHTML = `<strong>The Open Above: Balloon Drift</strong><br>${state.message}<br><small>${heat} · ${cameraRig.state.mode} · Altitude ${Math.round(state.altitude)}m · Wind ${state.wind.length().toFixed(1)}m/s · Exposure ${(visualState.exposure ?? 1).toFixed(2)} · ${visual.quality.id} · Scroll zoom · Nexus Engine Realtime Core</small>`;
+    const current = state.airstream.routeId
+      ? state.airstream.routeId.replaceAll("-", " ")
+      : "between currents";
+    const capture = Math.round((state.airstream.influence ?? 0) * 100);
+    const delivery = parcel.delivered
+      ? `Delivered to Brookhaven`
+      : `Mail: Brookhaven · Find meadow current`;
+    hud.innerHTML = `<strong>The Open Above: Air Mail</strong><br>${parcel.message}<br><small>${delivery} · ${current} ${capture}% · ${heat} · ${cameraRig.state.mode} · Altitude ${Math.round(state.altitude)}m · Scroll zoom</small>`;
   }
 
   let last = performance.now();
@@ -66,6 +93,13 @@ function createGame() {
     last = now;
 
     const state = simulation.update(dt);
+    const deliveryEvent = mail.update(state.position, state.airstream, state.elapsed);
+    if (deliveryEvent) state.message = mail.parcel.message;
+    airstream.update({
+      position: state.position,
+      elapsed: state.elapsed,
+      sample: state.airstream
+    });
     simulation.applyToBalloon(balloon);
     animateHotAirBalloon(balloon, now, state.burner);
     balloonPresentation.update(state.elapsed, state.burner);
@@ -87,6 +121,8 @@ function createGame() {
     balloon,
     visual,
     simulation,
+    airstream,
+    mail,
     cameraRig,
     getState: () => ({
       nexusEngine: engine.openAbove?.getState?.(),
@@ -95,6 +131,12 @@ function createGame() {
   };
 
   cameraRig.update(1 / 60, simulation.state);
+  airstream.update({
+    position: simulation.state.position,
+    elapsed: 0,
+    sample: airstream.sample(simulation.state.position, 0)
+  });
+  mail.update(simulation.state.position, simulation.state.airstream, 0);
   visual.update({ dt: 0, elapsed: 0, flightState: simulation.state, cameraContext });
   engine.tick(0);
   requestAnimationFrame(frame);
