@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-11T00-49-45-04-00`
+**Last aligned:** `2026-07-11T03-01-38-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -10,7 +10,7 @@
 
 `TheOpenAbove` is a Vite-hosted Three.js hot-air-balloon drift route with procedural balloon presentation, physical atmosphere, streamed terrain, deterministic grass, adaptive rendering, Nexus telemetry, and GameHost readback.
 
-This pass identifies the deterministic clock boundary required before the authored Meadow Lift mission can become authoritative. The active route advances physics, input sampling, telemetry, and future mission time from one clamped variable `requestAnimationFrame` step.
+This pass reconciles the terrain-surface runtime changes that landed after the prior documentation audit. Random repeated color and normal textures were replaced with deterministic world-space Frutiger Aero color fields, while the smoke test was updated to lock that source shape. The remaining gap is terrain-surface authority across LOD slope sampling, per-chunk normals, synchronous rebuild cost, render consumption, and numeric proof.
 
 ## Ordered safe ledges
 
@@ -19,32 +19,27 @@ This pass identifies the deterministic clock boundary required before the author
 2. Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
 3. Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
 4. Fixed-Step Simulation Clock + Visibility/Cadence Parity Fixture Gate
-5. Meadow Lift Objective Authority + Deterministic Route Fixture Gate
+5. Terrain Surface Authority + LOD Continuity/Chunk-Rebuild Fixture Gate
+6. Meadow Lift Objective Authority + Deterministic Route Fixture Gate
 ```
 
 ## Selection result
 
 The accessible `LuminaryLabs-Publish` inventory contained ten repositories. `TheCavalryOfRome` remained excluded. All nine eligible repositories were centrally tracked and had root `.agent` state.
 
+`TheOpenAbove` was selected before the oldest documented fallback because its runtime changed after the central `2026-07-11T00-49-45-04-00` audit:
+
 ```txt
-TheOpenAbove         selected / 2026-07-10T23-20-41-04-00
-HorrorCorridor       tracked  / 2026-07-10T23-30-13-04-00
-PhantomCommand       tracked  / 2026-07-10T23-40-35-04-00
-ZombieOrchard        tracked  / 2026-07-10T23-50-53-04-00
-TheUnmappedHouse     tracked  / 2026-07-11T00-00-26-04-00
-MyCozyIsland         tracked  / 2026-07-11T00-10-28-04-00
-AetherVale           tracked  / 2026-07-11T00-18-24-04-00
-IntoTheMeadow        tracked  / 2026-07-11T00-30-48-04-00
-PrehistoricRush      tracked  / 2026-07-11T00-39-25-04-00
-TheCavalryOfRome     excluded by rule
+5ce61d3a995ab5dfa0d26bd2bd38f4072de91b7b  feat: smooth terrain into Frutiger Aero gradients
+aa447b2ccdb06ea43e9940a45f7e5263169b579b  test: lock smooth world-space terrain surface
 ```
 
-`TheOpenAbove` was the oldest eligible entry and the only Publish product changed.
+Only `LuminaryLabs-Publish/TheOpenAbove` was changed in the Publish organization.
 
 ## Read first
 
 ```txt
-.agent/trackers/2026-07-11T00-49-45-04-00/project-breakdown.md
+.agent/trackers/2026-07-11T03-01-38-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
@@ -55,13 +50,13 @@ TheCavalryOfRome     excluded by rule
 Then read:
 
 ```txt
-.agent/turn-ledger/2026-07-11T00-49-45-04-00.md
-.agent/architecture-audit/2026-07-11T00-49-45-04-00-fixed-step-clock-authority-dsk-map.md
-.agent/render-audit/2026-07-11T00-49-45-04-00-render-frame-simulation-tick-separation-gap.md
-.agent/gameplay-audit/2026-07-11T00-49-45-04-00-raf-cadence-mission-time-loop.md
-.agent/interaction-audit/2026-07-11T00-49-45-04-00-input-sample-tick-admission-map.md
-.agent/time-authority-audit/2026-07-11T00-49-45-04-00-visibility-cadence-clock-contract.md
-.agent/deploy-audit/2026-07-11T00-49-45-04-00-clock-parity-fixture-gate.md
+.agent/turn-ledger/2026-07-11T03-01-38-04-00.md
+.agent/architecture-audit/2026-07-11T03-01-38-04-00-terrain-surface-authority-dsk-map.md
+.agent/render-audit/2026-07-11T03-01-38-04-00-world-gradient-lod-seam-rebuild-gap.md
+.agent/gameplay-audit/2026-07-11T03-01-38-04-00-camera-chunk-transition-frame-cost-loop.md
+.agent/interaction-audit/2026-07-11T03-01-38-04-00-camera-chunk-transition-admission-map.md
+.agent/terrain-system-audit/2026-07-11T03-01-38-04-00-gradient-slope-normal-continuity-contract.md
+.agent/deploy-audit/2026-07-11T03-01-38-04-00-terrain-surface-numeric-fixture-gate.md
 ```
 
 ## Active interaction loop
@@ -69,18 +64,19 @@ Then read:
 ```txt
 browser resolves ESM
   -> createGame constructs visual, balloon, simulation, camera, presentation and telemetry
-  -> keyboard and wheel listeners sample browser state
-  -> RAF computes frameMs from performance.now()
-  -> frameMs is capped at 80ms
-  -> simulation dt is capped at 1/30 second
-  -> simulation, camera, environment and telemetry advance once
-  -> renderer submits one frame and HUD projects latest state
-  -> next RAF is scheduled
+  -> createVisualDomain creates terrain surface and terrain chunk streamer
+  -> camera motion selects a rounded 520-meter chunk center
+  -> a center change synchronously rebuilds required chunk/LOD membership
+  -> each new vertex samples terrain height, LOD-scaled slope and world-space color
+  -> vertex colors and independently computed chunk normals feed one shared material
+  -> weather updates the shared soft cloud-shadow shader
+  -> renderer submits the streamed terrain with the rest of the balloon route
+  -> next RAF repeats
 ```
 
 ## Main finding
 
-The route has no explicit simulation-clock authority. Below 30 Hz, after a long frame, or after hidden-tab suspension, elapsed time is silently discarded. Input is sampled once per RAF and Nexus telemetry advances once per rendered frame. The future five-minute Meadow Lift limit, objective contacts, replay, and same-command determinism would therefore depend on browser cadence and visibility behavior.
+The new terrain color function is deterministic and no longer depends on repeated 64×64 random textures. However, `terrainColor()` receives a slope derived from `sampleStep = chunkSize / segments`, so the same world coordinate can receive different steepness and rock blending at different LODs. Each chunk also computes normals independently, and rebuilds remain synchronous on the render thread. The current smoke test verifies source strings only; it does not prove numeric color continuity, seam-normal continuity, deterministic fingerprints, or a rebuild frame budget.
 
 ## Guardrails
 
@@ -88,8 +84,9 @@ The route has no explicit simulation-clock authority. Below 30 Hz, after a long 
 Push only to main.
 Create no branches or pull requests.
 Do not work on TheCavalryOfRome.
-Preserve the visible Balloon Drift route.
-Do not retune simulation, camera, terrain, grass, atmosphere, water, lighting or postprocess.
-Separate render frames from fixed simulation ticks.
+Preserve the visible Balloon Drift route and the new smooth terrain art direction.
+Do not restore repeated color or normal textures.
+Do not retune simulation, camera, grass, atmosphere, water, lighting or postprocess.
+Make terrain samples LOD-invariant before further surface tuning.
 Keep proof deterministic, bounded and JSON-safe.
 ```
