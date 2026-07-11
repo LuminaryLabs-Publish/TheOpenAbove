@@ -1,222 +1,166 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T18-01-38-04-00`
+**Last aligned:** `2026-07-11T19-28-28-04-00`
 
 ## Primary ordered gaps
 
 ```txt
 1. immutable runtime admission
-2. import-pure balloon module and compatibility admission
-3. root session/frame/listener/resource ownership
-4. ordered teardown and full-runtime restart proof
-5. fixed-step clock visibility and sequenced input authority
-6. product manifest, selected mode and supersession authority
-7. product acceptance and public/runtime parity
-8. versioned Air Mail route and parcel source
-9. correct-current delivery admission and route proof
+2. import-pure balloon module and explicit compatibility admission
+3. single frame-loop registration and owner identity
+4. root session/listener/resource ownership
+5. ordered teardown and full-runtime restart proof
+6. fixed-step clock visibility and sequenced input authority
+7. product manifest, selected mode and supersession authority
+8. product acceptance and public/runtime parity
+9. versioned Air Mail route and correct-current delivery proof
 10. complete mission reset transaction and mission epoch
 11. committed simulation/render/HUD/telemetry/GameHost correlation
-12. terrain source and classification revision authority
-13. retained horizon chunk LOD reclassification
-14. bounded terrain builds and atomic replacement
-15. near/horizon edge and normal continuity
-16. grass chunk spatial identity and world bounds
-17. per-chunk grass cull distance and visible-set authority
-18. truthful CPU/WebGPU culling backend execution evidence
-19. grass visible-frame and long-traversal parity proof
+12. terrain source, classification and retained LOD authority
+13. bounded terrain builds, atomic replacement and edge continuity
+14. grass chunk spatial identity and world-bounds culling
+15. truthful CPU/WebGPU backend execution evidence
+16. grass visible-frame and long-traversal parity proof
 ```
 
-## Grass spatial identity gaps
+## Import-purity gaps
 
 ```txt
-grass candidate transforms use absolute world positions
-grass instance matrices use absolute world positions
-chunk InstancedMesh objects remain at the global origin
-chunk center exists only as x/z metadata
-typed chunk world bounds do not exist
-manual culling reads mesh.position instead of chunk metadata or bounds
-all active chunks therefore share one camera-to-origin distance
+hot-air-balloon-object-kit schedules RAF at module scope
+module import mutates a global compatibility surface
+attachWhenReady polls ambient window.GameHost
+compatibility behavior has no explicit command
+compatibility behavior has no product-mode admission
+compatibility target discovery is not one-shot
+no-compatible-target result does not exist
+no-target path still starts recurring frame work
 ```
 
-## Grass visibility gaps
+## Frame-ownership gaps
 
 ```txt
-manual cull radius is 520 * 4.2 = 2184 m
-inside the origin radius all active chunks share one visible result
-outside the origin radius all active chunks share one culled result
-camera-centered rebuild does not restore visibility
-the center chunk can be hidden while accepted instance count is nonzero
-accepted, visible and rendered chunk counts are not distinguished
-accepted, visible and rendered instance counts are not distinguished
-no visible-set revision
-no first-visible-grass frame acknowledgement
+active Air Mail RAF has no frameLoopId
+compatibility RAF has no frameLoopId
+callbacks have no runtimeSessionId or runtimeGeneration
+callback handles are discarded
+frame owners are not observable
+callback registration ledger is absent
+stale callback rejection is absent
+failed-startup callback retirement is absent
+retry predecessor fencing is absent
 ```
 
-## Grass backend-truth gaps
+## Successful-startup gap
 
 ```txt
-backend label derives from navigator.gpu presence only
-no adapter or device admission
-no compute pipeline
-no storage or uniform buffer setup
-no command encoder
-no dispatchWorkgroups call
-cullChunk executes a CPU Boolean comparison
-dispatchedWorkgroups increments for CPU helper calls
-backend and workgroup observations can therefore be false
+main frame loop:
+  simulation -> delivery -> presentation -> render -> HUD
+
+compatibility frame loop:
+  scene.traverse -> find legacy vehicle -> animate or no-op
+
+current product result:
+  two independent recursive RAF chains
+  one useful active loop
+  one hidden no-target scene-traversal loop
 ```
 
-## Grass decision and lifecycle gaps
+## Failed-startup gap
 
 ```txt
-no cull decision ID
-no camera-center revision
-no grass quality or LOD revision
-no cull policy revision
-no selected-versus-executed backend distinction
-no typed visible, culled, deferred, failed or stale result
-no stale decision rejection after center or quality changes
-no atomic visible-set commit
-no culling journal
-no traversal-path fingerprint
+createGame throws before GameHost publication
+showFatal updates DOM only
+attachWhenReady sees no GameHost
+attachWhenReady schedules another frame
+fatal state is not quiescent
 ```
 
-## Retained terrain LOD classification gaps
+## Compatibility scene-mutation gaps
 
 ```txt
-horizon segment policy is evaluated only during geometry creation
-required horizon membership stores keys only
-horizon mesh metadata stores x and z only
-retained horizon chunks are not reclassified after camera-center movement
-actual segment count is not observable
-intended and actual LOD cannot be compared
-active horizon geometry is traversal-history dependent
-same camera pose can produce different geometry after different paths
+legacy target identity is structural and implicit
+installer may remove all target children
+installer may add another balloon and hidden compatibility controls
+installation has no staged/committed result
+installation has no rollback result
+installation has no duplicate guard beyond target-local flag
+installation and animation are not tied to active product mode
 ```
 
-## Retained terrain transition gaps
+## Performance gaps
 
 ```txt
-no terrain source revision
-no quality-policy revision
-no classification revision
-no transition plan
-no create/release/replacement result schema
-no stale candidate rejection
-no atomic replacement state
-no first-visible-replacement frame receipt
-no old-geometry frame-retirement proof
-no active-terrain fingerprint
-no bounded LOD transition journal
+findVehicle calls scene.traverse every compatibility frame
+work is O(scene node count)
+no traversal budget
+no nodes-visited count
+no compatibility frame duration
+no no-target backoff or termination
+no active frame-loop count
 ```
 
-## Retained terrain workload gaps
+## Retained runtime and mission gaps
 
 ```txt
-all missing geometry is built synchronously
-correctly reclassifying retained horizon chunks could add burst rebuild work
-no per-frame build count budget
-no vertex or terrain-height sample budget
-no allocation or disposal budget
-no transition latency target
-no priority policy
-no cancellation policy
-no measured initial or transition cost
-```
-
-## Retained near/horizon continuity gaps
-
-```txt
-near and horizon grids use different chunk sizes and center thresholds
-near and horizon slope sampling differs
-near and horizon normals are computed independently
-horizon geometry is scaled by 1.004 and lowered by 0.08 without a typed seam policy
-LOD changes can alter edge density without stitch or skirt authority
-no overlap, gap, height, color or normal fixture
-```
-
-## Retained committed observation gaps
-
-```txt
-telemetry snapshots before visual.render
-renderer drawCalls and triangles update after telemetry publication
-dynamic resolution samples after telemetry publication
-HUD projects after telemetry publication
-no simulationTickId to browser RAF mapping
-no renderFrameId
-no deliveryResultId
-no render submission result
-no HUD acknowledgement
-no telemetry publication barrier
-no required-consumer acknowledgement set
-no state or frame fingerprint
-no bounded committed-frame journal
-```
-
-## Retained external readback gaps
-
-```txt
-GameHost exposes scene, renderer, camera, balloon, visual, simulation, airstream, mail and cameraRig
-external callers can retain mutable subsystem references
-getState returns no session, mission, tick, frame or observation revision
-Nexus telemetry and local snapshot are not correlated by a shared receipt
-old readback callers cannot be fenced after reset or restart
-headless tools cannot prove they observed a committed visible frame
-grass getState reports accepted chunks/instances but not visible or rendered counts
-```
-
-## Retained product acceptance gaps
-
-```txt
-README and AGENTS still describe Meadow Lift bird flight
-runtime is Air Mail hot-air-balloon delivery
-R restart is documented but has no consumer
-no product or acceptance fingerprint
-no deployed parity evidence
-```
-
-## Retained lifecycle and restart gaps
-
-```txt
-root RAF id is not retained
+NexusEngine imports @main
+root RAF handle is not retained
 full-runtime restart and mission reset are not distinct
-mail.reset clears parcel fields only
-simulation, airstream, camera and presentation expose no composed reset
+input uses held-key state rather than sequenced commands
+simulation uses capped variable dt
+correctAirstreamId is not enforced by delivery admission
+mail.reset resets parcel fields only
 no mission epoch or stale-caller fence
+telemetry snapshots before render/HUD completion
+GameHost exposes mutable subsystem references
 ```
 
-## Required grass fixture gaps
+## Retained terrain gaps
 
 ```txt
-fixture:grass-chunk-identity
-fixture:grass-chunk-world-bounds
-fixture:grass-cull-distance
-fixture:grass-visible-set-commit
-fixture:grass-origin-neighborhood
-fixture:grass-first-center-transition
-fixture:grass-origin-radius-crossing
-fixture:grass-camera-centered-retention
-fixture:grass-return-path-parity
-fixture:grass-quality-lod-transition
-fixture:grass-cpu-backend-truth
-fixture:grass-webgpu-backend-truth
-fixture:grass-no-false-workgroup-count
-fixture:grass-first-visible-frame
-fixture:grass-pages-traversal-parity
+retained horizon chunks are not reclassified after camera-center movement
+intended and actual LOD are not jointly observable
+terrain build work is synchronous and unbudgeted
+candidate replacement and stale rejection are absent
+near/horizon seam and normal policy is absent
 ```
 
-## Required grass guarantees
+## Retained grass gaps
 
 ```txt
-all active chunks have stable IDs, centers and world bounds
-cull distance is measured against each chunk's own bounds
-camera-centered required chunks do not disappear because of global-origin distance
-LOD and culling use one accepted camera and quality revision
-backend label equals executed backend
-GPU dispatch counts represent actual GPU dispatches only
-accepted, visible and rendered counts are separately observable
-visible-set commit is atomic and stale decisions cannot mutate newer frames
-render and external observations identify the visible set actually submitted
+grass candidates and instance transforms use absolute world space
+chunk InstancedMesh objects remain at the global origin
+manual culling reads mesh.position instead of chunk bounds
+all chunks share one camera-to-origin distance
+backend label can claim WebGPU without a GPU pipeline or dispatch
+CPU calls increment dispatchedWorkgroups
+accepted, visible and rendered counts are not separated
 ```
 
-Do not treat camera-centered chunk generation as proof of camera-centered grass visibility while the manual culling pass still measures every chunk from the global origin.
+## Required import/frame fixtures
+
+```txt
+fixture:balloon-kit-import-purity
+fixture:no-target-no-compatibility-loop
+fixture:single-active-frame-owner
+fixture:failed-startup-zero-live-callbacks
+fixture:retry-no-predecessor-callbacks
+fixture:compatibility-single-install
+fixture:compatibility-stale-generation
+fixture:compatibility-install-and-dispose
+fixture:pages-single-frame-owner
+```
+
+## Required guarantees
+
+```txt
+importing a reusable kit schedules no recurring work
+compatibility installation is explicit and typed
+no target means no recurring callback
+all callbacks belong to one runtime session and generation
+failure, stop and disposal cancel every callback
+stale callbacks cannot mutate current state
+current Air Mail startup reports one required frame owner
+frame and traversal work are observable and bounded
+```
+
+Do not treat the visible fatal panel as proof of stopped execution while the import-time GameHost wait loop can continue. Do not treat current Air Mail as single-loop while the compatibility tick remains recursive after a no-target search.
