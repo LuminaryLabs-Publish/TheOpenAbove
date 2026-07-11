@@ -4,7 +4,7 @@
 
 ## Scope
 
-Documentation-only reconciliation of the terrain-surface runtime and smoke-test commits that landed after the prior audit. This pass changed no runtime source, package script, dependency, route behavior, rendering behavior or deployment configuration.
+Documentation-only reconciliation of terrain-surface runtime and smoke-test commits newer than the prior audit. This pass changed no runtime source, package script, dependency, route behavior, rendering behavior or deployment configuration.
 
 ## Validation performed
 
@@ -73,7 +73,7 @@ The GitHub connector environment provided source and commit inspection but not a
 ## Source-inspection proof
 
 ```txt
-terrain color is now derived from world coordinates, height, moisture and slope
+terrain color is derived from world coordinates, height, moisture and slope
 random color and normal DataTextures are absent
 repeated texture settings and normal map are absent
 material uses vertexColors with roughness 0.88
@@ -131,7 +131,9 @@ mission elapsed derives from fixed simulation ticks
 ## Push state
 
 ```txt
-repo-local docs pushed to main: in progress until final repo-local write
-central ledger updated: pending
-central internal change log added: pending
+repo-local docs pushed to main: yes
+central ledger updated: yes
+central internal change log added: yes
+central ledger commit: fd5776bae7558d0b4e71839b45fe6ecd746f2e10
+central internal change-log commit: 40dd80cc0cf235ea20f17be6f4e8de9ac77d7173
 ```
