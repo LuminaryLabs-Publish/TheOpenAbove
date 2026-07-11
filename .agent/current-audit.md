@@ -10,15 +10,17 @@ runtime source changed by this pass: no
 recent runtime changes reconciled: yes
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until central commit
-central change log: pending until central commit
+central ledger sync: complete
+central change log: complete
+central ledger commit: fd5776bae7558d0b4e71839b45fe6ecd746f2e10
+central change-log commit: 40dd80cc0cf235ea20f17be6f4e8de9ac77d7173
 ```
 
 ## Selection and change reconciliation
 
 The accessible `LuminaryLabs-Publish` inventory contains ten repositories. `TheCavalryOfRome` is excluded. All nine eligible repositories are tracked and have root `.agent` state.
 
-`TheOpenAbove` was prioritized because two commits newer than the prior central audit changed the terrain surface and its smoke assertions:
+`TheOpenAbove` was prioritized because two commits newer than the prior audit changed the terrain surface and its smoke assertions:
 
 ```txt
 5ce61d3a995ab5dfa0d26bd2bd38f4072de91b7b  smooth world-space Frutiger Aero terrain gradients
@@ -48,7 +50,7 @@ static ESM resolution
 ## Terrain surface behavior
 
 ```txt
-surface palette:
+palette:
   valleyGreen  #3f7850
   meadowGreen  #67a653
   sunlitGreen  #9bc65b
@@ -70,7 +72,7 @@ material:
   normal map   none
 ```
 
-The random 64×64 color and normal textures, repeat settings and normal scale were removed. The terrain now derives color entirely from world coordinates, height, moisture and slope.
+The random 64×64 color and normal textures, repeat settings and normal scale were removed. Color is now derived from world coordinates, height, moisture and slope.
 
 ## Streamed terrain geometry
 
@@ -85,7 +87,7 @@ center decision: round(camera.position / chunkSize)
 rebuild mode: synchronous on center transition
 ```
 
-At high quality, the initial radius-three set can contain 37 chunks and 60,597 terrain vertices. Each vertex samples the height field for the center and four slope offsets, evaluates moisture, multiple smoothsteps, six trigonometric field inputs, color cloning and several lerps before geometry normals and bounds are computed.
+At high quality, the initial radius-three set can contain 37 chunks and 60,597 terrain vertices. Each vertex samples the height field for the center and four slope offsets before color, normal and bounds work.
 
 ## Domains in use
 
@@ -177,7 +179,7 @@ open-above-static-smoke-test-kit
 
 Inactive source-backed kit: `open-above-grass-detail-kit`.
 
-Runtime-implied adapters:
+## Runtime-implied adapters
 
 ```txt
 open-above-route-shell-kit
@@ -213,12 +215,12 @@ open-above-terrain-chunk-rebuild-fixture-kit
 1. The new world-space gradient removes repeated texture noise and is deterministic from source coordinates.
 2. The source has no versioned terrain-surface descriptor, algorithm revision or fingerprint.
 3. `sampleStep = chunkSize / segments` makes slope sampling LOD-dependent.
-4. The same world position can therefore receive different steepness and soft-rock weight across LODs.
-5. Each chunk computes normals independently; mixed-resolution boundaries have no normal continuity contract.
-6. Removing the normal map makes geometric normal discontinuities more visually significant.
+4. The same world position can receive different steepness and soft-rock weight across LODs.
+5. Each chunk computes normals independently; mixed-resolution boundaries have no continuity contract.
+6. Removing the normal map makes geometric normal discontinuities more significant.
 7. Chunk creation and LOD replacement remain synchronous on the render thread.
 8. No queue, per-frame generation budget, prewarm, cache or build-result ledger exists.
-9. The smoke test checks source strings, not numeric palette output, seam parity, LOD parity or frame cost.
+9. The smoke test checks source strings, not numeric output, seam parity, LOD parity or frame cost.
 10. GameHost and HUD expose no terrain revision, active LOD map, build duration, seam result or surface fingerprint.
 
 ## Ordered safe ledges
