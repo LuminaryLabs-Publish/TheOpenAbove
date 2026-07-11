@@ -9,7 +9,8 @@ status: runtime-admission-first-import-purity-frame-ownership-second
 runtime source changed: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending in this turn
+central ledger sync: complete
+central change log: complete
 ```
 
 `TheOpenAbove` remains a static Vite/Three.js Balloon Drift route with NexusEngine telemetry, procedural balloon rendering, physical atmosphere, deterministic terrain and grass, adaptive render scale, GameHost readback, static smoke checks and headless command routing.
@@ -154,4 +155,4 @@ open-above-nexusengine-cdn-adapter-kit
 
 ## Validation
 
-Documentation only. Runtime source, package scripts, dependencies, route behavior, render behavior and deployment configuration were unchanged. No branch or pull request was created.
+Documentation only. Runtime source, package scripts, dependencies, route behavior, render behavior and deployment configuration were unchanged. No branch or pull request was created. Repo-local documentation, central ledger and central change log were pushed to `main`.
