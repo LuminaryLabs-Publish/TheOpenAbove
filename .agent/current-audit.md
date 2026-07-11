@@ -9,7 +9,8 @@ status: committed-observation-frame-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local push completes
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -31,6 +32,7 @@ The active Air Mail loop mutates simulation, delivery, airstream, balloon presen
 - [x] Define typed tick, frame, delivery and consumer acknowledgement contracts.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh required root `.agent` files.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Runtime implementation and executable correlation fixtures remain future work.
 
 ## Interaction loop
