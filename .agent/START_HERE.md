@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-10T19-18-39-04-00`
+**Last aligned:** `2026-07-10T19-58-34-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -8,20 +8,26 @@
 
 ## Summary
 
-`TheOpenAbove` is a Vite-hosted Three.js hot-air-balloon drift route using NexusEngine from a public CDN. The runtime already separates simulation, camera, presentation, visual composition, terrain, deterministic grass, volumetric atmosphere, adaptive resolution, telemetry, smoke validation, and headless commands.
+`TheOpenAbove` is a Vite-hosted Three.js hot-air-balloon drift route with separated simulation, camera, presentation, visual environment, deterministic streamed grass, adaptive resolution, Nexus telemetry, GameHost readback, smoke checks, and headless commands.
 
-The current blocker is restart-safe session identity. The route has local disposal methods but no root `sessionId` and generation fence. A frame or input callback queued by an old session can remain capable of mutating state after stop, failed startup, or restart, and `GameHost` has no terminal immutable projection.
+The current blocker is runtime dependency admission. Three.js is version-pinned, but NexusEngine is imported from the mutable `main` branch. Static module resolution happens before the route-level `try/catch`, so an unavailable or incompatible remote module can prevent both runtime construction and the existing error panel.
 
 ## Current safe ledge
 
 ```txt
-TheOpenAbove Session Generation Fence + Terminal GameHost Fixture Gate
+TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
 ```
+
+The existing session-generation and terminal-GameHost plan remains the immediate consumer after admission succeeds.
+
+## Selection result
+
+The complete accessible `LuminaryLabs-Publish` inventory was compared with the central ledger and root `.agent` state. All nine eligible non-Cavalry repositories were tracked. `TheOpenAbove` was selected because its repo-local audit had advanced to `2026-07-10T19-18-39-04-00` while the central ledger still reported `2026-07-10T17-51-35-04-00`, leaving its current state centrally undocumented. `TheCavalryOfRome` remained excluded.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-10T19-18-39-04-00/project-breakdown.md
+.agent/trackers/2026-07-10T19-58-34-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/known-gaps.md
 .agent/next-steps.md
@@ -32,59 +38,59 @@ TheOpenAbove Session Generation Fence + Terminal GameHost Fixture Gate
 Then read:
 
 ```txt
-.agent/architecture-audit/2026-07-10T19-18-39-04-00-session-generation-fence-dsk-map.md
-.agent/render-audit/2026-07-10T19-18-39-04-00-render-generation-terminal-readback-gap.md
-.agent/gameplay-audit/2026-07-10T19-18-39-04-00-balloon-session-generation-loop.md
-.agent/interaction-audit/2026-07-10T19-18-39-04-00-input-generation-rejection-map.md
-.agent/lifecycle-audit/2026-07-10T19-18-39-04-00-session-generation-terminal-gamehost-contract.md
-.agent/deploy-audit/2026-07-10T19-18-39-04-00-session-generation-fixture-check-gate.md
-.agent/turn-ledger/2026-07-10T19-18-39-04-00.md
+.agent/turn-ledger/2026-07-10T19-58-34-04-00.md
+.agent/architecture-audit/2026-07-10T19-58-34-04-00-runtime-admission-authority-dsk-map.md
+.agent/render-audit/2026-07-10T19-58-34-04-00-source-provenance-render-boot-gap.md
+.agent/gameplay-audit/2026-07-10T19-58-34-04-00-balloon-runtime-admission-loop.md
+.agent/interaction-audit/2026-07-10T19-58-34-04-00-input-admission-readiness-map.md
+.agent/runtime-admission-audit/2026-07-10T19-58-34-04-00-immutable-cdn-capability-contract.md
+.agent/deploy-audit/2026-07-10T19-58-34-04-00-runtime-admission-build-pages-gate.md
 ```
 
 ## Active interaction loop
 
 ```txt
-route boot
-  -> visual construction and resize listener
-  -> balloon construction
-  -> simulation construction and keyboard/blur listeners
-  -> camera construction and wheel listener
-  -> presentation and telemetry construction
-  -> initial state publication
+browser resolves static ESM graph
+  -> Three.js 0.165.0 URL
+  -> NexusEngine @main URL
+  -> local modules
+  -> create visual, balloon, simulation, camera, presentation and telemetry
+  -> install resize, keyboard, blur and wheel listeners
+  -> seed initial state
   -> recursive animation frame
        -> simulation
-       -> balloon transform/presentation
+       -> balloon presentation
        -> camera
-       -> visual update
+       -> visual environment
        -> telemetry
        -> render/adaptive scale
        -> HUD
-       -> queue next frame
+       -> next frame
   -> GameHost live-object readback
 ```
 
-## Missing authority
+## Main finding
 
 ```txt
-no returned root session owner
-no retained animation-frame request ID
-no sessionId or callback generation token
-no stale callback rejection
-no reverse-order partial-start rollback
-no terminal GameHost snapshot
-no root listener/resource ownership ledger
-no lifecycle fixture
+NexusEngine source is mutable for a fixed TheOpenAbove commit.
+No source manifest records the exact resolved NexusEngine revision.
+No capability preflight validates the NexusEngine APIs consumed by telemetry.
+Static import failures occur before createGame() and its try/catch.
+The local smoke and headless checks do not resolve the remote runtime graph.
+GameHost and HUD expose no source coordinate, capability result, boot status or source fingerprint.
 ```
 
-## Existing local disposal
+## Required order
 
 ```txt
-simulation.dispose() -> keyboard and blur listeners
-cameraRig.dispose() -> wheel listener
-visual.dispose() -> resize listener plus grass, terrain and composer cleanup
+immutable source manifest
+  -> dependency admission
+  -> capability preflight
+  -> boot transaction and proof
+  -> sessionId/generation allocation
+  -> frame/listener/resource ownership
+  -> terminal GameHost lifecycle proof
 ```
-
-The missing work is composition, generation fencing, terminal readback, and proof.
 
 ## Guardrails
 
@@ -92,9 +98,9 @@ The missing work is composition, generation fencing, terminal readback, and proo
 Push only to main.
 Do not create branches or pull requests.
 Do not work on TheCavalryOfRome.
-Preserve the visible route and current GameHost fields additively.
-Invalidate generation before cancellation or teardown.
-Keep stop/dispose idempotent.
-Keep journals bounded, deterministic and JSON-safe.
+Preserve the visible Balloon Drift route.
 Do not retune simulation, camera, terrain, grass, atmosphere, water, lighting, postprocess or quality thresholds.
+Keep proof bounded, deterministic and JSON-safe.
+Reject mutable required production sources.
+Do not allocate a runtime session before required capability admission passes.
 ```
