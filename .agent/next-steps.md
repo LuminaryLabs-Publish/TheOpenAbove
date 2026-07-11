@@ -1,135 +1,143 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T09-21-50-04-00`
+**Last aligned:** `2026-07-11T11-31-06-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve the Air Mail balloon experience while establishing immutable runtime admission, one session owner, fixed-step commands, one authoritative product source, correct-current delivery, clean restart and bounded terrain work.
+**Goal:** preserve the Air Mail flight feel while implementing one mission restart transaction after product source, route authority and session ownership are established.
 
 ### Checklist
 
 #### Gate 1: immutable runtime admission
 
-- [ ] Add a versioned runtime source manifest.
-- [ ] Replace NexusEngine `@main` with an immutable coordinate.
-- [ ] Validate NexusEngine, Three.js and postprocess capabilities before construction.
+- [ ] Pin NexusEngine instead of importing `@main`.
+- [ ] Validate Three.js, NexusEngine and postprocess capabilities before construction.
 - [ ] Return typed boot results and module-graph fingerprints.
 - [ ] Add `fixture:runtime-admission`.
 
 #### Gate 2: import purity and frame ownership
 
-- [ ] Remove module-scope RAF scheduling from the balloon object kit.
+- [ ] Remove module-scope compatibility RAF behavior from the balloon object module.
 - [ ] Move compatibility installation behind an explicit installer.
-- [ ] Register every RAF with one session owner.
-- [ ] Add session and generation fences.
+- [ ] Register every callback with one runtime session owner.
 - [ ] Add `fixture:import-purity`.
 
 #### Gate 3: lifecycle and teardown
 
 - [ ] Make `createGame()` return a root runtime-session owner.
-- [ ] Compose simulation, camera, mail, airstream, visual, telemetry and GameHost disposal.
 - [ ] Retain and cancel RAF IDs.
-- [ ] Add idempotent `stop()`, `dispose()` and full-runtime `restart()`.
-- [ ] Retire listeners, geometry, materials and globals before a successor session.
+- [ ] Compose simulation, camera, mail, airstream, presentation, visual, telemetry and GameHost disposal.
+- [ ] Distinguish mission reset from full-runtime restart.
 - [ ] Add `fixture:runtime-lifecycle`.
 
 #### Gate 4: fixed-step clock and input admission
 
-- [ ] Add a session-owned monotonic clock adapter.
+- [ ] Add a session-owned monotonic fixed-step clock.
 - [ ] Separate simulation tick IDs from render frame IDs.
-- [ ] Use fixed `1/60` simulation ticks with a bounded accumulator.
-- [ ] Declare substep, overrun and dropped-time behavior.
-- [ ] Convert key transitions into sequenced burner, vent and reset commands.
+- [ ] Convert burner, vent and reset key transitions into sequenced commands.
 - [ ] Commit held-input state only at tick boundaries.
-- [ ] Keep camera smoothing, visuals and dynamic resolution on render cadence.
 - [ ] Add `fixture:clock-route-parity`.
 
-#### Gate 4a: product source supersession authority
+#### Gate 4a: product source supersession
 
-- [ ] Add `open-above-product-source-authority-domain`.
-- [ ] Create one versioned product manifest.
-- [ ] Select one active mode per runtime session.
-- [ ] Declare Air Mail as superseding, migrating from or coexisting with Meadow Lift.
-- [ ] Archive or adapt legacy Meadow Lift objective/world data explicitly.
-- [ ] Add immutable product, mode, objective, route and control revisions.
-- [ ] Add a runtime source-selection and admission result.
-- [ ] Add one canonical balloon control contract.
-- [ ] Project HUD destination and instructions from route/source data.
-- [ ] Project README and AGENTS control tables from the accepted contract.
-- [ ] Publish source identity through telemetry, GameHost and headless status.
-- [ ] Add `fixture:product-manifest`.
-- [ ] Add `fixture:mode-supersession`.
-- [ ] Add `fixture:control-contract`.
-- [ ] Add `fixture:hud-source-parity`.
-- [ ] Add `fixture:documentation-parity`.
-- [ ] Add `fixture:product-frame-identity`.
+- [ ] Admit one versioned product and mission manifest per session.
+- [ ] Declare Air Mail's relation to Meadow Lift.
+- [ ] Generate controls, HUD and documentation from the accepted source.
+- [ ] Publish a product-source fingerprint through telemetry and tools.
+- [ ] Add product, mode, control, HUD and documentation parity fixtures.
 
 #### Gate 5: Air Mail route and delivery authority
 
-- [ ] Move route, parcel, towns and airstream IDs under the accepted product manifest.
-- [ ] Add mission, parcel, route, town, command, tick and transaction IDs.
-- [ ] Add phases: `ready`, `in-transit`, `approach`, `delivered`, `restarting`, `failed`.
-- [ ] Record route entry, exit, dwell and segment progression.
-- [ ] Define correct-current proof for `meadow-to-brookhaven`.
-- [ ] Reject destination-volume entry without valid route proof.
-- [ ] Return accepted, rejected and no-op delivery results.
-- [ ] Include selected route and proof range in the delivery receipt.
-- [ ] Publish bounded detached mission journals.
-- [ ] Add `fixture:air-mail-route` and `fixture:air-mail-wrong-current`.
+- [ ] Version route, parcel, town and airstream identities.
+- [ ] Add mission phases and command/result IDs.
+- [ ] Record route entry, exit, dwell and progression.
+- [ ] Require correct-current proof before delivery.
+- [ ] Publish bounded mission journals.
+- [ ] Add route and wrong-current fixtures.
 
 #### Gate 5a: Air Mail mission restart transaction
 
-- [ ] Add `missionEpoch` and `resetTransactionId` authority.
+- [ ] Add `open-above-mission-restart-authority-domain`.
+- [ ] Add `missionSessionId`, `missionEpoch` and `resetTransactionId`.
+- [ ] Define a canonical initial mission snapshot from the accepted product manifest.
 - [ ] Add a typed `ResetMission` command consumed at a fixed tick boundary.
-- [ ] Wire `KeyR` and GameHost/headless reset through the same adapter.
-- [ ] Retire held burner/vent input and queued pre-reset commands.
-- [ ] Reset balloon, airstream, parcel, route proof, camera and presentation state.
-- [ ] Prevent delivery admission until reset staging commits.
-- [ ] Commit a typed reset result with before/after fingerprints.
+- [ ] Wire `KeyR`, GameHost and headless reset through one command adapter.
+- [ ] Retire held burner/vent input and queued predecessor commands.
+- [ ] Add simulation, airstream, mail, camera, presentation and telemetry reset adapters.
+- [ ] Stage all subsystem reset state before commit.
+- [ ] Advance the mission epoch atomically.
+- [ ] Invalidate predecessor route and delivery proof.
+- [ ] Block delivery admission until the first post-reset tick commits.
+- [ ] Return typed accepted, rejected, duplicate, stale and failed reset results.
+- [ ] Record before/after fingerprints and bounded journal rows.
 - [ ] Correlate the first post-reset simulation tick and rendered frame.
-- [ ] Ensure reset inside Brookhaven cannot immediately redeliver.
-- [ ] Add pure, host, held-input, stale-proof, first-frame and repeat-reset fixtures.
+- [ ] Prove reset inside Brookhaven cannot immediately redeliver.
+- [ ] Add pure, host, keyboard, held-input, stale-proof, repeat, rollback and first-frame fixtures.
 
 #### Gate 6: terrain surface and horizon authority
 
-- [ ] Extend the terrain descriptor with near and horizon streamer parameters.
-- [ ] Publish a shared terrain source revision and fingerprint.
-- [ ] Use LOD-invariant authoritative slope sampling.
-- [ ] Define near/near, horizon/horizon and near/horizon edge policies.
-- [ ] Preflight height, color and normal continuity before replacement.
-- [ ] Return typed build results for both streamers.
-- [ ] Queue and budget geometry generation across frames or off-thread.
-- [ ] Publish active chunk maps, build journals and seam results.
-- [ ] Add terrain continuity and work-budget fixtures.
+- [ ] Add one terrain source revision and fingerprint.
+- [ ] Define near/horizon edge and replacement policy.
+- [ ] Queue and budget terrain geometry generation.
+- [ ] Publish build journals and seam results.
+- [ ] Add continuity and work-budget fixtures.
 
-## Proposed product-source DSKs
+## Mission restart DSK order
 
 ```txt
-open-above-product-source-authority-domain
-open-above-product-manifest-kit
-open-above-mode-supersession-kit
-open-above-runtime-source-selection-kit
-open-above-control-contract-kit
-open-above-objective-source-adapter-kit
-open-above-product-identity-fingerprint-kit
-open-above-source-admission-result-kit
-open-above-hud-content-projection-kit
-open-above-documentation-projection-kit
-open-above-headless-source-observation-kit
-open-above-source-parity-fixture-kit
+1. open-above-mission-session-kit
+2. open-above-mission-epoch-kit
+3. open-above-reset-command-kit
+4. open-above-reset-admission-kit
+5. open-above-input-retirement-kit
+6. open-above-initial-mission-snapshot-kit
+7. subsystem reset adapters
+8. open-above-reset-transaction-kit
+9. open-above-post-reset-delivery-lock-kit
+10. open-above-reset-result-kit
+11. open-above-reset-journal-kit
+12. open-above-first-post-reset-frame-kit
+13. open-above-reset-fixture-kit
 ```
 
-## Required source proof
+## Reset acceptance cases
 
 ```txt
-exactly one mode is admitted
-Air Mail relation to Meadow Lift is explicit
-runtime region/mode/mission IDs belong to one manifest
-HUD destination equals source destination
-public controls equal accepted runtime bindings
-GameHost, telemetry, headless and rendered frame share one source fingerprint
-same manifest creates the same initial state fingerprint
-conflicting or incomplete sources reject before runtime construction
+reset during normal flight
+reset while burner held
+reset while vent held
+reset while captured by a current
+reset inside destination volume
+reset immediately after delivery
+repeat same command ID
+reset from GameHost
+reset from headless environment
+```
+
+## Reset rejection and failure cases
+
+```txt
+missing command ID
+stale mission epoch
+future mission epoch
+runtime stopped or disposed
+reset already in progress
+invalid product/mission source
+subsystem staging failure
+render failure after epoch commit
+```
+
+## Acceptance criteria
+
+```txt
+one accepted command creates one mission epoch
+all mission-owned subsystem states commit together
+held and queued predecessor input is retired
+predecessor route/delivery proof is stale
+reset inside Brookhaven cannot redeliver immediately
+repeat command returns the original result without side effects
+HUD, telemetry, GameHost and headless observations share the epoch
+first post-reset simulation tick and frame are recorded
 ```
 
 ## Validation order
@@ -140,25 +148,22 @@ fixture:import-purity
 fixture:runtime-lifecycle
 fixture:clock-route-parity
 fixture:product-manifest
-fixture:mode-supersession
-fixture:control-contract
-fixture:hud-source-parity
-fixture:documentation-parity
-fixture:product-frame-identity
 fixture:air-mail-route
 fixture:air-mail-wrong-current
 fixture:air-mail-reset-pure
 fixture:air-mail-reset-host
+fixture:air-mail-reset-keyboard
 fixture:air-mail-reset-held-input
+fixture:air-mail-reset-inside-destination
 fixture:air-mail-reset-stale-proof
-fixture:air-mail-reset-first-frame
 fixture:air-mail-reset-repeat
-fixture:terrain-surface
-fixture:terrain-near-horizon-seams
-fixture:terrain-work-budget
+fixture:air-mail-reset-rollback
+fixture:air-mail-reset-first-frame
 npm run check
 npm run headless:check
 npm run build
 browser smoke
 Pages smoke
 ```
+
+Do not wire a direct `KeyR -> mail.reset()` shortcut. Restart must enter the mission transaction authority.
