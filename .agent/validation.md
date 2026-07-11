@@ -1,6 +1,6 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-10T19-18-39-04-00`
+**Last aligned:** `2026-07-10T19-58-34-04-00`
 
 ## Scope
 
@@ -10,24 +10,39 @@ Documentation-only repository breakdown and audit refresh. Runtime source, packa
 
 ```txt
 full accessible LuminaryLabs-Publish inventory reviewed: yes
-central ledger timestamps compared: yes
+central ledger and repo-local timestamps compared: yes
 all nine eligible repositories confirmed tracked: yes
-eligible root .agent state confirmed: yes
 TheCavalryOfRome excluded: yes
-selected only one product repository: yes
-selected repo root .agent state read: yes
+selected only TheOpenAbove: yes
+index.html module entry read: yes
+src/main.js remote imports, construction, frame and GameHost path read: yes
 package scripts read: yes
 static smoke test read: yes
-src/main.js construction/frame/GameHost ownership read: yes
-simulation listener/dispose path read: yes
-camera listener/dispose path read: yes
-visual update/render/resize/dispose path read: yes
+headless environment read: yes
 runtime source changed: no
 package scripts changed: no
 dependencies changed: no
 branch created: no
 pull request created: no
 push target: main
+```
+
+## Existing commands
+
+```txt
+npm run check
+npm run build
+npm run headless:status
+npm run headless:inspect
+npm run headless:renderer
+npm run headless:check
+npm run headless:build
+```
+
+## Missing required command
+
+```txt
+npm run fixture:runtime-admission
 ```
 
 ## Commands and runtime checks
@@ -42,68 +57,63 @@ npm run headless:renderer: not run
 npm run headless:check: not run
 npm run headless:build: not run
 browser smoke: not run
-GPU/WebGL validation: not run
-session generation fixture: not run because it does not exist yet
-restart fixture: not run because it does not exist yet
-partial-start rollback fixture: not run because it does not exist yet
-terminal GameHost fixture: not run because it does not exist yet
+Pages smoke: not run
+runtime-admission fixture: not run because it does not exist
+session-generation fixture: not run because it does not exist
 ```
 
 ## Existing coverage
 
-`npm run check` runs `tests/smoke.mjs`. The smoke verifies required files and source-text contracts for visual composition, deterministic grass placement, LOD/culling, terrain, water fog, postprocessing, and headless command names.
+`npm run check` runs `tests/smoke.mjs`. It verifies required local files and source-text contracts for visual composition, deterministic grass placement, LOD/culling, terrain, water fog, postprocessing, and headless command names.
 
-The smoke does not instantiate the browser runtime, own animation frames, count listeners, inject failures, dispose resources, reject stale callbacks, restart a session, or inspect terminal GameHost state.
+The headless `project.check` command delegates to that local smoke suite. Neither path resolves the production CDN graph, identifies the NexusEngine commit, rejects a mutable source, validates consumed remote exports, injects module failure, or returns a boot admission result.
 
-## Missing proof
+## Missing runtime-admission proof
 
 ```txt
-monotonic sessionId and generation
-one active session per canvas
-one recursive frame chain
-retained/cancelled frame request
-stale frame rejection before simulation
-stale input rejection
-listener ownership and zero-count teardown
-resource ownership and terminal classification
-reverse-order partial-start rollback
-state freeze after stop
-idempotent stop and dispose
-new identity and cleared input on restart
-old GameHost authority isolation
-terminal immutable GameHost snapshot
-bounded lifecycle and rejection journals
-browser/fixture proof-shape parity
+versioned source manifest
+exact Three.js source acceptance
+immutable NexusEngine source acceptance
+mutable NexusEngine branch rejection
+requested and resolved source coordinates
+required and optional capability results
+static module failure classification
+rejected boot creates no session/listeners/frames
+construction failure rollback handoff
+manifest/source fingerprint determinism
+GameHost source and boot projection
+browser/headless/fixture proof-shape parity
+non-zero fixture failure on contract violation
 ```
 
-## Required future validation order
+## Required validation order
 
 ```txt
-1. node scripts/open-above-session-generation-fixture.mjs
+1. node scripts/open-above-runtime-admission-fixture.mjs
 2. npm run check
 3. npm run headless:inspect
 4. npm run headless:check
 5. npm run build
-6. browser smoke
-7. GameHost stop/dispose/restart proof
-8. compare browser and fixture proof shapes
-9. verify Pages deployment without visible route changes
+6. browser runtime-admission smoke
+7. Pages runtime-admission smoke
+8. session generation and lifecycle fixture
+9. GameHost stop/dispose/restart proof
 ```
 
 ## Current conclusion
 
-Local disposal methods exist, but route-level generation fencing, frame ownership, rollback, terminal readback, and restart isolation are unimplemented and unverified. Do not claim lifecycle or restart safety until the fixture exists and passes.
+The local source structure is inspectable, but production dependency identity and browser boot compatibility are unproven. Do not claim reproducible boot or lifecycle safety until immutable admission and session-generation fixtures exist and pass.
 
 ## Push state
 
 ```txt
 repo-local docs pushed to main: yes
-central ledger update: pending until central commit in this run
-central internal change log: pending until central commit in this run
+central ledger updated: yes
+central internal change log added: yes
 ```
 
 ## Next safe ledge
 
 ```txt
-TheOpenAbove Session Generation Fence + Terminal GameHost Fixture Gate
+TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
 ```
