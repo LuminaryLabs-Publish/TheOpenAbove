@@ -1,115 +1,98 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T13-10-35-04-00`
+**Last aligned:** `2026-07-11T14-50-59-04-00`
 
 ## Scope
 
-Documentation-only audit of the product acceptance boundary. This pass inspected repository instructions, public copy, package scripts, current runtime composition, balloon input, HUD copy, smoke assertions, headless scripts and deployment assumptions.
+Documentation-only audit of the committed observation boundary. This pass inspected current runtime ordering, Nexus telemetry publication, visual update/render behavior, mail delivery mutation, HUD projection and GameHost readback.
 
 ## Plan ledger
 
-**Goal:** separate source-backed product/acceptance mismatches from executable proof and define the exact fixture gate required before claiming README, AGENTS, HUD and runtime parity.
+**Goal:** distinguish mutable current state from an externally committed visible frame and define the fixture gate required before telemetry or GameHost can claim frame fidelity.
 
 - [x] Review the complete Publish inventory.
 - [x] Compare all eligible repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read `AGENTS.md`, `README.md`, `package.json` and current `.agent` state.
-- [x] Read `src/main.js` and `src/runtime/balloon-simulation-kit.js`.
-- [x] Read `tests/smoke.mjs` and identify its proof boundary.
+- [x] Read `src/main.js`.
+- [x] Read `src/runtime/balloon-telemetry-kit.js`.
+- [x] Read `src/visual/visual-domain.js`.
+- [x] Read `src/gameplay/mail-delivery-domain/mail-delivery-domain.js`.
 - [x] Identify the interaction loop, domains, kits and services.
-- [x] Define product, controls, objectives, docs, HUD and evidence parity fixtures.
+- [x] Define observation ordering, delivery/frame, render-stat, HUD/telemetry and GameHost fixtures.
 - [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
 
-## Source inspection completed
+## Source-backed ordering
 
 ```txt
-active runtime product: Air Mail hot-air-balloon mission
-active destination: Brookhaven
-burner bindings: Space / W / ArrowUp
-vent bindings: S / ArrowDown / Shift
-camera zoom: wheel
-R restart consumer: no
-README product: Meadow Lift bird free-flight
-README controls: pitch / bank / boost / R
-AGENTS manual smoke: thermal / gate / perch / R
-source smoke checks documentation parity: no
-source smoke opens browser: no
-source smoke checks deployed Pages: no
+simulation.update
+mail.update
+airstream.update
+simulation.applyToBalloon
+animateHotAirBalloon
+balloonPresentation.update
+cameraRig.update
+visual.update
+engine.tick -> getSnapshot -> Nexus resources/events
+visual.render -> composer.render -> resolution.sample -> renderer statistics
+updateHud
 ```
 
-## Source-backed failure case
+## Source-backed mismatch
 
 ```txt
-read README or AGENTS
-  -> attempt A/D bank or pitch-style flight
-  -> runtime exposes no equivalent steering binding
-  -> attempt three thermals / five gates / perch completion
-  -> active Air Mail runtime exposes different objective graph
-  -> press R
-  -> no runtime consumer
-  -> run npm run check
-  -> source-pattern smoke can still pass
+current simulation and delivery state can be published
+  with previous render statistics
+  before current dynamic-resolution sampling
+  before current HUD projection
+  without a shared render frame identity
 ```
 
-This follows directly from the checked-in public guidance, runtime bindings and smoke assertions. It was not executed as a browser fixture in this documentation pass.
+This result follows directly from checked-in source order. It was not executed in a browser during this documentation pass.
 
 ## Existing proof
 
-`npm run check` currently proves required files and selected implementation patterns. It does not prove:
+`npm run check` runs `tests/smoke.mjs`. The package also exposes headless status/inspect/renderer/check/build commands. No current fixture proves:
 
 ```txt
-selected product identity
-mode supersession
-runtime/public control parity
-runtime/public objective parity
-HUD/documentation parity
-restart availability parity
-manual smoke executability
-browser acceptance completion
-deployed Pages acceptance
-product/acceptance fingerprint agreement
+browser RAF to Nexus clock mapping
+delivery event to first visible frame
+renderer statistics to frame identity
+dynamic-resolution decision to effective frame
+HUD and telemetry revision parity
+required-consumer acknowledgement
+GameHost snapshot detachment
+cross-epoch stale acknowledgement rejection
+deployed Pages observation fingerprint
 ```
 
 ## Required pure fixtures
 
 ```txt
-fixture:product-manifest
-fixture:acceptance-contract
-fixture:control-parity
-fixture:objective-parity
-fixture:documentation-projection
-fixture:agent-guidance-projection
-fixture:hud-contract-projection
-fixture:acceptance-fingerprint
-fixture:acceptance-evidence
+fixture:observation-envelope
+fixture:simulation-tick-receipt
+fixture:delivery-result
+fixture:render-frame-plan
+fixture:consumer-ack-set
+fixture:observation-fingerprint
+fixture:detached-read-model
 ```
 
 ## Required host/browser fixtures
 
 ```txt
-fixture:runtime-binding-observation
-fixture:browser-acceptance
-fixture:browser-control-contract
-fixture:browser-objective-contract
-fixture:browser-restart-availability
-fixture:headless-acceptance-parity
-fixture:pages-acceptance
-```
-
-## Required assertions
-
-```txt
-one admitted product manifest selects Air Mail
-legacy Meadow Lift is archived, migrated or explicitly selectable
-all declared controls have installed runtime consumers
-all installed public controls are declared
-all objectives map to executable domain rules
-restart is documented only when ResetMission is installed
-README, AGENTS, HUD, telemetry and headless observations share one revision
-browser and Pages evidence share the admitted product/acceptance fingerprint
-stale or partial projections fail with typed results
+fixture:observation-order
+fixture:delivery-visible-frame
+fixture:render-stat-frame
+fixture:effective-quality-frame
+fixture:hud-telemetry-parity
+fixture:gamehost-detachment
+fixture:stale-frame-ack
+fixture:cross-epoch-frame-ack
+fixture:headless-committed-observation
+fixture:browser-committed-observation
+fixture:pages-committed-observation
 ```
 
 ## Commands not run
@@ -123,7 +106,7 @@ browser smoke
 Pages smoke
 ```
 
-The connector environment provided repository source and write access, not a checked-out browser/GPU runtime. No command execution is claimed.
+The connector environment provided source and write access, not a checked-out browser/GPU runtime. No command execution is claimed.
 
 ## Change-state validation
 
@@ -142,4 +125,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim that repository guidance or public controls match the product because `npm run check` passes. Completion requires one admitted product/acceptance contract, generated projections, runtime binding observations, browser objective proof and deployed Pages evidence with a shared fingerprint.
+Do not claim a telemetry or GameHost snapshot represents a committed visible frame until one observation receipt correlates the runtime session, mission epoch, simulation tick, delivery result, render submission, effective quality, HUD projection and required consumer acknowledgements.
