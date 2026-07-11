@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T16-30-25-04-00`
+**Last aligned:** `2026-07-11T18-01-38-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve the Air Mail experience while establishing authoritative runtime identity, route/restart semantics, committed visible-frame observation and terrain streaming whose actual geometry matches current LOD policy.
+**Goal:** preserve the Air Mail experience while establishing authoritative runtime identity, route/restart semantics, committed visible-frame observation, terrain streaming and grass culling whose actual rendered state matches current camera and quality policy.
 
 ### Checklist
 
@@ -88,37 +88,65 @@
 - [ ] Retire old geometry after submitted-frame ownership releases it.
 - [ ] Add no-gap, edge-continuity, budget and retirement fixtures.
 
-## Terrain LOD kit order
+#### Gate 7: grass spatial culling and backend truth
+- [ ] Add stable grass chunk IDs from world seed, chunk X and chunk Z.
+- [ ] Derive world centers and bounds for every committed grass chunk.
+- [ ] Replace camera-to-`mesh.position` distance with camera-to-chunk-bounds distance.
+- [ ] Version camera center, quality, LOD and cull policy inputs.
+- [ ] Return typed visible, culled, deferred, failed and stale decisions.
+- [ ] Split capability, selected backend and executed backend identities.
+- [ ] Keep CPU chunk culling as the truthful default implementation.
+- [ ] Report GPU dispatch/workgroup counts only after actual GPU dispatch.
+- [ ] Atomically commit complete visible sets.
+- [ ] Publish accepted, visible and rendered chunk/instance counts separately.
+- [ ] Correlate the visible-set revision with the submitted frame.
+
+#### Gate 7a: grass traversal and frame proof
+- [ ] Add `fixture:grass-chunk-world-bounds`.
+- [ ] Add `fixture:grass-cull-distance`.
+- [ ] Add `fixture:grass-origin-radius-crossing`.
+- [ ] Add `fixture:grass-camera-centered-retention`.
+- [ ] Add `fixture:grass-return-path-parity`.
+- [ ] Add `fixture:grass-cpu-backend-truth`.
+- [ ] Add `fixture:grass-webgpu-backend-truth` only after a real pipeline exists.
+- [ ] Add `fixture:grass-first-visible-frame`.
+- [ ] Add `fixture:grass-pages-traversal-parity`.
+
+## Grass culling kit order
 
 ```txt
-1. open-above-terrain-chunk-identity-kit
-2. open-above-terrain-source-revision-kit
-3. open-above-terrain-lod-policy-kit
-4. open-above-terrain-lod-classification-kit
-5. open-above-terrain-lod-transition-plan-kit
-6. open-above-terrain-geometry-build-request-kit
-7. open-above-terrain-build-budget-kit
-8. open-above-terrain-geometry-build-result-kit
-9. open-above-terrain-edge-stitch-policy-kit
-10. open-above-terrain-atomic-replacement-kit
-11. open-above-terrain-chunk-observation-kit
-12. open-above-terrain-lod-journal-kit
-13. open-above-terrain-lod-fixture-kit
+1. open-above-grass-chunk-identity-kit
+2. open-above-grass-chunk-world-bounds-kit
+3. open-above-grass-camera-center-revision-kit
+4. open-above-grass-lod-classification-kit
+5. open-above-grass-cull-policy-kit
+6. open-above-grass-cull-distance-kit
+7. open-above-grass-backend-capability-kit
+8. open-above-grass-backend-selection-kit
+9. open-above-grass-culling-execution-kit
+10. open-above-grass-cull-decision-kit
+11. open-above-grass-visible-set-commit-kit
+12. open-above-grass-stale-decision-rejection-kit
+13. open-above-grass-cull-observation-kit
+14. open-above-grass-frame-acknowledgement-kit
+15. open-above-grass-culling-journal-kit
+16. open-above-grass-traversal-fixture-kit
 ```
 
-## Required terrain fixture cases
+## Required grass fixture cases
 
 ```txt
-retained horizon chunk upgrades 4 -> 6 -> 10 segments
-retained horizon chunk downgrades 10 -> 6 -> 4 segments
-same final camera pose produces the same active-terrain fingerprint after different paths
-terrain-source revision invalidates old geometry
-quality revision invalidates old classification
-budget exhaustion retains complete previous geometry
-stale build candidates cannot commit
-replacement creates no uncovered frame
-near/horizon edges remain inside positional and normal tolerances
-first visible replacement frame matches the committed observation
+origin neighborhood has individually classified chunks
+first center transition retains a visible neighborhood
+camera crosses 2184 m origin radius without field disappearance
+camera-centered chunk remains visible at long distance
+returning to a prior center produces the same visible-set fingerprint
+quality change reclassifies LOD and culling under one revision
+CPU path reports CPU and zero GPU dispatches
+WebGPU label is impossible without successful pipeline execution
+accepted, visible and rendered instance counts remain distinguishable
+first visible grass frame acknowledges the committed visible set
+Pages traversal produces the same deterministic result as local source
 ```
 
 ## Validation order
@@ -141,6 +169,14 @@ fixture:terrain-path-independence
 fixture:terrain-build-budget
 fixture:terrain-atomic-replacement
 fixture:terrain-edge-continuity
+fixture:grass-chunk-world-bounds
+fixture:grass-cull-distance
+fixture:grass-origin-radius-crossing
+fixture:grass-camera-centered-retention
+fixture:grass-return-path-parity
+fixture:grass-cpu-backend-truth
+fixture:grass-first-visible-frame
+fixture:grass-pages-traversal-parity
 npm run check
 npm run headless:check
 npm run build
@@ -148,4 +184,4 @@ browser acceptance smoke
 Pages acceptance smoke
 ```
 
-Do not claim distance-based terrain LOD from policy alone. The committed active chunk observation must prove the geometry actually rendered matches the current classification or carries an explicit, bounded deferred transition.
+Do not claim camera-centered grass culling from camera-centered chunk membership alone. The committed visible-set observation must prove each chunk was classified against its own world bounds, and backend observations must identify the execution path that actually produced the decision.
