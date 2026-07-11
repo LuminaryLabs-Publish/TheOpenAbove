@@ -1,107 +1,111 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-10T19-58-34-04-00`
+**Last aligned:** `2026-07-10T21-31-01-04-00`
 
 ## Plan ledger
 
 ### Goal
 
-Make runtime boot reproducible by declaring immutable remote sources, validating the APIs consumed by the route, returning one typed admission result, and proving failure behavior before a runtime session is allocated.
+Make browser boot reproducible, make reusable balloon modules import-pure, and give one runtime session explicit ownership of every frame, listener and disposable resource.
 
 ### Checklist
 
+#### Gate 1: immutable runtime admission
+
 - [ ] Add a versioned runtime source manifest.
-- [ ] Replace the NexusEngine `@main` URL with an immutable commit SHA or release tag.
+- [ ] Replace NexusEngine `@main` with an immutable commit or release coordinate.
 - [ ] Keep Three.js pinned to an exact version.
-- [ ] Reject mutable required sources in production manifests.
-- [ ] Define required and optional NexusEngine telemetry capabilities.
-- [ ] Define the Three.js capabilities consumed by active visual kits.
-- [ ] Add typed source, capability, admission, and boot-result contracts.
-- [ ] Add a local bootstrap entry that can project loading and dependency failures.
-- [ ] Resolve declared modules before runtime construction.
-- [ ] Record requested and resolved source coordinates.
-- [ ] Run capability preflight before listener, renderer, or frame creation.
-- [ ] Classify accepted, degraded, rejected, unavailable, incompatible, and construction-failed results.
-- [ ] Allocate no runtime session for rejected admission.
-- [ ] Pass accepted modules into the runtime composer.
-- [ ] Hand the accepted result to the planned session-generation authority.
-- [ ] Register disposers as construction proceeds and roll back partial startup in reverse order.
-- [ ] Add deterministic manifest and source fingerprints.
-- [ ] Add bounded JSON-safe source, capability, boot, and failure journals.
-- [ ] Add `GameHost.source` and `GameHost.boot` readback additively.
-- [ ] Preserve existing active GameHost fields.
-- [ ] Add a DOM-light runtime-admission fixture.
-- [ ] Prove exact-version Three.js acceptance.
-- [ ] Prove immutable NexusEngine acceptance.
-- [ ] Prove mutable NexusEngine branch rejection under production policy.
-- [ ] Prove missing required capability rejection.
-- [ ] Prove optional degradation only when explicitly allowed.
-- [ ] Prove rejected admission installs no listeners, frames, or session.
-- [ ] Prove construction failure returns one rollback result.
-- [ ] Prove fingerprint determinism and browser/fixture proof parity.
-- [ ] Add `fixture:runtime-admission` to package scripts.
-- [ ] Run the fixture before the existing smoke suite.
-- [ ] Expose the summary through headless `project.check`.
-- [ ] Run `npm run check`, `npm run headless:check`, and `npm run build`.
-- [ ] Run browser and Pages admission smokes.
-- [ ] Then implement the existing session-generation and terminal GameHost lifecycle plan.
+- [ ] Validate required NexusEngine and Three.js capabilities before construction.
+- [ ] Return typed accepted, degraded, rejected and failed boot results.
+- [ ] Record requested/resolved source coordinates and deterministic fingerprints.
+- [ ] Expose additive `GameHost.source` and `GameHost.boot` readback.
+- [ ] Add `fixture:runtime-admission`.
 
-## Recommended files
+#### Gate 2: import-pure balloon object and frame ownership
+
+- [ ] Remove module-scope `requestAnimationFrame(attachWhenReady)` from `hot-air-balloon-object-kit.js`.
+- [ ] Keep build and animate exports side-effect free.
+- [ ] Move legacy auto-install behavior into an explicit installer kit.
+- [ ] Add host-shape preflight and typed accepted/unsupported/rejected results.
+- [ ] Do not schedule a compatibility frame for unsupported hosts.
+- [ ] Register every RAF handle with one session frame-owner ledger.
+- [ ] Add sessionId and generation to all scheduled callbacks.
+- [ ] Add `fixture:import-purity` or fold the proof into `fixture:runtime-lifecycle`.
+
+#### Gate 3: lifecycle and ordered teardown
+
+- [ ] Make `createGame()` return a root session owner.
+- [ ] Compose simulation, camera and visual disposers.
+- [ ] Add balloon geometry/material disposal.
+- [ ] Add renderer/composer/resource disposal coverage.
+- [ ] Add idempotent `stop()`, `dispose()` and `restart()`.
+- [ ] Remove or replace live GameHost handles during teardown.
+- [ ] Publish one detached terminal lifecycle result.
+- [ ] Add `fixture:runtime-lifecycle`.
+
+## Recommended DSKs
 
 ```txt
-src/bootstrap/open-above-bootstrap.js
-src/runtime-admission/runtime-source-manifest.js
-src/runtime-admission/immutable-module-locator.js
-src/runtime-admission/module-admission.js
-src/runtime-admission/runtime-capability-preflight.js
-src/runtime-admission/source-fingerprint.js
-src/runtime-admission/boot-transaction.js
-src/runtime-admission/boot-result-journal.js
-src/runtime-admission/gamehost-source-proof.js
-scripts/open-above-runtime-admission-fixture.mjs
+open-above-runtime-source-manifest-kit
+open-above-module-admission-kit
+open-above-runtime-capability-preflight-kit
+open-above-boot-transaction-kit
+open-above-source-fingerprint-kit
+open-above-legacy-balloon-installer-kit
+open-above-compatibility-admission-kit
+open-above-frame-ownership-kit
+open-above-session-generation-fence-kit
+open-above-runtime-session-authority-kit
+open-above-listener-ownership-ledger-kit
+open-above-resource-ownership-ledger-kit
+open-above-ordered-teardown-kit
+open-above-terminal-gamehost-lifecycle-kit
+open-above-import-purity-fixture-kit
+open-above-runtime-lifecycle-fixture-kit
 ```
 
-## Required order
+## Required proof rows
 
 ```txt
-local bootstrap
-  -> source manifest
-  -> immutable-coordinate policy
-  -> module resolution
-  -> capability preflight
-  -> admission result
-  -> accepted boot transaction or rejected terminal proof
-  -> sessionId/generation handoff
-```
-
-## Fixture rows
-
-```txt
-valid pinned sources accepted
+immutable sources accepted
 mutable required source rejected
-required source unavailable
-required capability missing
-optional capability degraded by policy
-rejected boot owns zero listeners and frames
-accepted boot creates one session handoff
-construction failure produces rollback result
-fingerprint deterministic
-headless and browser proof shapes match
+missing required capability rejected
+import object kit schedules zero frames/listeners
+unsupported legacy host schedules zero frames
+accepted route owns exactly one primary RAF
+stop leaves zero owned RAF handles and listeners
+stop/dispose are idempotent
+restart creates one new generation
+stale generation callbacks admitted: zero
+terminal proof contains bounded ownership counts
+```
+
+## Validation order
+
+```txt
+1. fixture:runtime-admission
+2. fixture:runtime-lifecycle
+3. npm run check
+4. npm run headless:check
+5. npm run build
+6. browser smoke
+7. Pages smoke
 ```
 
 ## Avoid until proof exists
 
 ```txt
 renderer replacement
-terrain, cloud, water, grass, lighting or postprocess rewrite
+terrain/cloud/water/grass rewrite
 camera or simulation retuning
-balloon visual changes
+balloon visual redesign
 new route content
-session lifecycle work that still depends on a mutable NexusEngine source
 ```
 
-## Next safe ledge
+## Ordered safe ledges
 
 ```txt
-TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
+1. TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
+2. TheOpenAbove Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
+3. TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
 ```
