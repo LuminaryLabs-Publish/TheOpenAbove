@@ -1,43 +1,44 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-11T05-25-29-04-00",
-  "status": "air-mail-route-authority-and-horizon-consumption-planned",
-  "latestTracker": ".agent/trackers/2026-07-11T05-25-29-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T05-25-29-04-00.md",
+  "lastAligned": "2026-07-11T09-21-50-04-00",
+  "status": "product-source-supersession-authority-audited",
+  "latestTracker": ".agent/trackers/2026-07-11T09-21-50-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T09-21-50-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-11T05-25-29-04-00-air-mail-route-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-11T05-25-29-04-00-airstream-town-horizon-consumption-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-11T05-25-29-04-00-altitude-route-delivery-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-11T05-25-29-04-00-burner-vent-route-admission-map.md",
-    "airstreamSystem": ".agent/airstream-system-audit/2026-07-11T05-25-29-04-00-route-field-force-visual-contract.md",
-    "mailAuthority": ".agent/mail-authority-audit/2026-07-11T05-25-29-04-00-correct-current-delivery-transaction.md",
-    "terrainSystem": ".agent/terrain-system-audit/2026-07-11T05-25-29-04-00-horizon-streaming-workload-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-11T05-25-29-04-00-air-mail-causality-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-11T09-21-50-04-00-product-source-supersession-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-11T09-21-50-04-00-mixed-product-identity-projection-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-11T09-21-50-04-00-meadow-lift-air-mail-source-split-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-11T09-21-50-04-00-control-contract-parity-map.md",
+    "sourceAuthority": ".agent/source-authority-audit/2026-07-11T09-21-50-04-00-product-mode-manifest-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-11T09-21-50-04-00-product-source-parity-fixture-gate.md"
   },
   "selection": {
-    "reason": "runtime commit a67cc952995727a3ddb29e61ed66a72f338a58fd added Air Mail gameplay and horizon terrain after the central audit",
+    "reason": "oldest eligible central-ledger entry after full Publish inventory comparison",
     "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"],
     "inventoryCount": 10,
     "eligibleCount": 9,
-    "reconciledCommits": ["a67cc952995727a3ddb29e61ed66a72f338a58fd"]
+    "newOrLedgerMissingCount": 0,
+    "rootAgentMissingCount": 0
   },
   "interactionLoop": [
     "static-esm-resolution",
-    "visual-near-and-horizon-terrain-construction",
+    "legacy-campaign-world-import",
+    "visual-near-and-horizon-construction",
     "airstream-route-field-and-visual-construction",
-    "mail-route-parcel-town-and-volume-construction",
+    "independent-air-mail-route-parcel-town-construction",
     "keyboard-burner-vent-and-wheel-input",
     "variable-dt-raf",
     "airstream-sample-and-balloon-force",
-    "mail-progress-and-delivery-volume-admission",
-    "visual-telemetry-render-hud-gamehost-projection"
+    "delivery-volume-admission",
+    "telemetry-before-render",
+    "hard-coded-hud-and-gamehost-projection"
   ],
   "domains": [
     "browser-shell-and-vite-publish",
-    "static-esm-and-cdn-admission",
+    "mutable-esm-and-cdn-admission",
     "legacy-meadow-lift-campaign-source",
-    "air-mail-route-parcel-and-town-source",
+    "active-air-mail-route-parcel-and-town-source",
     "keyboard-blur-and-wheel-input",
     "variable-dt-balloon-simulation",
     "airstream-route-validation",
@@ -48,25 +49,37 @@
     "mail-parcel-state",
     "delivery-volume-and-progress",
     "mail-town-rendering",
+    "camera-and-balloon-presentation",
     "near-and-horizon-terrain-streaming",
     "atmosphere-grass-water-and-postprocess",
     "telemetry-hud-and-gamehost-readback",
     "source-smoke-pure-tests-headless-and-pages"
   ],
+  "missingAuthorityDomains": [
+    "product-manifest",
+    "selected-mode-and-supersession",
+    "runtime-source-selection-and-admission",
+    "control-contract",
+    "objective-source-adapter",
+    "product-identity-fingerprint",
+    "hud-and-documentation-projection",
+    "committed-product-frame-identity"
+  ],
   "services": [
-    "route id point radius speed lift turbulence destination and color validation",
-    "nearest 3d segment influence tangent capture and velocity sampling",
+    "browser key polling burner vent blur and wheel zoom",
+    "balloon buoyancy velocity integration terrain clearance mesh projection and snapshots",
+    "route validation nearest-segment influence tangent capture and routed velocity sampling",
     "route overlap and ambient wind blending",
-    "balloon wind and airstream state adaptation",
-    "visible route ribbons wisps and optional diagnostics",
-    "parcel construction reset and status",
+    "airstream flow application visuals diagnostics snapshots and disposal",
+    "parcel construction parcel-field reset and status",
     "town route destination and correct-current source",
     "ground-relative delivery-volume sampling",
-    "selected-route tracking and one-shot delivery event",
-    "town houses markers delivery rings animation and disposal",
-    "burner vent buoyancy terrain clearance and snapshots",
-    "near and far terrain membership geometry color normals and disposal",
-    "telemetry HUD GameHost pure tests smoke headless and build routing"
+    "selected-route mutation and one-shot delivery event",
+    "town visuals animation snapshots and disposal",
+    "procedural balloon geometry rigging burner rope materials and animation",
+    "camera follow basket mode zoom and clipping",
+    "quality sky lighting weather cloud terrain vegetation grass water landmark and postprocess composition",
+    "telemetry HUD GameHost smoke pure tests headless routing Vite build and Pages deployment"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -163,47 +176,43 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedAirMailAuthorityKits": [
-    "open-above-air-mail-manifest-kit",
-    "open-above-air-mail-source-revision-kit",
-    "open-above-air-mail-mission-phase-kit",
-    "open-above-airstream-traversal-ledger-kit",
-    "open-above-airstream-route-proof-kit",
-    "open-above-delivery-admission-kit",
-    "open-above-delivery-result-kit",
-    "open-above-delivery-receipt-kit",
-    "open-above-mail-reset-transaction-kit",
-    "open-above-air-mail-observation-kit",
-    "open-above-air-mail-route-fixture-kit",
-    "open-above-air-mail-frame-correlation-fixture-kit"
+  "plannedProductSourceAuthorityKits": [
+    "open-above-product-source-authority-domain",
+    "open-above-product-manifest-kit",
+    "open-above-mode-supersession-kit",
+    "open-above-runtime-source-selection-kit",
+    "open-above-control-contract-kit",
+    "open-above-objective-source-adapter-kit",
+    "open-above-product-identity-fingerprint-kit",
+    "open-above-source-admission-result-kit",
+    "open-above-hud-content-projection-kit",
+    "open-above-documentation-projection-kit",
+    "open-above-headless-source-observation-kit",
+    "open-above-source-parity-fixture-kit"
   ],
-  "airMail": {
+  "productIdentity": {
+    "legacyRegionId": "meadow-lift",
+    "legacyNextRegionId": "cloud-basin",
+    "runtimeStatus": "mail-flight",
+    "runtimeObjectType": "hot-air-balloon",
     "routeId": "meadow-mail-run",
     "parcelId": "parcel-001",
     "destinationTownId": "brookhaven",
     "correctAirstreamId": "meadow-to-brookhaven",
-    "airstreamCount": 3,
-    "townCount": 3,
-    "correctCurrentEnforced": false,
-    "browserResetWired": false,
-    "deliveryResultJournalAvailable": false
+    "selectedModeAvailable": false,
+    "supersessionPolicyAvailable": false,
+    "sourceFingerprintAvailable": false,
+    "controlContractParity": false
   },
-  "terrainWorkload": {
-    "nearChunkCount": 37,
-    "nearVertexCount": 60597,
-    "horizonChunkCount": 136,
-    "horizonVertexCount": 7624,
-    "combinedVertexCount": 68221,
-    "minimumHeightEvaluations": 341105,
-    "measuredDurationAvailable": false
-  },
-  "mainFinding": "The Air Mail loop is executable, but delivery volume membership bypasses the declared correctAirstreamId. Route selection is mutable last-seen state rather than traversal proof, reset is not wired, product identity is split between Meadow Lift and Air Mail, and the new horizon adds synchronous terrain work without a committed workload result.",
+  "mainFinding": "The active Air Mail balloon runtime and legacy Meadow Lift public/campaign sources are composed without a selected-mode or supersession authority. Runtime snapshots mix mail-flight with meadow-lift, HUD copy hard-codes Brookhaven, and documented pitch/bank/boost/restart controls do not match the burner/vent runtime.",
   "orderedSafeLedges": [
     "Immutable Runtime Admission + Boot Capability Fixture Gate",
     "Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
     "Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate",
     "Fixed-Step Simulation Clock + Visibility/Input Parity Fixture Gate",
+    "Product Source Supersession + Mode/Controls/HUD/Documentation Parity Fixture Gate",
     "Air-Mail Route Authority + Correct-Current Delivery Fixture Gate",
+    "Air-Mail Restart Transaction + Mission Epoch/First-Frame Fixture Gate",
     "Terrain Surface/Horizon Authority + Continuity/Work-Budget Fixture Gate"
   ],
   "validation": {
@@ -214,10 +223,11 @@
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
-    "airMailRouteFixture": "unavailable",
-    "wrongCurrentFixture": "unavailable",
-    "airMailResetFixture": "unavailable",
-    "frameCorrelationFixture": "unavailable",
-    "terrainWorkBudgetFixture": "unavailable"
+    "productManifestFixture": "unavailable",
+    "modeSupersessionFixture": "unavailable",
+    "controlContractFixture": "unavailable",
+    "hudSourceParityFixture": "unavailable",
+    "documentationParityFixture": "unavailable",
+    "productFrameIdentityFixture": "unavailable"
   }
 }
