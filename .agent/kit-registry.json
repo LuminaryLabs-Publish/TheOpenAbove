@@ -1,17 +1,17 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-10T23-20-41-04-00",
-  "status": "runtime-admission-import-purity-lifecycle-first-campaign-objective-authority-fourth",
-  "latestTracker": ".agent/trackers/2026-07-10T23-20-41-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-10T23-20-41-04-00.md",
+  "lastAligned": "2026-07-11T00-49-45-04-00",
+  "status": "runtime-admission-import-purity-lifecycle-clock-first-campaign-objective-authority-fifth",
+  "latestTracker": ".agent/trackers/2026-07-11T00-49-45-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T00-49-45-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-10T23-20-41-04-00-meadow-lift-objective-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-10T23-20-41-04-00-objective-volume-render-consumption-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-10T23-20-41-04-00-declared-mission-endless-drift-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-10T23-20-41-04-00-input-command-objective-result-map.md",
-    "campaignAuthority": ".agent/campaign-authority-audit/2026-07-10T23-20-41-04-00-meadow-lift-phase-progress-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-10T23-20-41-04-00-deterministic-route-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-11T00-49-45-04-00-fixed-step-clock-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-11T00-49-45-04-00-render-frame-simulation-tick-separation-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-11T00-49-45-04-00-raf-cadence-mission-time-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-11T00-49-45-04-00-input-sample-tick-admission-map.md",
+    "timeAuthority": ".agent/time-authority-audit/2026-07-11T00-49-45-04-00-visibility-cadence-clock-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-11T00-49-45-04-00-clock-parity-fixture-gate.md"
   },
   "selection": {
     "reason": "oldest eligible documented-selection fallback after full Publish inventory and central ledger comparison",
@@ -22,12 +22,10 @@
   "interactionLoop": [
     "static-esm-resolution",
     "direct-balloon-route-construction",
-    "gamehost-live-object-publication",
-    "keyboard-burner-vent-and-wheel-zoom-input",
+    "global-input-listener-installation",
     "primary-variable-dt-raf",
-    "simulation-camera-environment-telemetry-render-hud-update",
-    "no-mission-objective-evaluation",
-    "indefinite-drift"
+    "clamped-single-simulation-step",
+    "simulation-camera-environment-telemetry-render-hud-update"
   ],
   "domains": [
     "browser-shell",
@@ -35,6 +33,7 @@
     "static-esm-and-cdn-resolution",
     "campaign-and-world-source",
     "keyboard-blur-and-wheel-input",
+    "browser-visibility-and-raf-cadence",
     "balloon-drift-simulation",
     "procedural-balloon-object-and-presentation",
     "camera-follow-basket-view-clipping-and-zoom",
@@ -50,21 +49,21 @@
     "partial-listener-and-resource-disposal",
     "static-smoke-and-headless-routing",
     "declared-meadow-lift-mission-source",
-    "planned-runtime-admission",
-    "planned-session-generation-teardown-and-restart",
-    "planned-route-objective-phase-progress-completion-and-unlock"
+    "planned-fixed-step-clock-visibility-and-input-admission",
+    "planned-route-objective-authority"
   ],
   "services": [
-    "route canvas, HUD, error panel and module boot",
-    "burner, vent, blur and wheel input",
-    "wind, buoyancy, damping, ceiling and terrain-clearance simulation",
-    "balloon construction, animation and legacy host installation",
-    "camera follow, basket blend, zoom, clipping and listener disposal",
-    "sky, lighting, clouds, terrain, vegetation, grass, water and landmarks",
-    "quality classification, dynamic resolution, HDR render and statistics",
-    "Nexus telemetry, HUD and GameHost readback",
-    "campaign region metadata, target counts, perch coordinates and unlock relationship",
-    "local source smoke and headless command routing"
+    "route canvas HUD error panel and module boot",
+    "burner vent blur and wheel input",
+    "RAF delta measurement and clamped single-step advancement",
+    "wind buoyancy damping ceiling and terrain-clearance simulation",
+    "balloon construction animation and legacy installation",
+    "camera follow basket blend zoom clipping and disposal",
+    "sky lighting clouds terrain vegetation grass water and landmarks",
+    "quality dynamic resolution HDR render and statistics",
+    "Nexus telemetry HUD and GameHost readback",
+    "campaign targets perch and unlock source",
+    "source smoke and headless routing"
   ],
   "activeSourceBackedKits": [
     "open-above-balloon-simulation-kit",
@@ -110,44 +109,29 @@
     "open-above-error-panel-kit",
     "open-above-gamehost-legacy-readback-kit",
     "open-above-nexusengine-cdn-adapter-kit",
-    "open-above-campaign-source-kit"
+    "open-above-campaign-source-kit",
+    "open-above-raf-clock-adapter-kit"
   ],
-  "nextCutKits": [
-    "open-above-runtime-source-manifest-kit",
-    "open-above-module-admission-kit",
-    "open-above-runtime-capability-preflight-kit",
-    "open-above-boot-transaction-kit",
-    "open-above-source-fingerprint-kit",
-    "open-above-legacy-balloon-installer-kit",
-    "open-above-compatibility-admission-kit",
-    "open-above-frame-ownership-kit",
-    "open-above-session-generation-fence-kit",
-    "open-above-runtime-session-authority-kit",
-    "open-above-listener-ownership-ledger-kit",
-    "open-above-resource-ownership-ledger-kit",
-    "open-above-ordered-teardown-kit",
-    "open-above-terminal-gamehost-lifecycle-kit",
-    "open-above-import-purity-fixture-kit",
-    "open-above-runtime-lifecycle-fixture-kit",
-    "open-above-campaign-manifest-kit",
-    "open-above-route-objective-authority-kit",
-    "open-above-thermal-volume-kit",
-    "open-above-wind-gate-kit",
-    "open-above-perch-return-zone-kit",
-    "open-above-objective-progress-kit",
-    "open-above-mission-phase-kit",
-    "open-above-restart-command-kit",
-    "open-above-mission-result-journal-kit",
-    "open-above-route-render-projection-kit",
-    "open-above-campaign-observation-kit",
-    "open-above-meadow-lift-fixture-kit"
+  "clockAuthorityKits": [
+    "open-above-runtime-clock-authority-kit",
+    "open-above-monotonic-time-adapter-kit",
+    "open-above-fixed-step-accumulator-kit",
+    "open-above-simulation-tick-kit",
+    "open-above-render-frame-kit",
+    "open-above-input-sample-buffer-kit",
+    "open-above-visibility-suspension-policy-kit",
+    "open-above-clock-overrun-result-kit",
+    "open-above-swept-objective-contact-kit",
+    "open-above-clock-observation-kit",
+    "open-above-clock-parity-fixture-kit"
   ],
-  "mainFinding": "The product contract declares three thermals, five gates, return-to-perch completion, timeout, restart and Cloud Basin unlock, but the active Balloon Drift runtime only executes physical drift and presentation. No mission objective entities, phase, progress, result, unlock, render projection or deterministic route fixture exists.",
+  "mainFinding": "Authoritative physics, input polling, telemetry and future mission elapsed currently advance from one clamped variable RAF step. Slow frames and hidden-tab time are silently discarded. Fixed-step clock and input admission authority are required before timed Meadow Lift objectives.",
   "orderedSafeLedges": [
-    "TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate",
-    "TheOpenAbove Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
-    "TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate",
-    "TheOpenAbove Meadow Lift Objective Authority + Deterministic Route Fixture Gate"
+    "Immutable Runtime Admission + Boot Capability Fixture Gate",
+    "Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
+    "Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate",
+    "Fixed-Step Simulation Clock + Visibility/Cadence Parity Fixture Gate",
+    "Meadow Lift Objective Authority + Deterministic Route Fixture Gate"
   ],
   "validation": {
     "runtimeSourceChanged": false,
@@ -157,10 +141,6 @@
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
-    "headlessCheck": "not run",
-    "browserSmoke": "not run",
-    "runtimeAdmissionFixture": "unavailable",
-    "runtimeLifecycleFixture": "unavailable",
-    "meadowLiftRouteFixture": "unavailable"
+    "clockParityFixture": "unavailable"
   }
 }

@@ -1,11 +1,11 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-10T23-20-41-04-00`
+**Last aligned:** `2026-07-11T00-49-45-04-00`
 
 ## Status
 
 ```txt
-status: runtime-admission-import-purity-lifecycle-first-campaign-objective-authority-fourth
+status: runtime-admission-import-purity-lifecycle-clock-first-campaign-objective-authority-fifth
 runtime source changed: no
 branch: main
 root .agent state: refreshed
@@ -13,88 +13,75 @@ central ledger sync: complete
 central change log: complete
 ```
 
-`TheOpenAbove` remains a static Vite/Three.js Balloon Drift route with NexusEngine telemetry, procedural balloon rendering, physical atmosphere, deterministic terrain and grass, adaptive render scale, GameHost readback, static smoke checks, and headless command routing.
-
-## Selection
-
-The complete accessible Publish inventory contained ten repositories. `TheCavalryOfRome` remained excluded. All nine eligible repositories were centrally tracked and had root `.agent` state. `TheOpenAbove` was the oldest eligible direct ledger entry at selection and was the only product repository changed.
-
-## Files reviewed
-
-```txt
-AGENTS.md
-README.md
-package.json
-src/main.js
-src/data/campaign.config.js
-src/runtime/balloon-simulation-kit.js
-src/runtime/balloon-telemetry-kit.js
-src/visual/visual-domain.js
-tests/smoke.mjs
-.agent root state
-central Publish ledgers
-```
-
 ## Interaction loop
 
 ```txt
 static ESM resolution
-  -> create visual domain, balloon, simulation, camera, presentation and telemetry
-  -> publish GameHost live references
-  -> keyboard input controls burner/vent
-  -> wheel input controls camera zoom
-  -> requestAnimationFrame computes clamped variable dt
-  -> simulation updates wind, buoyancy, altitude and distance
-  -> balloon, camera, atmosphere, terrain, grass, water and postprocess update
-  -> Nexus telemetry snapshots aggregate state before render
-  -> renderer submits and adaptive resolution samples frame cost
-  -> HUD projects drift state
-  -> no objective evaluation or mission transition occurs
+  -> construct visual, balloon, simulation, camera, presentation and telemetry
+  -> keydown/keyup/blur mutate a private input Set
+  -> wheel mutates camera zoom
+  -> RAF supplies now
+  -> frameMs = min(80, now - last)
+  -> dt = min(1/30, frameMs / 1000)
+  -> simulation.update(dt)
+  -> balloon/presentation/camera/visual update once
+  -> Nexus engine.tick(dt) once
+  -> render and HUD once
+```
+
+## Clock behavior
+
+```txt
+60 Hz: simulation advances close to wall time
+30 Hz: simulation advances close to wall time
+20 Hz: 50ms render frames advance simulation only 33.3ms
+long frame: nearly all time beyond 33.3ms is discarded
+hidden-tab resume: hidden duration is discarded without a suspension result
 ```
 
 ## Domains in use
 
 ```txt
 browser shell and Vite publishing
-static ESM and CDN runtime resolution
-campaign and world source configuration
+static ESM and CDN resolution
+campaign and world source
 keyboard, blur and wheel input
+browser visibility and RAF cadence
 balloon drift simulation
 procedural balloon object and presentation
-camera follow, basket view, clipping fade and zoom
+camera follow, basket view, clipping and zoom
 quality tier and dynamic resolution
 physical sky, sun, aerial perspective, weather and volumetric clouds
 terrain surface and chunk streaming
-vegetation, deterministic grass, water and distant landmarks
-HDR composition, neutral grading and lens response
+vegetation, deterministic grass, water and landmarks
+HDR composition, grading and lens response
 Nexus telemetry
 HUD and GameHost projection
 import-time compatibility installation
-animation-frame ownership and runtime lifecycle
+animation-frame ownership and lifecycle
 partial listener/resource disposal
-static smoke and headless command routing
+static smoke and headless routing
 declared Meadow Lift mission source
 planned immutable runtime admission
-planned session generation, teardown and restart authority
-planned route objective, phase, progress, completion and unlock authority
+planned session teardown/restart authority
+planned fixed-step clock and input admission
+planned objective/progress/completion/unlock authority
 ```
 
 ## Services offered
 
-- Route shell: canvas, HUD, error panel, module entry and boot.
-- Simulation: burner/vent input, wind, buoyancy, damping, ceiling, terrain clearance, transforms and snapshots.
-- Balloon: geometry, materials, envelope, basket, ropes, burner, animation and legacy host installation.
-- Camera: follow, basket blend, zoom, clipping fade, FOV, state and wheel-listener disposal.
-- Environment: sky, sun, aerial perspective, weather, clouds, terrain, vegetation, grass, water and landmarks.
-- Grass: deterministic seed, density, exclusions, placement, LOD, culling, instancing, animation, state and disposal.
-- Rendering: quality classification, dynamic resolution, resize, HDR composition, render submission and statistics.
+- Route shell: canvas, HUD, error panel, module boot.
+- Simulation: burner/vent polling, wind, buoyancy, damping, ceiling, terrain clearance, transforms and snapshots.
+- Balloon: geometry, materials, envelope, basket, ropes, burner, animation and legacy installation.
+- Camera: follow, basket blend, zoom, clipping, FOV, state and wheel-listener disposal.
+- Environment: sky, sun, weather, clouds, terrain, vegetation, grass, water and landmarks.
+- Grass: deterministic seed, density, exclusions, placement, LOD, culling, instancing, animation and disposal.
+- Rendering: quality classification, dynamic resolution, HDR render and statistics.
 - Telemetry/readback: Nexus resources/events, HUD and GameHost live state.
-- Campaign source: region metadata, objective target values, world counts, perch coordinates and planned unlock relationship.
-- Validation: local source assertions and headless check/build command routing.
+- Campaign source: objective targets, world counts, perch coordinates and unlock relationship.
+- Validation: source assertions and headless check/build routing.
 
-## Kit inventory
-
-### Active source-backed kits
+## Active source-backed kits
 
 ```txt
 open-above-balloon-simulation-kit
@@ -145,29 +132,30 @@ open-above-error-panel-kit
 open-above-gamehost-legacy-readback-kit
 open-above-nexusengine-cdn-adapter-kit
 open-above-campaign-source-kit
+open-above-raf-clock-adapter-kit
 ```
 
 ## Main findings
 
-1. NexusEngine is imported from mutable `main`, so immutable runtime admission remains the first gate.
-2. `hot-air-balloon-object-kit.js` schedules a compatibility RAF during module evaluation.
-3. Neither the compatibility RAF nor the primary route RAF is owned by a root session lifecycle.
-4. The README and `AGENTS.md` define a mission loop that is not present in the active runtime.
-5. `CAMPAIGN.regions[0].objectives` defines thermal, gate, return-radius and time-limit targets, but no runtime consumer evaluates them.
-6. `WORLD.gateCount`, `WORLD.thermalCount`, `WORLD.perch`, `WORLD.start`, and `FLIGHT` are not part of the active Balloon Drift authority chain.
-7. The simulation exposes only `drifting` status, aggregate distance and physical state; it has no mission phase, progress, completion, failure, unlock or restart result.
-8. The visual domain creates no thermal, gate or perch objective projection, and telemetry/GameHost publish no campaign proof.
-9. `tests/smoke.mjs` validates source strings and visual composition only; it cannot detect an endless-drift product loop.
+1. NexusEngine is imported from mutable `main`.
+2. The balloon object module schedules a compatibility RAF during import.
+3. No root session owns either RAF or all resources.
+4. One browser RAF equals one simulation step.
+5. `dt` is capped at `1/30`, dropping slow-frame and hidden-tab elapsed time.
+6. Input has no sequence ID or target simulation tick.
+7. Telemetry frame identity is render-driven.
+8. No visibility, max-substep, overrun or dropped-time policy exists.
+9. The configured 300-second mission limit would inherit this ambiguity.
+10. Current smoke coverage cannot prove cadence parity or visibility recovery.
 
 ## Ordered safe ledges
 
 ```txt
-1. TheOpenAbove Immutable Runtime Admission + Boot Capability Fixture Gate
-2. TheOpenAbove Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
-3. TheOpenAbove Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
-4. TheOpenAbove Meadow Lift Objective Authority + Deterministic Route Fixture Gate
+1. Immutable Runtime Admission + Boot Capability Fixture Gate
+2. Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate
+3. Runtime Session Lifecycle + Ordered Disposal/Reboot Fixture Gate
+4. Fixed-Step Simulation Clock + Visibility/Cadence Parity Fixture Gate
+5. Meadow Lift Objective Authority + Deterministic Route Fixture Gate
 ```
 
-## Validation
-
-Documentation only. Runtime source, package scripts, dependencies, route behavior, render behavior and deployment configuration were unchanged. No branch or pull request was created. Repo-local documentation, central ledger and central change log were pushed to `main`.
+Documentation only. Runtime source, packages, dependencies, route behavior, rendering and deployment were unchanged.
