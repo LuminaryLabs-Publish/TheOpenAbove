@@ -9,8 +9,8 @@ status: import-purity-compatibility-frame-ownership-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local completion
-central internal change log: pending until repo-local completion
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -33,6 +33,7 @@ The current product therefore has one intended Air Mail loop plus one hidden com
 - [x] Define explicit install, frame registration, stale-callback and disposal contracts.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` state.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Implement runtime changes and execute browser fixtures.
 
 ## Interaction loop
