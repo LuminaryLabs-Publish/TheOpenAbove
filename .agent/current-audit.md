@@ -9,8 +9,8 @@ status: grass-spatial-culling-backend-truth-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local documentation head is known
-central internal change log: pending until repo-local documentation head is known
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -35,7 +35,7 @@ The cull threshold is `520 * 4.2 = 2184 m`. Beyond that camera radius, every new
 - [x] Define chunk identity, bounds, policy, backend, decision, commit, observation and fixture contracts.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh required root `.agent` files.
-- [ ] Synchronize the central ledger and internal change log after the repo-local head is known.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Runtime implementation and executable grass fixtures remain future work.
 
 ## Interaction loop
