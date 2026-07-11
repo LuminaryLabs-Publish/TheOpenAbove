@@ -1,23 +1,30 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-11T09-21-50-04-00",
-  "status": "product-source-supersession-authority-audited",
-  "latestTracker": ".agent/trackers/2026-07-11T09-21-50-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T09-21-50-04-00.md",
+  "lastAligned": "2026-07-11T11-31-06-04-00",
+  "status": "air-mail-mission-restart-authority-audited",
+  "latestTracker": ".agent/trackers/2026-07-11T11-31-06-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T11-31-06-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-11T09-21-50-04-00-product-source-supersession-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-11T09-21-50-04-00-mixed-product-identity-projection-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-11T09-21-50-04-00-meadow-lift-air-mail-source-split-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-11T09-21-50-04-00-control-contract-parity-map.md",
+    "architecture": ".agent/architecture-audit/2026-07-11T11-31-06-04-00-air-mail-mission-restart-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-11T11-31-06-04-00-first-post-restart-frame-correlation-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-11T11-31-06-04-00-partial-mail-reset-state-divergence-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-11T11-31-06-04-00-keyr-reset-command-admission-map.md",
+    "missionRestart": ".agent/mission-restart-audit/2026-07-11T11-31-06-04-00-mission-epoch-atomic-reset-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-11T11-31-06-04-00-air-mail-reset-fixture-gate.md"
+  },
+  "retainedAudits": {
     "sourceAuthority": ".agent/source-authority-audit/2026-07-11T09-21-50-04-00-product-mode-manifest-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-11T09-21-50-04-00-product-source-parity-fixture-gate.md"
+    "mailAuthority": ".agent/mail-authority-audit/2026-07-11T05-25-29-04-00-correct-current-delivery-transaction.md",
+    "lifecycle": ".agent/lifecycle-audit/2026-07-10T21-31-01-04-00-session-frame-listener-resource-contract.md"
   },
   "selection": {
     "reason": "oldest eligible central-ledger entry after full Publish inventory comparison",
     "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"],
     "inventoryCount": 10,
     "eligibleCount": 9,
+    "centralLedgerCount": 9,
+    "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0
   },
@@ -29,10 +36,12 @@
     "independent-air-mail-route-parcel-town-construction",
     "keyboard-burner-vent-and-wheel-input",
     "variable-dt-raf",
-    "airstream-sample-and-balloon-force",
+    "balloon-simulation-update",
     "delivery-volume-admission",
+    "airstream-camera-presentation-and-visual-update",
     "telemetry-before-render",
-    "hard-coded-hud-and-gamehost-projection"
+    "render-hud-and-gamehost-projection",
+    "parcel-only-reset-with-immediate-redelivery-risk"
   ],
   "domains": [
     "browser-shell-and-vite-publish",
@@ -49,10 +58,12 @@
     "mail-parcel-state",
     "delivery-volume-and-progress",
     "mail-town-rendering",
+    "mission-session-phase-epoch-and-restart-authority",
     "camera-and-balloon-presentation",
     "near-and-horizon-terrain-streaming",
     "atmosphere-grass-water-and-postprocess",
     "telemetry-hud-and-gamehost-readback",
+    "runtime-lifecycle-and-disposal",
     "source-smoke-pure-tests-headless-and-pages"
   ],
   "missingAuthorityDomains": [
@@ -63,11 +74,18 @@
     "objective-source-adapter",
     "product-identity-fingerprint",
     "hud-and-documentation-projection",
-    "committed-product-frame-identity"
+    "mission-session-and-epoch",
+    "reset-command-and-admission",
+    "input-retirement",
+    "canonical-initial-mission-snapshot",
+    "atomic-subsystem-reset-transaction",
+    "post-reset-delivery-lock",
+    "reset-result-and-bounded-journal",
+    "first-post-reset-simulation-and-render-receipt"
   ],
   "services": [
     "browser key polling burner vent blur and wheel zoom",
-    "balloon buoyancy velocity integration terrain clearance mesh projection and snapshots",
+    "balloon buoyancy velocity integration terrain clearance mesh projection snapshots and listener disposal",
     "route validation nearest-segment influence tangent capture and routed velocity sampling",
     "route overlap and ambient wind blending",
     "airstream flow application visuals diagnostics snapshots and disposal",
@@ -77,7 +95,7 @@
     "selected-route mutation and one-shot delivery event",
     "town visuals animation snapshots and disposal",
     "procedural balloon geometry rigging burner rope materials and animation",
-    "camera follow basket mode zoom and clipping",
+    "camera follow basket mode zoom clipping and disposal",
     "quality sky lighting weather cloud terrain vegetation grass water landmark and postprocess composition",
     "telemetry HUD GameHost smoke pure tests headless routing Vite build and Pages deployment"
   ],
@@ -190,6 +208,27 @@
     "open-above-headless-source-observation-kit",
     "open-above-source-parity-fixture-kit"
   ],
+  "plannedMissionRestartKits": [
+    "open-above-mission-restart-authority-domain",
+    "open-above-mission-session-kit",
+    "open-above-mission-epoch-kit",
+    "open-above-reset-command-kit",
+    "open-above-reset-admission-kit",
+    "open-above-input-retirement-kit",
+    "open-above-initial-mission-snapshot-kit",
+    "open-above-simulation-reset-adapter-kit",
+    "open-above-airstream-reset-adapter-kit",
+    "open-above-mail-reset-adapter-kit",
+    "open-above-camera-reset-adapter-kit",
+    "open-above-presentation-reset-adapter-kit",
+    "open-above-telemetry-reset-adapter-kit",
+    "open-above-reset-transaction-kit",
+    "open-above-reset-result-kit",
+    "open-above-reset-journal-kit",
+    "open-above-post-reset-delivery-lock-kit",
+    "open-above-first-post-reset-frame-kit",
+    "open-above-reset-fixture-kit"
+  ],
   "productIdentity": {
     "legacyRegionId": "meadow-lift",
     "legacyNextRegionId": "cloud-basin",
@@ -204,7 +243,18 @@
     "sourceFingerprintAvailable": false,
     "controlContractParity": false
   },
-  "mainFinding": "The active Air Mail balloon runtime and legacy Meadow Lift public/campaign sources are composed without a selected-mode or supersession authority. Runtime snapshots mix mail-flight with meadow-lift, HUD copy hard-codes Brookhaven, and documented pitch/bank/boost/restart controls do not match the burner/vent runtime.",
+  "missionRestart": {
+    "keyRBound": false,
+    "missionEpochAvailable": false,
+    "simulationResetAvailable": false,
+    "airstreamResetAvailable": false,
+    "cameraResetAvailable": false,
+    "parcelOnlyResetAvailable": true,
+    "postResetDeliveryLockAvailable": false,
+    "firstPostResetFrameAvailable": false,
+    "immediateRedeliveryRisk": true
+  },
+  "mainFinding": "The active Air Mail mission exposes only a parcel-field reset. KeyR is ignored, mission-owned simulation/airstream/camera/telemetry state survives, and a parcel reset inside Brookhaven can immediately redeliver on the next update. Restart requires one mission epoch, atomic subsystem transaction and first post-reset frame receipt.",
   "orderedSafeLedges": [
     "Immutable Runtime Admission + Boot Capability Fixture Gate",
     "Import-Pure Balloon Object Kit + Frame Ownership Fixture Gate",
@@ -223,11 +273,10 @@
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
-    "productManifestFixture": "unavailable",
-    "modeSupersessionFixture": "unavailable",
-    "controlContractFixture": "unavailable",
-    "hudSourceParityFixture": "unavailable",
-    "documentationParityFixture": "unavailable",
-    "productFrameIdentityFixture": "unavailable"
+    "missionResetPureFixture": "unavailable",
+    "missionResetHostFixture": "unavailable",
+    "missionResetKeyboardFixture": "unavailable",
+    "missionResetInsideDestinationFixture": "unavailable",
+    "missionResetFirstFrameFixture": "unavailable"
   }
 }
