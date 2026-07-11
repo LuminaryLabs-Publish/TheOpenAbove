@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T11-31-06-04-00`
+**Last aligned:** `2026-07-11T13-10-35-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve the Air Mail flight feel while implementing one mission restart transaction after product source, route authority and session ownership are established.
+**Goal:** preserve the Air Mail flight feel while making product identity, controls, objectives, public guidance and acceptance evidence derive from one admitted source.
 
 ### Checklist
 
@@ -38,13 +38,18 @@
 - [ ] Commit held-input state only at tick boundaries.
 - [ ] Add `fixture:clock-route-parity`.
 
-#### Gate 4a: product source supersession
+#### Gate 4a: product source and acceptance contract authority
 
-- [ ] Admit one versioned product and mission manifest per session.
-- [ ] Declare Air Mail's relation to Meadow Lift.
-- [ ] Generate controls, HUD and documentation from the accepted source.
-- [ ] Publish a product-source fingerprint through telemetry and tools.
-- [ ] Add product, mode, control, HUD and documentation parity fixtures.
+- [ ] Add one versioned product manifest with selected mode, mission and supersession policy.
+- [ ] Define an immutable `ControlContract` for burner, vent, zoom and restart availability.
+- [ ] Define an immutable `ObjectiveContract` for route capture and Brookhaven delivery.
+- [ ] Derive HUD labels and help text from the admitted contracts.
+- [ ] Generate README controls/objectives from the admitted contract.
+- [ ] Generate AGENTS manual smoke and acceptance criteria from the same contract.
+- [ ] Publish product, control, objective and acceptance fingerprints through telemetry and headless tools.
+- [ ] Return typed missing, stale, conflicting and mismatched projection results.
+- [ ] Add bounded acceptance evidence and parity journals.
+- [ ] Add product, controls, objectives, HUD, docs and deployment parity fixtures.
 
 #### Gate 5: Air Mail route and delivery authority
 
@@ -61,18 +66,15 @@
 - [ ] Add `missionSessionId`, `missionEpoch` and `resetTransactionId`.
 - [ ] Define a canonical initial mission snapshot from the accepted product manifest.
 - [ ] Add a typed `ResetMission` command consumed at a fixed tick boundary.
-- [ ] Wire `KeyR`, GameHost and headless reset through one command adapter.
+- [ ] Wire `KeyR`, GameHost and headless reset through one command adapter only when restart is declared available.
 - [ ] Retire held burner/vent input and queued predecessor commands.
 - [ ] Add simulation, airstream, mail, camera, presentation and telemetry reset adapters.
 - [ ] Stage all subsystem reset state before commit.
 - [ ] Advance the mission epoch atomically.
 - [ ] Invalidate predecessor route and delivery proof.
 - [ ] Block delivery admission until the first post-reset tick commits.
-- [ ] Return typed accepted, rejected, duplicate, stale and failed reset results.
-- [ ] Record before/after fingerprints and bounded journal rows.
-- [ ] Correlate the first post-reset simulation tick and rendered frame.
+- [ ] Return typed reset results and correlate the first post-reset frame.
 - [ ] Prove reset inside Brookhaven cannot immediately redeliver.
-- [ ] Add pure, host, keyboard, held-input, stale-proof, repeat, rollback and first-frame fixtures.
 
 #### Gate 6: terrain surface and horizon authority
 
@@ -82,62 +84,55 @@
 - [ ] Publish build journals and seam results.
 - [ ] Add continuity and work-budget fixtures.
 
-## Mission restart DSK order
+## Product acceptance DSK order
 
 ```txt
-1. open-above-mission-session-kit
-2. open-above-mission-epoch-kit
-3. open-above-reset-command-kit
-4. open-above-reset-admission-kit
-5. open-above-input-retirement-kit
-6. open-above-initial-mission-snapshot-kit
-7. subsystem reset adapters
-8. open-above-reset-transaction-kit
-9. open-above-post-reset-delivery-lock-kit
-10. open-above-reset-result-kit
-11. open-above-reset-journal-kit
-12. open-above-first-post-reset-frame-kit
-13. open-above-reset-fixture-kit
+1. open-above-product-mode-admission-kit
+2. open-above-acceptance-contract-schema-kit
+3. open-above-control-contract-kit
+4. open-above-objective-contract-kit
+5. open-above-manual-smoke-contract-kit
+6. open-above-documentation-projection-kit
+7. open-above-agent-guidance-projection-kit
+8. open-above-hud-contract-projection-kit
+9. open-above-runtime-binding-observation-kit
+10. open-above-acceptance-parity-result-kit
+11. open-above-acceptance-fingerprint-kit
+12. open-above-acceptance-evidence-kit
+13. open-above-acceptance-journal-kit
+14. open-above-product-acceptance-fixture-kit
+15. open-above-browser-acceptance-smoke-kit
+16. open-above-pages-acceptance-smoke-kit
 ```
 
-## Reset acceptance cases
+## Required acceptance cases
 
 ```txt
-reset during normal flight
-reset while burner held
-reset while vent held
-reset while captured by a current
-reset inside destination volume
-reset immediately after delivery
-repeat same command ID
-reset from GameHost
-reset from headless environment
+selected product is Air Mail
+runtime object type is hot-air-balloon
+burner bindings match runtime
+vent bindings match runtime
+wheel zoom matches runtime
+restart is documented only when a ResetMission consumer exists
+objective source names Brookhaven and the correct current
+HUD contains no independent product/control/objective literals
+README and AGENTS are generated from the same contract revision
+headless state publishes the same product and acceptance fingerprints
+browser smoke performs each declared control and objective step
+Pages smoke proves the deployed build reports the same contract
 ```
 
-## Reset rejection and failure cases
+## Required mismatch cases
 
 ```txt
-missing command ID
-stale mission epoch
-future mission epoch
-runtime stopped or disposed
-reset already in progress
-invalid product/mission source
-subsystem staging failure
-render failure after epoch commit
-```
-
-## Acceptance criteria
-
-```txt
-one accepted command creates one mission epoch
-all mission-owned subsystem states commit together
-held and queued predecessor input is retired
-predecessor route/delivery proof is stale
-reset inside Brookhaven cannot redeliver immediately
-repeat command returns the original result without side effects
-HUD, telemetry, GameHost and headless observations share the epoch
-first post-reset simulation tick and frame are recorded
+legacy Meadow Lift copy active under Air Mail mode
+README documents a missing control
+AGENTS requires a missing objective
+HUD mission ID differs from the product manifest
+runtime binding is absent for a declared control
+source smoke passes while browser acceptance fails
+stale documentation revision after a manifest change
+partial projection update across README, AGENTS and HUD
 ```
 
 ## Validation order
@@ -148,22 +143,21 @@ fixture:import-purity
 fixture:runtime-lifecycle
 fixture:clock-route-parity
 fixture:product-manifest
+fixture:acceptance-contract
+fixture:control-parity
+fixture:objective-parity
+fixture:hud-docs-agent-parity
+fixture:acceptance-evidence
 fixture:air-mail-route
 fixture:air-mail-wrong-current
 fixture:air-mail-reset-pure
 fixture:air-mail-reset-host
 fixture:air-mail-reset-keyboard
-fixture:air-mail-reset-held-input
-fixture:air-mail-reset-inside-destination
-fixture:air-mail-reset-stale-proof
-fixture:air-mail-reset-repeat
-fixture:air-mail-reset-rollback
-fixture:air-mail-reset-first-frame
 npm run check
 npm run headless:check
 npm run build
-browser smoke
-Pages smoke
+browser acceptance smoke
+Pages acceptance smoke
 ```
 
-Do not wire a direct `KeyR -> mail.reset()` shortcut. Restart must enter the mission transaction authority.
+Do not manually repair README, AGENTS and HUD as independent copies. Admit the product contract first, then project every acceptance surface from that source.
