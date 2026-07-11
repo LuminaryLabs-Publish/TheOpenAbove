@@ -106,7 +106,7 @@ The source inspection proves an import-time compatibility RAF exists and is not 
 ## Push state
 
 ```txt
-repo-local docs pushed to main: in progress for this turn
-central ledger updated: pending
-central internal change log added: pending
+repo-local docs pushed to main: yes
+central ledger updated: yes
+central internal change log added: yes
 ```
