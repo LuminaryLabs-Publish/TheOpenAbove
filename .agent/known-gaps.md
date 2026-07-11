@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T16-30-25-04-00`
+**Last aligned:** `2026-07-11T18-01-38-04-00`
 
 ## Primary ordered gaps
 
@@ -20,9 +20,68 @@
 13. retained horizon chunk LOD reclassification
 14. bounded terrain builds and atomic replacement
 15. near/horizon edge and normal continuity
+16. grass chunk spatial identity and world bounds
+17. per-chunk grass cull distance and visible-set authority
+18. truthful CPU/WebGPU culling backend execution evidence
+19. grass visible-frame and long-traversal parity proof
 ```
 
-## Terrain LOD classification gaps
+## Grass spatial identity gaps
+
+```txt
+grass candidate transforms use absolute world positions
+grass instance matrices use absolute world positions
+chunk InstancedMesh objects remain at the global origin
+chunk center exists only as x/z metadata
+typed chunk world bounds do not exist
+manual culling reads mesh.position instead of chunk metadata or bounds
+all active chunks therefore share one camera-to-origin distance
+```
+
+## Grass visibility gaps
+
+```txt
+manual cull radius is 520 * 4.2 = 2184 m
+inside the origin radius all active chunks share one visible result
+outside the origin radius all active chunks share one culled result
+camera-centered rebuild does not restore visibility
+the center chunk can be hidden while accepted instance count is nonzero
+accepted, visible and rendered chunk counts are not distinguished
+accepted, visible and rendered instance counts are not distinguished
+no visible-set revision
+no first-visible-grass frame acknowledgement
+```
+
+## Grass backend-truth gaps
+
+```txt
+backend label derives from navigator.gpu presence only
+no adapter or device admission
+no compute pipeline
+no storage or uniform buffer setup
+no command encoder
+no dispatchWorkgroups call
+cullChunk executes a CPU Boolean comparison
+dispatchedWorkgroups increments for CPU helper calls
+backend and workgroup observations can therefore be false
+```
+
+## Grass decision and lifecycle gaps
+
+```txt
+no cull decision ID
+no camera-center revision
+no grass quality or LOD revision
+no cull policy revision
+no selected-versus-executed backend distinction
+no typed visible, culled, deferred, failed or stale result
+no stale decision rejection after center or quality changes
+no atomic visible-set commit
+no culling journal
+no traversal-path fingerprint
+```
+
+## Retained terrain LOD classification gaps
 
 ```txt
 horizon segment policy is evaluated only during geometry creation
@@ -35,7 +94,7 @@ active horizon geometry is traversal-history dependent
 same camera pose can produce different geometry after different paths
 ```
 
-## Terrain transition gaps
+## Retained terrain transition gaps
 
 ```txt
 no terrain source revision
@@ -51,7 +110,7 @@ no active-terrain fingerprint
 no bounded LOD transition journal
 ```
 
-## Terrain workload gaps
+## Retained terrain workload gaps
 
 ```txt
 all missing geometry is built synchronously
@@ -65,7 +124,7 @@ no cancellation policy
 no measured initial or transition cost
 ```
 
-## Near/horizon continuity gaps
+## Retained near/horizon continuity gaps
 
 ```txt
 near and horizon grids use different chunk sizes and center thresholds
@@ -103,6 +162,7 @@ getState returns no session, mission, tick, frame or observation revision
 Nexus telemetry and local snapshot are not correlated by a shared receipt
 old readback callers cannot be fenced after reset or restart
 headless tools cannot prove they observed a committed visible frame
+grass getState reports accepted chunks/instances but not visible or rendered counts
 ```
 
 ## Retained product acceptance gaps
@@ -125,39 +185,38 @@ simulation, airstream, camera and presentation expose no composed reset
 no mission epoch or stale-caller fence
 ```
 
-## Required terrain fixture gaps
+## Required grass fixture gaps
 
 ```txt
-fixture:terrain-lod-classification
-fixture:horizon-retained-upgrade
-fixture:horizon-retained-downgrade
-fixture:terrain-three-band-traversal
-fixture:terrain-path-independence
-fixture:terrain-source-revision
-fixture:terrain-quality-revision
-fixture:terrain-transition-plan
-fixture:terrain-build-budget
-fixture:terrain-stale-build-result
-fixture:terrain-atomic-replacement
-fixture:terrain-no-gap-frame
-fixture:terrain-edge-continuity
-fixture:terrain-old-geometry-retirement
-fixture:terrain-active-map-fingerprint
-fixture:terrain-pages-parity
+fixture:grass-chunk-identity
+fixture:grass-chunk-world-bounds
+fixture:grass-cull-distance
+fixture:grass-visible-set-commit
+fixture:grass-origin-neighborhood
+fixture:grass-first-center-transition
+fixture:grass-origin-radius-crossing
+fixture:grass-camera-centered-retention
+fixture:grass-return-path-parity
+fixture:grass-quality-lod-transition
+fixture:grass-cpu-backend-truth
+fixture:grass-webgpu-backend-truth
+fixture:grass-no-false-workgroup-count
+fixture:grass-first-visible-frame
+fixture:grass-pages-traversal-parity
 ```
 
-## Required terrain guarantees
+## Required grass guarantees
 
 ```txt
-all required keys are classified, including retained keys
-actual geometry identity is observable
-actual LOD equals current intended LOD or a typed deferred transition explains the mismatch
-classification depends on current camera, quality and terrain revisions, not traversal history
-complete old geometry remains visible until complete replacement commits
-replacement work stays within declared budgets
-stale geometry candidates cannot commit
-near/horizon edges remain inside declared tolerances
-render and external observations identify the geometry actually submitted
+all active chunks have stable IDs, centers and world bounds
+cull distance is measured against each chunk's own bounds
+camera-centered required chunks do not disappear because of global-origin distance
+LOD and culling use one accepted camera and quality revision
+backend label equals executed backend
+GPU dispatch counts represent actual GPU dispatches only
+accepted, visible and rendered counts are separately observable
+visible-set commit is atomic and stale decisions cannot mutate newer frames
+render and external observations identify the visible set actually submitted
 ```
 
-Do not treat a distance-to-segments function as proof of distance-based LOD while retained horizon geometry is not reclassified.
+Do not treat camera-centered chunk generation as proof of camera-centered grass visibility while the manual culling pass still measures every chunk from the global origin.
