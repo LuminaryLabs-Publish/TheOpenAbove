@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T04-00-32-04-00`
+**Last aligned:** `2026-07-12T05-11-46-04-00`
 
 ## Status
 
 ```txt
-status: frame-failure-containment-authority-audited
-repository revision reviewed: a36bd0958c66b26f9be38085486271f11a623576
+status: hdr-attachment-resolution-lifecycle-authority-audited
+repository revision reviewed: 270f8471a582dc8e01128dbd51bd8566972e95d6
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
@@ -16,128 +16,138 @@ central internal change log: complete
 
 ## Summary
 
-The runtime projects errors that reject `createGame()`, but the recursive frame callback runs later outside the `boot()` catch. It invokes simulation, mail, airstream, balloon, presentation, camera, visual, telemetry, render and HUD stages without one frame-level containment boundary.
+The visual stack does not commit renderer size, composer target size and depth attachments as one aggregate. Browser resize applies the effective pixel ratio through the dynamic-resolution controller, then calls a second HDR resize that writes the tracked depth texture images back to CSS dimensions.
 
-If a stage throws, the callback exits before the successor RAF is scheduled. The product does not call `showFatal()`, publish a terminal result, quarantine mutation, revoke public capabilities, preserve a last-known-good observation or dispose the failed owner graph. Stages completed before the exception may remain committed while the canvas and HUD show older or different revisions.
+The HDR constructor also assigns an initial depth texture before replacing both composer depth attachments with new textures. Only the replacements are tracked in the returned array, so the predecessor attachment has no explicit ownership-transfer or retirement result.
 
 ## Plan ledger
 
-**Goal:** define one frame failure transaction from immutable input and ordered stage execution through failure admission, last-known-good retention, quarantine, terminal projection, disposal and fresh-session restart.
+**Goal:** define one HDR surface transaction from CSS/DPR observation through physical-size planning, compatible color/depth preparation, atomic commit, rollback, resource retirement and visible-frame acknowledgement.
 
 - [x] Compare the full Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` as the oldest eligible central entry.
-- [x] Review root guidance, retained audits and `src/main.js`.
-- [x] Trace startup error handling and all normal frame stages.
-- [x] Confirm successor scheduling occurs only after render and HUD completion.
-- [x] Confirm post-start errors do not reach `showFatal()`.
+- [x] Avoid newer unsynchronized `PrehistoricRush` audit work.
+- [x] Select only `TheOpenAbove`.
+- [x] Review `AGENTS.md`, visual source, quality policy, HDR composer and smoke checks.
+- [x] Trace startup allocation, resize sources, dynamic-scale changes and disposal.
 - [x] Preserve the complete 59-kit source-backed inventory and service map.
-- [x] Define stage identity, typed results, failure admission, last-good state, quarantine, disposal and restart contracts.
+- [x] Define attachment identity, resize generation, dimension admission, framebuffer results, commit, rollback and retirement.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` routing state and kit registry.
 - [x] Synchronize the central ledger and internal change log.
-- [ ] Implement runtime changes and execute fault-injection fixtures.
+- [ ] Implement runtime changes and execute browser/Pages fixtures.
 
 ## Selection comparison
 
 ```txt
-TheOpenAbove       2026-07-12T02-29-50-04-00 selected
-IntoTheMeadow      2026-07-12T02-38-23-04-00
-HorrorCorridor     2026-07-12T02-49-19-04-00
-PhantomCommand     2026-07-12T03-00-46-04-00
-ZombieOrchard      2026-07-12T03-11-51-04-00
-TheUnmappedHouse   2026-07-12T03-21-27-04-00
-AetherVale         2026-07-12T03-28-44-04-00
-MyCozyIsland       2026-07-12T03-39-52-04-00
-PrehistoricRush    2026-07-12T03-51-15-04-00
+accessible Publish repositories: 10
+eligible non-Cavalry repositories: 9
+new or central-ledger-missing eligible repositories: 0
+root-.agent-missing eligible repositories: 0
+
+PrehistoricRush    2026-07-12T03-51-15-04-00 skipped: newer repo-local audit commits were not yet centrally synchronized
+TheOpenAbove       2026-07-12T04-00-32-04-00 selected: oldest stable fully synchronized eligible repository
+IntoTheMeadow      2026-07-12T04-11-54-04-00
+PhantomCommand     2026-07-12T04-18-44-04-00
+HorrorCorridor     2026-07-12T04-28-03-04-00
+ZombieOrchard      2026-07-12T04-38-12-04-00
+TheUnmappedHouse   2026-07-12T04-44-36-04-00
+AetherVale         2026-07-12T04-50-41-04-00
+MyCozyIsland       2026-07-12T05-00-19-04-00
 TheCavalryOfRome   excluded
 ```
 
 ## Interaction loop
 
 ```txt
-startup
-  -> create visual and balloon
-  -> create airstream, mail, simulation, camera and presentation owners
-  -> create telemetry engine
-  -> publish GameHost owners
-  -> initialize state
-  -> schedule RAF
+visual startup
+  -> detect hardware quality tier
+  -> create WebGL renderer
+  -> allocate HDR render target at CSS dimensions
+  -> attach one depth texture to the supplied target
+  -> create EffectComposer and clone its second render target
+  -> replace both composer depth attachments with two new textures
+  -> create dynamic-resolution controller
 
-frame
-  -> simulation.update
-  -> mail.update
-  -> airstream.update
-  -> apply and animate balloon
-  -> presentation.update
-  -> camera.update
-  -> visual.update
-  -> telemetry tick
-  -> render
-  -> HUD update
-  -> successor RAF
+browser resize
+  -> sample CSS width, CSS height and devicePixelRatio
+  -> derive effective pixel ratio from DPR cap and dynamic scale
+  -> resize renderer and EffectComposer to physical dimensions
+  -> call HDR composer resize a second time
+  -> force tracked depth texture image dimensions back to CSS dimensions
+  -> render with no attachment revision or completeness result
 
-stage failure
-  -> exception escapes
-  -> remaining stages do not run
-  -> successor RAF is absent
-  -> no product failure result or lifecycle transition
+dynamic-scale sample
+  -> smooth frame time
+  -> every 90 samples raise or lower dynamic scale
+  -> resize renderer and EffectComposer through the resolution controller only
+  -> do not execute the HDR wrapper's CSS-size depth rewrite
+
+dispose
+  -> dispose the two replacement depth textures
+  -> dispose target and composer
+  -> retain no explicit lease for the original depth texture that was replaced
 ```
 
 ## Source-backed findings
 
-### Startup and runtime failures use different paths
+### Browser resize mixes CSS and physical dimensions
 
-`boot()` wraps only `await createGame()`. Frame callbacks execute later and have no enclosing catch or typed result boundary.
+`resolution.resize()` computes the effective pixel ratio, applies it to the renderer and composer, and invokes `composer.setSize(width, height)`. The HDR wrapper is then called separately and writes each tracked depth image to the unscaled CSS width and height.
 
-### Frame stages mutate sequentially
+### Resize sources are not behaviorally equivalent
 
-Simulation, mission, airstream, balloon, presentation, camera, visual and telemetry owners can advance before rendering and HUD commit.
+Dynamic-scale degradation or recovery calls `resolution.resize()` only. Browser resize calls both `resolution.resize()` and `hdrComposer.resize()`. The final attachment state therefore depends on the resize source.
 
-### Successor scheduling is at the end
+### Initial depth ownership is incomplete
 
-The next RAF is scheduled only after `visual.render()` and `updateHud()` return. Any earlier exception silently terminates the product loop.
+The supplied HDR target receives a depth texture. After `EffectComposer` adopts and clones the target, both composer depth attachments are replaced. The returned disposal surface tracks only the two replacements.
 
-### Failed frames can split presentation
+### No admission or rollback boundary exists
+
+There is no render-surface ID, resize generation, target ID, attachment ID, compatibility check, framebuffer-completeness result, fallback result, atomic commit, rollback or predecessor-retirement receipt.
+
+### Existing proof is static
+
+`tests/smoke.mjs` verifies file presence and selected source patterns. It does not create a WebGL context, inspect target/attachment dimensions, check framebuffer completeness, drive DPR changes or measure resource retirement.
+
+## Concrete dimension example
 
 ```txt
-render failure after delivery
-  live mail state: delivered
-  canvas: previous frame
-  HUD: previous frame
+tier: high
+CSS surface: 1920 × 1080
+DPR cap: 1.6
+dynamic scale: 1.0
+effective pixel ratio: 1.6
 
-HUD failure after render
-  canvas: current frame
-  HUD: previous frame
-  future frames: none
+composer color target plan: 3072 × 1728
+manual tracked depth image assignment: 1920 × 1080
 ```
-
-### Public readback can expose the partial prefix
-
-Raw owner exposure and fresh snapshot assembly have no failed-frame commit fence.
-
-### Existing tests do not inject stage failures
-
-No fixture proves no later mutation, no successor callback, coherent last-known-good output, capability revocation, ordered disposal or clean restart.
 
 ## Domains in use
 
 ```txt
 browser shell, DOM, Vite and Pages
-runtime admission, session, startup failure and RAF ownership
-frame-stage execution, failure containment and terminal observation
-public host capabilities and readback
+runtime admission, session, failure and RAF ownership
 keyboard, blur, wheel and variable frame time
 balloon simulation, airstream, steering, clearance and snapshots
-mail route, town, volume, progress and reset
+mail route, town, volume, delivery progress and reset
 balloon profile, model assembly, async loading and resources
-envelope profile, shell, pattern, seams and mouth
-basket, burner, rigging, rope and part presentation
-camera follow, zoom, clipping and steering look
-terrain, grass, atmosphere, water, HDR and dynamic resolution
-Nexus telemetry, HUD and headless readback
-checks, tests, build and Pages deployment
+envelope, basket, burner, rigging, rope and presentation
+camera follow, zoom, clipping and steering response
+quality-tier admission and hardware classification
+render-surface CSS size, DPR and effective pixel ratio
+dynamic-resolution sampling and scale transitions
+Three.js renderer drawing-buffer allocation
+EffectComposer target allocation and resize
+HDR color target and multisample policy
+depth-texture attachment identity, dimensions and lifecycle
+framebuffer attachment compatibility and completeness
+render-surface revision, commit, rollback and visible-frame acknowledgement
+terrain, grass, atmosphere, water, lighting and lens response
+telemetry, HUD, GameHost and headless inspection
+checks, tests, build and deployment
 ```
 
 ## Kit inventory and services
@@ -145,72 +155,66 @@ checks, tests, build and Pages deployment
 ```txt
 runtime/gameplay source-backed kits: 15
 balloon/object/presentation source-backed kits: 15
-visual environment source-backed kits: 26
+visual-environment source-backed kits: 26
 tooling/proof source-backed kits: 3
 active source-backed total: 59
 runtime-implied adapters: 12
 inactive legacy kits: 11
-planned frame-failure kits: 24 including parent
+planned HDR attachment/resolution kits: 24 including parent
 ```
 
-Services cover runtime boot, input, wind-driven simulation, airstream force, mail delivery, balloon profile/model assembly, materials/rigging/animation, camera response, terrain/grass/atmosphere rendering, telemetry, HUD, diagnostics, tests, headless inspection, build and Pages deployment. The exact per-kit map is in the timestamped tracker and `.agent/kit-registry.json`.
+Services cover runtime boot, input, wind-driven simulation, airstream force, mail delivery, balloon construction and presentation, camera response, terrain/grass/atmosphere rendering, quality classification, dynamic resolution, HDR target/depth creation, color grading, telemetry, HUD, diagnostics, tests, build and deployment. The exact per-kit map is in the timestamped tracker and `.agent/kit-registry.json`.
 
 ## Required parent domain
 
 ```txt
-open-above-frame-failure-containment-authority-domain
+open-above-hdr-attachment-resolution-authority-domain
 ```
 
-Required services:
+## Required services
 
 ```txt
-frame and stage identity
-immutable ordered execution plan
-typed stage results
-failure identity, classification and single admission
-completed-stage mutation journal
-last-known-good frame retention
-mutation quarantine and public capability revocation
-render freeze and bounded failure overlay
-ordered disposal plan and results
-terminal failure observation and journal
-cold-restart handoff into a new session
-stage-failure, last-good, HUD and Pages fixtures
+surface, quality-state, resize-generation, target and attachment identity
+CSS/DPR/dynamic-scale observation
+effective-pixel-ratio and physical-size planning
+color/depth aggregate preparation
+dimension compatibility and framebuffer completeness
+stale generation rejection
+atomic commit and predecessor rollback
+attachment replacement and explicit lease transfer
+exactly-once target and attachment retirement
+detached surface observations
+first-visible-frame surface acknowledgement
+local browser and deployed Pages fixtures
 ```
 
 ## Required invariants
 
 ```txt
-all stages execute inside one failure boundary
-one failed stage produces one failure result
-no later stage mutates after failure
-no failed frame becomes committed
-last-known-good canvas, HUD and readback remain correlated
-failed sessions expose no mutation capabilities
-callbacks/listeners are retired before terminal completion
-restart creates new owner, session and mission identities
+one admitted surface plan owns renderer, composer color targets and depth attachments
+physical color and depth dimensions match for every committed target
+CSS dimensions, DPR, dynamic scale and physical dimensions remain distinct observations
+browser resize and dynamic-scale transitions use the same transaction
+only the latest resize generation can commit
+attachment replacement transfers ownership explicitly
+every replaced attachment is retired exactly once
+framebuffer completeness is checked before commit
+failed allocation or incomplete framebuffer preserves the previous committed surface
+telemetry and GameHost cite the committed surface revision
+the first rendered frame acknowledges the same surface and attachment set
 ```
 
 ## Ordered safe ledges
 
 ```txt
-1. immutable runtime admission
+1. runtime admission and module identity
 2. import purity and frame ownership
-2a. balloon profile authority
-2b. balloon model/resource authority
-3. runtime session lifecycle and ordered disposal
-4. fixed-step clock and sequenced input
-4a. product source and acceptance parity
-5. Air Mail route and delivery authority
-5a. mission restart transaction and epoch
-5b. committed observation frame authority
-5c. public host capability authority
-5d. frame failure containment and last-known-good authority
-6. terrain source and LOD transition authority
-6a. bounded terrain build and atomic replacement
-7. grass spatial identity and backend truth
-7a. world-surface consumer parity
-8. balloon steering and presentation authority
+3. model/profile and runtime lifecycle
+4. fixed-step simulation and ordered input
+5. mission, committed observation, host capability and frame failure
+6. terrain and grass streaming authorities
+7. world-surface and steering coherence
+8. HDR attachment and render-surface resolution authority
 ```
 
-Documentation only. No runtime source, package, rendering or deployment behavior changed.
+Documentation only. No runtime source, dependency, rendering or deployment behavior changed.
