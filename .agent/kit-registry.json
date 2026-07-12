@@ -1,20 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T08-50-32-04-00",
-  "status": "parchment-map-pause-input-authority-audited",
-  "repositoryRevisionReviewed": "a5dd665a80cfe594ebaf05085633d4006e012b32",
-  "latestTracker": ".agent/trackers/2026-07-12T08-50-32-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T08-50-32-04-00.md",
+  "lastAligned": "2026-07-12T09-02-10-04-00",
+  "status": "parchment-map-spatial-navigation-authority-audited",
+  "repositoryRevisionReviewed": "4b76ec275102be3a9358d866bcbfd816ac270c04",
+  "latestTracker": ".agent/trackers/2026-07-12T09-02-10-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T09-02-10-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T08-50-32-04-00-parchment-map-pause-input-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T08-50-32-04-00-dual-raf-map-visible-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T08-50-32-04-00-map-pause-resume-flight-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T08-50-32-04-00-map-toggle-input-admission-map.md",
-    "mapSystem": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-focus-lifecycle-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T08-50-32-04-00-map-pause-input-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T09-02-10-04-00-parchment-map-spatial-navigation-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T09-02-10-04-00-player-bearing-route-fit-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T09-02-10-04-00-flight-state-map-navigation-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T09-02-10-04-00-map-source-projection-result-map.md",
+    "mapSystem": ".agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T09-02-10-04-00-map-navigation-geometry-fixture-gate.md"
   },
   "retainedAudits": {
+    "parchmentMapPauseInput": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-focus-lifecycle-contract.md",
     "hudAccessibilitySupersededSourcePath": ".agent/accessibility-audit/2026-07-12T07-00-48-04-00-live-region-rate-fatal-focus-contract.md",
     "hdrSurface": ".agent/hdr-surface-audit/2026-07-12T05-11-46-04-00-attachment-identity-lifecycle-commit-contract.md",
     "frameFailure": ".agent/frame-failure-audit/2026-07-12T04-00-32-04-00-stage-containment-last-good-restart-contract.md",
@@ -30,7 +31,7 @@
     "missionRestart": ".agent/mission-restart-audit/2026-07-11T11-31-06-04-00-mission-epoch-atomic-reset-contract.md"
   },
   "selection": {
-    "reason": "oldest eligible central-ledger entry with newer undocumented parchment-map and HUD-removal source changes",
+    "reason": "oldest central-ledger entry with newer repo-local parchment-map work pending central synchronization",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
@@ -50,23 +51,24 @@
     "activeSourceBackedTotal": 60,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedMapAuthorityIncludingParent": 26
+    "plannedSpatialNavigationIncludingParent": 25,
+    "retainedMapPauseInputIncludingParent": 26
   },
   "interactionLoop": [
-    "create-game-canvas-map-dialog-map-canvas-and-hidden-error-surface",
-    "create-visual-balloon-airstream-mail-simulation-map-camera-presentation-and-telemetry-owners",
-    "advance-all-gameplay-owners-and-render-while-map-closed",
-    "toggle-map-through-independent-global-keydown-listener",
-    "skip-gameplay-owner-updates-while-map-open-but-keep-gameplay-key-state-live",
-    "run-main-3d-raf-and-map-2d-raf-concurrently",
-    "close-map-and-resume-gameplay-from-current-held-key-set"
+    "construct-game-canvas-map-dialog-and-runtime-owners",
+    "pass-world-surface-routes-towns-live-player-and-parcel-to-map",
+    "resize-map-backing-surface-from-css-bounds-and-capped-dpr",
+    "derive-scale-from-world-surface-radius",
+    "draw-routes-towns-destination-and-player",
+    "rotate-player-marker-from-simulation-heading",
+    "present-map-frame-in-independent-map-raf"
   ],
   "domains": [
     "browser-shell-import-map-semantic-html-game-canvas-map-dialog",
     "runtime-admission-startup-failure-session-raf-ownership",
     "keyboard-key-state-blur-wheel-zoom-variable-time",
     "map-transition-pause-resume-focus-lifecycle",
-    "map-world-transform-route-town-destination-player-projection",
+    "map-coordinate-space-bounds-route-town-destination-player-bearing-projection",
     "balloon-simulation-airstream-steering-clearance-snapshot",
     "mail-route-parcel-town-volume-progress-reset",
     "balloon-profile-model-assembly-loading-resources",
@@ -150,46 +152,39 @@
     ]
   },
   "serviceMap": {
-    "open-above-parchment-map-overlay-kit": [
-      "M-and-Escape-toggle",
-      "visibility-and-aria-hidden-projection",
-      "ResizeObserver-surface-sizing",
-      "world-to-map-coordinate-transform",
-      "route-town-destination-player-drawing",
-      "recursive-map-RAF",
-      "open-state-snapshot",
-      "listener-observer-RAF-disposal"
-    ],
-    "runtimeAndGameplay": [
-      "global-keyboard-state",
-      "wind-buoyancy-steering-integration",
-      "simulation-transform-and-snapshot",
-      "Nexus-telemetry-tick-and-readback",
-      "airstream-route-field-sampling-force-visual-debug",
-      "parcel-route-town-volume-progress-reset"
-    ],
-    "balloonObjectAndPresentation": [
-      "profile-sampling",
-      "unified-envelope-mouth-seam-basket-burner-rigging-rope-construction",
-      "materials-and-asynchronous-model-loading",
-      "persistent-animation-and-inertia-presentation",
-      "camera-follow-zoom-mode-and-clipping-fade",
-      "local-disposal"
-    ],
-    "visualEnvironment": [
-      "renderer-scene-camera-ownership",
-      "quality-and-dynamic-resolution",
-      "sky-cloud-terrain-horizon-vegetation-grass-water-landmarks",
-      "HDR-composition-color-grade-lens-response",
-      "render-resize-observation-disposal"
-    ],
-    "toolingAndProof": [
-      "headless-project-inspection",
-      "renderer-validation",
-      "source-pattern-smoke",
-      "airstream-mail-domain-proof",
-      "build-command-adaptation"
-    ]
+    "open-above-balloon-simulation-kit": ["global-key-state", "wind-buoyancy-steering-integration", "pose-application", "snapshot", "disposal"],
+    "open-above-balloon-telemetry-kit": ["Nexus-telemetry-tick", "state-readback"],
+    "open-above-airstream-domain": ["route-field-visual-debug-composition", "sample", "update", "snapshot", "disposal"],
+    "open-above-airstream-route-kit": ["immutable-route-descriptors", "default-route-source"],
+    "open-above-airstream-sampler-kit": ["route-segment-sampling"],
+    "open-above-airstream-field-kit": ["aggregate-field-query"],
+    "open-above-airstream-balloon-force-kit": ["flow-sampling-adaptation", "flow-to-balloon-state"],
+    "open-above-airstream-visual-kit": ["route-current-scene-projection"],
+    "open-above-airstream-debug-kit": ["route-and-sample-diagnostics"],
+    "open-above-mail-delivery-domain": ["parcel-town-progress-composition", "update", "snapshot", "reset", "disposal"],
+    "open-above-mail-parcel-kit": ["parcel-construction", "parcel-reset"],
+    "open-above-mail-route-kit": ["town-source", "destination-source", "correct-current-source"],
+    "open-above-delivery-volume-kit": ["delivery-volume-admission"],
+    "open-above-delivery-progress-kit": ["delivery-transition", "delivery-event"],
+    "open-above-mail-town-kit": ["town-scene-construction", "active-destination-update"],
+    "open-above-hot-air-balloon-object-kit": ["balloon-assembly", "async-model-load", "animation-entry"],
+    "open-above-balloon-envelope-profile-kit": ["radius-point-normal-profile-sampling"],
+    "open-above-balloon-envelope-panel-kit": ["unified-gore-shell-construction"],
+    "open-above-balloon-mouth-kit": ["mouth-and-scoop-geometry"],
+    "open-above-balloon-streamer-fit-kit": ["integrated-streamer-fit-descriptors"],
+    "open-above-balloon-fabric-seam-kit": ["load-tape-and-seam-geometry"],
+    "open-above-hot-air-balloon-basket-kit": ["tapered-basket-and-cylinder-construction"],
+    "open-above-hot-air-balloon-rigging-kit": ["frame-post-crossbar-and-line-construction"],
+    "open-above-hot-air-balloon-burner-kit": ["burner-hose-and-flame-animation"],
+    "open-above-rope-kit": ["persistent-dynamic-rope-geometry"],
+    "open-above-balloon-presentation-domain": ["envelope-and-gondola-inertia", "material-response"],
+    "open-above-envelope-fabric-material-kit": ["envelope-fabric-material"],
+    "open-above-basket-material-kit": ["basket-material"],
+    "open-above-balloon-camera-rig-kit": ["follow", "zoom", "mode", "steering-look"],
+    "open-above-clipping-fade-kit": ["camera-near-clipping-fade"],
+    "visualEnvironment": ["renderer-scene-camera-ownership", "quality-and-dynamic-resolution", "sky-cloud-terrain-horizon-vegetation-grass-water-landmarks", "HDR-composition-color-grade-lens-response", "render-resize-observation-disposal"],
+    "open-above-parchment-map-overlay-kit": ["M-and-Escape-toggle", "visibility-and-aria-hidden-projection", "ResizeObserver-surface-sizing", "world-to-map-coordinate-transform", "route-town-destination-player-drawing", "recursive-map-RAF", "open-state-snapshot", "listener-observer-RAF-disposal"],
+    "toolingAndProof": ["headless-project-inspection", "renderer-validation", "source-pattern-smoke", "airstream-mail-domain-proof", "build-command-adaptation"]
   },
   "runtimeImpliedKits": [
     "open-above-route-shell-kit",
@@ -219,7 +214,34 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedMapAuthorityKits": [
+  "plannedSpatialNavigationKits": [
+    "open-above-parchment-map-spatial-navigation-authority-domain",
+    "open-above-map-coordinate-space-schema-kit",
+    "open-above-map-world-bounds-kit",
+    "open-above-map-content-bounds-kit",
+    "open-above-map-viewport-fit-policy-kit",
+    "open-above-map-projection-transform-kit",
+    "open-above-map-heading-convention-kit",
+    "open-above-map-player-bearing-kit",
+    "open-above-map-player-marker-pose-kit",
+    "open-above-map-route-style-policy-kit",
+    "open-above-map-destination-route-resolution-kit",
+    "open-above-map-active-route-projection-kit",
+    "open-above-map-off-map-policy-kit",
+    "open-above-map-edge-clamp-kit",
+    "open-above-map-compass-orientation-kit",
+    "open-above-map-navigation-revision-kit",
+    "open-above-map-navigation-source-fingerprint-kit",
+    "open-above-map-projection-result-kit",
+    "open-above-map-navigation-observation-kit",
+    "open-above-map-navigation-journal-kit",
+    "open-above-map-heading-fixture-kit",
+    "open-above-map-route-fit-fixture-kit",
+    "open-above-map-off-map-fixture-kit",
+    "open-above-map-browser-pixel-probe-kit",
+    "open-above-map-pages-navigation-smoke-kit"
+  ],
+  "retainedPlannedMapPauseInputKits": [
     "open-above-parchment-map-pause-input-authority-domain",
     "open-above-map-transition-command-kit",
     "open-above-map-transition-id-kit",
@@ -245,15 +267,23 @@
     "open-above-map-journal-kit",
     "open-above-map-input-isolation-fixture-kit",
     "open-above-map-cadence-parity-fixture-kit",
-    "open-above-map-focus-lifecycle-fixture-kit",
-    "open-above-map-pages-smoke-kit"
+    "open-above-map-focus-lifecycle-fixture-kit"
   ],
-  "mainFinding": "The parchment map pauses gameplay through a host Boolean while simulation input remains globally active and the main and map RAF loops run independently; no transition, pause, input, focus, projection or visible-frame authority coordinates the boundary.",
+  "mainFinding": "The parchment map rotates an upward-pointing player marker by the negative of a simulation heading defined as atan2(vx, vz) while mapping world X/Z directly to screen X/Y, which makes the marker point exactly opposite horizontal travel. The map also has no named content-fit, route-style, off-map, projection-result or geometry-proof authority.",
   "validation": {
     "runtimeChanged": false,
     "htmlChanged": false,
-    "testsRun": false,
+    "packageScriptsChanged": false,
+    "dependenciesChanged": false,
+    "gameplayChanged": false,
+    "inputChanged": false,
+    "renderChanged": false,
+    "deploymentChanged": false,
     "branchCreated": false,
-    "pullRequestCreated": false
+    "pullRequestCreated": false,
+    "commandsRun": false,
+    "geometryFixturesAvailable": false,
+    "browserSmokeRun": false,
+    "pagesSmokeRun": false
   }
 }
