@@ -62,12 +62,30 @@ function centerInfluence(x, z, center) {
   return 1 - smoothstep(center.radius - center.transition, center.radius + center.transition, distance);
 }
 
-export function createGrassPatchDistribution(worldSeed, terrainSize = 2400) {
+export function createGrassPatchDistribution(worldSeed, terrainSize = 2400, world = null) {
   const normalizedSeed = normalizeGrassSeed(worldSeed);
   const patchCount = 20 + Math.floor(seedFloat(normalizedSeed, 20) * 16);
   const clearingCount = 15 + Math.floor(seedFloat(normalizedSeed, 21) * 11);
   const patches = createCenters({ worldSeed, terrainSize, count: patchCount, lane: 211, clearing: false });
   const clearings = createCenters({ worldSeed, terrainSize, count: clearingCount, lane: 419, clearing: true });
+
+  function fallbackSample(x, z, biomeDensity = 1, context = {}) {
+    const macroNoise = fbm(x * 0.004, z * 0.004, normalizedSeed + 17);
+    const patchNoise = fbm(x * 0.018, z * 0.018, normalizedSeed + 53);
+    const detailNoise = valueNoise(x * 0.07, z * 0.07, normalizedSeed + 89);
+    const raw = macroNoise * 0.55 + patchNoise * 0.35 + detailNoise * 0.1;
+    let density = Math.pow(smoothstep(0.32, 0.72, raw), 1.6) * biomeDensity;
+
+    for (const patch of patches) density += centerInfluence(x, z, patch) * patch.strength;
+    for (const clearing of clearings) density *= 1 - centerInfluence(x, z, clearing) * clearing.strength;
+
+    const lowlandBoost = clamp01((42 - Number(context.height || 0)) / 120) * 0.08;
+    const treeBoost = clamp01(Number(context.treeProximity || 0)) * 0.12;
+    const hilltopPenalty = clamp01((Number(context.height || 0) - 72) / 70) * 0.22;
+    density += lowlandBoost + treeBoost;
+    density *= 1 - hilltopPenalty;
+    return clamp01(density);
+  }
 
   return {
     worldSeed,
@@ -75,27 +93,20 @@ export function createGrassPatchDistribution(worldSeed, terrainSize = 2400) {
     clearingCount,
     patches,
     clearings,
+    profile(x, z, context = {}) {
+      return world?.sampleFlora?.(x, z, context) ?? null;
+    },
     sample(x, z, biomeDensity = 1, context = {}) {
-      const macroNoise = fbm(x * 0.004, z * 0.004, normalizedSeed + 17);
-      const patchNoise = fbm(x * 0.018, z * 0.018, normalizedSeed + 53);
-      const detailNoise = valueNoise(x * 0.07, z * 0.07, normalizedSeed + 89);
-      const raw = macroNoise * 0.55 + patchNoise * 0.35 + detailNoise * 0.1;
-      let density = Math.pow(smoothstep(0.32, 0.72, raw), 1.6) * biomeDensity;
-
-      for (const patch of patches) density += centerInfluence(x, z, patch) * patch.strength;
-      for (const clearing of clearings) density *= 1 - centerInfluence(x, z, clearing) * clearing.strength;
-
-      const lowlandBoost = clamp01((42 - Number(context.height || 0)) / 120) * 0.08;
-      const treeBoost = clamp01(Number(context.treeProximity || 0)) * 0.12;
-      const hilltopPenalty = clamp01((Number(context.height || 0) - 72) / 70) * 0.22;
-      density += lowlandBoost + treeBoost;
-      density *= 1 - hilltopPenalty;
-      return clamp01(density);
+      const profile = world?.sampleFlora?.(x, z, context);
+      if (profile) return clamp01(profile.grassDensity * biomeDensity);
+      return fallbackSample(x, z, biomeDensity, context);
     }
   };
 }
 
-window.OpenAboveGrassPatchDensityKit = {
-  id: GRASS_PATCH_DENSITY_KIT_ID,
-  createGrassPatchDistribution
-};
+if (typeof window !== "undefined") {
+  window.OpenAboveGrassPatchDensityKit = {
+    id: GRASS_PATCH_DENSITY_KIT_ID,
+    createGrassPatchDistribution
+  };
+}
