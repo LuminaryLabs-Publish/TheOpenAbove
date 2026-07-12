@@ -1,132 +1,150 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-11T21-08-57-04-00`
-
-**Repository:** `LuminaryLabs-Publish/TheOpenAbove`
-
+**Last aligned:** `2026-07-11T22-51-09-04-00`  
+**Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`
 
 ## Summary
 
-Recent runtime commits added a pinned bounded-disk surface to terrain streaming, but the surface is not yet a product-wide authority. Near and horizon terrain use disk membership; grass and balloon movement do not. At the world edge, terrain can disappear while grass is still generated at the edge floor and simulation continues beyond the supported visual world.
+Nine balloon-model source commits landed after the prior audit. They replaced the old envelope construction with a shared spline profile, unified shell, integrated pattern, fitted load tapes, refined mouth, tapered basket, burner frame, twin burners and retained rope geometry. The visual assembly is improved, but production still has no canonical model descriptor, staged initial-level load, resource inventory, disposal result or first-visible-frame proof.
 
 ## Plan ledger
 
-**Goal:** make one versioned world-surface revision authoritative across simulation, terrain, grass, authored route content, diagnostics and visible-frame proof.
+**Goal:** preserve the new balloon while making model profile admission, assembly, startup loading, resource ownership and render provenance explicit.
 
-- [x] Compare all ten accessible Publish repositories.
+- [x] Compare all 10 Publish repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Prioritize `TheOpenAbove` because seven runtime/test commits landed after the previous audit.
-- [x] Trace world configuration, terrain admission, grass admission/culling, balloon movement and GameHost readback.
-- [x] Identify the interaction loop, domains, kits and offered services.
+- [x] Confirm all nine eligible repositories have central and root `.agent` state.
+- [x] Select only `TheOpenAbove`, the oldest ledger entry with nine newer undocumented source commits.
+- [x] Review root guidance and the complete balloon construction path.
+- [x] Identify the interaction loop, domains, all kits and offered services.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh root `.agent` state and kit registry.
-- [x] Push directly to `main`; create no branch or pull request.
-- [ ] Implement and execute boundary classification, consumer parity, recovery and visible-frame fixtures.
+- [ ] Implement the model authority and executable fixtures.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-11T21-08-57-04-00/project-breakdown.md
+.agent/trackers/2026-07-11T22-51-09-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-11T21-08-57-04-00-world-surface-membership-dsk-map.md
-.agent/render-audit/2026-07-11T21-08-57-04-00-terrain-grass-boundary-frame-gap.md
-.agent/gameplay-audit/2026-07-11T21-08-57-04-00-balloon-drift-beyond-bounded-world-loop.md
-.agent/interaction-audit/2026-07-11T21-08-57-04-00-surface-membership-command-result-map.md
-.agent/world-surface-audit/2026-07-11T21-08-57-04-00-consumer-membership-parity-contract.md
-.agent/deploy-audit/2026-07-11T21-08-57-04-00-world-boundary-parity-fixture-gate.md
-.agent/turn-ledger/2026-07-11T21-08-57-04-00.md
+.agent/architecture-audit/2026-07-11T22-51-09-04-00-balloon-model-assembly-authority-dsk-map.md
+.agent/render-audit/2026-07-11T22-51-09-04-00-balloon-model-resource-frame-provenance-gap.md
+.agent/interaction-audit/2026-07-11T22-51-09-04-00-balloon-load-admission-result-map.md
+.agent/balloon-geometry-audit/2026-07-11T22-51-09-04-00-profile-assembly-loading-resource-contract.md
+.agent/deploy-audit/2026-07-11T22-51-09-04-00-balloon-model-fixture-gate.md
+.agent/turn-ledger/2026-07-11T22-51-09-04-00.md
 .agent/kit-registry.json
 ```
 
 ## Interaction loop
 
 ```txt
-startup
-  -> load world descriptor and disk-world ProtoKit
-  -> create bounded height sampler
-  -> create near/horizon terrain with surface-intersection admission
-  -> create grass without surface admission
-  -> create balloon simulation without horizontal boundary policy
-  -> publish GameHost
+browser boot
+  -> create visual domain
+  -> synchronously build procedural balloon
+  -> allocate envelope, mouth, seam, basket, frame, burner and rope resources
+  -> add completed object to the live scene
+  -> create simulation, camera and presentation against that object
+  -> publish mutable GameHost
 
-frame
-  -> update unrestricted balloon movement
-  -> use bounded height for vertical clearance
-  -> move camera with balloon
-  -> terrain accepts/rejects chunks against disk bounds
-  -> grass accepts chunks by camera radius only
-  -> grass culls every chunk using camera distance to global origin
-  -> render and publish static surface descriptor
+balloon construction
+  -> root profile selects panel profile as the de facto envelope shape
+  -> panel shell, seams and mouth sample the shared envelope profile
+  -> basket, burner frame, rigging and ropes use separate coordinate profiles
+  -> root marks modelReady and persistentGpuResources without an admission or resource receipt
+
+animation frame
+  -> animate burner
+  -> update persistent rope geometry
+  -> update camera, presentation and world
+  -> render without a balloon model/profile/resource fingerprint
 ```
 
 ## Main findings
 
 ```txt
-surface descriptor schema/version: absent
-surface revision/fingerprint: absent
-near terrain surface membership: present
-horizon terrain surface membership: present
-grass required-set surface membership: absent
-grass chunk world bounds: absent
-grass culling uses mesh origin: present
-balloon horizontal boundary policy: absent
-route/town surface validation: absent
-consumer parity result: absent
-visible-frame surface acknowledgement: absent
+new shared envelope profile: present
+unified shell and fitted seams: present
+profile-aware mouth: present
+tapered gondola, frame and twin burner: present
+persistent rope geometry: present
+
+canonical root model descriptor: absent
+profile schema/version/fingerprint: absent
+cross-component attachment admission: absent
+production initial-setup load authority: absent
+load cancellation/rollback: absent
+root resource inventory/dispose: absent
+model-to-visible-frame receipt: absent
 ```
+
+The new `loadHotAirBalloonModel()` helper yields once and then performs the same synchronous build. `src/main.js` still calls `buildHotAirBalloon()` directly.
 
 ## Domains in use
 
 ```txt
 browser shell, Vite and Pages
-runtime admission, session and frame ownership
-campaign and world descriptor source
-bounded-disk surface, height edge field and chunk membership
-balloon simulation, input, clearance and snapshots
-airstream route, field, force, visual and debug
-mail parcel, route, town, volume and progress
-balloon object, presentation and camera
-near terrain, horizon terrain, vegetation and grass
-sky, clouds, weather, water, lighting and HDR composition
-HUD, Nexus telemetry, GameHost and headless readback
-checks, tests, build and deployment
+runtime admission, lifecycle and frame ownership
+campaign, world and Air Mail product sources
+balloon model descriptor, profile composition and assembly
+envelope profile sampling, unified shell, pattern, seams and mouth
+basket, burner frame, burners, cylinders, load cables and soft-rope animation
+model loading, readiness, cancellation, resource leasing and disposal
+balloon simulation, airstream, mail, camera and presentation
+terrain, grass, atmosphere, water, HDR and dynamic resolution
+telemetry, HUD, GameHost and headless readback
+checks, pure tests, build and deployment
 ```
 
 ## Kits and services
 
 ```txt
-active source-backed kits: 58
+active source-backed kits: 59
+  runtime/gameplay: 15
+  balloon/object/presentation: 15
+  visual environment: 26
+  tooling/proof: 3
 runtime-implied adapters: 12
 inactive legacy kits: 11
 ```
 
-Services cover boot, input, balloon simulation, airstream sampling and force, mail delivery, procedural balloon construction, camera projection, terrain and grass streaming, atmosphere, HDR rendering, telemetry, HUD, diagnostics, tests, build, headless inspection and Pages deployment.
+```txt
+runtime boot, fatal projection and global host publication
+procedural envelope radius, point, normal, mouth and crown sampling
+continuous envelope shell, integrated color pattern and load-tape geometry
+open mouth, skirt and inner-shadow construction
+tapered basket, reinforced rims, floor, ribs, propane cylinders and controls
+burner frame, twin burner assembly, load-cable placement and rope animation
+persistent dynamic rope geometry updates
+synchronous build, one-frame-yield load helper and compatibility installation
+balloon transform, burner animation, presentation and camera focus
+simulation, airstream sampling, mail delivery, world rendering and diagnostics
+source checks, headless checks, Vite build and Pages deployment
+```
 
 ## Required parent domain
 
 ```txt
-open-above-world-surface-membership-authority-domain
-  -> versioned surface descriptor and revision
-  -> point/bounds membership queries
-  -> shared terrain/grass/content policies
-  -> simulation boundary admission and response
-  -> stale-result rejection
-  -> consumer parity result
-  -> world-surface observation and journal
-  -> visible-frame acknowledgement
-  -> pure, browser and Pages fixture gates
+open-above-balloon-model-assembly-authority-domain
+  -> canonical model descriptor and admitted profile
+  -> detached assembly build plan
+  -> cross-component attachment validation
+  -> initial-level load command and cancellation
+  -> resource leases and inventory
+  -> atomic scene commit and ready result
+  -> model observation and visible-frame acknowledgement
+  -> idempotent resource retirement
 ```
 
 ## Ordered implementation queue
 
 ```txt
 1. immutable runtime admission
-2. import purity and frame ownership
+2. import purity and single frame ownership
+2a. balloon model descriptor, assembly and loading authority
 3. runtime session lifecycle and ordered disposal
 4. fixed-step clock and sequenced input
 4a. product source and acceptance parity
@@ -142,7 +160,8 @@ open-above-world-surface-membership-authority-domain
 ## Next safe ledge
 
 ```txt
-World Surface Membership Authority
-+ Terrain/Grass/Simulation Consumer Parity
-+ Boundary Traversal and First-Visible-Frame Fixture Gate
+Balloon Model Descriptor + Profile Admission
++ Detached Initial-Setup Load
++ Resource Inventory/Retirement
++ First-Visible-Frame Fixture Gate
 ```
