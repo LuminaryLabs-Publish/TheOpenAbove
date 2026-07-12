@@ -1,147 +1,144 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T11-15-16-04-00`
+**Last aligned:** `2026-07-12T13-29-56-04-00`
 
 ## Scope
 
-Documentation-only audit of world construction, deterministic sampling, disk membership, terrain/grass/flower/map consumer coherence and visible-frame provenance. Initial source revision `f24e1b11063a566ff011168ffd89a0609f21328c`; concurrent runtime fix reconciled at `74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec`.
+Documentation-only reconciliation of terrain ownership, near/horizon classification, live chunk replacement, aggregate adoption, rollback, retirement and visible-frame provenance at repository revision `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`.
 
 ## Plan ledger
 
-**Goal:** distinguish deterministic sampled values and local runtime fixes from proof that one immutable world artifact is built, adopted and rendered coherently.
+**Goal:** distinguish resolved geometric overlap defects from proof that one complete terrain aggregate is transactionally built, committed and rendered.
 
-- [x] Compare the complete Publish inventory and central ledger state.
+- [x] Compare all ten accessible Publish repositories and central ledger state.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because material source changed after its prior audit.
-- [x] Read guidance, host, world generator, terrain, grass, flowers, map and tests.
-- [x] Confirm synchronous grid/erosion/flow/map build work.
-- [x] Detect pre-fix cache-size descriptor drift and unbounded flora.
-- [x] Reconcile the runtime fix that removed descriptor drift and bounded flora.
-- [x] Confirm consumers still lack build identity, adoption receipts and frame provenance.
-- [x] Reconcile 67 active source-backed kits and services.
-- [x] Define authority, fixture and deployment requirements.
-- [x] Change no runtime source, dependency, script or workflow in this documentation pass.
+- [x] Select only `TheOpenAbove`.
+- [x] Inspect the 23-commit range after the prior world audit.
+- [x] Inspect terrain contract, near/horizon streamers, surface composition, overlays, water, tests and package scripts.
+- [x] Confirm one shared frame and disjoint near/horizon classification.
+- [x] Confirm live replacement remains sequential and non-atomic.
+- [x] Reconcile 68 active source-backed kits and services.
+- [x] Define missing authority and fixtures.
+- [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
 ## Existing source-backed proof
 
 ```txt
-independent world objects return equal tested samples
-world grid size and feature-cell size are asserted
-route and town protected terrain remains close to legacy height
-five grass and five flower types are observed
-several biome profiles and map colors are observed
-grass chunk generation is deterministic for tested local chunks
-local high-quality grass budget equals 2500 clumps / 5000 cards
-flower placement and type coverage are tested
-npm run check imports world, grass and flower tests
+createTerrainStreamingFrame returns a frozen shared frame
+stable negative and positive grid anchoring is tested
+near requirements and bounds are deterministic for tested cameras
+horizon cells covered by near terrain are excluded
+intersections are explicitly partitioned at near boundaries
+retained horizon requirements can change clip signature after movement
+horizon streamer reclassifies by LOD, segments and clip signature
+near and horizon boundary skirts are constructed
+route-protection width and single final blend are tested
+draped field/road and shared lake source contracts are tested
+npm run check includes terrain-streaming, route-protection and overlay tests
+npm run build runs npm run check before Vite
 ```
 
-## Runtime corrections observed during the audit
+## Runtime corrections reconciled
 
 ```txt
-world descriptor no longer includes cachedFeatureCells
-world exposes contains(x,z)
-sampleFlora returns biomeName=outside-world and zero flora density outside radius
+shared terrain streaming frame added
+near/horizon overlap classification removed
+horizon expansion and vertical offset removed
+retained horizon reclassification added
+route preservation narrowed
+fields and road draped to terrain
+lake descriptors centralized and edges feathered
+landmark and water disposal added
 ```
-
-These corrections resolve the specific descriptor-purity and flora-membership defects found in the initially reviewed source. They do not establish build authority or cross-consumer provenance.
 
 ## Remaining source-backed gaps
 
 ```txt
-no canonical world input or artifact fingerprint
-no WorldBuildId or generation revision
-no named build-stage result, budget, progress or cancellation
-sample results do not cite world revision or artifact fingerprint
-sampleFeatureCell remains cache-populating and directly public
-outside-world policy is not uniform across all sample types
-terrain/vegetation/grass/flower/landmark/map lack adoption receipts
-chunks and cached map background omit world revision
-no stale consumer rejection exists
-no world-visible-frame acknowledgement exists
+frame revision is not a typed frame identity
+frame omits world/config/quality/geometry/material fingerprints
+candidate geometry is built in live scene groups
+predecessor meshes are removed before complete candidate success
+near and horizon updates return no typed receipts
+no aggregate parity admission exists
+no atomic adoption or rollback exists
+no exactly-once retirement receipt exists
+near mesh metadata omits frame revision
+no commit/result journal exists
+no first-visible-frame acknowledgement exists
 ```
 
-## Missing static fixtures
+## Missing static and pure fixtures
 
 ```txt
-fixture:world-authority-present
-fixture:world-build-identity-present
-fixture:typed-membership-policy-present
-fixture:consumer-world-revision-present
-fixture:world-visible-frame-ack-present
+fixture:terrain-authority-present
+fixture:terrain-frame-input-fingerprint
+fixture:terrain-world-revision-present
+fixture:terrain-near-horizon-disjoint-ownership
+fixture:terrain-candidate-complete-before-adoption
+fixture:terrain-aggregate-parity
+fixture:terrain-retirement-exactly-once
 ```
 
-## Missing pure fixtures
+## Missing failure and performance fixtures
 
 ```txt
-fixture:world-input-fingerprint
-fixture:world-independent-build-fingerprint
-fixture:world-sample-result-provenance
-fixture:world-inside-edge-outside-matrix
-fixture:world-anchor-fingerprint-drift
-fixture:world-consumer-parity
-fixture:world-stale-query-rejection
-fixture:world-stale-chunk-rejection
-```
-
-## Missing performance fixtures
-
-```txt
-world build wall-time budget
-world build allocation budget
-map rasterization budget
-cancellation at each build stage
-failed build leaves active artifact unchanged
-cold build versus cached artifact startup
+inject terrainHeight failure during candidate build
+inject terrainColor failure during candidate build
+inject geometry allocation failure
+prove predecessor aggregate remains active
+prove candidate resources are retired after rollback
+measure boundary transition wall time
+measure created/reused/retired mesh and vertex counts
+exercise low, medium and high quality budgets
 ```
 
 ## Missing browser fixtures
 
 ```txt
-capture WorldBuildResult before first visible frame
-fly center to edge and compare terrain/grass/flower membership
-open and close map and verify world revision/fingerprint stability
-probe map/scene biome color parity
-replace world revision and reject stale chunks
-capture WorldVisibleFrameAck
+capture initial TerrainStreamCommitResult
+cross positive and negative 520-unit boundaries
+cross 1040-unit horizon-center boundaries
+cross diagonal X/Z boundaries
+inspect low, medium and high altitude frames
+verify no duplicate or missing terrain pixels
+verify fields, road and lakes remain aligned
+capture TerrainVisibleFrameAck for each committed revision
 ```
 
 ## Missing built-output and Pages checks
 
 ```txt
-source and dist world fingerprints match
+source and dist terrain fingerprints match
 built imports resolve under project base path
-deployed world construction meets budget
-deployed edge membership matches source fixtures
-map and scene cite the same world revision
-screenshot is paired with machine-readable visible-frame acknowledgement
+deployed boundary transitions meet budget
+Pages screenshots pair with terrain frame acknowledgements
+source, dist and Pages use the same ownership/config fingerprint
 ```
 
-## Commands not run
+## Commands not run in this pass
 
 ```txt
 npm install
 npm run check
 npm run headless:check
 npm run build
-browser world fixture matrix
-Pages world-generation smoke
+browser terrain boundary matrix
+Pages terrain boundary smoke
 ```
 
-The connector environment supplied source and write access, not a checked-out browser runtime. Existing repository tests were inspected but not executed during this documentation pass.
+The preceding terrain-remediation turn ledger reports passing local ownership, clipping, reclassification, route-protection, overlay and syntax checks. This connector-only documentation pass inspected those source fixtures but did not execute them.
 
 ## Change-state validation
 
 ```txt
-runtime JavaScript changed by documentation pass: no
-concurrent runtime fix observed: yes
-HTML changed by documentation pass: no
-package scripts changed by documentation pass: no
-dependencies changed by documentation pass: no
-gameplay changed by documentation pass: no
-render behavior changed by documentation pass: no
-deployment workflow changed by documentation pass: no
+runtime JavaScript changed by this documentation pass: no
+HTML changed: no
+package scripts changed: no
+dependencies changed: no
+gameplay changed: no
+render behavior changed: no
+deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
@@ -149,4 +146,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim procedural world authority until executable proof shows canonical independent-build fingerprints, build lifecycle results, uniform membership, cross-consumer revision parity, stale-result rejection and visible-frame provenance.
+Do not claim terrain-stream authority until executable proof shows detached candidate construction, aggregate admission, atomic commit or rollback, exactly-once predecessor retirement and first-visible-frame provenance across browser and Pages boundary transitions.
