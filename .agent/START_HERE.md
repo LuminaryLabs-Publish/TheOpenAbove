@@ -1,51 +1,52 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T17-41-25-04-00`  
+**Last aligned:** `2026-07-12T19-31-06-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
 **Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`  
-**Status:** `flight-world-membership-authority-audited`
+**Status:** `flora-exclusion-artifact-coherence-authority-audited`
 
 ## Summary
 
-TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, airstream routing, parcel delivery, camera-relative terrain and flora, HDR rendering, a parchment map, Nexus telemetry and browser/headless proof surfaces.
+TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, parcel delivery, camera-relative terrain, streamed grass and flowers, boot-time tree vegetation, HDR rendering, a parchment map, telemetry and browser/headless proof surfaces.
 
-The current audit isolates flight/world membership. The world is declared as a 10,000-unit bounded disk, but balloon motion integrates horizontal position without membership admission, swept crossing detection, an authored edge/outside policy, an atomic world-consumer commit or visible-frame acknowledgement.
+The current audit isolates flora exclusion coherence. Grass and flower systems each snapshot `vegetation.treePositions` into separate private spatial maps at construction. Grass also snapshots vegetation cluster geometry for density shaping. Neither consumer receives a vegetation revision, exclusion-artifact fingerprint, replacement notification or stale-result fence.
 
 ## Plan ledger
 
-**Goal:** make every balloon movement proposal prove world membership and commit one boundary result before gameplay, streaming, map or rendering consumers accept the successor position.
+**Goal:** make vegetation exclusion one immutable, revisioned artifact that grass and flowers must admit before chunk generation, so vegetation replacement cannot leave stale overlaps or mismatched visible flora.
 
 - [x] Compare all ten accessible Publish repositories with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` by the oldest eligible synchronized ledger timestamp.
-- [x] Identify the complete interaction loop and all domains.
+- [x] Confirm all nine eligible repositories have central-ledger coverage and recorded root `.agent` state.
+- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
+- [x] Identify the complete interaction loop and all active domains.
 - [x] Preserve all 68 active source-backed kits and offered services.
+- [x] Trace vegetation construction, grass/flower exclusion snapshots, chunk rebuilds and visual update order.
 - [x] Add a timestamped tracker, turn ledger and architecture/system audit family.
 - [x] Refresh required root `.agent` state and machine registry.
-- [x] Create no branch or pull request.
+- [x] Push only to `main`; create no branch or pull request.
 - [ ] Implement the authority and executable source/build/Pages fixtures.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-12T17-41-25-04-00/project-breakdown.md
+.agent/trackers/2026-07-12T19-31-06-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-12T17-41-25-04-00-flight-world-membership-dsk-map.md
-.agent/render-audit/2026-07-12T17-41-25-04-00-off-world-flight-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-12T17-41-25-04-00-unbounded-balloon-traversal-loop.md
-.agent/interaction-audit/2026-07-12T17-41-25-04-00-flight-boundary-command-admission-map.md
-.agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md
-.agent/deploy-audit/2026-07-12T17-41-25-04-00-flight-boundary-fixture-gate.md
-.agent/turn-ledger/2026-07-12T17-41-25-04-00.md
+.agent/architecture-audit/2026-07-12T19-31-06-04-00-flora-exclusion-artifact-dsk-map.md
+.agent/render-audit/2026-07-12T19-31-06-04-00-stale-tree-exclusion-visible-flora-gap.md
+.agent/gameplay-audit/2026-07-12T19-31-06-04-00-vegetation-replacement-flora-overlap-loop.md
+.agent/interaction-audit/2026-07-12T19-31-06-04-00-exclusion-artifact-consumer-admission-map.md
+.agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md
+.agent/deploy-audit/2026-07-12T19-31-06-04-00-flora-exclusion-coherence-fixture-gate.md
+.agent/turn-ledger/2026-07-12T19-31-06-04-00.md
 .agent/kit-registry.json
 ```
 
-The vegetation coverage audit at `2026-07-12T15-40-04-04-00` remains the immediate predecessor.
+The flight/world membership audit at `2026-07-12T17-41-25-04-00` remains the immediate predecessor.
 
 ## Selection
 
@@ -54,17 +55,17 @@ accessible Publish repositories: 10
 eligible non-Cavalry repositories: 9
 new eligible repositories: 0
 central-ledger-missing eligible repositories: 0
-root-.agent-missing eligible repositories: 0
+recorded root-.agent-missing eligible repositories: 0
 
-TheOpenAbove       2026-07-12T15-40-04-04-00 selected
-IntoTheMeadow      2026-07-12T15-49-09-04-00
-PhantomCommand     2026-07-12T16-00-03-04-00
-PrehistoricRush    2026-07-12T16-20-55-04-00
-HorrorCorridor     2026-07-12T16-39-35-04-00
-ZombieOrchard      2026-07-12T16-51-47-04-00
-MyCozyIsland       2026-07-12T17-10-31-04-00
-TheUnmappedHouse   2026-07-12T17-20-42-04-00
-AetherVale         2026-07-12T17-35-48-04-00
+TheOpenAbove       2026-07-12T17-41-25-04-00 selected
+IntoTheMeadow      2026-07-12T17-58-43-04-00
+PhantomCommand     2026-07-12T18-11-53-04-00
+PrehistoricRush    2026-07-12T18-18-59-04-00
+HorrorCorridor     2026-07-12T18-38-51-04-00
+ZombieOrchard      2026-07-12T18-48-07-04-00
+MyCozyIsland       2026-07-12T19-00-22-04-00
+TheUnmappedHouse   2026-07-12T19-11-01-04-00
+AetherVale         2026-07-12T19-21-29-04-00
 TheCavalryOfRome   excluded
 ```
 
@@ -72,26 +73,25 @@ TheCavalryOfRome   excluded
 
 ```txt
 boot
-  -> construct bounded-disk world and camera-relative visual systems
-  -> construct balloon simulation at the authored start
-  -> publish map, telemetry and public host
-  -> schedule RAF
+  -> build seeded world and terrain
+  -> create one boot-time vegetation cluster field
+  -> derive treePositions and cluster records
+  -> create grass private obstacle/proximity indexes from those records
+  -> create flower private obstacle index from those records
+  -> start camera-relative grass and flower chunk streaming
 
-frame
-  -> read held keys
-  -> sample airstream
-  -> integrate horizontal and vertical velocity
-  -> add velocity * dt directly to balloon position
-  -> enforce terrain floor and soft altitude ceiling
-  -> update mail, camera, terrain, vegetation-adjacent flora and HDR
-  -> render
+camera crosses flora chunk boundary
+  -> grass independently removes and builds live chunks
+  -> flower independently removes and builds live chunks
+  -> both query their construction-time exclusion snapshots
+  -> no vegetation or exclusion revision is checked
+  -> render HDR frame and publish counts only
 
-boundary crossing
-  -> balloon may cross the 10,000-unit bounded-disk radius
-  -> no membership admission or crossing result runs
-  -> no accept, soft-return, clamp, reject or terminal policy is selected
-  -> map and streamed world consumers continue from an unclassified position
-  -> no boundary revision or visible-frame acknowledgement is published
+future vegetation replacement or rebuild
+  -> tree ownership can change
+  -> grass and flower exclusion snapshots remain predecessor-derived
+  -> stale candidates can overlap current trees or preserve obsolete clearings
+  -> no cross-consumer parity result or visible-frame acknowledgement exists
 ```
 
 ## Domains in use
@@ -104,11 +104,12 @@ airstream routes, sampling, force, visuals and debug
 mail parcel, town, delivery volume and progress
 seeded world generation, bounded-disk membership, erosion, climate, biome and flora
 terrain near/horizon streaming, ownership, geometry and disposal
-vegetation, grass and flower placement, exclusion, LOD, culling and wind
+boot-time vegetation clusters and tree-position records
+grass/flower placement, private exclusions, chunks, LOD, culling and wind
 balloon construction, rigging, material, camera and secondary presentation
 quality, dynamic resolution, sky, sun, clouds, water, HDR and lens response
 parchment-map projection, headless proof, tests, build and Pages
-missing flight/world membership admission, boundary policy, commit and proof
+missing shared vegetation-exclusion artifact, admission, replacement and proof
 ```
 
 ## Kits and services
@@ -128,28 +129,28 @@ The complete kit-by-kit inventory and service map are in the latest tracker and 
 
 ## Main finding
 
-`WORLD.surface` declares a bounded disk centered at `(0, 0)` with radius `10000`, edge blend `600`, and an outside floor. `createBalloonSimulation().update(dt)` adds horizontal velocity directly to `state.position` and only applies a terrain floor plus a vertical soft ceiling. It never samples the world surface, classifies inside/edge/outside, detects a high-speed crossing, or returns a boundary result.
+`createGrassFieldDomain()` copies `vegetation.treePositions` and `vegetation.clusters` into private query structures once. `createFlowerFieldDomain()` separately copies `vegetation.treePositions` into another private grid and applies a different clearance radius. Their `update()` methods only move camera-relative chunk windows; no service refreshes those exclusion indexes or binds chunks to a vegetation/exclusion revision.
 
-The host then uses that unclassified flight state to update mail, camera, terrain, flora, telemetry, the map, and the rendered frame. The repository therefore has a bounded world description but no authoritative rule for whether an outside position is accepted, redirected, clamped, rejected, terminal, or merely visual.
+This is already an ownership gap and becomes a visible overlap defect as soon as the retained vegetation-streaming plan replaces the boot field. The repository currently cannot prove that a grass or flower chunk was generated against the vegetation generation shown in the same frame.
 
 ## Required parent domain
 
 ```txt
-open-above-flight-world-membership-authority-domain
+open-above-flora-exclusion-artifact-authority-domain
 ```
 
 ## Next safe ledge
 
 ```txt
-FlightFrameCommand + WorldSurfaceRevision
-  -> detached motion proposal
-  -> point and swept membership evidence
-  -> authored boundary policy
-  -> atomic flight and consumer commit
-  -> bounded observation/journal
+VegetationCommitResult
+  -> immutable FloraExclusionArtifact
+  -> artifact fingerprint and revision
+  -> grass/flower candidate admission
+  -> atomic paired chunk adoption or last-good retention
+  -> stale artifact rejection
   -> first matching visible-frame acknowledgement
 ```
 
 ## Retained priorities
 
-Runtime admission, session/frame ownership, procedural-world identity, terrain and vegetation atomic adoption, grass/flower coherence, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
+Runtime admission, session/frame ownership, procedural-world identity, flight/world membership, terrain and vegetation atomic adoption, HDR coherence, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
