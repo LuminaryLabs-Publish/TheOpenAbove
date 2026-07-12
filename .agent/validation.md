@@ -1,111 +1,128 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T05-11-46-04-00`
+**Last aligned:** `2026-07-12T07-00-48-04-00`
 
 ## Scope
 
-Documentation-only audit of HDR target/depth ownership and render-surface resize behavior through repository revision `270f8471a582dc8e01128dbd51bd8566972e95d6`.
+Documentation-only audit of visual HUD, live-region, semantic announcement and fatal-focus behavior through repository revision `e0f40064e935170dabc642242ce0b25a28527929`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed color/depth sizing and ownership defects from executable proof that attachment replacement is compatible, atomic, rollback-safe and leak-free.
+**Goal:** distinguish source-backed live-region and fatal-discovery defects from executable proof that announcements are meaningful, bounded, cadence-independent and lifecycle-safe.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Avoid active unsynchronized `PrehistoricRush` documentation.
-- [x] Select only `TheOpenAbove`.
-- [x] Read `AGENTS.md`, root `.agent` state, visual domain, quality kit, HDR composer and smoke test.
-- [x] Trace initial target creation and depth attachment replacement.
-- [x] Trace browser resize and dynamic-scale paths.
-- [x] Confirm no target/attachment IDs, compatibility result or rollback exists.
-- [x] Preserve all 59 active source-backed kits and services.
-- [x] Define static, pure, browser and Pages proof requirements.
-- [x] Change no runtime source, dependency, script or workflow.
+- [x] Select only `TheOpenAbove` as the oldest eligible repository.
+- [x] Read `AGENTS.md`, `index.html`, `src/main.js`, simulation, camera, tests and root `.agent` state.
+- [x] Confirm `#hud` is a polite live region.
+- [x] Confirm `updateHud()` replaces its complete `innerHTML` after every render.
+- [x] Confirm no semantic event, dedupe, rate, result or frame-correlation authority exists.
+- [x] Confirm fatal details have no alert/focus contract.
+- [x] Preserve all 59 source-backed kits and services.
+- [x] Define static, pure, browser, accessibility-tree and Pages proof requirements.
+- [x] Change no runtime source, HTML, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
 ## Source-backed behavior
 
 ```txt
-HDR target is created at initial CSS dimensions
-initial target receives one depth texture
-EffectComposer adopts the target and clones a second target
-both composer depth textures are replaced
-dynamic-resolution resize applies effective pixel ratio
-visual browser resize calls dynamic-resolution resize
-visual browser resize then calls HDR wrapper resize
-HDR wrapper manually sets tracked depth images to CSS dimensions
-dynamic-scale changes call only dynamic-resolution resize
-disposal explicitly iterates only the two replacement depth textures
+index.html marks #hud aria-live="polite"
+boot writes loading content through hud.innerHTML
+initial setup calls updateHud()
+frame loop calls updateHud() after visual.render()
+updateHud serializes mission and rapidly changing telemetry together
+updateHud replaces the complete HUD innerHTML
+showFatal reveals #error and writes stack/message
+showFatal writes a generic error into the live HUD
+#error has no alert role or focus contract
 ```
 
 ## Source-backed gaps
 
 ```txt
-no explicit ownership record for the replaced initial depth texture
-no unified browser/dynamic resize transaction
-no physical color/depth dimension parity check
-no framebuffer-completeness result
-no resize generation or stale result rejection
-no candidate surface preparation
-no atomic commit or rollback
-no target/attachment lease transfer
-no exactly-once retirement receipt
-no actual dimensions in telemetry or GameHost
-no visible-frame surface acknowledgement
+no visual/assistive channel separation
+no semantic source-event identity
+no announcement identity, kind or priority
+no product/user announcement policy
+no mission/projection revision
+no admission or stale-result rejection
+no dedupe or elapsed-time rate budget
+no dedicated atomic live region
+no field-level visual HUD update
+no typed announcement result
+no detached observation or journal
+no mission/frame/announcement acknowledgement
+no exactly-once fatal alert
+no fatal focus transfer
+no replacement-session status cleanup
 ```
 
 ## Required static fixtures
 
 ```txt
-fixture:hdr-authority-present
-fixture:hdr-single-resize-path-present
-fixture:hdr-explicit-attachment-ownership-present
-fixture:hdr-framebuffer-admission-present
-fixture:hdr-rollback-present
-fixture:hdr-visible-frame-receipt-present
+fixture:hud-visual-node-is-non-live
+fixture:semantic-status-node-present
+fixture:fatal-detail-surface-focusable
+fixture:announcement-authority-present
+fixture:per-frame-live-region-write-absent
+fixture:typed-announcement-result-present
 ```
 
 ## Required pure fixtures
 
 ```txt
-fixture:effective-pixel-ratio-plan
-fixture:physical-size-plan
-fixture:resize-generation-ordering
-fixture:stale-resize-rejection
-fixture:attachment-lease-transfer
-fixture:retirement-exactly-once
-fixture:fallback-policy
+fixture:semantic-event-classification
+fixture:announcement-priority-policy
+fixture:event-id-deduplication
+fixture:semantic-text-deduplication
+fixture:elapsed-time-rate-budget
+fixture:verbosity-policy
+fixture:stale-session-rejection
+fixture:stale-mission-revision-rejection
+fixture:fatal-priority-supersession
 ```
 
 ## Required browser fixtures
 
 ```txt
-create WebGL renderer and EffectComposer
-test DPR 1.0, 1.25, 1.6 and 2.0
-test high, medium and low tiers
-test startup and browser resize
-force dynamic degradation and recovery
-inspect renderer drawing buffer
-inspect both composer color targets
-inspect both depth attachments
-check framebuffer completeness before and after every transition
-inject candidate allocation and completeness failures
-verify predecessor surface remains visible
-verify resource counts return to a bounded baseline
-verify first frame and readback cite the committed revision
+boot real page DOM
+observe #hud and semantic status with MutationObserver
+run steady flight at 30, 60 and 120 Hz schedules
+confirm visual telemetry updates without live-region churn
+trigger airstream entry/capture/exit
+trigger camera-mode transitions
+trigger one mail delivery
+submit duplicate semantic events
+inject startup and frame fatal failures
+verify one concise fatal alert
+verify detailed error focus exactly once
+replace runtime and confirm predecessor status is retired
+record frame, mission and announcement receipts
+```
+
+## Required assistive-technology checks
+
+```txt
+status output is concise and intelligible
+steady flight does not create a continuous speech queue
+important mission events are discoverable once
+control hints follow verbosity and cooldown policy
+fatal failure interrupts appropriately
+error details are keyboard and screen-reader reachable
+focus remains recoverable after the terminal surface opens
 ```
 
 ## Required Pages smoke
 
 ```txt
 load deployed route
-capture initial surface revision and dimensions
-resize through three viewport/DPR combinations
-force degradation and recovery
-confirm continuous flight and HUD updates
-confirm no framebuffer errors
-confirm final target/depth parity
-confirm bounded resource inventory
+confirm visual HUD and canvas label
+confirm dedicated semantic status remains quiet during ordinary telemetry
+capture one route and complete one delivery
+confirm one announcement per committed event
+inject or exercise visible failure path
+confirm one fatal alert and focusable details
+resize and force quality transitions without accessibility regression
 ```
 
 ## Commands not run
@@ -115,20 +132,23 @@ npm install
 npm run check
 npm run headless:check
 npm run build
-browser WebGL attachment matrix
-Pages render-surface smoke
+browser DOM mutation matrix
+screen-reader smoke
+Pages accessibility smoke
 ```
 
-The connector environment supplied repository source and write access, not a checked-out WebGL browser runtime. No command execution or GPU correctness claim is made.
+The connector environment supplied repository source and write access, not a checked-out browser or assistive-technology runtime. No executable accessibility correctness claim is made.
 
 ## Change-state validation
 
 ```txt
 runtime JavaScript changed: no
+HTML changed: no
 package scripts changed: no
 dependencies changed: no
 gameplay changed: no
 render behavior changed: no
+accessibility behavior changed: no
 deployment workflow changed: no
 branch created: no
 pull request created: no
@@ -137,4 +157,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim HDR resize correctness or resource cleanup until executable browser and Pages proof shows one resize transaction, matching physical color/depth dimensions, complete framebuffers, stale-generation rejection, atomic rollback, exactly-once retirement and a first-visible-frame receipt.
+Do not claim HUD accessibility correctness until executable browser and Pages proof shows visual/live-region separation, bounded cadence-independent announcements, committed mission-event mapping, duplicate idempotency, stale-session rejection, exactly-once fatal alert/focus behavior and frame/mission/announcement provenance.
