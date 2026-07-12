@@ -3,110 +3,120 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.m
 export const HOT_AIR_BALLOON_BASKET_KIT_ID = "open-above-hot-air-balloon-basket-kit";
 
 export const defaultBasketProfile = {
-  width: 1.38,
-  height: 0.9,
-  depth: 1.08,
-  color: 0x8b5a2b,
-  trimColor: 0x3f2412,
-  weaveColor: 0xa36a32,
-  floorColor: 0x6b3f1f,
+  width: 1.55,
+  height: 1.05,
+  depth: 1.18,
+  topRadius: 0.78,
+  bottomRadius: 0.68,
+  color: 0x8f5b2d,
+  trimColor: 0x422514,
+  weaveColor: 0xb27238,
+  floorColor: 0x65401f,
+  cylinderColor: 0x294867,
   eyeHeightMeters: 1.5
 };
 
-function addPanel(group, geometry, material, position, rotation = null) {
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.set(...position);
-  if (rotation) mesh.rotation.set(...rotation);
-  group.add(mesh);
+function ellipseScale(mesh, width, depth, sourceDiameter) {
+  mesh.scale.set(width / sourceDiameter, 1, depth / sourceDiameter);
   return mesh;
 }
 
+function createRim(radius, width, depth, color) {
+  const rim = new THREE.Mesh(
+    new THREE.TorusGeometry(radius, 0.055, 6, 16),
+    new THREE.MeshStandardMaterial({ color, roughness: 0.86, metalness: 0.02 })
+  );
+  rim.rotation.x = Math.PI / 2;
+  ellipseScale(rim, width, depth, radius * 2);
+  return rim;
+}
+
 export function buildBasket(profile = defaultBasketProfile) {
+  const p = { ...defaultBasketProfile, ...profile };
   const group = new THREE.Group();
   group.name = "hot-air-balloon-basket";
   group.userData.domain = HOT_AIR_BALLOON_BASKET_KIT_ID;
-  group.userData.eyeHeightMeters = profile.eyeHeightMeters ?? defaultBasketProfile.eyeHeightMeters;
+  group.userData.eyeHeightMeters = p.eyeHeightMeters;
 
-  const wallMat = new THREE.MeshStandardMaterial({ color: profile.color, roughness: 0.94, metalness: 0.01 });
-  const trimMat = new THREE.MeshStandardMaterial({ color: profile.trimColor, roughness: 0.9 });
-  const weaveMat = new THREE.MeshStandardMaterial({ color: profile.weaveColor, roughness: 0.96 });
-  const floorMat = new THREE.MeshStandardMaterial({ color: profile.floorColor, roughness: 0.92 });
+  const yCenter = -1.72;
+  const floorY = yCenter - p.height * 0.5;
+  const rimY = yCenter + p.height * 0.5;
+  const wallMat = new THREE.MeshStandardMaterial({ color: p.color, roughness: 0.95, metalness: 0 });
+  const trimMat = new THREE.MeshStandardMaterial({ color: p.trimColor, roughness: 0.88, metalness: 0.03 });
+  const ribMat = new THREE.MeshStandardMaterial({ color: p.weaveColor, roughness: 0.94, metalness: 0 });
 
-  const yCenter = -1.55;
-  const floorY = yCenter - profile.height * 0.5;
-  const rimY = yCenter + profile.height * 0.5;
-  const wallThickness = 0.075;
+  const shell = new THREE.Mesh(
+    new THREE.CylinderGeometry(p.topRadius, p.bottomRadius, p.height, 8, 1, true),
+    wallMat
+  );
+  shell.name = "basket-woven-tapered-shell";
+  shell.position.y = yCenter;
+  shell.rotation.y = Math.PI / 8;
+  ellipseScale(shell, p.width, p.depth, p.topRadius * 2);
+  shell.castShadow = true;
+  shell.receiveShadow = true;
+  group.add(shell);
 
-  const floor = addPanel(group, new THREE.BoxGeometry(profile.width, 0.08, profile.depth), floorMat, [0, floorY, 0]);
+  const topRim = createRim(p.topRadius, p.width + 0.12, p.depth + 0.12, p.trimColor);
+  topRim.name = "basket-reinforced-upper-rim";
+  topRim.position.y = rimY;
+  group.add(topRim);
+
+  const bottomRim = createRim(p.bottomRadius, p.width * 0.88, p.depth * 0.88, p.trimColor);
+  bottomRim.name = "basket-reinforced-lower-rim";
+  bottomRim.position.y = floorY + 0.04;
+  group.add(bottomRim);
+
+  const floor = new THREE.Mesh(
+    new THREE.CylinderGeometry(p.bottomRadius * 0.94, p.bottomRadius * 0.94, 0.09, 8),
+    new THREE.MeshStandardMaterial({ color: p.floorColor, roughness: 0.94 })
+  );
   floor.name = "basket-floor-base";
+  floor.position.y = floorY;
+  floor.rotation.y = Math.PI / 8;
+  ellipseScale(floor, p.width * 0.86, p.depth * 0.86, p.bottomRadius * 1.88);
+  group.add(floor);
 
-  const front = addPanel(group, new THREE.BoxGeometry(profile.width, profile.height, wallThickness), wallMat, [0, yCenter, -profile.depth / 2]);
-  front.name = "basket-front-woven-wall";
-  const back = addPanel(group, new THREE.BoxGeometry(profile.width, profile.height, wallThickness), wallMat, [0, yCenter, profile.depth / 2]);
-  back.name = "basket-back-woven-wall";
-  const left = addPanel(group, new THREE.BoxGeometry(wallThickness, profile.height, profile.depth), wallMat, [-profile.width / 2, yCenter, 0]);
-  left.name = "basket-left-woven-wall";
-  const right = addPanel(group, new THREE.BoxGeometry(wallThickness, profile.height, profile.depth), wallMat, [profile.width / 2, yCenter, 0]);
-  right.name = "basket-right-woven-wall";
-
-  for (const y of [rimY, yCenter, floorY + 0.08]) {
-    addPanel(group, new THREE.BoxGeometry(profile.width + 0.18, 0.065, 0.075), trimMat, [0, y, -profile.depth / 2 - 0.045]);
-    addPanel(group, new THREE.BoxGeometry(profile.width + 0.18, 0.065, 0.075), trimMat, [0, y, profile.depth / 2 + 0.045]);
-    addPanel(group, new THREE.BoxGeometry(0.075, 0.065, profile.depth + 0.18), trimMat, [-profile.width / 2 - 0.045, y, 0]);
-    addPanel(group, new THREE.BoxGeometry(0.075, 0.065, profile.depth + 0.18), trimMat, [profile.width / 2 + 0.045, y, 0]);
+  for (let i = 0; i < 8; i += 1) {
+    const angle = i / 8 * Math.PI * 2 + Math.PI / 8;
+    const rib = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, p.height * 0.96, 6), ribMat);
+    rib.name = "basket-woven-vertical-rib";
+    rib.position.set(
+      Math.sin(angle) * p.width * 0.47,
+      yCenter,
+      Math.cos(angle) * p.depth * 0.47
+    );
+    group.add(rib);
   }
 
-  for (let i = -3; i <= 3; i += 1) {
-    addPanel(group, new THREE.BoxGeometry(0.035, profile.height * 0.92, 0.025), weaveMat, [i * profile.width / 7, yCenter, -profile.depth / 2 - 0.083]);
-    addPanel(group, new THREE.BoxGeometry(0.035, profile.height * 0.92, 0.025), weaveMat, [i * profile.width / 7, yCenter, profile.depth / 2 + 0.083]);
-  }
-
-  for (let i = -2; i <= 2; i += 1) {
-    const plank = addPanel(group, new THREE.BoxGeometry(profile.width * 0.88, 0.025, 0.055), floorMat, [0, floorY + 0.07, i * profile.depth / 6]);
-    plank.name = "basket-floor-plank";
+  const cylinderMat = new THREE.MeshStandardMaterial({ color: p.cylinderColor, roughness: 0.52, metalness: 0.38 });
+  for (const x of [-0.38, 0.38]) {
+    const tank = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.68, 12), cylinderMat);
+    tank.name = "basket-propane-cylinder";
+    tank.position.set(x, floorY + 0.38, 0.2);
+    group.add(tank);
+    const valve = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 0.09, 8), trimMat);
+    valve.position.set(x, floorY + 0.77, 0.2);
+    group.add(valve);
   }
 
   const controls = new THREE.Group();
   controls.name = "basket-burner-controls";
-  const leverMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, roughness: 0.52, metalness: 0.42 });
+  const leverMat = new THREE.MeshStandardMaterial({ color: 0x27313d, roughness: 0.48, metalness: 0.52 });
   const knobMat = new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.48, metalness: 0.12 });
   const post = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.38, 8), leverMat);
-  post.position.set(0.28, rimY + 0.04, -0.18);
+  post.position.set(0.32, rimY + 0.04, -0.16);
   post.rotation.z = -0.25;
   const knob = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), knobMat);
-  knob.position.set(0.34, rimY + 0.22, -0.18);
+  knob.position.set(0.38, rimY + 0.22, -0.16);
   controls.add(post, knob);
   group.add(controls);
 
-  const sandMat = new THREE.MeshStandardMaterial({ color: 0xc2a36c, roughness: 0.98 });
-  for (const x of [-0.48, 0.48]) {
-    const bag = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.12, 0.18), sandMat);
-    bag.name = "basket-sandbag";
-    bag.position.set(x, floorY + 0.12, 0.34);
-    bag.rotation.y = x > 0 ? 0.25 : -0.18;
-    group.add(bag);
-  }
-
-  const blanket = new THREE.Mesh(
-    new THREE.BoxGeometry(0.44, 0.025, 0.28),
-    new THREE.MeshStandardMaterial({ color: 0x7c2d12, roughness: 0.86 })
-  );
-  blanket.name = "basket-folded-blanket";
-  blanket.position.set(-0.28, floorY + 0.13, -0.2);
-  blanket.rotation.y = -0.15;
-  group.add(blanket);
-
-  const lantern = new THREE.Group();
-  lantern.name = "basket-lantern";
-  const lanternBody = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.065, 0.16, 8), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.46, metalness: 0.45 }));
-  const lanternGlow = new THREE.PointLight(0xffb66b, 0.28, 2.2);
-  lantern.position.set(0.48, rimY + 0.08, 0.26);
-  lantern.add(lanternBody, lanternGlow);
-  group.add(lantern);
-
   group.userData.basketFloorY = floorY;
-  group.userData.riderEyeY = floorY + group.userData.eyeHeightMeters;
-  group.userData.warmTargets = [front, back, left, right, floor];
+  group.userData.basketRimY = rimY;
+  group.userData.riderEyeY = floorY + p.eyeHeightMeters;
+  group.userData.warmTargets = [shell, floor];
+  group.userData.propaneCylinders = true;
   return group;
 }
 
