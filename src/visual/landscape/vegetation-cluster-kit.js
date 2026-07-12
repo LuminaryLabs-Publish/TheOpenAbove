@@ -36,6 +36,7 @@ export function createVegetationClusters(scene, worldConfig, quality) {
   const scale = new THREE.Vector3();
   const position = new THREE.Vector3();
   const color = new THREE.Color();
+  const treePositions = [];
   let count = 0;
 
   for (let i = 0; i < total * 2 && count < total; i += 1) {
@@ -62,6 +63,7 @@ export function createVegetationClusters(scene, worldConfig, quality) {
     crowns.setMatrixAt(count, matrix);
     color.set(0x315f38).offsetHSL((random() - 0.5) * 0.025, (random() - 0.5) * 0.1, (random() - 0.5) * 0.12);
     crowns.setColorAt(count, color);
+    treePositions.push({ x, z, radius: 2.2 + treeScale * 1.6 });
     count += 1;
   }
   trunks.count = count;
@@ -71,7 +73,7 @@ export function createVegetationClusters(scene, worldConfig, quality) {
   crowns.instanceColor.needsUpdate = true;
   scene.add(trunks, crowns);
 
-  return { id: VEGETATION_CLUSTER_KIT_ID, trunks, crowns, count, clusters };
+  return { id: VEGETATION_CLUSTER_KIT_ID, trunks, crowns, count, clusters, treePositions };
 }
 
 window.OpenAboveVegetationClusterKit = { id: VEGETATION_CLUSTER_KIT_ID, createVegetationClusters };

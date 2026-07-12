@@ -2,18 +2,20 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.m
 import { generateGrassChunkCandidates } from "./grass-chunk-placement-kit.js";
 import { grassLodForChunkDistance } from "./grass-lod-kit.js";
 import { createGrassComputeCullingKit } from "./grass-compute-culling-kit.js";
+import { createGrassPatchDistribution } from "./grass-patch-density-kit.js";
+import { createGrassTextureAtlas, GRASS_TEXTURE_VARIANTS } from "./grass-texture-atlas-kit.js";
 
 export const GRASS_FIELD_DOMAIN_ID = "open-above-grass-field-domain";
 
-function createPatchGeometry(planes = 3) {
+function createPatchGeometry(planes = 2) {
   const geometry = new THREE.BufferGeometry();
   const positions = [];
   const uvs = [];
   const indices = [];
   for (let p = 0; p < planes; p += 1) {
     const angle = (p / planes) * Math.PI;
-    const c = Math.cos(angle) * 0.34;
-    const s = Math.sin(angle) * 0.34;
+    const c = Math.cos(angle) * 0.5;
+    const s = Math.sin(angle) * 0.5;
     const base = positions.length / 3;
     positions.push(-c, 0, -s, c, 0, s, c, 1, s, -c, 1, -s);
     uvs.push(0, 0, 1, 0, 1, 1, 0, 1);
@@ -26,13 +28,15 @@ function createPatchGeometry(planes = 3) {
   return geometry;
 }
 
-function createGrassMaterial() {
+function createGrassMaterial(map) {
   const material = new THREE.MeshStandardMaterial({
-    color: 0x6f8f45,
+    map,
+    color: 0x789d50,
     roughness: 0.92,
     metalness: 0,
     side: THREE.DoubleSide,
-    alphaTest: 0.42,
+    alphaTest: 0.3,
+    alphaToCoverage: true,
     vertexColors: true
   });
   const state = { shader: null };
@@ -40,26 +44,78 @@ function createGrassMaterial() {
     shader.uniforms.uGrassTime = { value: 0 };
     shader.uniforms.uWindStrength = { value: 1 };
     shader.vertexShader = shader.vertexShader
-      .replace("#include <common>", "#include <common>\nuniform float uGrassTime;\nuniform float uWindStrength;\nvarying vec2 vGrassUv;")
+      .replace("#include <common>", "#include <common>\nuniform float uGrassTime;\nuniform float uWindStrength;\nattribute float grassVariant;\nvarying vec2 vGrassUv;\nvarying float vGrassVariant;\nvarying float vGrassDistance;")
       .replace("#include <begin_vertex>", `#include <begin_vertex>
 vGrassUv = uv;
+vGrassVariant = grassVariant;
 #ifdef USE_INSTANCING
 float phase = instanceMatrix[3][0] * 0.017 + instanceMatrix[3][2] * 0.023;
 float tip = clamp(position.y, 0.0, 1.0);
 transformed.x += sin(uGrassTime * 1.7 + phase) * 0.18 * tip * uWindStrength;
 transformed.z += cos(uGrassTime * 1.15 + phase * 1.7) * 0.08 * tip * uWindStrength;
+vec3 grassWorldPosition = (modelMatrix * instanceMatrix * vec4(transformed, 1.0)).xyz;
+vGrassDistance = distance(grassWorldPosition, cameraPosition);
+#else
+vGrassDistance = 0.0;
 #endif`);
     shader.fragmentShader = shader.fragmentShader
-      .replace("#include <common>", "#include <common>\nvarying vec2 vGrassUv;")
-      .replace("#include <alphatest_fragment>", `float blade = smoothstep(0.0, 0.14, vGrassUv.y) * smoothstep(0.0, 0.16, 1.0 - abs(vGrassUv.x * 2.0 - 1.0));
-if (blade < 0.42) discard;`);
+      .replace("#include <common>", "#include <common>\nvarying vec2 vGrassUv;\nvarying float vGrassVariant;\nvarying float vGrassDistance;")
+      .replace("#include <map_fragment>", `#ifdef USE_MAP
+float atlasPadding = 3.0 / 128.0;
+float atlasLocalU = mix(atlasPadding, 1.0 - atlasPadding, clamp(vGrassUv.x, 0.0, 1.0));
+float atlasU = (floor(vGrassVariant + 0.5) + atlasLocalU) / ${GRASS_TEXTURE_VARIANTS.toFixed(1)};
+vec4 sampledDiffuseColor = texture2D(map, vec2(atlasU, vGrassUv.y));
+diffuseColor *= sampledDiffuseColor;
+#endif`)
+      .replace("#include <alphatest_fragment>", `float grassFade = smoothstep(1050.0, 1500.0, vGrassDistance);
+diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.36, 0.56, 0.30), grassFade * 0.82);
+diffuseColor.a *= 1.0 - grassFade;
+#include <alphatest_fragment>`);
     state.shader = shader;
   };
-  material.customProgramCacheKey = () => "open-above-grass-field-v3";
+  material.customProgramCacheKey = () => "open-above-dense-grass-atlas-v4";
   return { material, state };
 }
 
-export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
+function createVegetationQueries(vegetation) {
+  const treePositions = vegetation?.treePositions || [];
+  const clusters = vegetation?.clusters || [];
+  const cellSize = 36;
+  const cells = new Map();
+  const key = (x, z) => `${Math.floor(x / cellSize)}:${Math.floor(z / cellSize)}`;
+  for (const tree of treePositions) {
+    const cellKey = key(tree.x, tree.z);
+    if (!cells.has(cellKey)) cells.set(cellKey, []);
+    cells.get(cellKey).push(tree);
+  }
+
+  function obstacleAt(x, z) {
+    const cellX = Math.floor(x / cellSize);
+    const cellZ = Math.floor(z / cellSize);
+    for (let dz = -1; dz <= 1; dz += 1) {
+      for (let dx = -1; dx <= 1; dx += 1) {
+        for (const tree of cells.get(`${cellX + dx}:${cellZ + dz}`) || []) {
+          if (Math.hypot(x - tree.x, z - tree.z) < tree.radius) return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function treeProximityAt(x, z) {
+    let proximity = 0;
+    for (const cluster of clusters) {
+      const distance = Math.hypot(x - cluster.x, z - cluster.z);
+      const edgeDistance = Math.abs(distance - cluster.spread * 0.72);
+      proximity = Math.max(proximity, 1 - Math.min(1, edgeDistance / 80));
+    }
+    return proximity;
+  }
+
+  return { obstacleAt, treeProximityAt };
+}
+
+export function createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation) {
   const chunkSize = terrain.streamer?.chunkSize ?? 520;
   const chunkRadius = 3;
   const root = new THREE.Group();
@@ -67,7 +123,10 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
   scene.add(root);
   const chunks = new Map();
   const culling = createGrassComputeCullingKit();
-  const materialBundle = createGrassMaterial();
+  const atlas = createGrassTextureAtlas(worldConfig.seed || 1);
+  const materialBundle = createGrassMaterial(atlas.texture);
+  const patchDistribution = createGrassPatchDistribution(worldConfig.seed || 1, worldConfig.terrainSize || 2400);
+  const vegetationQueries = createVegetationQueries(vegetation);
   let centerX = Number.NaN;
   let centerZ = Number.NaN;
 
@@ -81,9 +140,15 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
       chunkSize,
       count: lodProfile.count,
       terrainHeight: terrain.terrainHeight,
-      moistureAt: terrain.moistureAt
+      moistureAt: terrain.moistureAt,
+      patchDistribution,
+      treeProximityAt: vegetationQueries.treeProximityAt,
+      obstacleAt: vegetationQueries.obstacleAt
     });
     const geometry = createPatchGeometry(lodProfile.planes);
+    const variants = new Float32Array(Math.max(1, candidates.length));
+    for (let index = 0; index < candidates.length; index += 1) variants[index] = candidates[index].variant;
+    geometry.setAttribute("grassVariant", new THREE.InstancedBufferAttribute(variants, 1));
     const mesh = new THREE.InstancedMesh(geometry, materialBundle.material, Math.max(1, candidates.length));
     mesh.name = `grass-chunk-${cx}-${cz}-lod-${lodProfile.lod}`;
     mesh.frustumCulled = true;
@@ -94,10 +159,19 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
     const quaternion = new THREE.Quaternion();
     const scale = new THREE.Vector3();
     const color = new THREE.Color();
+    const normal = new THREE.Vector3();
+    const surfaceRotation = new THREE.Quaternion();
+    const yawRotation = new THREE.Quaternion();
+    const leanRotation = new THREE.Quaternion();
+    const up = new THREE.Vector3(0, 1, 0);
     for (let i = 0; i < candidates.length; i += 1) {
       const item = candidates[i];
       position.set(item.x, item.y + 0.02, item.z);
-      quaternion.setFromEuler(new THREE.Euler(0, item.rotation, 0));
+      normal.set(item.normal.x, item.normal.y, item.normal.z).normalize();
+      surfaceRotation.setFromUnitVectors(up, normal);
+      yawRotation.setFromAxisAngle(normal, item.rotation);
+      leanRotation.setFromEuler(new THREE.Euler(item.leanX, 0, item.leanZ));
+      quaternion.copy(yawRotation).multiply(surfaceRotation).multiply(leanRotation);
       scale.set(item.width, item.height, item.width);
       matrix.compose(position, quaternion, scale);
       mesh.setMatrixAt(i, matrix);
@@ -108,7 +182,16 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
     mesh.count = candidates.length;
     mesh.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-    mesh.userData.grass = { x: cx, z: cz, lod: lodProfile.lod, wind: lodProfile.wind, count: candidates.length };
+    mesh.userData.grass = {
+      x: cx,
+      z: cz,
+      centerX: cx * chunkSize,
+      centerZ: cz * chunkSize,
+      lod: lodProfile.lod,
+      wind: lodProfile.wind,
+      count: candidates.length,
+      cards: candidates.length * lodProfile.planes
+    };
     root.add(mesh);
     return mesh;
   }
@@ -144,7 +227,9 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
     }
     if (materialBundle.state.shader) materialBundle.state.shader.uniforms.uGrassTime.value = elapsed;
     for (const mesh of chunks.values()) {
-      const distance = camera.position.distanceTo(mesh.position);
+      const dx = camera.position.x - mesh.userData.grass.centerX;
+      const dz = camera.position.z - mesh.userData.grass.centerZ;
+      const distance = Math.hypot(dx, dz);
       mesh.visible = culling.cullChunk(distance, chunkSize * 4.2);
     }
   }
@@ -153,6 +238,7 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
     for (const mesh of chunks.values()) mesh.geometry.dispose();
     chunks.clear();
     materialBundle.material.dispose();
+    atlas.texture.dispose();
     root.removeFromParent();
   }
 
@@ -163,7 +249,20 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain) {
     culling,
     update,
     dispose,
-    getState: () => ({ backend: culling.state.backend, chunks: chunks.size, instances: [...chunks.values()].reduce((sum, mesh) => sum + mesh.count, 0) })
+    getState: () => {
+      const clumps = [...chunks.values()].reduce((sum, mesh) => sum + mesh.count, 0);
+      return {
+        backend: culling.state.backend,
+        chunks: chunks.size,
+        instances: clumps,
+        clumps,
+        cards: clumps * 2,
+        apparentBlades: [clumps * 40, clumps * 100],
+        textureVariants: atlas.variantCount,
+        patchCenters: patchDistribution.patchCount,
+        clearingCenters: patchDistribution.clearingCount
+      };
+    }
   };
 }
 

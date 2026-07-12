@@ -27,7 +27,7 @@ export function createVisualDomain({ canvas, worldConfig }) {
 
   const terrain = createTerrainSurface(scene, worldConfig, quality);
   const vegetation = createVegetationClusters(scene, worldConfig, quality);
-  const grass = createGrassFieldDomain(scene, worldConfig, quality, terrain);
+  const grass = createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation);
   const landmarks = createDistantLandmarks(scene);
   const weather = createCloudWeatherMap(worldConfig.seed || 1);
   const sun = createSunLight(scene, quality);

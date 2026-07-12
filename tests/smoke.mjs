@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from "node:fs";
 import assert from "node:assert/strict";
 import "./airstream-mail.mjs";
 import "./balloon-profile.mjs";
+import "./grass-field.mjs";
 
 const requiredFiles = [
   "index.html",
@@ -49,6 +50,8 @@ const requiredFiles = [
   "src/visual/landscape/terrain-chunk-streaming-kit.js",
   "src/visual/landscape/terrain-horizon-streaming-kit.js",
   "src/visual/grass-field/grass-world-seed-kit.js",
+  "src/visual/grass-field/grass-patch-density-kit.js",
+  "src/visual/grass-field/grass-texture-atlas-kit.js",
   "src/visual/grass-field/grass-biome-density-kit.js",
   "src/visual/grass-field/grass-exclusion-mask-kit.js",
   "src/visual/grass-field/grass-chunk-placement-kit.js",
@@ -186,6 +189,10 @@ assert.doesNotMatch(clouds, /hash21\(gl_FragCoord\.xy \+ uTime\)/);
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
 assert.match(grassDomain, /varying vec2 vGrassUv/);
 assert.match(grassDomain, /vGrassUv = uv/);
+assert.match(grassDomain, /createGrassTextureAtlas/);
+assert.match(grassDomain, /grassVariant/);
+assert.match(grassDomain, /alphaToCoverage: true/);
+assert.match(grassDomain, /cards: clumps \* 2/);
 assert.doesNotMatch(grassDomain, /vUv\.[xy]/);
 
 const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
