@@ -2,13 +2,16 @@ import { readFileSync, existsSync } from "node:fs";
 import assert from "node:assert/strict";
 import "./airstream-mail.mjs";
 import "./balloon-profile.mjs";
+import "./world-generation.mjs";
 import "./grass-field.mjs";
+import "./flower-field.mjs";
 
 const requiredFiles = [
   "index.html",
   "src/main.js",
   "src/ui/parchment-map-overlay.js",
   "src/data/campaign.config.js",
+  "src/world/world-generation-kit.js",
   "src/balloon-envelope-profile-kit.js",
   "src/balloon-envelope-panel-kit.js",
   "src/balloon-mouth-kit.js",
@@ -49,6 +52,7 @@ const requiredFiles = [
   "src/visual/landscape/terrain-surface-kit.js",
   "src/visual/landscape/terrain-chunk-streaming-kit.js",
   "src/visual/landscape/terrain-horizon-streaming-kit.js",
+  "src/visual/landscape/vegetation-cluster-kit.js",
   "src/visual/grass-field/grass-world-seed-kit.js",
   "src/visual/grass-field/grass-patch-density-kit.js",
   "src/visual/grass-field/grass-texture-atlas-kit.js",
@@ -58,10 +62,16 @@ const requiredFiles = [
   "src/visual/grass-field/grass-lod-kit.js",
   "src/visual/grass-field/grass-compute-culling-kit.js",
   "src/visual/grass-field/grass-field-domain.js",
+  "src/visual/flower-field/flower-texture-atlas-kit.js",
+  "src/visual/flower-field/flower-chunk-placement-kit.js",
+  "src/visual/flower-field/flower-field-domain.js",
   "src/visual/landscape/water-surface-kit.js",
   "src/visual/balloon-presentation/balloon-presentation-domain.js",
   "src/visual/camera-presentation/balloon-camera-rig-kit.js",
   "tests/balloon-profile.mjs",
+  "tests/world-generation.mjs",
+  "tests/grass-field.mjs",
+  "tests/flower-field.mjs",
   "tools/headless-editor-environment.mjs",
   "vite.config.js"
 ];
@@ -81,6 +91,10 @@ assert.match(main, /await loadHotAirBalloonModel/);
 assert.match(main, /loadedDuringLevelSetup/);
 assert.match(main, /persistentGpuResources/);
 assert.match(main, /balloonPresentation\.update\(state\)/);
+assert.match(main, /createDefaultAirstreamRoutes/);
+assert.match(main, /createDefaultMailRoute/);
+assert.match(main, /worldAnchors/);
+assert.match(main, /world: visual\.world/);
 assert.match(main, /createParchmentMapOverlay/);
 assert.match(main, /mapOverlay\.isOpen\(\)/);
 assert.match(main, /mapOverlay\.snapshot\(\)/);
@@ -93,6 +107,9 @@ const mapOverlay = readFileSync("src/ui/parchment-map-overlay.js", "utf8");
 assert.match(mapOverlay, /event\.code === "KeyM"/);
 assert.match(mapOverlay, /event\.code === "Escape"/);
 assert.match(mapOverlay, /root\.classList\.toggle\("is-open", open\)/);
+assert.match(mapOverlay, /createWorldMapCanvas/);
+assert.match(mapOverlay, /sampleMapColor/);
+assert.match(mapOverlay, /drawWorldBackground/);
 assert.match(mapOverlay, /drawRoute/);
 assert.match(mapOverlay, /drawTown/);
 assert.match(mapOverlay, /drawPlayer/);
@@ -186,17 +203,58 @@ assert.match(clouds, /base \* 0\.92 \+ detail \* 0\.08/);
 assert.match(clouds, /hash21\(gl_FragCoord\.xy\)/);
 assert.doesNotMatch(clouds, /hash21\(gl_FragCoord\.xy \+ uTime\)/);
 
+const visualDomain = readFileSync("src/visual/visual-domain.js", "utf8");
+assert.match(visualDomain, /createWorldGenerationKit/);
+assert.match(visualDomain, /createFlowerFieldDomain/);
+assert.match(visualDomain, /flowers\.update\(elapsed, camera\)/);
+assert.match(visualDomain, /worldAnchors/);
+
+const worldGeneration = readFileSync("src/world/world-generation-kit.js", "utf8");
+assert.match(worldGeneration, /WORLD_GRID_SIZE = 257/);
+assert.match(worldGeneration, /WORLD_FEATURE_CELL_SIZE = 2080/);
+assert.match(worldGeneration, /sampleHeight/);
+assert.match(worldGeneration, /sampleFlora/);
+assert.match(worldGeneration, /sampleMapColor/);
+assert.match(worldGeneration, /protectionAt/);
+assert.match(worldGeneration, /flowGrid/);
+
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
 assert.match(grassDomain, /varying vec2 vGrassUv/);
 assert.match(grassDomain, /vGrassUv = uv/);
 assert.match(grassDomain, /createGrassTextureAtlas/);
 assert.match(grassDomain, /grassVariant/);
+assert.match(grassDomain, /color: 0xffffff/);
+assert.match(grassDomain, /GRASS_FADE_START/);
+assert.match(grassDomain, /GRASS_FADE_END/);
 assert.match(grassDomain, /alphaToCoverage: true/);
 assert.match(grassDomain, /cards: clumps \* 2/);
 assert.doesNotMatch(grassDomain, /vUv\.[xy]/);
 
+const grassAtlas = readFileSync("src/visual/grass-field/grass-texture-atlas-kit.js", "utf8");
+assert.match(grassAtlas, /GRASS_SPECIES_COUNT/);
+assert.match(grassAtlas, /emerald/);
+assert.match(grassAtlas, /golden/);
+assert.match(grassAtlas, /drawSeedHead/);
+
+const flowerDomain = readFileSync("src/visual/flower-field/flower-field-domain.js", "utf8");
+assert.match(flowerDomain, /createFlowerTextureAtlas/);
+assert.match(flowerDomain, /flowerVariant/);
+assert.match(flowerDomain, /FLOWER_FADE_START/);
+assert.match(flowerDomain, /FLOWER_FADE_END/);
+assert.match(flowerDomain, /alphaToCoverage: true/);
+assert.match(flowerDomain, /cards: clumps \* 2/);
+
+const flowerAtlas = readFileSync("src/visual/flower-field/flower-texture-atlas-kit.js", "utf8");
+assert.match(flowerAtlas, /daisy/);
+assert.match(flowerAtlas, /buttercup/);
+assert.match(flowerAtlas, /poppy/);
+assert.match(flowerAtlas, /cornflower/);
+assert.match(flowerAtlas, /clover/);
+
 const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
 assert.match(terrain, /createDiskWorldSurface/);
+assert.match(terrain, /activeTerrainHeight/);
+assert.match(terrain, /world\?\.sampleFlora/);
 assert.match(terrain, /boundedTerrainHeight/);
 assert.match(terrain, /worldSurface\.edgeMask/);
 assert.match(terrain, /createTerrainChunkStreamer/);
@@ -208,4 +266,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above balloon model, steering, parchment map, and visual smoke passed.");
+console.log("The Open Above balloon, world grid, five-species grass, five flower types, parchment map, and visual smoke passed.");
