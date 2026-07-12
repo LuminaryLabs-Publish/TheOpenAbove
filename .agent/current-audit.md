@@ -10,8 +10,8 @@ repository revision reviewed: a5dd665a80cfe594ebaf05085633d4006e012b32
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local completion
-central internal change log: pending until repo-local completion
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -34,6 +34,7 @@ The simulation and map own independent global keyboard listeners. Gameplay keys 
 - [x] Define transition, pause, input, focus, frame and observation contracts.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` routing state and registry.
+- [x] Synchronize the central ledger and internal change log.
 - [x] Create no branch or pull request.
 - [ ] Implement runtime changes and execute browser/Pages fixtures.
 
