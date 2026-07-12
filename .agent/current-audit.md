@@ -9,8 +9,8 @@ status: world-surface-membership-consumer-parity-authority-audited
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local completion
-central internal change log: pending until repo-local completion
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -31,6 +31,7 @@ The active Air Mail runtime now imports a pinned disk-world surface and exposes 
 - [x] Define membership, boundary response, consumer parity and visible-frame contracts.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` state and kit registry.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Implement runtime changes and execute fixtures.
 
 ## Recent source changes reviewed
