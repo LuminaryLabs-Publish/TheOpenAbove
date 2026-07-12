@@ -1,4 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import { normalizeGrassSeed } from "../grass-field/grass-world-seed-kit.js";
 import { terrainHeight, moistureAt } from "./terrain-surface-kit.js";
 
 export const VEGETATION_CLUSTER_KIT_ID = "open-above-vegetation-cluster-kit";
@@ -11,8 +12,14 @@ function seeded(seed) {
   };
 }
 
-export function createVegetationClusters(scene, worldConfig, quality) {
-  const random = seeded((worldConfig.seed || 1) * 17 + 9);
+export function createVegetationClusters(
+  scene,
+  worldConfig,
+  quality,
+  terrainHeightAt = terrainHeight,
+  world = null
+) {
+  const random = seeded((world?.seed ?? normalizeGrassSeed(worldConfig.seed || 1)) ^ 0x6d2b79f5);
   const total = Math.max(80, quality.treeCount);
   const trunkGeometry = new THREE.CylinderGeometry(0.42, 0.72, 8.4, 6);
   const crownGeometry = new THREE.IcosahedronGeometry(3.7, 1);
@@ -26,11 +33,16 @@ export function createVegetationClusters(scene, worldConfig, quality) {
   trunks.receiveShadow = crowns.receiveShadow = true;
 
   const clusterCount = 18;
-  const clusters = Array.from({ length: clusterCount }, () => ({
-    x: (random() - 0.5) * (worldConfig.terrainSize || 2600) * 1.18,
-    z: (random() - 0.5) * (worldConfig.terrainSize || 2600) * 1.18,
-    spread: 80 + random() * 260
-  }));
+  const localExtent = (worldConfig.terrainSize || 2600) * 1.18;
+  const widerExtent = Math.min(Number(worldConfig.surface?.radius) * 0.42 || localExtent, localExtent * 1.9);
+  const clusters = Array.from({ length: clusterCount }, (_, index) => {
+    const extent = index < 12 ? localExtent : widerExtent;
+    return {
+      x: (random() - 0.5) * extent,
+      z: (random() - 0.5) * extent,
+      spread: 80 + random() * 260
+    };
+  });
   const matrix = new THREE.Matrix4();
   const quaternion = new THREE.Quaternion();
   const scale = new THREE.Vector3();
@@ -39,14 +51,15 @@ export function createVegetationClusters(scene, worldConfig, quality) {
   const treePositions = [];
   let count = 0;
 
-  for (let i = 0; i < total * 2 && count < total; i += 1) {
+  for (let i = 0; i < total * 3 && count < total; i += 1) {
     const cluster = clusters[Math.floor(random() * clusters.length)];
     const angle = random() * Math.PI * 2;
     const radius = Math.sqrt(random()) * cluster.spread;
     const x = cluster.x + Math.cos(angle) * radius;
     const z = cluster.z + Math.sin(angle) * radius;
-    if (Math.hypot(x, z) < 160 || moistureAt(x, z) > 0.76) continue;
-    const y = terrainHeight(x, z);
+    const moisture = world?.sampleMoisture?.(x, z) ?? moistureAt(x, z);
+    if (Math.hypot(x, z) < 160 || moisture > 0.8) continue;
+    const y = terrainHeightAt(x, z);
     const treeScale = 0.72 + random() * 1.75;
     const leanX = (random() - 0.5) * 0.08;
     const leanZ = (random() - 0.5) * 0.08;
@@ -76,4 +89,6 @@ export function createVegetationClusters(scene, worldConfig, quality) {
   return { id: VEGETATION_CLUSTER_KIT_ID, trunks, crowns, count, clusters, treePositions };
 }
 
-window.OpenAboveVegetationClusterKit = { id: VEGETATION_CLUSTER_KIT_ID, createVegetationClusters };
+if (typeof window !== "undefined") {
+  window.OpenAboveVegetationClusterKit = { id: VEGETATION_CLUSTER_KIT_ID, createVegetationClusters };
+}
