@@ -7,7 +7,7 @@
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "dev": "vite --host 0.0.0.0",
-    "check": "node tests/smoke.mjs",
+    "check": "node tests/smoke.mjs && node tests/terrain-streaming.mjs && node tests/world-route-protection.mjs && node tests/terrain-overlays.mjs",
     "build": "npm run check && vite build",
     "headless:status": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs status --json",
     "headless:inspect": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs call project.inspect --json",
