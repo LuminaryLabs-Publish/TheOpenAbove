@@ -1,5 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import { GLSL_NOISE } from "../shader-noise.js";
+import { AUTHORED_LAKES } from "../../world/world-authored-features.js";
 
 export const WATER_SURFACE_KIT_ID = "open-above-water-surface-kit";
 
@@ -20,12 +21,14 @@ export function createWaterSurfaces(scene, sunDirection) {
     name: "OpenAboveWaterSurfaceMaterial",
     uniforms,
     vertexShader: /* glsl */`
+      varying vec2 vWaterUv;
       varying vec3 vWorldPosition;
       varying vec3 vWorldNormal;
       void main() {
         vec3 displaced = position;
         displaced.y += sin((position.x + position.z) * 0.055) * 0.035;
         vec4 world = modelMatrix * vec4(displaced, 1.0);
+        vWaterUv = uv;
         vWorldPosition = world.xyz;
         vWorldNormal = normalize(mat3(modelMatrix) * normal);
         gl_Position = projectionMatrix * viewMatrix * world;
@@ -39,6 +42,7 @@ export function createWaterSurfaces(scene, sunDirection) {
       uniform vec3 uShallowColor;
       uniform vec3 uFogColor;
       uniform float uFogDensity;
+      varying vec2 vWaterUv;
       varying vec3 vWorldPosition;
       varying vec3 vWorldNormal;
       ${GLSL_NOISE}
@@ -58,8 +62,9 @@ export function createWaterSurfaces(scene, sunDirection) {
         float distanceToCamera = length(cameraPosition - vWorldPosition);
         float fogFactor = 1.0 - exp(-uFogDensity * uFogDensity * distanceToCamera * distanceToCamera);
         color = mix(color, uFogColor, clamp(fogFactor, 0.0, 1.0));
-
-        gl_FragColor = vec4(color, 0.82);
+        float radial = length(vWaterUv - vec2(0.5)) * 2.0;
+        float edgeFade = 1.0 - smoothstep(0.86, 1.0, radial);
+        gl_FragColor = vec4(color, 0.82 * edgeFade);
       }
     `,
     transparent: true,
@@ -70,15 +75,14 @@ export function createWaterSurfaces(scene, sunDirection) {
 
   const group = new THREE.Group();
   group.name = "open-above-water-surfaces";
-  for (const lake of [
-    { x: -260, z: 180, rx: 205, rz: 112, y: -21 },
-    { x: 420, z: -340, rx: 240, rz: 138, y: -14 }
-  ]) {
-    const mesh = new THREE.Mesh(new THREE.CircleGeometry(1, 96), material);
+  for (const lake of AUTHORED_LAKES) {
+    const geometry = new THREE.CircleGeometry(1, 96);
+    const mesh = new THREE.Mesh(geometry, material);
     mesh.rotation.x = -Math.PI / 2;
     mesh.scale.set(lake.rx, lake.rz, 1);
-    mesh.position.set(lake.x, lake.y, lake.z);
-    mesh.name = "open-above-fresnel-lake";
+    mesh.position.set(lake.x, lake.waterLevel, lake.z);
+    mesh.name = `open-above-fresnel-lake-${lake.id}`;
+    mesh.userData.lakeId = lake.id;
     group.add(mesh);
   }
   scene.add(group);
@@ -90,7 +94,15 @@ export function createWaterSurfaces(scene, sunDirection) {
     uniforms.uFogDensity.value = Number(scene.fog?.density ?? fogDensity);
   }
 
-  return { id: WATER_SURFACE_KIT_ID, group, material, uniforms, update };
+  function dispose() {
+    group.removeFromParent();
+    for (const child of group.children) child.geometry?.dispose?.();
+    material.dispose();
+  }
+
+  return { id: WATER_SURFACE_KIT_ID, group, material, uniforms, lakes: AUTHORED_LAKES, update, dispose };
 }
 
-window.OpenAboveWaterSurfaceKit = { id: WATER_SURFACE_KIT_ID, createWaterSurfaces };
+if (typeof window !== "undefined") {
+  window.OpenAboveWaterSurfaceKit = { id: WATER_SURFACE_KIT_ID, createWaterSurfaces };
+}
