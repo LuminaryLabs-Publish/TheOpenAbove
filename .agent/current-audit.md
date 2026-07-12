@@ -11,7 +11,8 @@ concurrent runtime fix reconciled: 74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec
 runtime source changed by this documentation pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until central commit
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -37,6 +38,7 @@ The remaining problem is authority and provenance. The world is still synchronou
 - [x] Define the remaining procedural-world authority and fixture matrix.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` state and registry.
+- [x] Synchronize the central ledger and internal change log.
 - [x] Create no branch or pull request.
 - [ ] Implement build identity, immutable artifacts, consumer receipts and executable browser/Pages proof.
 
