@@ -1,11 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-11T22-51-09-04-00`
+**Last aligned:** `2026-07-11T22-58-50-04-00`
 
 ## Status
 
 ```txt
-status: balloon-model-assembly-loading-resource-authority-audited
+status: balloon-steering-presentation-coherence-authority-audited
+source revision reviewed: fd634acc03cce9c568e1a61a64690a5aa6022eff
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
@@ -15,130 +16,123 @@ central internal change log: pending
 
 ## Summary
 
-The active runtime now builds a materially improved procedural hot-air balloon from a shared envelope sampler, continuous shell, integrated color pattern, fitted load tapes, profile-aware mouth, tapered basket, burner frame, twin burners and persistent dynamic load cables. These pieces are source-backed, but the root assembly remains a mutable profile object constructed synchronously into the live scene without typed admission, staged resource ownership, cancellation, rollback, disposal or frame provenance.
+The active Air Mail runtime now has a materially improved balloon model, limited cross-current steering, separate envelope/gondola inertia and a steering-reactive camera. The retained model audit covers profile admission, assembly, loading and resources. This latest audit isolates the next authority gap: simulation, root transform, part presentation, camera, HUD, telemetry and rendering do not share one sequenced input, typed steering result, reset epoch or visible-frame receipt.
 
 ## Plan ledger
 
-**Goal:** make one admitted balloon-model revision authoritative from profile validation through construction, level-start loading, scene commit, animation, observation and retirement.
+**Goal:** preserve wind-driven flight and the new balloon motion hierarchy while making every steering response deterministic, resettable, observable and correlated with the rendered frame.
 
-- [x] Compare the full Publish inventory and central ledger.
+- [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because nine balloon source commits landed after its previous audit.
-- [x] Read `AGENTS.md`, prior `.agent` state and the post-audit balloon source graph.
-- [x] Trace model profile, shell, pattern, seams, mouth, basket, burner frame, burners, ropes, root assembly, load helper, production startup and animation.
-- [x] Identify the interaction loop, domains, all kits and service families.
-- [x] Define model admission, attachment parity, resource inventory, load commit, disposal and visible-frame contracts.
+- [x] Select only `TheOpenAbove` because new source commits postdated prior audits.
+- [x] Review repository guidance and retained model/world audits.
+- [x] Trace keyboard input, airstream force, trim, root transform, part inertia, camera, HUD and snapshot projection.
+- [x] Reconcile all source-backed kits and services.
+- [x] Define steering input, result, presentation, frame and reset contracts.
 - [x] Add timestamped tracker and system audits.
-- [x] Refresh root `.agent` state and kit registry.
-- [ ] Synchronize central ledger and change log.
-- [ ] Implement runtime changes and fixtures.
+- [x] Refresh root `.agent` routing state and kit registry.
+- [ ] Implement runtime changes and execute fixtures.
 
-## Source revisions reviewed
+## Recent source changes reviewed
 
 ```txt
-89bbe9ea  shared balloon envelope profile
-ce638794  unified envelope mesh
-cafc32ac  integrated color pattern
-6c81dbab  profile-fitted load tapes
-4b40470f  refined profile-aware mouth and skirt
-f1391a7f  tapered basket
-19138753  burner frame and load cables
-c121cbda  twin burner assembly
-ca12583b  retained rope geometry
+shared spline-based envelope profile and unified shell
+integrated color-pattern metadata and fitted load tapes
+profile-aware mouth, tapered basket and twin burners
+persistent rope geometry
+limited A/D cross-current steering
+envelope and gondola inertia
+steering-reactive third-person and basket-view camera
+HUD trim projection
 ```
 
 ## Interaction loop
 
 ```txt
-browser boot
-  -> create visual domain
-  -> synchronously build procedural balloon
-  -> allocate envelope, mouth, seam, basket, frame, burner and rope resources
-  -> add completed object to the live scene
-  -> create simulation, camera and presentation against that object
-  -> publish mutable GameHost
+startup
+  -> construct visual world and balloon model
+  -> create airstream/mail/simulation/presentation/camera domains
+  -> install keyboard, blur and wheel listeners
+  -> publish GameHost and start RAF
 
-balloon construction
-  -> root profile selects panel profile as the de facto envelope shape
-  -> panel shell, seams and mouth sample the shared envelope profile
-  -> basket, burner frame, rigging and ropes use separate coordinate profiles
-  -> root marks modelReady and persistentGpuResources without an admission or resource receipt
-
-animation frame
-  -> animate burner
-  -> update persistent rope geometry
-  -> update camera, presentation and world
-  -> render without a balloon model/profile/resource fingerprint
+frame
+  -> sample ambient key Set
+  -> copy airstream velocity to wind
+  -> smooth lateralTrim and derive lateralAcceleration
+  -> add cross-current component
+  -> derive heading and visualBank
+  -> integrate movement and terrain clearance
+  -> apply root transform
+  -> animate burner and rigging
+  -> smooth envelope/gondola response
+  -> smooth camera steeringLook and transforms
+  -> update world, telemetry and HUD
+  -> render
 ```
 
 ## Source-backed findings
 
 ```txt
-root profile:
-  defaultHotAirBalloonProfile is a mutable nested object
-  no modelId, schemaVersion, profileVersion or fingerprint
-  profile.panels is the de facto shared envelope shape
-
-envelope:
-  shared spline sampler is present
-  continuous shell and derived normals are present
-  color pattern is integrated into shell
-  load tapes and mouth consume profile.panels
-
-gondola:
-  basket, burner frame, burner and cable coordinates use separate profiles
-  no cross-component attachment validator
-  camera focus remains a fixed Vector3 offset
-
-loading:
-  loadHotAirBalloonModel yields at most one frame
-  build still occurs synchronously after the yield
-  production main.js does not use the load helper
-  no cancellation, progress, staging, rollback or typed load result
-
-resources:
-  root sets modelReady and persistentGpuResources metadata
-  no complete geometry/material/texture inventory
-  no root dispose service or retirement receipt
-  no model/resource fingerprint in telemetry or GameHost
+input sequence/command ID: absent
+steering policy ID/version: absent
+steeringInput/lateralTrim/heading: present
+root transform response: present
+envelope/gondola inertia: present
+camera steeringLook: present
+HUD trim projection: present
+shared steeringResultId: absent
+part presentation revision: absent
+camera response revision: absent
+steering reset transaction: absent
+visible-frame steering receipt: absent
 ```
+
+`simulation.snapshot()` includes steering input, trim, bank and heading. It omits presentation-domain transforms. Host camera projection includes mode, zoom and first-person blend but omits steering look, target and committed transform acknowledgement.
+
+The newly active `open-above-balloon-envelope-profile-kit` raises the active source-backed count to 59. The integrated pattern metadata remains a separate group and is not passed into the unified shell builder by the root assembly.
 
 ## Consequences
 
 ```txt
-custom profiles can produce attachment drift without rejection
-level setup cannot await one authoritative model-ready commit
-failed or stale model candidates have no rollback boundary
-persistent resources have no lifecycle owner
-replacement cannot prove predecessor retirement
-GameHost cannot identify the model revision visible in a frame
-source checks can pass without constructing a custom model
+identical physical key presses can vary with RAF sampling
+presentation and camera can lag different response revisions
+HUD can describe trim before its frame is visible
+blur/reset can neutralize input without proving visual convergence
+stale predecessor response has no rejection boundary
+headless readback cannot prove simulation-to-visible parity
+pattern configuration can exist without affecting shell colors
 ```
 
 ## Domains in use
 
 ```txt
-browser shell, Vite and Pages
-runtime admission, lifecycle and frame ownership
-campaign, world and Air Mail product sources
-balloon model descriptor, profile composition and assembly
-envelope profile sampling, unified shell, pattern, seams and mouth
-basket, burner frame, burners, cylinders, load cables and soft-rope animation
-model loading, readiness, cancellation, resource leasing and disposal
-balloon simulation, airstream, mail, camera and presentation
-terrain, grass, atmosphere, water, HDR and dynamic resolution
-telemetry, HUD, GameHost and headless readback
-checks, pure tests, build and deployment
+browser shell, DOM, Vite and Pages
+mutable CDN/runtime admission
+runtime session, startup, failure and frame ownership
+keyboard, blur, wheel and variable RAF time
+balloon simulation, airstream force, steering, clearance and snapshots
+steering input/result authority: missing
+balloon model descriptor, profile composition, assembly/loading/resources
+envelope shape sampling, unified shell, pattern, seams and mouth
+basket, burner frame, burners, cylinders, rigging and ropes
+root transform and part-level presentation inertia
+camera follow, zoom, clipping, basket blend and steering look
+mail parcel, route, town, volume and progress
+airstream route, sampler, field, visual and diagnostics
+bounded terrain, near/horizon streaming, vegetation and grass
+sky, clouds, weather, water, lighting and HDR
+Nexus telemetry, HUD, GameHost and headless readback
+checks, pure tests, build and Pages deployment
 ```
 
 ## Kit inventory
 
 ```txt
-active source-backed kits: 59
-  runtime/gameplay: 15
-  balloon/object/presentation: 15
-  visual environment: 26
-  tooling/proof: 3
+runtime/gameplay source-backed kits: 15
+balloon/object/presentation source-backed kits: 15
+visual environment source-backed kits: 26
+tooling/proof source-backed kits: 3
+active source-backed total: 59
 runtime-implied adapters: 12
 inactive legacy kits: 11
 ```
@@ -146,65 +140,65 @@ inactive legacy kits: 11
 ## Services offered
 
 ```txt
-runtime boot, fatal projection and global host publication
-procedural envelope radius, point, normal, mouth and crown sampling
-continuous envelope shell, integrated color pattern and load-tape geometry
-open mouth, skirt and inner-shadow construction
-tapered basket, reinforced rims, floor, ribs, propane cylinders and controls
-burner frame, twin burner assembly, load-cable placement and rope animation
-persistent dynamic rope geometry updates
-synchronous build, one-frame-yield load helper and compatibility installation
-balloon transform, burner animation, presentation and camera focus
-simulation, airstream sampling, mail delivery, world rendering and diagnostics
-source checks, headless checks, Vite build and Pages deployment
+runtime boot, fatal projection and host publication
+burner, vent, steering, blur and wheel input
+balloon buoyancy, wind integration, trim, terrain clearance, transforms, snapshots and disposal
+airstream validation, sampling, force adaptation, visuals and diagnostics
+parcel, route, town, delivery-volume, progress, reset and events
+profile sampling, unified shell, pattern metadata, mouth, seams and crown
+basket, burner frame, twin burners, rigging and persistent rope animation
+model build/load metadata and compatibility installation
+materials, illumination and envelope/gondola inertia
+camera follow, steering look, zoom, clipping and basket-view blend
+bounded terrain, grass, sky, clouds, water, HDR and renderer statistics
+Nexus resources/events, telemetry, HUD, GameHost and headless readback
+source checks, pure tests, Vite build and Pages deployment
 ```
+
+The complete per-kit list and service map are in the latest tracker and `.agent/kit-registry.json`.
 
 ## Required parent domain
 
 ```txt
-open-above-balloon-model-assembly-authority-domain
+open-above-balloon-steering-presentation-authority-domain
+  -> steering-input-sample-kit
+  -> steering-input-sequence-kit
+  -> steering-policy-descriptor-kit
+  -> steering-admission-kit
+  -> steering-simulation-result-kit
+  -> balloon-root-transform-result-kit
+  -> balloon-part-presentation-result-kit
+  -> camera-steering-result-kit
+  -> steering-hud-projection-kit
+  -> steering-observation-frame-kit
+  -> steering-frame-commit-kit
+  -> stale-steering-result-rejection-kit
+  -> steering-reset-transaction-kit
+  -> steering-journal-kit
+  -> steering-response-fixture-kit
+  -> steering-visible-frame-smoke-kit
 ```
 
-Planned kits:
+Retained upstream model domain:
 
 ```txt
 open-above-balloon-model-assembly-authority-domain
-open-above-balloon-model-descriptor-kit
-open-above-balloon-model-schema-kit
-open-above-balloon-model-id-kit
-open-above-balloon-model-version-kit
-open-above-balloon-profile-canonicalization-kit
-open-above-balloon-profile-admission-kit
-open-above-balloon-profile-deep-freeze-kit
-open-above-balloon-profile-fingerprint-kit
-open-above-balloon-attachment-contract-kit
-open-above-balloon-build-plan-kit
-open-above-balloon-load-command-kit
-open-above-balloon-load-cancellation-kit
-open-above-balloon-resource-lease-kit
-open-above-balloon-resource-inventory-kit
-open-above-balloon-ready-commit-kit
-open-above-balloon-load-result-kit
-open-above-balloon-disposal-result-kit
-open-above-balloon-model-observation-kit
-open-above-balloon-frame-ack-kit
-open-above-balloon-custom-profile-parity-fixture-kit
-open-above-balloon-initial-setup-load-fixture-kit
-open-above-balloon-resource-retirement-fixture-kit
-open-above-browser-balloon-frame-smoke-kit
+  -> canonical model/profile admission
+  -> detached load and scene commit
+  -> resource inventory and retirement
+  -> model/frame provenance
 ```
 
 ## Required invariants
 
 ```txt
-one canonical, deep-frozen profile drives all model consumers
-every attachment contract is validated before live-scene mutation
-initial-level loading commits one complete detached candidate atomically
-cancelled, failed and stale candidates leak no resources
-modelReady derives from a typed committed result
-every owned geometry, material and texture appears in one inventory
-replacement and disposal are idempotent and ordered
-visible frames acknowledge modelId, profileFingerprint and resourceFingerprint
+one input sample is admitted once against one fixed tick
+all visible consumers reference one steering result
+neutral input converges every response owner to policy bounds
+blur, pause, reset and restart retire predecessor input/state
+stale and duplicate samples mutate nothing
+HUD/GameHost report committed results
+visible frames identify the steering result rendered
 ```
 
 ## Ordered safe ledges
@@ -212,7 +206,7 @@ visible frames acknowledge modelId, profileFingerprint and resourceFingerprint
 ```txt
 1. immutable runtime admission
 2. import purity and frame ownership
-2a. balloon model assembly/loading/resource authority
+2a. balloon model descriptor/assembly/loading authority
 3. runtime session lifecycle and ordered disposal
 4. fixed-step clock and sequenced input
 4a. product source and acceptance parity
@@ -223,6 +217,7 @@ visible frames acknowledge modelId, profileFingerprint and resourceFingerprint
 6a. bounded terrain build and atomic replacement
 7. grass spatial identity and backend truth
 7a. world surface membership and consumer parity
+8. balloon steering and presentation authority
 ```
 
-Documentation only. No runtime, package, render or deployment behavior changed.
+Documentation only. No runtime source, package, rendering or deployment behavior changed.
