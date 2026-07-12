@@ -5,7 +5,9 @@ import { loadHotAirBalloonModel, animateHotAirBalloon } from "./hot-air-balloon-
 import { createBalloonSimulation } from "./runtime/balloon-simulation-kit.js";
 import { createBalloonTelemetryEngine } from "./runtime/balloon-telemetry-kit.js";
 import { createAirstreamDomain } from "./runtime/airstream-domain/index.js";
+import { createDefaultAirstreamRoutes } from "./runtime/airstream-domain/airstream-route-kit.js";
 import { createMailDeliveryDomain } from "./gameplay/mail-delivery-domain/index.js";
+import { createDefaultMailRoute } from "./gameplay/mail-delivery-domain/mail-route-kit.js";
 import { createVisualDomain } from "./visual/visual-domain.js";
 import { createBalloonCameraRig } from "./visual/camera-presentation/balloon-camera-rig-kit.js";
 import { createBalloonPresentationDomain } from "./visual/balloon-presentation/balloon-presentation-domain.js";
@@ -23,17 +25,25 @@ function showFatal(error) {
 
 async function createGame() {
   canvas.setAttribute("aria-busy", "true");
-  const visual = createVisualDomain({ canvas, worldConfig: WORLD });
+  const routes = createDefaultAirstreamRoutes();
+  const mailRoute = createDefaultMailRoute();
+  const visual = createVisualDomain({
+    canvas,
+    worldConfig: WORLD,
+    worldAnchors: { routes, towns: mailRoute.towns }
+  });
   const balloon = await loadHotAirBalloonModel(undefined, { yieldToFrame: true });
   visual.scene.add(balloon);
 
   const airstream = createAirstreamDomain({
     scene: visual.scene,
+    routes,
     debug: false
   });
   const mail = createMailDeliveryDomain({
     scene: visual.scene,
-    terrainHeight: visual.landscape.terrain.terrainHeight
+    terrainHeight: visual.landscape.terrain.terrainHeight,
+    route: mailRoute
   });
 
   const simulation = createBalloonSimulation({
@@ -47,6 +57,7 @@ async function createGame() {
     root: mapRoot,
     canvas: mapCanvas,
     worldSurface: WORLD.surface,
+    world: visual.world,
     towns: mail.towns,
     routes: airstream.routes,
     getPlayerState: () => simulation.state,
@@ -70,7 +81,8 @@ async function createGame() {
       nearChunks: visual.landscape.terrain.streamer.chunks.size,
       horizonChunks: visual.landscape.terrain.horizon.chunks.size,
       horizonDistance: visual.landscape.terrain.horizon.maxDistance,
-      worldSurface: visual.landscape.terrain.worldSurface.getDescriptor()
+      worldSurface: visual.landscape.terrain.worldSurface.getDescriptor(),
+      generation: visual.world.getDescriptor()
     },
     model: {
       ready: balloon.userData.modelReady === true,
@@ -85,7 +97,9 @@ async function createGame() {
       sunOnScreen: Number((visualState.sunOnScreen ?? 0).toFixed(3)),
       renderScale: Number((visualState.renderScale ?? 1).toFixed(3)),
       drawCalls: visualState.drawCalls ?? 0,
-      triangles: visualState.triangles ?? 0
+      triangles: visualState.triangles ?? 0,
+      grass: visualState.grass,
+      flowers: visualState.flowers
     }
   });
 
