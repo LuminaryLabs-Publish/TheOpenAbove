@@ -94,6 +94,11 @@ assert.match(visual, /grass\.update\(elapsed, camera\)/);
 assert.match(visual, /grass\.getState\(\)/);
 assert.doesNotMatch(visual, /createGrassDetail/);
 
+const clouds = readFileSync("src/visual/atmosphere/volumetric-cloud-kit.js", "utf8");
+assert.match(clouds, /base \* 0\.92 \+ detail \* 0\.08/);
+assert.match(clouds, /hash21\(gl_FragCoord\.xy\)/);
+assert.doesNotMatch(clouds, /hash21\(gl_FragCoord\.xy \+ uTime\)/);
+
 const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
 assert.match(terrain, /createDiskWorldSurface/);
 assert.match(terrain, /NexusEngine-ProtoKits@dd8d68f5635a64f34043edd3ac757067a02eb43c/);
@@ -141,6 +146,11 @@ assert.match(grassDomain, /grassLodForChunkDistance/);
 assert.match(grassDomain, /createGrassComputeCullingKit/);
 assert.match(grassDomain, /chunks = new Map/);
 assert.match(grassDomain, /uGrassTime/);
+assert.match(grassDomain, /varying vec2 vGrassUv/);
+assert.match(grassDomain, /vGrassUv = uv/);
+assert.match(grassDomain, /vGrassUv\.y/);
+assert.match(grassDomain, /vGrassUv\.x/);
+assert.doesNotMatch(grassDomain, /vUv\.[xy]/);
 
 const placement = readFileSync("src/visual/grass-field/grass-chunk-placement-kit.js", "utf8");
 assert.match(placement, /hashGrassSeed/);
@@ -175,4 +185,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above bounded disk world, air-mail, airstream, terrain, and grass smoke passed.");
+console.log("The Open Above bounded disk world, air-mail, airstream, terrain, smooth clouds, and grass shader smoke passed.");
