@@ -1,6 +1,11 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import { generateGrassChunkCandidates } from "./grass-chunk-placement-kit.js";
-import { grassLodForChunkDistance } from "./grass-lod-kit.js";
+import {
+  GRASS_CULL_DISTANCE,
+  GRASS_FADE_END,
+  GRASS_FADE_START,
+  grassLodForChunkDistance
+} from "./grass-lod-kit.js";
 import { createGrassComputeCullingKit } from "./grass-compute-culling-kit.js";
 import { createGrassPatchDistribution } from "./grass-patch-density-kit.js";
 import { createGrassTextureAtlas, GRASS_TEXTURE_VARIANTS } from "./grass-texture-atlas-kit.js";
@@ -31,7 +36,7 @@ function createPatchGeometry(planes = 2) {
 function createGrassMaterial(map) {
   const material = new THREE.MeshStandardMaterial({
     map,
-    color: 0x789d50,
+    color: 0xffffff,
     roughness: 0.92,
     metalness: 0,
     side: THREE.DoubleSide,
@@ -67,13 +72,12 @@ float atlasU = (floor(vGrassVariant + 0.5) + atlasLocalU) / ${GRASS_TEXTURE_VARI
 vec4 sampledDiffuseColor = texture2D(map, vec2(atlasU, vGrassUv.y));
 diffuseColor *= sampledDiffuseColor;
 #endif`)
-      .replace("#include <alphatest_fragment>", `float grassFade = smoothstep(1050.0, 1500.0, vGrassDistance);
-diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.36, 0.56, 0.30), grassFade * 0.82);
+      .replace("#include <alphatest_fragment>", `float grassFade = smoothstep(${GRASS_FADE_START.toFixed(1)}, ${GRASS_FADE_END.toFixed(1)}, vGrassDistance);
 diffuseColor.a *= 1.0 - grassFade;
 #include <alphatest_fragment>`);
     state.shader = shader;
   };
-  material.customProgramCacheKey = () => "open-above-dense-grass-atlas-v4";
+  material.customProgramCacheKey = () => "open-above-five-species-local-grass-v1";
   return { material, state };
 }
 
@@ -115,9 +119,9 @@ function createVegetationQueries(vegetation) {
   return { obstacleAt, treeProximityAt };
 }
 
-export function createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation) {
+export function createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation, world = null) {
   const chunkSize = terrain.streamer?.chunkSize ?? 520;
-  const chunkRadius = 3;
+  const chunkRadius = 2;
   const root = new THREE.Group();
   root.name = "open-above-grass-field-domain";
   scene.add(root);
@@ -125,7 +129,7 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
   const culling = createGrassComputeCullingKit();
   const atlas = createGrassTextureAtlas(worldConfig.seed || 1);
   const materialBundle = createGrassMaterial(atlas.texture);
-  const patchDistribution = createGrassPatchDistribution(worldConfig.seed || 1, worldConfig.terrainSize || 2400);
+  const patchDistribution = createGrassPatchDistribution(worldConfig.seed || 1, worldConfig.terrainSize || 2400, world);
   const vegetationQueries = createVegetationQueries(vegetation);
   let centerX = Number.NaN;
   let centerZ = Number.NaN;
@@ -151,7 +155,7 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
     geometry.setAttribute("grassVariant", new THREE.InstancedBufferAttribute(variants, 1));
     const mesh = new THREE.InstancedMesh(geometry, materialBundle.material, Math.max(1, candidates.length));
     mesh.name = `grass-chunk-${cx}-${cz}-lod-${lodProfile.lod}`;
-    mesh.frustumCulled = true;
+    mesh.frustumCulled = false;
     mesh.castShadow = false;
     mesh.receiveShadow = true;
     const matrix = new THREE.Matrix4();
@@ -164,6 +168,7 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
     const yawRotation = new THREE.Quaternion();
     const leanRotation = new THREE.Quaternion();
     const up = new THREE.Vector3(0, 1, 0);
+    const subtleTints = [0xe9f6e7, 0xf0f7e6, 0xf5fbe8, 0xf7f0da, 0xfff0c9];
     for (let i = 0; i < candidates.length; i += 1) {
       const item = candidates[i];
       position.set(item.x, item.y + 0.02, item.z);
@@ -175,8 +180,8 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
       scale.set(item.width, item.height, item.width);
       matrix.compose(position, quaternion, scale);
       mesh.setMatrixAt(i, matrix);
-      color.set(item.species === 2 ? 0x4f7650 : item.species === 1 ? 0x8b9148 : 0x6f9345);
-      color.offsetHSL((item.hue - 0.5) * 0.025, 0, (item.hue - 0.5) * 0.12);
+      color.set(subtleTints[item.species] ?? 0xffffff).lerp(new THREE.Color(0xffffff), 0.72);
+      color.offsetHSL((item.hue - 0.5) * 0.018, 0, (item.hue - 0.5) * 0.045);
       mesh.setColorAt(i, color);
     }
     mesh.count = candidates.length;
@@ -214,7 +219,9 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
         chunks.delete(chunkKey);
       }
     }
-    for (const [chunkKey, need] of required) if (!chunks.has(chunkKey)) chunks.set(chunkKey, buildChunk(need.x, need.z, need.profile));
+    for (const [chunkKey, need] of required) {
+      if (!chunks.has(chunkKey)) chunks.set(chunkKey, buildChunk(need.x, need.z, need.profile));
+    }
   }
 
   function update(elapsed, camera) {
@@ -229,8 +236,7 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
     for (const mesh of chunks.values()) {
       const dx = camera.position.x - mesh.userData.grass.centerX;
       const dz = camera.position.z - mesh.userData.grass.centerZ;
-      const distance = Math.hypot(dx, dz);
-      mesh.visible = culling.cullChunk(distance, chunkSize * 4.2);
+      mesh.visible = culling.cullChunk(Math.hypot(dx, dz), GRASS_CULL_DISTANCE);
     }
   }
 
@@ -259,11 +265,15 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
         cards: clumps * 2,
         apparentBlades: [clumps * 40, clumps * 100],
         textureVariants: atlas.variantCount,
-        patchCenters: patchDistribution.patchCount,
-        clearingCenters: patchDistribution.clearingCount
+        grassTypes: atlas.variants.map((variant) => variant.species),
+        fadeRange: [GRASS_FADE_START, GRASS_FADE_END],
+        patchCenters: world ? "world-grid" : patchDistribution.patchCount,
+        clearingCenters: world ? "world-grid" : patchDistribution.clearingCount
       };
     }
   };
 }
 
-window.OpenAboveGrassFieldDomain = { id: GRASS_FIELD_DOMAIN_ID, createGrassFieldDomain };
+if (typeof window !== "undefined") {
+  window.OpenAboveGrassFieldDomain = { id: GRASS_FIELD_DOMAIN_ID, createGrassFieldDomain };
+}
