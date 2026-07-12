@@ -59,6 +59,8 @@ assert.match(main, /createMailDeliveryDomain/);
 assert.match(main, /sampleAirstream: airstream\.sample/);
 assert.match(main, /mail\.update/);
 assert.match(main, /worldSurface: visual\.landscape\.terrain\.worldSurface\.getDescriptor\(\)/);
+assert.match(main, /Math\.max\(0, Math\.min\(80, now - last \|\| 16\.7\)\)/);
+assert.match(main, /Math\.max\(0, Math\.min\(1 \/ 30, frameMs \/ 1000\)\)/);
 assert.doesNotMatch(main, /renderer\.render\(/);
 
 const worldConfig = readFileSync("src/data/campaign.config.js", "utf8");
@@ -76,6 +78,11 @@ const airstreamDomain = readFileSync("src/runtime/airstream-domain/airstream-dom
 assert.match(airstreamDomain, /createAirstreamField/);
 assert.match(airstreamDomain, /createAirstreamVisual/);
 assert.match(airstreamDomain, /createAirstreamDebug/);
+
+const airstreamVisual = readFileSync("src/runtime/airstream-domain/airstream-visual-kit.js", "utf8");
+assert.match(airstreamVisual, /const rawT = seed\.baseT \+ elapsed \* record\.route\.speed \* 0\.00055/);
+assert.match(airstreamVisual, /const t = \(\(rawT % 1\) \+ 1\) % 1/);
+assert.doesNotMatch(airstreamVisual, /const t = \(seed\.baseT \+ elapsed \* record\.route\.speed \* 0\.00055\) % 1/);
 
 const mailDomain = readFileSync("src/gameplay/mail-delivery-domain/mail-delivery-domain.js", "utf8");
 assert.match(mailDomain, /updateDeliveryProgress/);
