@@ -1,30 +1,32 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T11-01-59-04-00`  
+**Last aligned:** `2026-07-12T11-15-16-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`
 
 ## Summary
 
-The current source now has a seeded full-world grid, erosion and flow fields, five grass species, five flower types and a cached biome map. The world values are deterministic, but world construction and sampling are not yet authoritative.
+The active source now builds a seeded full-world grid with erosion, flow, five grass species, five flower types and a cached biome map. During this audit, commit `74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec` removed feature-cache size from the authoritative descriptor and bounded flora outside the world disk.
 
-The primary defect is that world reads can mutate observable state. `sampleMapColor()` can populate the mutable feature-cell cache, while `getDescriptor()` exposes the cache size. Map construction or camera/query history can therefore change later snapshots without a world transition.
+The remaining gap is architectural: world construction is still one synchronous, unversioned utility graph. Terrain, vegetation, grass, flowers, landmarks and the map do not adopt a common immutable world artifact through typed receipts or acknowledge which build produced a visible frame.
 
 ## Plan ledger
 
-**Goal:** make one immutable, bounded and fingerprinted world build feed terrain, vegetation, grass, flowers, landmarks and the map through pure queries and typed consumer receipts.
+**Goal:** make one immutable, bounded and fingerprinted world build feed every world consumer through pure revisioned queries, typed adoption receipts and visible-frame proof.
 
 - [x] Compare the complete Publish inventory with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central ledger and root `.agent` coverage.
 - [x] Select only `TheOpenAbove` because substantial world/grass/flower/map source landed after its previous audit.
-- [x] Trace world construction, sampling, cache mutation, surface membership, chunk streaming, map rasterization and tests.
+- [x] Trace world construction, sampling, cache behavior, membership, chunk streaming, map rasterization and tests.
 - [x] Identify the interaction loop, domains, 67 active source-backed kits and offered services.
-- [x] Define the missing procedural-world generation authority.
+- [x] Detect public descriptor drift and unbounded flora in the reviewed source.
+- [x] Reconcile the concurrent runtime fix that resolved those two concrete defects.
+- [x] Define the remaining procedural-world generation authority.
 - [x] Add timestamped architecture and system audits.
 - [x] Refresh root `.agent` state and registry.
 - [x] Push directly to `main`; create no branch or pull request.
-- [ ] Implement the authority and executable browser/Pages proof.
+- [ ] Implement build identity, immutable artifacts, consumer receipts and executable browser/Pages proof.
 
 ## Read this first
 
@@ -34,6 +36,7 @@ The primary defect is that world reads can mutate observable state. `sampleMapCo
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
+.agent/world-generation-audit/2026-07-12T11-01-59-04-00-runtime-fix-reconciliation.md
 .agent/architecture-audit/2026-07-12T11-01-59-04-00-procedural-world-generation-authority-dsk-map.md
 .agent/render-audit/2026-07-12T11-01-59-04-00-world-terrain-flora-map-frame-coherence-gap.md
 .agent/gameplay-audit/2026-07-12T11-01-59-04-00-flight-streaming-world-query-loop.md
@@ -45,7 +48,7 @@ The primary defect is that world reads can mutate observable state. `sampleMapCo
 .agent/kit-registry.json
 ```
 
-Retain the `2026-07-12T09-02-10-04-00` parchment-map spatial audit. It owns bearing, fit, route emphasis and off-map navigation. This audit owns world build, query purity, cache policy, membership and consumer coherence.
+The pre-fix tracker documents what was found at `f24e1b...`. The runtime-fix reconciliation is authoritative for current `main`.
 
 ## Interaction loop
 
@@ -94,20 +97,23 @@ inactive/retired legacy kits: 12
 planned world-authority kits: 29 including parent
 ```
 
-New services include seeded world-grid construction, erosion, flow, protected-anchor blending, biome/flora/map queries, five-species grass atlas and patch density, five-type flower placement/atlas/streaming and world/flora fixture coverage.
-
-## Main findings
+## Current findings
 
 ```txt
-sampleMapColor -> sampleFlora -> sampleBiome -> featureCellAt -> cache mutation
-getDescriptor -> cachedFeatureCells -> query-history-dependent snapshot
+resolved during audit:
+  descriptor no longer exposes mutable cache size
+  sampleFlora returns zero-density outside-world profile
+  world exposes contains(x,z)
 
-world build + map rasterization -> synchronous startup work with no budget/cancel/result
-terrain -> disk edge mask
-world grid -> outside-coordinate clamp
-flora chunks -> no shared world-surface membership
-consumers -> no common world revision/fingerprint/receipt
-render -> no world-visible-frame acknowledgement
+remaining:
+  no WorldBuildId or generation revision
+  no canonical seed/config/anchor fingerprint
+  no named build stages, budget, progress or cancellation
+  no immutable WorldGridArtifact fingerprint
+  no typed revisioned sample results
+  no consumer adoption receipts or stale-result rejection
+  no terrain/grass/flower/map parity result
+  no world-visible-frame acknowledgement
 ```
 
 ## Required parent domain
@@ -119,23 +125,10 @@ open-above-procedural-world-generation-authority-domain
   -> canonical world artifact and fingerprint
   -> pure typed sample queries
   -> explicit membership/out-of-bounds policy
-  -> non-authoritative bounded cache policy
+  -> bounded non-authoritative cache policy
   -> consumer admission and receipts
   -> terrain/flora/map parity result
   -> visible-frame acknowledgement and fixtures
-```
-
-## Ordered implementation queue
-
-```txt
-1. immutable runtime admission and frame ownership
-2. session, clock, input, model and mission authorities
-3. terrain/world-surface ownership
-4. procedural world generation authority
-5. grass/flower consumer membership and chunk revisioning
-6. steering, HDR and frame-failure coherence
-7. parchment map pause/navigation authority
-8. semantic status and accessibility
 ```
 
 ## Next safe ledge
@@ -147,5 +140,5 @@ Procedural World Generation Authority
 + Pure WorldSampleQuery/Result
 + Shared membership policy
 + Consumer receipts and parity
-+ Cache-purity, startup-budget and visible-frame fixtures
++ Startup-budget, replacement and visible-frame fixtures
 ```
