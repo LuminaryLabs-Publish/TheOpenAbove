@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T11-01-59-04-00`
+**Last aligned:** `2026-07-12T11-15-16-04-00`
 
 ## Primary ordered gaps
 
@@ -17,43 +17,34 @@
 10. semantic mission status and fatal accessibility
 ```
 
-## Procedural world-generation gaps
+## Resolved during this audit window
+
+```txt
+feature-cell cache size removed from authoritative descriptor
+map/query history no longer changes public descriptor output
+world disk containment query added
+outside-world flora now returns zero grass/flower density
+```
+
+## Remaining procedural world-generation gaps
 
 ```txt
 no WorldBuildId
 no generation revision
-no canonical seed/config/anchor fingerprint
-no named build stages or stage results
+no canonical seed/config/route/town/algorithm fingerprint
+no named build stages or typed stage results
 no startup budget, progress or cancellation
 no immutable reusable WorldGridArtifact
 no artifact fingerprint
-no pure typed sample query/result
-feature-cell cache mutates during reads
-cache size leaks into public descriptor/snapshot
-no bounded cache capacity or eviction policy
-no explicit cache lifetime/disposal result
-no canonical inside/edge/outside policy
-outside-grid values clamp silently
-no typed out-of-bounds result
+no revisioned typed sample query/result
+sampleFeatureCell remains a direct cache-populating public method
+no bounded cache capacity, eviction or disposal result
+outside-world policy differs by sample type
+height/moisture/temperature/fertility still clamp to grid edge
 no world replacement transaction or rollback
 no stale query/consumer rejection
 no world-generation journal
 ```
-
-## Concrete observer-induced mutation
-
-```txt
-sampleMapColor
-  -> sampleFlora
-  -> sampleBiome
-  -> featureCellAt
-  -> featureCells.set
-
-getDescriptor
-  -> cachedFeatureCells: featureCells.size
-```
-
-Map construction, camera travel or diagnostic queries can change later snapshots even when world inputs and gameplay state are unchanged.
 
 ## Startup gaps
 
@@ -66,17 +57,16 @@ no first-frame budget or loading progress exists
 no worker/cancellation/retry/artifact-cache boundary exists
 ```
 
-## Consumer membership gaps
+## Consumer provenance gaps
 
 ```txt
-terrain uses disk edgeMask and edgeFloor
-world sampleGrid clamps to border cells
-grass/flowers follow camera chunks without worldSurface membership
-feature cells exist for unbounded integer coordinates
-vegetation/landmarks/map have no consumer receipts
-chunk and map identities omit world build revision
-no terrain/grass/flower/map parity result
-no world-visible-frame acknowledgement
+terrain, vegetation, landmarks, grass, flowers and map have no consumer IDs
+generated chunks omit WorldBuildId and revision
+map background omits world revision and fingerprint
+no adoption receipts exist
+no terrain/grass/flower/map parity result exists
+no stale consumer rejection exists after a future world replacement
+no world-visible-frame acknowledgement exists
 ```
 
 ## Grass and flower gaps
@@ -84,10 +74,10 @@ no world-visible-frame acknowledgement
 ```txt
 world density and legacy biome density composition is unnamed
 grass and flower chunk IDs omit world revision
-outside-world rejection count is absent
+outside-world rejection counts are absent
 chunk state exposes counts but not artifact fingerprint
-stale chunks cannot be identified after replacement
-map-prewarm versus cold-cache parity is untested
+quality transitions have no relation to world revision
+cold-build versus map-prewarmed chunk parity is untested
 ```
 
 ## Retained map gaps
@@ -96,7 +86,7 @@ map-prewarm versus cold-cache parity is untested
 player marker bearing remains reversed
 world-fit versus mission-fit remains implicit
 active/correct route style is absent
-off-map behavior is undefined
+off-map navigation behavior is undefined
 map pause/input/focus uses no typed transition authority
 ```
 
@@ -105,8 +95,7 @@ map pause/input/focus uses no typed transition authority
 ```txt
 fixture:world-input-fingerprint
 fixture:world-independent-build-fingerprint
-fixture:world-query-order-purity
-fixture:world-map-prewarm-purity
+fixture:world-sample-result-provenance
 fixture:world-membership-matrix
 fixture:world-anchor-fingerprint
 fixture:world-consumer-parity
@@ -118,4 +107,4 @@ fixture:browser-world-edge-pixel-probe
 fixture:pages-world-generation-parity
 ```
 
-Do not treat deterministic coordinate samples, a populated map, full grass budgets, a passing Vite build or the absence of console errors as proof that the world is pure, bounded, transactionally committed or render-coherent.
+Do not treat deterministic coordinate samples, a populated map, full grass budgets, bounded flora, a passing Vite build or the absence of console errors as proof that one immutable world artifact was transactionally built, adopted and rendered.
