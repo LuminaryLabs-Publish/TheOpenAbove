@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T13-29-56-04-00`
+**Last aligned:** `2026-07-12T15-31-24-04-00`
 
 ## Status
 
 ```txt
-status: terrain-streaming-ownership-reconciliation-audited
-repository revision reviewed: c2b96fa4d0dc44f6f3cf52762834324e712ed7d9
+status: vegetation-spatial-coverage-authority-audited
+repository runtime revision reviewed: c2b96fa4d0dc44f6f3cf52762834324e712ed7d9
 runtime source changed by this documentation pass: no
 branch: main
 root .agent state: refreshed
@@ -16,27 +16,26 @@ central internal change log: complete
 
 ## Summary
 
-The recent terrain-remediation sequence introduces `open-above-terrain-streaming-contract-kit`, one frozen camera-relative frame, stable near/horizon centers, exact near-bound clipping, horizon clip signatures, skirts, terrain-draped overlays and shared lake descriptors. Pure terrain ownership, route protection and overlay checks are wired into the normal check/build path.
+The active product combines a deterministic 10,000-unit-radius world with camera-relative near/horizon terrain, grass and flower chunk windows. Tree vegetation is different: `createVegetationClusters()` runs once during visual-domain construction, generates 18 centrally bounded random clusters, writes all transforms into one trunk and one crown `InstancedMesh`, adds them directly to the scene and returns no update or disposal service.
 
-The remaining problem is transaction ownership. Near and horizon streamers directly remove, dispose and construct meshes in their live scene groups. They do not stage complete candidate sets, return typed build/adoption results, validate an aggregate parity result, roll back to a last-good aggregate or acknowledge the first frame that rendered one committed near/horizon revision.
+The balloon simulation continuously integrates horizontal position and clamps only vertical terrain clearance. The camera can therefore move through the broader streamed world while the tree field remains fixed. No vegetation frame, chunk requirement, coverage result, world fingerprint, transition budget, adoption receipt, retirement result or first-visible-frame acknowledgement exists.
 
 ## Plan ledger
 
-**Goal:** reconcile the runtime cutover while defining one atomic terrain-stream transaction from camera sample through ownership planning, candidate construction, aggregate commit, predecessor retirement and visible-frame proof.
+**Goal:** make tree vegetation a deterministic, world-bound and camera-relative consumer whose coverage can be planned, admitted, adopted, retired, observed and proven.
 
 - [x] Compare all accessible Publish repositories and central ledgers.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm nine eligible repositories have central and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` as the oldest central entry with newer terrain work.
-- [x] Review the terrain contract, near/horizon streamers, terrain surface, overlays, water, tests and package scripts.
-- [x] Identify the interaction loop and all domains.
+- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
+- [x] Review world configuration, flight integration, visual composition, vegetation construction, streamed consumers, snapshots and scripts.
+- [x] Identify the interaction loop and all active domains.
 - [x] Reconcile 68 active source-backed kits and offered services.
-- [x] Record resolved terrain-overlap defects.
-- [x] Define remaining aggregate authority and fixture gates.
+- [x] Define the vegetation spatial-coverage authority and fixture gates.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root and central documentation on `main`.
 - [x] Create no branch or pull request.
-- [ ] Implement candidate staging, aggregate admission, rollback and visible-frame receipts.
+- [ ] Implement chunked vegetation, transactional adoption, disposal and visible proof.
 
 ## Selection comparison
 
@@ -46,7 +45,7 @@ eligible non-Cavalry repositories: 9
 new or ledger-missing eligible repositories: 0
 root-.agent-missing eligible repositories: 0
 selected: TheOpenAbove
-reason: oldest central entry plus newer repo-local terrain-remediation work
+reason: oldest eligible central ledger timestamp
 excluded: TheCavalryOfRome
 ```
 
@@ -54,81 +53,75 @@ excluded: TheCavalryOfRome
 
 ```txt
 boot
-  -> build seeded world
-  -> create visual domain
-  -> create terrain surface and two stream consumers
-  -> create balloon, airstream, mail, simulation, map and camera
+  -> construct world artifact and visual domain
+  -> create near/horizon terrain streamers
+  -> create boot-only vegetation clusters
+  -> create camera-relative grass and flower domains
+  -> create balloon, mail, airstream, camera and map
   -> start RAF
 
 frame
-  -> update flight and camera
-  -> terrain surface creates one frozen streaming frame
-  -> near streamer rebuilds on revision change
-  -> horizon requirements partition around the same near bounds
-  -> horizon streamer rebuilds or reclassifies by LOD/clip signature
-  -> terrain surface records active frame
-  -> remaining visual systems update
-  -> HDR render
+  -> integrate flight position without horizontal world admission
+  -> update mail and airstream
+  -> move camera
+  -> update terrain around camera
+  -> update grass and flowers around camera
+  -> do not update vegetation
+  -> render current scene
 
-boundary transition
-  -> obsolete meshes are removed and disposed
-  -> replacements are built directly into live groups
-  -> no aggregate success/rollback result is published
+traversal beyond central tree coverage
+  -> terrain and low flora continue to follow camera
+  -> boot tree instances remain at initial world coordinates
+  -> no coverage outcome or warning is published
 ```
 
-## Resolved source-backed findings
+## Source-backed findings
+
+### World and tree extents differ
 
 ```txt
-one shared camera-relative frame drives both terrain consumers
-near chunk size remains 520 and horizon scale remains 2
-horizon cells are partitioned at exact near boundaries
-near-owned horizon interiors are omitted
-retained horizon chunks reclassify by clip signature and LOD
-horizon geometry expansion and vertical offset are removed
-near and horizon skirts cover ownership edges
-slope color sampling is aligned at 24 world units
-route protection is narrower and duplicate final blending is removed
-fields and road are terrain-draped
-lake descriptors are shared and edges feathered
-landmark and water resources have disposal paths
-new source tests are wired into npm run check and npm run build
+WORLD.surface.radius = 10000
+WORLD.terrainSize = 2400
+local vegetation extent = terrainSize * 1.18 = 2832
+wider vegetation extent = min(radius * 0.42, localExtent * 1.9) = 4200
+cluster spread = 80..340
+cluster count = 18
 ```
 
-## Remaining source-backed findings
+These values bound cluster centers to a central subset of the admitted world. Exact farthest-tree distance depends on deterministic random centers and spreads, but the construction is not a world-wide or camera-relative coverage policy.
 
-### Stream identity is under-specified
+### Vegetation is boot-only
 
-The current frame revision is a deterministic string based on grid centers, radius and near keys. It omits runtime session, world build and fingerprint, quality revision, algorithm/schema version, material/program generation and a typed frame identity.
+The visual domain creates vegetation once. Its frame update calls weather, sun, sky, clouds, aerial perspective, terrain, grass, flowers, water, lens and HDR composition, but not vegetation.
 
-### Candidate construction is live
+### Vegetation has no lifecycle surface
 
-Near and horizon rebuilds remove obsolete live meshes before all replacement geometry is known to succeed. A thrown world sample, color sample, allocation or geometry error can leave a partial aggregate with no rollback.
+The kit returns trunks, crowns, count, cluster descriptors and tree positions. It has no `update`, `getState`, `snapshot`, `requirements`, `dispose` or typed result service. The visual-domain disposer also does not retire vegetation resources.
 
-### Adoption is sequential and unreported
+### Flight is not horizontally world-bound
 
-The terrain surface calls near then horizon updates. Neither returns a typed result. `activeFrame` is assigned only after both calls, but no aggregate receipt proves that both live groups accepted the same frame before render.
+The simulation adds velocity to position every update and enforces only a minimum height above terrain. No x/z world-radius admission prevents the camera from leaving the initial tree field.
 
-### Mesh provenance is asymmetric
+### Observability stops before vegetation
 
-Near mesh metadata contains coordinates, LOD and bounds. Horizon metadata also contains segments, clip signature and frame revision. Neither consumer records a typed chunk generation, world artifact identity or aggregate terrain commit.
+The runtime snapshot reports near/horizon terrain, world generation, grass, flowers and render statistics. It does not report vegetation coverage, active bounds, instance counts by cell, world/vegetation fingerprints or a visible-frame receipt.
 
-### Validation stops before the visible frame
+### Validation has no spatial vegetation gate
 
-Pure tests prove classification, clipping and reclassification. They do not prove atomic scene adoption, last-good rollback, exactly-once retirement, frame-time budgets or browser/Pages visual continuity at ownership boundaries.
+The normal check script covers smoke, terrain streaming, route protection and terrain overlays. It contains no long-traversal vegetation, deterministic chunk, failure rollback, disposal or browser/Pages coverage fixture.
 
 ## Domains in use
 
 ```txt
-browser shell, game canvas, parchment map and fatal projection
-runtime admission, startup, input, RAF and public host
-balloon simulation, steering, airstream and mail
+browser shell, canvas, parchment map and fatal projection
+runtime boot, session, keyboard/wheel input, RAF and public host
+balloon simulation, steering, airstream and mail delivery
 seeded world build, erosion, flow, climate, biome, flora and map color
-world membership and authored route/town/lake protection
-terrain streaming-frame classification and ownership partitioning
-near terrain geometry, LOD, skirts, replacement and disposal
-horizon requirements, clipping, LOD, skirts, replacement and disposal
-vegetation, landmarks, draped fields/road and shared lakes
-grass and flower chunks, atlases, LOD and culling
+world membership and authored route/town/lake anchors
+terrain streaming frame, near/horizon ownership, geometry and disposal
+boot-time tree cluster placement and global instanced rendering
+grass and flower chunks, atlases, LOD, culling and wind
+balloon object construction, materials, rigging, burner and presentation
 quality, dynamic resolution, sky, clouds, water, HDR and lens response
 map projection, telemetry, headless inspection, tests, build and Pages
 ```
@@ -146,57 +139,63 @@ runtime-implied adapters: 12
 inactive/retired legacy: 12
 ```
 
-The new active kit is:
+The complete kit-by-kit list and service map are in the timestamped tracker and `.agent/kit-registry.json`.
+
+## Current vegetation service
 
 ```txt
-open-above-terrain-streaming-contract-kit
-  frozen camera-relative frame creation
-  stable near/horizon grid anchoring
-  near requirement and bound production
-  horizon partitioning around near ownership
-  visible-cell classification
-  clip signatures and horizon LOD requirements
+open-above-vegetation-cluster-kit
+  deterministic seed derivation from world/grass seed
+  quality-tier tree count selection
+  18 boot-time cluster descriptors
+  terrain-height and moisture sampling
+  trunk/crown matrix and crown-color production
+  global InstancedMesh construction
+  tree-position exclusion record production
+  direct scene insertion
 ```
-
-The complete inventory and service map are in `.agent/kit-registry.json` and the latest tracker.
 
 ## Required parent domain
 
 ```txt
-open-above-terrain-streaming-ownership-authority-domain
+open-above-vegetation-spatial-coverage-authority-domain
 ```
 
 ## Required services
 
 ```txt
-stream session, frame and chunk-generation identities
-world/config/quality/geometry/material fingerprints
-immutable ownership plan and parity admission
-detached near/horizon candidate construction
-typed per-chunk build results
-aggregate candidate validation
-atomic adoption and last-good rollback
-exactly-once predecessor retirement receipts
-near/horizon consumer receipts
-bounded observations and journal
-TerrainStreamCommitResult
-TerrainVisibleFrameAck
-boundary, failure-injection, browser and Pages fixtures
+vegetation stream session, frame and chunk identities
+world artifact and configuration binding
+canonical vegetation input fingerprint
+camera-relative coverage plan
+stable per-chunk seed derivation
+inside/edge/outside world admission
+terrain, route, town, lake and spacing exclusion parity
+detached candidate sets and typed build results
+instance, allocation and transition budgets
+atomic chunk adoption and last-good preservation
+exactly-once retirement and disposal receipts
+revisioned tree exclusion artifact for grass and flowers
+active coverage observations and bounded journal
+VegetationVisibleFrameAck
+pure, failure, browser and Pages fixtures
 ```
 
 ## Required invariants
 
 ```txt
-one interior world coordinate has at most one terrain owner
-near and horizon adopt the same frame or neither commits
-candidate failure leaves predecessor terrain unchanged
-all committed meshes cite the same world and terrain frame
-retirement occurs exactly once after successful adoption
-render acknowledgement follows aggregate commit
+same world/config/chunk -> same candidates independent of query order
+all current vegetation chunks cite one world artifact
+no outside-world candidate becomes current
+camera-required cells are covered or have an explicit degraded/treeless result
+candidate failure leaves predecessor coverage unchanged
+retirement occurs exactly once after successor adoption
+grass/flower exclusions cite the current vegetation generation
+visible acknowledgement follows committed adoption
 ```
 
 ## Retained audits
 
-The procedural-world authority remains active for build identity and consumer provenance. Map, lifecycle, frame-failure, HDR, public-host, world-surface and grass audits remain active dependencies.
+Runtime admission, runtime-session lifecycle, procedural-world identity, terrain aggregate adoption, terrain performance, grass spatial identity, HDR surface, map authority, mission accessibility and public-host isolation remain active dependencies.
 
-Documentation only. No runtime source, dependency, gameplay, rendering or deployment behavior was changed by this pass.
+Documentation only. No runtime source, dependency, gameplay, rendering or deployment behavior was changed.
