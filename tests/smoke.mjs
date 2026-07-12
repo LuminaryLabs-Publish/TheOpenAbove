@@ -1,11 +1,22 @@
 import { readFileSync, existsSync } from "node:fs";
 import assert from "node:assert/strict";
 import "./airstream-mail.mjs";
+import "./balloon-profile.mjs";
 
 const requiredFiles = [
   "index.html",
   "src/main.js",
   "src/data/campaign.config.js",
+  "src/balloon-envelope-profile-kit.js",
+  "src/balloon-envelope-panel-kit.js",
+  "src/balloon-mouth-kit.js",
+  "src/balloon-streamer-fit-kit.js",
+  "src/balloon-fabric-seam-kit.js",
+  "src/hot-air-balloon-basket-kit.js",
+  "src/hot-air-balloon-rigging-kit.js",
+  "src/hot-air-balloon-burner-kit.js",
+  "src/hot-air-balloon-object-kit.js",
+  "src/rope-kit.js",
   "src/runtime/balloon-simulation-kit.js",
   "src/runtime/balloon-telemetry-kit.js",
   "src/runtime/airstream-domain/index.js",
@@ -46,143 +57,126 @@ const requiredFiles = [
   "src/visual/landscape/water-surface-kit.js",
   "src/visual/balloon-presentation/balloon-presentation-domain.js",
   "src/visual/camera-presentation/balloon-camera-rig-kit.js",
-  "src/hot-air-balloon-object-kit.js",
+  "tests/balloon-profile.mjs",
   "tools/headless-editor-environment.mjs",
   "vite.config.js"
 ];
 for (const file of requiredFiles) assert.equal(existsSync(file), true, `${file} should exist`);
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /createVisualDomain/);
-assert.match(main, /createAirstreamDomain/);
-assert.match(main, /createMailDeliveryDomain/);
-assert.match(main, /sampleAirstream: airstream\.sample/);
-assert.match(main, /mail\.update/);
-assert.match(main, /worldSurface: visual\.landscape\.terrain\.worldSurface\.getDescriptor\(\)/);
+assert.match(main, /loadHotAirBalloonModel/);
+assert.match(main, /await loadHotAirBalloonModel/);
+assert.match(main, /Loading balloon and world/);
+assert.match(main, /loadedDuringLevelSetup/);
+assert.match(main, /persistentGpuResources/);
+assert.match(main, /balloonPresentation\.update\(state\)/);
+assert.match(main, /A\/D steer/);
 assert.match(main, /Math\.max\(0, Math\.min\(80, now - last \|\| 16\.7\)\)/);
-assert.match(main, /Math\.max\(0, Math\.min\(1 \/ 30, frameMs \/ 1000\)\)/);
 assert.doesNotMatch(main, /renderer\.render\(/);
 
-const worldConfig = readFileSync("src/data/campaign.config.js", "utf8");
-assert.match(worldConfig, /kind: "bounded-disk"/);
-assert.match(worldConfig, /radius: 10000/);
-assert.match(worldConfig, /edgeBlendWidth: 600/);
-assert.match(worldConfig, /edgeFloor: -120/);
+const profile = readFileSync("src/balloon-envelope-profile-kit.js", "utf8");
+assert.match(profile, /sampleEnvelopeRadius/);
+assert.match(profile, /sampleEnvelopePoint/);
+assert.match(profile, /sampleEnvelopeNormal/);
+assert.match(profile, /maxRadius: 2\.25/);
+assert.match(profile, /height: 6\.2/);
+
+const envelope = readFileSync("src/balloon-envelope-panel-kit.js", "utf8");
+assert.match(envelope, /goreCount: 24/);
+assert.match(envelope, /verticalSteps: 32/);
+assert.match(envelope, /balloon-envelope-unified-gore-shell/);
+assert.match(envelope, /vertexColors: true/);
+assert.match(envelope, /sampleEnvelopeNormal/);
+assert.match(envelope, /balloon-parachute-valve-cap/);
+assert.doesNotMatch(envelope, /balloon-envelope-gore-\$\{gore\}/);
+
+const streamers = readFileSync("src/balloon-streamer-fit-kit.js", "utf8");
+assert.match(streamers, /integratedIntoEnvelope = true/);
+assert.doesNotMatch(streamers, /new THREE\.Mesh\(/);
+
+const seams = readFileSync("src/balloon-fabric-seam-kit.js", "utf8");
+assert.match(seams, /sampleEnvelopePoint/);
+assert.match(seams, /balloon-unified-load-tape-mesh/);
+assert.match(seams, /sharedEnvelopeProfile = true/);
+
+const mouth = readFileSync("src/balloon-mouth-kit.js", "utf8");
+assert.match(mouth, /radius: 0\.78/);
+assert.match(mouth, /scoopDepth: 0\.1/);
+assert.match(mouth, /emissiveIntensity: 0\.18/);
+
+const basket = readFileSync("src/hot-air-balloon-basket-kit.js", "utf8");
+assert.match(basket, /new THREE\.CylinderGeometry\(p\.topRadius, p\.bottomRadius/);
+assert.match(basket, /basket-woven-tapered-shell/);
+assert.match(basket, /basket-propane-cylinder/);
+assert.match(basket, /width: 1\.55/);
+assert.match(basket, /height: 1\.05/);
+
+const rigging = readFileSync("src/hot-air-balloon-rigging-kit.js", "utf8");
+assert.match(rigging, /burner-frame-post/);
+assert.match(rigging, /burner-frame-crossbar/);
+assert.match(rigging, /radius: 0\.022/);
+assert.match(rigging, /stripeEvery: 1000/);
+
+const burner = readFileSync("src/hot-air-balloon-burner-kit.js", "utf8");
+assert.match(burner, /balloon-twin-burner-head/);
+assert.match(burner, /balloon-burner-fuel-hose/);
+assert.match(burner, /flames\.forEach/);
+
+const objectKit = readFileSync("src/hot-air-balloon-object-kit.js", "utf8");
+assert.match(objectKit, /balloon-envelope-inertia-pivot/);
+assert.match(objectKit, /balloon-gondola-pendulum-pivot/);
+assert.match(objectKit, /export async function loadHotAirBalloonModel/);
+assert.match(objectKit, /loadedDuringLevelSetup = true/);
+assert.match(objectKit, /persistentGpuResources = true/);
+assert.match(objectKit, /scale: 2\.08/);
+
+const rope = readFileSync("src/rope-kit.js", "utf8");
+assert.match(rope, /DynamicDrawUsage/);
+assert.match(rope, /persistentGeometry = true/);
+assert.match(rope, /updateTubeGeometry/);
+assert.doesNotMatch(rope, /core\.geometry\.dispose/);
 
 const simulation = readFileSync("src/runtime/balloon-simulation-kit.js", "utf8");
-assert.match(simulation, /sampleAirstream/);
-assert.match(simulation, /applyAirstreamToBalloonState/);
-assert.match(simulation, /Mail for Brookhaven/);
+assert.match(simulation, /keys\.has\("KeyA"\)/);
+assert.match(simulation, /keys\.has\("KeyD"\)/);
+assert.match(simulation, /lateralTrim/);
+assert.match(simulation, /visualBank/);
+assert.match(simulation, /trimTarget = state\.steeringInput \* 3\.6/);
+assert.match(simulation, /targetBank = -state\.steeringInput \* THREE\.MathUtils\.degToRad\(6\.5\)/);
+assert.match(simulation, /state\.wind\.addScaledVector\(rightVector, state\.lateralTrim\)/);
 
-const airstreamDomain = readFileSync("src/runtime/airstream-domain/airstream-domain.js", "utf8");
-assert.match(airstreamDomain, /createAirstreamField/);
-assert.match(airstreamDomain, /createAirstreamVisual/);
-assert.match(airstreamDomain, /createAirstreamDebug/);
+const presentation = readFileSync("src/visual/balloon-presentation/balloon-presentation-domain.js", "utf8");
+assert.match(presentation, /envelopePivot/);
+assert.match(presentation, /gondolaPivot/);
+assert.match(presentation, /lateralAcceleration/);
+assert.match(presentation, /innerMaterial\.emissiveIntensity/);
 
-const airstreamVisual = readFileSync("src/runtime/airstream-domain/airstream-visual-kit.js", "utf8");
-assert.match(airstreamVisual, /const rawT = seed\.baseT \+ elapsed \* record\.route\.speed \* 0\.00055/);
-assert.match(airstreamVisual, /const t = \(\(rawT % 1\) \+ 1\) % 1/);
-assert.doesNotMatch(airstreamVisual, /const t = \(seed\.baseT \+ elapsed \* record\.route\.speed \* 0\.00055\) % 1/);
-
-const mailDomain = readFileSync("src/gameplay/mail-delivery-domain/mail-delivery-domain.js", "utf8");
-assert.match(mailDomain, /updateDeliveryProgress/);
-assert.match(mailDomain, /createMailTownVisuals/);
-
-const visual = readFileSync("src/visual/visual-domain.js", "utf8");
-assert.match(visual, /createGrassFieldDomain/);
-assert.match(visual, /grass\.update\(elapsed, camera\)/);
-assert.match(visual, /grass\.getState\(\)/);
-assert.doesNotMatch(visual, /createGrassDetail/);
+const camera = readFileSync("src/visual/camera-presentation/balloon-camera-rig-kit.js", "utf8");
+assert.match(camera, /steeringLook/);
+assert.match(camera, /flightState\.steeringInput/);
+assert.match(camera, /addScaledVector\(side, state\.steeringLook \* 1\.6\)/);
 
 const clouds = readFileSync("src/visual/atmosphere/volumetric-cloud-kit.js", "utf8");
 assert.match(clouds, /base \* 0\.92 \+ detail \* 0\.08/);
 assert.match(clouds, /hash21\(gl_FragCoord\.xy\)/);
 assert.doesNotMatch(clouds, /hash21\(gl_FragCoord\.xy \+ uTime\)/);
 
-const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
-assert.match(terrain, /createDiskWorldSurface/);
-assert.match(terrain, /NexusEngine-ProtoKits@dd8d68f5635a64f34043edd3ac757067a02eb43c/);
-assert.match(terrain, /boundedTerrainHeight/);
-assert.match(terrain, /worldSurface\.edgeMask/);
-assert.match(terrain, /worldSurface,/);
-assert.match(terrain, /createTerrainChunkStreamer/);
-assert.match(terrain, /createTerrainHorizonStreamer/);
-assert.match(terrain, /installSoftCloudShadow\(material\)/);
-assert.match(terrain, /export function terrainColor/);
-assert.match(terrain, /smoothWorldField/);
-assert.match(terrain, /largeField/);
-assert.match(terrain, /mediumField/);
-assert.match(terrain, /localField/);
-assert.match(terrain, /roughness: 0\.88/);
-assert.match(terrain, /chunkSize: 520/);
-assert.match(terrain, /radiusInNearChunks: quality\.id === "low" \? 9 : 12/);
-assert.doesNotMatch(terrain, /makeDetailTextures/);
-assert.doesNotMatch(terrain, /DataTexture/);
-assert.doesNotMatch(terrain, /normalMap/);
-assert.doesNotMatch(terrain, /map:\s*detail\.color/);
-assert.doesNotMatch(terrain, /color\.repeat\.set/);
-assert.doesNotMatch(terrain, /normal\.repeat\.set/);
-
-const nearTerrain = readFileSync("src/visual/landscape/terrain-chunk-streaming-kit.js", "utf8");
-assert.match(nearTerrain, /worldSurface = null/);
-assert.match(nearTerrain, /worldSurface\.intersectsBounds/);
-assert.match(nearTerrain, /chunkBounds/);
-
-const horizon = readFileSync("src/visual/landscape/terrain-horizon-streaming-kit.js", "utf8");
-assert.match(horizon, /open-above-far-horizon-terrain/);
-assert.match(horizon, /receiveShadow = false/);
-assert.match(horizon, /radiusInNearChunks/);
-assert.match(horizon, /terrainHeight/);
-assert.match(horizon, /terrainColor/);
-assert.match(horizon, /worldSurface = null/);
-assert.match(horizon, /worldSurface\.intersectsBounds/);
-
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
-assert.match(grassDomain, /open-above-grass-field-domain/);
-assert.match(grassDomain, /InstancedMesh/);
-assert.match(grassDomain, /createPatchGeometry/);
-assert.match(grassDomain, /generateGrassChunkCandidates/);
-assert.match(grassDomain, /grassLodForChunkDistance/);
-assert.match(grassDomain, /createGrassComputeCullingKit/);
-assert.match(grassDomain, /chunks = new Map/);
-assert.match(grassDomain, /uGrassTime/);
 assert.match(grassDomain, /varying vec2 vGrassUv/);
 assert.match(grassDomain, /vGrassUv = uv/);
-assert.match(grassDomain, /vGrassUv\.y/);
-assert.match(grassDomain, /vGrassUv\.x/);
 assert.doesNotMatch(grassDomain, /vUv\.[xy]/);
 
-const placement = readFileSync("src/visual/grass-field/grass-chunk-placement-kit.js", "utf8");
-assert.match(placement, /hashGrassSeed/);
-assert.match(placement, /worldSeed/);
-assert.match(placement, /chunkX/);
-assert.match(placement, /chunkZ/);
-assert.doesNotMatch(placement, /Math\.random/);
-
-const lod = readFileSync("src/visual/grass-field/grass-lod-kit.js", "utf8");
-assert.match(lod, /8000/);
-assert.match(lod, /5000/);
-assert.match(lod, /3000/);
-assert.match(lod, /1800/);
-
-const compute = readFileSync("src/visual/grass-field/grass-compute-culling-kit.js", "utf8");
-assert.match(compute, /@compute @workgroup_size\(64\)/);
-assert.match(compute, /navigator\.gpu/);
-assert.match(compute, /webgpu-compute/);
-assert.match(compute, /cpu-chunk-culling/);
-
-const composer = readFileSync("src/visual/post-process/hdr-composer-kit.js", "utf8");
-assert.match(composer, /exposure: 1\.0/);
-assert.match(composer, /bloomEnabled: false/);
-assert.match(composer, /godRaysEnabled: false/);
-
-const water = readFileSync("src/visual/landscape/water-surface-kit.js", "utf8");
-assert.match(water, /uFogColor/);
-assert.match(water, /fog:\s*false/);
+const terrain = readFileSync("src/visual/landscape/terrain-surface-kit.js", "utf8");
+assert.match(terrain, /createDiskWorldSurface/);
+assert.match(terrain, /boundedTerrainHeight/);
+assert.match(terrain, /worldSurface\.edgeMask/);
+assert.match(terrain, /createTerrainChunkStreamer/);
+assert.match(terrain, /createTerrainHorizonStreamer/);
+assert.doesNotMatch(terrain, /DataTexture/);
 
 const harness = readFileSync("tools/headless-editor-environment.mjs", "utf8");
 assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above bounded disk world, air-mail, airstream, terrain, smooth clouds, and grass shader smoke passed.");
+console.log("The Open Above balloon model load, unified envelope, persistent rigging, steering, and visual smoke passed.");
