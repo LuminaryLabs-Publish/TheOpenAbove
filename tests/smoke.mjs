@@ -6,6 +6,7 @@ import "./balloon-profile.mjs";
 const requiredFiles = [
   "index.html",
   "src/main.js",
+  "src/ui/parchment-map-overlay.js",
   "src/data/campaign.config.js",
   "src/balloon-envelope-profile-kit.js",
   "src/balloon-envelope-panel-kit.js",
@@ -63,16 +64,37 @@ const requiredFiles = [
 ];
 for (const file of requiredFiles) assert.equal(existsSync(file), true, `${file} should exist`);
 
+const index = readFileSync("index.html", "utf8");
+assert.doesNotMatch(index, /class="hud"/);
+assert.doesNotMatch(index, /id="hud"/);
+assert.match(index, /id="mapOverlay"/);
+assert.match(index, /id="mapCanvas"/);
+assert.match(index, /map-scroll/);
+assert.match(index, /88dvh/);
+
 const main = readFileSync("src/main.js", "utf8");
 assert.match(main, /loadHotAirBalloonModel/);
 assert.match(main, /await loadHotAirBalloonModel/);
-assert.match(main, /Loading balloon and world/);
 assert.match(main, /loadedDuringLevelSetup/);
 assert.match(main, /persistentGpuResources/);
 assert.match(main, /balloonPresentation\.update\(state\)/);
-assert.match(main, /A\/D steer/);
+assert.match(main, /createParchmentMapOverlay/);
+assert.match(main, /mapOverlay\.isOpen\(\)/);
+assert.match(main, /mapOverlay\.snapshot\(\)/);
+assert.doesNotMatch(main, /updateHud/);
+assert.doesNotMatch(main, /querySelector\("#hud"\)/);
 assert.match(main, /Math\.max\(0, Math\.min\(80, now - last \|\| 16\.7\)\)/);
 assert.doesNotMatch(main, /renderer\.render\(/);
+
+const mapOverlay = readFileSync("src/ui/parchment-map-overlay.js", "utf8");
+assert.match(mapOverlay, /event\.code === "KeyM"/);
+assert.match(mapOverlay, /event\.code === "Escape"/);
+assert.match(mapOverlay, /root\.classList\.toggle\("is-open", open\)/);
+assert.match(mapOverlay, /drawRoute/);
+assert.match(mapOverlay, /drawTown/);
+assert.match(mapOverlay, /drawPlayer/);
+assert.match(mapOverlay, /MAIL DESTINATION/);
+assert.match(mapOverlay, /ResizeObserver/);
 
 const profile = readFileSync("src/balloon-envelope-profile-kit.js", "utf8");
 assert.match(profile, /sampleEnvelopeRadius/);
@@ -179,4 +201,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above balloon model load, unified envelope, persistent rigging, steering, and visual smoke passed.");
+console.log("The Open Above balloon model, steering, parchment map, and visual smoke passed.");
