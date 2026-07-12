@@ -2,6 +2,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.m
 import { createDiskWorldSurface } from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Agents/NexusEngine-ProtoKits@dd8d68f5635a64f34043edd3ac757067a02eb43c/protokits/disk-world-surface-kit/surface.js";
 import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-chunk-streaming-kit.js";
 import { createTerrainHorizonStreamer } from "./terrain-horizon-streaming-kit.js";
+import { createTerrainStreamingFrame } from "./terrain-streaming-contract-kit.js";
 
 export const TERRAIN_SURFACE_KIT_ID = "open-above-terrain-surface-kit";
 
@@ -130,15 +131,17 @@ export function createTerrainSurface(scene, worldConfig, quality, world = null) 
   material.name = "OpenAboveTerrainSurfaceMaterial";
   const cloudShadow = installSoftCloudShadow(material);
   const nearRadius = quality.id === "low" ? 2 : 3;
+  const chunkSize = 520;
   const streamer = createTerrainChunkStreamer({
     scene,
     terrainHeight: boundedTerrainHeight,
     terrainColor: activeTerrainColor,
     material,
     worldSurface,
-    chunkSize: 520,
+    chunkSize,
     chunkRadius: nearRadius,
-    lodSegments: quality.id === "high" ? [72, 40, 20] : quality.id === "medium" ? [56, 32, 16] : [40, 24, 12]
+    lodSegments: quality.id === "high" ? [72, 40, 20] : quality.id === "medium" ? [56, 32, 16] : [40, 24, 12],
+    slopeSampleStep: 24
   });
   const horizon = createTerrainHorizonStreamer({
     scene,
@@ -146,14 +149,22 @@ export function createTerrainSurface(scene, worldConfig, quality, world = null) 
     terrainColor: activeTerrainColor,
     material,
     worldSurface,
-    nearChunkSize: 520,
+    nearChunkSize: chunkSize,
+    nearChunkRadius: nearRadius,
     radiusInNearChunks: quality.id === "low" ? 9 : 12,
-    innerRadiusInNearChunks: nearRadius + 0.35
+    slopeSampleStep: 24
   });
+  let activeFrame = null;
 
   function update(camera, weatherState) {
-    streamer.update(camera);
-    horizon.update(camera);
+    const frame = createTerrainStreamingFrame(camera.position, {
+      nearChunkSize: chunkSize,
+      nearChunkRadius: nearRadius,
+      worldSurface
+    });
+    streamer.updateFromFrame(frame);
+    horizon.updateFromFrame(frame);
+    activeFrame = frame;
     cloudShadow.update(weatherState);
   }
 
@@ -179,7 +190,8 @@ export function createTerrainSurface(scene, worldConfig, quality, world = null) 
     horizon,
     cloudShadow,
     update,
-    dispose
+    dispose,
+    getStreamingFrame: () => activeFrame
   };
 }
 
