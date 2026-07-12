@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T13-29-56-04-00`
+**Last aligned:** `2026-07-12T15-31-24-04-00`
 
 ## Primary ordered gaps
 
@@ -10,58 +10,64 @@
 3. fixed-step clock and sequenced input
 4. procedural world build identity and consumer provenance
 5. terrain streaming aggregate ownership and rollback
-6. terrain transition performance budgets
-7. grass/flower world-consumer coherence
-8. steering, HDR and visible-frame coherence
-9. parchment map pause/input and spatial navigation
-10. semantic mission status and fatal accessibility
+6. vegetation spatial coverage, adoption and disposal
+7. terrain/vegetation transition performance budgets
+8. grass/flower world and vegetation-exclusion coherence
+9. steering, HDR and visible-frame coherence
+10. parchment map pause/input and spatial navigation
+11. semantic mission status and fatal accessibility
 ```
 
-## Resolved terrain overlap defects
+## Vegetation spatial-coverage gaps
 
 ```txt
-one shared camera-relative frame drives near and horizon streamers
-horizon cells are partitioned at exact near boundaries
-near-owned horizon cells are omitted
-retained horizon chunks reclassify by clip signature and LOD
-horizon expansion and vertical offset are removed
-near and horizon boundary skirts exist
-slope sampling is aligned
-route protection is narrower and duplicate final blending is removed
-fields and road are terrain-draped
-lake descriptors are shared and water edges feathered
-landmark and water disposal exists
-terrain ownership, route and overlay tests are in npm run check
+vegetation is generated once during visual-domain construction
+18 boot-time cluster centers are bounded to a central subset of the world
+one trunks and one crowns InstancedMesh hold the complete tree field
+no camera-relative vegetation update exists
+no vegetation stream session or frame identity
+no world/config/quality/algorithm fingerprint
+no stable vegetation chunk IDs or per-chunk seeds
+no inside/edge/outside membership admission
+no typed biome/tree-density result
+no route/town/lake/spacing exclusion result
+no detached candidate set
+no typed candidate/build/adoption result
+no instance, allocation or transition budget result
+no atomic chunk adoption or last-good rollback
+no exactly-once retirement receipt
+no vegetation dispose service
+no revisioned exclusion artifact for grass and flowers
+no active coverage snapshot or journal
+no VegetationVisibleFrameAck
+no browser/Pages long-traversal proof
 ```
 
-## Terrain streaming authority gaps
+## Terrain streaming authority gaps retained
 
 ```txt
 no typed TerrainStreamFrameId
 no terrain stream session identity
 frame revision omits world, quality, algorithm, geometry and material fingerprints
-no typed ownership-plan result
 near and horizon candidate meshes are built directly into live groups
 obsolete live meshes are disposed before complete candidate success
 no aggregate near/horizon parity result
 no atomic aggregate adoption
 no last-good rollback result
 no exactly-once retirement receipt
-near mesh metadata omits frame revision
-no typed chunk generation IDs
 no TerrainStreamCommitResult
 no TerrainVisibleFrameAck
 ```
 
-## Terrain transition performance gaps
+## Transition performance gaps
 
 ```txt
-geometry construction is synchronous in the visual update path
+terrain and future vegetation geometry construction are not budget-admitted
 no planning/build wall-time budget
-no allocation or vertex/index budget result
+no allocation, instance, vertex or index budget result
 no degraded transition policy
 no cancellation boundary
-no created/reused/retired/rejected/failure observation set
+no cross-system created/reused/retired/rejected/failure observations
 no transition journal
 ```
 
@@ -83,7 +89,8 @@ no stale query/consumer rejection
 
 ```txt
 terrain, vegetation, landmarks, grass, flowers and map lack stable consumer receipts
-terrain stream frames do not cite world build identity
+terrain and vegetation frames do not cite world build identity
+vegetation and grass/flower exclusion generations are not bound
 chunks and map background omit world fingerprint
 no cross-consumer parity result
 no stale consumer rejection after world replacement
@@ -94,6 +101,7 @@ no stale consumer rejection after world replacement
 ```txt
 world density and legacy biome density composition is unnamed
 grass and flower chunk IDs omit world revision
+tree exclusion is a boot-time position list rather than a revisioned artifact
 outside-world rejection counts are absent
 quality transitions have no relation to world revision
 cold-build versus map-prewarmed chunk parity is untested
@@ -109,21 +117,23 @@ off-map navigation behavior is undefined
 map pause/input/focus has no typed transition authority
 ```
 
-## Required fixtures
+## Required vegetation fixtures
 
 ```txt
-fixture:terrain-frame-input-fingerprint
-fixture:terrain-near-horizon-disjoint-ownership
-fixture:terrain-candidate-complete-before-adoption
-fixture:terrain-build-failure-preserves-last-good
-fixture:terrain-aggregate-parity
-fixture:terrain-retirement-exactly-once
-fixture:terrain-boundary-transition-budget
-fixture:terrain-visible-frame-ack
-fixture:world-input-fingerprint
-fixture:world-consumer-parity
-fixture:browser-terrain-boundary-pixel-probe
-fixture:pages-terrain-world-parity
+fixture:vegetation-chunk-id-determinism
+fixture:vegetation-query-order-independence
+fixture:vegetation-world-membership
+fixture:vegetation-route-town-lake-exclusion
+fixture:vegetation-adjacent-cell-continuity
+fixture:vegetation-biome-treeless-classification
+fixture:vegetation-candidate-complete-before-adoption
+fixture:vegetation-build-failure-preserves-last-good
+fixture:vegetation-retirement-exactly-once
+fixture:vegetation-grass-exclusion-generation-parity
+fixture:vegetation-transition-budget
+fixture:vegetation-visible-frame-ack
+fixture:browser-vegetation-long-traversal
+fixture:pages-vegetation-world-parity
 ```
 
-Do not treat pure ownership classification, passing source tests or the absence of obvious doubled terrain in one view as proof of atomic terrain adoption, rollback safety or visible-frame provenance.
+Do not treat deterministic boot placement or the presence of trees near the starting area as proof of world-wide vegetation coverage, camera-relative streaming, rollback safety, disposal completeness or visible-frame provenance.
