@@ -1,23 +1,25 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T22-58-50-04-00`
+**Last aligned:** `2026-07-12T00-39-05-04-00`
 
 ## Scope
 
-Documentation-only audit of the current balloon source through `fd634acc03cce9c568e1a61a64690a5aa6022eff`, focusing on cross-current steering, envelope/gondola inertia, steering-reactive camera behavior, HUD/readback and the retained balloon-model authority.
+Documentation-only audit of balloon profile ownership, async model loading, pattern handoff, model commit and visible-frame provenance through source revision `6b2753b63263c9238952d387214bc7ff91afe83e`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed steering and presentation behavior from executable proof of deterministic input, consumer coherence, reset neutralization and visible-frame correlation.
+**Goal:** distinguish source-backed construction behavior from executable proof that one immutable profile snapshot produced the installed and rendered balloon.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because newer source commits postdated prior audits.
-- [x] Review root guidance and current root `.agent` state.
-- [x] Read main host, simulation, airstream force, presentation and camera paths.
-- [x] Read balloon object, profile, shell, pattern, seam, mouth, basket and rigging paths.
-- [x] Confirm simulation, part presentation and camera use separate state owners.
-- [x] Confirm readback lacks committed presentation/camera/frame correlation.
+- [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
+- [x] Review root guidance and retained audit state.
+- [x] Read startup host, balloon object, envelope profile, shell, pattern and smoke paths.
+- [x] Confirm the root default and several nested defaults remain mutable.
+- [x] Confirm the public kit global aliases the root default profile.
+- [x] Confirm the loader yields before building from the live object.
+- [x] Confirm current pattern metadata is passed into shell construction.
+- [x] Confirm readback lacks profile identity/fingerprint/frame provenance.
 - [x] Reconcile the active source-backed kit count to 59.
 - [x] Define pure, browser and Pages fixture requirements.
 - [x] Change no runtime source, dependency, script or workflow.
@@ -26,66 +28,68 @@ Documentation-only audit of the current balloon source through `fd634acc03cce9c5
 ## Source-backed behavior
 
 ```txt
-A/D and arrows drive limited lateral trim
-trim modifies sampled wind rather than replacing wind authority
-simulation publishes steering input, trim, bank and heading
-balloon root responds to heading and bank
-envelope and gondola pivots have independent inertia
-camera look and target respond to steering
-HUD displays trim direction and percentage
-blur clears held keys
+envelope shape default is deeply frozen
+root balloon default is not frozen
+root default contains direct subprofile references
+panel and streamer palette arrays are mutable
+window exposes the root default profile
+loadHotAirBalloonModel yields before build
+buildEnvelopeAssembly passes pattern metadata into buildEnvelopePanels
+model readback exposes ready/load/resource booleans
 ```
 
 ## Source-backed gaps
 
 ```txt
-no input sequence or fixed-tick admission
-no typed steering result
-no shared simulation/root/presentation/camera revision
-no presentation transform readback
-no camera steering acknowledgement
-no reset transaction across all response owners
-no first visible steering-frame receipt
-pattern metadata is not handed into the unified shell builder
+no admission-time deep clone
+no complete schema/version
+no nested validation/canonicalization
+no deep-frozen admitted snapshot
+no profile ID/revision/fingerprint
+no load command/load generation
+no stale or cancelled load rejection
+no aggregate model/profile commit receipt
+no first visible profile-frame receipt
 ```
 
 ## Existing proof surface
 
-`npm run check` executes `node tests/smoke.mjs`; `npm run build` runs that check before Vite build. Existing checks do not execute:
+`npm run check` executes `node tests/smoke.mjs`; `npm run build` runs that check before Vite build. Existing checks cover source presence, profile sampling, shell markers, model-load markers, steering source patterns, terrain source patterns and selected pure tests. They do not execute:
 
 ```txt
-sequenced steering input
-30/60/120 Hz parity
-left/right symmetry or reversal
-neutral convergence
-blur/pause/restart retirement
-stale/duplicate rejection
-simulation/presentation/camera acknowledgement parity
-first visible steering-frame correlation
-Pages steering trace
+public-profile alias isolation
+mutation during the one-frame load yield
+schema rejection
+canonical fingerprint stability
+concurrent or stale load generations
+atomic model/profile scene commit
+GameHost profile receipt
+first visible profile-frame correlation
+Pages model/profile parity
 ```
 
 ## Required pure fixtures
 
 ```txt
-fixture:steering-policy
-fixture:steering-left-right-symmetry
-fixture:steering-reversal
-fixture:steering-neutral-convergence
-fixture:steering-stale-duplicate-input
-fixture:balloon-pattern-shell-handoff
+fixture:balloon-profile-schema
+fixture:balloon-profile-canonicalization
+fixture:balloon-profile-deep-freeze
+fixture:balloon-default-alias-isolation
+fixture:balloon-profile-fingerprint-stability
+fixture:balloon-pattern-included-in-fingerprint
+fixture:balloon-invalid-profile-rejection
 ```
 
-## Required browser and Pages fixtures
+## Required async/browser fixtures
 
 ```txt
-fixture:steering-cadence-parity-30-60-120
-fixture:steering-blur-retirement
-fixture:steering-pause-resume
-fixture:steering-mission-reset
-fixture:steering-consumer-ack-parity
-fixture:steering-first-visible-frame
-fixture:pages-steering-presentation-parity
+fixture:balloon-profile-mutation-during-yield
+fixture:balloon-overlapping-load-generations
+fixture:balloon-stale-load-rejection
+fixture:balloon-model-profile-commit-receipt
+fixture:balloon-first-visible-profile-frame
+fixture:balloon-restart-profile-retirement
+fixture:pages-model-profile-parity
 ```
 
 ## Commands not run
@@ -117,4 +121,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim deterministic steering or visible presentation coherence until fixed-step input, reset retirement, consumer acknowledgement and first-visible-frame fixtures pass at multiple refresh cadences.
+Do not claim deterministic model identity or profile-to-frame provenance until the profile is cloned and admitted before yielding, stale load generations are rejected, the model/profile receipt is committed atomically, and browser/Pages fixtures prove the first visible frame carries the same fingerprint.
