@@ -9,19 +9,20 @@ import { createMailDeliveryDomain } from "./gameplay/mail-delivery-domain/index.
 import { createVisualDomain } from "./visual/visual-domain.js";
 import { createBalloonCameraRig } from "./visual/camera-presentation/balloon-camera-rig-kit.js";
 import { createBalloonPresentationDomain } from "./visual/balloon-presentation/balloon-presentation-domain.js";
+import { createParchmentMapOverlay } from "./ui/parchment-map-overlay.js";
 
 const canvas = document.querySelector("#game");
-const hud = document.querySelector("#hud");
+const mapRoot = document.querySelector("#mapOverlay");
+const mapCanvas = document.querySelector("#mapCanvas");
 const errorPanel = document.querySelector("#error");
 
 function showFatal(error) {
   errorPanel.hidden = false;
   errorPanel.textContent = String(error?.stack || error?.message || error);
-  hud.innerHTML = "<strong>The Open Above</strong><br>Mail-flight runtime error. See panel.";
 }
 
 async function createGame() {
-  hud.innerHTML = "<strong>The Open Above</strong><br>Loading balloon and world...";
+  canvas.setAttribute("aria-busy", "true");
   const visual = createVisualDomain({ canvas, worldConfig: WORLD });
   const balloon = await loadHotAirBalloonModel(undefined, { yieldToFrame: true });
   visual.scene.add(balloon);
@@ -42,6 +43,16 @@ async function createGame() {
   });
   simulation.applyToBalloon(balloon);
 
+  const mapOverlay = createParchmentMapOverlay({
+    root: mapRoot,
+    canvas: mapCanvas,
+    worldSurface: WORLD.surface,
+    towns: mail.towns,
+    routes: airstream.routes,
+    getPlayerState: () => simulation.state,
+    getParcel: () => mail.parcel
+  });
+
   const cameraRig = createBalloonCameraRig(visual.camera, balloon, { initialZoom: 48, maxZoom: 112 });
   const balloonPresentation = createBalloonPresentationDomain(balloon);
   let cameraContext = cameraRig.state;
@@ -52,6 +63,7 @@ async function createGame() {
     cameraZoom: Number(cameraRig.state.zoom.toFixed(2)),
     firstPersonBlend: Number(cameraRig.state.firstPersonBlend.toFixed(3)),
     cameraMode: cameraRig.state.mode,
+    map: mapOverlay.snapshot(),
     airstream: airstream.snapshot(),
     mail: mail.snapshot(),
     terrain: {
@@ -79,44 +91,30 @@ async function createGame() {
 
   const engine = createBalloonTelemetryEngine(NexusEngine, getSnapshot);
 
-  function updateHud() {
-    const state = simulation.state;
-    const parcel = mail.parcel;
-    const heat = state.burner > 0.45 ? "burner warm" : "coasting";
-    const current = state.airstream.routeId
-      ? state.airstream.routeId.replaceAll("-", " ")
-      : "between currents";
-    const capture = Math.round((state.airstream.influence ?? 0) * 100);
-    const trim = Math.round(Math.abs(state.lateralTrim) / 3.6 * 100);
-    const trimDirection = state.lateralTrim < -0.08 ? "left" : state.lateralTrim > 0.08 ? "right" : "centered";
-    const delivery = parcel.delivered
-      ? "Delivered to Brookhaven"
-      : "Mail: Brookhaven · Find meadow current";
-    hud.innerHTML = `<strong>The Open Above: Air Mail</strong><br>${parcel.message}<br><small>${delivery} · ${current} ${capture}% · ${heat} · trim ${trimDirection} ${trim}% · W/Space rise · S/Shift descend · A/D steer · ${cameraRig.state.mode} · Altitude ${Math.round(state.altitude)}m · Scroll zoom</small>`;
-  }
-
   let last = performance.now();
   function frame(now) {
     const frameMs = Math.max(0, Math.min(80, now - last || 16.7));
     const dt = Math.max(0, Math.min(1 / 30, frameMs / 1000));
     last = now;
 
-    const state = simulation.update(dt);
-    const deliveryEvent = mail.update(state.position, state.airstream, state.elapsed);
-    if (deliveryEvent) state.message = mail.parcel.message;
-    airstream.update({
-      position: state.position,
-      elapsed: state.elapsed,
-      sample: state.airstream
-    });
-    simulation.applyToBalloon(balloon);
-    animateHotAirBalloon(balloon, now, state.burner, state);
-    balloonPresentation.update(state);
-    cameraContext = cameraRig.update(dt, state);
-    visualState = visual.update({ dt, elapsed: state.elapsed, flightState: state, cameraContext });
-    engine.tick(dt);
-    visual.render(dt, frameMs);
-    updateHud();
+    if (!mapOverlay.isOpen()) {
+      const state = simulation.update(dt);
+      const deliveryEvent = mail.update(state.position, state.airstream, state.elapsed);
+      if (deliveryEvent) state.message = mail.parcel.message;
+      airstream.update({
+        position: state.position,
+        elapsed: state.elapsed,
+        sample: state.airstream
+      });
+      simulation.applyToBalloon(balloon);
+      animateHotAirBalloon(balloon, now, state.burner, state);
+      balloonPresentation.update(state);
+      cameraContext = cameraRig.update(dt, state);
+      visualState = visual.update({ dt, elapsed: state.elapsed, flightState: state, cameraContext });
+      engine.tick(dt);
+    }
+
+    visual.render(mapOverlay.isOpen() ? 0 : dt, frameMs);
     requestAnimationFrame(frame);
   }
 
@@ -150,7 +148,7 @@ async function createGame() {
   balloonPresentation.update(simulation.state);
   visual.update({ dt: 0, elapsed: 0, flightState: simulation.state, cameraContext });
   engine.tick(0);
-  updateHud();
+  canvas.setAttribute("aria-busy", "false");
   requestAnimationFrame(frame);
 }
 
