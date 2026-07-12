@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T22-51-09-04-00`
+**Last aligned:** `2026-07-11T22-58-50-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve Air Mail while moving runtime, balloon construction, session, mission, terrain, grass and world-boundary behavior behind explicit authorities and executable gates.
+**Goal:** preserve Air Mail and the upgraded balloon while moving runtime, model construction, steering, mission, terrain, grass and visible presentation behind explicit authorities and executable gates.
 
 ### Checklist
 
@@ -23,99 +23,74 @@
 #### Gate 2a: balloon model assembly, loading and resources
 - [ ] Define a versioned `BalloonModelDescriptor`.
 - [ ] Canonicalize, validate, deep-freeze and fingerprint the complete nested profile.
-- [ ] Make envelope, mouth, basket, burner frame, rigging, camera focus and materials explicit consumers.
-- [ ] Validate shell-to-mouth and gondola-to-rigging attachment contracts.
-- [ ] Replace direct `buildHotAirBalloon()` startup use with a session-fenced load command.
-- [ ] Build detached candidates and support cancellation, stale rejection and rollback.
-- [ ] Produce a complete geometry/material/texture resource inventory.
-- [ ] Commit one ready model atomically and acknowledge its first visible frame.
-- [ ] Add idempotent disposal and predecessor-retirement results.
-- [ ] Add custom-profile, initial-load, cancellation, leak and frame fixtures.
+- [ ] Pass integrated pattern policy into the unified shell builder.
+- [ ] Validate all cross-component attachment contracts.
+- [ ] Replace direct startup build with a session-fenced detached load command.
+- [ ] Add resource inventory, rollback, disposal and first-visible-frame proof.
 
 #### Gate 3: lifecycle and teardown
 - [ ] Make `createGame()` return a root runtime-session owner.
 - [ ] Retain and cancel every frame handle and listener.
 - [ ] Compose simulation, camera, mail, airstream, presentation, visual, model and telemetry disposal.
-- [ ] Distinguish mission reset from full-runtime restart.
 - [ ] Add `fixture:runtime-lifecycle`.
 
-#### Gate 4: fixed-step clock and input
+#### Gate 4: fixed-step clock and sequenced input
 - [ ] Add a session-owned fixed-step clock.
 - [ ] Separate simulation tick IDs from render frame IDs.
-- [ ] Convert burner, vent and reset transitions into sequenced commands.
-- [ ] Add cadence and visibility fixtures.
+- [ ] Convert burner, vent, steering and reset transitions into sequenced commands.
+- [ ] Add cadence, visibility, stale and duplicate-input fixtures.
 
-#### Gate 4a: product and acceptance
-- [ ] Add one versioned product manifest and supersession policy.
-- [ ] Derive controls, objective, HUD, README and AGENTS projections.
-- [ ] Add browser and Pages acceptance fixtures.
+#### Gate 4a–7a: product, mission, observation and world systems
+- [ ] Preserve the retained product-source, Air Mail route, mission restart, committed observation, terrain, grass and world-surface plans.
+- [ ] Include steering state retirement in mission reset.
+- [ ] Include steering results in committed observation frames.
 
-#### Gate 5: Air Mail route and delivery
-- [ ] Version route, parcel, town and airstream identities.
-- [ ] Add mission phases and command/result IDs.
-- [ ] Require correct-current proof before delivery.
-- [ ] Add wrong-current and duplicate-delivery fixtures.
+#### Gate 8: balloon steering and presentation coherence
+- [ ] Define a versioned steering policy and sequenced input sample.
+- [ ] Return one typed simulation steering result per admitted fixed tick.
+- [ ] Derive root, envelope, gondola and camera response from that result.
+- [ ] Commit one steering observation frame with consumer revisions.
+- [ ] Project the committed result to HUD, telemetry and GameHost.
+- [ ] Add blur, pause, reset and restart retirement semantics.
+- [ ] Add 30/60/120 Hz response-parity fixtures.
+- [ ] Add neutral convergence, reversal and first-visible-steering-frame fixtures.
 
-#### Gate 5a: mission restart
-- [ ] Add mission session, epoch and reset transaction identities.
-- [ ] Reset simulation, input, airstream, mail, camera, presentation and telemetry atomically.
-- [ ] Fence predecessor commands and delivery proof.
-- [ ] Correlate the first post-reset tick and frame.
-
-#### Gate 5b: committed observation
-- [ ] Add runtime session, mission epoch, simulation tick and render frame IDs.
-- [ ] Freeze a render-frame plan after simulation and delivery commit.
-- [ ] Replace mutable GameHost subsystem exposure with detached read models.
-- [ ] Include committed balloon model identity and resource fingerprint.
-
-#### Gate 6–7a: terrain, grass and world surface
-- [ ] Preserve the retained terrain LOD, build, grass spatial and world-surface authority plans.
-- [ ] Execute traversal, parity and first-visible-frame fixtures.
-
-## Balloon model kit order
+## Steering authority kit order
 
 ```txt
-open-above-balloon-model-assembly-authority-domain
-open-above-balloon-model-descriptor-kit
-open-above-balloon-model-schema-kit
-open-above-balloon-model-id-kit
-open-above-balloon-model-version-kit
-open-above-balloon-profile-canonicalization-kit
-open-above-balloon-profile-admission-kit
-open-above-balloon-profile-deep-freeze-kit
-open-above-balloon-profile-fingerprint-kit
-open-above-balloon-attachment-contract-kit
-open-above-balloon-build-plan-kit
-open-above-balloon-load-command-kit
-open-above-balloon-load-cancellation-kit
-open-above-balloon-resource-lease-kit
-open-above-balloon-resource-inventory-kit
-open-above-balloon-ready-commit-kit
-open-above-balloon-load-result-kit
-open-above-balloon-disposal-result-kit
-open-above-balloon-model-observation-kit
-open-above-balloon-frame-ack-kit
-open-above-balloon-custom-profile-parity-fixture-kit
-open-above-balloon-initial-setup-load-fixture-kit
-open-above-balloon-resource-retirement-fixture-kit
-open-above-browser-balloon-frame-smoke-kit
+open-above-balloon-steering-presentation-authority-domain
+open-above-steering-input-sample-kit
+open-above-steering-input-sequence-kit
+open-above-steering-policy-descriptor-kit
+open-above-steering-admission-kit
+open-above-steering-simulation-result-kit
+open-above-balloon-root-transform-result-kit
+open-above-balloon-part-presentation-result-kit
+open-above-camera-steering-result-kit
+open-above-steering-hud-projection-kit
+open-above-steering-observation-frame-kit
+open-above-steering-frame-commit-kit
+open-above-stale-steering-result-rejection-kit
+open-above-steering-reset-transaction-kit
+open-above-steering-journal-kit
+open-above-steering-response-fixture-kit
+open-above-steering-visible-frame-smoke-kit
 ```
 
 ## Validation order
 
 ```txt
 fixture:balloon-profile-schema
-fixture:balloon-custom-profile-parity
-fixture:balloon-attachment-parity
 fixture:balloon-initial-setup-load
-fixture:balloon-load-cancellation
-fixture:balloon-stale-load-rejection
-fixture:balloon-resource-inventory
-fixture:balloon-resource-retirement
-fixture:balloon-first-visible-frame
+fixture:runtime-lifecycle
+fixture:fixed-step-input
+fixture:steering-response
+fixture:steering-cadence-parity
+fixture:steering-reset-neutralization
+fixture:steering-first-visible-frame
 npm run check
 npm run headless:check
 npm run build
 browser acceptance smoke
-Pages model-parity smoke
+Pages steering/presentation smoke
 ```
