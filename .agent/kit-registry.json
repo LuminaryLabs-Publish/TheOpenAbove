@@ -1,20 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T13-29-56-04-00",
-  "status": "terrain-streaming-ownership-reconciliation-audited",
-  "repositoryRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-12T13-29-56-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T13-29-56-04-00.md",
+  "lastAligned": "2026-07-12T15-31-24-04-00",
+  "status": "vegetation-spatial-coverage-authority-audited",
+  "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
+  "latestTracker": ".agent/trackers/2026-07-12T15-31-24-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T15-31-24-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T13-29-56-04-00-terrain-streaming-ownership-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T13-29-56-04-00-near-horizon-aggregate-frame-commit-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T13-29-56-04-00-camera-boundary-stream-transition-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T13-29-56-04-00-terrain-stream-frame-admission-map.md",
-    "terrainSystem": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T13-29-56-04-00-terrain-boundary-browser-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T15-31-24-04-00-vegetation-spatial-coverage-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T15-31-24-04-00-static-tree-field-streamed-world-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T15-31-24-04-00-balloon-leaves-boot-vegetation-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T15-31-24-04-00-camera-vegetation-frame-admission-map.md",
+    "vegetationSystem": ".agent/vegetation-system-audit/2026-07-12T15-31-24-04-00-chunked-deterministic-coverage-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T15-31-24-04-00-vegetation-spatial-browser-fixture-gate.md"
   },
   "retainedAudits": {
+    "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
     "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
     "parchmentMapSpatialNavigation": ".agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md",
     "parchmentMapPauseInput": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-focus-lifecycle-contract.md",
@@ -25,16 +26,14 @@
     "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md"
   },
   "selection": {
-    "reason": "oldest central ledger entry with newer repo-local terrain overlap remediation not yet reconciled centrally",
+    "reason": "oldest eligible central ledger timestamp after confirming no new, ledger-missing or root-agent-missing repository",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "excluded": [
-      "LuminaryLabs-Publish/TheCavalryOfRome"
-    ]
+    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
   },
   "counts": {
     "runtimeAndGameplay": 15,
@@ -45,28 +44,26 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedTerrainStreamingIncludingParent": 22
+    "plannedVegetationCoverageIncludingParent": 21
   },
   "interactionLoop": [
-    "create-seeded-world-and-visual-domain",
-    "create-terrain-surface-near-and-horizon-consumers",
-    "update-flight-mail-airstream-and-camera",
-    "create-shared-frozen-terrain-streaming-frame",
-    "rebuild-near-consumer-on-revision-change",
-    "classify-and-rebuild-horizon-against-near-bounds",
-    "render-live-near-and-horizon-groups",
-    "dispose-terrain-resources-on-runtime-retirement"
+    "construct-seeded-world-and-camera-relative-terrain",
+    "construct-boot-only-central-vegetation-field",
+    "construct-camera-relative-grass-and-flower-domains",
+    "integrate-balloon-and-move-camera",
+    "update-terrain-grass-and-flowers-around-camera",
+    "retain-static-tree-instances",
+    "render-hdr-frame-without-vegetation-coverage-receipt"
   ],
   "domains": [
     "browser-shell-canvas-map-fatal-projection",
     "runtime-boot-session-input-raf-public-host",
     "balloon-simulation-steering-airstream-mail",
     "seeded-world-generation-membership-authored-anchor-protection",
-    "terrain-streaming-frame-classification-ownership-partitioning",
-    "near-terrain-geometry-lod-skirts-adoption-disposal",
-    "horizon-requirements-clipping-lod-skirts-adoption-disposal",
-    "vegetation-landmarks-draped-overlays-shared-lakes",
+    "terrain-streaming-frame-near-horizon-ownership",
+    "boot-time-vegetation-cluster-placement-global-instancing",
     "grass-flower-placement-atlas-chunk-lod-culling",
+    "balloon-object-material-rigging-presentation",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
     "map-projection-telemetry-headless-tests-build-pages"
   ],
@@ -140,9 +137,7 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": [
-      "open-above-parchment-map-overlay-kit"
-    ],
+    "ui": ["open-above-parchment-map-overlay-kit"],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
@@ -160,87 +155,57 @@
     "balloonObjectAndPresentation": [
       "profile-and-shell-construction",
       "mouth-seams-basket-rigging-burner-rope",
-      "async-model-loading",
-      "inertia-material-camera-clipping"
+      "deferred-model-loading",
+      "secondary-motion-material-camera-clipping"
     ],
-    "open-above-world-generation-kit": [
+    "worldGeneration": [
       "seeded-grid-build",
       "protected-anchor-blending",
       "erosion-and-flow",
       "climate-biome-flora",
-      "disk-containment",
+      "disk-membership",
       "map-color-query"
     ],
-    "open-above-terrain-streaming-contract-kit": [
-      "stable-grid-anchoring",
-      "frozen-shared-frame",
-      "near-requirements-and-bounds",
-      "horizon-partitioning",
-      "ownership-classification",
-      "clip-signatures",
-      "horizon-lod-requirements"
+    "terrain": [
+      "shared-camera-relative-frame",
+      "near-horizon-partition",
+      "lod-and-clip-signatures",
+      "near-and-horizon-geometry",
+      "skirts-live-replacement-disposal"
     ],
-    "open-above-terrain-surface-kit": [
-      "disk-membership",
-      "bounded-height",
-      "shared-frame-composition",
-      "near-horizon-consumer-order",
-      "terrain-color",
-      "cloud-shadow",
-      "aggregate-disposal"
-    ],
-    "open-above-terrain-chunk-streaming-kit": [
-      "near-lod-requirements",
-      "near-geometry",
-      "boundary-skirts",
-      "live-group-replacement",
-      "frame-revision",
-      "disposal"
-    ],
-    "open-above-terrain-horizon-streaming-kit": [
-      "horizon-requirements",
-      "near-owned-cell-removal",
-      "clip-signature-reclassification",
-      "sparse-geometry",
-      "boundary-skirts",
-      "live-group-replacement",
-      "disposal"
-    ],
-    "open-above-distant-landmark-kit": [
-      "landmarks",
-      "terrain-draped-fields",
-      "terrain-draped-road",
-      "resource-disposal"
-    ],
-    "open-above-water-surface-kit": [
-      "shared-lake-descriptors",
-      "feathered-water-edges",
-      "water-animation",
-      "resource-disposal"
+    "vegetation": [
+      "boot-seed-derivation",
+      "quality-tree-budget",
+      "fixed-cluster-generation",
+      "terrain-height-and-moisture-placement",
+      "trunk-and-crown-instance-construction",
+      "tree-position-exclusion-records",
+      "direct-scene-insertion"
     ],
     "grassAndFlowers": [
       "world-flora-density",
       "five-grass-species",
       "five-flower-types",
-      "deterministic-chunk-placement",
+      "deterministic-camera-relative-chunks",
       "instanced-rendering",
-      "lod-culling",
-      "wind-and-sway"
+      "lod-culling-wind-and-sway"
     ],
-    "open-above-parchment-map-overlay-kit": [
+    "environmentAndRender": [
+      "quality-selection-and-dynamic-resolution",
+      "sky-sun-aerial-clouds",
+      "water-landmarks-and-draped-overlays",
+      "hdr-composition-color-grade-lens-response"
+    ],
+    "map": [
       "toggle-and-lifecycle",
       "world-background-raster",
       "route-town-player-projection",
-      "map-raf",
-      "snapshot-and-disposal"
+      "map-raf-snapshot-disposal"
     ],
     "toolingAndProof": [
       "headless-inspection",
       "source-validation",
-      "terrain-ownership-proof",
-      "route-protection-proof",
-      "overlay-source-proof",
-      "world-flora-determinism",
+      "terrain-route-overlay-world-flora-proof",
       "build-adaptation"
     ]
   },
@@ -272,42 +237,30 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedTerrainStreamingKits": [
-    "open-above-terrain-streaming-ownership-authority-domain",
-    "open-above-terrain-stream-session-id-kit",
-    "open-above-terrain-stream-frame-id-kit",
-    "open-above-terrain-stream-input-fingerprint-kit",
-    "open-above-terrain-chunk-ownership-plan-kit",
-    "open-above-terrain-near-requirements-kit",
-    "open-above-terrain-horizon-requirements-kit",
-    "open-above-terrain-partition-admission-kit",
-    "open-above-terrain-chunk-generation-id-kit",
-    "open-above-terrain-chunk-build-result-kit",
-    "open-above-terrain-stream-candidate-set-kit",
-    "open-above-terrain-stream-parity-result-kit",
-    "open-above-terrain-stream-aggregate-commit-kit",
-    "open-above-terrain-stream-rollback-kit",
-    "open-above-terrain-chunk-retirement-kit",
-    "open-above-terrain-consumer-receipt-kit",
-    "open-above-terrain-visible-frame-ack-kit",
-    "open-above-terrain-stream-observation-kit",
-    "open-above-terrain-stream-journal-kit",
-    "open-above-terrain-boundary-transition-fixture-kit",
-    "open-above-terrain-build-failure-rollback-fixture-kit",
-    "open-above-terrain-browser-pages-fixture-kit"
+  "plannedVegetationCoverageKits": [
+    "open-above-vegetation-spatial-coverage-authority-domain",
+    "open-above-vegetation-stream-session-id-kit",
+    "open-above-vegetation-frame-id-kit",
+    "open-above-vegetation-world-artifact-binding-kit",
+    "open-above-vegetation-input-fingerprint-kit",
+    "open-above-vegetation-coverage-plan-kit",
+    "open-above-vegetation-chunk-id-kit",
+    "open-above-vegetation-chunk-requirements-kit",
+    "open-above-vegetation-seed-derivation-kit",
+    "open-above-vegetation-placement-kit",
+    "open-above-vegetation-exclusion-policy-kit",
+    "open-above-vegetation-candidate-set-kit",
+    "open-above-vegetation-budget-policy-kit",
+    "open-above-vegetation-admission-result-kit",
+    "open-above-vegetation-chunk-adoption-kit",
+    "open-above-vegetation-retirement-kit",
+    "open-above-vegetation-observation-kit",
+    "open-above-vegetation-journal-kit",
+    "open-above-vegetation-visible-frame-ack-kit",
+    "open-above-vegetation-spatial-fixture-kit",
+    "open-above-vegetation-browser-pages-fixture-kit"
   ],
-  "resolvedDuringAudit": [
-    "shared-camera-relative-terrain-frame",
-    "near-owned-horizon-cells-removed",
-    "retained-horizon-clip-signature-reclassification",
-    "horizon-expansion-and-offset-removed",
-    "near-and-horizon-skirts-added",
-    "terrain-draped-fields-and-road",
-    "shared-lake-descriptors-and-feathered-edges",
-    "landmark-and-water-disposal",
-    "terrain-tests-wired-into-check-and-build"
-  ],
-  "mainFinding": "Near and horizon terrain now use one deterministic ownership frame and disjoint classification, but both consumers still mutate live scene groups independently. There is no detached candidate aggregate, typed adoption result, atomic commit, rollback, exactly-once retirement receipt or visible-frame acknowledgement.",
+  "mainFinding": "Terrain, grass and flowers follow the moving camera, but tree vegetation is generated once at boot into two global InstancedMesh objects inside a centrally bounded cluster field. Horizontal flight is not world-bound, and vegetation has no camera-relative requirements, chunk identity, adoption result, lifecycle disposal, coverage observation or visible-frame acknowledgement.",
   "validation": {
     "runtimeChangedByDocumentationPass": false,
     "htmlChangedByDocumentationPass": false,
@@ -319,8 +272,7 @@
     "branchCreated": false,
     "pullRequestCreated": false,
     "commandsRunThisPass": false,
-    "priorTerrainChecksReportedPassing": true,
-    "terrainAuthorityFixturesAvailable": false,
+    "vegetationAuthorityFixturesAvailable": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
