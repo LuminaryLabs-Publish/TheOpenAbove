@@ -10,8 +10,8 @@ source revision reviewed: 6b2753b63263c9238952d387214bc7ff91afe83e
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending
-central internal change log: pending
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -34,6 +34,7 @@ The previous statement that pattern metadata was not handed to the shell is corr
 - [x] Define profile schema, canonicalization, identity, fingerprint, load-generation and frame-proof contracts.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` routing state and kit registry.
+- [x] Synchronize the central ledger and internal change log.
 - [ ] Implement runtime changes and execute fixtures.
 
 ## Selection comparison
