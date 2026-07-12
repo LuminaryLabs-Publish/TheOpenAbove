@@ -18,6 +18,7 @@ export const defaultBalloonMouthProfile = {
 function ringStripGeometry(innerRadius, outerRadius, segments) {
   const positions = [];
   const normals = [];
+  const uvs = [];
   const indices = [];
   for (let i = 0; i <= segments; i += 1) {
     const a = i / segments * Math.PI * 2;
@@ -25,6 +26,7 @@ function ringStripGeometry(innerRadius, outerRadius, segments) {
     const c = Math.cos(a);
     positions.push(s * innerRadius, 0, c * innerRadius, s * outerRadius, 0, c * outerRadius);
     normals.push(0, -1, 0, 0, -1, 0);
+    uvs.push(i / segments, 0, i / segments, 1);
   }
   for (let i = 0; i < segments; i += 1) {
     const n = i * 2;
@@ -33,6 +35,7 @@ function ringStripGeometry(innerRadius, outerRadius, segments) {
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
   geometry.setIndex(indices);
   geometry.computeBoundingSphere();
   return geometry;
@@ -41,6 +44,7 @@ function ringStripGeometry(innerRadius, outerRadius, segments) {
 function skirtStripGeometry(radiusTop, radiusBottom, height, scoopDepth, segments) {
   const positions = [];
   const normals = [];
+  const uvs = [];
   const indices = [];
   for (let i = 0; i <= segments; i += 1) {
     const a = i / segments * Math.PI * 2;
@@ -52,6 +56,7 @@ function skirtStripGeometry(radiusTop, radiusBottom, height, scoopDepth, segment
       s * radiusBottom, -height - scoop, c * radiusBottom
     );
     normals.push(s, 0.22, c, s, 0.18, c);
+    uvs.push(i / segments, 0, i / segments, 1);
   }
   for (let i = 0; i < segments; i += 1) {
     const n = i * 2;
@@ -60,6 +65,7 @@ function skirtStripGeometry(radiusTop, radiusBottom, height, scoopDepth, segment
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
   geometry.setIndex(indices);
   geometry.computeBoundingSphere();
   return geometry;
