@@ -33,12 +33,12 @@ export function installBasketMaterials(balloon) {
     for (const material of list) {
       if (!material.isMeshStandardMaterial || materials.has(material)) continue;
       materials.add(material);
-      if (node.name.includes("woven") || node.name.includes("basket")) {
+      if (node.name.includes("woven")) {
         material.bumpMap = texture;
-        material.bumpScale = 0.055;
+        material.bumpScale = 0.045;
       }
       material.roughness = Math.max(material.roughness ?? 0.8, 0.78);
-      material.envMapIntensity = 0.45;
+      material.envMapIntensity = node.name.includes("propane") ? 0.8 : 0.42;
       material.needsUpdate = true;
     }
   });
