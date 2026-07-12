@@ -1,6 +1,6 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-11T19-28-28-04-00`
+**Last aligned:** `2026-07-11T21-08-57-04-00`
 
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`
 
@@ -8,100 +8,93 @@
 
 ## Summary
 
-The active Air Mail runtime imports `hot-air-balloon-object-kit.js`, which starts a compatibility `requestAnimationFrame` chain at module evaluation time. The host later starts its own Air Mail RAF. Successful startup therefore leaves a second unowned scene-traversal loop, while failed startup can leave the import-time wait loop polling forever because `window.GameHost` is never published.
+Recent runtime commits added a pinned bounded-disk surface to terrain streaming, but the surface is not yet a product-wide authority. Near and horizon terrain use disk membership; grass and balloon movement do not. At the world edge, terrain can disappear while grass is still generated at the edge floor and simulation continues beyond the supported visual world.
 
 ## Plan ledger
 
-**Goal:** make reusable kit imports side-effect free and require every recurring callback to be explicitly registered, generation-fenced and retired by one runtime session.
+**Goal:** make one versioned world-surface revision authoritative across simulation, terrain, grass, authored route content, diagnostics and visible-frame proof.
 
-- [x] Compare all ten accessible `LuminaryLabs-Publish` repositories.
+- [x] Compare all ten accessible Publish repositories.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central ledger and root `.agent` coverage.
-- [x] Reconcile central and repo-local timestamps.
-- [x] Select only `TheOpenAbove` as the oldest stable eligible repository.
-- [x] Trace module evaluation, GameHost publication, active RAF and compatibility RAF behavior.
+- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
+- [x] Prioritize `TheOpenAbove` because seven runtime/test commits landed after the previous audit.
+- [x] Trace world configuration, terrain admission, grass admission/culling, balloon movement and GameHost readback.
 - [x] Identify the interaction loop, domains, kits and offered services.
-- [x] Define explicit compatibility installation and frame-loop ownership contracts.
 - [x] Add timestamped architecture and system audits.
-- [x] Refresh required root `.agent` files.
-- [x] Push documentation directly to `main` with no branch or pull request.
-- [ ] Implement and execute import-purity, single-frame-owner and failed-startup retirement fixtures.
+- [x] Refresh root `.agent` state and kit registry.
+- [x] Push directly to `main`; create no branch or pull request.
+- [ ] Implement and execute boundary classification, consumer parity, recovery and visible-frame fixtures.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-11T19-28-28-04-00/project-breakdown.md
+.agent/trackers/2026-07-11T21-08-57-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-11T19-28-28-04-00-import-purity-frame-authority-dsk-map.md
-.agent/render-audit/2026-07-11T19-28-28-04-00-orphan-compatibility-scene-traversal-gap.md
-.agent/gameplay-audit/2026-07-11T19-28-28-04-00-success-failure-dual-raf-loop.md
-.agent/interaction-audit/2026-07-11T19-28-28-04-00-module-import-gamehost-frame-map.md
-.agent/import-purity-audit/2026-07-11T19-28-28-04-00-explicit-compatibility-installer-contract.md
-.agent/performance-audit/2026-07-11T19-28-28-04-00-per-frame-scene-traversal-work-contract.md
-.agent/deploy-audit/2026-07-11T19-28-28-04-00-import-purity-lifecycle-fixture-gate.md
-.agent/turn-ledger/2026-07-11T19-28-28-04-00.md
+.agent/architecture-audit/2026-07-11T21-08-57-04-00-world-surface-membership-dsk-map.md
+.agent/render-audit/2026-07-11T21-08-57-04-00-terrain-grass-boundary-frame-gap.md
+.agent/gameplay-audit/2026-07-11T21-08-57-04-00-balloon-drift-beyond-bounded-world-loop.md
+.agent/interaction-audit/2026-07-11T21-08-57-04-00-surface-membership-command-result-map.md
+.agent/world-surface-audit/2026-07-11T21-08-57-04-00-consumer-membership-parity-contract.md
+.agent/deploy-audit/2026-07-11T21-08-57-04-00-world-boundary-parity-fixture-gate.md
+.agent/turn-ledger/2026-07-11T21-08-57-04-00.md
 .agent/kit-registry.json
 ```
 
 ## Interaction loop
 
 ```txt
-module loader
-  -> imports hot-air-balloon-object-kit.js
-  -> module schedules attachWhenReady RAF
+startup
+  -> load world descriptor and disk-world ProtoKit
+  -> create bounded height sampler
+  -> create near/horizon terrain with surface-intersection admission
+  -> create grass without surface admission
+  -> create balloon simulation without horizontal boundary policy
+  -> publish GameHost
 
-createGame
-  -> constructs active Air Mail domains
-  -> publishes window.GameHost
-  -> schedules active Air Mail RAF
-
-compatibility path
-  -> traverses scene for legacy wing/tail vehicle
-  -> current Air Mail composition has no active target
-  -> starts recurring compatibility tick anyway
-  -> traverses scene every frame forever
-
-startup failure before GameHost
-  -> showFatal displays error
-  -> attachWhenReady continues polling every frame
+frame
+  -> update unrestricted balloon movement
+  -> use bounded height for vertical clearance
+  -> move camera with balloon
+  -> terrain accepts/rejects chunks against disk bounds
+  -> grass accepts chunks by camera radius only
+  -> grass culls every chunk using camera distance to global origin
+  -> render and publish static surface descriptor
 ```
 
 ## Main findings
 
 ```txt
-module-scope RAF: present
-explicit compatibility command: absent
-compatibility install result: absent
-no-target terminal result: absent
-frame-loop IDs: absent
-runtime-generation fence: absent
-compatibility disposer: absent
-failed-startup callback retirement: absent
-active frame-loop observation: absent
-scene-traversal work budget: absent
+surface descriptor schema/version: absent
+surface revision/fingerprint: absent
+near terrain surface membership: present
+horizon terrain surface membership: present
+grass required-set surface membership: absent
+grass chunk world bounds: absent
+grass culling uses mesh origin: present
+balloon horizontal boundary policy: absent
+route/town surface validation: absent
+consumer parity result: absent
+visible-frame surface acknowledgement: absent
 ```
 
 ## Domains in use
 
 ```txt
-browser shell, DOM, Vite and Pages
-mutable CDN/runtime admission
-module import and compatibility installation
-runtime session, startup, failure and frame ownership
-legacy Meadow Lift and active Air Mail product sources
-input and variable RAF time
-balloon simulation and terrain clearance
-airstream routing, force, visuals and diagnostics
-mail route, parcel, towns, delivery and reset
-mission lifecycle, restart and epoch
-balloon construction, rigging, burner and animation
-camera and presentation
-quality, atmosphere, terrain, grass, water and HDR rendering
-Nexus telemetry, HUD, GameHost and headless readback
-checks, build and deployment
+browser shell, Vite and Pages
+runtime admission, session and frame ownership
+campaign and world descriptor source
+bounded-disk surface, height edge field and chunk membership
+balloon simulation, input, clearance and snapshots
+airstream route, field, force, visual and debug
+mail parcel, route, town, volume and progress
+balloon object, presentation and camera
+near terrain, horizon terrain, vegetation and grass
+sky, clouds, weather, water, lighting and HDR composition
+HUD, Nexus telemetry, GameHost and headless readback
+checks, tests, build and deployment
 ```
 
 ## Kits and services
@@ -112,21 +105,21 @@ runtime-implied adapters: 12
 inactive legacy kits: 11
 ```
 
-Services cover runtime boot, input, balloon simulation, airstream sampling, mail delivery, procedural balloon construction, camera projection, terrain and grass streaming, atmosphere, rendering, telemetry, HUD, diagnostics, tests, build, headless inspection and Pages deployment. The complete names and per-family mapping are in the timestamped tracker and `.agent/kit-registry.json`.
+Services cover boot, input, balloon simulation, airstream sampling and force, mail delivery, procedural balloon construction, camera projection, terrain and grass streaming, atmosphere, HDR rendering, telemetry, HUD, diagnostics, tests, build, headless inspection and Pages deployment.
 
 ## Required parent domain
 
 ```txt
-open-above-import-purity-frame-authority-domain
-  -> module side-effect policy
-  -> explicit compatibility install command and result
-  -> one-shot target discovery
-  -> frame-loop identity and registration
-  -> runtime-generation fencing
-  -> compatibility disposal
-  -> startup-failure callback retirement
-  -> scene-traversal work observation
-  -> import and browser fixture gates
+open-above-world-surface-membership-authority-domain
+  -> versioned surface descriptor and revision
+  -> point/bounds membership queries
+  -> shared terrain/grass/content policies
+  -> simulation boundary admission and response
+  -> stale-result rejection
+  -> consumer parity result
+  -> world-surface observation and journal
+  -> visible-frame acknowledgement
+  -> pure, browser and Pages fixture gates
 ```
 
 ## Ordered implementation queue
@@ -142,14 +135,14 @@ open-above-import-purity-frame-authority-domain
 5b. committed observation frame authority
 6. terrain source and LOD transition authority
 6a. bounded terrain build and atomic replacement
-7. grass spatial culling and backend truth authority
+7. grass spatial identity and backend truth
+7a. world surface membership and consumer parity
 ```
 
 ## Next safe ledge
 
 ```txt
-Import-Pure Balloon Object Kit
-+ Explicit Compatibility Installer
-+ Single Frame Owner
-+ Failed-Startup Zero-Callback Fixture Gate
+World Surface Membership Authority
++ Terrain/Grass/Simulation Consumer Parity
++ Boundary Traversal and First-Visible-Frame Fixture Gate
 ```
