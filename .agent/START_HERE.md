@@ -1,89 +1,114 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T15-40-04-04-00`  
+**Last aligned:** `2026-07-12T17-41-25-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
+**Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`  
+**Status:** `flight-world-membership-authority-audited`
 
 ## Summary
 
-TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, camera-relative terrain/grass/flower streaming, authored routes and towns, procedural balloon construction, HDR rendering, a parchment map, Nexus telemetry and browser/headless proof surfaces.
+TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, airstream routing, parcel delivery, camera-relative terrain and flora, HDR rendering, a parchment map, Nexus telemetry and browser/headless proof surfaces.
 
-The current audit isolates vegetation spatial coverage. Trees are generated once at boot as one trunk and one crown `InstancedMesh` over 18 centrally bounded clusters. Terrain, grass and flowers follow the camera, while vegetation has no update, chunk/frame identity, camera-relative requirement, adoption result, lifecycle/disposal owner, coverage observation or visible-frame acknowledgement.
+The current audit isolates flight/world membership. The world is declared as a 10,000-unit bounded disk, but balloon motion integrates horizontal position without membership admission, swept crossing detection, an authored edge/outside policy, an atomic world-consumer commit or visible-frame acknowledgement.
 
 ## Plan ledger
 
-**Goal:** retain deterministic tree placement while making vegetation a world-bound, camera-relative, budgeted and transactionally adopted world consumer.
+**Goal:** make every balloon movement proposal prove world membership and commit one boundary result before gameplay, streaming, map or rendering consumers accept the successor position.
 
 - [x] Compare all ten accessible Publish repositories with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` because its repo-local `15:31:24` vegetation audit was newer than central tracking.
+- [x] Select only `TheOpenAbove` by the oldest eligible synchronized ledger timestamp.
 - [x] Identify the complete interaction loop and all domains.
 - [x] Preserve all 68 active source-backed kits and offered services.
-- [x] Add a new timestamped reconciliation tracker, turn ledger and audit family.
-- [x] Refresh root `.agent` state and machine registry.
-- [x] Synchronize central tracking on `main`.
+- [x] Add a timestamped tracker, turn ledger and architecture/system audit family.
+- [x] Refresh required root `.agent` state and machine registry.
 - [x] Create no branch or pull request.
-- [ ] Implement camera-relative vegetation chunks, atomic adoption, disposal and executable proof.
+- [ ] Implement the authority and executable source/build/Pages fixtures.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-12T15-40-04-04-00/project-breakdown.md
+.agent/trackers/2026-07-12T17-41-25-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-12T15-40-04-04-00-vegetation-spatial-coverage-central-reconciliation-dsk-map.md
-.agent/render-audit/2026-07-12T15-40-04-04-00-vegetation-visible-frame-central-reconciliation-gap.md
-.agent/gameplay-audit/2026-07-12T15-40-04-04-00-boot-tree-field-traversal-reconciliation.md
-.agent/interaction-audit/2026-07-12T15-40-04-04-00-camera-vegetation-admission-reconciliation.md
-.agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md
-.agent/deploy-audit/2026-07-12T15-40-04-04-00-vegetation-fixture-central-reconciliation-gate.md
-.agent/turn-ledger/2026-07-12T15-40-04-04-00.md
+.agent/architecture-audit/2026-07-12T17-41-25-04-00-flight-world-membership-dsk-map.md
+.agent/render-audit/2026-07-12T17-41-25-04-00-off-world-flight-visible-frame-gap.md
+.agent/gameplay-audit/2026-07-12T17-41-25-04-00-unbounded-balloon-traversal-loop.md
+.agent/interaction-audit/2026-07-12T17-41-25-04-00-flight-boundary-command-admission-map.md
+.agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md
+.agent/deploy-audit/2026-07-12T17-41-25-04-00-flight-boundary-fixture-gate.md
+.agent/turn-ledger/2026-07-12T17-41-25-04-00.md
 .agent/kit-registry.json
 ```
 
-The original source audit remains available at `2026-07-12T15-31-24-04-00` and is preserved as the detailed predecessor.
+The vegetation coverage audit at `2026-07-12T15-40-04-04-00` remains the immediate predecessor.
+
+## Selection
+
+```txt
+accessible Publish repositories: 10
+eligible non-Cavalry repositories: 9
+new eligible repositories: 0
+central-ledger-missing eligible repositories: 0
+root-.agent-missing eligible repositories: 0
+
+TheOpenAbove       2026-07-12T15-40-04-04-00 selected
+IntoTheMeadow      2026-07-12T15-49-09-04-00
+PhantomCommand     2026-07-12T16-00-03-04-00
+PrehistoricRush    2026-07-12T16-20-55-04-00
+HorrorCorridor     2026-07-12T16-39-35-04-00
+ZombieOrchard      2026-07-12T16-51-47-04-00
+MyCozyIsland       2026-07-12T17-10-31-04-00
+TheUnmappedHouse   2026-07-12T17-20-42-04-00
+AetherVale         2026-07-12T17-35-48-04-00
+TheCavalryOfRome   excluded
+```
 
 ## Interaction loop
 
 ```txt
 boot
-  -> build seeded world
-  -> create camera-relative terrain
-  -> create boot-only tree clusters
-  -> create camera-relative grass and flowers using boot tree exclusions
-  -> create balloon, mail, airstream, camera, map and renderer
-  -> start RAF
+  -> construct bounded-disk world and camera-relative visual systems
+  -> construct balloon simulation at the authored start
+  -> publish map, telemetry and public host
+  -> schedule RAF
 
 frame
-  -> integrate flight and update mail/airstream
-  -> move camera
-  -> update terrain, grass and flowers around camera
-  -> leave tree instances unchanged
-  -> render HDR frame
+  -> read held keys
+  -> sample airstream
+  -> integrate horizontal and vertical velocity
+  -> add velocity * dt directly to balloon position
+  -> enforce terrain floor and soft altitude ceiling
+  -> update mail, camera, terrain, vegetation-adjacent flora and HDR
+  -> render
 
-long traversal
-  -> camera can leave initial tree coverage
-  -> streamed ground and low flora continue
-  -> no typed vegetation coverage result explains tree state
+boundary crossing
+  -> balloon may cross the 10,000-unit bounded-disk radius
+  -> no membership admission or crossing result runs
+  -> no accept, soft-return, clamp, reject or terminal policy is selected
+  -> map and streamed world consumers continue from an unclassified position
+  -> no boundary revision or visible-frame acknowledgement is published
 ```
 
 ## Domains in use
 
 ```txt
-browser shell, canvas, parchment map and fatal projection
-runtime boot, session, input, RAF and public host
-balloon simulation, steering, airstream and mail
-seeded world generation, membership and authored anchors
-terrain streaming classification and near/horizon ownership
-boot-time vegetation placement and tree instancing
-grass/flower chunks, LOD, culling, wind and exclusion
-balloon model, materials, rigging and presentation
-quality, dynamic resolution, sky, clouds, water, HDR and lens response
-map projection, telemetry, headless proof, tests, build and Pages
+browser shell, canvas, map, fatal projection and public host
+runtime boot, session, keyboard/wheel input, RAF and telemetry
+balloon motion, steering, burner, vent, altitude and distance
+airstream routes, sampling, force, visuals and debug
+mail parcel, town, delivery volume and progress
+seeded world generation, bounded-disk membership, erosion, climate, biome and flora
+terrain near/horizon streaming, ownership, geometry and disposal
+vegetation, grass and flower placement, exclusion, LOD, culling and wind
+balloon construction, rigging, material, camera and secondary presentation
+quality, dynamic resolution, sky, sun, clouds, water, HDR and lens response
+parchment-map projection, headless proof, tests, build and Pages
+missing flight/world membership admission, boundary policy, commit and proof
 ```
 
 ## Kits and services
@@ -99,46 +124,32 @@ runtime-implied adapters: 12
 inactive/retired legacy: 12
 ```
 
-The complete kit-by-kit service map is in the latest tracker and `.agent/kit-registry.json`.
+The complete kit-by-kit inventory and service map are in the latest tracker and `.agent/kit-registry.json`.
 
 ## Main finding
 
-```txt
-world radius: 10000
-terrainSize: 2400
-vegetation clusters: 18
-local cluster-center extent: 2832
-wider cluster-center extent: 4200
-cluster spread: 80..340
-vegetation creation: once
-vegetation frame update: none
-vegetation disposal service: none
-vegetation snapshot/readback: none
-horizontal flight world-bound admission: none
-```
+`WORLD.surface` declares a bounded disk centered at `(0, 0)` with radius `10000`, edge blend `600`, and an outside floor. `createBalloonSimulation().update(dt)` adds horizontal velocity directly to `state.position` and only applies a terrain floor plus a vertical soft ceiling. It never samples the world surface, classifies inside/edge/outside, detects a high-speed crossing, or returns a boundary result.
 
-This is a source-level ownership mismatch, not a measured pixel defect. No browser traversal was run.
+The host then uses that unclassified flight state to update mail, camera, terrain, flora, telemetry, the map, and the rendered frame. The repository therefore has a bounded world description but no authoritative rule for whether an outside position is accepted, redirected, clamped, rejected, terminal, or merely visual.
 
 ## Required parent domain
 
 ```txt
-open-above-vegetation-spatial-coverage-authority-domain
+open-above-flight-world-membership-authority-domain
 ```
 
 ## Next safe ledge
 
 ```txt
-VegetationFrameId + world/config fingerprint
-  -> deterministic camera-relative coverage plan
-  -> stable chunk IDs and seeds
-  -> detached candidate generation
-  -> world/exclusion/budget admission
-  -> atomic adoption or last-good preservation
-  -> exactly-once retirement
-  -> revisioned grass/flower exclusion artifact
-  -> first visible vegetation-frame acknowledgement
+FlightFrameCommand + WorldSurfaceRevision
+  -> detached motion proposal
+  -> point and swept membership evidence
+  -> authored boundary policy
+  -> atomic flight and consumer commit
+  -> bounded observation/journal
+  -> first matching visible-frame acknowledgement
 ```
 
 ## Retained priorities
 
-Runtime admission, session/frame ownership, procedural-world identity, terrain atomic adoption, grass/flower coherence, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
+Runtime admission, session/frame ownership, procedural-world identity, terrain and vegetation atomic adoption, grass/flower coherence, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
