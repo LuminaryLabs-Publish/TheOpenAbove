@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T05-11-46-04-00`
+**Last aligned:** `2026-07-12T07-00-48-04-00`
 
 ## Primary ordered gaps
 
@@ -18,52 +18,67 @@
 11. grass spatial identity and world-surface parity
 12. balloon steering and presentation coherence
 13. HDR attachment and render-surface resolution authority
+14. HUD accessibility announcement authority
 ```
 
-## HDR attachment and resolution gaps
+## HUD accessibility gaps
 
 ```txt
-no render-surface ID or revision
-no resize source or generation
-no quality-state revision
-no distinct CSS, DPR, dynamic-scale and physical-size record
-browser resize and dynamic-scale paths differ
-browser resize calls composer sizing twice
-tracked depth dimensions are manually rewritten to CSS size
-color/depth physical-size parity is not checked
-no target or depth-attachment identity
-initial depth attachment replacement has no ownership-transfer record
-no framebuffer-completeness admission
-no fallback classification
-no atomic candidate commit
-no predecessor rollback
-no stale resize rejection
-no resource lease ledger
-no exactly-once attachment retirement result
-no actual target/attachment readback
-no first-visible-frame surface acknowledgement
+visual HUD and assistive status share one node
+#hud is aria-live="polite"
+updateHud replaces complete innerHTML after every rendered frame
+loading, telemetry, mission copy, controls and errors share one channel
+no semantic source-event identity
+no announcement ID, kind, priority or policy
+no mission or projection revision
+no admission or stale-result rejection
+no duplicate-event idempotency
+no semantic-text deduplication
+no elapsed-time rate budget
+no reduced-verbosity preference
+no explicit aria-atomic/relevant policy
+no dedicated semantic status node
+no field-level visual DOM projection
+no typed announcement result
+no detached announcement observation
+no announcement journal
+no mission/frame/announcement acknowledgement
+fatal details have no alert role
+fatal details have no deterministic focus target
+no exactly-once fatal announcement
+no browser or Pages accessibility fixture
 ```
 
-## Concrete mismatch
+## Concrete mutation path
 
 ```txt
-high tier at 1920 × 1080 and effective pixel ratio 1.6
-
-color targets:
-  3072 × 1728
-
-manual depth image assignment:
-  1920 × 1080
+frame
+  -> visual.render()
+  -> updateHud()
+  -> hud.innerHTML = complete HUD string
+  -> aria-live region subtree replaced
+  -> next RAF
 ```
 
-## Retained frame-failure gaps
+The string contains changing altitude, capture, burner, trim, camera and mission values. Setting `innerHTML` recreates descendants even when serialized text is unchanged.
+
+## Fatal path gap
 
 ```txt
-post-start RAF stages have no enclosing failure boundary
-no typed stage result or single failure admission
-no last-known-good canvas/HUD/readback correlation
-no failed-session capability revocation
-no ordered terminal disposal and cold-restart result
+showFatal(error)
+  -> unhide #error <pre>
+  -> write stack/message
+  -> replace live HUD with generic error
+  -> no alert/focus/result transaction
+```
+
+## Retained HDR and frame-failure gaps
+
+```txt
+color/depth surface sizing paths remain inconsistent
+attachment ownership and rollback remain unimplemented
+post-start RAF stages still lack complete failure containment
+last-known-good frame and failed-session capability revocation remain unimplemented
 ```
 
 ## Retained host, lifecycle and model gaps
@@ -75,19 +90,19 @@ balloon profile and async model load lack complete identity/fingerprint/generati
 mission reset is not one atomic cross-owner transaction
 ```
 
-## Required HDR fixtures
+## Required accessibility fixtures
 
 ```txt
-fixture:hdr-initial-attachment-ownership
-fixture:hdr-replacement-retirement-exactly-once
-fixture:hdr-color-depth-dimension-parity
-fixture:hdr-browser-resize-path
-fixture:hdr-dynamic-scale-path
-fixture:hdr-resize-source-parity
-fixture:hdr-stale-resize-rejection
-fixture:hdr-framebuffer-incomplete-rollback
-fixture:hdr-first-visible-surface-frame
-fixture:pages-hdr-resize-quality-parity
+fixture:hud-visual-live-region-separation
+fixture:semantic-event-classification
+fixture:announcement-dedupe
+fixture:announcement-rate-budget
+fixture:cadence-independent-announcement-sequence
+fixture:route-capture-announcement
+fixture:delivery-announcement
+fixture:fatal-alert-focus-exactly-once
+fixture:replacement-session-status-cleanup
+fixture:pages-accessibility-parity
 ```
 
-Do not treat a successful `composer.render()`, absence of a console error, a reported render scale or a completed static build as proof that the color/depth attachment set is compatible, rollback-safe or fully retired.
+Do not treat a visually correct HUD, browser live-region coalescing, a successful render, a passing static build or the absence of console errors as proof that assistive announcements are bounded, meaningful, discoverable or lifecycle-safe.
