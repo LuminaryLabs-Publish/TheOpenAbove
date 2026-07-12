@@ -1,39 +1,30 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T19-28-28-04-00`
+**Last aligned:** `2026-07-11T21-08-57-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve the Air Mail experience while moving all module, callback, session, simulation, mission, render, terrain and grass behavior behind explicit authorities and executable fixture gates.
+**Goal:** preserve Air Mail while moving module, session, simulation, mission, terrain, grass and world-boundary behavior behind explicit authorities and executable fixture gates.
 
 ### Checklist
 
 #### Gate 1: immutable runtime admission
 - [ ] Pin NexusEngine instead of importing `@main`.
-- [ ] Validate Three.js, NexusEngine and postprocess capabilities before construction.
+- [ ] Validate Three.js, NexusEngine, ProtoKit and postprocess capabilities before construction.
 - [ ] Return typed boot results and module-graph fingerprints.
 - [ ] Add `fixture:runtime-admission`.
 
 #### Gate 2: import purity and frame ownership
-- [ ] Remove module-scope `requestAnimationFrame(attachWhenReady)` from `hot-air-balloon-object-kit.js`.
-- [ ] Remove module-owned ambient `window.GameHost` polling.
+- [ ] Remove module-scope RAF and ambient GameHost polling from the balloon object kit.
 - [ ] Export an explicit compatibility installer.
-- [ ] Make compatibility target discovery one-shot and pure.
 - [ ] Return `no-compatible-target` without recurring work.
 - [ ] Register all RAF callbacks through one runtime-session frame authority.
-- [ ] Assign frame-loop IDs, owner IDs and runtime generations.
 - [ ] Fence callbacks after stop, failure, retry and disposal.
-- [ ] Retire compatibility work before scene/resource disposal.
-- [ ] Publish active frame-loop and scene-traversal observations.
-- [ ] Add `fixture:balloon-kit-import-purity`.
-- [ ] Add `fixture:single-active-frame-owner`.
-- [ ] Add `fixture:no-target-no-compatibility-loop`.
-- [ ] Add `fixture:failed-startup-zero-live-callbacks`.
-- [ ] Add `fixture:compatibility-install-and-dispose`.
+- [ ] Add import-purity, no-target, single-owner and failed-startup fixtures.
 
 #### Gate 3: lifecycle and teardown
 - [ ] Make `createGame()` return a root runtime-session owner.
-- [ ] Retain and cancel every frame handle.
+- [ ] Retain and cancel every frame handle and listener.
 - [ ] Compose simulation, camera, mail, airstream, presentation, visual, telemetry and GameHost disposal.
 - [ ] Distinguish mission reset from full-runtime restart.
 - [ ] Add `fixture:runtime-lifecycle`.
@@ -86,42 +77,55 @@
 - [ ] Retire old geometry after submitted-frame ownership releases it.
 - [ ] Add no-gap, edge-continuity, budget and retirement fixtures.
 
-#### Gate 7: grass spatial culling and backend truth
+#### Gate 7: grass spatial identity and backend truth
 - [ ] Add stable grass chunk IDs, centers and world bounds.
 - [ ] Cull against each chunk's committed bounds.
 - [ ] Split capability, selected backend and executed backend identities.
 - [ ] Keep CPU culling as the truthful default until a real GPU path exists.
-- [ ] Atomically commit complete visible sets.
 - [ ] Publish accepted, visible and rendered counts separately.
 - [ ] Add origin-crossing, return-path, backend-truth and first-visible-frame fixtures.
 
-## Import-purity kit order
+#### Gate 7a: world surface membership and consumer parity
+- [ ] Version and fingerprint `WORLD.surface`.
+- [ ] Add pure point and bounds membership queries.
+- [ ] Return inside, edge, intersecting, outside and stale classifications.
+- [ ] Route near and horizon admission through typed membership results.
+- [ ] Route grass required-set construction through the same surface revision.
+- [ ] Reject unsupported grass chunks before geometry creation.
+- [ ] Add simulation boundary admission and one explicit response policy.
+- [ ] Validate airstream routes, towns and delivery volumes against the surface.
+- [ ] Publish per-consumer acknowledgements and mismatch reasons.
+- [ ] Correlate the committed surface revision with the visible frame.
+- [ ] Add pure classification, browser traversal and Pages parity fixtures.
+
+## World-surface kit order
 
 ```txt
-1. open-above-module-side-effect-policy-kit
-2. open-above-compatibility-install-command-kit
-3. open-above-compatibility-target-discovery-kit
-4. open-above-compatibility-install-result-kit
-5. open-above-frame-loop-registration-kit
-6. open-above-frame-loop-identity-kit
-7. open-above-runtime-generation-fence-kit
-8. open-above-compatibility-loop-disposal-kit
-9. open-above-scene-traversal-budget-kit
-10. open-above-startup-failure-loop-retirement-kit
-11. open-above-compatibility-observation-kit
-12. open-above-import-purity-fixture-kit
-13. open-above-browser-frame-owner-smoke-kit
+1. open-above-world-surface-descriptor-kit
+2. open-above-world-surface-revision-kit
+3. open-above-world-membership-query-kit
+4. open-above-world-edge-distance-kit
+5. open-above-world-boundary-policy-kit
+6. open-above-surface-consumer-capability-kit
+7. open-above-terrain-chunk-membership-kit
+8. open-above-grass-chunk-membership-kit
+9. open-above-route-content-membership-kit
+10. open-above-simulation-boundary-admission-kit
+11. open-above-boundary-response-result-kit
+12. open-above-surface-consumer-parity-result-kit
+13. open-above-stale-surface-result-rejection-kit
+14. open-above-world-surface-observation-kit
+15. open-above-visible-surface-frame-ack-kit
+16. open-above-boundary-parity-fixture-kit
+17. open-above-browser-boundary-traversal-smoke-kit
 ```
 
 ## Validation order
 
 ```txt
+fixture:runtime-admission
 fixture:balloon-kit-import-purity
-fixture:no-target-no-compatibility-loop
 fixture:single-active-frame-owner
-fixture:failed-startup-zero-live-callbacks
-fixture:retry-no-predecessor-callbacks
-fixture:compatibility-install-and-dispose
 fixture:runtime-lifecycle
 fixture:clock-route-parity
 fixture:product-acceptance
@@ -131,14 +135,18 @@ fixture:observation-order
 fixture:terrain-lod-classification
 fixture:terrain-build-budget
 fixture:grass-chunk-world-bounds
-fixture:grass-origin-radius-crossing
 fixture:grass-cpu-backend-truth
-fixture:grass-first-visible-frame
+fixture:surface-point-classification
+fixture:surface-bounds-classification
+fixture:terrain-grass-membership-parity
+fixture:no-unsupported-visible-grass
+fixture:balloon-boundary-response
+fixture:surface-visible-frame-parity
 npm run check
 npm run headless:check
 npm run build
 browser acceptance smoke
-Pages acceptance smoke
+Pages acceptance and boundary smoke
 ```
 
-Do not claim a single frame owner while importing the active balloon kit still schedules a compatibility RAF, and do not treat a fatal panel as a stopped runtime while `attachWhenReady` can continue polling.
+Do not claim a bounded world until simulation, terrain, grass and readback acknowledge the same committed surface revision and a browser traversal proves the selected boundary policy.
