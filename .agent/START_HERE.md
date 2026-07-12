@@ -1,47 +1,47 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T13-29-56-04-00`  
+**Last aligned:** `2026-07-12T15-31-24-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
+**Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
 
 ## Summary
 
-The active source now drives near and horizon terrain from one frozen camera-relative streaming frame. Horizon cells covered by near terrain are explicitly removed, retained horizon chunks reclassify by LOD and clip signature, skirts cover ownership boundaries, authored fields and roads drape over terrain, lake descriptors are shared and disposal is broader.
+TheOpenAbove is an Air Mail hot-air-balloon experience with a deterministic procedural world, streamed terrain, grass and flowers, authored routes and towns, procedural balloon presentation, HDR rendering, a parchment map, Nexus telemetry and headless proof surfaces.
 
-The remaining gap is aggregate terrain-stream authority. Near and horizon streamers still mutate live scene groups independently, dispose predecessor meshes before complete candidate success, return no typed adoption result and publish no aggregate commit, rollback or first-visible-frame receipt.
+The current audit isolates vegetation spatial coverage. Trees are generated once at boot as two global instanced meshes inside a central cluster field. Terrain, grass and flowers follow the moving camera, while vegetation has no update, camera-relative requirements, chunk identity, adoption result, disposal service, coverage observation or visible-frame acknowledgement.
 
 ## Plan ledger
 
-**Goal:** preserve the terrain-overlap remediation while making each boundary transition an atomic, revisioned and provable near/horizon aggregate.
+**Goal:** retain deterministic tree placement while making vegetation a world-bound, camera-relative, budgeted and transactionally adopted consumer of the procedural world.
 
-- [x] Compare the complete Publish inventory with central tracking.
+- [x] Compare all ten accessible Publish repositories with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` as the oldest central entry with newer repo-local terrain work.
-- [x] Review the shared streaming contract, both streamers, terrain surface, overlays, water and tests.
-- [x] Identify the interaction loop, domains, all 68 active source-backed kits and services.
-- [x] Reconcile resolved overlap defects and remaining atomic-adoption gaps.
-- [x] Add fresh timestamped architecture and system audits.
+- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
+- [x] Identify the interaction loop, domains, all 68 active source-backed kits and offered services.
+- [x] Trace world, flight, camera, vegetation, terrain, grass, flower and render ownership.
+- [x] Define vegetation spatial-coverage authority and fixture gates.
+- [x] Add timestamped architecture and system audits.
 - [x] Refresh root `.agent` state and central tracking.
 - [x] Push directly to `main`; create no branch or pull request.
-- [ ] Implement candidate staging, aggregate commit/rollback and browser/Pages frame proof.
+- [ ] Implement camera-relative vegetation chunks, atomic adoption, disposal and browser/Pages proof.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-12T13-29-56-04-00/project-breakdown.md
+.agent/trackers/2026-07-12T15-31-24-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-12T13-29-56-04-00-terrain-streaming-ownership-authority-dsk-map.md
-.agent/render-audit/2026-07-12T13-29-56-04-00-near-horizon-aggregate-frame-commit-gap.md
-.agent/gameplay-audit/2026-07-12T13-29-56-04-00-camera-boundary-stream-transition-loop.md
-.agent/interaction-audit/2026-07-12T13-29-56-04-00-terrain-stream-frame-admission-map.md
-.agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md
-.agent/deploy-audit/2026-07-12T13-29-56-04-00-terrain-boundary-browser-fixture-gate.md
-.agent/turn-ledger/2026-07-12T13-29-56-04-00.md
+.agent/architecture-audit/2026-07-12T15-31-24-04-00-vegetation-spatial-coverage-authority-dsk-map.md
+.agent/render-audit/2026-07-12T15-31-24-04-00-static-tree-field-streamed-world-gap.md
+.agent/gameplay-audit/2026-07-12T15-31-24-04-00-balloon-leaves-boot-vegetation-loop.md
+.agent/interaction-audit/2026-07-12T15-31-24-04-00-camera-vegetation-frame-admission-map.md
+.agent/vegetation-system-audit/2026-07-12T15-31-24-04-00-chunked-deterministic-coverage-contract.md
+.agent/deploy-audit/2026-07-12T15-31-24-04-00-vegetation-spatial-browser-fixture-gate.md
+.agent/turn-ledger/2026-07-12T15-31-24-04-00.md
 .agent/kit-registry.json
 ```
 
@@ -49,24 +49,25 @@ The remaining gap is aggregate terrain-stream authority. Near and horizon stream
 
 ```txt
 boot
-  -> create seeded world and visual domain
-  -> create terrain surface, near streamer and horizon streamer
-  -> create gameplay and presentation owners
+  -> build seeded world
+  -> create camera-relative terrain
+  -> create boot-only tree clusters
+  -> create camera-relative grass and flowers
+  -> create balloon, mail, airstream, camera, map and renderer
   -> start RAF
 
 frame
-  -> update flight, mail, airstream and camera
-  -> create one frozen TerrainStreamingFrame
-  -> near streamer adopts requirements
-  -> horizon streamer clips against the same near bounds and adopts requirements
-  -> update grass, flowers, water, atmosphere and HDR
-  -> render
+  -> integrate horizontal and vertical flight
+  -> update mail and airstream
+  -> move camera
+  -> update terrain, grass and flowers around camera
+  -> leave tree instance field unchanged
+  -> render HDR frame
 
-boundary transition
-  -> frame revision changes
-  -> live near meshes are removed/rebuilt
-  -> live horizon meshes are removed/rebuilt/reclassified
-  -> no aggregate commit result exists before draw
+long traversal
+  -> balloon/camera can leave the initial tree field
+  -> streamed ground and low flora continue
+  -> no typed vegetation coverage result explains the visible tree state
 ```
 
 ## Domains in use
@@ -74,12 +75,12 @@ boundary transition
 ```txt
 browser shell, canvas, map and fatal projection
 runtime boot, session, input, RAF and public host
-balloon simulation, airstream and mail
+balloon simulation, steering, airstream and mail
 seeded world generation, membership and authored anchors
-terrain streaming-frame classification and ownership partitioning
-near/horizon geometry, LOD, skirts, adoption and disposal
-vegetation, landmarks, draped overlays and shared lakes
-grass and flower streaming
+terrain streaming classification and near/horizon ownership
+boot-time vegetation clusters and tree instancing
+grass and flower chunks, LOD, culling and wind
+balloon model, materials, rigging and presentation
 quality, dynamic resolution, sky, clouds, water, HDR and lens response
 map projection, telemetry, headless proof, tests, build and Pages
 ```
@@ -99,51 +100,42 @@ inactive/retired legacy: 12
 
 The complete kit-by-kit service map is in the latest tracker and `.agent/kit-registry.json`.
 
-## Resolved
+## Main finding
 
 ```txt
-shared near/horizon camera frame
-exact clipping of near-owned horizon cells
-retained horizon clip-signature reclassification
-removed horizon expansion and vertical offset
-near and horizon skirts
-consistent slope sampling
-narrow route protection without duplicate final blend
-terrain-draped fields and road
-shared lake descriptors and feathered edges
-landmark and water disposal
-terrain ownership, route and overlay checks wired into npm run check
+world radius: 10000
+terrainSize: 2400
+vegetation clusters: 18
+vegetation creation: once during visual-domain construction
+vegetation update in RAF: none
+vegetation chunk/frame identity: none
+vegetation coverage result: none
+vegetation disposal service: none
+horizontal flight boundary: none
 ```
 
-## Remaining
-
-```txt
-no typed TerrainStreamFrameId
-no world/config/quality/geometry fingerprint on the frame
-no detached candidate chunk sets
-no aggregate near/horizon parity result
-no atomic adoption or rollback
-no exactly-once retirement receipt
-near chunk metadata omits frame revision
-no TerrainStreamCommitResult
-no TerrainVisibleFrameAck
-no deployed browser boundary proof
-```
+Current cluster-center extents derive from `terrainSize * 1.18` and a wider cap of `min(worldRadius * 0.42, localExtent * 1.9)`, materially smaller than the admitted world disk. This establishes a source-level ownership mismatch, not a measured screenshot defect.
 
 ## Required parent domain
 
 ```txt
-open-above-terrain-streaming-ownership-authority-domain
+open-above-vegetation-spatial-coverage-authority-domain
 ```
 
 ## Next safe ledge
 
 ```txt
-TerrainStreamFrameId + input fingerprint
-  -> immutable ownership plan
-  -> detached near/horizon candidate builds
-  -> aggregate parity admission
-  -> atomic commit or rollback
-  -> predecessor retirement receipt
-  -> first visible frame acknowledgement
+VegetationFrameId + world/config fingerprint
+  -> deterministic camera-relative coverage plan
+  -> stable chunk IDs and seeds
+  -> detached candidate generation
+  -> exclusion and budget admission
+  -> atomic adoption or last-good preservation
+  -> exactly-once retirement
+  -> revisioned grass/flower exclusion artifact
+  -> first visible vegetation-frame acknowledgement
 ```
+
+## Retained priorities
+
+Runtime admission, session/frame ownership, procedural-world identity, terrain atomic adoption, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
