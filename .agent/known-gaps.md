@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T15-31-24-04-00`
+**Last aligned:** `2026-07-12T15-40-04-04-00`
 
 ## Primary ordered gaps
 
@@ -25,9 +25,9 @@ vegetation is generated once during visual-domain construction
 18 boot-time cluster centers are bounded to a central subset of the world
 one trunks and one crowns InstancedMesh hold the complete tree field
 no camera-relative vegetation update exists
-no vegetation stream session or frame identity
+no vegetation stream session, frame, chunk or render-generation identity
 no world/config/quality/algorithm fingerprint
-no stable vegetation chunk IDs or per-chunk seeds
+no stable chunk IDs or per-chunk seeds
 no inside/edge/outside membership admission
 no typed biome/tree-density result
 no route/town/lake/spacing exclusion result
@@ -37,7 +37,7 @@ no instance, allocation or transition budget result
 no atomic chunk adoption or last-good rollback
 no exactly-once retirement receipt
 no vegetation dispose service
-no revisioned exclusion artifact for grass and flowers
+no revisioned exclusion registry for grass and flowers
 no active coverage snapshot or journal
 no VegetationVisibleFrameAck
 no browser/Pages long-traversal proof
@@ -46,23 +46,20 @@ no browser/Pages long-traversal proof
 ## Terrain streaming authority gaps retained
 
 ```txt
-no typed TerrainStreamFrameId
-no terrain stream session identity
+no typed TerrainStreamFrameId or terrain stream session identity
 frame revision omits world, quality, algorithm, geometry and material fingerprints
 near and horizon candidate meshes are built directly into live groups
-obsolete live meshes are disposed before complete candidate success
-no aggregate near/horizon parity result
-no atomic aggregate adoption
-no last-good rollback result
+obsolete live meshes can retire before complete candidate success
+no aggregate parity result
+no atomic aggregate adoption or last-good rollback
 no exactly-once retirement receipt
-no TerrainStreamCommitResult
-no TerrainVisibleFrameAck
+no TerrainStreamCommitResult or TerrainVisibleFrameAck
 ```
 
 ## Transition performance gaps
 
 ```txt
-terrain and future vegetation geometry construction are not budget-admitted
+terrain and future vegetation construction are not budget-admitted
 no planning/build wall-time budget
 no allocation, instance, vertex or index budget result
 no degraded transition policy
@@ -71,29 +68,17 @@ no cross-system created/reused/retired/rejected/failure observations
 no transition journal
 ```
 
-## Procedural world gaps retained
+## Procedural world and consumer gaps retained
 
 ```txt
-no WorldBuildId or generation revision
-no canonical seed/config/route/town/algorithm fingerprint
-no named build stages or typed stage results
-no startup budget, progress or cancellation
+no WorldBuildId or canonical build fingerprint
 no immutable reusable WorldGridArtifact
 sample results omit world revision and artifact fingerprint
 outside-world policy differs by sample type
-no world replacement transaction or rollback
-no stale query/consumer rejection
-```
-
-## Consumer provenance gaps
-
-```txt
+no world replacement transaction or stale-consumer rejection
 terrain, vegetation, landmarks, grass, flowers and map lack stable consumer receipts
-terrain and vegetation frames do not cite world build identity
 vegetation and grass/flower exclusion generations are not bound
-chunks and map background omit world fingerprint
 no cross-consumer parity result
-no stale consumer rejection after world replacement
 ```
 
 ## Grass and flower gaps
@@ -101,10 +86,10 @@ no stale consumer rejection after world replacement
 ```txt
 world density and legacy biome density composition is unnamed
 grass and flower chunk IDs omit world revision
-tree exclusion is a boot-time position list rather than a revisioned artifact
+tree exclusion is a boot-time position list rather than a revisioned registry
 outside-world rejection counts are absent
 quality transitions have no relation to world revision
-cold-build versus map-prewarmed chunk parity is untested
+cold-build versus map-prewarmed parity is untested
 ```
 
 ## Retained map gaps
@@ -129,11 +114,11 @@ fixture:vegetation-biome-treeless-classification
 fixture:vegetation-candidate-complete-before-adoption
 fixture:vegetation-build-failure-preserves-last-good
 fixture:vegetation-retirement-exactly-once
-fixture:vegetation-grass-exclusion-generation-parity
+fixture:vegetation-grass-flower-exclusion-generation-parity
 fixture:vegetation-transition-budget
 fixture:vegetation-visible-frame-ack
 fixture:browser-vegetation-long-traversal
 fixture:pages-vegetation-world-parity
 ```
 
-Do not treat deterministic boot placement or the presence of trees near the starting area as proof of world-wide vegetation coverage, camera-relative streaming, rollback safety, disposal completeness or visible-frame provenance.
+Do not treat deterministic boot placement or trees visible near the starting area as proof of world-wide vegetation coverage, camera-relative streaming, rollback safety, exclusion coherence, disposal completeness or visible-frame provenance.
