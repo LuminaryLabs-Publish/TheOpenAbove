@@ -27,6 +27,7 @@ export function buildFabricSeams(profile = defaultFabricSeamProfile, envelopePro
   const offset = Math.max(0, Number(profile.surfaceOffset) || 0.028);
   const positions = [];
   const normals = [];
+  const uvs = [];
   const indices = [];
 
   for (let seam = 0; seam < seamCount; seam += 1) {
@@ -40,6 +41,7 @@ export function buildFabricSeams(profile = defaultFabricSeamProfile, envelopePro
         const normal = sampleEnvelopeNormal(sampleAngle, t, shape);
         positions.push(point.x, point.y, point.z);
         normals.push(normal.x, normal.y, normal.z);
+        uvs.push(side < 0 ? 0 : 1, t);
       }
     }
     for (let v = 0; v < verticalSteps - 2; v += 1) {
@@ -51,6 +53,7 @@ export function buildFabricSeams(profile = defaultFabricSeamProfile, envelopePro
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
   geometry.setIndex(indices);
   geometry.computeBoundingSphere();
 
