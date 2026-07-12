@@ -89,8 +89,8 @@ function createGame() {
 
   let last = performance.now();
   function frame(now) {
-    const frameMs = Math.min(80, now - last || 16.7);
-    const dt = Math.min(1 / 30, frameMs / 1000);
+    const frameMs = Math.max(0, Math.min(80, now - last || 16.7));
+    const dt = Math.max(0, Math.min(1 / 30, frameMs / 1000));
     last = now;
 
     const state = simulation.update(dt);
