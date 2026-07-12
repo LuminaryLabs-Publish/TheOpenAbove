@@ -1,118 +1,125 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T02-29-50-04-00`
+**Last aligned:** `2026-07-12T04-00-32-04-00`
 
 ## Scope
 
-Documentation-only audit of the browser-global `window.GameHost`, raw owner exposure, public command admission and committed read-model coherence through source revision `0e5ede8760e32d9082e19f880992380b0c5e9cb4`.
+Documentation-only audit of post-start frame failure handling through repository revision `a36bd0958c66b26f9be38085486271f11a623576`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed evidence of an authority leak from executable proof that the public host is isolated, capability-scoped and correlated to one visible frame.
+**Goal:** distinguish source-backed evidence of a silent partial-frame freeze from executable proof that failures are contained, visible, terminally observed and restart-safe.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
-- [x] Review root guidance and retained audit state.
-- [x] Read startup host, RAF ordering and public host publication.
-- [x] Read simulation, mail, airstream, camera, presentation, visual and telemetry APIs.
-- [x] Confirm raw owner handles are exported publicly.
-- [x] Confirm those handles expose mutable state and imperative methods.
-- [x] Confirm readback lacks shared tick/frame/epoch/fingerprint provenance.
-- [x] Reconcile the active source-backed kit count to 59.
-- [x] Define static, browser and Pages proof requirements.
+- [x] Select only `TheOpenAbove` as the oldest eligible repository.
+- [x] Read `AGENTS.md`, current `.agent` state and `src/main.js`.
+- [x] Confirm `boot()` catches only startup construction failure.
+- [x] Trace all ordered RAF stages and successor scheduling.
+- [x] Confirm no frame-stage result or failure boundary exists.
+- [x] Confirm successful prefixes can mutate live owners before failure.
+- [x] Confirm render and HUD can end on different revisions.
+- [x] Preserve the active 59-kit inventory and service map.
+- [x] Define static, pure, browser and Pages proof requirements.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
 ## Source-backed behavior
 
 ```txt
-window.GameHost exports engine, NexusEngine and THREE
-window.GameHost exports scene, renderer, camera and balloon
-window.GameHost exports visual, simulation, airstream and mail domains
-window.GameHost exports camera rig and balloon presentation domains
-simulation exposes mutable state, update and dispose
-mail exposes mutable parcel/state, update, reset and dispose
-airstream exposes mutable state, sample, update and dispose
-visual exposes renderer graph, update, render, resize and dispose
-camera rig exposes mutable state, update and dispose
-getState separately reads Nexus telemetry and a local snapshot
+boot awaits createGame inside try/catch
+showFatal is called only from boot catch
+recursive frame callback runs after createGame returns
+frame executes simulation, mail, airstream, balloon, presentation, camera, visual, telemetry, render and HUD in sequence
+next requestAnimationFrame is scheduled only at the end
+no frame-level catch or typed stage result exists
 ```
 
 ## Source-backed gaps
 
 ```txt
-no owner-handle quarantine
-no versioned capability descriptor
-no public command envelope or command ID
-no session, mission or frame revision admission
-no finite-value public payload policy
-no duplicate/stale rejection
-no typed public command result
-no immutable committed read model
-no shared state fingerprint
-no command-result to visible-frame acknowledgement
-no capability revocation policy
-```
-
-## Existing proof surface
-
-Current static checks and pure fixtures do not execute:
-
-```txt
-public key-surface assertion
-raw owner absence
-read-model detachment
-read-model mutation isolation
-non-finite command rejection
-out-of-band simulation prevention
-mail-delivery bypass prevention
-direct render prevention
-stale session/mission/frame rejection
-duplicate command rejection
-capability revocation
-command-result and first-frame correlation
-local/Pages host-contract parity
+no frame identity
+no stage identity or canonical stage schema
+no immutable frame input
+no typed stage result
+no failure identity or classification
+no completed-stage mutation journal
+no single failure admission
+no later-stage mutation fence
+no last-known-good frame pointer
+no canvas/HUD/readback correlation after failure
+no failed-session mutation quarantine
+no capability revocation
+no ordered disposal result
+no terminal failure observation
+no cold-restart admission
 ```
 
 ## Required static fixtures
 
 ```txt
-fixture:host-public-key-surface
-fixture:host-owner-handle-absence
-fixture:host-no-engine-or-library-owner
-fixture:host-no-render-owner
-fixture:host-no-gameplay-owner
+fixture:frame-boundary-present
+fixture:frame-stage-schema-present
+fixture:frame-successor-from-commit-only
+fixture:frame-runtime-failure-projection-present
+fixture:frame-last-known-good-state-present
+fixture:frame-capability-revocation-present
+```
+
+## Required pure fixtures
+
+```txt
+fixture:frame-stage-order
+fixture:frame-single-failure-admission
+fixture:frame-no-later-stage-result
+fixture:frame-last-good-advance-on-full-commit
+fixture:frame-failure-classification
+fixture:frame-restart-predecessor-rejection
 ```
 
 ## Required browser fixtures
 
+Inject a deterministic error at:
+
 ```txt
-fixture:host-read-model-detachment
-fixture:host-read-model-deep-immutability
-fixture:host-non-finite-command-rejection
-fixture:host-invalid-payload-zero-mutation
-fixture:host-stale-session-command
-fixture:host-stale-mission-command
-fixture:host-stale-frame-command
-fixture:host-duplicate-command
-fixture:host-command-result-frame-ack
-fixture:host-capability-revocation
+simulation
+mail
+airstream
+balloon transform/model animation
+balloon presentation
+camera
+visual update
+telemetry
+render
+HUD
+```
+
+For every injected failure assert:
+
+```txt
+one failure ID and correct failed stage
+zero later-stage mutation
+zero successor RAF callbacks
+failed frame absent from committed observation
+last-known-good canvas, HUD and readback agree
+public mutation capability revoked
+bounded error surface visible
+disposal result published
+cold restart uses a new session and mission epoch
 ```
 
 ## Required Pages smoke
 
 ```txt
 load deployed route
-wait for committed frame
-verify public key surface
-verify raw owner absence
-verify read record is detached
-submit one allowed command
-verify typed result and matching frame acknowledgement
-submit invalid and stale commands
-verify zero mutation
-compare local and deployed schema/capability versions
+wait for first committed frame
+activate bounded test-only fault injection
+fail one state stage and one rendering stage
+verify terminal failure projection
+verify frame counter no longer advances
+verify public capabilities are revoked
+verify last-known-good observation remains readable
+verify replacement session first-frame acknowledgement after restart
 ```
 
 ## Commands not run
@@ -122,8 +129,8 @@ npm install
 npm run check
 npm run headless:check
 npm run build
-browser smoke
-Pages smoke
+browser fault-injection matrix
+Pages fault-injection smoke
 ```
 
 The connector environment provided repository source and write access, not a checked-out browser runtime. No command execution is claimed.
@@ -144,4 +151,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim public-host isolation, command safety, read-model coherence or frame correlation until raw owners are removed, rejected commands prove zero mutation, accepted commands route to one authoritative owner, and browser/Pages fixtures tie results to one committed visible frame.
+Do not claim runtime failure recovery until every frame stage can be fault-injected and the browser proves one terminal result, no later-stage mutation, no successor callback, coherent last-known-good output, complete capability revocation, ordered disposal and clean replacement-session startup.
