@@ -3,7 +3,7 @@ import { terrainHeight } from "./terrain-surface-kit.js";
 
 export const DISTANT_LANDMARK_KIT_ID = "open-above-distant-landmark-kit";
 
-function cottage(x, z, scale = 1) {
+function cottage(x, z, scale, terrainHeightAt) {
   const group = new THREE.Group();
   const wall = new THREE.Mesh(new THREE.BoxGeometry(9, 5.5, 7), new THREE.MeshStandardMaterial({ color: 0xc7aa7a, roughness: 0.92 }));
   wall.position.y = 2.75;
@@ -11,31 +11,31 @@ function cottage(x, z, scale = 1) {
   roof.position.y = 6.6;
   roof.rotation.y = Math.PI * 0.25;
   group.add(wall, roof);
-  group.position.set(x, terrainHeight(x, z), z);
+  group.position.set(x, terrainHeightAt(x, z), z);
   group.scale.setScalar(scale);
   group.traverse((node) => { if (node.isMesh) { node.castShadow = true; node.receiveShadow = true; } });
   return group;
 }
 
-function fieldPatch(x, z, width, depth, color, rotation = 0) {
+function fieldPatch(x, z, width, depth, color, rotation, terrainHeightAt) {
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, depth), new THREE.MeshStandardMaterial({ color, roughness: 0.98, side: THREE.DoubleSide }));
   mesh.rotation.x = -Math.PI / 2;
   mesh.rotation.z = rotation;
-  mesh.position.set(x, terrainHeight(x, z) + 0.22, z);
+  mesh.position.set(x, terrainHeightAt(x, z) + 0.22, z);
   mesh.receiveShadow = true;
   return mesh;
 }
 
-export function createDistantLandmarks(scene) {
+export function createDistantLandmarks(scene, terrainHeightAt = terrainHeight) {
   const group = new THREE.Group();
   group.name = "open-above-distant-landmarks";
   group.add(
-    cottage(-610, -210, 0.82),
-    cottage(730, 410, 0.68),
-    cottage(330, -760, 0.74),
-    fieldPatch(-520, -120, 220, 105, 0xb49a4a, 0.22),
-    fieldPatch(-720, 50, 180, 92, 0x78904b, -0.14),
-    fieldPatch(680, 330, 200, 96, 0xa97d3e, 0.4)
+    cottage(-610, -210, 0.82, terrainHeightAt),
+    cottage(730, 410, 0.68, terrainHeightAt),
+    cottage(330, -760, 0.74, terrainHeightAt),
+    fieldPatch(-520, -120, 220, 105, 0xb49a4a, 0.22, terrainHeightAt),
+    fieldPatch(-720, 50, 180, 92, 0x78904b, -0.14, terrainHeightAt),
+    fieldPatch(680, 330, 200, 96, 0xa97d3e, 0.4, terrainHeightAt)
   );
 
   const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x9b7959, roughness: 0.98 });
@@ -44,7 +44,7 @@ export function createDistantLandmarks(scene) {
     const t = i / 31;
     const x = -900 + t * 1800;
     const z = Math.sin(t * Math.PI * 2.3) * 170 - 140;
-    roadPoints.push(new THREE.Vector3(x, terrainHeight(x, z) + 0.28, z));
+    roadPoints.push(new THREE.Vector3(x, terrainHeightAt(x, z) + 0.28, z));
   }
   const roadCurve = new THREE.CatmullRomCurve3(roadPoints);
   const road = new THREE.Mesh(new THREE.TubeGeometry(roadCurve, 120, 4.2, 6, false), roadMaterial);
@@ -71,4 +71,6 @@ export function createDistantLandmarks(scene) {
   return { id: DISTANT_LANDMARK_KIT_ID, group };
 }
 
-window.OpenAboveDistantLandmarkKit = { id: DISTANT_LANDMARK_KIT_ID, createDistantLandmarks };
+if (typeof window !== "undefined") {
+  window.OpenAboveDistantLandmarkKit = { id: DISTANT_LANDMARK_KIT_ID, createDistantLandmarks };
+}
