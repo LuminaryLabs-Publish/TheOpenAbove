@@ -1,13 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T11-15-16-04-00`
+**Last aligned:** `2026-07-12T13-29-56-04-00`
 
 ## Status
 
 ```txt
-status: procedural-world-generation-consumer-coherence-audited
-source revision reviewed initially: f24e1b11063a566ff011168ffd89a0609f21328c
-concurrent runtime fix reconciled: 74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec
+status: terrain-streaming-ownership-reconciliation-audited
+repository revision reviewed: c2b96fa4d0dc44f6f3cf52762834324e712ed7d9
 runtime source changed by this documentation pass: no
 branch: main
 root .agent state: refreshed
@@ -17,113 +16,121 @@ central internal change log: complete
 
 ## Summary
 
-The active route builds a seeded full-world terrain/climate grid, preserves route and town terrain, derives biome and flora fields, streams five grass species and five flower types, and rasterizes world colors into the parchment map.
+The recent terrain-remediation sequence introduces `open-above-terrain-streaming-contract-kit`, one frozen camera-relative frame, stable near/horizon centers, exact near-bound clipping, horizon clip signatures, skirts, terrain-draped overlays and shared lake descriptors. Pure terrain ownership, route protection and overlay checks are wired into the normal check/build path.
 
-This audit initially found that map/flora queries changed the public world descriptor through mutable cache-size readback and that flora had no world-disk boundary. A concurrent runtime commit removed cache size from the descriptor, added `world.contains(x,z)`, and returns a zero-density `outside-world` flora profile beyond the radius.
-
-The remaining problem is authority and provenance. The world is still synchronously constructed as an unversioned utility object; consumers do not adopt a canonical immutable artifact or prove which world build produced their chunks, map pixels or visible frame.
+The remaining problem is transaction ownership. Near and horizon streamers directly remove, dispose and construct meshes in their live scene groups. They do not stage complete candidate sets, return typed build/adoption results, validate an aggregate parity result, roll back to a last-good aggregate or acknowledge the first frame that rendered one committed near/horizon revision.
 
 ## Plan ledger
 
-**Goal:** define one immutable world artifact, pure revisioned sample results and typed consumer adoption across terrain, vegetation, grass, flowers, landmarks and map projection.
+**Goal:** reconcile the runtime cutover while defining one atomic terrain-stream transaction from camera sample through ownership planning, candidate construction, aggregate commit, predecessor retirement and visible-frame proof.
 
-- [x] Compare the full Publish repository inventory with central ledgers.
+- [x] Compare all accessible Publish repositories and central ledgers.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` because material world-system source landed after the previous audit.
-- [x] Review guidance, host, world generator, terrain, grass, flowers, map and tests.
-- [x] Trace build work, sampling, cache behavior, boundary behavior and consumer adoption.
-- [x] Reconcile 67 active source-backed kit surfaces and services.
-- [x] Reconcile the concurrent descriptor-purity and flora-membership runtime fix.
-- [x] Define the remaining procedural-world authority and fixture matrix.
+- [x] Confirm nine eligible repositories have central and root `.agent` coverage.
+- [x] Select only `TheOpenAbove` as the oldest central entry with newer terrain work.
+- [x] Review the terrain contract, near/horizon streamers, terrain surface, overlays, water, tests and package scripts.
+- [x] Identify the interaction loop and all domains.
+- [x] Reconcile 68 active source-backed kits and offered services.
+- [x] Record resolved terrain-overlap defects.
+- [x] Define remaining aggregate authority and fixture gates.
 - [x] Add timestamped tracker and system audits.
-- [x] Refresh root `.agent` state and registry.
-- [x] Synchronize the central ledger and internal change log.
+- [x] Refresh root and central documentation on `main`.
 - [x] Create no branch or pull request.
-- [ ] Implement build identity, immutable artifacts, consumer receipts and executable browser/Pages proof.
+- [ ] Implement candidate staging, aggregate admission, rollback and visible-frame receipts.
 
 ## Selection comparison
 
 ```txt
 accessible Publish repositories: 10
 eligible non-Cavalry repositories: 9
-new or central-ledger-missing eligible repositories: 0
+new or ledger-missing eligible repositories: 0
 root-.agent-missing eligible repositories: 0
-
-TheOpenAbove selected because world-generation, terrain, grass, flower and map source changed after its prior audit.
-TheCavalryOfRome excluded.
+selected: TheOpenAbove
+reason: oldest central entry plus newer repo-local terrain-remediation work
+excluded: TheCavalryOfRome
 ```
 
 ## Interaction loop
 
 ```txt
 boot
+  -> build seeded world
   -> create visual domain
-  -> synchronously allocate and build 257 x 257 world fields
-  -> run six erosion passes and flow accumulation
-  -> create terrain, vegetation, grass and flower consumers
-  -> synchronously rasterize cached 96 x 96 map background
-  -> load balloon and create airstream/mail/simulation owners
-  -> start main RAF
+  -> create terrain surface and two stream consumers
+  -> create balloon, airstream, mail, simulation, map and camera
+  -> start RAF
 
 frame
-  -> update flight, mail and airstream
-  -> update terrain/horizon streamers
-  -> move grass and flower chunk windows around camera
-  -> query world height, moisture and flora for new chunks
-  -> render HDR frame
-  -> expose generation descriptor and flora state
+  -> update flight and camera
+  -> terrain surface creates one frozen streaming frame
+  -> near streamer rebuilds on revision change
+  -> horizon requirements partition around the same near bounds
+  -> horizon streamer rebuilds or reclassifies by LOD/clip signature
+  -> terrain surface records active frame
+  -> remaining visual systems update
+  -> HDR render
+
+boundary transition
+  -> obsolete meshes are removed and disposed
+  -> replacements are built directly into live groups
+  -> no aggregate success/rollback result is published
 ```
 
-## Resolved during this audit window
+## Resolved source-backed findings
 
 ```txt
-public descriptor no longer includes cachedFeatureCells
-map and query history no longer change authoritative descriptor output
-world exposes contains(x,z)
-outside-world flora returns zero grass and flower density
+one shared camera-relative frame drives both terrain consumers
+near chunk size remains 520 and horizon scale remains 2
+horizon cells are partitioned at exact near boundaries
+near-owned horizon interiors are omitted
+retained horizon chunks reclassify by clip signature and LOD
+horizon geometry expansion and vertical offset are removed
+near and horizon skirts cover ownership edges
+slope color sampling is aligned at 24 world units
+route protection is narrower and duplicate final blending is removed
+fields and road are terrain-draped
+lake descriptors are shared and edges feathered
+landmark and water resources have disposal paths
+new source tests are wired into npm run check and npm run build
 ```
 
 ## Remaining source-backed findings
 
-### World build is ungoverned
+### Stream identity is under-specified
 
-World construction performs synchronous array allocation, erosion, flow sorting and climate/fertility work. Map construction then performs thousands of synchronous world-color samples. No WorldBuildId, stage result, startup budget, progress, cancellation, reusable artifact or terminal build result exists.
+The current frame revision is a deterministic string based on grid centers, radius and near keys. It omits runtime session, world build and fingerprint, quality revision, algorithm/schema version, material/program generation and a typed frame identity.
 
-### Input identity is incomplete
+### Candidate construction is live
 
-The descriptor exposes seed, center, radius and grid dimensions, but no canonical fingerprint covers surface configuration, route protection, town protection, algorithm/schema versions or produced grid arrays.
+Near and horizon rebuilds remove obsolete live meshes before all replacement geometry is known to succeed. A thrown world sample, color sample, allocation or geometry error can leave a partial aggregate with no rollback.
 
-### Query results lack provenance
+### Adoption is sequential and unreported
 
-World methods return raw values and objects without query ID, world revision, membership result, artifact fingerprint or stale-result protection. `sampleFeatureCell` remains a direct cache-populating public method, although cache size is no longer authoritative state.
+The terrain surface calls near then horizon updates. Neither returns a typed result. `activeFrame` is assigned only after both calls, but no aggregate receipt proves that both live groups accepted the same frame before render.
 
-### Consumer revision is absent
+### Mesh provenance is asymmetric
 
-Terrain, vegetation, landmarks, grass, flowers and map receive the world utility directly. Their meshes, cached map pixels and readbacks do not cite one WorldBuildId, revision or artifact fingerprint.
+Near mesh metadata contains coordinates, LOD and bounds. Horizon metadata also contains segments, clip signature and frame revision. Neither consumer records a typed chunk generation, world artifact identity or aggregate terrain commit.
 
-### Boundary policy is only partially unified
+### Validation stops before the visible frame
 
-`sampleFlora` now returns `outside-world`, but height, moisture, temperature and fertility sampling still clamp to grid borders. No typed membership result coordinates all sample kinds and render consumers.
-
-### Tests remain incomplete
-
-Current Node tests prove deterministic values, protected anchor terrain, biome/species coverage and local grass/flower budgets. They do not prove artifact fingerprints, startup budgets, cancellation, query provenance, cross-consumer revision parity, stale-consumer rejection or visible-frame provenance.
+Pure tests prove classification, clipping and reclassification. They do not prove atomic scene adoption, last-good rollback, exactly-once retirement, frame-time budgets or browser/Pages visual continuity at ownership boundaries.
 
 ## Domains in use
 
 ```txt
-browser shell, canvas, map and fatal projection
-runtime admission, startup, RAF, input and public host
+browser shell, game canvas, parchment map and fatal projection
+runtime admission, startup, input, RAF and public host
 balloon simulation, steering, airstream and mail
 seeded world build, erosion, flow, climate, biome, flora and map color
-world-surface membership and legacy anchor protection
-terrain and horizon streaming
-vegetation and landmark placement
-grass and flower candidate generation, atlases, chunking, LOD and culling
+world membership and authored route/town/lake protection
+terrain streaming-frame classification and ownership partitioning
+near terrain geometry, LOD, skirts, replacement and disposal
+horizon requirements, clipping, LOD, skirts, replacement and disposal
+vegetation, landmarks, draped fields/road and shared lakes
+grass and flower chunks, atlases, LOD and culling
 quality, dynamic resolution, sky, clouds, water, HDR and lens response
-map caching and navigation projection
-telemetry, headless inspection, tests, build and Pages deployment
+map projection, telemetry, headless inspection, tests, build and Pages
 ```
 
 ## Kit inventory and services
@@ -131,53 +138,65 @@ telemetry, headless inspection, tests, build and Pages deployment
 ```txt
 runtime/gameplay: 15
 balloon/object/presentation: 15
-visual/world/environment: 32
+visual/world/environment: 33
 UI: 1
 tooling/proof: 4
-active source-backed total: 67
+active source-backed total: 68
 runtime-implied adapters: 12
 inactive/retired legacy: 12
-planned procedural-world authority: 29 including parent
 ```
 
-The exact kit names and services are in `.agent/kit-registry.json` and the latest tracker.
+The new active kit is:
+
+```txt
+open-above-terrain-streaming-contract-kit
+  frozen camera-relative frame creation
+  stable near/horizon grid anchoring
+  near requirement and bound production
+  horizon partitioning around near ownership
+  visible-cell classification
+  clip signatures and horizon LOD requirements
+```
+
+The complete inventory and service map are in `.agent/kit-registry.json` and the latest tracker.
 
 ## Required parent domain
 
 ```txt
-open-above-procedural-world-generation-authority-domain
+open-above-terrain-streaming-ownership-authority-domain
 ```
 
 ## Required services
 
 ```txt
-canonical seed/config/anchor/algorithm fingerprints
-world build ID, revision, plan, stages, budget and cancellation
-immutable world-grid artifact and fingerprint
-pure typed world sample query/result
-explicit membership and out-of-bounds policy
-bounded non-authoritative cache policy
-consumer identity, adoption and receipts
-terrain/vegetation/grass/flower/landmark/map parity result
-stale result rejection
-world-visible-frame acknowledgement
-independent-build, startup, replacement, browser and Pages fixtures
+stream session, frame and chunk-generation identities
+world/config/quality/geometry/material fingerprints
+immutable ownership plan and parity admission
+detached near/horizon candidate construction
+typed per-chunk build results
+aggregate candidate validation
+atomic adoption and last-good rollback
+exactly-once predecessor retirement receipts
+near/horizon consumer receipts
+bounded observations and journal
+TerrainStreamCommitResult
+TerrainVisibleFrameAck
+boundary, failure-injection, browser and Pages fixtures
 ```
 
 ## Required invariants
 
 ```txt
-same canonical inputs create the same world artifact fingerprint
-all sample results identify their world revision
-all consumers adopt one committed world build
-failed/cancelled builds do not replace the active world
-stale chunks/map pixels cannot survive replacement
-map construction does not mutate authoritative world state
-visible frame acknowledges the exact world artifact
+one interior world coordinate has at most one terrain owner
+near and horizon adopt the same frame or neither commits
+candidate failure leaves predecessor terrain unchanged
+all committed meshes cite the same world and terrain frame
+retirement occurs exactly once after successful adoption
+render acknowledgement follows aggregate commit
 ```
 
 ## Retained audits
 
-The runtime-fix reconciliation is current for descriptor purity and flora membership. The `2026-07-12T09-02-10-04-00` map audit remains authoritative for bearing, fit, route style and off-map navigation. Earlier world-surface, grass, terrain, HDR, frame-failure and lifecycle audits remain active.
+The procedural-world authority remains active for build identity and consumer provenance. Map, lifecycle, frame-failure, HDR, public-host, world-surface and grass audits remain active dependencies.
 
-Documentation only. No runtime source, dependency, script, gameplay, rendering or deployment behavior was changed by this documentation pass.
+Documentation only. No runtime source, dependency, gameplay, rendering or deployment behavior was changed by this pass.
