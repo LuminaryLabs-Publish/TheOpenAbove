@@ -1,156 +1,105 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T21-08-57-04-00`
+**Last aligned:** `2026-07-11T22-51-09-04-00`
 
 ## Primary ordered gaps
 
 ```txt
 1. immutable runtime admission
-2. import-pure balloon module and explicit compatibility admission
-3. single frame-loop registration and owner identity
-4. root session/listener/resource ownership
-5. ordered teardown and full-runtime restart proof
-6. fixed-step clock, visibility and sequenced input authority
-7. product manifest, selected mode and acceptance parity
-8. versioned Air Mail route and correct-current delivery proof
-9. complete mission reset transaction and mission epoch
-10. committed simulation/render/HUD/telemetry/GameHost correlation
-11. terrain source, classification and retained LOD authority
-12. bounded terrain builds, atomic replacement and edge continuity
-13. grass chunk spatial identity and world-bounds culling
-14. truthful CPU/WebGPU backend execution evidence
-15. world surface membership and consumer parity
-16. boundary response, recovery and visible-frame proof
+2. import purity and single frame owner
+3. balloon model descriptor, profile admission and fingerprint
+4. detached initial-level model loading and cancellation
+5. cross-component attachment parity
+6. model resource inventory, disposal and first-frame proof
+7. runtime session/listener/resource ownership
+8. fixed-step clock and sequenced input
+9. product source and acceptance parity
+10. Air Mail route and delivery authority
+11. mission reset transaction and epoch
+12. committed observation correlation
+13. terrain source, LOD and atomic replacement
+14. grass spatial identity and backend truth
+15. world-surface consumer parity
 ```
 
-## New world-surface gaps
+## Balloon descriptor gaps
 
 ```txt
-WORLD.surface has no schema version
-WORLD.surface has no revision or fingerprint
-edgeMask results have no query/result identity
-intersectsBounds results have no query/result identity
-consumer policy IDs are absent
-surface changes cannot stale-reject prior work
-current balloon/camera membership is not published
+no model schema or model version
+no modelId or modelRevision
+no canonical profile normalization
+no deep-frozen admitted profile
+no profile fingerprint
+no material or attachment fingerprint
+mutable nested default profiles remain ambient authority
 ```
 
-## Consumer parity gaps
+## Assembly parity gaps
 
 ```txt
-near terrain uses surface bounds admission
-horizon terrain uses surface bounds admission
-grass required set has no surface admission
-grass culling has no surface admission
-balloon horizontal movement has no surface admission
-airstream route content has no surface validation
-mail town/delivery content has no surface validation
-vegetation, water and landmarks have no declared surface policy
+panel profile is the implicit envelope-shape source
+shell, seams and mouth consume the envelope profile
+basket dimensions are independent
+burner-frame coordinates are independent
+load-cable anchor and basket coordinates are independent
+camera basket focus offset is fixed
+no validator proves the complete assembly remains connected
 ```
 
-## Boundary render gap
+## Loading gaps
 
 ```txt
-outside disk:
-  bounded terrain sample reaches edgeFloor
-  near/horizon chunks can be absent
-  grass chunks can still be created at edgeFloor
-  visible support-surface parity is unproven
+production startup calls buildHotAirBalloon synchronously
+loadHotAirBalloonModel is not used by src/main.js
+load helper only yields one frame before synchronous construction
+no command ID, session fence or generation
+no cancellation, progress, staged ownership or rollback
+no atomic scene-commit result
 ```
 
-## Boundary gameplay gap
+## Resource gaps
 
 ```txt
-balloon horizontal drift is unrestricted
-edgeFloor only affects vertical clearance
-inside/edge/outside state is absent
-out-of-bounds response policy is absent
-re-entry or recovery result is absent
-mission phase does not encode boundary state
+persistentGpuResources is metadata only
+no root inventory of geometries, materials and textures
+no root dispose service
+no idempotent retirement receipt
+no stale rope-update fence
+no predecessor release after replacement frame
 ```
 
-## Retained grass gaps
+## Observation gaps
 
 ```txt
-grass candidates and instance transforms use absolute world space
-chunk InstancedMesh objects remain at global origin
-manual culling reads mesh.position instead of chunk bounds
-all chunks share one camera-to-origin distance
-backend label can claim WebGPU without a GPU pipeline or dispatch
-CPU calls increment dispatchedWorkgroups
-accepted, visible and rendered counts are not separated
+modelId
+modelRevision
+profileFingerprint
+attachmentFingerprint
+resourceFingerprint
+modelLoadResult
+modelReadyCommit
+dynamicRiggingRevision
+renderFrameId
+firstVisibleModelFrameId
+resourceRetirementResult
 ```
 
-## Retained terrain gaps
+## Required fixtures
 
 ```txt
-retained horizon chunks are not reclassified after camera-center movement
-intended and actual LOD are not jointly observable
-terrain build work is synchronous and unbudgeted
-candidate replacement and stale rejection are absent
-near/horizon seam and normal policy is absent
+fixture:balloon-profile-schema
+fixture:balloon-custom-envelope-parity
+fixture:balloon-custom-gondola-parity
+fixture:balloon-attachment-validation
+fixture:balloon-finite-geometry
+fixture:balloon-initial-setup-load
+fixture:balloon-load-cancellation
+fixture:balloon-stale-load-rejection
+fixture:balloon-resource-inventory
+fixture:balloon-double-dispose
+fixture:balloon-replacement-retirement
+fixture:balloon-first-visible-frame
+fixture:pages-balloon-model-parity
 ```
 
-## Retained runtime and mission gaps
-
-```txt
-NexusEngine imports @main
-module-scope compatibility RAF remains
-root RAF handle is not retained
-full-runtime restart and mission reset are not distinct
-input uses held-key state rather than sequenced commands
-simulation uses capped variable dt
-correctAirstreamId is not enforced by delivery admission
-mail.reset resets parcel fields only
-no mission epoch or stale-caller fence
-telemetry snapshots before render/HUD completion
-GameHost exposes mutable subsystem references
-```
-
-## Missing observations
-
-```txt
-surfaceId and surfaceRevision
-surfaceFingerprint
-balloon/camera membership
-signed distance to boundary
-terrain required/committed/visible chunk IDs
-grass required/committed/visible chunk IDs
-unsupported visible grass chunk IDs
-surface consumer acknowledgement set
-consumer mismatch reasons
-boundary response result
-visible-frame surface revision
-```
-
-## Required world-surface fixtures
-
-```txt
-fixture:surface-point-classification
-fixture:surface-bounds-classification
-fixture:surface-edge-mask-continuity
-fixture:terrain-grass-membership-parity
-fixture:no-unsupported-visible-grass
-fixture:grass-origin-independent-culling
-fixture:balloon-boundary-response
-fixture:boundary-reentry
-fixture:route-content-surface-validation
-fixture:surface-revision-stale-result
-fixture:surface-visible-frame-parity
-fixture:pages-boundary-traversal
-```
-
-## Required guarantees
-
-```txt
-one surface revision drives all required consumers
-terrain and grass cannot disagree silently
-outside grass requires an explicit support-surface policy
-simulation outside behavior is explicit and deterministic
-route and destination content is surface-valid
-stale membership results mutate nothing
-GameHost explains consumer parity and mismatch reasons
-rendered frames acknowledge the surface revision they show
-```
-
-Do not treat bounded terrain height as bounded gameplay, and do not treat terrain chunk rejection as proof that every visual consumer obeys the same world edge.
+Do not treat `modelReady = true` as a committed load result, and do not treat `persistentGpuResources = true` as resource ownership or disposal proof.
