@@ -94,6 +94,8 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
 
   function dispose() {
     removeEventListener("resize", resize);
+    landmarks.dispose?.();
+    water.dispose?.();
     flowers.dispose();
     grass.dispose();
     terrain.dispose?.();
