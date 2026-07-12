@@ -1,7 +1,7 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@main/src/index.js";
 import { CAMPAIGN, WORLD } from "./data/campaign.config.js";
-import { buildHotAirBalloon, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
+import { loadHotAirBalloonModel, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
 import { createBalloonSimulation } from "./runtime/balloon-simulation-kit.js";
 import { createBalloonTelemetryEngine } from "./runtime/balloon-telemetry-kit.js";
 import { createAirstreamDomain } from "./runtime/airstream-domain/index.js";
@@ -20,9 +20,10 @@ function showFatal(error) {
   hud.innerHTML = "<strong>The Open Above</strong><br>Mail-flight runtime error. See panel.";
 }
 
-function createGame() {
+async function createGame() {
+  hud.innerHTML = "<strong>The Open Above</strong><br>Loading balloon and world...";
   const visual = createVisualDomain({ canvas, worldConfig: WORLD });
-  const balloon = buildHotAirBalloon();
+  const balloon = await loadHotAirBalloonModel(undefined, { yieldToFrame: true });
   visual.scene.add(balloon);
 
   const airstream = createAirstreamDomain({
@@ -59,6 +60,11 @@ function createGame() {
       horizonDistance: visual.landscape.terrain.horizon.maxDistance,
       worldSurface: visual.landscape.terrain.worldSurface.getDescriptor()
     },
+    model: {
+      ready: balloon.userData.modelReady === true,
+      loadedDuringLevelSetup: balloon.userData.loadedDuringLevelSetup === true,
+      persistentGpuResources: balloon.userData.persistentGpuResources === true
+    },
     visual: {
       quality: visualState.quality,
       exposure: Number((visualState.exposure ?? 1).toFixed(3)),
@@ -81,10 +87,12 @@ function createGame() {
       ? state.airstream.routeId.replaceAll("-", " ")
       : "between currents";
     const capture = Math.round((state.airstream.influence ?? 0) * 100);
+    const trim = Math.round(Math.abs(state.lateralTrim) / 3.6 * 100);
+    const trimDirection = state.lateralTrim < -0.08 ? "left" : state.lateralTrim > 0.08 ? "right" : "centered";
     const delivery = parcel.delivered
-      ? `Delivered to Brookhaven`
-      : `Mail: Brookhaven · Find meadow current`;
-    hud.innerHTML = `<strong>The Open Above: Air Mail</strong><br>${parcel.message}<br><small>${delivery} · ${current} ${capture}% · ${heat} · ${cameraRig.state.mode} · Altitude ${Math.round(state.altitude)}m · Scroll zoom</small>`;
+      ? "Delivered to Brookhaven"
+      : "Mail: Brookhaven · Find meadow current";
+    hud.innerHTML = `<strong>The Open Above: Air Mail</strong><br>${parcel.message}<br><small>${delivery} · ${current} ${capture}% · ${heat} · trim ${trimDirection} ${trim}% · W/Space rise · S/Shift descend · A/D steer · ${cameraRig.state.mode} · Altitude ${Math.round(state.altitude)}m · Scroll zoom</small>`;
   }
 
   let last = performance.now();
@@ -102,8 +110,8 @@ function createGame() {
       sample: state.airstream
     });
     simulation.applyToBalloon(balloon);
-    animateHotAirBalloon(balloon, now, state.burner);
-    balloonPresentation.update(state.elapsed, state.burner);
+    animateHotAirBalloon(balloon, now, state.burner, state);
+    balloonPresentation.update(state);
     cameraContext = cameraRig.update(dt, state);
     visualState = visual.update({ dt, elapsed: state.elapsed, flightState: state, cameraContext });
     engine.tick(dt);
@@ -125,6 +133,7 @@ function createGame() {
     airstream,
     mail,
     cameraRig,
+    balloonPresentation,
     getState: () => ({
       nexusEngine: engine.openAbove?.getState?.(),
       local: getSnapshot()
@@ -138,13 +147,19 @@ function createGame() {
     sample: airstream.sample(simulation.state.position, 0)
   });
   mail.update(simulation.state.position, simulation.state.airstream, 0);
+  balloonPresentation.update(simulation.state);
   visual.update({ dt: 0, elapsed: 0, flightState: simulation.state, cameraContext });
   engine.tick(0);
+  updateHud();
   requestAnimationFrame(frame);
 }
 
-try {
-  createGame();
-} catch (error) {
-  showFatal(error);
+async function boot() {
+  try {
+    await createGame();
+  } catch (error) {
+    showFatal(error);
+  }
 }
+
+boot();
