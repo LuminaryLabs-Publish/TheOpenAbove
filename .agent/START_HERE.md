@@ -1,98 +1,87 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T08-50-32-04-00`  
+**Last aligned:** `2026-07-12T09-02-10-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`
 
 ## Summary
 
-The active route now removes the old HUD and uses a full-screen parchment Air Mail map opened with `M`. The map pauses gameplay by making the host skip simulation updates, but gameplay input remains live because the map and balloon simulation own independent global keyboard listeners.
+The current parchment map is not navigation-authoritative. The player marker points exactly opposite the balloon's horizontal travel because simulation heading, map axes, marker-forward orientation and canvas rotation use incompatible conventions.
 
-While the map is open, the main RAF continues rendering the 3D scene and the map starts a second RAF. No map transition ID, pause revision, input generation, focus lease, projection revision or first-visible-frame receipt coordinates those owners.
+The map also scales against the full 10,000-unit world radius while current mission routes and towns extend only about 3,061 units from the origin. No named world-fit/mission-fit policy, active-route emphasis, off-map policy, projection revision or geometric fixture exists.
 
 ## Plan ledger
 
-**Goal:** make the parchment map one authoritative transition across gameplay pause, input isolation, focus, map projection, frame ownership, observation and lifecycle.
+**Goal:** make the map a trustworthy navigation projection whose coordinate space, content bounds, bearing, route emphasis, viewport fit and visible frame derive from one committed contract.
 
-- [x] Compare the complete Publish inventory with central tracking.
+- [x] Compare the complete Publish repository inventory with central ledgers.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` as the oldest eligible repository with a newer undocumented UI cutover.
-- [x] Trace page, map, simulation input, RAF, focus, lifecycle and validation behavior.
-- [x] Identify the interaction loop, all domains, 60 active source-backed kits and every offered service.
-- [x] Define the missing parchment-map pause/input authority.
+- [x] Select only `TheOpenAbove` as the oldest central-ledger entry with newer repo-local map work pending central synchronization.
+- [x] Trace page, host, map, world, simulation, airstream, mail and validation behavior.
+- [x] Identify the interaction loop, all domains, all 60 active source-backed kits and offered services.
+- [x] Prove the marker-bearing inversion and quantify the content-fit mismatch.
+- [x] Define the missing spatial-navigation authority.
 - [x] Add timestamped tracker, turn ledger and system audits.
-- [x] Refresh root `.agent` state and kit registry.
+- [x] Refresh root `.agent` state and machine registry.
 - [x] Push directly to `main`; create no branch or pull request.
-- [ ] Implement the authority and executable browser/Pages fixtures.
+- [ ] Implement the authority and executable browser/Pages geometry fixtures.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-12T08-50-32-04-00/project-breakdown.md
+.agent/trackers/2026-07-12T09-02-10-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/architecture-audit/2026-07-12T08-50-32-04-00-parchment-map-pause-input-authority-dsk-map.md
-.agent/render-audit/2026-07-12T08-50-32-04-00-dual-raf-map-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-12T08-50-32-04-00-map-pause-resume-flight-loop.md
-.agent/interaction-audit/2026-07-12T08-50-32-04-00-map-toggle-input-admission-map.md
-.agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-focus-lifecycle-contract.md
-.agent/deploy-audit/2026-07-12T08-50-32-04-00-map-pause-input-fixture-gate.md
-.agent/turn-ledger/2026-07-12T08-50-32-04-00.md
+.agent/architecture-audit/2026-07-12T09-02-10-04-00-parchment-map-spatial-navigation-authority-dsk-map.md
+.agent/render-audit/2026-07-12T09-02-10-04-00-player-bearing-route-fit-visible-frame-gap.md
+.agent/gameplay-audit/2026-07-12T09-02-10-04-00-flight-state-map-navigation-loop.md
+.agent/interaction-audit/2026-07-12T09-02-10-04-00-map-source-projection-result-map.md
+.agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md
+.agent/deploy-audit/2026-07-12T09-02-10-04-00-map-navigation-geometry-fixture-gate.md
+.agent/turn-ledger/2026-07-12T09-02-10-04-00.md
 .agent/kit-registry.json
 ```
 
-Retained audits remain authoritative for runtime admission, import purity, balloon profile/model loading, runtime lifecycle, fixed-step/input sequencing, Air Mail mission/reset, committed observation, public host isolation, frame failure, terrain, grass, world surface, steering, HDR surfaces and the superseded HUD accessibility path.
+Retain the `2026-07-12T08-50-32-04-00` parchment-map pause/input audit. It owns transition, input context, pause participants, focus, dual RAF ownership and lifecycle. The new audit owns spatial geometry and navigation truth.
 
 ## Interaction loop
 
 ```txt
-page
-  -> create game canvas
-  -> create hidden parchment map dialog and 2D canvas
-  -> create hidden fatal error surface
-
 boot
   -> create visual, balloon, airstream, mail and simulation owners
-  -> create map overlay with route/town/player sources
-  -> create camera, presentation and telemetry
+  -> create map with world surface, towns, routes, live player state and parcel
   -> start main RAF
 
-map closed
-  -> advance gameplay owners
-  -> render 3D frame
+map draw
+  -> derive scale from WORLD.surface.radius
+  -> draw routes and towns
+  -> highlight parcel destination town
+  -> transform player position
+  -> rotate marker from simulation heading
+  -> present map frame
 
-M opens map
-  -> map Boolean becomes true
-  -> map RAF starts
-  -> main host skips gameplay updates
-  -> gameplay key listeners remain active
-  -> main RAF continues 3D rendering with dt=0
-
-M or Escape closes map
-  -> map RAF stops
-  -> gameplay resumes
-  -> mutable key state accumulated during the map is consumed
+M/Escape
+  -> open/close map
+  -> pause/resume gameplay updates through host Boolean
 ```
 
 ## Domains in use
 
 ```txt
-browser shell, import map, semantic HTML, game canvas and map dialog
+browser shell, import map, semantic HTML, game canvas and parchment dialog
 runtime admission, startup failure, session and RAF ownership
 keyboard/key-state, blur, wheel zoom and variable frame time
 map transition, pause/resume, focus and lifecycle
-map world transform, route, town, destination and player projection
+map coordinate space, bounds, route/town/destination/player projection and bearing
 balloon simulation, airstream, steering, clearance and snapshots
 mail route, parcel, town, delivery volume, progress and reset
-balloon profile, model assembly, loading and GPU resources
-balloon geometry, rigging, presentation and camera
-quality, dynamic resolution and HDR render-surface ownership
+balloon profile, model, geometry, rigging, animation, presentation and camera
+quality, dynamic resolution, HDR surfaces and post-processing
 terrain, grass, atmosphere, water, lighting and lens response
-telemetry, GameHost and headless inspection
-fatal error projection and accessibility
+telemetry, GameHost, headless inspection, fatal projection and accessibility
 checks, tests, build and Pages deployment
 ```
 
@@ -107,52 +96,48 @@ tooling/proof source-backed kits: 3
 active source-backed total: 60
 runtime-implied adapters: 12
 inactive/retired legacy kits: 12
-planned map authority kits: 26 including parent
+planned spatial-navigation kits: 25 including parent
+retained pause/input authority kits: 26 including parent
 ```
 
-The new source-backed kit is:
-
-```txt
-open-above-parchment-map-overlay-kit
-  M/Escape toggle
-  visibility and aria-hidden projection
-  ResizeObserver sizing
-  world-to-map coordinates
-  route, town, destination and player drawing
-  recursive map RAF
-  open-state snapshot
-  local disposal
-```
-
-The exact complete kit and per-service map is in the latest tracker and `.agent/kit-registry.json`.
+The complete kit-by-kit service map is in the latest tracker and `.agent/kit-registry.json`.
 
 ## Main finding
 
 ```txt
-map open is a mutable Boolean, not a pause command/result
-simulation and map own independent global key listeners
-flight key state remains mutable while the map is open
-main RAF and map RAF run concurrently
-map snapshot exposes only { open }
-no map/pause/input/projection generation exists
-no deterministic focus transfer or close-control result exists
-map dispose is not owned by the host lifecycle
-old HUD mutation was removed, but semantic mission status was not replaced
+simulation heading = atan2(vx, vz)
+map axes = (worldX, worldZ)
+marker local forward = screen up
+marker rotation = -heading
+rendered marker direction = (-vx, -vz)
+```
+
+The player marker is antiparallel to travel.
+
+```txt
+world radius: 10000
+farthest current mission content: about 3061
+content radius use: about 30.6%
+fit policy: implicit world-fit only
+active/correct route style: absent
+off-map policy: absent
+geometry proof: absent
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-parchment-map-pause-input-authority-domain
-  -> map transition identity and admission
-  -> participant pause/resume barrier
-  -> gameplay input suspension and key-state retirement
-  -> map input context and keyboard scope
-  -> focus lease and result
-  -> immutable map frame plan and source fingerprint
-  -> one map-frame owner
-  -> open/close result, observation, journal and frame acknowledgement
-  -> browser and Pages fixtures
+open-above-parchment-map-spatial-navigation-authority-domain
+  -> coordinate-space schema
+  -> world/content bounds
+  -> viewport-fit policy
+  -> immutable projection transform
+  -> heading convention and player bearing
+  -> route/destination/active styling
+  -> off-map and edge policy
+  -> projection result, observation and journal
+  -> visible-frame acknowledgement
+  -> pure, browser and Pages geometry fixtures
 ```
 
 ## Ordered implementation queue
@@ -165,20 +150,20 @@ open-above-parchment-map-pause-input-authority-domain
 5. product source, Air Mail route and mission reset
 6. committed observation, public host and frame-failure containment
 7. terrain, grass and world-surface authorities
-8. steering and presentation coherence
-9. HDR attachment and render-surface resolution authority
-10. parchment map pause/input authority
+8. steering and HDR render-surface coherence
+9. parchment map pause/input authority
+10. parchment map spatial-navigation authority
 11. semantic mission status and fatal accessibility authority
 ```
 
 ## Next safe ledge
 
 ```txt
-Parchment Map Pause and Input Authority
-+ Map Transition Command and Revision
-+ Pause Participant Barrier
-+ Flight Input Isolation
-+ Focus and Keyboard Scope
-+ One Map Frame Owner
-+ First Map and Resumed Flight Frame Receipts
+Parchment Map Spatial Navigation Authority
++ Coordinate Space and Bearing Contract
++ Content Bounds and Viewport Fit
++ Active/Destination Route Projection
++ Off-Map Policy
++ Projection Result and Visible-Frame Receipt
++ Cardinal, Aspect, DPR and Pages Fixtures
 ```
