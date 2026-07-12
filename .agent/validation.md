@@ -1,95 +1,118 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T00-39-05-04-00`
+**Last aligned:** `2026-07-12T02-29-50-04-00`
 
 ## Scope
 
-Documentation-only audit of balloon profile ownership, async model loading, pattern handoff, model commit and visible-frame provenance through source revision `6b2753b63263c9238952d387214bc7ff91afe83e`.
+Documentation-only audit of the browser-global `window.GameHost`, raw owner exposure, public command admission and committed read-model coherence through source revision `0e5ede8760e32d9082e19f880992380b0c5e9cb4`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed construction behavior from executable proof that one immutable profile snapshot produced the installed and rendered balloon.
+**Goal:** distinguish source-backed evidence of an authority leak from executable proof that the public host is isolated, capability-scoped and correlated to one visible frame.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
 - [x] Review root guidance and retained audit state.
-- [x] Read startup host, balloon object, envelope profile, shell, pattern and smoke paths.
-- [x] Confirm the root default and several nested defaults remain mutable.
-- [x] Confirm the public kit global aliases the root default profile.
-- [x] Confirm the loader yields before building from the live object.
-- [x] Confirm current pattern metadata is passed into shell construction.
-- [x] Confirm readback lacks profile identity/fingerprint/frame provenance.
+- [x] Read startup host, RAF ordering and public host publication.
+- [x] Read simulation, mail, airstream, camera, presentation, visual and telemetry APIs.
+- [x] Confirm raw owner handles are exported publicly.
+- [x] Confirm those handles expose mutable state and imperative methods.
+- [x] Confirm readback lacks shared tick/frame/epoch/fingerprint provenance.
 - [x] Reconcile the active source-backed kit count to 59.
-- [x] Define pure, browser and Pages fixture requirements.
+- [x] Define static, browser and Pages proof requirements.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
 ## Source-backed behavior
 
 ```txt
-envelope shape default is deeply frozen
-root balloon default is not frozen
-root default contains direct subprofile references
-panel and streamer palette arrays are mutable
-window exposes the root default profile
-loadHotAirBalloonModel yields before build
-buildEnvelopeAssembly passes pattern metadata into buildEnvelopePanels
-model readback exposes ready/load/resource booleans
+window.GameHost exports engine, NexusEngine and THREE
+window.GameHost exports scene, renderer, camera and balloon
+window.GameHost exports visual, simulation, airstream and mail domains
+window.GameHost exports camera rig and balloon presentation domains
+simulation exposes mutable state, update and dispose
+mail exposes mutable parcel/state, update, reset and dispose
+airstream exposes mutable state, sample, update and dispose
+visual exposes renderer graph, update, render, resize and dispose
+camera rig exposes mutable state, update and dispose
+getState separately reads Nexus telemetry and a local snapshot
 ```
 
 ## Source-backed gaps
 
 ```txt
-no admission-time deep clone
-no complete schema/version
-no nested validation/canonicalization
-no deep-frozen admitted snapshot
-no profile ID/revision/fingerprint
-no load command/load generation
-no stale or cancelled load rejection
-no aggregate model/profile commit receipt
-no first visible profile-frame receipt
+no owner-handle quarantine
+no versioned capability descriptor
+no public command envelope or command ID
+no session, mission or frame revision admission
+no finite-value public payload policy
+no duplicate/stale rejection
+no typed public command result
+no immutable committed read model
+no shared state fingerprint
+no command-result to visible-frame acknowledgement
+no capability revocation policy
 ```
 
 ## Existing proof surface
 
-`npm run check` executes `node tests/smoke.mjs`; `npm run build` runs that check before Vite build. Existing checks cover source presence, profile sampling, shell markers, model-load markers, steering source patterns, terrain source patterns and selected pure tests. They do not execute:
+Current static checks and pure fixtures do not execute:
 
 ```txt
-public-profile alias isolation
-mutation during the one-frame load yield
-schema rejection
-canonical fingerprint stability
-concurrent or stale load generations
-atomic model/profile scene commit
-GameHost profile receipt
-first visible profile-frame correlation
-Pages model/profile parity
+public key-surface assertion
+raw owner absence
+read-model detachment
+read-model mutation isolation
+non-finite command rejection
+out-of-band simulation prevention
+mail-delivery bypass prevention
+direct render prevention
+stale session/mission/frame rejection
+duplicate command rejection
+capability revocation
+command-result and first-frame correlation
+local/Pages host-contract parity
 ```
 
-## Required pure fixtures
+## Required static fixtures
 
 ```txt
-fixture:balloon-profile-schema
-fixture:balloon-profile-canonicalization
-fixture:balloon-profile-deep-freeze
-fixture:balloon-default-alias-isolation
-fixture:balloon-profile-fingerprint-stability
-fixture:balloon-pattern-included-in-fingerprint
-fixture:balloon-invalid-profile-rejection
+fixture:host-public-key-surface
+fixture:host-owner-handle-absence
+fixture:host-no-engine-or-library-owner
+fixture:host-no-render-owner
+fixture:host-no-gameplay-owner
 ```
 
-## Required async/browser fixtures
+## Required browser fixtures
 
 ```txt
-fixture:balloon-profile-mutation-during-yield
-fixture:balloon-overlapping-load-generations
-fixture:balloon-stale-load-rejection
-fixture:balloon-model-profile-commit-receipt
-fixture:balloon-first-visible-profile-frame
-fixture:balloon-restart-profile-retirement
-fixture:pages-model-profile-parity
+fixture:host-read-model-detachment
+fixture:host-read-model-deep-immutability
+fixture:host-non-finite-command-rejection
+fixture:host-invalid-payload-zero-mutation
+fixture:host-stale-session-command
+fixture:host-stale-mission-command
+fixture:host-stale-frame-command
+fixture:host-duplicate-command
+fixture:host-command-result-frame-ack
+fixture:host-capability-revocation
+```
+
+## Required Pages smoke
+
+```txt
+load deployed route
+wait for committed frame
+verify public key surface
+verify raw owner absence
+verify read record is detached
+submit one allowed command
+verify typed result and matching frame acknowledgement
+submit invalid and stale commands
+verify zero mutation
+compare local and deployed schema/capability versions
 ```
 
 ## Commands not run
@@ -121,4 +144,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim deterministic model identity or profile-to-frame provenance until the profile is cloned and admitted before yielding, stale load generations are rejected, the model/profile receipt is committed atomically, and browser/Pages fixtures prove the first visible frame carries the same fingerprint.
+Do not claim public-host isolation, command safety, read-model coherence or frame correlation until raw owners are removed, rejected commands prove zero mutation, accepted commands route to one authoritative owner, and browser/Pages fixtures tie results to one committed visible frame.

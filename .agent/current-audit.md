@@ -1,12 +1,12 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T00-39-05-04-00`
+**Last aligned:** `2026-07-12T02-29-50-04-00`
 
 ## Status
 
 ```txt
-status: balloon-profile-snapshot-fingerprint-load-generation-authority-audited
-source revision reviewed: 6b2753b63263c9238952d387214bc7ff91afe83e
+status: public-host-capability-authority-audited
+source revision reviewed: 0e5ede8760e32d9082e19f880992380b0c5e9cb4
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
@@ -16,26 +16,27 @@ central internal change log: complete
 
 ## Summary
 
-The active Air Mail runtime has a continuous balloon shell, integrated palette metadata, a tapered basket, twin burners, persistent rigging, steering, part inertia and a reactive camera. The current audit isolates the model-input boundary. The root balloon profile and several nested defaults are mutable shared objects. The root profile is exposed on `window`, and `loadHotAirBalloonModel()` yields before construction without cloning or fingerprinting the input. The installed model therefore has no immutable source descriptor or proof tying it to the profile later reported by diagnostics.
+The current Air Mail runtime publishes the complete live owner graph through `window.GameHost`. This includes engine modules and instances, Three.js scene/camera/renderer objects, the balloon object, visual domain, simulation, airstream, mail, camera rig and balloon presentation. These are not detached diagnostics. They expose mutable state plus update, render, reset and dispose methods, allowing same-page callers to bypass normal clock, mission, presentation, lifecycle and committed-frame ordering.
 
-The previous statement that pattern metadata was not handed to the shell is corrected. `buildEnvelopeAssembly()` builds pattern metadata first and passes `streamers.userData.pattern` into `buildEnvelopePanels()`.
+`GameHost.getState()` also reads Nexus telemetry and a new local snapshot independently. It includes no shared simulation tick, render frame, mission epoch or state fingerprint proving that both reads describe the same visible frame.
 
 ## Plan ledger
 
-**Goal:** make one immutable profile snapshot the sole authority for asynchronous balloon construction, model commit, observation and the first visible frame.
+**Goal:** make the browser-global host a capability-scoped diagnostics and command boundary rather than a second runtime authority.
 
 - [x] Compare the full Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
+- [x] Confirm all nine eligible repositories have central and root `.agent` coverage.
 - [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
-- [x] Review root guidance, recent audit state and source revision.
-- [x] Trace root defaults, nested aliases, public globals, async load, model build, scene commit, snapshot and tests.
-- [x] Reconcile the pattern-to-shell handoff against current source.
-- [x] Reuse the complete 59-kit source-backed inventory and service map.
-- [x] Define profile schema, canonicalization, identity, fingerprint, load-generation and frame-proof contracts.
+- [x] Review root guidance and retained audit state.
+- [x] Trace startup construction, RAF ordering, host publication and readback.
+- [x] Trace exposed simulation, mission, camera, render and lifecycle methods.
+- [x] Preserve the complete 59-kit source-backed inventory and service map.
+- [x] Define owner quarantine, capability descriptors, command envelopes, epoch fences, finite-value policy, typed results and immutable read models.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` routing state and kit registry.
 - [x] Synchronize the central ledger and internal change log.
-- [ ] Implement runtime changes and execute fixtures.
+- [ ] Implement runtime changes and execute isolation/coherence fixtures.
 
 ## Selection comparison
 
@@ -45,78 +46,80 @@ eligible non-Cavalry repositories: 9
 new or central-ledger-missing repositories: 0
 root-.agent-missing repositories: 0
 
-TheOpenAbove       2026-07-11T22-58-50-04-00 selected
-IntoTheMeadow      2026-07-11T23-10-51-04-00
-HorrorCorridor     2026-07-11T23-18-16-04-00
-PhantomCommand     2026-07-11T23-28-29-04-00
-ZombieOrchard      2026-07-11T23-48-14-04-00
-TheUnmappedHouse   2026-07-12T00-01-25-04-00
-AetherVale         2026-07-12T00-10-23-04-00
-MyCozyIsland       2026-07-12T00-20-01-04-00
-PrehistoricRush    2026-07-12T00-30-49-04-00
+TheOpenAbove       2026-07-12T00-39-05-04-00 selected
+IntoTheMeadow      2026-07-12T00-58-12-04-00
+HorrorCorridor     2026-07-12T01-08-06-04-00
+PhantomCommand     2026-07-12T01-20-00-04-00
+ZombieOrchard      2026-07-12T01-30-07-04-00
+TheUnmappedHouse   2026-07-12T01-41-56-04-00
+AetherVale         2026-07-12T01-58-43-04-00
+MyCozyIsland       2026-07-12T02-10-14-04-00
+PrehistoricRush    2026-07-12T02-21-55-04-00
 TheCavalryOfRome   excluded
 ```
 
 ## Interaction loop
 
 ```txt
-module evaluation
-  -> create module-level default profile objects
-  -> expose kit APIs and root profile through window
-
 startup
-  -> create visual domain
-  -> call loadHotAirBalloonModel(undefined, { yieldToFrame: true })
-  -> await one RAF
-  -> build from the then-current live default profile
-  -> create pattern metadata
-  -> pass pattern metadata into continuous shell construction
-  -> construct mouth, seams, basket, rigging and burner
-  -> mark modelReady/loadedDuringLevelSetup/persistentGpuResources
-  -> add balloon to scene
+  -> construct all subsystem owners
+  -> publish raw owner references through window.GameHost
+  -> start one recursive product RAF
 
-runtime
-  -> simulate and present balloon
-  -> render
-  -> expose only model readiness booleans, not profile identity or fingerprint
+product RAF
+  -> simulation.update
+  -> mail.update
+  -> airstream.update
+  -> apply and animate balloon
+  -> presentation.update
+  -> cameraRig.update
+  -> visual.update
+  -> engine.tick
+  -> visual.render
+  -> HUD update
+
+public host
+  -> caller can mutate owners or call methods at any time
+  -> no command admission or ordering relationship to RAF
+  -> getState independently samples mutable owners
 ```
 
 ## Source-backed findings
 
-### Root and nested defaults are not one immutable descriptor
+### Raw gameplay and mission owners are public
 
-`defaultHotAirBalloonProfile` is a mutable object containing direct references to imported default subprofiles. The envelope shape profile is frozen, but the panel, streamer/pattern and root model defaults are not deeply frozen. Palette arrays remain mutable.
+`simulation` exposes its mutable state plus `update`, `applyToBalloon` and `dispose`. `mail` exposes its route, towns, parcel, mutable state, `update`, `reset` and `dispose`. `airstream` exposes routes, field, state, sampling, updating and disposal.
 
-### Public global aliases the root default
+### Raw render and camera owners are public
 
-`window.OpenAboveHotAirBalloonObjectKit.profile` points to `defaultHotAirBalloonProfile`. A public caller can mutate scale, offsets or nested subprofiles before a later build or restart.
+The host exports the Three.js scene, renderer, camera and balloon directly. It also exports the visual domain with composer, dynamic resolution, landscape owners, update, render, resize and disposal methods. The camera rig exposes mutable state and its update/dispose methods.
 
-### Async loading reads after yielding
+### Public calls bypass ordered authority
 
-`loadHotAirBalloonModel()` awaits a frame and then calls `buildHotAirBalloon(profile)` with the same object reference. No admission-time clone, schema check, freeze, fingerprint or load generation exists. Mutation during the yield changes the model that is built.
+A caller can advance simulation without the host clock, mutate or complete delivery without a mission command, submit an uncommitted render, change scene/camera state, or partially dispose the runtime while RAF continues.
 
-### Pattern metadata handoff is present
+### Numeric state is not protected
 
-The current root assembly calls `buildFittedStreamers(profile.streamers)` and passes `streamers.userData.pattern` to `buildEnvelopePanels(profile.panels, ...)`. The prior gap entry was stale and has been removed.
+Direct writes bypass clamping. For example, assigning `NaN` to camera zoom reaches camera placement math on the next update and can produce non-finite camera transforms.
 
-### Model state lacks profile provenance
+### Readback is not frame-coherent
 
-The model and `GameHost` expose readiness booleans but no profile ID, schema version, canonical revision, fingerprint, load command ID, load generation, build receipt or first-visible-frame acknowledgement.
+`getState()` returns Nexus telemetry plus a freshly assembled local snapshot. There is no common `simulationTickId`, `renderFrameId`, `missionEpoch`, profile/model receipt or state fingerprint.
 
-### Existing tests are static
+### Existing tests do not isolate the host
 
-The smoke suite checks source patterns and profile math. It does not test alias isolation, mutation during the async yield, stale load rejection, fingerprint stability, custom-profile parity or rendered-frame provenance.
+No source or browser fixture proves raw owner keys are absent, read records are detached, invalid or stale commands mutate nothing, or one command result correlates to one later visible frame.
 
 ## Consequences
 
 ```txt
-public or internal mutation can alter later model builds
-initial setup can consume a profile different from the one intended at call time
-same nominal default can produce different geometry across attempts
-restart/reload cannot prove which profile revision won
-stale async load results have no rejection boundary
-GameHost cannot identify the profile rendered
-static checks can pass while mutation races remain
+same-page code has equivalent authority to the product host
+simulation can advance outside the admitted clock
+mission completion/reset can bypass epoch and result policy
+camera and renderer can be corrupted outside typed results
+runtime can be partially disposed while callbacks continue
+HUD, telemetry, readback and visible pixels can describe different states
+future restart/lifecycle fences cannot contain leaked owner references
 ```
 
 ## Domains in use
@@ -124,15 +127,16 @@ static checks can pass while mutation races remain
 ```txt
 browser shell, DOM, Vite and Pages
 runtime admission, session, failure and frame ownership
+public host capabilities and readback
 keyboard, blur, wheel and variable RAF time
 balloon simulation, airstream, steering, clearance and snapshots
-balloon profile composition, model assembly, async loading and resources
-envelope shape sampling, unified shell, palette/accent pattern, seams and mouth
-basket, burner, rigging, rope, materials and part inertia
-camera follow, zoom, clipping, basket view and steering look
-mail route, town, volume and progress
-bounded terrain, grass, atmosphere, water and HDR
-telemetry, HUD, GameHost and headless readback
+mail route, town, volume, progress and reset
+balloon profile, model assembly, async load and resources
+envelope shell, pattern, seams and mouth
+basket, burner, rigging, rope and part inertia
+camera follow, zoom, clipping and steering look
+terrain, grass, atmosphere, water, HDR and dynamic resolution
+Nexus telemetry, HUD and headless readback
 checks, pure tests, build and Pages deployment
 ```
 
@@ -155,72 +159,62 @@ The exact kit list and per-kit services are recorded in the timestamped tracker 
 ```txt
 runtime boot, fatal projection and host publication
 keyboard burner/vent/steering input and wheel camera input
-wind-driven balloon simulation, clearance, transforms and snapshots
-airstream route/field/force/visual/debug composition
+wind-driven simulation, clearance, transforms and snapshots
+airstream route/field/force/visual/debug services
 mail parcel/route/town/volume/progress/reset services
-profile sampling and procedural shell/pattern/mouth/seam construction
-basket, burner, rigging and persistent rope construction/animation
-model build, one-frame-yield loading and compatibility installation
-envelope/gondola materials and inertia
-camera follow, steering look, zoom, clipping and basket-view blend
-terrain, grass, sky, cloud, water, HDR and dynamic-resolution rendering
+procedural balloon profile/model and shell construction
+basket, burner, rigging, rope, materials and animation
+camera follow, steering look, zoom, clipping and basket blend
+terrain, grass, sky, cloud, water, lighting and HDR rendering
+dynamic-resolution and renderer observations
 Nexus telemetry, HUD, GameHost and headless readback
-source checks, pure fixtures, Vite build and Pages deployment
+checks, fixtures, Vite build and Pages deployment
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-balloon-profile-admission-authority-domain
-  -> open-above-balloon-profile-schema-kit
-  -> open-above-balloon-profile-canonicalization-kit
-  -> open-above-balloon-profile-deep-clone-kit
-  -> open-above-balloon-profile-validation-kit
-  -> open-above-balloon-profile-deep-freeze-kit
-  -> open-above-balloon-profile-id-kit
-  -> open-above-balloon-profile-version-kit
-  -> open-above-balloon-profile-revision-kit
-  -> open-above-balloon-profile-fingerprint-kit
-  -> open-above-balloon-load-command-kit
-  -> open-above-balloon-load-generation-kit
-  -> open-above-balloon-build-plan-kit
-  -> open-above-stale-profile-load-rejection-kit
-  -> open-above-balloon-model-profile-commit-kit
-  -> open-above-balloon-model-profile-receipt-kit
-  -> open-above-balloon-profile-observation-kit
-  -> open-above-balloon-profile-frame-ack-kit
-  -> open-above-profile-alias-isolation-fixture-kit
-  -> open-above-profile-mutation-race-fixture-kit
-  -> open-above-profile-fingerprint-frame-fixture-kit
+open-above-public-host-capability-authority-domain
+  -> host session identity
+  -> capability descriptors
+  -> owner-handle quarantine
+  -> command envelopes, IDs and admission
+  -> session, mission and frame revision fences
+  -> finite-value validation
+  -> typed command results
+  -> immutable committed read model
+  -> state fingerprint and frame provenance
+  -> bounded journal and legacy adapter
+  -> isolation, command and coherence fixtures
 ```
 
-## Required transaction
+## Required public contract
 
 ```txt
-BalloonLoadCommand
-  -> capture session, mission epoch and requested profile source
-  -> deep-clone and canonicalize the complete nested profile
-  -> validate schema, numeric bounds, arrays and attachment inputs
-  -> assign profile ID/version/revision and deterministic fingerprint
-  -> deep-freeze the admitted snapshot
-  -> allocate load command ID and load generation
-  -> yield/build only from the admitted snapshot
-  -> collect model parts and resource inventory
-  -> reject cancelled or stale generations
-  -> atomically install model plus profile receipt
-  -> render and acknowledge the first frame carrying that receipt
+window.GameHost = {
+  version,
+  sessionId,
+  capabilities,
+  getCommittedState(),
+  getJournal(),
+  submit(command)
+}
 ```
+
+No live subsystem, Three.js, GPU or Nexus engine object crosses this boundary.
 
 ## Required invariants
 
 ```txt
-post-admission mutation cannot affect a build
-public diagnostics never expose mutable canonical defaults
-one load generation can commit at most once
-stale or cancelled generations mutate no scene state
-model receipt fingerprint equals admitted profile fingerprint
-GameHost and visible frame identify the same model/profile revision
-pattern metadata used by the shell is included in the fingerprint
+public reads cannot mutate runtime state
+public commands cannot call subsystem owners directly
+rejected/stale/duplicate commands perform zero mutation
+numeric payloads are finite and bounded
+commands are fenced by runtime session and mission epoch
+frame-sensitive commands are fenced by frame revision
+one accepted command routes to one authoritative service
+read model describes one committed visible frame
+capabilities are revoked after failure, reset, stop and disposal
 ```
 
 ## Ordered safe ledges
@@ -236,6 +230,7 @@ pattern metadata used by the shell is included in the fingerprint
 5. Air Mail route and delivery authority
 5a. mission restart transaction and epoch
 5b. committed observation frame authority
+5c. public host owner quarantine, command gateway and committed read model
 6. terrain source and LOD transition authority
 6a. bounded terrain build and atomic replacement
 7. grass spatial identity and backend truth
