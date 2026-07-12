@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T07-00-48-04-00`
+**Last aligned:** `2026-07-12T08-50-32-04-00`
 
 ## Primary ordered gaps
 
@@ -18,58 +18,82 @@
 11. grass spatial identity and world-surface parity
 12. balloon steering and presentation coherence
 13. HDR attachment and render-surface resolution authority
-14. HUD accessibility announcement authority
+14. parchment map pause and input authority
+15. semantic mission status and fatal accessibility authority
 ```
 
-## HUD accessibility gaps
+## Parchment map gaps
 
 ```txt
-visual HUD and assistive status share one node
-#hud is aria-live="polite"
-updateHud replaces complete innerHTML after every rendered frame
-loading, telemetry, mission copy, controls and errors share one channel
-no semantic source-event identity
-no announcement ID, kind, priority or policy
-no mission or projection revision
-no admission or stale-result rejection
-no duplicate-event idempotency
-no semantic-text deduplication
-no elapsed-time rate budget
-no reduced-verbosity preference
-no explicit aria-atomic/relevant policy
-no dedicated semantic status node
-no field-level visual DOM projection
-no typed announcement result
-no detached announcement observation
-no announcement journal
-no mission/frame/announcement acknowledgement
-fatal details have no alert role
-fatal details have no deterministic focus target
-no exactly-once fatal announcement
-no browser or Pages accessibility fixture
+map state is one mutable open Boolean
+no map transition command or transition ID
+no map phase or generation
+no pause revision
+no pause participant registry
+no prepare/commit/rollback barrier
+no typed pause or resume result
+simulation and map own independent global keyboard listeners
+no FLIGHT versus MAP input context
+no single-consumer result for one physical key event
+flight key Set remains mutable while map is open
+no held-key retirement policy
+no fresh gameplay input generation on close
+no stale map/input generation rejection
+main RAF remains active while map RAF starts
+no single map-frame owner
+no immutable map frame plan
+no map projection revision
+no world/route/town/parcel/player source fingerprint
+no first visible map frame acknowledgement
+no first resumed flight frame acknowledgement
+map dialog has no focus transfer or restoration
+no real close control
+no semantic route/destination/player summary
+map snapshot exposes only { open }
+map dispose is not invoked through host lifecycle
+no map transition journal
+no browser or Pages map/input fixture
 ```
 
-## Concrete mutation path
+## Concrete input path
 
 ```txt
-frame
-  -> visual.render()
-  -> updateHud()
-  -> hud.innerHTML = complete HUD string
-  -> aria-live region subtree replaced
-  -> next RAF
+window keydown
+  -> simulation adds code to held-key Set
+  -> map independently checks M/Escape
+
+map open
+  -> host skips gameplay updates
+  -> held-key Set continues changing
+
+map close
+  -> simulation immediately consumes current Set
 ```
 
-The string contains changing altitude, capture, burner, trim, camera and mission values. Setting `innerHTML` recreates descendants even when serialized text is unchanged.
-
-## Fatal path gap
+## Concrete frame path
 
 ```txt
-showFatal(error)
-  -> unhide #error <pre>
-  -> write stack/message
-  -> replace live HUD with generic error
-  -> no alert/focus/result transaction
+main RAF while map open
+  -> update timestamp
+  -> skip simulation owners
+  -> render 3D scene with dt=0
+  -> schedule successor
+
+map RAF while map open
+  -> read mutable player and parcel state
+  -> redraw map canvas
+  -> schedule successor
+```
+
+## Accessibility and product-feedback gaps after HUD removal
+
+```txt
+old per-frame live HUD path is removed
+semantic mission announcement authority was not implemented
+ordinary control hints are no longer visible
+current parcel message is not visible outside diagnostics
+map canvas content has no semantic equivalent
+fatal <pre> still lacks alert role and focus transaction
 ```
 
 ## Retained HDR and frame-failure gaps
@@ -90,19 +114,23 @@ balloon profile and async model load lack complete identity/fingerprint/generati
 mission reset is not one atomic cross-owner transaction
 ```
 
-## Required accessibility fixtures
+## Required map fixtures
 
 ```txt
-fixture:hud-visual-live-region-separation
-fixture:semantic-event-classification
-fixture:announcement-dedupe
-fixture:announcement-rate-budget
-fixture:cadence-independent-announcement-sequence
-fixture:route-capture-announcement
-fixture:delivery-announcement
-fixture:fatal-alert-focus-exactly-once
-fixture:replacement-session-status-cleanup
-fixture:pages-accessibility-parity
+fixture:map-transition-idempotency
+fixture:single-consumer-per-key-event
+fixture:map-open-clears-flight-keys
+fixture:map-context-key-isolation
+fixture:map-close-neutral-first-step
+fixture:pause-participant-parity
+fixture:single-map-frame-owner
+fixture:map-source-fingerprint
+fixture:map-open-first-visible-frame
+fixture:map-close-first-resumed-frame
+fixture:map-focus-enter-exit
+fixture:map-dispose-and-callback-fence
+fixture:map-30-60-120hz-parity
+fixture:pages-map-pause-resume-parity
 ```
 
-Do not treat a visually correct HUD, browser live-region coalescing, a successful render, a passing static build or the absence of console errors as proof that assistive announcements are bounded, meaningful, discoverable or lifecycle-safe.
+Do not treat a visible parchment map, a frozen flight path, a passing source-pattern smoke test, a successful build or the absence of console errors as proof that pause, input isolation, focus, lifecycle and map/frame provenance are correct.
