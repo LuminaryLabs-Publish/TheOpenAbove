@@ -99,7 +99,8 @@ export function createAirstreamVisual({ scene, routes = [] } = {}) {
 
       const attribute = record.wisps.geometry.attributes.position;
       record.wisps.seeds.forEach((seed, index) => {
-        const t = (seed.baseT + elapsed * record.route.speed * 0.00055) % 1;
+        const rawT = seed.baseT + elapsed * record.route.speed * 0.00055;
+        const t = ((rawT % 1) + 1) % 1;
         const point = record.curve.getPoint(t);
         const tangent = record.curve.getTangent(t).normalize();
         const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
