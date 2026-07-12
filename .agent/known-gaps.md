@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T02-29-50-04-00`
+**Last aligned:** `2026-07-12T04-00-32-04-00`
 
 ## Primary ordered gaps
 
@@ -16,12 +16,51 @@
 9. mission reset transaction and epoch
 10. committed observation correlation
 11. public host owner quarantine and capability authority
-12. terrain source, LOD and atomic replacement
-13. grass spatial identity and backend truth
-14. world-surface consumer parity
-15. balloon steering input/result authority
-16. simulation/root/part/camera steering coherence
-17. steering reset neutralization and visible-frame proof
+12. frame-stage failure containment and last-known-good authority
+13. terrain source, LOD and atomic replacement
+14. grass spatial identity and backend truth
+15. world-surface consumer parity
+16. balloon steering input/result authority
+17. simulation/root/part/camera steering coherence
+18. steering reset neutralization and visible-frame proof
+```
+
+## Frame-failure gaps
+
+```txt
+boot catch covers startup construction only
+normal RAF callback has no enclosing failure boundary
+no frame ID or immutable frame input
+no canonical frame-stage schema or stage ID
+no typed stage result
+no failure ID or classification
+no completed-stage mutation journal
+no single failure admission rule
+no later-stage mutation fence
+no last-known-good frame identity
+no canvas/HUD/readback last-good correlation
+no failed-session mutation quarantine
+no automatic public capability revocation
+no render-freeze or bounded terminal overlay contract
+no ordered disposal plan/result for frame failure
+no terminal failure observation
+no cold-restart admission into a fresh session
+```
+
+## Concrete partial-frame cases
+
+```txt
+simulation succeeds and mail throws
+  -> flight state is newer than visible output
+
+mail commits delivery and render throws
+  -> parcel may be delivered while canvas and HUD remain old
+
+render succeeds and HUD throws
+  -> canvas is newer than HUD and no successor frame runs
+
+telemetry succeeds and render throws
+  -> diagnostics may report state never presented visibly
 ```
 
 ## Public host capability gaps
@@ -29,7 +68,8 @@
 ```txt
 window.GameHost exports live engine and library objects
 window.GameHost exports raw scene, renderer, camera and balloon objects
-window.GameHost exports visual, simulation, airstream, mail, camera and presentation owners
+window.GameHost exports visual, simulation, airstream and mail domains
+window.GameHost exports camera rig and balloon presentation domains
 public owner references remain valid across future reset/lifecycle boundaries
 public callers can invoke update, render, reset and dispose methods directly
 public callers can mutate simulation, parcel, route, camera and presentation state
@@ -43,31 +83,6 @@ no bounded public command journal
 no immutable committed read model
 no state fingerprint shared by host, telemetry, HUD and visible frame
 no capability revocation on failure, reset, stop or disposal
-```
-
-## Concrete bypass gaps
-
-```txt
-simulation.update can advance state outside host clock
-mail.update/reset and parcel mutation can bypass mission authority
-airstream sample/update can diverge from simulation airstream state
-cameraRig.state accepts direct non-finite writes
-visual.render and renderer access can submit uncommitted frames
-visual/simulation/mail/airstream/camera dispose can partially retire an active runtime
-scene and balloon objects can be mutated without command admission
-```
-
-## Observation gaps
-
-```txt
-getState independently samples Nexus telemetry and local owners
-no shared simulationTickId
-no renderFrameId
-no missionEpoch
-no camera or visual revision
-no state fingerprint
-no command-result to frame acknowledgement
-readback contains no proof of the visible frame consumed
 ```
 
 ## Retained balloon profile gaps
@@ -93,24 +108,25 @@ no mission epoch fences predecessor owner references
 no neutral convergence or first replacement-frame receipt
 ```
 
-## Required host fixtures
+## Required frame-failure fixtures
 
 ```txt
-fixture:host-public-key-surface
-fixture:host-owner-handle-absence
-fixture:host-read-model-detachment
-fixture:host-read-model-deep-immutability
-fixture:host-non-finite-command-rejection
-fixture:host-out-of-band-tick-unavailable
-fixture:host-mail-bypass-unavailable
-fixture:host-direct-render-unavailable
-fixture:host-stale-session-command
-fixture:host-stale-mission-command
-fixture:host-stale-frame-command
-fixture:host-duplicate-command
-fixture:host-command-result-frame-ack
-fixture:host-capability-revocation
-fixture:pages-host-contract-parity
+fixture:frame-failure-simulation-stage
+fixture:frame-failure-mail-stage
+fixture:frame-failure-airstream-stage
+fixture:frame-failure-balloon-stage
+fixture:frame-failure-presentation-stage
+fixture:frame-failure-camera-stage
+fixture:frame-failure-visual-update-stage
+fixture:frame-failure-telemetry-stage
+fixture:frame-failure-render-stage
+fixture:frame-failure-hud-stage
+fixture:frame-failure-no-successor-raf
+fixture:frame-failure-last-known-good-coherence
+fixture:frame-failure-capability-revocation
+fixture:frame-failure-ordered-disposal
+fixture:frame-failure-cold-restart
+fixture:pages-frame-failure-terminal-surface
 ```
 
-Do not treat `GameHost.getState()`, a successful telemetry tick, a rendered canvas, or the absence of an immediate error as proof of public-host isolation or frame coherence.
+Do not treat a frozen canvas, an uncaught console error, stale `GameHost.getState()`, or a previously successful frame as proof that a runtime failure was contained.
