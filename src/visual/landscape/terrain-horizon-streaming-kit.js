@@ -1,27 +1,13 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import {
+  createTerrainStreamingFrame,
+  classifyHorizonRequirements
+} from "./terrain-streaming-contract-kit.js";
 
 export const TERRAIN_HORIZON_STREAMING_KIT_ID = "open-above-terrain-horizon-streaming-kit";
 
-function key(x, z) {
-  return `${x}:${z}`;
-}
-
-function chunkBounds(cx, cz, chunkSize) {
-  const half = chunkSize * 0.5;
-  const centerX = cx * chunkSize;
-  const centerZ = cz * chunkSize;
-  return {
-    minX: centerX - half,
-    maxX: centerX + half,
-    minZ: centerZ - half,
-    maxZ: centerZ + half
-  };
-}
-
-function segmentsForDistance(distance) {
-  if (distance < 3400) return 10;
-  if (distance < 5000) return 6;
-  return 4;
+function pushDoubleSidedQuad(indices, a, b, c, d) {
+  indices.push(a, b, c, a, c, d, c, b, a, d, c, a);
 }
 
 export function createTerrainHorizonStreamer({
@@ -31,102 +17,154 @@ export function createTerrainHorizonStreamer({
   material,
   worldSurface = null,
   nearChunkSize = 520,
+  nearChunkRadius = 3,
   radiusInNearChunks = 12,
-  innerRadiusInNearChunks = 3.35
+  slopeSampleStep = 24,
+  skirtDepth = 4
 }) {
-  const coarseScale = 2;
-  const chunkSize = nearChunkSize * coarseScale;
+  const chunkSize = nearChunkSize * 2;
   const maxDistance = radiusInNearChunks * nearChunkSize;
-  const innerDistance = innerRadiusInNearChunks * nearChunkSize;
   const group = new THREE.Group();
   group.name = "open-above-far-horizon-terrain";
   scene.add(group);
 
   const chunks = new Map();
-  let centerX = Number.NaN;
-  let centerZ = Number.NaN;
+  let frameRevision = null;
 
-  function buildGeometry(cx, cz) {
-    const worldCenterX = cx * chunkSize;
-    const worldCenterZ = cz * chunkSize;
-    const distance = Math.hypot(worldCenterX - centerX * chunkSize, worldCenterZ - centerZ * chunkSize);
-    const segments = segmentsForDistance(distance);
-    const geometry = new THREE.PlaneGeometry(chunkSize * 1.004, chunkSize * 1.004, segments, segments);
-    geometry.rotateX(-Math.PI / 2);
-    const positions = geometry.attributes.position;
-    const colors = new Float32Array(positions.count * 3);
-    const slopeStep = 24;
+  function buildGeometry(requirement) {
+    const worldCenterX = requirement.cx * chunkSize;
+    const worldCenterZ = requirement.cz * chunkSize;
+    const positions = [];
+    const colors = [];
+    const indices = [];
+    const vertexMap = new Map();
 
-    for (let index = 0; index < positions.count; index += 1) {
-      const worldX = worldCenterX + positions.getX(index);
-      const worldZ = worldCenterZ + positions.getZ(index);
+    function vertexAt(worldX, worldZ, yOffset = 0, darken = 1, unique = false) {
+      const cacheKey = `${worldX.toFixed(6)}:${worldZ.toFixed(6)}:${yOffset.toFixed(4)}:${darken.toFixed(3)}`;
+      if (!unique && vertexMap.has(cacheKey)) return vertexMap.get(cacheKey);
       const height = terrainHeight(worldX, worldZ);
-      positions.setY(index, height - 0.08);
-      const dx = terrainHeight(worldX + slopeStep, worldZ) - terrainHeight(worldX - slopeStep, worldZ);
-      const dz = terrainHeight(worldX, worldZ + slopeStep) - terrainHeight(worldX, worldZ - slopeStep);
-      const slope = Math.hypot(dx, dz) / (slopeStep * 2);
+      const dx = terrainHeight(worldX + slopeSampleStep, worldZ) - terrainHeight(worldX - slopeSampleStep, worldZ);
+      const dz = terrainHeight(worldX, worldZ + slopeSampleStep) - terrainHeight(worldX, worldZ - slopeSampleStep);
+      const slope = Math.hypot(dx, dz) / (slopeSampleStep * 2);
       const color = terrainColor(worldX, worldZ, height, slope);
-      colors[index * 3] = color.r;
-      colors[index * 3 + 1] = color.g;
-      colors[index * 3 + 2] = color.b;
+      const index = positions.length / 3;
+      positions.push(worldX - worldCenterX, height + yOffset, worldZ - worldCenterZ);
+      colors.push(color.r * darken, color.g * darken, color.b * darken);
+      if (!unique) vertexMap.set(cacheKey, index);
+      return index;
     }
 
-    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    for (const cell of requirement.partition.visibleCells) {
+      const a = vertexAt(cell.minX, cell.minZ);
+      const b = vertexAt(cell.maxX, cell.minZ);
+      const c = vertexAt(cell.maxX, cell.maxZ);
+      const d = vertexAt(cell.minX, cell.maxZ);
+      indices.push(a, d, b, b, d, c);
+    }
+
+    const edgeCounts = new Map();
+    const edgeDirection = new Map();
+    function countEdge(a, b) {
+      const key = a < b ? `${a}:${b}` : `${b}:${a}`;
+      edgeCounts.set(key, (edgeCounts.get(key) || 0) + 1);
+      if (!edgeDirection.has(key)) edgeDirection.set(key, [a, b]);
+    }
+    for (let index = 0; index < indices.length; index += 3) {
+      const a = indices[index];
+      const b = indices[index + 1];
+      const c = indices[index + 2];
+      countEdge(a, b);
+      countEdge(b, c);
+      countEdge(c, a);
+    }
+
+    const surfaceIndexCount = indices.length;
+    for (const [key, count] of edgeCounts) {
+      if (count !== 1) continue;
+      const [first, second] = edgeDirection.get(key);
+      const firstX = positions[first * 3] + worldCenterX;
+      const firstZ = positions[first * 3 + 2] + worldCenterZ;
+      const secondX = positions[second * 3] + worldCenterX;
+      const secondZ = positions[second * 3 + 2] + worldCenterZ;
+      const firstTop = vertexAt(firstX, firstZ, 0, 0.94, true);
+      const secondTop = vertexAt(secondX, secondZ, 0, 0.94, true);
+      const firstBottom = vertexAt(firstX, firstZ, -skirtDepth, 0.7, true);
+      const secondBottom = vertexAt(secondX, secondZ, -skirtDepth, 0.7, true);
+      pushDoubleSidedQuad(indices, firstTop, secondTop, secondBottom, firstBottom);
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setIndex(indices);
     geometry.computeVertexNormals();
     geometry.computeBoundingSphere();
+    geometry.userData.terrain = {
+      surfaceIndexCount,
+      skirtIndexCount: indices.length - surfaceIndexCount,
+      clipSignature: requirement.clipSignature,
+      lodBand: requirement.lodBand,
+      segments: requirement.segments
+    };
     return geometry;
   }
 
-  function createChunk(cx, cz) {
-    const mesh = new THREE.Mesh(buildGeometry(cx, cz), material);
-    mesh.name = `terrain-horizon-${cx}-${cz}`;
-    mesh.position.set(cx * chunkSize, 0, cz * chunkSize);
+  function createChunk(requirement) {
+    const mesh = new THREE.Mesh(buildGeometry(requirement), material);
+    mesh.name = `terrain-horizon-${requirement.cx}-${requirement.cz}-lod-${requirement.lodBand}`;
+    mesh.position.set(requirement.cx * chunkSize, 0, requirement.cz * chunkSize);
     mesh.receiveShadow = false;
     mesh.castShadow = false;
-    mesh.userData.horizonChunk = { x: cx, z: cz };
+    mesh.userData.horizonChunk = {
+      x: requirement.cx,
+      z: requirement.cz,
+      lodBand: requirement.lodBand,
+      segments: requirement.segments,
+      clipSignature: requirement.clipSignature,
+      frameRevision
+    };
     group.add(mesh);
     return mesh;
   }
 
-  function rebuild(nextCenterX, nextCenterZ) {
-    const required = new Set();
-    const coarseRadius = Math.ceil(radiusInNearChunks / coarseScale) + 1;
-
-    for (let dz = -coarseRadius; dz <= coarseRadius; dz += 1) {
-      for (let dx = -coarseRadius; dx <= coarseRadius; dx += 1) {
-        const cx = nextCenterX + dx;
-        const cz = nextCenterZ + dz;
-        const distance = Math.hypot(dx * chunkSize, dz * chunkSize);
-        const halfDiagonal = chunkSize * Math.SQRT2 * 0.5;
-        if (distance + halfDiagonal <= innerDistance) continue;
-        if (distance - halfDiagonal > maxDistance) continue;
-        if (worldSurface && !worldSurface.intersectsBounds(chunkBounds(cx, cz, chunkSize))) continue;
-        required.add(key(cx, cz));
-      }
-    }
+  function rebuild(frame) {
+    const requirements = classifyHorizonRequirements(frame, {
+      radiusInNearChunks,
+      worldSurface
+    });
+    const required = new Map(requirements.map((requirement) => [requirement.key, requirement]));
 
     for (const [chunkKey, mesh] of chunks) {
-      if (!required.has(chunkKey)) {
+      const requirement = required.get(chunkKey);
+      const actual = mesh.userData.horizonChunk;
+      const mismatched = !requirement
+        || actual.segments !== requirement.segments
+        || actual.lodBand !== requirement.lodBand
+        || actual.clipSignature !== requirement.clipSignature;
+      if (mismatched) {
         group.remove(mesh);
         mesh.geometry.dispose();
         chunks.delete(chunkKey);
       }
     }
 
-    for (const chunkKey of required) {
-      if (chunks.has(chunkKey)) continue;
-      const [cx, cz] = chunkKey.split(":").map(Number);
-      chunks.set(chunkKey, createChunk(cx, cz));
+    frameRevision = frame.revision;
+    for (const [chunkKey, requirement] of required) {
+      if (!chunks.has(chunkKey)) chunks.set(chunkKey, createChunk(requirement));
+      else chunks.get(chunkKey).userData.horizonChunk.frameRevision = frameRevision;
     }
   }
 
+  function updateFromFrame(frame) {
+    if (frame.revision !== frameRevision) rebuild(frame);
+  }
+
   function update(camera) {
-    const nextCenterX = Math.round(camera.position.x / chunkSize);
-    const nextCenterZ = Math.round(camera.position.z / chunkSize);
-    if (nextCenterX === centerX && nextCenterZ === centerZ) return;
-    centerX = nextCenterX;
-    centerZ = nextCenterZ;
-    rebuild(centerX, centerZ);
+    updateFromFrame(createTerrainStreamingFrame(camera.position, {
+      nearChunkSize,
+      nearChunkRadius,
+      worldSurface
+    }));
   }
 
   function dispose() {
@@ -141,10 +179,18 @@ export function createTerrainHorizonStreamer({
     chunks,
     chunkSize,
     radiusInNearChunks,
-    innerRadiusInNearChunks,
     maxDistance,
     worldSurface,
     update,
-    dispose
+    updateFromFrame,
+    dispose,
+    getFrameRevision: () => frameRevision
+  };
+}
+
+if (typeof window !== "undefined") {
+  window.OpenAboveTerrainHorizonStreamingKit = {
+    id: TERRAIN_HORIZON_STREAMING_KIT_ID,
+    createTerrainHorizonStreamer
   };
 }
