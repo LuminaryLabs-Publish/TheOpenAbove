@@ -1,9 +1,9 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T11-01-59-04-00",
+  "lastAligned": "2026-07-12T11-15-16-04-00",
   "status": "procedural-world-generation-consumer-coherence-audited",
-  "repositoryRevisionReviewed": "f24e1b11063a566ff011168ffd89a0609f21328c",
+  "repositoryRevisionReviewed": "74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec",
   "latestTracker": ".agent/trackers/2026-07-12T11-01-59-04-00/project-breakdown.md",
   "latestTurnLedger": ".agent/turn-ledger/2026-07-12T11-01-59-04-00.md",
   "latestAudits": {
@@ -12,6 +12,7 @@
     "gameplay": ".agent/gameplay-audit/2026-07-12T11-01-59-04-00-flight-streaming-world-query-loop.md",
     "interaction": ".agent/interaction-audit/2026-07-12T11-01-59-04-00-world-sample-command-result-map.md",
     "worldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
+    "runtimeFixReconciliation": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-runtime-fix-reconciliation.md",
     "grassSystem": ".agent/grass-system-audit/2026-07-12T11-01-59-04-00-world-flora-chunk-membership-contract.md",
     "deploy": ".agent/deploy-audit/2026-07-12T11-01-59-04-00-world-generation-fixture-gate.md"
   },
@@ -148,7 +149,7 @@
   "serviceMap": {
     "runtimeAndGameplay": ["flight-input-and-integration", "airstream-route-field-force-visual-debug", "mail-parcel-town-volume-progress-reset", "telemetry-and-snapshot"],
     "balloonObjectAndPresentation": ["profile-and-shell-construction", "mouth-seams-basket-rigging-burner-rope", "async-model-loading", "inertia-material-camera-clipping"],
-    "open-above-world-generation-kit": ["seeded-grid-build", "protected-anchor-blending", "erosion-and-flow", "climate-and-fertility", "biome-and-flora", "map-color-query", "feature-cell-cache", "descriptor"],
+    "open-above-world-generation-kit": ["seeded-grid-build", "protected-anchor-blending", "erosion-and-flow", "climate-and-fertility", "biome-and-flora", "disk-containment", "outside-world-flora", "map-color-query", "feature-cell-cache", "pure-descriptor"],
     "open-above-terrain-surface-kit": ["disk-membership", "bounded-height", "terrain-color", "near-and-horizon-streaming"],
     "open-above-grass-patch-density-kit": ["world-flora-profile-adapter", "density-sampling", "legacy-fallback-patches-and-clearings"],
     "open-above-grass-texture-atlas-kit": ["five-species-procedural-atlas"],
@@ -213,26 +214,30 @@
     "open-above-world-visible-frame-ack-kit",
     "open-above-world-generation-journal-kit",
     "open-above-world-independent-build-fixture-kit",
-    "open-above-world-cache-purity-fixture-kit",
-    "open-above-world-membership-parity-fixture-kit",
     "open-above-world-startup-budget-fixture-kit",
+    "open-above-world-replacement-fixture-kit",
+    "open-above-world-consumer-parity-fixture-kit",
     "open-above-world-browser-pages-fixture-kit"
   ],
-  "mainFinding": "World reads are observationally impure: map or flora sampling can populate featureCells while getDescriptor exposes cache size, so query history can change public snapshots. Build stages, boundary policy and consumer adoption also lack shared identity, typed results and visible-frame proof.",
+  "resolvedDuringAudit": [
+    "authoritative-descriptor-no-longer-exposes-feature-cache-size",
+    "world-disk-containment-query-added",
+    "outside-world-flora-is-zero-density"
+  ],
+  "mainFinding": "The new world source is deterministic and the concurrent runtime fix removed public descriptor drift and bounded flora, but construction remains a synchronous unversioned utility graph. Terrain, vegetation, grass, flowers, landmarks and the map still lack a common immutable world artifact, revisioned sample results, consumer receipts, stale-result rejection and visible-frame provenance.",
   "validation": {
-    "runtimeChanged": false,
-    "htmlChanged": false,
-    "packageScriptsChanged": false,
-    "dependenciesChanged": false,
-    "gameplayChanged": false,
-    "inputChanged": false,
-    "renderChanged": false,
-    "deploymentChanged": false,
+    "runtimeChangedByDocumentationPass": false,
+    "concurrentRuntimeFixObserved": true,
+    "htmlChangedByDocumentationPass": false,
+    "packageScriptsChangedByDocumentationPass": false,
+    "dependenciesChangedByDocumentationPass": false,
+    "gameplayChangedByDocumentationPass": false,
+    "renderChangedByDocumentationPass": false,
+    "deploymentChangedByDocumentationPass": false,
     "branchCreated": false,
     "pullRequestCreated": false,
     "commandsRun": false,
-    "cachePurityFixturesAvailable": false,
-    "membershipParityFixturesAvailable": false,
+    "worldAuthorityFixturesAvailable": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
