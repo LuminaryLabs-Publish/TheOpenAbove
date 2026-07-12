@@ -1,5 +1,5 @@
 import { hashGrassSeed, seedFloat } from "./grass-world-seed-kit.js";
-import { sampleGrassDensity } from "./grass-biome-density-kit.js";
+import { GRASS_SPECIES_COUNT, sampleGrassDensity } from "./grass-biome-density-kit.js";
 import { grassExcluded } from "./grass-exclusion-mask-kit.js";
 import { createGrassPatchDistribution } from "./grass-patch-density-kit.js";
 
@@ -10,6 +10,18 @@ function greatestCommonDivisor(a, b) {
   let right = Math.abs(b);
   while (right) [left, right] = [right, left % right];
   return left;
+}
+
+function chooseHeightBand(seed, species) {
+  const roll = seedFloat(seed, 12);
+  const goldenBias = species === 4 ? 0.08 : 0;
+  if (roll < 0.72 - goldenBias) {
+    return { id: "normal", scale: 0.85 + seedFloat(seed, 13) * 0.4 };
+  }
+  if (roll < 0.92 - goldenBias * 0.35) {
+    return { id: "tall", scale: 1.45 + seedFloat(seed, 13) * 0.55 };
+  }
+  return { id: "hero", scale: 2.2 + seedFloat(seed, 13) * 0.8 };
 }
 
 export function generateGrassChunkCandidates({
@@ -28,7 +40,7 @@ export function generateGrassChunkCandidates({
   const originX = chunkX * chunkSize;
   const originZ = chunkZ * chunkSize;
   const slopeStep = 2.5;
-  const maxAttempts = count * 18;
+  const maxAttempts = count * 28;
   const gridSide = Math.ceil(Math.sqrt(maxAttempts));
   const totalCells = gridSide * gridSide;
   const cellSize = chunkSize / gridSide;
@@ -51,7 +63,9 @@ export function generateGrassChunkCandidates({
     const slope = Math.hypot(dx, dz) / (slopeStep * 2);
     const biome = sampleGrassDensity({ height: y, moisture, slope });
     const treeProximity = treeProximityAt(x, z);
-    const density = patchDistribution.sample(x, z, biome.density, { height: y, treeProximity });
+    const context = { height: y, moisture, slope, treeProximity };
+    const flora = patchDistribution.profile?.(x, z, context);
+    const density = patchDistribution.sample(x, z, biome.density, context);
     if (grassExcluded({ x, z, moisture, slope }) || obstacleAt(x, z)) continue;
     if (seedFloat(seed, 2) > density) continue;
 
@@ -62,21 +76,31 @@ export function generateGrassChunkCandidates({
         ? [0.75, 1.1]
         : [0.55, 0.9];
     const densityScale = sizeBand[0] + seedFloat(seed, 8) * (sizeBand[1] - sizeBand[0]);
+    const primarySpecies = Number.isInteger(flora?.primaryGrassType) ? flora.primaryGrassType : biome.species;
+    const secondarySpecies = Number.isInteger(flora?.secondaryGrassType)
+      ? flora.secondaryGrassType
+      : (primarySpecies + 1) % GRASS_SPECIES_COUNT;
+    const secondaryMix = Math.max(0, Math.min(0.4, Number(flora?.secondaryMix) || 0.14));
+    const species = seedFloat(seed, 11) < secondaryMix ? secondarySpecies : primarySpecies;
+    const heightBand = chooseHeightBand(seed, species);
+    const speciesHeight = [0.86, 1, 0.92, 1.1, 1.22][species] ?? 1;
+    const speciesWidth = [1.08, 1, 0.9, 0.94, 0.86][species] ?? 1;
 
     candidates.push({
       x,
       y,
       z,
       rotation: seedFloat(seed, 3) * Math.PI * 2,
-      height: (1.45 + seedFloat(seed, 4) * 1.15) * densityScale,
-      width: (6.2 + seedFloat(seed, 5) * 3.8) * densityScale,
+      height: (1.25 + seedFloat(seed, 4) * 0.78) * densityScale * heightBand.scale * speciesHeight,
+      width: (5.8 + seedFloat(seed, 5) * 3.6) * densityScale * speciesWidth,
       leanX: (seedFloat(seed, 9) - 0.5) * 0.279,
       leanZ: (seedFloat(seed, 10) - 0.5) * 0.279,
       normal: { x: -dx / normalLength, y: (slopeStep * 2) / normalLength, z: -dz / normalLength },
       phase: seedFloat(seed, 6) * Math.PI * 2,
-      species: biome.species,
+      species,
       hue: seedFloat(seed, 7),
-      variant: Math.floor(seedFloat(seed, 11) * 8),
+      variant: species,
+      heightBand: heightBand.id,
       density,
       seed
     });
@@ -85,4 +109,6 @@ export function generateGrassChunkCandidates({
   return candidates;
 }
 
-window.OpenAboveGrassChunkPlacementKit = { id: GRASS_CHUNK_PLACEMENT_KIT_ID, generateGrassChunkCandidates };
+if (typeof window !== "undefined") {
+  window.OpenAboveGrassChunkPlacementKit = { id: GRASS_CHUNK_PLACEMENT_KIT_ID, generateGrassChunkCandidates };
+}
