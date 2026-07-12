@@ -1,147 +1,120 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T09-02-10-04-00`
+**Last aligned:** `2026-07-12T11-01-59-04-00`
 
 ## Scope
 
-Documentation-only audit of parchment-map coordinate space, player bearing, content bounds, viewport fit, route styling, off-map policy and visible-frame provenance through source revision `4b76ec275102be3a9358d866bcbfd816ac270c04`.
+Documentation-only audit of world construction, deterministic sampling, feature-cell cache behavior, disk membership, terrain/grass/flower/map consumer coherence and visible-frame provenance through source revision `f24e1b11063a566ff011168ffd89a0609f21328c`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed map drawing from executable proof that the map points in the correct direction, fits mission content and projects one attributable navigation frame.
+**Goal:** distinguish deterministic sampled values from proof that one immutable world artifact is built, queried, adopted and rendered coherently.
 
-- [x] Compare the complete Publish inventory and central ledger.
+- [x] Compare the complete Publish inventory and central ledger state.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove`.
-- [x] Read guidance, page shell, host, map overlay, world config, simulation, routes, mail domain, smoke tests and root `.agent` state.
-- [x] Confirm map axes are world X to screen X and world Z to screen Y.
-- [x] Confirm simulation heading is `atan2(wind.x, wind.z)`.
-- [x] Confirm the upward marker is rotated by `-heading`.
-- [x] Derive the resulting opposite-travel marker vector.
-- [x] Confirm map scale uses the 10,000-unit world radius.
-- [x] Measure the farthest current route/town extent at about 3,061 units.
-- [x] Confirm no active-route, off-map, projection-result or geometry fixture exists.
-- [x] Reconcile 60 active source-backed kits and services.
-- [x] Define pure, browser, build and Pages proof requirements.
-- [x] Change no runtime source, HTML, dependency, script or workflow.
+- [x] Select only `TheOpenAbove` because material source changed after its prior audit.
+- [x] Read guidance, host, world generator, terrain, grass, flowers, map and tests.
+- [x] Confirm synchronous grid/erosion/flow/map build work.
+- [x] Confirm feature-cell queries mutate a cache exposed by the descriptor.
+- [x] Confirm terrain and flora consumers do not share one membership service.
+- [x] Reconcile 67 active source-backed kits and services.
+- [x] Define authority, fixture and deployment requirements.
+- [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
-## Source-backed behavior
+## Existing source-backed proof
 
 ```txt
-world surface center and radius are captured when the overlay is created
-worldToMap maps world X to screen X and world Z to screen Y
-scale is 0.72 * min CSS dimension / (2 * world radius)
-all routes are drawn with one dashed policy
-parcel destination town is highlighted
-player position and heading are read live per map frame
-player marker local forward points upward
-player marker rotates by negative simulation heading
-canvas backing resolution follows capped DPR
+independent world objects return equal tested samples
+world grid size and feature-cell size are asserted
+route and town protected terrain remains close to legacy height
+five grass and five flower types are observed
+several biome profiles and map colors are observed
+grass chunk generation is deterministic for tested local chunks
+local high-quality grass budget equals 2500 clumps / 5000 cards
+flower placement and type coverage are tested
+npm run check imports world, grass and flower tests
 ```
 
 ## Source-backed defect proof
 
 ```txt
-heading = atan2(vx, vz)
-arrowForward = (0, -1)
-rotation = -heading
-rotatedArrow = (-sin heading, -cos heading)
-rotatedArrow = (-vx/speed, -vz/speed)
+featureCellAt inserts when a key is absent
+sampleBiome/sampleFlora/sampleMapColor can call featureCellAt
+getDescriptor exposes featureCells.size
+getSnapshot includes world.getDescriptor()
 ```
 
-The player marker is exactly antiparallel to horizontal travel for every nonzero vector.
+Therefore query history can alter public snapshot content without a committed world change.
 
-## Source-backed fit evidence
+## Source-backed boundary evidence
 
 ```txt
-world radius: 10000
-Brookhaven radius: sqrt(1900^2 + 2400^2) ~= 3061
-Sunvale radius: sqrt(1850^2 + 2200^2) ~= 2874
-Cloudmere radius: sqrt(1600^2 + 1800^2) ~= 2408
-maximum content/world ratio: ~= 0.306
+terrain height uses worldSurface.edgeMask and edgeFloor
+world sampleGrid clamps coordinates to grid edge
+grass/flower domains center chunks on camera position
+grass/flower constructors receive terrain and world, not worldSurface membership
+generated chunk identity omits world build revision
+map background is created once through synchronous world color sampling
 ```
 
-## Source-backed gaps
+## Missing static fixtures
 
 ```txt
-no coordinate-space schema
-no canonical map-bearing service
-no zero-speed bearing policy
-no content-bounds derivation
-no named viewport-fit policy
-no content padding result
-no active/correct route style
-no off-map policy
-no navigation projection revision
-no source fingerprint
-no typed projection result
-no visible-frame acknowledgement
-no executable geometry fixture
+fixture:world-authority-present
+fixture:cache-size-removed-from-authoritative-state
+fixture:typed-membership-policy-present
+fixture:consumer-world-revision-present
+fixture:world-visible-frame-ack-present
 ```
 
-## Required static fixtures
+## Missing pure fixtures
 
 ```txt
-fixture:map-spatial-authority-present
-fixture:direct-negative-heading-rotation-removed
-fixture:named-fit-policy-present
-fixture:off-map-policy-present
-fixture:projection-result-present
-fixture:visible-map-frame-ack-present
+fixture:world-input-fingerprint
+fixture:world-independent-build-fingerprint
+fixture:world-query-order-purity
+fixture:world-map-prewarm-purity
+fixture:world-cache-capacity-and-retirement
+fixture:world-inside-edge-outside-matrix
+fixture:world-anchor-fingerprint-drift
+fixture:world-consumer-parity
+fixture:world-stale-query-rejection
+fixture:world-stale-chunk-rejection
 ```
 
-## Required pure fixtures
+## Missing performance fixtures
 
 ```txt
-fixture:map-heading-cardinals
-fixture:map-heading-diagonals
-fixture:map-zero-speed-bearing
-fixture:map-coordinate-roundtrip
-fixture:map-route-content-bounds
-fixture:map-fit-wide-square-portrait
-fixture:map-dpr-css-geometry-parity
-fixture:map-active-route-style
-fixture:map-correct-destination-route-style
-fixture:map-off-map-policy
-fixture:map-source-fingerprint
-fixture:map-stale-projection-rejection
+world build wall-time budget
+world build allocation budget
+map rasterization budget
+cancellation at each build stage
+failed build leaves active artifact unchanged
+cold build versus cached artifact startup
 ```
 
-## Required browser fixtures
+## Missing browser fixtures
 
 ```txt
-boot actual page and open map
-place or drive balloon through known cardinal and diagonal states
-sample marker tip/body pixels and compare with expected bearing
-verify all required route/town content lies inside declared padding
-resize to portrait, square and wide surfaces
-change DPR across supported values
-verify CSS-space projection parity
-verify active, correct and destination route styles
-move player beyond admitted bounds and verify edge policy
-capture MapProjectionResult and matching MapVisibleFrameAck
+capture WorldBuildResult before first visible frame
+verify map construction does not change authoritative world descriptor
+fly center to edge and compare terrain/grass/flower membership
+open and close map and compare world fingerprint
+probe map/scene biome color parity
+replace world revision and reject stale chunks
+capture WorldVisibleFrameAck
 ```
 
-## Required built-output checks
+## Missing built-output and Pages checks
 
 ```txt
-dist contains spatial-navigation authority and fixtures
+source and dist world fingerprints match
 built imports resolve under project base path
-source and built projection fingerprints match
-built map no longer derives navigation geometry through unversioned draw-time guesses
-```
-
-## Required Pages smoke
-
-```txt
-load deployed route for an exact commit
-open map
-prove player marker bearing against known movement
-prove mission-content fit and route styling
-prove portrait/wide and DPR parity
-prove off-map policy
-capture screenshot and matching visible-frame acknowledgement
+deployed world construction meets budget
+deployed edge membership matches source fixtures
+map and scene cite the same world revision
+screenshot is paired with machine-readable visible-frame acknowledgement
 ```
 
 ## Commands not run
@@ -151,11 +124,11 @@ npm install
 npm run check
 npm run headless:check
 npm run build
-browser map geometry matrix
-Pages map navigation smoke
+browser world fixture matrix
+Pages world-generation smoke
 ```
 
-The connector environment supplied source and write access, not a checked-out browser runtime. No executable map geometry or rendering correctness claim is made.
+The connector environment supplied source and write access, not a checked-out browser runtime. Existing repository tests were inspected but not executed during this documentation pass.
 
 ## Change-state validation
 
@@ -176,4 +149,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim the parchment map is navigation-authoritative until executable proof shows correct cardinal/diagonal bearing, declared fit policy, aspect/DPR parity, route-style parity, off-map behavior, stale-result rejection and visible-frame provenance.
+Do not claim procedural world authority until executable proof shows canonical independent-build fingerprints, query/cache purity, explicit membership, cross-consumer parity, startup/cancellation behavior, stale-result rejection and visible-frame provenance.
