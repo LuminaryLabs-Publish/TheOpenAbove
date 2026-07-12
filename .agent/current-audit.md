@@ -10,8 +10,8 @@ repository revision reviewed: e0f40064e935170dabc642242ce0b25a28527929
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: pending until repo-local push completes
-central internal change log: pending until repo-local push completes
+central ledger sync: complete
+central internal change log: complete
 ```
 
 ## Summary
@@ -34,6 +34,7 @@ The fatal path reveals a detailed `<pre>` and writes a generic HUD error message
 - [x] Define event identity, policy, priority, dedupe, rate budget, live-region projection, fatal focus and frame receipts.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` routing state and kit registry.
+- [x] Synchronize the central ledger and internal change log.
 - [x] Create no branch or pull request.
 - [ ] Implement runtime changes and execute browser/Pages accessibility fixtures.
 
