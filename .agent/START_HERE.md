@@ -1,86 +1,87 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T11-15-16-04-00`  
+**Last aligned:** `2026-07-12T13-29-56-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
-**Branch:** `main`
+**Branch:** `main`  
+**Revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
 
 ## Summary
 
-The active source now builds a seeded full-world grid with erosion, flow, five grass species, five flower types and a cached biome map. During this audit, commit `74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec` removed feature-cache size from the authoritative descriptor and bounded flora outside the world disk.
+The active source now drives near and horizon terrain from one frozen camera-relative streaming frame. Horizon cells covered by near terrain are explicitly removed, retained horizon chunks reclassify by LOD and clip signature, skirts cover ownership boundaries, authored fields and roads drape over terrain, lake descriptors are shared and disposal is broader.
 
-The remaining gap is architectural: world construction is still one synchronous, unversioned utility graph. Terrain, vegetation, grass, flowers, landmarks and the map do not adopt a common immutable world artifact through typed receipts or acknowledge which build produced a visible frame.
+The remaining gap is aggregate terrain-stream authority. Near and horizon streamers still mutate live scene groups independently, dispose predecessor meshes before complete candidate success, return no typed adoption result and publish no aggregate commit, rollback or first-visible-frame receipt.
 
 ## Plan ledger
 
-**Goal:** make one immutable, bounded and fingerprinted world build feed every world consumer through pure revisioned queries, typed adoption receipts and visible-frame proof.
+**Goal:** preserve the terrain-overlap remediation while making each boundary transition an atomic, revisioned and provable near/horizon aggregate.
 
 - [x] Compare the complete Publish inventory with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` because substantial world/grass/flower/map source landed after its previous audit.
-- [x] Trace world construction, sampling, cache behavior, membership, chunk streaming, map rasterization and tests.
-- [x] Identify the interaction loop, domains, 67 active source-backed kits and offered services.
-- [x] Detect public descriptor drift and unbounded flora in the reviewed source.
-- [x] Reconcile the concurrent runtime fix that resolved those two concrete defects.
-- [x] Define the remaining procedural-world generation authority.
-- [x] Add timestamped architecture and system audits.
-- [x] Refresh root `.agent` state and registry.
+- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
+- [x] Select only `TheOpenAbove` as the oldest central entry with newer repo-local terrain work.
+- [x] Review the shared streaming contract, both streamers, terrain surface, overlays, water and tests.
+- [x] Identify the interaction loop, domains, all 68 active source-backed kits and services.
+- [x] Reconcile resolved overlap defects and remaining atomic-adoption gaps.
+- [x] Add fresh timestamped architecture and system audits.
+- [x] Refresh root `.agent` state and central tracking.
 - [x] Push directly to `main`; create no branch or pull request.
-- [ ] Implement build identity, immutable artifacts, consumer receipts and executable browser/Pages proof.
+- [ ] Implement candidate staging, aggregate commit/rollback and browser/Pages frame proof.
 
 ## Read this first
 
 ```txt
-.agent/trackers/2026-07-12T11-01-59-04-00/project-breakdown.md
+.agent/trackers/2026-07-12T13-29-56-04-00/project-breakdown.md
 .agent/current-audit.md
 .agent/next-steps.md
 .agent/known-gaps.md
 .agent/validation.md
-.agent/world-generation-audit/2026-07-12T11-01-59-04-00-runtime-fix-reconciliation.md
-.agent/architecture-audit/2026-07-12T11-01-59-04-00-procedural-world-generation-authority-dsk-map.md
-.agent/render-audit/2026-07-12T11-01-59-04-00-world-terrain-flora-map-frame-coherence-gap.md
-.agent/gameplay-audit/2026-07-12T11-01-59-04-00-flight-streaming-world-query-loop.md
-.agent/interaction-audit/2026-07-12T11-01-59-04-00-world-sample-command-result-map.md
-.agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md
-.agent/grass-system-audit/2026-07-12T11-01-59-04-00-world-flora-chunk-membership-contract.md
-.agent/deploy-audit/2026-07-12T11-01-59-04-00-world-generation-fixture-gate.md
-.agent/turn-ledger/2026-07-12T11-01-59-04-00.md
+.agent/architecture-audit/2026-07-12T13-29-56-04-00-terrain-streaming-ownership-authority-dsk-map.md
+.agent/render-audit/2026-07-12T13-29-56-04-00-near-horizon-aggregate-frame-commit-gap.md
+.agent/gameplay-audit/2026-07-12T13-29-56-04-00-camera-boundary-stream-transition-loop.md
+.agent/interaction-audit/2026-07-12T13-29-56-04-00-terrain-stream-frame-admission-map.md
+.agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md
+.agent/deploy-audit/2026-07-12T13-29-56-04-00-terrain-boundary-browser-fixture-gate.md
+.agent/turn-ledger/2026-07-12T13-29-56-04-00.md
 .agent/kit-registry.json
 ```
-
-The pre-fix tracker documents what was found at `f24e1b...`. The runtime-fix reconciliation is authoritative for current `main`.
 
 ## Interaction loop
 
 ```txt
 boot
-  -> synchronously build 257 x 257 world fields
-  -> run erosion and flow accumulation
-  -> create terrain, vegetation, grass and flowers
-  -> synchronously rasterize 96 x 96 map background
-  -> create gameplay owners
+  -> create seeded world and visual domain
+  -> create terrain surface, near streamer and horizon streamer
+  -> create gameplay and presentation owners
   -> start RAF
 
 frame
-  -> update flight/mail/airstream
-  -> update terrain, grass and flower chunk windows
-  -> sample world height, moisture and flora
-  -> render HDR frame
-  -> expose world and flora state through GameHost snapshot
+  -> update flight, mail, airstream and camera
+  -> create one frozen TerrainStreamingFrame
+  -> near streamer adopts requirements
+  -> horizon streamer clips against the same near bounds and adopts requirements
+  -> update grass, flowers, water, atmosphere and HDR
+  -> render
+
+boundary transition
+  -> frame revision changes
+  -> live near meshes are removed/rebuilt
+  -> live horizon meshes are removed/rebuilt/reclassified
+  -> no aggregate commit result exists before draw
 ```
 
 ## Domains in use
 
 ```txt
-browser shell, canvas, parchment map and fatal surface
+browser shell, canvas, map and fatal projection
 runtime boot, session, input, RAF and public host
-balloon simulation, airstream and mail delivery
-seeded world build, erosion, flow, climate, biome, flora and map color
-world-surface membership and protected gameplay anchors
-terrain, horizon, vegetation, landmarks, grass and flower streaming
+balloon simulation, airstream and mail
+seeded world generation, membership and authored anchors
+terrain streaming-frame classification and ownership partitioning
+near/horizon geometry, LOD, skirts, adoption and disposal
+vegetation, landmarks, draped overlays and shared lakes
+grass and flower streaming
 quality, dynamic resolution, sky, clouds, water, HDR and lens response
-map caching and navigation projection
-telemetry, headless inspection, tests, build and Pages deployment
+map projection, telemetry, headless proof, tests, build and Pages
 ```
 
 ## Kits and services
@@ -88,57 +89,61 @@ telemetry, headless inspection, tests, build and Pages deployment
 ```txt
 runtime/gameplay: 15
 balloon/object/presentation: 15
-visual/world/environment: 32
+visual/world/environment: 33
 UI: 1
 tooling/proof: 4
-active source-backed total: 67
+active source-backed total: 68
 runtime-implied adapters: 12
-inactive/retired legacy kits: 12
-planned world-authority kits: 29 including parent
+inactive/retired legacy: 12
 ```
 
-## Current findings
+The complete kit-by-kit service map is in the latest tracker and `.agent/kit-registry.json`.
+
+## Resolved
 
 ```txt
-resolved during audit:
-  descriptor no longer exposes mutable cache size
-  sampleFlora returns zero-density outside-world profile
-  world exposes contains(x,z)
+shared near/horizon camera frame
+exact clipping of near-owned horizon cells
+retained horizon clip-signature reclassification
+removed horizon expansion and vertical offset
+near and horizon skirts
+consistent slope sampling
+narrow route protection without duplicate final blend
+terrain-draped fields and road
+shared lake descriptors and feathered edges
+landmark and water disposal
+terrain ownership, route and overlay checks wired into npm run check
+```
 
-remaining:
-  no WorldBuildId or generation revision
-  no canonical seed/config/anchor fingerprint
-  no named build stages, budget, progress or cancellation
-  no immutable WorldGridArtifact fingerprint
-  no typed revisioned sample results
-  no consumer adoption receipts or stale-result rejection
-  no terrain/grass/flower/map parity result
-  no world-visible-frame acknowledgement
+## Remaining
+
+```txt
+no typed TerrainStreamFrameId
+no world/config/quality/geometry fingerprint on the frame
+no detached candidate chunk sets
+no aggregate near/horizon parity result
+no atomic adoption or rollback
+no exactly-once retirement receipt
+near chunk metadata omits frame revision
+no TerrainStreamCommitResult
+no TerrainVisibleFrameAck
+no deployed browser boundary proof
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-procedural-world-generation-authority-domain
-  -> immutable build plan and input fingerprints
-  -> build identity, stages, budget and cancellation
-  -> canonical world artifact and fingerprint
-  -> pure typed sample queries
-  -> explicit membership/out-of-bounds policy
-  -> bounded non-authoritative cache policy
-  -> consumer admission and receipts
-  -> terrain/flora/map parity result
-  -> visible-frame acknowledgement and fixtures
+open-above-terrain-streaming-ownership-authority-domain
 ```
 
 ## Next safe ledge
 
 ```txt
-Procedural World Generation Authority
-+ WorldBuildId and canonical input fingerprints
-+ Immutable WorldGridArtifact
-+ Pure WorldSampleQuery/Result
-+ Shared membership policy
-+ Consumer receipts and parity
-+ Startup-budget, replacement and visible-frame fixtures
+TerrainStreamFrameId + input fingerprint
+  -> immutable ownership plan
+  -> detached near/horizon candidate builds
+  -> aggregate parity admission
+  -> atomic commit or rollback
+  -> predecessor retirement receipt
+  -> first visible frame acknowledgement
 ```
