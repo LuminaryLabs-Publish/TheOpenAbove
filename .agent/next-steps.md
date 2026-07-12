@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T08-50-32-04-00`
+**Last aligned:** `2026-07-12T09-02-10-04-00`
 
 ## Plan ledger
 
-**Goal:** move runtime, simulation, map, mission, presentation and rendering behind explicit identities, typed results and executable proof gates.
+**Goal:** move runtime, simulation, mission, map, presentation and rendering behind explicit identities, typed results and executable proof gates.
 
 ### Checklist
 
@@ -26,83 +26,87 @@
 - [ ] Require typed commit, rollback and first-frame results.
 
 #### Gate 10: parchment map pause and input authority
-- [ ] Add `MapTransitionCommand` and stable transition IDs.
-- [ ] Add map phase, generation, pause revision and projection revision.
-- [ ] Register simulation, mail, airstream, presentation, camera, visual, telemetry and render participants.
-- [ ] Prepare and commit one pause/resume barrier.
-- [ ] Route browser keys through one context-aware input authority.
-- [ ] Retire or explicitly preserve held flight keys on map open.
-- [ ] Reject map-context keys from gameplay state.
-- [ ] Allocate a fresh gameplay input generation on close.
+- [ ] Add transition command, ID, phase, generation and pause revision.
+- [ ] Register and coordinate pause/resume participants.
+- [ ] Route keys through one FLIGHT/MAP context authority.
+- [ ] Retire held flight keys on map open and allocate a fresh input generation on close.
 - [ ] Replace dual uncoordinated RAF ownership with one admitted map-frame owner.
-- [ ] Build immutable map frame plans from admitted world, route, town, parcel and player observations.
-- [ ] Add map surface and source fingerprints.
-- [ ] Add deterministic focus transfer, restoration and a real close control.
-- [ ] Add semantic map summary for route, destination, player and controls.
-- [ ] Expose detached map observation through GameHost.
-- [ ] Call map disposal through runtime-session retirement.
-- [ ] Acknowledge the first visible map frame and first resumed flight frame.
-- [ ] Add local browser, built-output and deployed Pages fixtures.
+- [ ] Add deterministic focus transfer, restoration and close control.
+- [ ] Retire the map through runtime-session disposal.
+- [ ] Acknowledge first visible map and first resumed-flight frames.
 
-#### Gate 11: semantic mission status and fatal accessibility
-- [ ] Reintroduce concise mission status without restoring the retired per-frame HUD mutation path.
+#### Gate 11: parchment map spatial-navigation authority
+- [ ] Add `open-above-parchment-map-spatial-navigation-authority-domain`.
+- [ ] Declare world axes, map axes, handedness, north and marker-forward convention.
+- [ ] Replace direct `-heading` rotation with a canonical map-bearing service.
+- [ ] Derive bearing from committed horizontal velocity with an explicit zero-speed policy.
+- [ ] Add cardinal and diagonal bearing fixtures.
+- [ ] Add world, mission-content and player-context bounds.
+- [ ] Select and expose a named viewport-fit policy.
+- [ ] Fit route/town content with declared padding across portrait, square and wide viewports.
+- [ ] Add route-style policy for normal, active, correct and destination routes.
+- [ ] Pass committed airstream capture and mail correct-route state into the map projection.
+- [ ] Add off-map behavior: expanded fit, edge clamp, edge arrow or typed hidden state.
+- [ ] Add map projection command, revision, source fingerprint and typed result.
+- [ ] Expose detached map-navigation observation through GameHost.
+- [ ] Acknowledge the first visible frame for each committed projection.
+- [ ] Add DPR, aspect, off-map, browser pixel-probe and Pages fixtures.
+
+#### Gate 12: semantic mission status and fatal accessibility
+- [ ] Reintroduce concise mission status without restoring retired per-frame HUD mutation.
 - [ ] Separate visual telemetry from event-driven semantic status.
 - [ ] Add route-capture, delivery, control-mode and failure event identities.
 - [ ] Add dedupe, priority, elapsed-time rate budget and verbosity policy.
 - [ ] Give fatal details an alert/focus transaction.
 - [ ] Correlate mission, map, status and visible-frame revisions.
 
-## Map authority kit order
+## Spatial-navigation kit order
 
 ```txt
-open-above-parchment-map-pause-input-authority-domain
-open-above-map-transition-command-kit
-open-above-map-transition-id-kit
-open-above-map-state-kit
-open-above-map-generation-kit
-open-above-map-transition-admission-kit
-open-above-map-pause-participant-kit
-open-above-map-pause-barrier-kit
-open-above-map-pause-result-kit
-open-above-flight-input-suspension-kit
-open-above-flight-key-state-retirement-kit
-open-above-map-input-context-kit
-open-above-map-keyboard-scope-kit
-open-above-map-focus-lease-kit
-open-above-map-focus-result-kit
-open-above-map-frame-plan-kit
-open-above-map-projection-revision-kit
-open-above-map-world-source-fingerprint-kit
-open-above-map-render-loop-ownership-kit
-open-above-map-open-close-result-kit
-open-above-map-visible-frame-ack-kit
-open-above-map-observation-kit
-open-above-map-journal-kit
-open-above-map-input-isolation-fixture-kit
-open-above-map-cadence-parity-fixture-kit
-open-above-map-focus-lifecycle-fixture-kit
-open-above-map-pages-smoke-kit
+open-above-parchment-map-spatial-navigation-authority-domain
+open-above-map-coordinate-space-schema-kit
+open-above-map-world-bounds-kit
+open-above-map-content-bounds-kit
+open-above-map-viewport-fit-policy-kit
+open-above-map-projection-transform-kit
+open-above-map-heading-convention-kit
+open-above-map-player-bearing-kit
+open-above-map-player-marker-pose-kit
+open-above-map-route-style-policy-kit
+open-above-map-destination-route-resolution-kit
+open-above-map-active-route-projection-kit
+open-above-map-off-map-policy-kit
+open-above-map-edge-clamp-kit
+open-above-map-compass-orientation-kit
+open-above-map-navigation-revision-kit
+open-above-map-navigation-source-fingerprint-kit
+open-above-map-projection-result-kit
+open-above-map-navigation-observation-kit
+open-above-map-navigation-journal-kit
+open-above-map-heading-fixture-kit
+open-above-map-route-fit-fixture-kit
+open-above-map-off-map-fixture-kit
+open-above-map-browser-pixel-probe-kit
+open-above-map-pages-navigation-smoke-kit
 ```
 
 ## Validation order
 
 ```txt
-fixture:map-transition-idempotency
-fixture:single-consumer-per-key-event
-fixture:map-open-clears-flight-keys
-fixture:map-context-key-isolation
-fixture:map-close-neutral-first-step
-fixture:pause-participant-parity
-fixture:single-map-frame-owner
+fixture:map-heading-cardinals
+fixture:map-heading-diagonals
+fixture:map-zero-speed-bearing
+fixture:map-route-content-bounds
+fixture:map-fit-wide-square-portrait
+fixture:map-dpr-parity
+fixture:map-active-destination-route-style
+fixture:map-off-map-policy
 fixture:map-source-fingerprint
-fixture:map-open-first-visible-frame
-fixture:map-close-first-resumed-frame
-fixture:map-focus-enter-exit
-fixture:map-dispose-and-callback-fence
-fixture:map-30-60-120hz-parity
+fixture:map-visible-frame-ack
+browser map pixel probe
 npm run check
 npm run headless:check
 npm run build
-browser map/input/focus matrix
-Pages map pause/resume smoke
+built-output geometry parity
+Pages map navigation smoke
 ```
