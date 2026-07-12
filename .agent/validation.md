@@ -1,136 +1,147 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T08-50-32-04-00`
+**Last aligned:** `2026-07-12T09-02-10-04-00`
 
 ## Scope
 
-Documentation-only audit of parchment-map open/close, gameplay pause, input isolation, focus, dual RAF ownership, lifecycle and visible-frame provenance through repository revision `a5dd665a80cfe594ebaf05085633d4006e012b32`.
+Documentation-only audit of parchment-map coordinate space, player bearing, content bounds, viewport fit, route styling, off-map policy and visible-frame provenance through source revision `4b76ec275102be3a9358d866bcbfd816ac270c04`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed map behavior from executable proof that pause/resume is atomic, input is context-isolated, focus is deterministic and visible frames cite one transition.
+**Goal:** distinguish source-backed map drawing from executable proof that the map points in the correct direction, fits mission content and projects one attributable navigation frame.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Select only `TheOpenAbove`.
-- [x] Read guidance, page shell, host loop, map overlay, simulation input, mail domain, tests and root `.agent` state.
-- [x] Confirm map-open causes the host to skip gameplay-owner updates.
-- [x] Confirm simulation input remains globally active while the map is open.
-- [x] Confirm main and map RAF loops both run while open.
-- [x] Confirm map snapshot contains only the open Boolean.
-- [x] Confirm no focus-transfer, pause-result, source-fingerprint or frame-ack contract exists.
+- [x] Read guidance, page shell, host, map overlay, world config, simulation, routes, mail domain, smoke tests and root `.agent` state.
+- [x] Confirm map axes are world X to screen X and world Z to screen Y.
+- [x] Confirm simulation heading is `atan2(wind.x, wind.z)`.
+- [x] Confirm the upward marker is rotated by `-heading`.
+- [x] Derive the resulting opposite-travel marker vector.
+- [x] Confirm map scale uses the 10,000-unit world radius.
+- [x] Measure the farthest current route/town extent at about 3,061 units.
+- [x] Confirm no active-route, off-map, projection-result or geometry fixture exists.
 - [x] Reconcile 60 active source-backed kits and services.
-- [x] Define static, pure, browser, build and Pages proof requirements.
+- [x] Define pure, browser, build and Pages proof requirements.
 - [x] Change no runtime source, HTML, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
 ## Source-backed behavior
 
 ```txt
-index.html contains map dialog shell and map canvas
-map overlay installs a global keydown listener and ResizeObserver
-M toggles open; Escape closes
-open starts a recursive map RAF
-close cancels the retained map RAF ID
-main RAF reads mapOverlay.isOpen()
-main RAF skips simulation/mail/airstream/presentation/camera/visual-update/telemetry while open
-main RAF continues visual.render() and schedules itself
-simulation owns separate global keydown/keyup/blur listeners
-simulation held-key Set continues changing while map is open
-closing map resumes simulation from current held-key state
-map snapshot returns only { open }
-map provides dispose(), but main does not invoke it
+world surface center and radius are captured when the overlay is created
+worldToMap maps world X to screen X and world Z to screen Y
+scale is 0.72 * min CSS dimension / (2 * world radius)
+all routes are drawn with one dashed policy
+parcel destination town is highlighted
+player position and heading are read live per map frame
+player marker local forward points upward
+player marker rotates by negative simulation heading
+canvas backing resolution follows capped DPR
+```
+
+## Source-backed defect proof
+
+```txt
+heading = atan2(vx, vz)
+arrowForward = (0, -1)
+rotation = -heading
+rotatedArrow = (-sin heading, -cos heading)
+rotatedArrow = (-vx/speed, -vz/speed)
+```
+
+The player marker is exactly antiparallel to horizontal travel for every nonzero vector.
+
+## Source-backed fit evidence
+
+```txt
+world radius: 10000
+Brookhaven radius: sqrt(1900^2 + 2400^2) ~= 3061
+Sunvale radius: sqrt(1850^2 + 2200^2) ~= 2874
+Cloudmere radius: sqrt(1600^2 + 1800^2) ~= 2408
+maximum content/world ratio: ~= 0.306
 ```
 
 ## Source-backed gaps
 
 ```txt
-no transition command, ID or idempotency receipt
-no map phase, generation or revision
-no pause participant barrier
-no input context or generation
-no held-key retirement policy
-no stale callback/input rejection
-no single map-frame owner
-no immutable map frame plan
-no map source or surface fingerprint
-no projection result or no-op result
-no first map frame or resumed flight frame receipt
-no focus lease, close control or semantic map summary
-no runtime-session map retirement
+no coordinate-space schema
+no canonical map-bearing service
+no zero-speed bearing policy
+no content-bounds derivation
+no named viewport-fit policy
+no content padding result
+no active/correct route style
+no off-map policy
+no navigation projection revision
+no source fingerprint
+no typed projection result
+no visible-frame acknowledgement
+no executable geometry fixture
 ```
 
 ## Required static fixtures
 
 ```txt
-fixture:map-authority-present
-fixture:single-browser-input-owner
-fixture:map-dialog-focus-target-present
-fixture:map-close-control-present
-fixture:map-semantic-summary-present
-fixture:raw-open-boolean-not-pause-authority
-fixture:map-owner-disposed-by-session
+fixture:map-spatial-authority-present
+fixture:direct-negative-heading-rotation-removed
+fixture:named-fit-policy-present
+fixture:off-map-policy-present
+fixture:projection-result-present
+fixture:visible-map-frame-ack-present
 ```
 
 ## Required pure fixtures
 
 ```txt
-fixture:map-transition-idempotency
-fixture:map-state-machine
-fixture:map-transition-stale-revision-rejection
-fixture:map-input-context-admission
-fixture:held-key-retirement-policy
-fixture:pause-participant-prepare-commit-rollback
+fixture:map-heading-cardinals
+fixture:map-heading-diagonals
+fixture:map-zero-speed-bearing
+fixture:map-coordinate-roundtrip
+fixture:map-route-content-bounds
+fixture:map-fit-wide-square-portrait
+fixture:map-dpr-css-geometry-parity
+fixture:map-active-route-style
+fixture:map-correct-destination-route-style
+fixture:map-off-map-policy
 fixture:map-source-fingerprint
-fixture:map-projection-no-op
-fixture:stale-map-generation-rejection
+fixture:map-stale-projection-rejection
 ```
 
 ## Required browser fixtures
 
 ```txt
-boot actual page
-focus game canvas
-open map using M
-verify all gameplay participants share one pause revision
-verify held flight keys are retired by policy
-press flight keys while map owns input
-verify no map-context key reaches simulation
-verify one map-frame producer
-verify first visible map frame receipt
-close by M and Escape
-verify neutral first resumed simulation step
-verify first resumed flight frame receipt
-verify focus enter and restoration
-resize and change DPR while open
-blur and hide tab during map session
-rapidly open/close and reject stale callbacks
-retire runtime and confirm listener/observer/RAF cleanup
-run at 30, 60 and 120 Hz schedules
+boot actual page and open map
+place or drive balloon through known cardinal and diagonal states
+sample marker tip/body pixels and compare with expected bearing
+verify all required route/town content lies inside declared padding
+resize to portrait, square and wide surfaces
+change DPR across supported values
+verify CSS-space projection parity
+verify active, correct and destination route styles
+move player beyond admitted bounds and verify edge policy
+capture MapProjectionResult and matching MapVisibleFrameAck
 ```
 
 ## Required built-output checks
 
 ```txt
-dist includes map module and shell
-dist excludes retired HUD dependency
+dist contains spatial-navigation authority and fixtures
 built imports resolve under project base path
-map authority and fixture modules are included
-source and built map fingerprints match
+source and built projection fingerprints match
+built map no longer derives navigation geometry through unversioned draw-time guesses
 ```
 
 ## Required Pages smoke
 
 ```txt
-load deployed route
-open map and confirm deterministic pause
-confirm route, towns, destination and player projection
-confirm semantic map summary and close control
-confirm gameplay input isolation
-close and confirm neutral deterministic resume
-repeat after resize, visibility change and reload
-confirm no duplicate callbacks after repeated sessions
-capture map-open and resumed-flight frame receipts
+load deployed route for an exact commit
+open map
+prove player marker bearing against known movement
+prove mission-content fit and route styling
+prove portrait/wide and DPR parity
+prove off-map policy
+capture screenshot and matching visible-frame acknowledgement
 ```
 
 ## Commands not run
@@ -140,11 +151,11 @@ npm install
 npm run check
 npm run headless:check
 npm run build
-browser map/input/focus matrix
-Pages map pause/resume smoke
+browser map geometry matrix
+Pages map navigation smoke
 ```
 
-The connector environment supplied repository source and write access, not a checked-out browser runtime. No executable pause, input, focus, lifecycle or rendering correctness claim is made.
+The connector environment supplied source and write access, not a checked-out browser runtime. No executable map geometry or rendering correctness claim is made.
 
 ## Change-state validation
 
@@ -165,4 +176,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim the parchment map is an authoritative pause surface until executable browser and Pages proof shows transition idempotency, participant parity, map-context input isolation, neutral resume, deterministic focus, single frame ownership, stale-callback retirement and map/resumed-frame provenance.
+Do not claim the parchment map is navigation-authoritative until executable proof shows correct cardinal/diagonal bearing, declared fit policy, aspect/DPR parity, route-style parity, off-map behavior, stale-result rejection and visible-frame provenance.
