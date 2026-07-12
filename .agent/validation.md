@@ -1,122 +1,109 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T15-40-04-04-00`
+**Last aligned:** `2026-07-12T17-41-25-04-00`
 
 ## Scope
 
-Documentation-only reconciliation of boot-time vegetation placement, camera-relative traversal, tree coverage ownership, lifecycle, observability and deployment proof at runtime revision `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`.
+Documentation-only audit of balloon movement admission against the bounded world surface at runtime revision `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`.
 
 ## Plan ledger
 
-**Goal:** distinguish deterministic initial tree construction from proof that vegetation continuously and transactionally covers the admitted streamed world.
+**Goal:** distinguish a declared bounded world from executable proof that movement and every world consumer obey one boundary decision.
 
 - [x] Compare all ten accessible Publish repositories and central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because its repo-local audit was newer than central tracking.
-- [x] Inspect world configuration, balloon movement, visual composition, vegetation generation, streamed flora, snapshots and package scripts.
-- [x] Confirm vegetation is boot-only and absent from the frame update.
-- [x] Confirm horizontal flight has no world-radius admission.
-- [x] Confirm no vegetation disposal, coverage registry or frame result exists.
+- [x] Select only `TheOpenAbove` by the oldest eligible synchronized timestamp.
+- [x] Inspect world configuration, simulation integration and host frame order.
+- [x] Confirm direct horizontal position integration.
+- [x] Confirm no world-radius, membership or swept-crossing admission in simulation.
+- [x] Confirm no shared boundary result or visible-frame acknowledgement.
 - [x] Preserve all 68 active source-backed kits and services.
-- [x] Add reconciliation tracker, turn ledger and audit family.
-- [x] Refresh root files and central tracking.
+- [x] Add tracker, turn ledger and complete audit family.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
-## Existing source-backed proof
+## Selection verification
 
 ```txt
-vegetation seed derivation is deterministic for one construction
-quality profiles define tree-count budgets
-terrain height and moisture participate in candidate placement
-trunk/crown transforms follow the deterministic generator sequence
-treePositions are produced for exclusion consumers
-terrain, grass and flowers have camera-relative update paths
-world surface exposes a 10000-unit-radius disk
-normal build runs existing source checks before Vite
+accessible Publish repositories: 10
+eligible non-Cavalry repositories: 9
+new eligible repositories: 0
+central-ledger-missing eligible repositories: 0
+root-.agent-missing eligible repositories: 0
+
+TheOpenAbove       2026-07-12T15-40-04-04-00 selected
+IntoTheMeadow      2026-07-12T15-49-09-04-00
+PhantomCommand     2026-07-12T16-00-03-04-00
+PrehistoricRush    2026-07-12T16-20-55-04-00
+HorrorCorridor     2026-07-12T16-39-35-04-00
+ZombieOrchard      2026-07-12T16-51-47-04-00
+MyCozyIsland       2026-07-12T17-10-31-04-00
+TheUnmappedHouse   2026-07-12T17-20-42-04-00
+AetherVale         2026-07-12T17-35-48-04-00
+TheCavalryOfRome   excluded
 ```
 
-## Source-backed gap evidence
+## Source-backed checks
 
 ```txt
-vegetation constructs 18 fixed clusters only during visual-domain creation
-cluster extents derive from terrainSize rather than camera coverage requirements
-visual update never invokes vegetation
-vegetation return value has no update, state, snapshot or dispose service
-visual disposal does not retire vegetation resources
-balloon horizontal position is not bounded by world radius
-GameHost snapshot contains terrain/grass/flowers but no vegetation coverage
-boot treePositions are not a revisioned exclusion registry
-npm run check has no vegetation-spatial fixture
+WORLD.surface.kind bounded-disk: confirmed
+WORLD.surface.radius 10000: confirmed
+WORLD.surface.edgeBlendWidth 600: confirmed
+horizontal position direct integration: confirmed
+terrain floor response: confirmed
+vertical soft ceiling: confirmed
+world membership call during movement: absent
+swept crossing detection: absent
+boundary policy result: absent
+consumer receipt set: absent
+visible boundary frame acknowledgement: absent
+```
+
+## Source inspected
+
+```txt
+src/data/campaign.config.js
+src/runtime/balloon-simulation-kit.js
+src/main.js
+.agent root routing and machine registry
+central Publish ledger entries
 ```
 
 ## Missing pure fixtures
 
 ```txt
-fixture:vegetation-authority-present
-fixture:vegetation-input-fingerprint
-fixture:vegetation-chunk-id-determinism
-fixture:vegetation-query-order-independence
-fixture:vegetation-world-revision-present
-fixture:vegetation-world-membership
-fixture:vegetation-route-town-lake-exclusion
-fixture:vegetation-adjacent-cell-continuity
-fixture:vegetation-biome-treeless-classification
-fixture:vegetation-grass-flower-exclusion-generation-parity
+flight-center-membership
+flight-edge-transition
+flight-outside-policy
+flight-high-speed-swept-crossing
+flight-rejection-zero-mutation
+flight-stale-world-revision
+flight-consumer-receipt-completeness
 ```
 
-## Missing failure and performance fixtures
+## Missing browser and deployment fixtures
 
 ```txt
-inject world height/moisture/flora sample failure
-inject candidate allocation failure
-inject instance-buffer construction failure
-prove predecessor coverage remains active
-prove failed candidate resources retire
-prove stale world/camera results are rejected
-prove coverage registry and exclusions do not advance after failure
-measure planning/construction wall time and memory
-measure created/reused/retired instance counts
-exercise low, medium and high quality budgets
+center-to-edge traversal
+slow and maximum-speed crossing
+map open during boundary transition
+terrain/flora/map result parity
+FlightBoundaryVisibleFrameAck
+source/build/Pages fingerprint parity
 ```
 
-## Missing browser fixtures
-
-```txt
-capture initial vegetation coverage result
-cross positive/negative chunk boundaries
-cross diagonal boundaries
-travel beyond current boot-cluster extent
-approach admitted world edge
-open/close map during traversal
-verify trees, terrain, grass and flowers cite compatible generations
-verify intentionally treeless cells have explicit biome outcomes
-capture VegetationVisibleFrameAck for each adopted revision
-```
-
-## Missing built-output and Pages checks
-
-```txt
-source/dist vegetation fingerprints match
-built imports resolve under project base path
-source/dist produce the same chunk fingerprints
-deployed long traversal meets coverage and transition budgets
-Pages screenshots pair with vegetation frame acknowledgements
-source/dist/Pages use the same world and vegetation fingerprints
-```
-
-## Commands not run in this pass
+## Commands not run
 
 ```txt
 npm install
 npm run check
 npm run headless:check
 npm run build
-browser vegetation traversal matrix
-Pages vegetation traversal smoke
+browser boundary matrix
+Pages boundary smoke
 ```
 
-The connector provided source inspection and repository writes, not a checked-out browser runtime. Existing tests were inspected but not executed.
+The connector provided source inspection and repository writes, not a checked-out runtime.
 
 ## Change-state validation
 
@@ -131,9 +118,9 @@ deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger/change log changed: yes
+central ledger/change log: pending until repo-local update is committed
 ```
 
 ## Completion boundary
 
-Do not claim vegetation spatial authority until executable proof shows deterministic camera-relative requirements, explicit world/exclusion admission, detached candidate construction, atomic adoption or last-good preservation, exactly-once disposal, grass/flower exclusion parity and first-visible-frame provenance across source, built output and Pages.
+No world-edge enforcement, high-speed crossing safety, return-force quality, consumer parity, visible-frame correlation or production-readiness claim is made.
