@@ -1,73 +1,74 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T11-15-16-04-00",
-  "status": "procedural-world-generation-consumer-coherence-audited",
-  "repositoryRevisionReviewed": "74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec",
-  "latestTracker": ".agent/trackers/2026-07-12T11-01-59-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T11-01-59-04-00.md",
+  "lastAligned": "2026-07-12T13-29-56-04-00",
+  "status": "terrain-streaming-ownership-reconciliation-audited",
+  "repositoryRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
+  "latestTracker": ".agent/trackers/2026-07-12T13-29-56-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T13-29-56-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T11-01-59-04-00-procedural-world-generation-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T11-01-59-04-00-world-terrain-flora-map-frame-coherence-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T11-01-59-04-00-flight-streaming-world-query-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T11-01-59-04-00-world-sample-command-result-map.md",
-    "worldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
-    "runtimeFixReconciliation": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-runtime-fix-reconciliation.md",
-    "grassSystem": ".agent/grass-system-audit/2026-07-12T11-01-59-04-00-world-flora-chunk-membership-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T11-01-59-04-00-world-generation-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T13-29-56-04-00-terrain-streaming-ownership-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T13-29-56-04-00-near-horizon-aggregate-frame-commit-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T13-29-56-04-00-camera-boundary-stream-transition-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T13-29-56-04-00-terrain-stream-frame-admission-map.md",
+    "terrainSystem": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T13-29-56-04-00-terrain-boundary-browser-fixture-gate.md"
   },
   "retainedAudits": {
+    "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
     "parchmentMapSpatialNavigation": ".agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md",
     "parchmentMapPauseInput": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-focus-lifecycle-contract.md",
-    "hudAccessibility": ".agent/accessibility-audit/2026-07-12T07-00-48-04-00-live-region-rate-fatal-focus-contract.md",
     "hdrSurface": ".agent/hdr-surface-audit/2026-07-12T05-11-46-04-00-attachment-identity-lifecycle-commit-contract.md",
     "frameFailure": ".agent/frame-failure-audit/2026-07-12T04-00-32-04-00-stage-containment-last-good-restart-contract.md",
     "publicHost": ".agent/host-capability-audit/2026-07-12T02-29-50-04-00-owner-quarantine-read-model-command-contract.md",
     "worldSurface": ".agent/world-surface-audit/2026-07-11T21-08-57-04-00-consumer-membership-parity-contract.md",
-    "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md",
-    "terrainLod": ".agent/terrain-system-audit/2026-07-11T16-30-25-04-00-horizon-lod-reclassification-contract.md"
+    "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md"
   },
   "selection": {
-    "reason": "substantial world-generation, terrain, grass, flower and map source landed after the previous audit",
+    "reason": "oldest central ledger entry with newer repo-local terrain overlap remediation not yet reconciled centrally",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ]
   },
   "counts": {
     "runtimeAndGameplay": 15,
     "balloonObjectAndPresentation": 15,
-    "visualWorldAndEnvironment": 32,
+    "visualWorldAndEnvironment": 33,
     "ui": 1,
     "toolingAndProof": 4,
-    "activeSourceBackedTotal": 67,
+    "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedProceduralWorldIncludingParent": 29
+    "plannedTerrainStreamingIncludingParent": 22
   },
   "interactionLoop": [
-    "construct-seeded-world-grid-synchronously",
-    "run-erosion-flow-climate-and-protection-stages",
-    "create-terrain-vegetation-grass-flower-and-map-consumers",
-    "rasterize-cached-world-map-background",
+    "create-seeded-world-and-visual-domain",
+    "create-terrain-surface-near-and-horizon-consumers",
     "update-flight-mail-airstream-and-camera",
-    "stream-terrain-grass-and-flower-chunks",
-    "render-hdr-frame-and-publish-world-flora-snapshot"
+    "create-shared-frozen-terrain-streaming-frame",
+    "rebuild-near-consumer-on-revision-change",
+    "classify-and-rebuild-horizon-against-near-bounds",
+    "render-live-near-and-horizon-groups",
+    "dispose-terrain-resources-on-runtime-retirement"
   ],
   "domains": [
     "browser-shell-canvas-map-fatal-projection",
     "runtime-boot-session-input-raf-public-host",
     "balloon-simulation-steering-airstream-mail",
-    "seeded-world-grid-erosion-flow-climate-biome-flora-map-color",
-    "world-surface-membership-protected-anchor-blending",
-    "terrain-horizon-vegetation-landmark-streaming",
+    "seeded-world-generation-membership-authored-anchor-protection",
+    "terrain-streaming-frame-classification-ownership-partitioning",
+    "near-terrain-geometry-lod-skirts-adoption-disposal",
+    "horizon-requirements-clipping-lod-skirts-adoption-disposal",
+    "vegetation-landmarks-draped-overlays-shared-lakes",
     "grass-flower-placement-atlas-chunk-lod-culling",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
-    "map-cache-navigation-projection",
-    "telemetry-headless-tests-build-pages"
+    "map-projection-telemetry-headless-tests-build-pages"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -117,6 +118,7 @@
       "open-above-cloud-lod-kit",
       "open-above-cloud-lighting-kit",
       "open-above-terrain-surface-kit",
+      "open-above-terrain-streaming-contract-kit",
       "open-above-terrain-chunk-streaming-kit",
       "open-above-terrain-horizon-streaming-kit",
       "open-above-vegetation-cluster-kit",
@@ -138,7 +140,9 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": ["open-above-parchment-map-overlay-kit"],
+    "ui": [
+      "open-above-parchment-map-overlay-kit"
+    ],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
@@ -147,18 +151,98 @@
     ]
   },
   "serviceMap": {
-    "runtimeAndGameplay": ["flight-input-and-integration", "airstream-route-field-force-visual-debug", "mail-parcel-town-volume-progress-reset", "telemetry-and-snapshot"],
-    "balloonObjectAndPresentation": ["profile-and-shell-construction", "mouth-seams-basket-rigging-burner-rope", "async-model-loading", "inertia-material-camera-clipping"],
-    "open-above-world-generation-kit": ["seeded-grid-build", "protected-anchor-blending", "erosion-and-flow", "climate-and-fertility", "biome-and-flora", "disk-containment", "outside-world-flora", "map-color-query", "feature-cell-cache", "pure-descriptor"],
-    "open-above-terrain-surface-kit": ["disk-membership", "bounded-height", "terrain-color", "near-and-horizon-streaming"],
-    "open-above-grass-patch-density-kit": ["world-flora-profile-adapter", "density-sampling", "legacy-fallback-patches-and-clearings"],
-    "open-above-grass-texture-atlas-kit": ["five-species-procedural-atlas"],
-    "open-above-grass-field-domain": ["camera-chunk-streaming", "deterministic-clump-placement", "instanced-rendering", "lod-culling-wind", "state-and-disposal"],
-    "open-above-flower-chunk-placement-kit": ["quality-budgets", "deterministic-candidates", "five-type-selection", "fade-and-cull-policy"],
-    "open-above-flower-texture-atlas-kit": ["five-type-procedural-atlas"],
-    "open-above-flower-field-domain": ["camera-chunk-streaming", "instanced-flower-rendering", "shader-sway", "state-and-disposal"],
-    "open-above-parchment-map-overlay-kit": ["toggle-and-lifecycle", "surface-sizing", "world-background-raster", "route-town-player-projection", "map-raf", "snapshot-and-disposal"],
-    "toolingAndProof": ["headless-inspection", "renderer-validation", "source-smoke", "airstream-mail-proof", "world-grass-flower-determinism", "build-adaptation"]
+    "runtimeAndGameplay": [
+      "flight-input-and-integration",
+      "airstream-route-field-force-visual-debug",
+      "mail-parcel-town-volume-progress-reset",
+      "telemetry-and-snapshot"
+    ],
+    "balloonObjectAndPresentation": [
+      "profile-and-shell-construction",
+      "mouth-seams-basket-rigging-burner-rope",
+      "async-model-loading",
+      "inertia-material-camera-clipping"
+    ],
+    "open-above-world-generation-kit": [
+      "seeded-grid-build",
+      "protected-anchor-blending",
+      "erosion-and-flow",
+      "climate-biome-flora",
+      "disk-containment",
+      "map-color-query"
+    ],
+    "open-above-terrain-streaming-contract-kit": [
+      "stable-grid-anchoring",
+      "frozen-shared-frame",
+      "near-requirements-and-bounds",
+      "horizon-partitioning",
+      "ownership-classification",
+      "clip-signatures",
+      "horizon-lod-requirements"
+    ],
+    "open-above-terrain-surface-kit": [
+      "disk-membership",
+      "bounded-height",
+      "shared-frame-composition",
+      "near-horizon-consumer-order",
+      "terrain-color",
+      "cloud-shadow",
+      "aggregate-disposal"
+    ],
+    "open-above-terrain-chunk-streaming-kit": [
+      "near-lod-requirements",
+      "near-geometry",
+      "boundary-skirts",
+      "live-group-replacement",
+      "frame-revision",
+      "disposal"
+    ],
+    "open-above-terrain-horizon-streaming-kit": [
+      "horizon-requirements",
+      "near-owned-cell-removal",
+      "clip-signature-reclassification",
+      "sparse-geometry",
+      "boundary-skirts",
+      "live-group-replacement",
+      "disposal"
+    ],
+    "open-above-distant-landmark-kit": [
+      "landmarks",
+      "terrain-draped-fields",
+      "terrain-draped-road",
+      "resource-disposal"
+    ],
+    "open-above-water-surface-kit": [
+      "shared-lake-descriptors",
+      "feathered-water-edges",
+      "water-animation",
+      "resource-disposal"
+    ],
+    "grassAndFlowers": [
+      "world-flora-density",
+      "five-grass-species",
+      "five-flower-types",
+      "deterministic-chunk-placement",
+      "instanced-rendering",
+      "lod-culling",
+      "wind-and-sway"
+    ],
+    "open-above-parchment-map-overlay-kit": [
+      "toggle-and-lifecycle",
+      "world-background-raster",
+      "route-town-player-projection",
+      "map-raf",
+      "snapshot-and-disposal"
+    ],
+    "toolingAndProof": [
+      "headless-inspection",
+      "source-validation",
+      "terrain-ownership-proof",
+      "route-protection-proof",
+      "overlay-source-proof",
+      "world-flora-determinism",
+      "build-adaptation"
+    ]
   },
   "runtimeImpliedKits": [
     "open-above-route-shell-kit",
@@ -188,46 +272,44 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedProceduralWorldKits": [
-    "open-above-procedural-world-generation-authority-domain",
-    "open-above-world-build-id-kit",
-    "open-above-world-generation-revision-kit",
-    "open-above-world-seed-policy-kit",
-    "open-above-world-config-fingerprint-kit",
-    "open-above-world-anchor-fingerprint-kit",
-    "open-above-world-build-plan-kit",
-    "open-above-world-build-stage-kit",
-    "open-above-world-build-result-kit",
-    "open-above-world-build-budget-kit",
-    "open-above-world-build-cancellation-kit",
-    "open-above-world-grid-artifact-kit",
-    "open-above-world-grid-fingerprint-kit",
-    "open-above-world-sample-query-kit",
-    "open-above-world-sample-result-kit",
-    "open-above-world-membership-policy-kit",
-    "open-above-world-out-of-bounds-result-kit",
-    "open-above-world-feature-cell-cache-policy-kit",
-    "open-above-world-pure-read-adapter-kit",
-    "open-above-world-consumer-id-kit",
-    "open-above-world-consumer-receipt-kit",
-    "open-above-world-consumer-parity-result-kit",
-    "open-above-world-visible-frame-ack-kit",
-    "open-above-world-generation-journal-kit",
-    "open-above-world-independent-build-fixture-kit",
-    "open-above-world-startup-budget-fixture-kit",
-    "open-above-world-replacement-fixture-kit",
-    "open-above-world-consumer-parity-fixture-kit",
-    "open-above-world-browser-pages-fixture-kit"
+  "plannedTerrainStreamingKits": [
+    "open-above-terrain-streaming-ownership-authority-domain",
+    "open-above-terrain-stream-session-id-kit",
+    "open-above-terrain-stream-frame-id-kit",
+    "open-above-terrain-stream-input-fingerprint-kit",
+    "open-above-terrain-chunk-ownership-plan-kit",
+    "open-above-terrain-near-requirements-kit",
+    "open-above-terrain-horizon-requirements-kit",
+    "open-above-terrain-partition-admission-kit",
+    "open-above-terrain-chunk-generation-id-kit",
+    "open-above-terrain-chunk-build-result-kit",
+    "open-above-terrain-stream-candidate-set-kit",
+    "open-above-terrain-stream-parity-result-kit",
+    "open-above-terrain-stream-aggregate-commit-kit",
+    "open-above-terrain-stream-rollback-kit",
+    "open-above-terrain-chunk-retirement-kit",
+    "open-above-terrain-consumer-receipt-kit",
+    "open-above-terrain-visible-frame-ack-kit",
+    "open-above-terrain-stream-observation-kit",
+    "open-above-terrain-stream-journal-kit",
+    "open-above-terrain-boundary-transition-fixture-kit",
+    "open-above-terrain-build-failure-rollback-fixture-kit",
+    "open-above-terrain-browser-pages-fixture-kit"
   ],
   "resolvedDuringAudit": [
-    "authoritative-descriptor-no-longer-exposes-feature-cache-size",
-    "world-disk-containment-query-added",
-    "outside-world-flora-is-zero-density"
+    "shared-camera-relative-terrain-frame",
+    "near-owned-horizon-cells-removed",
+    "retained-horizon-clip-signature-reclassification",
+    "horizon-expansion-and-offset-removed",
+    "near-and-horizon-skirts-added",
+    "terrain-draped-fields-and-road",
+    "shared-lake-descriptors-and-feathered-edges",
+    "landmark-and-water-disposal",
+    "terrain-tests-wired-into-check-and-build"
   ],
-  "mainFinding": "The new world source is deterministic and the concurrent runtime fix removed public descriptor drift and bounded flora, but construction remains a synchronous unversioned utility graph. Terrain, vegetation, grass, flowers, landmarks and the map still lack a common immutable world artifact, revisioned sample results, consumer receipts, stale-result rejection and visible-frame provenance.",
+  "mainFinding": "Near and horizon terrain now use one deterministic ownership frame and disjoint classification, but both consumers still mutate live scene groups independently. There is no detached candidate aggregate, typed adoption result, atomic commit, rollback, exactly-once retirement receipt or visible-frame acknowledgement.",
   "validation": {
     "runtimeChangedByDocumentationPass": false,
-    "concurrentRuntimeFixObserved": true,
     "htmlChangedByDocumentationPass": false,
     "packageScriptsChangedByDocumentationPass": false,
     "dependenciesChangedByDocumentationPass": false,
@@ -236,8 +318,9 @@
     "deploymentChangedByDocumentationPass": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "commandsRun": false,
-    "worldAuthorityFixturesAvailable": false,
+    "commandsRunThisPass": false,
+    "priorTerrainChecksReportedPassing": true,
+    "terrainAuthorityFixturesAvailable": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
