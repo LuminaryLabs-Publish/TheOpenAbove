@@ -1,139 +1,121 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T09-02-10-04-00`
+**Last aligned:** `2026-07-12T11-01-59-04-00`
 
 ## Primary ordered gaps
 
 ```txt
 1. immutable runtime admission
-2. import purity and single frame owner
-3. balloon profile and model authority
-4. runtime session/listener/resource ownership
-5. fixed-step clock and sequenced input
-6. product source and acceptance parity
-7. Air Mail route, delivery and mission reset
-8. committed observation and public host capabilities
-9. frame-stage failure containment
-10. terrain source, LOD and atomic replacement
-11. grass spatial identity and world-surface parity
-12. balloon steering and presentation coherence
-13. HDR attachment and render-surface resolution authority
-14. parchment map pause and input authority
-15. parchment map spatial-navigation authority
-16. semantic mission status and fatal accessibility authority
+2. session, listener, frame and failure ownership
+3. fixed-step clock and sequenced input
+4. balloon model/profile and mission authority
+5. terrain and world-surface authority
+6. procedural world generation authority
+7. grass/flower world-consumer coherence
+8. steering, HDR and visible-frame coherence
+9. parchment map pause/input and spatial navigation
+10. semantic mission status and fatal accessibility
 ```
 
-## Parchment map spatial-navigation gaps
+## Procedural world-generation gaps
 
 ```txt
-player marker points opposite horizontal travel
-no explicit coordinate-space schema
-no declared north or handedness convention
-no canonical map-bearing conversion
-no zero-horizontal-speed bearing policy
-no world-fit versus mission-fit policy
-no route/town/player content-bounds authority
-no content padding contract
-no portrait/square/wide fit parity
-no DPR geometry parity proof
-no active-route style
-no correct parcel-route style
-no destination-route result
-no off-map or edge-clamp policy
-no projection command or projection result
-no navigation revision
-no source fingerprint
-no visible-map-frame acknowledgement
-no pure geometry fixtures
-no browser pixel probe
-no deployed Pages navigation smoke
+no WorldBuildId
+no generation revision
+no canonical seed/config/anchor fingerprint
+no named build stages or stage results
+no startup budget, progress or cancellation
+no immutable reusable WorldGridArtifact
+no artifact fingerprint
+no pure typed sample query/result
+feature-cell cache mutates during reads
+cache size leaks into public descriptor/snapshot
+no bounded cache capacity or eviction policy
+no explicit cache lifetime/disposal result
+no canonical inside/edge/outside policy
+outside-grid values clamp silently
+no typed out-of-bounds result
+no world replacement transaction or rollback
+no stale query/consumer rejection
+no world-generation journal
 ```
 
-## Concrete marker defect
+## Concrete observer-induced mutation
 
 ```txt
-simulation heading = atan2(vx, vz)
-map local arrow forward = (0, -1)
-map rotation = -heading
-map axes = (worldX, worldZ)
+sampleMapColor
+  -> sampleFlora
+  -> sampleBiome
+  -> featureCellAt
+  -> featureCells.set
 
-rendered arrow = (-vx, -vz)
+getDescriptor
+  -> cachedFeatureCells: featureCells.size
 ```
 
-Cardinal result:
+Map construction, camera travel or diagnostic queries can change later snapshots even when world inputs and gameplay state are unchanged.
+
+## Startup gaps
 
 ```txt
-travel north -> arrow south
-travel east  -> arrow west
-travel south -> arrow north
-travel west  -> arrow east
+257 x 257 world arrays are built synchronously
+six erosion passes run synchronously
+flow accumulation sorts all grid indices synchronously
+96 x 96 map colors are sampled synchronously during overlay construction
+no first-frame budget or loading progress exists
+no worker/cancellation/retry/artifact-cache boundary exists
 ```
 
-## Concrete fit gap
+## Consumer membership gaps
 
 ```txt
-WORLD.surface.radius: 10000
-farthest current route/town radius: about 3061
-content radius use: about 30.6%
-content area use relative to map disk: about 9.4%
+terrain uses disk edgeMask and edgeFloor
+world sampleGrid clamps to border cells
+grass/flowers follow camera chunks without worldSurface membership
+feature cells exist for unbounded integer coordinates
+vegetation/landmarks/map have no consumer receipts
+chunk and map identities omit world build revision
+no terrain/grass/flower/map parity result
+no world-visible-frame acknowledgement
 ```
 
-The map does not declare whether this is intentional world-fit behavior or an accidental result of using the terrain world surface as the navigation viewport.
-
-## Retained map pause/input gaps
+## Grass and flower gaps
 
 ```txt
-map state is one mutable open Boolean
-no transition command, phase or generation
-no pause participant barrier
-simulation and map own independent global keyboard listeners
-flight key Set remains mutable while map is open
-main and map RAF loops remain independently owned
-no deterministic focus transfer or restoration
-map dispose is not invoked through host lifecycle
-no first visible map or resumed-flight frame receipt
+world density and legacy biome density composition is unnamed
+grass and flower chunk IDs omit world revision
+outside-world rejection count is absent
+chunk state exposes counts but not artifact fingerprint
+stale chunks cannot be identified after replacement
+map-prewarm versus cold-cache parity is untested
 ```
 
-## Accessibility and product-feedback gaps
+## Retained map gaps
 
 ```txt
-semantic mission status was not reintroduced after HUD removal
-ordinary control hints are no longer visible
-current parcel message is not visible outside diagnostics
-map canvas has no semantic route/player equivalent
-fatal <pre> lacks alert role and focus transaction
+player marker bearing remains reversed
+world-fit versus mission-fit remains implicit
+active/correct route style is absent
+off-map behavior is undefined
+map pause/input/focus uses no typed transition authority
 ```
 
-## Retained HDR, frame-failure, host and lifecycle gaps
+## Required fixtures
 
 ```txt
-color/depth surface sizing paths remain inconsistent
-attachment ownership and rollback remain unimplemented
-post-start RAF stages lack complete failure containment
-last-known-good frame and failed-session capability revocation remain unimplemented
-window.GameHost exposes raw mutable owners
-runtime session does not own all callbacks/listeners/resources
-balloon model/profile load lacks complete identity and generation fences
-mission reset is not one atomic cross-owner transaction
+fixture:world-input-fingerprint
+fixture:world-independent-build-fingerprint
+fixture:world-query-order-purity
+fixture:world-map-prewarm-purity
+fixture:world-membership-matrix
+fixture:world-anchor-fingerprint
+fixture:world-consumer-parity
+fixture:world-stale-consumer-rejection
+fixture:world-startup-budget
+fixture:world-build-cancellation
+fixture:world-visible-frame-ack
+fixture:browser-world-edge-pixel-probe
+fixture:pages-world-generation-parity
 ```
 
-## Required spatial-navigation fixtures
-
-```txt
-fixture:map-heading-cardinals
-fixture:map-heading-diagonals
-fixture:map-zero-speed-bearing
-fixture:map-route-content-bounds
-fixture:map-fit-wide-square-portrait
-fixture:map-dpr-parity
-fixture:map-active-route-style
-fixture:map-correct-destination-route-style
-fixture:map-off-map-policy
-fixture:map-source-fingerprint
-fixture:map-stale-projection-rejection
-fixture:map-visible-frame-ack
-fixture:browser-map-pixel-probe
-fixture:pages-map-navigation-parity
-```
-
-Do not treat a visible parchment map, correct town labels, a passing source-pattern test, a successful build or the absence of console errors as proof that the map points, fits or guides correctly.
+Do not treat deterministic coordinate samples, a populated map, full grass budgets, a passing Vite build or the absence of console errors as proof that the world is pure, bounded, transactionally committed or render-coherent.
