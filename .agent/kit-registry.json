@@ -1,20 +1,20 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-11T19-28-28-04-00",
-  "status": "import-purity-compatibility-frame-ownership-authority-audited",
-  "latestTracker": ".agent/trackers/2026-07-11T19-28-28-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T19-28-28-04-00.md",
+  "lastAligned": "2026-07-11T21-08-57-04-00",
+  "status": "world-surface-membership-consumer-parity-authority-audited",
+  "latestTracker": ".agent/trackers/2026-07-11T21-08-57-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-11T21-08-57-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-11T19-28-28-04-00-import-purity-frame-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-11T19-28-28-04-00-orphan-compatibility-scene-traversal-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-11T19-28-28-04-00-success-failure-dual-raf-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-11T19-28-28-04-00-module-import-gamehost-frame-map.md",
-    "importPurity": ".agent/import-purity-audit/2026-07-11T19-28-28-04-00-explicit-compatibility-installer-contract.md",
-    "performance": ".agent/performance-audit/2026-07-11T19-28-28-04-00-per-frame-scene-traversal-work-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-11T19-28-28-04-00-import-purity-lifecycle-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-11T21-08-57-04-00-world-surface-membership-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-11T21-08-57-04-00-terrain-grass-boundary-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-11T21-08-57-04-00-balloon-drift-beyond-bounded-world-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-11T21-08-57-04-00-surface-membership-command-result-map.md",
+    "worldSurface": ".agent/world-surface-audit/2026-07-11T21-08-57-04-00-consumer-membership-parity-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-11T21-08-57-04-00-world-boundary-parity-fixture-gate.md"
   },
   "retainedAudits": {
+    "importPurity": ".agent/import-purity-audit/2026-07-11T19-28-28-04-00-explicit-compatibility-installer-contract.md",
     "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md",
     "terrainLod": ".agent/terrain-system-audit/2026-07-11T16-30-25-04-00-horizon-lod-reclassification-contract.md",
     "committedObservation": ".agent/observation-authority-audit/2026-07-11T14-50-59-04-00-committed-snapshot-consumer-ack-contract.md",
@@ -25,7 +25,7 @@
     "lifecycle": ".agent/lifecycle-audit/2026-07-10T21-31-01-04-00-session-frame-listener-resource-contract.md"
   },
   "selection": {
-    "reason": "oldest stable eligible repo-local audit after full Publish inventory and central-ledger comparison",
+    "reason": "seven substantive runtime and test commits landed after the previous TheOpenAbove audit, so recent undocumented work took priority over the oldest documented fallback",
     "excluded": [
       "LuminaryLabs-Publish/TheCavalryOfRome"
     ],
@@ -35,35 +35,41 @@
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "timestamps": {
-      "TheOpenAbove": "2026-07-11T18-01-38-04-00",
-      "HorrorCorridor": "2026-07-11T18-11-21-04-00",
-      "PhantomCommand": "2026-07-11T18-21-09-04-00",
-      "ZombieOrchard": "2026-07-11T18-28-40-04-00",
-      "TheUnmappedHouse": "2026-07-11T18-38-45-04-00",
-      "AetherVale": "2026-07-11T18-48-21-04-00",
-      "IntoTheMeadow": "2026-07-11T19-01-08-04-00",
-      "PrehistoricRush": "2026-07-11T19-09-25-04-00",
-      "MyCozyIsland": "2026-07-11T19-20-22-04-00"
-    }
+    "previousCentralTimestamps": {
+      "TheOpenAbove": "2026-07-11T19-28-28-04-00",
+      "HorrorCorridor": "2026-07-11T19-38-14-04-00",
+      "PhantomCommand": "2026-07-11T19-48-09-04-00",
+      "ZombieOrchard": "2026-07-11T20-03-22-04-00",
+      "TheUnmappedHouse": "2026-07-11T20-11-26-04-00",
+      "AetherVale": "2026-07-11T20-30-33-04-00",
+      "IntoTheMeadow": "2026-07-11T20-38-07-04-00",
+      "MyCozyIsland": "2026-07-11T20-51-14-04-00",
+      "PrehistoricRush": "2026-07-11T21-00-00-04-00"
+    },
+    "sourceRevisionReviewed": "69f9ef66d38d1e93d73e0bfc7e07081c21cb304a",
+    "runtimeCommitsAfterPreviousAudit": 7
   },
   "interactionLoop": [
-    "module-loader-imports-hot-air-balloon-object-kit",
-    "module-evaluation-schedules-compatibility-attach-raf",
-    "create-game-constructs-air-mail-runtime",
-    "gamehost-publication",
-    "active-air-mail-raf",
-    "compatibility-scene-traversal-raf",
-    "render-hud-and-readback"
+    "load-world-surface-descriptor",
+    "create-disk-world-surface",
+    "create-bounded-terrain-height",
+    "create-near-and-horizon-terrain-consumers",
+    "create-grass-consumer-without-surface-membership",
+    "create-balloon-simulation-without-horizontal-boundary-policy",
+    "advance-balloon-and-camera",
+    "terrain-intersects-bounds-admission",
+    "grass-camera-radius-admission-and-origin-culling",
+    "render-hud-and-static-surface-readback"
   ],
   "domains": [
     "browser-shell-dom-vite-pages",
     "mutable-cdn-runtime-admission",
-    "module-import-and-compatibility-installation",
     "runtime-session-startup-failure-and-frame-ownership",
     "legacy-meadow-lift-and-active-air-mail-product-source",
+    "campaign-world-descriptor-and-bounded-disk-surface",
+    "world-surface-membership-edge-distance-and-consumer-parity",
     "keyboard-blur-wheel-and-variable-raf-time",
-    "balloon-simulation-terrain-clearance-and-snapshot",
+    "balloon-simulation-clearance-boundary-and-snapshot",
     "airstream-route-sampler-field-force-visual-and-debug",
     "mail-parcel-route-town-volume-progress-reset-and-disposal",
     "mission-delivery-restart-and-epoch-authority",
@@ -71,7 +77,7 @@
     "camera-presentation-clipping-and-zoom",
     "quality-resolution-sky-weather-cloud-and-lighting",
     "terrain-source-near-horizon-streaming-lod-transition-and-edge-policy",
-    "vegetation-grass-culling-water-and-landmarks",
+    "vegetation-grass-placement-culling-water-and-landmarks",
     "hdr-rendering-lens-response-and-renderer-diagnostics",
     "nexus-telemetry-hud-gamehost-and-headless-readback",
     "checks-pure-tests-build-and-pages-deployment"
@@ -84,7 +90,9 @@
     "parcel construction reset route town delivery-volume progress and one-shot events",
     "procedural balloon geometry envelope basket rigging burner rope materials and animation",
     "camera follow basket blend zoom clipping and disposal",
-    "quality atmosphere terrain grass water landmarks HDR rendering and renderer statistics",
+    "bounded terrain height near and horizon chunk streaming and cloud shadow",
+    "vegetation deterministic grass placement grass LOD and CPU chunk culling",
+    "quality atmosphere water landmarks HDR rendering and renderer statistics",
     "Nexus resources events telemetry HUD GameHost and headless readback",
     "source checks pure tests Vite build and Pages deployment",
     "legacy compatibility target discovery replacement and animation"
@@ -184,35 +192,44 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedImportPurityKits": [
-    "open-above-import-purity-frame-authority-domain",
-    "open-above-module-side-effect-policy-kit",
-    "open-above-compatibility-install-command-kit",
-    "open-above-compatibility-target-discovery-kit",
-    "open-above-compatibility-install-result-kit",
-    "open-above-frame-loop-registration-kit",
-    "open-above-frame-loop-identity-kit",
-    "open-above-runtime-generation-fence-kit",
-    "open-above-compatibility-loop-disposal-kit",
-    "open-above-scene-traversal-budget-kit",
-    "open-above-startup-failure-loop-retirement-kit",
-    "open-above-compatibility-observation-kit",
-    "open-above-import-purity-fixture-kit",
-    "open-above-browser-frame-owner-smoke-kit"
+  "plannedWorldSurfaceKits": [
+    "open-above-world-surface-membership-authority-domain",
+    "open-above-world-surface-descriptor-kit",
+    "open-above-world-surface-revision-kit",
+    "open-above-world-membership-query-kit",
+    "open-above-world-edge-distance-kit",
+    "open-above-world-boundary-policy-kit",
+    "open-above-surface-consumer-capability-kit",
+    "open-above-terrain-chunk-membership-kit",
+    "open-above-grass-chunk-membership-kit",
+    "open-above-route-content-membership-kit",
+    "open-above-simulation-boundary-admission-kit",
+    "open-above-boundary-response-result-kit",
+    "open-above-surface-consumer-parity-result-kit",
+    "open-above-stale-surface-result-rejection-kit",
+    "open-above-world-surface-observation-kit",
+    "open-above-visible-surface-frame-ack-kit",
+    "open-above-boundary-parity-fixture-kit",
+    "open-above-browser-boundary-traversal-smoke-kit"
   ],
-  "importPurityFinding": {
-    "moduleScopeRafScheduled": true,
-    "ambientGameHostPolling": true,
-    "activeAirMailRafPresent": true,
-    "compatibilityRafStartsWithoutTarget": true,
-    "compatibilitySceneTraversalPerFrame": true,
-    "failedStartupWaitLoopRetained": true,
-    "frameLoopIdsAvailable": false,
-    "runtimeGenerationFenceAvailable": false,
-    "compatibilityDisposerAvailable": false,
-    "activeFrameLoopObservationAvailable": false
+  "worldSurfaceFinding": {
+    "surfaceKind": "bounded-disk",
+    "surfaceRadius": 10000,
+    "edgeBlendWidth": 600,
+    "edgeFloor": -120,
+    "surfaceSchemaVersionAvailable": false,
+    "surfaceRevisionAvailable": false,
+    "nearTerrainMembershipAvailable": true,
+    "horizonTerrainMembershipAvailable": true,
+    "grassMembershipAvailable": false,
+    "grassChunkWorldBoundsAvailable": false,
+    "grassCullUsesMeshOrigin": true,
+    "simulationHorizontalBoundaryPolicyAvailable": false,
+    "routeContentSurfaceValidationAvailable": false,
+    "consumerParityResultAvailable": false,
+    "visibleSurfaceFrameAckAvailable": false
   },
-  "mainFinding": "The active balloon object module schedules compatibility RAF work at import time. Successful Air Mail startup therefore runs an unowned scene-traversal loop beside the active game loop, while failed startup can leave the GameHost wait loop alive indefinitely.",
+  "mainFinding": "The bounded-disk surface is authoritative only for terrain sampling and terrain chunk admission. Grass and balloon simulation do not share that membership policy, so unsupported grass can exist where terrain is absent and the balloon can drift beyond the supported visual world without a typed response.",
   "orderedSafeLedges": [
     "Immutable Runtime Admission + Boot Capability Fixture Gate",
     "Import-Pure Balloon Object Kit + Explicit Compatibility Installer + Single Frame Owner Fixture Gate",
@@ -224,7 +241,8 @@
     "Committed Observation Frame Authority + Delivery/Render/HUD/Telemetry/GameHost Correlation Fixture Gate",
     "Terrain Source and LOD Transition Authority + Retained-Key Reclassification Fixture Gate",
     "Bounded Terrain Build and Atomic Replacement + Edge/Frame Fixture Gate",
-    "Grass Spatial Culling and Backend Truth Authority + Chunk-Bounds Fixture Gate"
+    "Grass Spatial Culling and Backend Truth Authority + Chunk-Bounds Fixture Gate",
+    "World Surface Membership Authority + Terrain/Grass/Simulation Consumer Parity Fixture Gate"
   ],
   "validation": {
     "runtimeSourceChangedByThisPass": false,
@@ -234,10 +252,10 @@
     "pullRequestCreated": false,
     "npmRunCheck": "not run",
     "npmRunBuild": "not run",
-    "importPurityFixture": "unavailable",
-    "singleFrameOwnerFixture": "unavailable",
-    "failedStartupRetirementFixture": "unavailable",
-    "compatibilityDisposalFixture": "unavailable",
-    "pagesSingleFrameOwnerFixture": "unavailable"
+    "surfaceClassificationFixture": "unavailable",
+    "terrainGrassParityFixture": "unavailable",
+    "balloonBoundaryFixture": "unavailable",
+    "visibleSurfaceFrameFixture": "unavailable",
+    "pagesBoundaryTraversalFixture": "unavailable"
   }
 }
