@@ -319,6 +319,8 @@ export function createWorldGenerationKit({
     return featureCells.get(key);
   }
 
+  const contains = (x, z) => Math.hypot(x - center.x, z - center.z) <= radius;
+
   function sampleHeight(x, z) {
     const macro = sampleGrid(heightGrid, x, z);
     const protection = sampleGrid(protectionGrid, x, z);
@@ -343,6 +345,25 @@ export function createWorldGenerationKit({
   }
 
   function sampleFlora(x, z, context = {}) {
+    if (!contains(x, z)) {
+      return {
+        grassDensity: 0,
+        flowerDensity: 0,
+        bare: true,
+        patchCoverage: 0,
+        clearing: 1,
+        primaryGrassType: 1,
+        secondaryGrassType: 1,
+        secondaryMix: 0,
+        flowerType: 0,
+        secondaryFlowerType: 0,
+        biomeId: -1,
+        biomeName: "outside-world",
+        moisture: 0,
+        fertility: 0,
+        height: Number.isFinite(context.height) ? context.height : sampleHeight(x, z)
+      };
+    }
     const biome = sampleBiome(x, z, context);
     const warpAngle = valueNoise(x * 0.00072, z * 0.00072, seed + 281) * TAU;
     const warpStrength = (valueNoise(x * 0.0011, z * 0.0011, seed + 307) - 0.5) * 210;
@@ -428,14 +449,14 @@ export function createWorldGenerationKit({
     sampleFlora,
     sampleMapColor,
     sampleFeatureCell: featureCellAt,
+    contains,
     getDescriptor: () => Object.freeze({
       seed,
       center: Object.freeze({ ...center }),
       radius,
       gridSize,
       gridStep: step,
-      featureCellSize: WORLD_FEATURE_CELL_SIZE,
-      cachedFeatureCells: featureCells.size
+      featureCellSize: WORLD_FEATURE_CELL_SIZE
     })
   });
 }
