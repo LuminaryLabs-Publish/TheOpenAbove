@@ -1,26 +1,26 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-11T19-28-28-04-00`
+**Last aligned:** `2026-07-11T21-08-57-04-00`
 
 ## Scope
 
-Documentation-only audit of module-evaluation side effects, compatibility target discovery, active and compatibility RAF ownership, successful-startup hidden work, failed-startup callback retention, scene-traversal cost and disposal proof.
+Documentation-only audit of the new bounded-disk world surface, terrain height blending, near/horizon chunk membership, grass required-set and culling behavior, balloon movement, readback and source-pattern tests.
 
 ## Plan ledger
 
-**Goal:** separate source-backed control-flow findings from executable proof and define the minimum fixture gate for import purity and one authoritative frame owner.
+**Goal:** separate source-backed world-boundary findings from executable proof and define the minimum fixture gate for simulation, terrain, grass and visible-frame parity.
 
 - [x] Compare the complete Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove`.
-- [x] Read current root `.agent` state and retained lifecycle audits.
-- [x] Read `src/main.js`.
-- [x] Read `src/hot-air-balloon-object-kit.js`.
-- [x] Confirm module-scope RAF scheduling.
-- [x] Confirm current host owns a separate recursive RAF.
-- [x] Confirm no-target compatibility tick still recurs.
-- [x] Confirm fatal startup does not retire the wait loop.
-- [x] Identify all domains, kits and service families.
+- [x] Select only `TheOpenAbove` because seven runtime/test commits landed after its previous audit.
+- [x] Read `AGENTS.md`, current root `.agent` state and retained terrain/grass audits.
+- [x] Compare the previous documentation head with the current runtime head.
+- [x] Read world config, terrain surface, terrain streamers, grass domain, culling, simulation, visual host and smoke checks.
+- [x] Confirm terrain uses bounded height and bounds membership.
+- [x] Confirm grass required-set construction has no world-surface membership.
+- [x] Confirm grass culling uses the default mesh origin.
+- [x] Confirm balloon simulation has no horizontal boundary policy.
+- [x] Confirm readback exposes the descriptor but not live membership or parity.
 - [x] Define pure, browser, lifecycle and Pages fixtures.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
@@ -28,97 +28,118 @@ Documentation-only audit of module-evaluation side effects, compatibility target
 ## Source-backed behavior
 
 ```txt
-module evaluation
-  -> requestAnimationFrame(attachWhenReady)
+WORLD.surface
+  -> bounded-disk, center 0/0, radius 10000, edge blend 600, edge floor -120
 
-attachWhenReady without GameHost
-  -> requestAnimationFrame(attachWhenReady)
+createTerrainSurface
+  -> createDiskWorldSurface
+  -> boundedTerrainHeight via edgeMask
+  -> pass worldSurface to near and horizon streamers
 
-attachWhenReady with GameHost
-  -> installHotAirBalloonVisual(host)
-  -> requestAnimationFrame(tick)
+terrain streamers
+  -> worldSurface.intersectsBounds(chunkBounds)
+  -> reject nonintersecting chunks
 
-compatibility tick
-  -> findVehicle(host.scene)
-  -> scene.traverse(...)
-  -> animateHotAirBalloon(balloonOrUndefined)
-  -> requestAnimationFrame(tick)
+grass field
+  -> build 7x7 camera-centered required set
+  -> no worldSurface query
+  -> absolute-world instance matrices
+  -> mesh.position remains origin
+  -> cull from camera distance to mesh.position
 
-active host frame
-  -> animateHotAirBalloon(activeBalloon, now, burner)
-  -> render and HUD
-  -> requestAnimationFrame(frame)
+balloon simulation
+  -> update unrestricted horizontal position
+  -> bounded height used only for vertical clearance and altitude
+
+GameHost
+  -> publishes static worldSurface descriptor
+  -> no current membership or consumer parity result
 ```
 
 ## Source-backed conclusions
 
 ```txt
-successful current startup creates two recursive RAF chains
-current compatibility chain can traverse the scene with no target every frame
-failed startup before GameHost publication leaves a recursive wait loop
-neither compatibility chain retains a handle or exposes disposal
-callbacks carry no runtime generation or owner identity
+bounded terrain is not yet a bounded product world
+terrain and grass can admit different spatial sets
+unsupported grass can be generated at edgeFloor outside rendered terrain
+all grass chunks share one origin-based manual culling distance
+balloon can leave the supported visual world without a typed response
+source revision and consumer acknowledgements are absent
 ```
 
 These conclusions follow from checked-in control flow. They were not measured in a browser during this pass.
 
 ## Existing proof surface
 
-`npm run check` executes `tests/smoke.mjs`. The current checks do not instrument:
+`npm run check` executes `tests/smoke.mjs`. Current checks assert source text for:
 
 ```txt
-requestAnimationFrame registration count
-module-import side effects
-callback ownership
-callback cancellation
-scene traversal count
-failed-startup live work
-retry predecessor callbacks
-compatibility installation and disposal
-Pages frame-owner count
+bounded-disk configuration
+pinned disk-world ProtoKit import
+boundedTerrainHeight and edgeMask calls
+near/horizon intersectsBounds calls
+grass domain and shader UV varying
+stable cloud jitter and lower detail
 ```
 
-## Required pure fixture
+They do not execute:
 
 ```txt
-fixture:balloon-kit-import-purity
-  import module with instrumented globals
-  assert RAF calls = 0
-  assert timers = 0
-  assert listeners = 0
-  assert scene mutations = 0
-  assert GameHost reads/polling = 0
+surface point/bounds classification
+camera or balloon boundary traversal
+terrain/grass membership parity
+grass chunk world-bounds culling
+out-of-bounds response and recovery
+route/town surface validation
+stale surface-revision rejection
+visible-frame surface acknowledgement
+Pages boundary traversal
+```
+
+## Required pure fixtures
+
+```txt
+fixture:surface-point-classification
+fixture:surface-bounds-classification
+fixture:surface-edge-mask-continuity
+fixture:surface-policy-versioning
+fixture:surface-revision-stale-result
+fixture:route-content-surface-validation
 ```
 
 ## Required browser fixtures
 
 ```txt
-fixture:single-active-frame-owner
-fixture:no-target-no-compatibility-loop
-fixture:failed-startup-zero-live-callbacks
-fixture:retry-no-predecessor-callbacks
-fixture:compatibility-single-install
-fixture:compatibility-stale-generation
-fixture:compatibility-install-and-dispose
-fixture:pages-single-frame-owner
+fixture:terrain-grass-membership-parity
+fixture:no-unsupported-visible-grass
+fixture:grass-origin-independent-culling
+fixture:balloon-boundary-response
+fixture:boundary-reentry
+fixture:surface-visible-frame-parity
+fixture:pages-boundary-traversal
 ```
 
 ## Required observations
 
 ```txt
 runtimeSessionId
-runtimeGeneration
-frameLoopId
-frameLoopOwnerId
-frameLoopPurpose
-activeFrameLoopCount
-scheduledCallbackCount
-cancelledCallbackCount
-compatibilityInstallResult
-compatibilityTargetScanCount
-compatibilityNodesVisited
-firstCommittedFrameId
-terminalFailureOrDisposeResult
+surfaceId
+surfaceRevision
+surfaceFingerprint
+queryId
+consumerId
+subjectId
+membershipClassification
+signedDistanceToBoundary
+edgeMask
+terrainCommittedChunkIds
+grassCommittedChunkIds
+grassVisibleChunkIds
+unsupportedGrassChunkIds
+boundaryResponseResult
+consumerParityResult
+renderFrameId
+visibleFrameId
 ```
 
 ## Commands not run
@@ -151,4 +172,4 @@ pull request created: no
 
 ## Completion boundary
 
-Do not claim import purity until importing `hot-air-balloon-object-kit.js` produces zero RAF registrations and ambient GameHost polling. Do not claim one authoritative runtime frame owner until the browser and deployed Pages fixtures report exactly one required Air Mail loop and zero no-target compatibility callbacks. Do not claim failed-startup cleanup until a failure-injection fixture reports zero live callbacks after terminal failure publication.
+Do not claim bounded-world correctness until pure membership fixtures, browser boundary traversal, terrain/grass consumer parity, deterministic balloon response and a visible-frame acknowledgement all reference the same committed surface revision.
