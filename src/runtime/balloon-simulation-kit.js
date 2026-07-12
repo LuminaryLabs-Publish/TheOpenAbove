@@ -7,7 +7,7 @@ import {
 export const BALLOON_SIMULATION_KIT_ID = "open-above-balloon-simulation-kit";
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value) || 0));
-const smooth = (rate, dt) => 1 - Math.exp(-rate * dt);
+const smooth = (rate, dt) => 1 - Math.exp(-rate * Math.max(0, dt));
 
 export function createBalloonSimulation({
   terrainHeight,
@@ -23,6 +23,11 @@ export function createBalloonSimulation({
     altitude: startPosition[1],
     burner: 0.22,
     vent: 0,
+    steeringInput: 0,
+    lateralTrim: 0,
+    lateralAcceleration: 0,
+    visualBank: 0,
+    heading: Math.atan2(8, -10),
     elapsed: 0,
     distance: 0,
     airstream: {
@@ -33,7 +38,7 @@ export function createBalloonSimulation({
       velocity: { x: 8, y: 0, z: -10 },
       contributors: []
     },
-    message: "Mail for Brookhaven. Burn upward into the green meadow current; vent to descend."
+    message: "Mail for Brookhaven. Burn upward into the green meadow current; use A/D for light cross-current trim."
   };
 
   const onKeyDown = (event) => keys.add(event.code);
@@ -60,6 +65,27 @@ export function createBalloonSimulation({
     };
   }
 
+  function updateSteering(flow, dt) {
+    const left = keys.has("KeyA") || keys.has("ArrowLeft");
+    const right = keys.has("KeyD") || keys.has("ArrowRight");
+    state.steeringInput = (right ? 1 : 0) - (left ? 1 : 0);
+    const previousTrim = state.lateralTrim;
+    const trimTarget = state.steeringInput * 3.6;
+    const response = state.steeringInput === 0 ? 2.8 : 2.5;
+    state.lateralTrim = THREE.MathUtils.lerp(state.lateralTrim, trimTarget, smooth(response, dt));
+    state.lateralAcceleration = dt > 0 ? (state.lateralTrim - previousTrim) / dt : 0;
+
+    const forward = new THREE.Vector3(flow.velocity.x, 0, flow.velocity.z);
+    if (forward.lengthSq() < 0.0001) forward.set(state.wind.x, 0, state.wind.z);
+    if (forward.lengthSq() < 0.0001) forward.set(0, 0, -1);
+    forward.normalize();
+    const rightVector = new THREE.Vector3(-forward.z, 0, forward.x);
+    state.wind.addScaledVector(rightVector, state.lateralTrim);
+    state.heading = Math.atan2(state.wind.x, state.wind.z);
+    const targetBank = -state.steeringInput * THREE.MathUtils.degToRad(6.5);
+    state.visualBank = THREE.MathUtils.lerp(state.visualBank, targetBank, smooth(3.8, dt));
+  }
+
   function update(dt) {
     state.elapsed += dt;
     const burnerPressed = keys.has("Space") || keys.has("KeyW") || keys.has("ArrowUp");
@@ -74,6 +100,7 @@ export function createBalloonSimulation({
       fallbackWind()
     );
     applyAirstreamToBalloonState(state, flow);
+    updateSteering(flow, dt);
 
     const streamLift = flow.velocity.y * flow.influence * 0.24;
     const buoyancy = 0.36 + state.burner * 3.7 - state.vent * 3.2 + streamLift;
@@ -96,19 +123,19 @@ export function createBalloonSimulation({
     state.distance += Math.hypot(state.velocity.x, state.velocity.z) * dt;
 
     if (state.airstream.routeId) {
-      state.message = `Riding ${state.airstream.routeId}. Match its altitude and stay near the bright center.`;
+      state.message = `Riding ${state.airstream.routeId}. Match altitude; A/D trims across the current.`;
     } else {
-      state.message = "Between currents. Use burner or vent to find a visible mail route.";
+      state.message = "Between currents. Use burner or vent to find a route; A/D provides light correction.";
     }
-
     return state;
   }
 
   function applyToBalloon(balloon) {
     balloon.position.copy(state.position);
-    balloon.rotation.y = Math.atan2(state.wind.x, state.wind.z) + Math.PI + Math.sin(state.elapsed * 0.32) * 0.035;
-    balloon.rotation.x = Math.sin(state.elapsed * 0.42) * 0.018;
-    balloon.rotation.z = Math.cos(state.elapsed * 0.37) * 0.022;
+    balloon.rotation.y = state.heading + Math.PI + Math.sin(state.elapsed * 0.32) * 0.018;
+    balloon.rotation.x = Math.sin(state.elapsed * 0.42) * 0.008;
+    balloon.rotation.z = state.visualBank * 0.22;
+    balloon.userData.flightState = state;
   }
 
   function snapshot(extra = {}) {
@@ -119,6 +146,10 @@ export function createBalloonSimulation({
       altitude: Number(state.altitude.toFixed(2)),
       burner: Number(state.burner.toFixed(3)),
       vent: Number(state.vent.toFixed(3)),
+      steeringInput: state.steeringInput,
+      lateralTrim: Number(state.lateralTrim.toFixed(3)),
+      visualBank: Number(state.visualBank.toFixed(4)),
+      heading: Number(state.heading.toFixed(4)),
       windSpeed: Number(state.wind.length().toFixed(2)),
       distance: Number(state.distance.toFixed(2)),
       position: state.position.toArray().map((value) => Number(value.toFixed(3))),
