@@ -40,19 +40,22 @@ function createGrassMaterial() {
     shader.uniforms.uGrassTime = { value: 0 };
     shader.uniforms.uWindStrength = { value: 1 };
     shader.vertexShader = shader.vertexShader
-      .replace("#include <common>", "#include <common>\nuniform float uGrassTime;\nuniform float uWindStrength;")
+      .replace("#include <common>", "#include <common>\nuniform float uGrassTime;\nuniform float uWindStrength;\nvarying vec2 vGrassUv;")
       .replace("#include <begin_vertex>", `#include <begin_vertex>
+vGrassUv = uv;
 #ifdef USE_INSTANCING
 float phase = instanceMatrix[3][0] * 0.017 + instanceMatrix[3][2] * 0.023;
 float tip = clamp(position.y, 0.0, 1.0);
 transformed.x += sin(uGrassTime * 1.7 + phase) * 0.18 * tip * uWindStrength;
 transformed.z += cos(uGrassTime * 1.15 + phase * 1.7) * 0.08 * tip * uWindStrength;
 #endif`);
-    shader.fragmentShader = shader.fragmentShader.replace("#include <alphatest_fragment>", `float blade = smoothstep(0.0, 0.14, vUv.y) * smoothstep(0.0, 0.16, 1.0 - abs(vUv.x * 2.0 - 1.0));
+    shader.fragmentShader = shader.fragmentShader
+      .replace("#include <common>", "#include <common>\nvarying vec2 vGrassUv;")
+      .replace("#include <alphatest_fragment>", `float blade = smoothstep(0.0, 0.14, vGrassUv.y) * smoothstep(0.0, 0.16, 1.0 - abs(vGrassUv.x * 2.0 - 1.0));
 if (blade < 0.42) discard;`);
     state.shader = shader;
   };
-  material.customProgramCacheKey = () => "open-above-grass-field-v2";
+  material.customProgramCacheKey = () => "open-above-grass-field-v3";
   return { material, state };
 }
 
