@@ -3,6 +3,7 @@ import {
   normalizeGrassSeed,
   seedFloat
 } from "../visual/grass-field/grass-world-seed-kit.js";
+import { AUTHORED_LAKES } from "./world-authored-features.js";
 
 export const WORLD_GENERATION_KIT_ID = "open-above-world-generation-kit";
 export const WORLD_GRID_SIZE = 257;
@@ -172,19 +173,23 @@ export function createWorldGenerationKit({
       protection = Math.max(protection, radialProtection(Math.hypot(x - town.x, z - town.z), 340, 190));
     }
 
-    const routeCoreSq = 230 * 230;
-    const routeOuterSq = 410 * 410;
+    const routeCoreSq = 72 * 72;
+    const routeOuterSq = 190 * 190;
     for (const segment of normalizedAnchors.segments) {
       const distanceSq = distanceToSegmentSquared(x, z, segment.ax, segment.az, segment.bx, segment.bz);
       if (distanceSq <= routeCoreSq) protection = 1;
       else if (distanceSq < routeOuterSq) protection = Math.max(protection, 1 - smoothstep(routeCoreSq, routeOuterSq, distanceSq));
     }
 
-    for (const lake of [
-      { x: -260, z: 180, radius: 315 },
-      { x: 420, z: -340, radius: 350 }
-    ]) {
-      protection = Math.max(protection, radialProtection(Math.hypot(x - lake.x, z - lake.z), lake.radius, 150));
+    for (const lake of AUTHORED_LAKES) {
+      protection = Math.max(
+        protection,
+        radialProtection(
+          Math.hypot(x - lake.x, z - lake.z),
+          lake.protectionRadius,
+          lake.protectionTransition
+        )
+      );
     }
 
     if (Math.abs(x) < 1120) {
@@ -281,15 +286,16 @@ export function createWorldGenerationKit({
       const legacy = Number(legacyTerrainHeight(x, z)) || 0;
       heightGrid[index] = lerp(carved, legacy, protection);
 
-      const lakeA = Math.exp(-((x + 260) ** 2 + (z - 180) ** 2) / 90000);
-      const lakeB = Math.exp(-((x - 420) ** 2 + (z + 340) ** 2) / 130000);
       const lowland = 1 - smoothstep(-38, 72, heightGrid[index]);
+      let lakeMoisture = 0;
+      for (const lake of AUTHORED_LAKES) {
+        lakeMoisture += Math.exp(-((x - lake.x) ** 2 + (z - lake.z) ** 2) / lake.moistureDivisor) * lake.moistureWeight;
+      }
       moistureGrid[index] = clamp01(
         moistureGrid[index] * 0.62
         + channel * 0.34
         + lowland * 0.16
-        + lakeA * 0.82
-        + lakeB * 0.62
+        + lakeMoisture
       );
       fertilityGrid[index] = clamp01(moistureGrid[index] * 0.62 + lowland * 0.26 + (1 - channel) * 0.12);
     }
@@ -323,12 +329,10 @@ export function createWorldGenerationKit({
 
   function sampleHeight(x, z) {
     const macro = sampleGrid(heightGrid, x, z);
-    const protection = sampleGrid(protectionGrid, x, z);
+    const protection = protectionAt(x, z);
     if (protection >= 0.985) return Number(legacyTerrainHeight(x, z)) || 0;
     const fine = (fbm(x * 0.006, z * 0.006, seed + 241, 3) - 0.5) * 7.2;
-    const generated = macro + fine * (1 - protection);
-    if (protection <= 0.001) return generated;
-    return lerp(generated, Number(legacyTerrainHeight(x, z)) || 0, smoothstep(0.18, 0.985, protection));
+    return macro + fine * (1 - protection);
   }
 
   const sampleMoisture = (x, z) => clamp01(sampleGrid(moistureGrid, x, z));
