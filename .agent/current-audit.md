@@ -1,42 +1,42 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T02-29-50-04-00`
+**Last aligned:** `2026-07-12T04-00-32-04-00`
 
 ## Status
 
 ```txt
-status: public-host-capability-authority-audited
-source revision reviewed: 0e5ede8760e32d9082e19f880992380b0c5e9cb4
+status: frame-failure-containment-authority-audited
+repository revision reviewed: a36bd0958c66b26f9be38085486271f11a623576
 runtime source changed by this pass: no
 branch: main
 root .agent state: refreshed
-central ledger sync: complete
-central internal change log: complete
+central ledger sync: pending until repo-local commit sequence completes
+central internal change log: pending until repo-local commit sequence completes
 ```
 
 ## Summary
 
-The current Air Mail runtime publishes the complete live owner graph through `window.GameHost`. This includes engine modules and instances, Three.js scene/camera/renderer objects, the balloon object, visual domain, simulation, airstream, mail, camera rig and balloon presentation. These are not detached diagnostics. They expose mutable state plus update, render, reset and dispose methods, allowing same-page callers to bypass normal clock, mission, presentation, lifecycle and committed-frame ordering.
+The current runtime has a startup error projection but no post-start frame failure boundary. `boot()` catches the promise returned by `createGame()`. The recursive `frame()` callback runs later and invokes eleven ordered state, presentation, render and HUD stages without an enclosing catch or typed stage results.
 
-`GameHost.getState()` also reads Nexus telemetry and a new local snapshot independently. It includes no shared simulation tick, render frame, mission epoch or state fingerprint proving that both reads describe the same visible frame.
+If any stage throws, the callback exits before `requestAnimationFrame(frame)` is reached. The product does not call `showFatal()`, publish a failure result, cancel remaining owners, revoke public capabilities, retain a last-known-good observation or admit a cold restart. Stages completed before the exception may remain committed in live owners even though the canvas and HUD still represent an older or different frame.
 
 ## Plan ledger
 
-**Goal:** make the browser-global host a capability-scoped diagnostics and command boundary rather than a second runtime authority.
+**Goal:** define one frame failure transaction from immutable input and ordered stage execution through failure admission, last-known-good retention, quarantine, terminal projection, disposal and fresh-session restart.
 
 - [x] Compare the full Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` as the oldest eligible documented repository.
+- [x] Select only `TheOpenAbove` as the oldest eligible central entry.
 - [x] Review root guidance and retained audit state.
-- [x] Trace startup construction, RAF ordering, host publication and readback.
-- [x] Trace exposed simulation, mission, camera, render and lifecycle methods.
+- [x] Trace startup error handling and all normal frame stages.
+- [x] Confirm successor RAF scheduling occurs only after render and HUD completion.
+- [x] Confirm post-start errors do not reach `showFatal()`.
 - [x] Preserve the complete 59-kit source-backed inventory and service map.
-- [x] Define owner quarantine, capability descriptors, command envelopes, epoch fences, finite-value policy, typed results and immutable read models.
+- [x] Define stage identity, typed results, failure admission, last-good state, quarantine, disposal and restart contracts.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` routing state and kit registry.
-- [x] Synchronize the central ledger and internal change log.
-- [ ] Implement runtime changes and execute isolation/coherence fixtures.
+- [ ] Implement runtime changes and execute fault-injection fixtures.
 
 ## Selection comparison
 
@@ -46,15 +46,15 @@ eligible non-Cavalry repositories: 9
 new or central-ledger-missing repositories: 0
 root-.agent-missing repositories: 0
 
-TheOpenAbove       2026-07-12T00-39-05-04-00 selected
-IntoTheMeadow      2026-07-12T00-58-12-04-00
-HorrorCorridor     2026-07-12T01-08-06-04-00
-PhantomCommand     2026-07-12T01-20-00-04-00
-ZombieOrchard      2026-07-12T01-30-07-04-00
-TheUnmappedHouse   2026-07-12T01-41-56-04-00
-AetherVale         2026-07-12T01-58-43-04-00
-MyCozyIsland       2026-07-12T02-10-14-04-00
-PrehistoricRush    2026-07-12T02-21-55-04-00
+TheOpenAbove       2026-07-12T02-29-50-04-00 selected
+IntoTheMeadow      2026-07-12T02-38-23-04-00
+HorrorCorridor     2026-07-12T02-49-19-04-00
+PhantomCommand     2026-07-12T03-00-46-04-00
+ZombieOrchard      2026-07-12T03-11-51-04-00
+TheUnmappedHouse   2026-07-12T03-21-27-04-00
+AetherVale         2026-07-12T03-28-44-04-00
+MyCozyIsland       2026-07-12T03-39-52-04-00
+PrehistoricRush    2026-07-12T03-51-15-04-00
 TheCavalryOfRome   excluded
 ```
 
@@ -62,78 +62,99 @@ TheCavalryOfRome   excluded
 
 ```txt
 startup
-  -> construct all subsystem owners
-  -> publish raw owner references through window.GameHost
-  -> start one recursive product RAF
+  -> create visual domain
+  -> await balloon model
+  -> create airstream, mail, simulation, camera and presentation owners
+  -> create telemetry engine
+  -> publish raw GameHost owners
+  -> initialize one frame of state
+  -> schedule product RAF
 
 product RAF
+  -> calculate clamped variable dt
   -> simulation.update
   -> mail.update
   -> airstream.update
-  -> apply and animate balloon
-  -> presentation.update
+  -> simulation.applyToBalloon
+  -> animateHotAirBalloon
+  -> balloonPresentation.update
   -> cameraRig.update
   -> visual.update
   -> engine.tick
   -> visual.render
-  -> HUD update
+  -> updateHud
+  -> requestAnimationFrame(frame)
 
-public host
-  -> caller can mutate owners or call methods at any time
-  -> no command admission or ordering relationship to RAF
-  -> getState independently samples mutable owners
+failure path after startup
+  -> exception escapes frame callback
+  -> remaining stages are skipped
+  -> successor RAF is not scheduled
+  -> showFatal is not called
+  -> no failure lifecycle transition occurs
 ```
 
 ## Source-backed findings
 
-### Raw gameplay and mission owners are public
+### Startup and runtime failures use different paths
 
-`simulation` exposes its mutable state plus `update`, `applyToBalloon` and `dispose`. `mail` exposes its route, towns, parcel, mutable state, `update`, `reset` and `dispose`. `airstream` exposes routes, field, state, sampling, updating and disposal.
+`boot()` wraps only `await createGame()`. Errors thrown during asynchronous construction reach `showFatal()`. Once `createGame()` returns and the RAF begins, the callback is no longer inside that catch.
 
-### Raw render and camera owners are public
+### Frame stages mutate sequentially
 
-The host exports the Three.js scene, renderer, camera and balloon directly. It also exports the visual domain with composer, dynamic resolution, landscape owners, update, render, resize and disposal methods. The camera rig exposes mutable state and its update/dispose methods.
+Simulation, mission, airstream, balloon, presentation, camera, visual and telemetry owners are mutated before render and HUD completion. There is no detached candidate frame or rollback journal.
 
-### Public calls bypass ordered authority
+### Successor scheduling is at the end
 
-A caller can advance simulation without the host clock, mutate or complete delivery without a mission command, submit an uncommitted render, change scene/camera state, or partially dispose the runtime while RAF continues.
+The next RAF is scheduled only after `visual.render()` and `updateHud()` return. Any exception before that line silently terminates the frame chain.
 
-### Numeric state is not protected
+### A failed frame can split state and presentation
 
-Direct writes bypass clamping. For example, assigning `NaN` to camera zoom reaches camera placement math on the next update and can produce non-finite camera transforms.
+```txt
+render failure after mail delivery
+  live mail state: delivered
+  telemetry: potentially current
+  canvas: previous successful frame
+  HUD: previous frame
 
-### Readback is not frame-coherent
+HUD failure after render
+  canvas: current frame
+  HUD: previous frame
+  future frames: none
+```
 
-`getState()` returns Nexus telemetry plus a freshly assembled local snapshot. There is no common `simulationTickId`, `renderFrameId`, `missionEpoch`, profile/model receipt or state fingerprint.
+### Public readback can expose partial mutation
 
-### Existing tests do not isolate the host
+The existing public host contains raw owner references and a fresh snapshot function. A failed frame has no commit fence preventing those reads from observing a partially advanced prefix.
 
-No source or browser fixture proves raw owner keys are absent, read records are detached, invalid or stale commands mutate nothing, or one command result correlates to one later visible frame.
+### Existing tests do not inject stage failure
+
+No fixture deterministically throws at each frame stage or proves no later mutation, no successor callback, last-known-good coherence, capability revocation, disposal completion or fresh-session restart.
 
 ## Consequences
 
 ```txt
-same-page code has equivalent authority to the product host
-simulation can advance outside the admitted clock
-mission completion/reset can bypass epoch and result policy
-camera and renderer can be corrupted outside typed results
-runtime can be partially disposed while callbacks continue
-HUD, telemetry, readback and visible pixels can describe different states
-future restart/lifecycle fences cannot contain leaked owner references
+runtime can freeze without visible fatal projection
+player input can be consumed without matching visible response
+mail delivery can commit without matching canvas/HUD evidence
+canvas, HUD, telemetry and GameHost can describe different revisions
+public callers can continue mutating a failed owner graph
+resource cleanup may never run
+retry can reuse or overlap failed-session state unless separately fenced
 ```
 
 ## Domains in use
 
 ```txt
 browser shell, DOM, Vite and Pages
-runtime admission, session, failure and frame ownership
+runtime admission, session, startup failure and RAF ownership
+frame-stage execution, failure containment and terminal observation
 public host capabilities and readback
-keyboard, blur, wheel and variable RAF time
+keyboard, blur, wheel and variable frame time
 balloon simulation, airstream, steering, clearance and snapshots
 mail route, town, volume, progress and reset
-balloon profile, model assembly, async load and resources
-envelope shell, pattern, seams and mouth
-basket, burner, rigging, rope and part inertia
+balloon profile, model assembly, async loading and resources
+envelope profile, shell, pattern, seams and mouth
+basket, burner, rigging, rope and part presentation
 camera follow, zoom, clipping and steering look
 terrain, grass, atmosphere, water, HDR and dynamic resolution
 Nexus telemetry, HUD and headless readback
@@ -150,9 +171,10 @@ tooling/proof source-backed kits: 3
 active source-backed total: 59
 runtime-implied adapters: 12
 inactive legacy kits: 11
+planned frame-failure authority kits: 24 including the parent domain
 ```
 
-The exact kit list and per-kit services are recorded in the timestamped tracker and `.agent/kit-registry.json`.
+The exact active kit list and per-kit services are recorded in the timestamped tracker and `.agent/kit-registry.json`.
 
 ## Services offered
 
@@ -174,47 +196,37 @@ checks, fixtures, Vite build and Pages deployment
 ## Required parent domain
 
 ```txt
-open-above-public-host-capability-authority-domain
-  -> host session identity
-  -> capability descriptors
-  -> owner-handle quarantine
-  -> command envelopes, IDs and admission
-  -> session, mission and frame revision fences
-  -> finite-value validation
-  -> typed command results
-  -> immutable committed read model
-  -> state fingerprint and frame provenance
-  -> bounded journal and legacy adapter
-  -> isolation, command and coherence fixtures
+open-above-frame-failure-containment-authority-domain
 ```
 
-## Required public contract
+Planned coordinating services:
 
 ```txt
-window.GameHost = {
-  version,
-  sessionId,
-  capabilities,
-  getCommittedState(),
-  getJournal(),
-  submit(command)
-}
+frame and stage identity
+immutable ordered execution plan
+typed stage results
+failure identity, classification and single admission
+completed-stage mutation journal
+last-known-good frame retention
+mutation quarantine and public capability revocation
+render freeze and bounded failure overlay
+ordered disposal plan and results
+terminal failure observation and journal
+cold-restart handoff into a new session
+fault-injection, last-good, HUD and Pages fixtures
 ```
-
-No live subsystem, Three.js, GPU or Nexus engine object crosses this boundary.
 
 ## Required invariants
 
 ```txt
-public reads cannot mutate runtime state
-public commands cannot call subsystem owners directly
-rejected/stale/duplicate commands perform zero mutation
-numeric payloads are finite and bounded
-commands are fenced by runtime session and mission epoch
-frame-sensitive commands are fenced by frame revision
-one accepted command routes to one authoritative service
-read model describes one committed visible frame
-capabilities are revoked after failure, reset, stop and disposal
+all frame stages execute inside one failure boundary
+one failed stage produces one failure result
+no later stage mutates after failure
+no failed frame becomes the committed observation
+last-known-good canvas, HUD and readback remain correlated
+failed sessions expose no mutation capabilities
+all callbacks and listeners are retired before terminal completion
+restart creates new owner, session and mission identities
 ```
 
 ## Ordered safe ledges
@@ -230,11 +242,12 @@ capabilities are revoked after failure, reset, stop and disposal
 5. Air Mail route and delivery authority
 5a. mission restart transaction and epoch
 5b. committed observation frame authority
-5c. public host owner quarantine, command gateway and committed read model
+5c. public host owner quarantine and capability authority
+5d. frame failure containment and last-known-good authority
 6. terrain source and LOD transition authority
 6a. bounded terrain build and atomic replacement
 7. grass spatial identity and backend truth
-7a. world surface membership and consumer parity
+7a. world-surface consumer parity
 8. balloon steering and presentation authority
 ```
 
