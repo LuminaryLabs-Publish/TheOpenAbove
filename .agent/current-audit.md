@@ -1,13 +1,14 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T11-01-59-04-00`
+**Last aligned:** `2026-07-12T11-15-16-04-00`
 
 ## Status
 
 ```txt
 status: procedural-world-generation-consumer-coherence-audited
-source revision reviewed: f24e1b11063a566ff011168ffd89a0609f21328c
-runtime source changed by this pass: no
+source revision reviewed initially: f24e1b11063a566ff011168ffd89a0609f21328c
+concurrent runtime fix reconciled: 74f9b8a212f0b9eedeefdc8f7a5a1eb06fa24cec
+runtime source changed by this documentation pass: no
 branch: main
 root .agent state: refreshed
 central ledger sync: pending until central commit
@@ -15,26 +16,29 @@ central ledger sync: pending until central commit
 
 ## Summary
 
-The active route now builds a seeded full-world terrain/climate grid, applies route and town protection, derives biome and flora fields, streams five grass species and five flower types, and rasterizes world colors into the parchment map.
+The active route builds a seeded full-world terrain/climate grid, preserves route and town terrain, derives biome and flora fields, streams five grass species and five flower types, and rasterizes world colors into the parchment map.
 
-The values are deterministic for tested coordinates, but the world source is not immutable or observationally pure. Querying a previously unseen feature cell mutates an internal cache, and the public descriptor exposes cache size. Map construction, camera travel or test/query order can therefore change later snapshots without a world transition.
+This audit initially found that map/flora queries changed the public world descriptor through mutable cache-size readback and that flora had no world-disk boundary. A concurrent runtime commit removed cache size from the descriptor, added `world.contains(x,z)`, and returns a zero-density `outside-world` flora profile beyond the radius.
+
+The remaining problem is authority and provenance. The world is still synchronously constructed as an unversioned utility object; consumers do not adopt a canonical immutable artifact or prove which world build produced their chunks, map pixels or visible frame.
 
 ## Plan ledger
 
-**Goal:** define one immutable and bounded world artifact, pure sample results and typed consumer adoption across terrain, vegetation, grass, flowers, landmarks and map projection.
+**Goal:** define one immutable world artifact, pure revisioned sample results and typed consumer adoption across terrain, vegetation, grass, flowers, landmarks and map projection.
 
 - [x] Compare the full Publish repository inventory with central ledgers.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` because nineteen-plus material source commits landed after the previous audit.
-- [x] Review repository guidance, main host, world generator, terrain, grass, flowers, map and tests.
-- [x] Trace build work, sampling, cache mutation, boundary behavior and consumer adoption.
+- [x] Select only `TheOpenAbove` because material world-system source landed after the previous audit.
+- [x] Review guidance, host, world generator, terrain, grass, flowers, map and tests.
+- [x] Trace build work, sampling, cache behavior, boundary behavior and consumer adoption.
 - [x] Reconcile 67 active source-backed kit surfaces and services.
-- [x] Define the procedural-world generation authority and fixture matrix.
+- [x] Reconcile the concurrent descriptor-purity and flora-membership runtime fix.
+- [x] Define the remaining procedural-world authority and fixture matrix.
 - [x] Add timestamped tracker and system audits.
 - [x] Refresh root `.agent` state and registry.
 - [x] Create no branch or pull request.
-- [ ] Implement runtime authority and executable browser/Pages proof.
+- [ ] Implement build identity, immutable artifacts, consumer receipts and executable browser/Pages proof.
 
 ## Selection comparison
 
@@ -44,7 +48,7 @@ eligible non-Cavalry repositories: 9
 new or central-ledger-missing eligible repositories: 0
 root-.agent-missing eligible repositories: 0
 
-TheOpenAbove selected because world-generation, terrain, grass, flower and map source changed after its 09:02 audit.
+TheOpenAbove selected because world-generation, terrain, grass, flower and map source changed after its prior audit.
 TheCavalryOfRome excluded.
 ```
 
@@ -69,45 +73,40 @@ frame
   -> expose generation descriptor and flora state
 ```
 
-## Source-backed findings
-
-### Query history mutates observable state
+## Resolved during this audit window
 
 ```txt
-sampleMapColor
-  -> sampleFlora
-  -> sampleBiome
-  -> featureCellAt
-  -> featureCells.set when absent
-
-getDescriptor
-  -> cachedFeatureCells: featureCells.size
+public descriptor no longer includes cachedFeatureCells
+map and query history no longer change authoritative descriptor output
+world exposes contains(x,z)
+outside-world flora returns zero grass and flower density
 ```
 
-The descriptor is included in the public snapshot. Two otherwise identical runs can therefore differ because one opened/constructed the map or sampled more cells.
+## Remaining source-backed findings
 
-### Startup work is ungoverned
+### World build is ungoverned
 
-World construction performs large synchronous array allocation, erosion, flow sorting and climate/fertility work. The map then performs thousands of synchronous world-color samples during overlay construction. No build stage, budget, progress, cancellation, reusable artifact or typed terminal result exists.
+World construction performs synchronous array allocation, erosion, flow sorting and climate/fertility work. Map construction then performs thousands of synchronous world-color samples. No WorldBuildId, stage result, startup budget, progress, cancellation, reusable artifact or terminal build result exists.
 
-### Boundary policy differs by consumer
+### Input identity is incomplete
 
-```txt
-terrain: disk edge mask and edge floor
-world grid: clamp outside positions to border grid values
-feature cells: unbounded integer cell identity
-grass/flowers: camera-centered chunks with no worldSurface membership input
-```
+The descriptor exposes seed, center, radius and grid dimensions, but no canonical fingerprint covers surface configuration, route protection, town protection, algorithm/schema versions or produced grid arrays.
 
-No canonical inside/edge/outside result coordinates these consumers.
+### Query results lack provenance
+
+World methods return raw values and objects without query ID, world revision, membership result, artifact fingerprint or stale-result protection. `sampleFeatureCell` remains a direct cache-populating public method, although cache size is no longer authoritative state.
 
 ### Consumer revision is absent
 
-Terrain, vegetation, landmarks, grass, flowers and map all receive the world utility directly. Their meshes, cached map pixels and readbacks do not cite one WorldBuildId, revision or artifact fingerprint.
+Terrain, vegetation, landmarks, grass, flowers and map receive the world utility directly. Their meshes, cached map pixels and readbacks do not cite one WorldBuildId, revision or artifact fingerprint.
+
+### Boundary policy is only partially unified
+
+`sampleFlora` now returns `outside-world`, but height, moisture, temperature and fertility sampling still clamp to grid borders. No typed membership result coordinates all sample kinds and render consumers.
 
 ### Tests remain incomplete
 
-Current Node tests prove independent sampled values, protected anchor terrain, biome/species coverage and local grass/flower budgets. They do not prove cache purity, map-prewarm parity, startup budget, cancellation, outside-world parity, stale-consumer rejection or visible-frame provenance.
+Current Node tests prove deterministic values, protected anchor terrain, biome/species coverage and local grass/flower budgets. They do not prove artifact fingerprints, startup budgets, cancellation, query provenance, cross-consumer revision parity, stale-consumer rejection or visible-frame provenance.
 
 ## Domains in use
 
@@ -150,7 +149,7 @@ open-above-procedural-world-generation-authority-domain
 ## Required services
 
 ```txt
-canonical seed/config/anchor fingerprints
+canonical seed/config/anchor/algorithm fingerprints
 world build ID, revision, plan, stages, budget and cancellation
 immutable world-grid artifact and fingerprint
 pure typed world sample query/result
@@ -160,24 +159,23 @@ consumer identity, adoption and receipts
 terrain/vegetation/grass/flower/landmark/map parity result
 stale result rejection
 world-visible-frame acknowledgement
-independent-build, cache-purity, membership, startup, browser and Pages fixtures
+independent-build, startup, replacement, browser and Pages fixtures
 ```
 
 ## Required invariants
 
 ```txt
-query order cannot change authoritative descriptor or fingerprint
-same inputs create the same canonical world artifact
-all consumers use one membership policy
-map construction cannot mutate gameplay-visible world state
-consumer results cite the committed world revision
+same canonical inputs create the same world artifact fingerprint
+all sample results identify their world revision
+all consumers adopt one committed world build
 failed/cancelled builds do not replace the active world
 stale chunks/map pixels cannot survive replacement
+map construction does not mutate authoritative world state
 visible frame acknowledges the exact world artifact
 ```
 
 ## Retained audits
 
-The `2026-07-12T09-02-10-04-00` map audit remains authoritative for bearing, fit, route style and off-map navigation. Earlier world-surface, grass, terrain, HDR, frame-failure and lifecycle audits also remain active.
+The runtime-fix reconciliation is current for descriptor purity and flora membership. The `2026-07-12T09-02-10-04-00` map audit remains authoritative for bearing, fit, route style and off-map navigation. Earlier world-surface, grass, terrain, HDR, frame-failure and lifecycle audits remain active.
 
-Documentation only. No runtime source, dependency, script, gameplay, rendering or deployment behavior changed.
+Documentation only. No runtime source, dependency, script, gameplay, rendering or deployment behavior was changed by this documentation pass.
