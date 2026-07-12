@@ -1,21 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T15-40-04-04-00",
-  "status": "vegetation-spatial-coverage-central-reconciled",
+  "lastAligned": "2026-07-12T17-41-25-04-00",
+  "status": "flight-world-membership-authority-audited",
   "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-12T15-40-04-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T15-40-04-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-12T17-41-25-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T17-41-25-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T15-40-04-04-00-vegetation-spatial-coverage-central-reconciliation-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T15-40-04-04-00-vegetation-visible-frame-central-reconciliation-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T15-40-04-04-00-boot-tree-field-traversal-reconciliation.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T15-40-04-04-00-camera-vegetation-admission-reconciliation.md",
-    "vegetationSystem": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T15-40-04-04-00-vegetation-fixture-central-reconciliation-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T17-41-25-04-00-flight-world-membership-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T17-41-25-04-00-off-world-flight-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T17-41-25-04-00-unbounded-balloon-traversal-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T17-41-25-04-00-flight-boundary-command-admission-map.md",
+    "flightBoundary": ".agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T17-41-25-04-00-flight-boundary-fixture-gate.md"
   },
   "retainedAudits": {
-    "vegetationSourceAudit": ".agent/vegetation-system-audit/2026-07-12T15-31-24-04-00-chunked-deterministic-coverage-contract.md",
+    "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
     "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
     "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
     "parchmentMapSpatialNavigation": ".agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md",
@@ -23,19 +23,31 @@
     "hdrSurface": ".agent/hdr-surface-audit/2026-07-12T05-11-46-04-00-attachment-identity-lifecycle-commit-contract.md",
     "frameFailure": ".agent/frame-failure-audit/2026-07-12T04-00-32-04-00-stage-containment-last-good-restart-contract.md",
     "publicHost": ".agent/host-capability-audit/2026-07-12T02-29-50-04-00-owner-quarantine-read-model-command-contract.md",
-    "worldSurface": ".agent/world-surface-audit/2026-07-11T21-08-57-04-00-consumer-membership-parity-contract.md",
+    "worldSurfaceConsumerParity": ".agent/world-surface-audit/2026-07-11T21-08-57-04-00-consumer-membership-parity-contract.md",
     "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md"
   },
   "selection": {
-    "reason": "repo-local vegetation audit was newer than the oldest central ledger entry after confirming no new, ledger-missing or root-agent-missing eligible repository",
+    "reason": "TheOpenAbove had the oldest eligible synchronized central-ledger timestamp after confirming no new, ledger-missing or root-agent-missing eligible repository.",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "unsynchronizedRepoLocalAudit": "LuminaryLabs-Publish/TheOpenAbove",
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
+    "orderedEligibleTimestamps": {
+      "TheOpenAbove": "2026-07-12T15-40-04-04-00 selected",
+      "IntoTheMeadow": "2026-07-12T15-49-09-04-00",
+      "PhantomCommand": "2026-07-12T16-00-03-04-00",
+      "PrehistoricRush": "2026-07-12T16-20-55-04-00",
+      "HorrorCorridor": "2026-07-12T16-39-35-04-00",
+      "ZombieOrchard": "2026-07-12T16-51-47-04-00",
+      "MyCozyIsland": "2026-07-12T17-10-31-04-00",
+      "TheUnmappedHouse": "2026-07-12T17-20-42-04-00",
+      "AetherVale": "2026-07-12T17-35-48-04-00"
+    },
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ]
   },
   "counts": {
     "runtimeAndGameplay": 15,
@@ -46,28 +58,30 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedVegetationCoverageIncludingParent": 29
+    "plannedFlightWorldMembershipIncludingParent": 24,
+    "retainedPlannedVegetationCoverageIncludingParent": 29
   },
   "interactionLoop": [
-    "construct-seeded-world-and-camera-relative-terrain",
-    "construct-boot-only-central-vegetation-field",
-    "pass-boot-tree-exclusions-to-grass-and-flowers",
-    "integrate-balloon-and-move-camera",
-    "update-terrain-grass-and-flowers-around-camera",
-    "retain-static-tree-instances",
-    "render-hdr-frame-without-vegetation-coverage-receipt"
+    "construct-bounded-world-and-balloon-state",
+    "sample-input-and-airstream",
+    "integrate-horizontal-and-vertical-velocity",
+    "commit-position-without-world-membership-admission",
+    "update-mail-camera-streamed-world-map-and-hdr",
+    "render-without-flight-boundary-result-or-visible-ack"
   ],
   "domains": [
     "browser-shell-canvas-map-fatal-projection",
     "runtime-boot-session-input-raf-public-host",
-    "balloon-simulation-steering-airstream-mail",
-    "seeded-world-generation-membership-authored-anchor-protection",
+    "balloon-simulation-steering-burner-vent-altitude-distance",
+    "airstream-route-sample-force-visual-debug",
+    "mail-parcel-town-volume-progress",
+    "seeded-world-generation-bounded-disk-membership-authored-anchor-protection",
     "terrain-streaming-frame-near-horizon-ownership",
-    "boot-time-vegetation-cluster-placement-global-instancing",
-    "grass-flower-placement-atlas-chunk-lod-culling-exclusion",
-    "balloon-object-material-rigging-presentation",
+    "vegetation-grass-flower-placement-exclusion-lod-culling-wind",
+    "balloon-object-material-rigging-camera-presentation",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
-    "map-projection-telemetry-headless-tests-build-pages"
+    "map-projection-telemetry-headless-tests-build-pages",
+    "missing-flight-world-membership-admission-boundary-policy-commit-proof"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -139,7 +153,9 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": ["open-above-parchment-map-overlay-kit"],
+    "ui": [
+      "open-above-parchment-map-overlay-kit"
+    ],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
@@ -239,7 +255,33 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedVegetationCoverageKits": [
+  "plannedFlightWorldMembershipKits": [
+    "open-above-flight-world-membership-authority-domain",
+    "open-above-flight-command-id-kit",
+    "open-above-flight-frame-id-kit",
+    "open-above-world-surface-revision-kit",
+    "open-above-flight-state-revision-kit",
+    "open-above-flight-position-proposal-kit",
+    "open-above-world-membership-sample-kit",
+    "open-above-flight-boundary-band-kit",
+    "open-above-flight-boundary-policy-kit",
+    "open-above-flight-edge-return-force-kit",
+    "open-above-flight-outside-rejection-kit",
+    "open-above-flight-boundary-result-kit",
+    "open-above-flight-world-consumer-receipt-kit",
+    "open-above-flight-world-frame-commit-kit",
+    "open-above-stale-flight-frame-rejection-kit",
+    "open-above-flight-boundary-observation-kit",
+    "open-above-flight-boundary-journal-kit",
+    "open-above-flight-boundary-visible-frame-ack-kit",
+    "open-above-flight-center-membership-fixture-kit",
+    "open-above-flight-edge-transition-fixture-kit",
+    "open-above-flight-outside-rejection-fixture-kit",
+    "open-above-flight-high-speed-crossing-fixture-kit",
+    "open-above-flight-map-world-parity-fixture-kit",
+    "open-above-flight-pages-boundary-smoke-kit"
+  ],
+  "retainedPlannedVegetationCoverageKits": [
     "open-above-vegetation-spatial-coverage-authority-domain",
     "open-above-vegetation-stream-session-id-kit",
     "open-above-vegetation-frame-id-kit",
@@ -270,7 +312,21 @@
     "open-above-vegetation-visible-frame-ack-kit",
     "open-above-vegetation-browser-pages-fixture-kit"
   ],
-  "mainFinding": "Terrain, grass and flowers follow the moving camera, but tree vegetation is generated once at boot into two global InstancedMesh objects inside a centrally bounded cluster field. Horizontal flight is not world-bound, and vegetation has no camera-relative requirements, chunk identity, adoption result, lifecycle disposal, coverage registry or visible-frame acknowledgement.",
+  "sourceBackedFlightBoundaryState": {
+    "worldKind": "bounded-disk",
+    "worldRadius": 10000,
+    "edgeBlendWidth": 600,
+    "directPositionIntegration": true,
+    "terrainFloorResponse": true,
+    "verticalSoftCeiling": true,
+    "horizontalWorldMembershipAdmission": false,
+    "sweptCrossingDetection": false,
+    "boundaryPolicyResult": false,
+    "worldConsumerReceiptSet": false,
+    "visibleBoundaryFrameAcknowledgement": false
+  },
+  "mainFinding": "The world is a 10,000-unit bounded disk, but balloon motion commits horizontal position without membership admission or swept crossing detection. Mail, airstream, camera, streamed world systems, map and HDR then consume an unclassified position without a shared policy result, consumer receipt set or visible-frame acknowledgement.",
+  "requiredParentDomain": "open-above-flight-world-membership-authority-domain",
   "validation": {
     "runtimeChangedByDocumentationPass": false,
     "htmlChangedByDocumentationPass": false,
@@ -282,7 +338,7 @@
     "branchCreated": false,
     "pullRequestCreated": false,
     "commandsRunThisPass": false,
-    "vegetationAuthorityFixturesAvailable": false,
+    "flightBoundaryFixturesAvailable": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
