@@ -13,8 +13,7 @@ export function installBurnerIllumination(balloon) {
       new THREE.MeshBasicMaterial({ color: 0x75d8ff, transparent: true, opacity: 0.08, blending: THREE.AdditiveBlending, depthWrite: false })
     );
     core.name = `balloon-burner-blue-flame-core-${index}`;
-    core.position.set(head.position.x, -0.2, head.position.z);
-    core.rotation.x = Math.PI;
+    core.position.set(head.position.x, -0.02, head.position.z);
     burner.add(core);
     return core;
   });
