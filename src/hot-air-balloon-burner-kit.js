@@ -43,21 +43,19 @@ export function buildBurner(profile = defaultBurnerProfile) {
     burnerHeads.push(head);
 
     const outer = new THREE.Mesh(
-      new THREE.ConeGeometry(0.15, 0.62, 12),
+      new THREE.ConeGeometry(0.15, 0.92, 12),
       new THREE.MeshBasicMaterial({ color: p.flameColor, transparent: true, opacity: 0.08, depthWrite: false })
     );
     outer.name = "balloon-burner-flame-outer";
-    outer.position.set(x, -0.14, 0);
-    outer.rotation.x = Math.PI;
+    outer.position.set(x, 0.02, 0);
     group.add(outer);
 
     const core = new THREE.Mesh(
-      new THREE.ConeGeometry(0.075, 0.44, 10),
+      new THREE.ConeGeometry(0.075, 0.62, 10),
       new THREE.MeshBasicMaterial({ color: p.coreFlameColor, transparent: true, opacity: 0.1, depthWrite: false })
     );
     core.name = "balloon-burner-flame-core";
-    core.position.set(x, -0.2, 0);
-    core.rotation.x = Math.PI;
+    core.position.set(x, -0.02, 0);
     group.add(core);
     flames.push({ outer, core });
   }
