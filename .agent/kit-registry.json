@@ -1,20 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T07-00-48-04-00",
-  "status": "hud-accessibility-announcement-authority-audited",
-  "repositoryRevisionReviewed": "e0f40064e935170dabc642242ce0b25a28527929",
-  "latestTracker": ".agent/trackers/2026-07-12T07-00-48-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T07-00-48-04-00.md",
+  "lastAligned": "2026-07-12T08-50-32-04-00",
+  "status": "parchment-map-pause-input-authority-audited",
+  "repositoryRevisionReviewed": "a5dd665a80cfe594ebaf05085633d4006e012b32",
+  "latestTracker": ".agent/trackers/2026-07-12T08-50-32-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T08-50-32-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T07-00-48-04-00-hud-accessibility-announcement-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T07-00-48-04-00-visual-hud-live-region-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T07-00-48-04-00-flight-telemetry-announcement-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T07-00-48-04-00-semantic-event-announcement-result-map.md",
-    "accessibility": ".agent/accessibility-audit/2026-07-12T07-00-48-04-00-live-region-rate-fatal-focus-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T07-00-48-04-00-hud-accessibility-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T08-50-32-04-00-parchment-map-pause-input-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T08-50-32-04-00-dual-raf-map-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T08-50-32-04-00-map-pause-resume-flight-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T08-50-32-04-00-map-toggle-input-admission-map.md",
+    "mapSystem": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-focus-lifecycle-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T08-50-32-04-00-map-pause-input-fixture-gate.md"
   },
   "retainedAudits": {
+    "hudAccessibilitySupersededSourcePath": ".agent/accessibility-audit/2026-07-12T07-00-48-04-00-live-region-rate-fatal-focus-contract.md",
     "hdrSurface": ".agent/hdr-surface-audit/2026-07-12T05-11-46-04-00-attachment-identity-lifecycle-commit-contract.md",
     "frameFailure": ".agent/frame-failure-audit/2026-07-12T04-00-32-04-00-stage-containment-last-good-restart-contract.md",
     "publicHost": ".agent/host-capability-audit/2026-07-12T02-29-50-04-00-owner-quarantine-read-model-command-contract.md",
@@ -29,7 +30,7 @@
     "missionRestart": ".agent/mission-restart-audit/2026-07-11T11-31-06-04-00-mission-epoch-atomic-reset-contract.md"
   },
   "selection": {
-    "reason": "oldest eligible repository after full Publish-to-ledger and root-agent comparison",
+    "reason": "oldest eligible central-ledger entry with newer undocumented parchment-map and HUD-removal source changes",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
@@ -44,35 +45,36 @@
     "runtimeAndGameplay": 15,
     "balloonObjectAndPresentation": 15,
     "visualEnvironment": 26,
+    "ui": 1,
     "toolingAndProof": 3,
-    "activeSourceBackedTotal": 59,
+    "activeSourceBackedTotal": 60,
     "runtimeImplied": 12,
-    "inactiveLegacy": 11,
-    "plannedHudAccessibilityIncludingParent": 27
+    "inactiveOrRetiredLegacy": 12,
+    "plannedMapAuthorityIncludingParent": 26
   },
   "interactionLoop": [
-    "create-canvas-polite-live-hud-and-hidden-error-surface",
-    "write-loading-status-through-hud-innerhtml",
-    "create-runtime-and-perform-initial-hud-projection",
-    "update-simulation-mail-camera-visuals-and-render",
-    "replace-complete-live-region-innerhtml-after-every-frame",
-    "on-startup-failure-reveal-error-pre-and-write-generic-live-hud-error"
+    "create-game-canvas-map-dialog-map-canvas-and-hidden-error-surface",
+    "create-visual-balloon-airstream-mail-simulation-map-camera-presentation-and-telemetry-owners",
+    "advance-all-gameplay-owners-and-render-while-map-closed",
+    "toggle-map-through-independent-global-keydown-listener",
+    "skip-gameplay-owner-updates-while-map-open-but-keep-gameplay-key-state-live",
+    "run-main-3d-raf-and-map-2d-raf-concurrently",
+    "close-map-and-resume-gameplay-from-current-held-key-set"
   ],
   "domains": [
-    "browser-shell-semantic-html-canvas-dom-projection",
-    "runtime-admission-session-startup-failure-frame-ownership",
-    "keyboard-blur-wheel-variable-time",
+    "browser-shell-import-map-semantic-html-game-canvas-map-dialog",
+    "runtime-admission-startup-failure-session-raf-ownership",
+    "keyboard-key-state-blur-wheel-zoom-variable-time",
+    "map-transition-pause-resume-focus-lifecycle",
+    "map-world-transform-route-town-destination-player-projection",
     "balloon-simulation-airstream-steering-clearance-snapshot",
-    "mail-route-town-volume-progress-reset",
+    "mail-route-parcel-town-volume-progress-reset",
     "balloon-profile-model-assembly-loading-resources",
     "balloon-geometry-rigging-presentation-camera",
     "quality-dynamic-resolution-hdr-render-surface",
     "terrain-grass-atmosphere-water-lighting-lens",
-    "telemetry-visual-hud-gamehost-headless-readback",
-    "semantic-mission-status-visual-telemetry-classification",
-    "accessible-announcement-admission-dedupe-priority-rate-budget",
-    "live-region-projection-fatal-alert-focus-transfer",
-    "visible-frame-accessible-status-correlation",
+    "telemetry-gamehost-headless-readback",
+    "fatal-error-projection-accessibility",
     "checks-tests-build-deployment"
   ],
   "activeSourceBackedKits": {
@@ -138,10 +140,55 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
+    "ui": [
+      "open-above-parchment-map-overlay-kit"
+    ],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
       "open-above-airstream-mail-test-kit"
+    ]
+  },
+  "serviceMap": {
+    "open-above-parchment-map-overlay-kit": [
+      "M-and-Escape-toggle",
+      "visibility-and-aria-hidden-projection",
+      "ResizeObserver-surface-sizing",
+      "world-to-map-coordinate-transform",
+      "route-town-destination-player-drawing",
+      "recursive-map-RAF",
+      "open-state-snapshot",
+      "listener-observer-RAF-disposal"
+    ],
+    "runtimeAndGameplay": [
+      "global-keyboard-state",
+      "wind-buoyancy-steering-integration",
+      "simulation-transform-and-snapshot",
+      "Nexus-telemetry-tick-and-readback",
+      "airstream-route-field-sampling-force-visual-debug",
+      "parcel-route-town-volume-progress-reset"
+    ],
+    "balloonObjectAndPresentation": [
+      "profile-sampling",
+      "unified-envelope-mouth-seam-basket-burner-rigging-rope-construction",
+      "materials-and-asynchronous-model-loading",
+      "persistent-animation-and-inertia-presentation",
+      "camera-follow-zoom-mode-and-clipping-fade",
+      "local-disposal"
+    ],
+    "visualEnvironment": [
+      "renderer-scene-camera-ownership",
+      "quality-and-dynamic-resolution",
+      "sky-cloud-terrain-horizon-vegetation-grass-water-landmarks",
+      "HDR-composition-color-grade-lens-response",
+      "render-resize-observation-disposal"
+    ],
+    "toolingAndProof": [
+      "headless-project-inspection",
+      "renderer-validation",
+      "source-pattern-smoke",
+      "airstream-mail-domain-proof",
+      "build-command-adaptation"
     ]
   },
   "runtimeImpliedKits": [
@@ -150,7 +197,7 @@
     "open-above-runtime-composer-kit",
     "open-above-keyboard-input-kit",
     "open-above-wheel-zoom-input-kit",
-    "open-above-hud-projection-kit",
+    "open-above-parchment-map-shell-kit",
     "open-above-error-panel-kit",
     "open-above-gamehost-legacy-readback-kit",
     "open-above-nexusengine-cdn-adapter-kit",
@@ -158,7 +205,8 @@
     "open-above-raf-clock-adapter-kit",
     "open-above-pages-deploy-kit"
   ],
-  "inactiveLegacyKits": [
+  "inactiveOrRetiredLegacyKits": [
+    "open-above-hud-projection-kit",
     "open-above-hot-air-balloon-envelope-kit",
     "open-above-grass-detail-kit",
     "open-above-bloom-kit",
@@ -171,36 +219,36 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedHudAccessibilityKits": [
-    "open-above-hud-accessibility-announcement-authority-domain",
-    "open-above-hud-visual-frame-projection-kit",
-    "open-above-hud-semantic-status-kit",
-    "open-above-hud-projection-revision-kit",
-    "open-above-accessible-announcement-id-kit",
-    "open-above-accessible-announcement-kind-kit",
-    "open-above-accessible-announcement-priority-kit",
-    "open-above-accessible-announcement-policy-kit",
-    "open-above-accessible-announcement-admission-kit",
-    "open-above-accessible-announcement-dedupe-kit",
-    "open-above-accessible-announcement-rate-budget-kit",
-    "open-above-mission-event-announcement-kit",
-    "open-above-control-hint-announcement-kit",
-    "open-above-telemetry-quiet-channel-kit",
-    "open-above-accessible-live-region-adapter-kit",
-    "open-above-fatal-error-announcement-kit",
-    "open-above-fatal-focus-transfer-kit",
-    "open-above-aria-atomic-policy-kit",
-    "open-above-reduced-verbosity-preference-kit",
-    "open-above-hud-dom-diff-kit",
-    "open-above-accessible-announcement-result-kit",
-    "open-above-accessible-announcement-observation-kit",
-    "open-above-accessible-announcement-journal-kit",
-    "open-above-accessible-frame-ack-kit",
-    "open-above-hud-accessibility-fixture-kit",
-    "open-above-screen-reader-event-rate-smoke-kit",
-    "open-above-fatal-announcement-smoke-kit"
+  "plannedMapAuthorityKits": [
+    "open-above-parchment-map-pause-input-authority-domain",
+    "open-above-map-transition-command-kit",
+    "open-above-map-transition-id-kit",
+    "open-above-map-state-kit",
+    "open-above-map-generation-kit",
+    "open-above-map-transition-admission-kit",
+    "open-above-map-pause-participant-kit",
+    "open-above-map-pause-barrier-kit",
+    "open-above-map-pause-result-kit",
+    "open-above-flight-input-suspension-kit",
+    "open-above-flight-key-state-retirement-kit",
+    "open-above-map-input-context-kit",
+    "open-above-map-keyboard-scope-kit",
+    "open-above-map-focus-lease-kit",
+    "open-above-map-focus-result-kit",
+    "open-above-map-frame-plan-kit",
+    "open-above-map-projection-revision-kit",
+    "open-above-map-world-source-fingerprint-kit",
+    "open-above-map-render-loop-ownership-kit",
+    "open-above-map-open-close-result-kit",
+    "open-above-map-visible-frame-ack-kit",
+    "open-above-map-observation-kit",
+    "open-above-map-journal-kit",
+    "open-above-map-input-isolation-fixture-kit",
+    "open-above-map-cadence-parity-fixture-kit",
+    "open-above-map-focus-lifecycle-fixture-kit",
+    "open-above-map-pages-smoke-kit"
   ],
-  "mainFinding": "The visible HUD is also an aria-live polite region and its complete innerHTML is replaced after every rendered frame, so rapidly changing telemetry and meaningful mission status share one unbounded assistive channel; fatal details also lack an alert/focus transaction.",
+  "mainFinding": "The parchment map pauses gameplay through a host Boolean while simulation input remains globally active and the main and map RAF loops run independently; no transition, pause, input, focus, projection or visible-frame authority coordinates the boundary.",
   "validation": {
     "runtimeChanged": false,
     "htmlChanged": false,
