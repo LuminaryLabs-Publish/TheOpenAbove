@@ -44,7 +44,7 @@ float cloudDensity(vec3 p) {
   float base = fbm3(p * 0.00145 + vec3(uWeatherOffset.x * 22.0, uTime * 0.002, uWeatherOffset.y * 22.0));
   float detail = noise3(p * 0.0054 + vec3(7.0, uTime * 0.01, 13.0));
   float threshold = 1.0 - uCoverage * (0.78 + w * 0.42);
-  float shaped = smoothstep(threshold, threshold + 0.24, base * 0.78 + detail * 0.22);
+  float shaped = smoothstep(threshold, threshold + 0.24, base * 0.92 + detail * 0.08);
   return shaped * vertical * uDensity;
 }
 
@@ -71,7 +71,7 @@ void main() {
 
   float totalDistance = min(exitT - entryT, 4200.0);
   float stepLength = totalDistance / float(max(uSteps, 1));
-  vec3 p = cameraPosition + ray * (entryT + stepLength * hash21(gl_FragCoord.xy + uTime));
+  vec3 p = cameraPosition + ray * (entryT + stepLength * hash21(gl_FragCoord.xy));
   vec4 accumulation = vec4(0.0);
   float sunPhase = pow(max(dot(ray, normalize(uSunDirection)), 0.0), 6.0);
 
