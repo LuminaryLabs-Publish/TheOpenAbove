@@ -1,11 +1,11 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T15-31-24-04-00`
+**Last aligned:** `2026-07-12T15-40-04-04-00`
 
 ## Status
 
 ```txt
-status: vegetation-spatial-coverage-authority-audited
+status: vegetation-spatial-coverage-central-reconciled
 repository runtime revision reviewed: c2b96fa4d0dc44f6f3cf52762834324e712ed7d9
 runtime source changed by this documentation pass: no
 branch: main
@@ -16,36 +16,36 @@ central internal change log: complete
 
 ## Summary
 
-The active product combines a deterministic 10,000-unit-radius world with camera-relative near/horizon terrain, grass and flower chunk windows. Tree vegetation is different: `createVegetationClusters()` runs once during visual-domain construction, generates 18 centrally bounded random clusters, writes all transforms into one trunk and one crown `InstancedMesh`, adds them directly to the scene and returns no update or disposal service.
+The active product combines a deterministic 10,000-unit-radius world with camera-relative near/horizon terrain, grass and flower chunk windows. Tree vegetation is different: `createVegetationClusters()` runs once during visual-domain construction, creates 18 centrally bounded clusters, writes all accepted transforms into one trunk and one crown `InstancedMesh`, adds them directly to the live scene and returns no update or disposal service.
 
-The balloon simulation continuously integrates horizontal position and clamps only vertical terrain clearance. The camera can therefore move through the broader streamed world while the tree field remains fixed. No vegetation frame, chunk requirement, coverage result, world fingerprint, transition budget, adoption receipt, retirement result or first-visible-frame acknowledgement exists.
+The balloon continuously integrates horizontal movement, and the camera drives terrain, grass and flower updates. Vegetation receives no frame command. No vegetation session/frame/chunk identity, coverage plan, input fingerprint, budget result, atomic adoption, rollback, retirement receipt, coverage observation or first-visible-frame acknowledgement exists.
 
 ## Plan ledger
 
-**Goal:** make tree vegetation a deterministic, world-bound and camera-relative consumer whose coverage can be planned, admitted, adopted, retired, observed and proven.
+**Goal:** reconcile the complete source-backed breakdown and define one vegetation spatial-coverage authority from camera evidence through visible-frame proof.
 
-- [x] Compare all accessible Publish repositories and central ledgers.
+- [x] Compare all ten accessible Publish repositories and central ledgers.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm nine eligible repositories have central and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
+- [x] Select only `TheOpenAbove` because repo-local vegetation work was newer than central tracking.
 - [x] Review world configuration, flight integration, visual composition, vegetation construction, streamed consumers, snapshots and scripts.
-- [x] Identify the interaction loop and all active domains.
-- [x] Reconcile 68 active source-backed kits and offered services.
-- [x] Define the vegetation spatial-coverage authority and fixture gates.
-- [x] Add timestamped tracker and system audits.
-- [x] Refresh root and central documentation on `main`.
+- [x] Identify the complete interaction loop and all active domains.
+- [x] Preserve 68 active source-backed kits and offered services.
+- [x] Add a timestamped reconciliation tracker, turn ledger and system audits.
+- [x] Refresh root files and machine registry.
+- [x] Synchronize central ledger and change log directly on `main`.
 - [x] Create no branch or pull request.
-- [ ] Implement chunked vegetation, transactional adoption, disposal and visible proof.
+- [ ] Implement and execute the vegetation authority and fixture matrix.
 
 ## Selection comparison
 
 ```txt
 accessible Publish repositories: 10
 eligible non-Cavalry repositories: 9
-new or ledger-missing eligible repositories: 0
+new or central-ledger-missing eligible repositories: 0
 root-.agent-missing eligible repositories: 0
+unsynchronized repo-local audit state: TheOpenAbove
 selected: TheOpenAbove
-reason: oldest eligible central ledger timestamp
 excluded: TheCavalryOfRome
 ```
 
@@ -53,62 +53,57 @@ excluded: TheCavalryOfRome
 
 ```txt
 boot
-  -> construct world artifact and visual domain
-  -> create near/horizon terrain streamers
-  -> create boot-only vegetation clusters
-  -> create camera-relative grass and flower domains
-  -> create balloon, mail, airstream, camera and map
-  -> start RAF
+  -> create world and visual domain
+  -> create camera-relative terrain
+  -> create one boot-only tree field
+  -> pass boot tree positions into grass and flowers
+  -> create balloon, routes, mail, camera, map and HDR
+  -> schedule RAF
 
 frame
-  -> integrate flight position without horizontal world admission
+  -> integrate balloon position
   -> update mail and airstream
   -> move camera
-  -> update terrain around camera
-  -> update grass and flowers around camera
+  -> update terrain, grass and flowers around camera
   -> do not update vegetation
-  -> render current scene
+  -> render
 
-traversal beyond central tree coverage
-  -> terrain and low flora continue to follow camera
-  -> boot tree instances remain at initial world coordinates
-  -> no coverage outcome or warning is published
+long traversal
+  -> camera can leave central tree coverage
+  -> streamed ground and low flora continue
+  -> no coverage result distinguishes treeless, deferred, failed or missing state
 ```
 
 ## Source-backed findings
 
-### World and tree extents differ
+### World and vegetation extents differ
 
 ```txt
 WORLD.surface.radius = 10000
 WORLD.terrainSize = 2400
-local vegetation extent = terrainSize * 1.18 = 2832
-wider vegetation extent = min(radius * 0.42, localExtent * 1.9) = 4200
+local cluster-center extent = 2400 * 1.18 = 2832
+wider cluster-center extent = min(10000 * 0.42, 2832 * 1.9) = 4200
 cluster spread = 80..340
 cluster count = 18
 ```
 
-These values bound cluster centers to a central subset of the admitted world. Exact farthest-tree distance depends on deterministic random centers and spreads, but the construction is not a world-wide or camera-relative coverage policy.
+These values define a central boot artifact, not camera-relative world coverage.
 
-### Vegetation is boot-only
+### Vegetation is absent from the frame lifecycle
 
-The visual domain creates vegetation once. Its frame update calls weather, sun, sky, clouds, aerial perspective, terrain, grass, flowers, water, lens and HDR composition, but not vegetation.
+`createVisualDomain().update()` advances weather, sun, sky, clouds, aerial perspective, terrain, grass, flowers, water, lens and HDR composition. It does not advance vegetation.
 
 ### Vegetation has no lifecycle surface
 
-The kit returns trunks, crowns, count, cluster descriptors and tree positions. It has no `update`, `getState`, `snapshot`, `requirements`, `dispose` or typed result service. The visual-domain disposer also does not retire vegetation resources.
+The kit returns trunks, crowns, count, cluster descriptors and tree positions. It has no `update`, `getState`, `snapshot`, `requirements`, `dispose` or typed result service. The visual-domain disposer does not retire the vegetation geometry/material/instance resources.
 
-### Flight is not horizontally world-bound
+### Exclusions are boot-bound
 
-The simulation adds velocity to position every update and enforces only a minimum height above terrain. No x/z world-radius admission prevents the camera from leaving the initial tree field.
+Grass and flowers receive the boot vegetation object and use its tree-position records. No revisioned vegetation exclusion artifact ties those consumers to the currently rendered tree generation.
 
 ### Observability stops before vegetation
 
-The runtime snapshot reports near/horizon terrain, world generation, grass, flowers and render statistics. It does not report vegetation coverage, active bounds, instance counts by cell, world/vegetation fingerprints or a visible-frame receipt.
-
-### Validation has no spatial vegetation gate
-
-The normal check script covers smoke, terrain streaming, route protection and terrain overlays. It contains no long-traversal vegetation, deterministic chunk, failure rollback, disposal or browser/Pages coverage fixture.
+Runtime readback includes terrain, world generation, grass, flowers and aggregate render statistics, but no vegetation coverage, active bounds, chunk/instance counts, world fingerprint or visible-frame receipt.
 
 ## Domains in use
 
@@ -116,11 +111,11 @@ The normal check script covers smoke, terrain streaming, route protection and te
 browser shell, canvas, parchment map and fatal projection
 runtime boot, session, keyboard/wheel input, RAF and public host
 balloon simulation, steering, airstream and mail delivery
-seeded world build, erosion, flow, climate, biome, flora and map color
-world membership and authored route/town/lake anchors
+seeded world generation, erosion, flow, climate, biome, flora and map color
+world membership and authored route/town/lake protection
 terrain streaming frame, near/horizon ownership, geometry and disposal
-boot-time tree cluster placement and global instanced rendering
-grass and flower chunks, atlases, LOD, culling and wind
+boot-time tree clusters and global instanced rendering
+grass and flower chunks, atlases, LOD, culling, wind and exclusions
 balloon object construction, materials, rigging, burner and presentation
 quality, dynamic resolution, sky, clouds, water, HDR and lens response
 map projection, telemetry, headless inspection, tests, build and Pages
@@ -139,21 +134,7 @@ runtime-implied adapters: 12
 inactive/retired legacy: 12
 ```
 
-The complete kit-by-kit list and service map are in the timestamped tracker and `.agent/kit-registry.json`.
-
-## Current vegetation service
-
-```txt
-open-above-vegetation-cluster-kit
-  deterministic seed derivation from world/grass seed
-  quality-tier tree count selection
-  18 boot-time cluster descriptors
-  terrain-height and moisture sampling
-  trunk/crown matrix and crown-color production
-  global InstancedMesh construction
-  tree-position exclusion record production
-  direct scene insertion
-```
+The complete kit-by-kit service map is in `.agent/trackers/2026-07-12T15-40-04-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
 
 ## Required parent domain
 
@@ -164,19 +145,19 @@ open-above-vegetation-spatial-coverage-authority-domain
 ## Required services
 
 ```txt
-vegetation stream session, frame and chunk identities
+vegetation session, frame, chunk and render-generation identities
 world artifact and configuration binding
-canonical vegetation input fingerprint
+canonical input fingerprint
 camera-relative coverage plan
-stable per-chunk seed derivation
+stable chunk IDs and query-order-independent seeds
 inside/edge/outside world admission
-terrain, route, town, lake and spacing exclusion parity
-detached candidate sets and typed build results
-instance, allocation and transition budgets
-atomic chunk adoption and last-good preservation
+terrain/biome/route/town/lake/spacing exclusion parity
+detached candidates and typed build/admission results
+work, instance, memory and transition budgets
+atomic aggregate adoption and last-good rollback
 exactly-once retirement and disposal receipts
-revisioned tree exclusion artifact for grass and flowers
-active coverage observations and bounded journal
+revisioned exclusion artifact for grass and flowers
+coverage observations and bounded journal
 VegetationVisibleFrameAck
 pure, failure, browser and Pages fixtures
 ```
@@ -184,18 +165,18 @@ pure, failure, browser and Pages fixtures
 ## Required invariants
 
 ```txt
-same world/config/chunk -> same candidates independent of query order
-all current vegetation chunks cite one world artifact
-no outside-world candidate becomes current
-camera-required cells are covered or have an explicit degraded/treeless result
-candidate failure leaves predecessor coverage unchanged
+same world/config/chunk produces the same candidate fingerprint
+all current chunks cite one world artifact and vegetation frame
+required cells are covered or carry explicit treeless/deferred/failed results
+candidate failure preserves last-good coverage
+only the committed vegetation generation publishes exclusions
 retirement occurs exactly once after successor adoption
-grass/flower exclusions cite the current vegetation generation
+stale results cannot re-enter after session/world/quality replacement
 visible acknowledgement follows committed adoption
 ```
 
 ## Retained audits
 
-Runtime admission, runtime-session lifecycle, procedural-world identity, terrain aggregate adoption, terrain performance, grass spatial identity, HDR surface, map authority, mission accessibility and public-host isolation remain active dependencies.
+Runtime admission, runtime lifecycle, procedural-world identity, terrain aggregate adoption, terrain performance, grass spatial identity, HDR surface, map authority, mission accessibility and public-host isolation remain active dependencies.
 
 Documentation only. No runtime source, dependency, gameplay, rendering or deployment behavior was changed.
