@@ -14,6 +14,14 @@ const FRUTIGER_TERRAIN_PALETTE = Object.freeze({
   softRock: new THREE.Color(0x8d927d)
 });
 
+const GRASS_GROUND_COLORS = Object.freeze([
+  new THREE.Color(0x3a8250),
+  new THREE.Color(0x62a44c),
+  new THREE.Color(0x91c653),
+  new THREE.Color(0x9c9851),
+  new THREE.Color(0xc9a44a)
+]);
+
 export function terrainHeight(x, z) {
   const radius = Math.hypot(x, z);
   const broad = Math.sin(x * 0.0032) * 34 + Math.cos(z * 0.0038) * 29;
@@ -45,7 +53,7 @@ function blendAroundMidpoint(color, field, darker, lighter, strength) {
   else color.lerp(lighter, offset * strength * 2);
 }
 
-export function terrainColor(x, z, h, slope) {
+export function terrainColor(x, z, h, slope, world = null) {
   const {
     valleyGreen,
     meadowGreen,
@@ -55,7 +63,8 @@ export function terrainColor(x, z, h, slope) {
     softRock
   } = FRUTIGER_TERRAIN_PALETTE;
 
-  const moisture = THREE.MathUtils.smoothstep(moistureAt(x, z), 0.08, 0.82);
+  const rawMoisture = world?.sampleMoisture?.(x, z) ?? moistureAt(x, z);
+  const moisture = THREE.MathUtils.smoothstep(rawMoisture, 0.08, 0.82);
   const lowland = 1 - THREE.MathUtils.smoothstep(h, -36, 24);
   const highland = THREE.MathUtils.smoothstep(h, 12, 82);
   const dryHighland = THREE.MathUtils.smoothstep(h, 42, 116) * (1 - moisture);
@@ -84,17 +93,31 @@ export function terrainColor(x, z, h, slope) {
   blendAroundMidpoint(color, mediumField, meadowGreen, dryGreen, 0.07);
   blendAroundMidpoint(color, localField, wetGreen, meadowGreen, 0.02);
 
+  const flora = world?.sampleFlora?.(x, z, { height: h, moisture: rawMoisture, slope });
+  if (flora) {
+    if (flora.bare) color.lerp(dryGreen, 0.34);
+    else {
+      const primary = GRASS_GROUND_COLORS[flora.primaryGrassType] ?? meadowGreen;
+      const secondary = GRASS_GROUND_COLORS[flora.secondaryGrassType] ?? primary;
+      const groundColor = primary.clone().lerp(secondary, flora.secondaryMix * 0.55);
+      color.lerp(groundColor, 0.12 + flora.grassDensity * 0.28);
+    }
+  }
+
   color.lerp(softRock, steepness * 0.62);
   return color;
 }
 
-export function createTerrainSurface(scene, worldConfig, quality) {
+export function createTerrainSurface(scene, worldConfig, quality, world = null) {
   const surfaceConfig = worldConfig.surface ?? {};
   const worldSurface = createDiskWorldSurface(surfaceConfig);
   const edgeFloor = Number.isFinite(surfaceConfig.edgeFloor) ? surfaceConfig.edgeFloor : -120;
+  const activeTerrainHeight = world?.sampleHeight ?? terrainHeight;
+  const activeMoistureAt = world?.sampleMoisture ?? moistureAt;
+  const activeTerrainColor = (x, z, h, slope) => terrainColor(x, z, h, slope, world);
   const boundedTerrainHeight = (x, z) => THREE.MathUtils.lerp(
     edgeFloor,
-    terrainHeight(x, z),
+    activeTerrainHeight(x, z),
     worldSurface.edgeMask({ x, z })
   );
 
@@ -110,7 +133,7 @@ export function createTerrainSurface(scene, worldConfig, quality) {
   const streamer = createTerrainChunkStreamer({
     scene,
     terrainHeight: boundedTerrainHeight,
-    terrainColor,
+    terrainColor: activeTerrainColor,
     material,
     worldSurface,
     chunkSize: 520,
@@ -120,7 +143,7 @@ export function createTerrainSurface(scene, worldConfig, quality) {
   const horizon = createTerrainHorizonStreamer({
     scene,
     terrainHeight: boundedTerrainHeight,
-    terrainColor,
+    terrainColor: activeTerrainColor,
     material,
     worldSurface,
     nearChunkSize: 520,
@@ -146,9 +169,11 @@ export function createTerrainSurface(scene, worldConfig, quality) {
     group: streamer.group,
     material,
     terrainHeight: boundedTerrainHeight,
-    baseTerrainHeight: terrainHeight,
-    moistureAt,
-    terrainColor,
+    baseTerrainHeight: activeTerrainHeight,
+    legacyTerrainHeight: terrainHeight,
+    moistureAt: activeMoistureAt,
+    terrainColor: activeTerrainColor,
+    world,
     worldSurface,
     streamer,
     horizon,
@@ -158,4 +183,6 @@ export function createTerrainSurface(scene, worldConfig, quality) {
   };
 }
 
-window.OpenAboveTerrainSurfaceKit = { id: TERRAIN_SURFACE_KIT_ID, createTerrainSurface, terrainHeight, moistureAt, terrainColor };
+if (typeof window !== "undefined") {
+  window.OpenAboveTerrainSurfaceKit = { id: TERRAIN_SURFACE_KIT_ID, createTerrainSurface, terrainHeight, moistureAt, terrainColor };
+}
