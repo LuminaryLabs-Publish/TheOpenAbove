@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T17-41-25-04-00`
+**Last aligned:** `2026-07-12T19-31-06-04-00`
 
 ## Plan ledger
 
-**Goal:** implement flight/world membership before extending world-edge content, while preserving existing runtime, world, terrain, vegetation, map and deployment dependency order.
+**Goal:** implement one revisioned flora-exclusion artifact before vegetation streaming or world replacement can invalidate grass and flower placement.
 
 ### Gate 1: immutable runtime admission
 - [ ] Pin Nexus Engine instead of importing `@main`.
@@ -14,71 +14,79 @@
 - [ ] Own RAF, listeners and resources through one runtime session.
 - [ ] Add fixed-step clock, sequenced input and stage failure containment.
 
-### Gate 3: procedural world authority
+### Gate 3: procedural world and flight authority
 - [ ] Add `WorldBuildId`, world revision and immutable `WorldGridArtifact`.
-- [ ] Return typed samples and membership evidence with world fingerprints.
+- [ ] Admit flight proposals against the bounded world surface.
+- [ ] Publish typed world/flight results and consumer receipts.
 
-### Gate 4: flight/world membership authority
-- [ ] Add `open-above-flight-world-membership-authority-domain`.
-- [ ] Add command, frame, flight-state, world-surface and policy revisions.
-- [ ] Construct detached motion proposals instead of mutating position first.
-- [ ] Sample start and proposed points plus the swept segment.
-- [ ] Author Accept, SoftReturn, Clamp, Reject and Terminal outcomes.
-- [ ] Enforce finite vectors, dt limits and monotonic frame admission.
-- [ ] Atomically commit accepted flight state and consumer frame evidence.
-- [ ] Preserve predecessor state for Rejected, Failed and Stale.
-- [ ] Collect receipts from mail, airstream, camera, terrain, vegetation, flora, map and HDR.
-- [ ] Publish bounded observations, journal entries and `FlightBoundaryVisibleFrameAck`.
-- [ ] Pass center, edge, outside, high-speed, stale and parity fixtures.
+### Gate 4: vegetation ownership
+- [ ] Replace boot-only global vegetation with generation-bound candidate sets.
+- [ ] Build vegetation outside live scene ownership.
+- [ ] Commit complete vegetation generations atomically or retain last-good state.
+- [ ] Retire predecessor tree resources exactly once.
 
-### Gate 5: terrain and vegetation ownership
-- [ ] Build near/horizon and vegetation candidates outside live scene ownership.
-- [ ] Commit complete generations atomically or preserve last-good state.
-- [ ] Retire predecessor resources exactly once.
+### Gate 5: flora-exclusion artifact authority
+- [ ] Add `open-above-flora-exclusion-artifact-authority-domain`.
+- [ ] Add vegetation generation, exclusion revision and policy fingerprints.
+- [ ] Normalize tree records and cluster-proximity data into one immutable artifact.
+- [ ] Make grass and flower adapters consume that artifact rather than private copies.
+- [ ] Put grass and flower clearance differences in authored configuration.
+- [ ] Bind every flora chunk to world, vegetation, exclusion and quality revisions.
+- [ ] Generate grass and flower candidates outside live groups.
+- [ ] Validate paired candidate results before adoption.
+- [ ] Atomically adopt both consumers or preserve the complete last-good pair.
+- [ ] Reject stale artifact and predecessor-generation results.
+- [ ] Publish bounded observations, journal entries and `FloraExclusionVisibleFrameAck`.
+- [ ] Pass overlap, removal, stale, rollback, browser and Pages fixtures.
 
-### Gate 6: world-consumer coherence
-- [ ] Bind terrain, vegetation, grass, flowers, landmarks and map to one world artifact.
-- [ ] Reject stale consumers after world replacement.
+### Gate 6: terrain and HDR coherence
+- [ ] Commit near/horizon terrain and flora against one frame identity.
+- [ ] Require HDR presentation to acknowledge the committed world/vegetation/flora set.
 
 ### Gate 7: map, accessibility and deployment
-- [ ] Declare off-map behavior from the flight boundary result.
-- [ ] Fix player-marker bearing and route emphasis.
-- [ ] Restore semantic mission status and fatal focus.
-- [ ] Require source, build and Pages boundary parity.
+- [ ] Bind map projection to the same world and flight result.
+- [ ] Fix marker bearing, route emphasis, mission semantics and focus behavior.
+- [ ] Require source, build and Pages fingerprint parity.
 
-## Flight implementation order
+## Flora implementation order
 
 ```txt
-1. pure world-surface revision and membership sample
-2. detached flight position proposal
-3. swept segment crossing evidence
-4. configuration-backed boundary policy
-5. typed FlightBoundaryResult
-6. atomic flight/world-consumer commit
-7. stale-result rejection
-8. observations and bounded journal
-9. visible-frame acknowledgement
-10. source/build/Pages fixtures
+1. vegetation generation identity
+2. authored exclusion policy
+3. immutable tree/cluster spatial artifact
+4. artifact fingerprint and revision
+5. grass and flower consumer adapters
+6. chunk input fingerprint
+7. detached paired candidate results
+8. atomic paired adoption and rollback
+9. stale-result rejection and retirement receipts
+10. visible-frame acknowledgement
+11. source/build/Pages fixtures
 ```
 
 ## Recommended file cut
 
 ```txt
-src/runtime/flight-world-membership-domain/
-  index.js
-  flight-frame-command-kit.js
-  flight-position-proposal-kit.js
-  flight-boundary-policy-kit.js
-  flight-boundary-result-kit.js
-  flight-world-frame-commit-kit.js
-  flight-boundary-observation-kit.js
+src/visual/flora-exclusion/
+  flora-exclusion-artifact-domain.js
+  flora-exclusion-policy-kit.js
+  flora-exclusion-artifact-kit.js
+  flora-exclusion-admission-kit.js
+  flora-paired-adoption-kit.js
+  flora-exclusion-observation-kit.js
+
+src/visual/grass-field/
+  grass-exclusion-adapter-kit.js
+
+src/visual/flower-field/
+  flower-exclusion-adapter-kit.js
 
 tests/
-  flight-world-membership.mjs
-  flight-boundary-high-speed.mjs
-  flight-boundary-consumer-parity.mjs
+  flora-exclusion-artifact.mjs
+  flora-exclusion-replacement.mjs
+  flora-exclusion-consumer-parity.mjs
 ```
 
 ## Compatibility constraint
 
-Keep current controls, airstream forces, mail loop, camera behavior and map surface during the first cut. The first change should add explicit admission and results, not redesign flight feel.
+Keep current seed behavior, grass species, flower types, density shaping, cull distances and visible style during the first cut. The first implementation should centralize identity, policy and adoption without redesigning flora art direction.
