@@ -38,6 +38,16 @@ assert.equal(first.gridSize, WORLD_GRID_SIZE);
 assert.equal(first.featureCellSize, WORLD_FEATURE_CELL_SIZE);
 assert.equal(first.radius, 10000);
 assert.deepEqual(first.getDescriptor(), second.getDescriptor());
+const descriptorBeforeQueries = first.getDescriptor();
+first.sampleMapColor(8200, -3100);
+first.sampleFeatureCell(-4300, 2700);
+assert.deepEqual(first.getDescriptor(), descriptorBeforeQueries, "world descriptor should not depend on query order or cache warmup");
+assert.equal(first.contains(0, 0), true);
+assert.equal(first.contains(10001, 0), false);
+const outsideFlora = first.sampleFlora(10100, 0);
+assert.equal(outsideFlora.grassDensity, 0);
+assert.equal(outsideFlora.flowerDensity, 0);
+assert.equal(outsideFlora.biomeName, "outside-world");
 
 const deterministicSamples = [
   [-9100, -1200],
