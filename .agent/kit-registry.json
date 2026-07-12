@@ -1,20 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T15-31-24-04-00",
-  "status": "vegetation-spatial-coverage-authority-audited",
+  "lastAligned": "2026-07-12T15-40-04-04-00",
+  "status": "vegetation-spatial-coverage-central-reconciled",
   "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-12T15-31-24-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T15-31-24-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-12T15-40-04-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T15-40-04-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T15-31-24-04-00-vegetation-spatial-coverage-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T15-31-24-04-00-static-tree-field-streamed-world-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T15-31-24-04-00-balloon-leaves-boot-vegetation-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T15-31-24-04-00-camera-vegetation-frame-admission-map.md",
-    "vegetationSystem": ".agent/vegetation-system-audit/2026-07-12T15-31-24-04-00-chunked-deterministic-coverage-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T15-31-24-04-00-vegetation-spatial-browser-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T15-40-04-04-00-vegetation-spatial-coverage-central-reconciliation-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T15-40-04-04-00-vegetation-visible-frame-central-reconciliation-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T15-40-04-04-00-boot-tree-field-traversal-reconciliation.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T15-40-04-04-00-camera-vegetation-admission-reconciliation.md",
+    "vegetationSystem": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T15-40-04-04-00-vegetation-fixture-central-reconciliation-gate.md"
   },
   "retainedAudits": {
+    "vegetationSourceAudit": ".agent/vegetation-system-audit/2026-07-12T15-31-24-04-00-chunked-deterministic-coverage-contract.md",
     "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
     "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
     "parchmentMapSpatialNavigation": ".agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md",
@@ -26,13 +27,14 @@
     "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md"
   },
   "selection": {
-    "reason": "oldest eligible central ledger timestamp after confirming no new, ledger-missing or root-agent-missing repository",
+    "reason": "repo-local vegetation audit was newer than the oldest central ledger entry after confirming no new, ledger-missing or root-agent-missing eligible repository",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
+    "unsynchronizedRepoLocalAudit": "LuminaryLabs-Publish/TheOpenAbove",
     "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
   },
   "counts": {
@@ -44,12 +46,12 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedVegetationCoverageIncludingParent": 21
+    "plannedVegetationCoverageIncludingParent": 29
   },
   "interactionLoop": [
     "construct-seeded-world-and-camera-relative-terrain",
     "construct-boot-only-central-vegetation-field",
-    "construct-camera-relative-grass-and-flower-domains",
+    "pass-boot-tree-exclusions-to-grass-and-flowers",
     "integrate-balloon-and-move-camera",
     "update-terrain-grass-and-flowers-around-camera",
     "retain-static-tree-instances",
@@ -62,7 +64,7 @@
     "seeded-world-generation-membership-authored-anchor-protection",
     "terrain-streaming-frame-near-horizon-ownership",
     "boot-time-vegetation-cluster-placement-global-instancing",
-    "grass-flower-placement-atlas-chunk-lod-culling",
+    "grass-flower-placement-atlas-chunk-lod-culling-exclusion",
     "balloon-object-material-rigging-presentation",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
     "map-projection-telemetry-headless-tests-build-pages"
@@ -188,7 +190,7 @@
       "five-flower-types",
       "deterministic-camera-relative-chunks",
       "instanced-rendering",
-      "lod-culling-wind-and-sway"
+      "lod-culling-wind-sway-exclusion"
     ],
     "environmentAndRender": [
       "quality-selection-and-dynamic-resolution",
@@ -243,24 +245,32 @@
     "open-above-vegetation-frame-id-kit",
     "open-above-vegetation-world-artifact-binding-kit",
     "open-above-vegetation-input-fingerprint-kit",
-    "open-above-vegetation-coverage-plan-kit",
     "open-above-vegetation-chunk-id-kit",
+    "open-above-vegetation-render-generation-kit",
+    "open-above-vegetation-coverage-plan-kit",
     "open-above-vegetation-chunk-requirements-kit",
     "open-above-vegetation-seed-derivation-kit",
     "open-above-vegetation-placement-kit",
     "open-above-vegetation-exclusion-policy-kit",
+    "open-above-vegetation-biome-policy-kit",
+    "open-above-vegetation-frame-command-kit",
+    "open-above-vegetation-frame-admission-kit",
     "open-above-vegetation-candidate-set-kit",
     "open-above-vegetation-budget-policy-kit",
-    "open-above-vegetation-admission-result-kit",
+    "open-above-vegetation-candidate-result-kit",
+    "open-above-vegetation-aggregate-validation-kit",
     "open-above-vegetation-chunk-adoption-kit",
+    "open-above-vegetation-last-good-rollback-kit",
     "open-above-vegetation-retirement-kit",
+    "open-above-stale-vegetation-result-rejection-kit",
+    "open-above-vegetation-exclusion-artifact-kit",
+    "open-above-vegetation-consumer-receipt-kit",
     "open-above-vegetation-observation-kit",
     "open-above-vegetation-journal-kit",
     "open-above-vegetation-visible-frame-ack-kit",
-    "open-above-vegetation-spatial-fixture-kit",
     "open-above-vegetation-browser-pages-fixture-kit"
   ],
-  "mainFinding": "Terrain, grass and flowers follow the moving camera, but tree vegetation is generated once at boot into two global InstancedMesh objects inside a centrally bounded cluster field. Horizontal flight is not world-bound, and vegetation has no camera-relative requirements, chunk identity, adoption result, lifecycle disposal, coverage observation or visible-frame acknowledgement.",
+  "mainFinding": "Terrain, grass and flowers follow the moving camera, but tree vegetation is generated once at boot into two global InstancedMesh objects inside a centrally bounded cluster field. Horizontal flight is not world-bound, and vegetation has no camera-relative requirements, chunk identity, adoption result, lifecycle disposal, coverage registry or visible-frame acknowledgement.",
   "validation": {
     "runtimeChangedByDocumentationPass": false,
     "htmlChangedByDocumentationPass": false,
