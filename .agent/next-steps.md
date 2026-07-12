@@ -1,10 +1,10 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T05-11-46-04-00`
+**Last aligned:** `2026-07-12T07-00-48-04-00`
 
 ## Plan ledger
 
-**Goal:** move runtime, simulation, mission, presentation, public readback, failure handling and HDR render-surface ownership behind explicit identities, typed results and executable proof gates.
+**Goal:** move runtime, simulation, mission, presentation, render-surface and accessible status behind explicit identities, typed results and executable proof gates.
 
 ### Checklist
 
@@ -20,82 +20,83 @@
 - [ ] Fence callbacks after stop, failure, retry and disposal.
 - [ ] Add import-purity and single-owner fixtures.
 
-#### Gate 3–5: model, lifecycle, clock and mission
-- [ ] Preserve the balloon profile/model, lifecycle, fixed-step input, product-source, Air Mail and mission-reset plans.
-- [ ] Add session, mission, simulation-step and model-load generations.
-- [ ] Require typed commit and rollback results.
+#### Gates 3–8: model, lifecycle, mission and world
+- [ ] Preserve balloon profile/model, lifecycle, fixed-step input, product-source, Air Mail, mission-reset, observation, host, frame-failure, terrain, grass, world-surface and steering plans.
+- [ ] Add session, mission, simulation-step, model-load and consumer generations.
+- [ ] Require typed commit, rollback and first-frame results.
 
-#### Gate 5b–5d: observation, host and frame failure
-- [ ] Publish one committed observation shared by telemetry, HUD, GameHost and visible frame.
-- [ ] Remove raw owner exposure from `window.GameHost`.
-- [ ] Admit public commands through versioned capabilities.
-- [ ] Contain every frame-stage failure and retain one last-known-good surface.
-- [ ] Revoke failed-session capabilities and dispose owners in order.
+#### Gate 9: HDR attachment and render-surface resolution
+- [ ] Route startup, browser resize, DPR change, degradation and recovery through one surface transaction.
+- [ ] Keep CSS, DPR, dynamic scale and physical dimensions separate.
+- [ ] Verify color/depth parity and framebuffer completeness before commit.
+- [ ] Transfer attachment leases and retire predecessors exactly once.
+- [ ] Acknowledge the first visible frame from the committed surface revision.
 
-#### Gate 6–8: world and steering
-- [ ] Preserve terrain, grass, world-surface and steering authority plans.
-- [ ] Keep all live owners private behind command/read capabilities.
+#### Gate 10: HUD accessibility announcement authority
+- [ ] Make the visual HUD non-live.
+- [ ] Add a dedicated semantic status live region.
+- [ ] Allocate HUD projection, source-event and announcement identities.
+- [ ] Classify mission, control, mode, warning and fatal events.
+- [ ] Admit only committed semantic events.
+- [ ] Reject stale runtime and mission revisions.
+- [ ] Deduplicate by event ID and semantic text.
+- [ ] Enforce elapsed-time rate budgets by priority.
+- [ ] Add explicit polite/assertive and atomicity policy.
+- [ ] Add reduced-verbosity preference support.
+- [ ] Replace complete `innerHTML` writes with field-level visual HUD updates.
+- [ ] Add typed announcement results and detached observations.
+- [ ] Correlate mission, HUD, announcement and visible-frame revisions.
+- [ ] Give fatal details an alert/focus transaction.
+- [ ] Add local browser, accessibility-tree and deployed Pages fixtures.
 
-#### Gate 9: HDR attachment and render-surface resolution authority
-- [ ] Allocate render-surface, quality-state, resize-generation, target and attachment identities.
-- [ ] Separate CSS dimensions, observed DPR, dynamic scale, effective pixel ratio and physical dimensions.
-- [ ] Route startup, browser resize, DPR change, degradation and recovery through one transaction.
-- [ ] Derive one bounded color/depth target plan.
-- [ ] Prepare replacement targets and attachments without mutating the committed predecessor.
-- [ ] Verify color/depth physical-size parity.
-- [ ] Check framebuffer completeness before commit.
-- [ ] Reject stale resize generations.
-- [ ] Commit one surface revision or roll back with zero partial replacement.
-- [ ] Transfer attachment leases explicitly.
-- [ ] Retire predecessor targets and attachments exactly once.
-- [ ] Publish detached actual dimensions and resource IDs.
-- [ ] Acknowledge the first frame rendered with the committed surface revision.
-- [ ] Add local browser and deployed Pages DPR/quality fixtures.
-
-## HDR kit order
+## HUD accessibility kit order
 
 ```txt
-open-above-hdr-attachment-resolution-authority-domain
-open-above-render-surface-id-kit
-open-above-render-surface-revision-kit
-open-above-resize-source-kit
-open-above-resize-generation-kit
-open-above-quality-state-revision-kit
-open-above-effective-pixel-ratio-plan-kit
-open-above-composer-target-plan-kit
-open-above-depth-attachment-id-kit
-open-above-depth-attachment-plan-kit
-open-above-attachment-dimension-admission-kit
-open-above-framebuffer-completeness-result-kit
-open-above-render-surface-commit-kit
-open-above-render-surface-rollback-kit
-open-above-stale-resize-rejection-kit
-open-above-dynamic-scale-transition-result-kit
-open-above-attachment-replacement-kit
-open-above-attachment-resource-lease-kit
-open-above-attachment-retirement-result-kit
-open-above-render-surface-observation-kit
-open-above-visible-render-surface-frame-ack-kit
-open-above-hdr-attachment-resolution-fixture-kit
-open-above-browser-dpr-resize-smoke-kit
-open-above-pages-render-surface-smoke-kit
+open-above-hud-accessibility-announcement-authority-domain
+open-above-hud-visual-frame-projection-kit
+open-above-hud-semantic-status-kit
+open-above-hud-projection-revision-kit
+open-above-accessible-announcement-id-kit
+open-above-accessible-announcement-kind-kit
+open-above-accessible-announcement-priority-kit
+open-above-accessible-announcement-policy-kit
+open-above-accessible-announcement-admission-kit
+open-above-accessible-announcement-dedupe-kit
+open-above-accessible-announcement-rate-budget-kit
+open-above-mission-event-announcement-kit
+open-above-control-hint-announcement-kit
+open-above-telemetry-quiet-channel-kit
+open-above-accessible-live-region-adapter-kit
+open-above-fatal-error-announcement-kit
+open-above-fatal-focus-transfer-kit
+open-above-aria-atomic-policy-kit
+open-above-reduced-verbosity-preference-kit
+open-above-hud-dom-diff-kit
+open-above-accessible-announcement-result-kit
+open-above-accessible-announcement-observation-kit
+open-above-accessible-announcement-journal-kit
+open-above-accessible-frame-ack-kit
+open-above-hud-accessibility-fixture-kit
+open-above-screen-reader-event-rate-smoke-kit
+open-above-fatal-announcement-smoke-kit
 ```
 
 ## Validation order
 
 ```txt
-fixture:hdr-initial-attachment-ownership
-fixture:hdr-color-depth-dimension-parity
-fixture:hdr-browser-resize-path
-fixture:hdr-dynamic-scale-path
-fixture:hdr-resize-source-parity
-fixture:hdr-stale-resize-rejection
-fixture:hdr-framebuffer-incomplete-rollback
-fixture:hdr-retirement-exactly-once
-fixture:hdr-first-visible-surface-frame
+fixture:hud-visual-live-region-separation
+fixture:semantic-event-classification
+fixture:announcement-deduplication
+fixture:announcement-elapsed-rate-budget
+fixture:stale-session-mission-rejection
+fixture:cadence-independent-announcement-sequence
+fixture:route-capture-announcement
+fixture:mail-delivery-announcement
+fixture:fatal-alert-focus-exactly-once
+fixture:replacement-session-status-cleanup
 npm run check
 npm run headless:check
 npm run build
-browser DPR and quality-transition matrix
-Pages resize and quality smoke
+browser accessibility mutation matrix
+Pages accessibility smoke
 ```
