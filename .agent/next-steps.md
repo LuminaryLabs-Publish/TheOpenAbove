@@ -1,32 +1,42 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-11T22-58-50-04-00`
+**Last aligned:** `2026-07-12T00-39-05-04-00`
 
 ## Plan ledger
 
-**Goal:** preserve Air Mail and the upgraded balloon while moving runtime, model construction, steering, mission, terrain, grass and visible presentation behind explicit authorities and executable gates.
+**Goal:** move runtime boot, balloon profile admission, model loading, lifecycle, simulation and visible presentation behind explicit authorities and executable gates.
 
 ### Checklist
 
 #### Gate 1: immutable runtime admission
 - [ ] Pin NexusEngine instead of importing `@main`.
-- [ ] Validate Three.js, NexusEngine, ProtoKit and postprocess capabilities before construction.
-- [ ] Return typed boot results and module-graph fingerprints.
+- [ ] Validate Three.js, NexusEngine and required product capabilities before construction.
+- [ ] Return typed boot results and a module-graph fingerprint.
 - [ ] Add `fixture:runtime-admission`.
 
 #### Gate 2: import purity and frame ownership
-- [ ] Remove module-scope compatibility work.
+- [ ] Remove module-scope compatibility work and mutable public defaults.
 - [ ] Register all RAF callbacks through one runtime-session owner.
 - [ ] Fence callbacks after stop, failure, retry and disposal.
 - [ ] Add import-purity and single-owner fixtures.
 
-#### Gate 2a: balloon model assembly, loading and resources
-- [ ] Define a versioned `BalloonModelDescriptor`.
-- [ ] Canonicalize, validate, deep-freeze and fingerprint the complete nested profile.
-- [ ] Pass integrated pattern policy into the unified shell builder.
-- [ ] Validate all cross-component attachment contracts.
-- [ ] Replace direct startup build with a session-fenced detached load command.
-- [ ] Add resource inventory, rollback, disposal and first-visible-frame proof.
+#### Gate 2a: balloon profile snapshot and admission
+- [ ] Define a versioned schema for the complete nested balloon profile.
+- [ ] Deep-clone at command admission before any asynchronous yield.
+- [ ] Canonicalize numeric fields, arrays, palette values and profile points.
+- [ ] Validate cross-component profile inputs and reject invalid values.
+- [ ] Deep-freeze the admitted snapshot.
+- [ ] Assign profile ID, version, revision and deterministic fingerprint.
+- [ ] Remove mutable canonical profile exposure from `window`.
+- [ ] Add default-alias isolation and mutation-during-yield fixtures.
+
+#### Gate 2b: balloon model assembly, loading and resources
+- [ ] Build only from an admitted profile snapshot.
+- [ ] Allocate load command and load-generation identities.
+- [ ] Reject cancelled and stale generations before scene mutation.
+- [ ] Build detached from the live scene and collect a complete resource inventory.
+- [ ] Atomically install the model and profile receipt.
+- [ ] Add rollback, disposal and first-visible-profile-frame proof.
 
 #### Gate 3: lifecycle and teardown
 - [ ] Make `createGame()` return a root runtime-session owner.
@@ -42,55 +52,56 @@
 
 #### Gate 4a–7a: product, mission, observation and world systems
 - [ ] Preserve the retained product-source, Air Mail route, mission restart, committed observation, terrain, grass and world-surface plans.
+- [ ] Include profile/model revision in mission restart and committed observation.
 - [ ] Include steering state retirement in mission reset.
-- [ ] Include steering results in committed observation frames.
 
 #### Gate 8: balloon steering and presentation coherence
 - [ ] Define a versioned steering policy and sequenced input sample.
-- [ ] Return one typed simulation steering result per admitted fixed tick.
+- [ ] Return one typed steering result per admitted fixed tick.
 - [ ] Derive root, envelope, gondola and camera response from that result.
 - [ ] Commit one steering observation frame with consumer revisions.
-- [ ] Project the committed result to HUD, telemetry and GameHost.
-- [ ] Add blur, pause, reset and restart retirement semantics.
-- [ ] Add 30/60/120 Hz response-parity fixtures.
-- [ ] Add neutral convergence, reversal and first-visible-steering-frame fixtures.
+- [ ] Add cadence, reset, reversal and first-visible-frame fixtures.
 
-## Steering authority kit order
+## Profile authority kit order
 
 ```txt
-open-above-balloon-steering-presentation-authority-domain
-open-above-steering-input-sample-kit
-open-above-steering-input-sequence-kit
-open-above-steering-policy-descriptor-kit
-open-above-steering-admission-kit
-open-above-steering-simulation-result-kit
-open-above-balloon-root-transform-result-kit
-open-above-balloon-part-presentation-result-kit
-open-above-camera-steering-result-kit
-open-above-steering-hud-projection-kit
-open-above-steering-observation-frame-kit
-open-above-steering-frame-commit-kit
-open-above-stale-steering-result-rejection-kit
-open-above-steering-reset-transaction-kit
-open-above-steering-journal-kit
-open-above-steering-response-fixture-kit
-open-above-steering-visible-frame-smoke-kit
+open-above-balloon-profile-admission-authority-domain
+open-above-balloon-profile-schema-kit
+open-above-balloon-profile-canonicalization-kit
+open-above-balloon-profile-deep-clone-kit
+open-above-balloon-profile-validation-kit
+open-above-balloon-profile-deep-freeze-kit
+open-above-balloon-profile-id-kit
+open-above-balloon-profile-version-kit
+open-above-balloon-profile-revision-kit
+open-above-balloon-profile-fingerprint-kit
+open-above-balloon-load-command-kit
+open-above-balloon-load-generation-kit
+open-above-balloon-build-plan-kit
+open-above-stale-profile-load-rejection-kit
+open-above-balloon-model-profile-commit-kit
+open-above-balloon-model-profile-receipt-kit
+open-above-balloon-profile-observation-kit
+open-above-balloon-profile-frame-ack-kit
+open-above-profile-alias-isolation-fixture-kit
+open-above-profile-mutation-race-fixture-kit
+open-above-profile-fingerprint-frame-fixture-kit
 ```
 
 ## Validation order
 
 ```txt
 fixture:balloon-profile-schema
-fixture:balloon-initial-setup-load
-fixture:runtime-lifecycle
-fixture:fixed-step-input
-fixture:steering-response
-fixture:steering-cadence-parity
-fixture:steering-reset-neutralization
-fixture:steering-first-visible-frame
+fixture:balloon-profile-canonicalization
+fixture:balloon-default-alias-isolation
+fixture:balloon-profile-mutation-during-yield
+fixture:balloon-profile-fingerprint-stability
+fixture:balloon-stale-load-generation
+fixture:balloon-model-profile-receipt
+fixture:balloon-first-visible-profile-frame
 npm run check
 npm run headless:check
 npm run build
 browser acceptance smoke
-Pages steering/presentation smoke
+Pages model/profile smoke
 ```
