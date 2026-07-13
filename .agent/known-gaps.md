@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T21-31-40-04-00`
+**Last aligned:** `2026-07-12T23-50-01-04-00`
 
 ## Primary ordered gaps
 
@@ -8,61 +8,65 @@
 1. immutable runtime and module admission
 2. session, listener, frame and failure ownership
 3. fixed-step clock and sequenced input
-4. telemetry snapshot immutability and public readback isolation
-5. procedural world identity and flight membership provenance
-6. terrain streaming aggregate ownership and rollback
-7. vegetation spatial coverage, adoption and disposal
-8. flora exclusion artifact coherence
-9. HDR surface and visible-frame coherence
-10. parchment map spatial navigation and accessibility
+4. flight/mail session persistence and restore authority
+5. telemetry snapshot immutability and public readback isolation
+6. procedural world identity and flight membership provenance
+7. terrain streaming aggregate ownership and rollback
+8. vegetation spatial coverage, adoption and disposal
+9. flora exclusion artifact coherence
+10. HDR surface and visible-frame coherence
+11. parchment map spatial navigation and accessibility
 ```
 
-## Telemetry immutability gaps
+## Persistence gaps
 
 ```txt
-no runtime session, frame or telemetry snapshot identity
-no expected-predecessor snapshot admission
-no provider source-revision bundle
-no canonical telemetry schema version
-no detached normalized candidate
+no save, restore or durable reset command
+no persistence schema version
+no save ID or persistence generation
+no runtime/world/route/participant revision bundle
+no detached participant snapshot contract
+no canonical field ordering
 no content fingerprint
-BalloonSnapshot stores the supplied object reference
-VisualSnapshot stores BalloonSnapshot.visual by reference
-complete and visual resources share a writable subtree
-Nexus getResource returns stored references
-resource journals retain mutable previous/value references
-engine.openAbove returns engine-owned references
-GameHost exposes the complete resource reference
-no deep-freeze or clone-on-read policy
-no alias detector
-no atomic complete/visual multi-resource commit result
-no public readback envelope or consumer identity
-no stale-snapshot result
-no mutation rejection observation
-no consumer receipt
-no first visible telemetry-frame acknowledgement
-no source/build/Pages immutability fixture
+no browser storage adapter
+no staging generation
+no readback verification
+no atomic active pointer
+no bounded verified backup
+no migration registry
+no corrupt/incompatible record quarantine
+no multi-tab writer identity or conflict result
+no dirty gameplay revision
+no delivery-triggered or explicit save policy
+no pagehide/visibility lifecycle flush result
+no atomic multi-participant restore
+no restore rollback classification
+no restored persistence generation in telemetry/map/render
+no first visible restored-frame acknowledgement
+no source/build/Pages persistence fixture
 ```
 
 ## Concrete risks
 
 ```txt
-external visual readback mutation changes two resources without a tick
-external complete readback mutation changes engine telemetry in place
-journal evidence can drift after publication
-retained predecessor references have no stale identity
-local getSnapshot and Nexus resource can disagree without a result
-telemetry can change after the visible frame without new presentation
-future editor or gameplay consumers can treat mutable diagnostics as authority
-failed partial publication can leave resource projections without explicit parity
+delivered parcel becomes undelivered after refresh
+mid-flight position, altitude, elapsed and distance are lost
+selected airstream and current message are lost
+future partial restore can render mixed participant generations
+future storage failure can be mistaken for a successful save
+multiple tabs can silently overwrite newer progress
+corrupt or old records can enter runtime without quarantine
+reset can diverge between live and durable state
+page lifecycle termination can discard dirty progress silently
 ```
 
-## Retained world and rendering gaps
+## Retained telemetry and world gaps
 
 ```txt
 Nexus Engine import remains pinned to @main rather than an immutable revision
 no unified runtime session owns RAF, listeners and teardown
 simulation remains variable-step at the browser host boundary
+telemetry resources and journals retain mutable references
 no immutable WorldGridArtifact with complete consumer receipts
 flight movement does not admit bounded-world membership
 terrain near/horizon generations lack atomic aggregate adoption
@@ -72,35 +76,39 @@ HDR attachments and visible-frame receipts remain incomplete
 map projection has unresolved heading, bounds and focus semantics
 ```
 
-## Required telemetry fixtures
+## Required persistence fixtures
 
 ```txt
-telemetry-normalization-determinism
-telemetry-content-fingerprint-stability
-complete-visual-resource-shared-snapshot-id
-complete-visual-writable-alias-rejected
-engine-getter-mutation-isolation
-GameHost-readback-mutation-isolation
-journal-publication-value-does-not-drift
-failed-candidate-preserves-predecessor-pair
-stale-snapshot-zero-mutation
-retained-predecessor-readback-identifiable
-telemetry-visible-frame-ack
-browser-telemetry-mutation-matrix
-built-output-telemetry-parity
-pages-telemetry-parity
+canonical-save-determinism
+save-fingerprint-stability
+finite-balloon-state-validation
+mail-route-reference-validation
+save-after-delivery-reload-remains-delivered
+save-mid-flight-reload-restores-position
+failed-candidate-preserves-predecessor
+stale-save-zero-mutation
+migration-supported-schema
+unsupported-schema-quarantine
+corrupt-record-quarantine
+verified-backup-recovery
+multi-tab-writer-conflict
+pagehide-flush-result-truth
+reset-durable-convergence
+partial-restore-never-renders
+first-restored-frame-cites-generation
+source-build-pages-persistence-parity
 ```
 
-## Reconciliation completed
+## Documentation completed
 
 ```txt
-repo-local telemetry audit newer than central ledger: identified
-new reconciliation tracker and audit family: added
+full Publish comparison: completed
+selected only TheOpenAbove: completed
+new timestamped tracker and audit family: added
 required root .agent files: refreshed
-central ledger: updated
-internal change log: recorded by the paired central commit
+central ledger and change log: pending paired central write
 ```
 
 ## Non-claim
 
-Do not treat fresh top-level snapshot allocation, scalar event fields, successful engine ticks, stable debug output or the absence of known external mutation as proof that telemetry resources, journals and public readbacks are immutable or publication-consistent.
+Do not treat mail-domain `snapshot()` and `reset()`, balloon telemetry snapshots, a successful delivery event, or public `GameHost` readback as proof of durable save, verified restore, migration safety, conflict handling or restored visible-frame coherence.
