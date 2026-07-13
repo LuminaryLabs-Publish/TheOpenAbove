@@ -1,95 +1,95 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T19-31-06-04-00`
+**Last aligned:** `2026-07-12T21-18-18-04-00`
 
 ## Primary ordered gaps
 
 ```txt
-1. immutable runtime admission
+1. immutable runtime and module admission
 2. session, listener, frame and failure ownership
 3. fixed-step clock and sequenced input
-4. procedural world identity and membership provenance
-5. flight/world membership admission and boundary policy
+4. telemetry snapshot immutability and public readback isolation
+5. procedural world identity and flight membership provenance
 6. terrain streaming aggregate ownership and rollback
 7. vegetation spatial coverage, adoption and disposal
 8. flora exclusion artifact coherence
-9. steering, HDR and visible-frame coherence
+9. HDR surface and visible-frame coherence
 10. parchment map spatial navigation and accessibility
 ```
 
-## Flora-exclusion coherence gaps
+## Telemetry immutability gaps
 
 ```txt
-vegetation exports treePositions and clusters without generation identity
-no immutable FloraExclusionArtifact
-no vegetation/exclusion revision or fingerprint
-grass and flowers build separate private spatial indexes
-grass and flower clearance policies are not centrally authored
-grass captures cluster proximity while flowers do not
-grass/flower chunks cite coordinates and counts but no exclusion revision
-no invalidation when vegetation, world or quality changes
-no detached paired candidate set
-no atomic grass/flower adoption
-no last-good paired rollback
-no stale exclusion result rejection
-no exact retirement receipt for predecessor indexes and geometry
-no cross-consumer parity result
-no FloraExclusionVisibleFrameAck
-no source/build/Pages exclusion-coherence fixture
+no runtime session, frame or telemetry snapshot identity
+no expected-predecessor snapshot admission
+no provider source-revision bundle
+no canonical telemetry schema version
+no detached normalized candidate
+no content fingerprint
+BalloonSnapshot stores the supplied object reference
+VisualSnapshot stores BalloonSnapshot.visual by reference
+complete and visual resources share a writable subtree
+Nexus getResource returns stored references
+resource journals retain mutable previous/value references
+engine.openAbove returns engine-owned references
+GameHost exposes the complete resource reference
+no deep-freeze or clone-on-read policy
+no alias detector
+no atomic complete/visual multi-resource commit result
+no public readback envelope or consumer identity
+no stale-snapshot result
+no mutation rejection observation
+no first visible telemetry-frame acknowledgement
+no source/build/Pages immutability fixture
 ```
 
 ## Concrete risks
 
 ```txt
-new streamed trees overlap predecessor-derived grass or flowers
-removed trees leave permanent predecessor clearings
-quality changes alter vegetation while retained flora chunks remain stale
-world replacement reuses coordinate-only chunks against a new tree field
-grass and flowers show different vegetation generations in one frame
-partial generation failure leaves mixed predecessor/successor consumers
-future consumers invent incompatible exclusion radii
-snapshot counts look healthy while visual overlap is wrong
+external visual readback mutation changes two resources without a tick
+external complete readback mutation changes engine telemetry in place
+journal evidence can drift after publication
+retained predecessor references have no stale identity
+local getSnapshot and Nexus resource can disagree without a result
+telemetry can change after the visible frame without new presentation
+future editor or gameplay consumers can treat mutable diagnostics as authority
+failed partial publication can leave resource projections without an explicit parity result
 ```
 
-## Source-backed divergence
+## Retained world and rendering gaps
 
 ```txt
-grass obstacle radius: tree.radius
-flower obstacle radius: tree.radius + 1.2
-grass extra signal: cluster-edge proximity
-flower extra signal: none
-shared base mask: moisture, slope, origin clearing and procedural road
-shared artifact identity: none
-```
-
-## Retained world and streaming gaps
-
-```txt
+Nexus Engine import remains pinned to @main rather than an immutable revision
+no unified runtime session owns RAF, listeners and teardown
+simulation remains variable-step at the browser host boundary
 no immutable WorldGridArtifact with complete consumer receipts
 flight movement does not admit bounded-world membership
 terrain near/horizon generations lack atomic aggregate adoption
-vegetation remains boot-only and centrally bounded
-grass/flower transition work lacks full time/allocation budgets
+vegetation remains boot-time and centrally bounded
+flora chunks lack one shared exclusion artifact revision
+HDR attachments and visible frame receipts remain incomplete
+map projection has unresolved heading, bounds and focus semantics
 ```
 
-## Required flora fixtures
+## Required telemetry fixtures
 
 ```txt
-flora-exclusion-artifact-determinism
-grass-flower-shared-artifact-revision
-vegetation-replacement-invalidates-flora
-new-tree-no-overlap
-removed-tree-clearing-repopulation
-configured-clearance-policy-parity
-stale-exclusion-result-zero-mutation
-paired-candidate-failure-last-good-retention
-paired-adoption-no-mixed-generation
-predecessor-retirement-exactly-once
-flora-exclusion-visible-frame-ack
-browser-flora-exclusion-matrix
-pages-flora-exclusion-parity
+telemetry-normalization-determinism
+telemetry-content-fingerprint-stability
+complete-visual-resource-shared-snapshot-id
+complete-visual-writable-alias-rejected
+engine-getter-mutation-isolation
+GameHost-readback-mutation-isolation
+journal-publication-value-does-not-drift
+failed-candidate-preserves-predecessor-pair
+stale-snapshot-zero-mutation
+retained-predecessor-readback-identifiable
+telemetry-visible-frame-ack
+browser-telemetry-mutation-matrix
+built-output-telemetry-parity
+pages-telemetry-parity
 ```
 
 ## Non-claim
 
-Do not treat deterministic seeds, nearby tree checks, successful chunk counts or the absence of obvious overlap near the initial camera as proof that vegetation, grass and flowers share one current exclusion generation.
+Do not treat fresh top-level snapshot allocation, scalar event fields, successful engine ticks, stable debug output or the absence of known external mutation as proof that telemetry resources, journals and public readbacks are immutable or publication-consistent.
