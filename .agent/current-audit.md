@@ -1,77 +1,76 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-13T02-18-03-04-00`  
-**Status:** `air-mail-delivery-completion-lifecycle-authority-audited`  
-**Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
+**Last aligned:** `2026-07-13T05-19-21-04-00`  
+**Status:** `runtime-module-provider-admission-authority-audited`  
+**Runtime revision reviewed:** `030b16d41f95e47a4a07022fdfcd16bde2381a05`
 
 ## Summary
 
-The Air Mail runtime can commit one parcel-delivery mutation, but it has no authoritative completion lifecycle. The accepted event is transient, the confirmation message is overwritten on the next flight update, the delivered town remains marked as the active destination, and no next parcel, route completion, campaign completion or safe reset transition exists.
+The browser runtime has no explicit module-provider admission boundary. Three.js is loaded from an exact CDN package version, while NexusEngine is loaded from the mutable `main` branch. Static provider imports must resolve before `src/main.js` evaluates, which means provider failures can bypass the in-module error handler entirely. The Pages workflow validates a separate NexusEngine `main` checkout, not one immutable provider revision shared by headless proof, the built artifact and later browser sessions.
 
 ## Plan ledger
 
-**Goal:** define one revisioned completion transaction across parcel truth, mission progression, message projection, map/town presentation, telemetry and the first visible completion frame.
+**Goal:** define one immutable provider-set transaction across source identity, integrity, API compatibility, browser/headless parity, runtime adoption, public receipts and the first visible provider-backed frame.
 
 - [x] Compare the complete Publish inventory against central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
+- [x] Confirm repo-local documentation heads match central tracking.
 - [x] Select only `TheOpenAbove`, the oldest eligible central entry.
-- [x] Trace the complete browser, flight, airstream, mail, map, town-marker, telemetry and proof paths.
+- [x] Trace HTML, import-map, module-loader, boot, provider, GameHost, headless, build and Pages paths.
 - [x] Preserve all active domains and all kit/service mappings.
-- [x] Define parcel, route and campaign completion contracts.
+- [x] Define runtime module/provider admission contracts.
 - [x] Add the current timestamped tracker and audit family.
 - [x] Change no runtime source, dependency, package script or workflow.
 - [x] Push only to `main`; create no branch or pull request.
-- [ ] Implement and execute completion-lifecycle fixtures.
+- [ ] Implement and execute provider-admission fixtures.
 
 ## Complete interaction loop
 
 ```txt
-browser boot
-  -> default airstream routes
-  -> default mail route
-  -> one active parcel for Brookhaven
-  -> three town visuals
-  -> balloon simulation, map, camera, visual domain and telemetry
+browser document
+  -> parse import map with Three.js 0.165.0
+  -> request src/main.js
+  -> resolve direct Three.js 0.165.0 CDN import
+  -> resolve NexusEngine @main CDN import
+  -> evaluate the complete static module graph
+  -> define showFatal(), createGame() and boot()
 
-running frame
-  -> balloon simulation update
-  -> airstream sample and force
-  -> delivery-volume/progress update
-  -> town marker update
-  -> balloon/camera/world update
-  -> Nexus telemetry tick
-  -> render
+accepted provider path
+  -> construct visual/world/balloon/airstream/mail/map/camera owners
+  -> create telemetry engine from imported NexusEngine
+  -> expose raw THREE and NexusEngine providers through GameHost
+  -> tick and render
 
-accepted delivery frame
-  -> parcel becomes delivered
-  -> mail-delivered event returned once
-  -> host copies parcel message into simulation message
-  -> render
+provider failure before evaluation
+  -> boot() never executes
+  -> showFatal() is unavailable
+  -> error panel remains hidden
+  -> no typed provider result or visible failure frame
 
-next frame
-  -> simulation overwrites message with current guidance
-  -> mail update returns null
-  -> destinationTownId remains Brookhaven
-  -> map and town marker remain active
-  -> no successor mission or terminal state
+Pages path
+  -> checkout app main
+  -> checkout NexusEngine main separately for headless validation
+  -> build and upload dist
+  -> browser later resolves NexusEngine @main again
 ```
 
 ## Domains in use
 
 ```txt
-browser shell, canvas, map, fatal projection and public GameHost
-runtime boot, input, RAF, session and telemetry
+browser document, import map, module loader, canvas, error panel and public GameHost
+runtime boot, provider resolution, session, input, RAF and telemetry
 Nexus resources, events and journals
 balloon motion, steering, burner, vent, heading, altitude, elapsed and distance
 airstream routes, sampling, field, force, visuals and debug
-mail parcel, route, towns, volumes, progress, reset and missing completion lifecycle
+mail parcel, route, towns, volumes, progress, reset and completion lifecycle
 seeded world generation, membership, erosion, climate, biome and flora
 near/horizon terrain streaming and disposal
 vegetation, grass and flowers, exclusions, chunks, LOD, culling and wind
 balloon geometry, materials, rigging, secondary motion, camera and clipping
 quality, dynamic resolution, sky, sun, aerial perspective, clouds, water, HDR and lens
-parchment-map projection, headless proof, tests, build and Pages
+parchment-map projection, headless proof, tests, Vite build and Pages
+missing runtime module/provider admission authority
 ```
 
 ## Kit census
@@ -85,7 +84,7 @@ tooling/proof: 4
 active source-backed total: 68
 runtime-implied adapters: 12
 inactive/retired legacy: 12
-planned completion authority including parent: 21
+planned provider-admission authority including parent: 16
 ```
 
 ## Implemented kits
@@ -206,7 +205,7 @@ runtime/gameplay:
 
 balloon/object/presentation:
   procedural envelope, basket, burner, rope and rigging construction
-  deferred loading and persistent GPU ownership
+  deferred model loading and persistent GPU ownership
   materials, secondary motion, camera, clipping and animation
 
 world/environment:
@@ -220,68 +219,92 @@ UI/tooling:
   parchment-map lifecycle and world/route/town/player projection
   headless inspection and renderer validation
   source/static, route/mail and world/flora checks
-  build and Pages adaptation
+  Vite build and Pages adaptation
 ```
 
 ## Source-backed findings
 
 ```txt
-one default route object: confirmed
-three town definitions: confirmed
-one active parcel definition: confirmed
-one correct-current field: confirmed
-one-shot mail-delivered event: confirmed
-parcel delivered mutation persists in memory: confirmed
-mail-domain reset helper: confirmed
-host use of reset helper: absent
-next-parcel selection: absent
-route-complete state/result: absent
-campaign-complete state/result: absent
-mission revision and expected predecessor: absent
-completion result identity: absent
-completion message lifetime: absent
-map marker retirement: absent
-town marker retirement: absent
-first visible completion frame acknowledgement: absent
+index import map Three.js identity: 0.165.0
+main.js direct Three.js identity: 0.165.0
+main.js NexusEngine identity: @main
+immutable NexusEngine browser commit: absent
+provider manifest: absent
+content fingerprint or integrity result: absent
+required-export/API compatibility probe: absent
+timeout, retry or approved fallback: absent
+provider-set generation: absent
+typed RuntimeProviderAdmissionResult: absent
+provider-independent failure projection: absent
+GameHost provider identity receipt: absent
+telemetry provider identity receipt: absent
+first provider-backed frame acknowledgement: absent
+package-owned Three.js dependency: absent
+package-owned NexusEngine dependency: absent
+headless checkout uses NexusEngine main: confirmed
+browser/headless shared immutable revision: absent
 ```
 
-## Concrete presentation divergence
+## Concrete provider divergence
 
 ```txt
-accepted parcel state: delivered
-mail snapshot message: Mail delivered to Brookhaven.
-flight message one frame later: Riding <route>... or Between currents...
-map active destination: Brookhaven
-Three.js active marker: Brookhaven
-next objective: none
+application revision: unchanged
+headless NexusEngine revision: whichever main resolved during workflow
+browser NexusEngine revision: whichever main resolves at page load
+provider-set fingerprint: none
+runtime-visible provider provenance: none
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-mail-delivery-completion-lifecycle-authority-domain
+open-above-runtime-module-provider-admission-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-CompleteDeliveryCommand
-  -> validate runtime, mission, route, parcel and predecessor revisions
-  -> validate immutable volume/current evidence
-  -> commit parcel completion exactly once
-  -> increment mission revision
-  -> select next-parcel, route-complete or campaign-complete policy
-  -> commit completion message and destination projection
-  -> publish DeliveryCompletionResult
-  -> publish map, town, telemetry and GameHost receipts
+AdmitRuntimeProvidersCommand
+  -> validate immutable provider manifest
+  -> resolve exact source identities
+  -> fetch/import through one bootstrap boundary
+  -> verify fingerprints or integrity policy
+  -> validate required exports and API compatibility
+  -> compare browser/headless NexusEngine revisions
+  -> atomically commit one provider-set generation
+  -> publish RuntimeProviderAdmissionResult
+  -> initialize gameplay/rendering only after acceptance
+  -> publish telemetry and GameHost receipts
+  -> render provider-independent rejection UI when needed
   -> acknowledge the first matching visible frame
+```
+
+## Planned coordinating kits
+
+```txt
+open-above-runtime-module-provider-admission-authority-domain
+open-above-runtime-provider-manifest-kit
+open-above-provider-source-identity-kit
+open-above-provider-resolution-command-kit
+open-above-provider-fetch-adapter-kit
+open-above-provider-content-fingerprint-kit
+open-above-provider-integrity-verification-kit
+open-above-provider-api-contract-kit
+open-above-provider-version-compatibility-kit
+open-above-provider-set-generation-kit
+open-above-provider-admission-result-kit
+open-above-provider-failure-projection-kit
+open-above-browser-headless-provider-parity-kit
+open-above-provider-telemetry-receipt-kit
+open-above-first-provider-frame-ack-kit
+open-above-provider-fixture-gate-kit
 ```
 
 ## Retained architecture priorities
 
 ```txt
+delivery completion and mission progression
 flight-session persistence and restore authority
-immutable runtime/module admission
 session, listener, frame and failure ownership
 fixed-step clock and sequenced input
 telemetry snapshot immutability
@@ -294,4 +317,4 @@ map spatial navigation and accessibility
 
 ## Validation boundary
 
-Documentation only. No runtime completion, continuation, reset, map/town projection or visible-frame fixture was executed.
+Documentation only. No runtime provider admission, integrity, compatibility, parity, failure projection or first-frame fixture was executed.
