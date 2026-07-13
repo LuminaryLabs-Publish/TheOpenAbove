@@ -1,20 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T19-31-06-04-00",
-  "status": "flora-exclusion-artifact-coherence-authority-audited",
+  "lastAligned": "2026-07-12T21-18-18-04-00",
+  "status": "telemetry-snapshot-immutability-readback-authority-audited",
   "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-12T19-31-06-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T19-31-06-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-12T21-18-18-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T21-18-18-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T19-31-06-04-00-flora-exclusion-artifact-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T19-31-06-04-00-stale-tree-exclusion-visible-flora-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T19-31-06-04-00-vegetation-replacement-flora-overlap-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T19-31-06-04-00-exclusion-artifact-consumer-admission-map.md",
-    "grassSystem": ".agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T19-31-06-04-00-flora-exclusion-coherence-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T21-18-18-04-00-telemetry-snapshot-immutability-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T21-18-18-04-00-mutable-readback-visible-telemetry-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T21-18-18-04-00-public-readback-resource-alias-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T21-18-18-04-00-snapshot-build-commit-read-map.md",
+    "telemetry": ".agent/telemetry-audit/2026-07-12T21-18-18-04-00-resource-alias-freeze-readback-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T21-18-18-04-00-telemetry-immutability-fixture-gate.md"
   },
   "retainedAudits": {
+    "floraExclusion": ".agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md",
     "flightWorldMembership": ".agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md",
     "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
     "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
@@ -28,7 +29,7 @@
     "grassSpatialCulling": ".agent/grass-system-audit/2026-07-11T18-01-38-04-00-chunk-spatial-identity-backend-truth-contract.md"
   },
   "selection": {
-    "reason": "TheOpenAbove had the oldest eligible central-ledger timestamp after confirming no new, ledger-missing or recorded root-agent-missing eligible repository.",
+    "reason": "TheOpenAbove had the oldest eligible central-ledger timestamp after confirming no new, ledger-missing or root-agent-missing eligible repository.",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
@@ -36,17 +37,19 @@
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
     "orderedEligibleTimestamps": {
-      "TheOpenAbove": "2026-07-12T17-41-25-04-00 selected",
-      "IntoTheMeadow": "2026-07-12T17-58-43-04-00",
-      "PhantomCommand": "2026-07-12T18-11-53-04-00",
-      "PrehistoricRush": "2026-07-12T18-18-59-04-00",
-      "HorrorCorridor": "2026-07-12T18-38-51-04-00",
-      "ZombieOrchard": "2026-07-12T18-48-07-04-00",
-      "MyCozyIsland": "2026-07-12T19-00-22-04-00",
-      "TheUnmappedHouse": "2026-07-12T19-11-01-04-00",
-      "AetherVale": "2026-07-12T19-21-29-04-00"
+      "TheOpenAbove": "2026-07-12T19-31-06-04-00 selected",
+      "IntoTheMeadow": "2026-07-12T19-49-41-04-00",
+      "PhantomCommand": "2026-07-12T19-58-07-04-00",
+      "PrehistoricRush": "2026-07-12T20-10-25-04-00",
+      "HorrorCorridor": "2026-07-12T20-20-02-04-00",
+      "ZombieOrchard": "2026-07-12T20-31-27-04-00",
+      "MyCozyIsland": "2026-07-12T20-40-56-04-00",
+      "TheUnmappedHouse": "2026-07-12T20-51-16-04-00",
+      "AetherVale": "2026-07-12T21-10-16-04-00"
     },
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ]
   },
   "counts": {
     "runtimeAndGameplay": 15,
@@ -57,32 +60,31 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedFloraExclusionIncludingParent": 27,
-    "retainedPlannedFlightWorldMembershipIncludingParent": 24,
-    "retainedPlannedVegetationCoverageIncludingParent": 29
+    "plannedTelemetryIncludingParent": 25
   },
   "interactionLoop": [
-    "construct-world-terrain-and-boot-vegetation",
-    "copy-tree-and-cluster-records-into-private-grass-indexes",
-    "copy-tree-records-into-private-flower-index",
-    "move-grass-and-flower-windows-with-camera",
-    "build-live-chunks-against-construction-time-exclusions",
-    "render-without-vegetation-exclusion-revision-or-visible-ack"
+    "update-live-simulation-mail-airstream-camera-and-visual-state",
+    "build-complete-snapshot-projection",
+    "store-complete-object-as-balloon-resource",
+    "store-nested-visual-object-as-visual-resource",
+    "record-resource-references-in-journal",
+    "expose-engine-owned-references-through-engine-and-gamehost",
+    "render-without-snapshot-identity-or-visible-ack"
   ],
   "domains": [
-    "browser-shell-canvas-map-fatal-projection",
-    "runtime-boot-session-input-raf-public-host",
+    "browser-shell-canvas-map-fatal-projection-public-host",
+    "runtime-boot-session-input-raf-telemetry",
     "balloon-simulation-steering-burner-vent-altitude-distance",
     "airstream-route-sample-force-visual-debug",
     "mail-parcel-town-volume-progress",
-    "seeded-world-generation-bounded-disk-membership-authored-anchor-protection",
-    "terrain-streaming-frame-near-horizon-ownership",
-    "boot-vegetation-cluster-placement-and-tree-records",
-    "grass-flower-density-exclusion-placement-chunks-lod-culling-wind",
+    "seeded-world-generation-disk-membership-erosion-climate-biome-flora",
+    "terrain-streaming-near-horizon-ownership",
+    "vegetation-grass-flower-exclusion-placement-lod-culling-wind",
     "balloon-object-material-rigging-camera-presentation",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
-    "map-projection-telemetry-headless-tests-build-pages",
-    "missing-flora-exclusion-artifact-admission-replacement-proof"
+    "map-projection-headless-tests-build-pages",
+    "nexus-resource-event-journal-storage",
+    "missing-telemetry-identity-immutability-alias-readback-visible-proof"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -154,7 +156,9 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": ["open-above-parchment-map-overlay-kit"],
+    "ui": [
+      "open-above-parchment-map-overlay-kit"
+    ],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
@@ -165,9 +169,9 @@
   "serviceMap": {
     "runtimeAndGameplay": [
       "flight-input-and-integration",
+      "telemetry-resource-and-event-publication",
       "airstream-route-field-force-visual-debug",
-      "mail-parcel-town-volume-progress-reset",
-      "telemetry-and-snapshot"
+      "mail-parcel-town-volume-progress-reset"
     ],
     "balloonObjectAndPresentation": [
       "profile-and-shell-construction",
@@ -190,24 +194,14 @@
       "near-and-horizon-geometry",
       "skirts-live-replacement-disposal"
     ],
-    "vegetation": [
-      "boot-seed-derivation",
-      "quality-tree-budget",
-      "fixed-cluster-generation",
-      "terrain-height-and-moisture-placement",
-      "trunk-and-crown-instance-construction",
-      "tree-position-and-cluster-records",
-      "direct-scene-insertion"
-    ],
-    "grassAndFlowers": [
+    "vegetationGrassFlowers": [
+      "tree-cluster-and-position-records",
       "world-flora-density",
       "five-grass-species",
       "five-flower-types",
       "deterministic-camera-relative-chunks",
       "private-tree-spatial-indexes",
-      "consumer-specific-clearance",
-      "instanced-rendering",
-      "lod-culling-wind-sway"
+      "instanced-rendering-lod-culling-wind"
     ],
     "environmentAndRender": [
       "quality-selection-and-dynamic-resolution",
@@ -225,7 +219,7 @@
       "headless-inspection",
       "source-validation",
       "terrain-route-overlay-world-flora-proof",
-      "build-adaptation"
+      "build-and-pages-adaptation"
     ]
   },
   "runtimeImpliedKits": [
@@ -256,53 +250,53 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedFloraExclusionKits": [
-    "open-above-flora-exclusion-artifact-authority-domain",
-    "open-above-vegetation-generation-id-kit",
-    "open-above-flora-exclusion-revision-kit",
-    "open-above-flora-exclusion-policy-kit",
-    "open-above-tree-exclusion-record-kit",
-    "open-above-tree-exclusion-spatial-index-kit",
-    "open-above-cluster-proximity-field-kit",
-    "open-above-flora-exclusion-artifact-kit",
-    "open-above-flora-exclusion-fingerprint-kit",
-    "open-above-flora-consumer-id-kit",
-    "open-above-flora-chunk-generation-kit",
-    "open-above-flora-chunk-input-fingerprint-kit",
-    "open-above-flora-exclusion-admission-kit",
-    "open-above-grass-exclusion-adapter-kit",
-    "open-above-flower-exclusion-adapter-kit",
-    "open-above-flora-paired-candidate-result-kit",
-    "open-above-flora-paired-adoption-kit",
-    "open-above-flora-last-good-rollback-kit",
-    "open-above-stale-flora-exclusion-rejection-kit",
-    "open-above-flora-exclusion-observation-kit",
-    "open-above-flora-exclusion-journal-kit",
-    "open-above-flora-exclusion-visible-frame-ack-kit",
-    "open-above-tree-flora-overlap-fixture-kit",
-    "open-above-removed-tree-clearing-fixture-kit",
-    "open-above-exclusion-revision-stale-fixture-kit",
-    "open-above-flora-consumer-parity-fixture-kit",
-    "open-above-flora-exclusion-pages-smoke-kit"
+  "plannedTelemetryKits": [
+    "open-above-telemetry-snapshot-immutability-authority-domain",
+    "open-above-telemetry-snapshot-session-kit",
+    "open-above-telemetry-frame-id-kit",
+    "open-above-telemetry-source-revision-kit",
+    "open-above-telemetry-snapshot-id-kit",
+    "open-above-telemetry-snapshot-builder-kit",
+    "open-above-telemetry-normalization-kit",
+    "open-above-telemetry-content-fingerprint-kit",
+    "open-above-telemetry-deep-freeze-kit",
+    "open-above-telemetry-resource-projection-kit",
+    "open-above-visual-snapshot-projection-kit",
+    "open-above-telemetry-alias-detector-kit",
+    "open-above-telemetry-atomic-commit-kit",
+    "open-above-telemetry-readback-envelope-kit",
+    "open-above-telemetry-clone-on-read-kit",
+    "open-above-telemetry-consumer-receipt-kit",
+    "open-above-telemetry-mutation-rejection-kit",
+    "open-above-telemetry-observation-kit",
+    "open-above-telemetry-immutable-journal-kit",
+    "open-above-first-visible-telemetry-frame-ack-kit",
+    "open-above-cross-resource-alias-fixture-kit",
+    "open-above-public-readback-mutation-fixture-kit",
+    "open-above-journal-retroactive-mutation-fixture-kit",
+    "open-above-telemetry-consumer-parity-fixture-kit",
+    "open-above-telemetry-pages-smoke-kit"
   ],
-  "sourceBackedFloraExclusionState": {
-    "vegetationGenerationIdentity": false,
-    "vegetationExclusionArtifact": false,
-    "grassPrivateTreeIndex": true,
-    "grassClusterProximityCapture": true,
-    "grassTreeClearance": "tree.radius",
-    "flowerPrivateTreeIndex": true,
-    "flowerTreeClearance": "tree.radius + 1.2",
-    "sharedExclusionRevision": false,
-    "chunkExclusionFingerprint": false,
-    "vegetationReplacementInvalidation": false,
-    "pairedCandidateResult": false,
-    "atomicPairedAdoption": false,
-    "lastGoodRollback": false,
-    "visibleFloraExclusionAcknowledgement": false
+  "sourceBackedTelemetryState": {
+    "freshTopLevelSnapshot": true,
+    "completeResourceStoresDirectReference": true,
+    "visualResourceStoresNestedReference": true,
+    "completeVisualWritableAlias": true,
+    "resourceStoreClonesOnWrite": false,
+    "resourceGetterClonesOnRead": false,
+    "journalDetachesResourceValues": false,
+    "engineGetterReturnsResourceReference": true,
+    "gameHostReturnsResourceReference": true,
+    "snapshotIdentity": false,
+    "contentFingerprint": false,
+    "deepFreezePolicy": false,
+    "cloneOnReadPolicy": false,
+    "atomicMultiResourceCommitResult": false,
+    "mutationRejectionObservation": false,
+    "firstVisibleTelemetryFrameAck": false
   },
-  "mainFinding": "Grass and flowers independently snapshot boot-time vegetation records into private spatial indexes and rebuild camera-relative chunks without a vegetation or exclusion revision. The runtime cannot prove that visible flora and visible trees belong to the same generation.",
-  "requiredParentDomain": "open-above-flora-exclusion-artifact-authority-domain",
+  "mainFinding": "The telemetry kit stores the complete snapshot and its nested visual object as separate Nexus resources, while Nexus resources, journal rows and public getters retain direct mutable references. External readback can alter resource state and publication evidence without a new tick or visible frame.",
+  "requiredParentDomain": "open-above-telemetry-snapshot-immutability-authority-domain",
   "validation": {
     "runtimeChangedByDocumentationPass": false,
     "htmlChangedByDocumentationPass": false,
@@ -314,7 +308,7 @@
     "branchCreated": false,
     "pullRequestCreated": false,
     "commandsRunThisPass": false,
-    "floraExclusionFixturesAvailable": false,
+    "telemetryMutationFixturesAvailable": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
