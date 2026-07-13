@@ -1,25 +1,26 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-12T21-18-18-04-00`
+**Last aligned:** `2026-07-12T21-31-40-04-00`
 
 ## Scope
 
-Documentation-only audit of telemetry snapshot construction, Nexus resource storage, resource-journal evidence and public readback at runtime revision `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`.
+Documentation-only reconciliation of telemetry snapshot construction, Nexus resource storage, resource-journal evidence and public readback at runtime revision `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`.
 
 ## Plan ledger
 
-**Goal:** distinguish fresh snapshot construction from executable proof that published resources, journal records and public readbacks are immutable and correlated with one visible frame.
+**Goal:** distinguish source-backed findings and central synchronization from executable proof that published resources, journal records and public readbacks are immutable and correlated with one visible frame.
 
 - [x] Compare all ten accessible Publish repositories and central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
+- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
+- [x] Select only `TheOpenAbove` because repo-local telemetry documentation was newer than central tracking.
 - [x] Inspect browser snapshot construction and telemetry publication.
 - [x] Inspect Nexus `setResource`, `getResource` and journal recording.
-- [x] Confirm complete and visual resources share one writable object.
+- [x] Confirm complete and visual resources share one writable object graph.
 - [x] Confirm public getters expose stored resource references.
 - [x] Confirm no snapshot ID, fingerprint, freeze, clone or visible acknowledgement exists.
 - [x] Preserve all 68 active source-backed kits and offered services.
-- [x] Add tracker, turn ledger and complete audit family.
+- [x] Add tracker, turn ledger and complete reconciliation audit family.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
@@ -31,17 +32,9 @@ eligible non-Cavalry repositories: 9
 new eligible repositories: 0
 central-ledger-missing eligible repositories: 0
 root-.agent-missing eligible repositories: 0
-
-TheOpenAbove:     2026-07-12T19-31-06-04-00 selected
-IntoTheMeadow:    2026-07-12T19-49-41-04-00
-PhantomCommand:   2026-07-12T19-58-07-04-00
-PrehistoricRush:  2026-07-12T20-10-25-04-00
-HorrorCorridor:   2026-07-12T20-20-02-04-00
-ZombieOrchard:    2026-07-12T20-31-27-04-00
-MyCozyIsland:     2026-07-12T20-40-56-04-00
-TheUnmappedHouse: 2026-07-12T20-51-16-04-00
-AetherVale:       2026-07-12T21-10-16-04-00
-TheCavalryOfRome: excluded
+repo-local state newer than central ledger: TheOpenAbove
+selected: LuminaryLabs-Publish/TheOpenAbove
+excluded: LuminaryLabs-Publish/TheCavalryOfRome
 ```
 
 ## Source-backed checks
@@ -52,7 +45,7 @@ simulation scalar/array projection: confirmed
 BalloonSnapshot stores complete object directly: confirmed
 VisualSnapshot stores snapshot.visual directly: confirmed
 BalloonSnapshot.visual === VisualSnapshot: confirmed by construction
-Nexus setResource clones/freeze values: absent
+Nexus setResource clones/freezes values: absent
 Nexus getResource clones on read: absent
 resource journal detaches previous/value: absent
 engine.openAbove returns resource references: confirmed
@@ -61,6 +54,7 @@ snapshot identity/revision/fingerprint: absent
 alias validation: absent
 atomic multi-resource result: absent
 mutation rejection observation: absent
+consumer receipt: absent
 first visible telemetry frame acknowledgement: absent
 ```
 
@@ -68,7 +62,6 @@ first visible telemetry frame acknowledgement: absent
 
 ```txt
 src/main.js
-src/runtime/balloon-simulation-kit.js
 src/runtime/balloon-telemetry-kit.js
 LuminaryLabs-Dev/NexusEngine/src/ecs.js
 .agent/START_HERE.md
@@ -134,7 +127,7 @@ deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger/change log: pending until repo-local update is committed
+central ledger/change log: pending final repo documentation head capture
 ```
 
 ## Completion boundary
