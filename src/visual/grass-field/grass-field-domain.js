@@ -87,10 +87,14 @@ function createVegetationQueries(vegetation) {
   const cellSize = 36;
   const cells = new Map();
   const key = (x, z) => `${Math.floor(x / cellSize)}:${Math.floor(z / cellSize)}`;
-  for (const tree of treePositions) {
-    const cellKey = key(tree.x, tree.z);
-    if (!cells.has(cellKey)) cells.set(cellKey, []);
-    cells.get(cellKey).push(tree);
+
+  function refresh() {
+    cells.clear();
+    for (const tree of treePositions) {
+      const cellKey = key(tree.x, tree.z);
+      if (!cells.has(cellKey)) cells.set(cellKey, []);
+      cells.get(cellKey).push(tree);
+    }
   }
 
   function obstacleAt(x, z) {
@@ -116,7 +120,8 @@ function createVegetationQueries(vegetation) {
     return proximity;
   }
 
-  return { obstacleAt, treeProximityAt };
+  refresh();
+  return { obstacleAt, treeProximityAt, refresh };
 }
 
 export function createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation, world = null) {
@@ -201,6 +206,14 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
     return mesh;
   }
 
+  function clearChunks() {
+    for (const mesh of chunks.values()) {
+      root.remove(mesh);
+      mesh.geometry.dispose();
+    }
+    chunks.clear();
+  }
+
   function rebuild(nextX, nextZ) {
     const required = new Map();
     for (let dz = -chunkRadius; dz <= chunkRadius; dz += 1) {
@@ -240,9 +253,15 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
     }
   }
 
+  function refresh() {
+    clearChunks();
+    vegetationQueries.refresh();
+    centerX = Number.NaN;
+    centerZ = Number.NaN;
+  }
+
   function dispose() {
-    for (const mesh of chunks.values()) mesh.geometry.dispose();
-    chunks.clear();
+    clearChunks();
     materialBundle.material.dispose();
     atlas.texture.dispose();
     root.removeFromParent();
@@ -254,6 +273,7 @@ export function createGrassFieldDomain(scene, worldConfig, quality, terrain, veg
     chunks,
     culling,
     update,
+    refresh,
     dispose,
     getState: () => {
       const clumps = [...chunks.values()].reduce((sum, mesh) => sum + mesh.count, 0);

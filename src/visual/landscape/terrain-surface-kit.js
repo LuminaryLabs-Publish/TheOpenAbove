@@ -155,8 +155,20 @@ export function createTerrainSurface(scene, worldConfig, quality, world = null) 
     slopeSampleStep: 24
   });
   let activeFrame = null;
+  let generationRevision = Number(world?.getGenerationState?.().revision ?? 0);
+
+  function refresh() {
+    streamer.refresh();
+    horizon.refresh();
+    activeFrame = null;
+  }
 
   function update(camera, weatherState) {
+    const nextGenerationRevision = Number(world?.getGenerationState?.().revision ?? generationRevision);
+    if (nextGenerationRevision !== generationRevision) {
+      generationRevision = nextGenerationRevision;
+      refresh();
+    }
     const frame = createTerrainStreamingFrame(camera.position, {
       nearChunkSize: chunkSize,
       nearChunkRadius: nearRadius,
@@ -190,8 +202,10 @@ export function createTerrainSurface(scene, worldConfig, quality, world = null) 
     horizon,
     cloudShadow,
     update,
+    refresh,
     dispose,
-    getStreamingFrame: () => activeFrame
+    getStreamingFrame: () => activeFrame,
+    getGenerationRevision: () => generationRevision
   };
 }
 

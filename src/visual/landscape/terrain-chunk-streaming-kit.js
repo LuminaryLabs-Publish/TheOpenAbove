@@ -115,6 +115,14 @@ export function createTerrainChunkStreamer({
     return mesh;
   }
 
+  function clearChunks() {
+    for (const mesh of chunks.values()) {
+      group.remove(mesh);
+      mesh.geometry.dispose();
+    }
+    chunks.clear();
+  }
+
   function rebuild(frame) {
     const required = new Map();
     for (const chunk of frame.nearChunks) {
@@ -149,9 +157,13 @@ export function createTerrainChunkStreamer({
     }));
   }
 
+  function refresh() {
+    clearChunks();
+    frameRevision = null;
+  }
+
   function dispose() {
-    for (const mesh of chunks.values()) mesh.geometry.dispose();
-    chunks.clear();
+    clearChunks();
     group.removeFromParent();
   }
 
@@ -165,6 +177,7 @@ export function createTerrainChunkStreamer({
     worldSurface,
     update,
     updateFromFrame,
+    refresh,
     dispose,
     getFrameRevision: () => frameRevision,
     getChunkBounds: () => [...chunks.values()].map((mesh) => mesh.userData.chunk.bounds)

@@ -13,16 +13,61 @@ function runNpm(script) {
   return output.trim();
 }
 
+function inspectWorldGeneration() {
+  const required = [
+    "src/world/world-generation-kit.js",
+    "src/visual/visual-domain.js",
+    "src/visual/landscape/terrain-surface-kit.js",
+    "src/visual/landscape/terrain-chunk-streaming-kit.js",
+    "src/visual/landscape/terrain-horizon-streaming-kit.js",
+    "src/visual/landscape/vegetation-cluster-kit.js",
+    "src/visual/grass-field/grass-field-domain.js",
+    "src/visual/flower-field/flower-field-domain.js",
+    "src/ui/parchment-map-overlay.js",
+    "tests/world-generation.mjs"
+  ];
+  const missing = required.filter((path) => !existsSync(resolve(root, path)));
+  if (missing.length) return { missing, checks: {}, ok: false };
+  const world = readFileSync(resolve(root, "src/world/world-generation-kit.js"), "utf8");
+  const visual = readFileSync(resolve(root, "src/visual/visual-domain.js"), "utf8");
+  const terrain = readFileSync(resolve(root, "src/visual/landscape/terrain-surface-kit.js"), "utf8");
+  const chunks = readFileSync(resolve(root, "src/visual/landscape/terrain-chunk-streaming-kit.js"), "utf8");
+  const horizon = readFileSync(resolve(root, "src/visual/landscape/terrain-horizon-streaming-kit.js"), "utf8");
+  const vegetation = readFileSync(resolve(root, "src/visual/landscape/vegetation-cluster-kit.js"), "utf8");
+  const grass = readFileSync(resolve(root, "src/visual/grass-field/grass-field-domain.js"), "utf8");
+  const flowers = readFileSync(resolve(root, "src/visual/flower-field/flower-field-domain.js"), "utf8");
+  const map = readFileSync(resolve(root, "src/ui/parchment-map-overlay.js"), "utf8");
+  const worldTests = readFileSync(resolve(root, "tests/world-generation.mjs"), "utf8");
+  const checks = {
+    stagedWorldGeneration: /WORLD_GENERATION_PHASES/.test(world) && /advanceGeneration\(units = generation\.workBudget\)/.test(world) && /function completeAtomicSwap/.test(world),
+    firstFrameBeforeHeavyGeneration: /state\.firstFramePresented && world\.getGenerationState\(\)\.status === "working"/.test(visual),
+    activeWorldRetainedUntilReady: /if \(!active\) return fallbackHeight/.test(world) && /active = Object\.freeze/.test(world),
+    worldGenerationDiagnostics: /getGenerationDiagnostics/.test(world) && /phaseTimings/.test(world) && /failure/.test(world),
+    terrainRefreshesAfterSwap: /nextGenerationRevision !== generationRevision/.test(terrain) && /function refresh\(\)/.test(chunks) && /function refresh\(\)/.test(horizon),
+    populationsRefreshAfterSwap: /vegetation\.refresh/.test(visual) && /grass\.refresh/.test(visual) && /flowers\.refresh/.test(visual) && /refresh: populate/.test(vegetation) && /function refresh\(\)/.test(grass) && /function refresh\(\)/.test(flowers),
+    mapRefreshesAfterSwap: /worldMapRevision/.test(map) && /refreshWorldMap/.test(map),
+    stagedGenerationTests: /fixed-budget generation should span multiple updates/.test(worldTests) && /reset should retain the active world until replacement is complete/.test(worldTests) && /staged\.dispose\(\)/.test(worldTests)
+  };
+  return { missing, checks, ok: Object.values(checks).every(Boolean) };
+}
+
 function inspectProject() {
   const required = [
     "src/main.js",
+    "src/world/world-generation-kit.js",
     "src/visual/visual-domain.js",
     "src/visual/post-process/hdr-composer-kit.js",
     "src/visual/post-process/color-grade-kit.js",
     "src/visual/landscape/terrain-surface-kit.js",
     "src/visual/landscape/terrain-chunk-streaming-kit.js",
+    "src/visual/landscape/terrain-horizon-streaming-kit.js",
+    "src/visual/landscape/vegetation-cluster-kit.js",
+    "src/visual/grass-field/grass-field-domain.js",
+    "src/visual/flower-field/flower-field-domain.js",
     "src/visual/landscape/water-surface-kit.js",
-    "tests/smoke.mjs"
+    "src/ui/parchment-map-overlay.js",
+    "tests/smoke.mjs",
+    "tests/world-generation.mjs"
   ];
   const missing = required.filter((path) => !existsSync(resolve(root, path)));
   const visual = readFileSync(resolve(root, "src/visual/visual-domain.js"), "utf8");
@@ -30,7 +75,14 @@ function inspectProject() {
   const grade = readFileSync(resolve(root, "src/visual/post-process/color-grade-kit.js"), "utf8");
   const terrain = readFileSync(resolve(root, "src/visual/landscape/terrain-surface-kit.js"), "utf8");
   const chunks = readFileSync(resolve(root, "src/visual/landscape/terrain-chunk-streaming-kit.js"), "utf8");
+  const horizon = readFileSync(resolve(root, "src/visual/landscape/terrain-horizon-streaming-kit.js"), "utf8");
+  const vegetation = readFileSync(resolve(root, "src/visual/landscape/vegetation-cluster-kit.js"), "utf8");
+  const grass = readFileSync(resolve(root, "src/visual/grass-field/grass-field-domain.js"), "utf8");
+  const flowers = readFileSync(resolve(root, "src/visual/flower-field/flower-field-domain.js"), "utf8");
   const water = readFileSync(resolve(root, "src/visual/landscape/water-surface-kit.js"), "utf8");
+  const world = readFileSync(resolve(root, "src/world/world-generation-kit.js"), "utf8");
+  const map = readFileSync(resolve(root, "src/ui/parchment-map-overlay.js"), "utf8");
+  const worldTests = readFileSync(resolve(root, "tests/world-generation.mjs"), "utf8");
   const checks = {
     requiredFilesPresent: missing.length === 0,
     independentDepthTargets:
@@ -58,7 +110,38 @@ function inspectProject() {
       /gl_FragColor\.rgb \*= cloudLight/.test(chunks)
       && /mix\(1\.0, 0\.74/.test(chunks),
     waterUsesExplicitFog: /uFogColor/.test(water) && /uFogDensity/.test(water) && /fog:\s*false/.test(water),
-    waterDisablesImplicitFog: !/fog:\s*true/.test(water)
+    waterDisablesImplicitFog: !/fog:\s*true/.test(water),
+    stagedWorldGeneration:
+      /WORLD_GENERATION_PHASES/.test(world)
+      && /advanceGeneration\(units = generation\.workBudget\)/.test(world)
+      && /function completeAtomicSwap/.test(world),
+    firstFrameBeforeHeavyGeneration:
+      /state\.firstFramePresented && world\.getGenerationState\(\)\.status === "working"/.test(visual),
+    activeWorldRetainedUntilReady:
+      /if \(!active\) return fallbackHeight/.test(world)
+      && /active = Object\.freeze/.test(world),
+    worldGenerationDiagnostics:
+      /getGenerationDiagnostics/.test(world)
+      && /phaseTimings/.test(world)
+      && /failure/.test(world),
+    terrainRefreshesAfterSwap:
+      /nextGenerationRevision !== generationRevision/.test(terrain)
+      && /refresh/.test(chunks)
+      && /refresh/.test(horizon),
+    populationsRefreshAfterSwap:
+      /vegetation\.refresh/.test(visual)
+      && /grass\.refresh/.test(visual)
+      && /flowers\.refresh/.test(visual)
+      && /refresh: populate/.test(vegetation)
+      && /function refresh\(\)/.test(grass)
+      && /function refresh\(\)/.test(flowers),
+    mapRefreshesAfterSwap:
+      /worldMapRevision/.test(map)
+      && /refreshWorldMap/.test(map),
+    stagedGenerationTests:
+      /fixed-budget generation should span multiple updates/.test(worldTests)
+      && /reset should retain the active world until replacement is complete/.test(worldTests)
+      && /staged\.dispose\(\)/.test(worldTests)
   };
   return { missing, checks, ok: Object.values(checks).every(Boolean) };
 }
@@ -67,15 +150,15 @@ export function createEnvironment() {
   return {
     id: "the-open-above",
     label: "The Open Above validation environment",
-    domains: ["project", "renderer", "build", "runtime"],
+    domains: ["project", "renderer", "build", "runtime", "world-generation"],
     metadata: {
       repository: "LuminaryLabs-Publish/TheOpenAbove",
-      purpose: "Validate neutral lighting, streamed terrain, shader safety, and production build through the NexusEngine headless editor runtime."
+      purpose: "Validate neutral lighting, streamed terrain, staged world generation, shader safety, and production build through the NexusEngine headless editor runtime."
     },
     capabilities: {
       "project.inspect": {
         domain: "project",
-        description: "Inspect required visual-domain files and renderer safety contracts.",
+        description: "Inspect required visual-domain files, staged world generation, and renderer safety contracts.",
         execute() {
           const inspection = inspectProject();
           return {
@@ -88,7 +171,7 @@ export function createEnvironment() {
       },
       "renderer.validate": {
         domain: "renderer",
-        description: "Validate framebuffer, lighting baseline, terrain streaming, and shader safety contracts.",
+        description: "Validate framebuffer, lighting baseline, terrain streaming, atomic world refresh, and shader safety contracts.",
         execute() {
           const inspection = inspectProject();
           const rendererChecks = { ...inspection.checks };
@@ -99,6 +182,21 @@ export function createEnvironment() {
             data: rendererChecks,
             errors: ok ? [] : [{ code: "renderer-contract-failed", message: JSON.stringify(rendererChecks) }]
           };
+        }
+      },
+      "world-generation.validate": {
+        domain: "world-generation",
+        description: "Validate phased generation, fixed work budgets, atomic swap, diagnostics, reset, disposal, and deterministic output.",
+        execute() {
+          const inspection = inspectWorldGeneration();
+          if (!inspection.ok) {
+            return { ok: false, status: "failed", data: inspection, errors: [{ code: "world-generation-contract-failed", message: JSON.stringify(inspection) }] };
+          }
+          try {
+            return { ok: true, status: "completed", data: { inspection, output: runNpm("check") } };
+          } catch (error) {
+            return { ok: false, status: "failed", errors: [{ code: "world-generation-check-failed", message: String(error.stderr || error.message || error) }] };
+          }
         }
       },
       "project.check": {

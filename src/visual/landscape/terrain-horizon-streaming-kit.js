@@ -127,6 +127,14 @@ export function createTerrainHorizonStreamer({
     return mesh;
   }
 
+  function clearChunks() {
+    for (const mesh of chunks.values()) {
+      group.remove(mesh);
+      mesh.geometry.dispose();
+    }
+    chunks.clear();
+  }
+
   function rebuild(frame) {
     const requirements = classifyHorizonRequirements(frame, {
       radiusInNearChunks,
@@ -167,9 +175,13 @@ export function createTerrainHorizonStreamer({
     }));
   }
 
+  function refresh() {
+    clearChunks();
+    frameRevision = null;
+  }
+
   function dispose() {
-    for (const mesh of chunks.values()) mesh.geometry.dispose();
-    chunks.clear();
+    clearChunks();
     group.removeFromParent();
   }
 
@@ -183,6 +195,7 @@ export function createTerrainHorizonStreamer({
     worldSurface,
     update,
     updateFromFrame,
+    refresh,
     dispose,
     getFrameRevision: () => frameRevision
   };

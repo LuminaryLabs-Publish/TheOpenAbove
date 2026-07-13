@@ -4,6 +4,7 @@ import { createDefaultAirstreamRoutes } from "../src/runtime/airstream-domain/ai
 globalThis.window = globalThis;
 const {
   WORLD_FEATURE_CELL_SIZE,
+  WORLD_GENERATION_PHASES,
   WORLD_GRID_SIZE,
   createWorldGenerationKit
 } = await import("../src/world/world-generation-kit.js");
@@ -120,4 +121,56 @@ assert.ok(Math.min(...densities) === 0, "world should contain true no-grass area
 assert.ok(Math.max(...densities) >= 0.9, "world should contain lush meadow areas");
 assert.ok(mapColors.size >= 20, "cached map source should contain varied world colors");
 
-console.log("The Open Above seeded full-world grid, protected terrain anchors, biome patches, and map colors passed.");
+const legacyMoistureAt = (x, z) => Math.max(0, Math.min(1, 0.5 + Math.sin(x * 0.0004 + z * 0.0002) * 0.2));
+const staged = createWorldGenerationKit({
+  worldConfig: { ...worldConfig, generation: { staged: true, workBudget: 4096 } },
+  legacyTerrainHeight,
+  legacyMoistureAt,
+  anchors: { routes, towns },
+  staged: true,
+  workBudget: 4096
+});
+const initialGeneration = staged.getGenerationState();
+assert.equal(initialGeneration.status, "working");
+assert.equal(initialGeneration.phase, "height");
+assert.equal(initialGeneration.usingFallback, true);
+assert.equal(staged.sampleHeight(313, -927), legacyTerrainHeight(313, -927), "first frame should use existing terrain");
+assert.equal(staged.sampleMoisture(313, -927), legacyMoistureAt(313, -927), "first frame should use existing moisture");
+let generationCalls = 0;
+let previousProgress = 0;
+while (staged.getGenerationState().status === "working") {
+  const state = staged.advanceGeneration(4096);
+  assert.ok(state.progress >= previousProgress, "generation progress should be monotonic");
+  previousProgress = state.progress;
+  generationCalls += 1;
+  assert.ok(generationCalls < 2000, "staged generation should converge");
+}
+const stagedReady = staged.getGenerationState();
+assert.equal(stagedReady.status, "ready");
+assert.equal(stagedReady.progress, 1);
+assert.equal(stagedReady.usingFallback, false);
+assert.equal(stagedReady.failure, null);
+assert.ok(generationCalls > 1, "fixed-budget generation should span multiple updates");
+for (const phase of WORLD_GENERATION_PHASES) assert.ok(stagedReady.phaseHistory.includes(phase), `missing generation phase ${phase}`);
+for (const [x, z] of deterministicSamples) {
+  assert.equal(staged.sampleHeight(x, z), first.sampleHeight(x, z));
+  assert.equal(staged.sampleMoisture(x, z), first.sampleMoisture(x, z));
+  assert.equal(staged.sampleTemperature(x, z), first.sampleTemperature(x, z));
+  assert.equal(staged.sampleFertility(x, z), first.sampleFertility(x, z));
+  assert.deepEqual(staged.sampleBiome(x, z), first.sampleBiome(x, z));
+  assert.deepEqual(staged.sampleFlora(x, z), first.sampleFlora(x, z));
+  assert.deepEqual(staged.sampleMapColor(x, z), first.sampleMapColor(x, z));
+}
+const retainedRevision = stagedReady.revision;
+const retainedHeight = staged.sampleHeight(1400, 2100);
+staged.reset({ start: true });
+assert.equal(staged.getGenerationState().status, "working");
+assert.equal(staged.getGenerationState().revision, retainedRevision);
+assert.equal(staged.sampleHeight(1400, 2100), retainedHeight, "reset should retain the active world until replacement is complete");
+staged.advanceGeneration(128);
+const disposed = staged.dispose();
+assert.equal(disposed.status, "disposed");
+assert.equal(disposed.disposed, true);
+assert.throws(() => staged.reset(), /disposed/);
+
+console.log(`The Open Above seeded world and staged generation passed in ${generationCalls} fixed-budget advances.`);

@@ -82,12 +82,17 @@ function createObstacleQuery(vegetation) {
   const positions = vegetation?.treePositions || [];
   const cellSize = 36;
   const cells = new Map();
-  for (const tree of positions) {
-    const key = `${Math.floor(tree.x / cellSize)}:${Math.floor(tree.z / cellSize)}`;
-    if (!cells.has(key)) cells.set(key, []);
-    cells.get(key).push(tree);
+
+  function refresh() {
+    cells.clear();
+    for (const tree of positions) {
+      const key = `${Math.floor(tree.x / cellSize)}:${Math.floor(tree.z / cellSize)}`;
+      if (!cells.has(key)) cells.set(key, []);
+      cells.get(key).push(tree);
+    }
   }
-  return (x, z) => {
+
+  function obstacleAt(x, z) {
     const cellX = Math.floor(x / cellSize);
     const cellZ = Math.floor(z / cellSize);
     for (let dz = -1; dz <= 1; dz += 1) {
@@ -98,7 +103,11 @@ function createObstacleQuery(vegetation) {
       }
     }
     return false;
-  };
+  }
+
+  refresh();
+  obstacleAt.refresh = refresh;
+  return obstacleAt;
 }
 
 export function createFlowerFieldDomain(scene, worldConfig, quality, terrain, vegetation, world = null) {
@@ -174,6 +183,14 @@ export function createFlowerFieldDomain(scene, worldConfig, quality, terrain, ve
     return mesh;
   }
 
+  function clearChunks() {
+    for (const mesh of chunks.values()) {
+      root.remove(mesh);
+      mesh.geometry.dispose();
+    }
+    chunks.clear();
+  }
+
   function rebuild(nextX, nextZ) {
     const required = new Map();
     for (let dz = -chunkRadius; dz <= chunkRadius; dz += 1) {
@@ -212,9 +229,15 @@ export function createFlowerFieldDomain(scene, worldConfig, quality, terrain, ve
     }
   }
 
+  function refresh() {
+    clearChunks();
+    obstacleAt.refresh();
+    centerX = Number.NaN;
+    centerZ = Number.NaN;
+  }
+
   function dispose() {
-    for (const mesh of chunks.values()) mesh.geometry.dispose();
-    chunks.clear();
+    clearChunks();
     materialBundle.material.dispose();
     atlas.texture.dispose();
     root.removeFromParent();
@@ -225,6 +248,7 @@ export function createFlowerFieldDomain(scene, worldConfig, quality, terrain, ve
     root,
     chunks,
     update,
+    refresh,
     dispose,
     getState: () => {
       const clumps = [...chunks.values()].reduce((sum, mesh) => sum + mesh.count, 0);

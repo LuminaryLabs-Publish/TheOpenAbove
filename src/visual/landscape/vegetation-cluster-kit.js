@@ -19,7 +19,7 @@ export function createVegetationClusters(
   terrainHeightAt = terrainHeight,
   world = null
 ) {
-  const random = seeded((world?.seed ?? normalizeGrassSeed(worldConfig.seed || 1)) ^ 0x6d2b79f5);
+  const worldSeed = (world?.seed ?? normalizeGrassSeed(worldConfig.seed || 1)) ^ 0x6d2b79f5;
   const total = Math.max(80, quality.treeCount);
   const trunkGeometry = new THREE.CylinderGeometry(0.42, 0.72, 8.4, 6);
   const crownGeometry = new THREE.IcosahedronGeometry(3.7, 1);
@@ -35,58 +35,92 @@ export function createVegetationClusters(
   const clusterCount = 18;
   const localExtent = (worldConfig.terrainSize || 2600) * 1.18;
   const widerExtent = Math.min(Number(worldConfig.surface?.radius) * 0.42 || localExtent, localExtent * 1.9);
-  const clusters = Array.from({ length: clusterCount }, (_, index) => {
-    const extent = index < 12 ? localExtent : widerExtent;
-    return {
-      x: (random() - 0.5) * extent,
-      z: (random() - 0.5) * extent,
-      spread: 80 + random() * 260
-    };
-  });
+  const clusters = [];
+  const treePositions = [];
   const matrix = new THREE.Matrix4();
   const quaternion = new THREE.Quaternion();
   const scale = new THREE.Vector3();
   const position = new THREE.Vector3();
   const color = new THREE.Color();
-  const treePositions = [];
   let count = 0;
 
-  for (let i = 0; i < total * 3 && count < total; i += 1) {
-    const cluster = clusters[Math.floor(random() * clusters.length)];
-    const angle = random() * Math.PI * 2;
-    const radius = Math.sqrt(random()) * cluster.spread;
-    const x = cluster.x + Math.cos(angle) * radius;
-    const z = cluster.z + Math.sin(angle) * radius;
-    const moisture = world?.sampleMoisture?.(x, z) ?? moistureAt(x, z);
-    if (Math.hypot(x, z) < 160 || moisture > 0.8) continue;
-    const y = terrainHeightAt(x, z);
-    const treeScale = 0.72 + random() * 1.75;
-    const leanX = (random() - 0.5) * 0.08;
-    const leanZ = (random() - 0.5) * 0.08;
-    quaternion.setFromEuler(new THREE.Euler(leanX, random() * Math.PI * 2, leanZ));
+  function populate() {
+    const random = seeded(worldSeed);
+    clusters.length = 0;
+    treePositions.length = 0;
+    for (let index = 0; index < clusterCount; index += 1) {
+      const extent = index < 12 ? localExtent : widerExtent;
+      clusters.push({
+        x: (random() - 0.5) * extent,
+        z: (random() - 0.5) * extent,
+        spread: 80 + random() * 260
+      });
+    }
 
-    position.set(x, y + 4.2 * treeScale, z);
-    scale.set(treeScale * 0.62, treeScale, treeScale * 0.62);
-    matrix.compose(position, quaternion, scale);
-    trunks.setMatrixAt(count, matrix);
+    count = 0;
+    for (let i = 0; i < total * 3 && count < total; i += 1) {
+      const cluster = clusters[Math.floor(random() * clusters.length)];
+      const angle = random() * Math.PI * 2;
+      const radius = Math.sqrt(random()) * cluster.spread;
+      const x = cluster.x + Math.cos(angle) * radius;
+      const z = cluster.z + Math.sin(angle) * radius;
+      const moisture = world?.sampleMoisture?.(x, z) ?? moistureAt(x, z);
+      if (Math.hypot(x, z) < 160 || moisture > 0.8) continue;
+      const y = terrainHeightAt(x, z);
+      const treeScale = 0.72 + random() * 1.75;
+      const leanX = (random() - 0.5) * 0.08;
+      const leanZ = (random() - 0.5) * 0.08;
+      quaternion.setFromEuler(new THREE.Euler(leanX, random() * Math.PI * 2, leanZ));
 
-    position.set(x, y + 10.2 * treeScale, z);
-    scale.set(treeScale * (0.88 + random() * 0.22), treeScale * (0.84 + random() * 0.35), treeScale * (0.88 + random() * 0.22));
-    matrix.compose(position, quaternion, scale);
-    crowns.setMatrixAt(count, matrix);
-    color.set(0x315f38).offsetHSL((random() - 0.5) * 0.025, (random() - 0.5) * 0.1, (random() - 0.5) * 0.12);
-    crowns.setColorAt(count, color);
-    treePositions.push({ x, z, radius: 2.2 + treeScale * 1.6 });
-    count += 1;
+      position.set(x, y + 4.2 * treeScale, z);
+      scale.set(treeScale * 0.62, treeScale, treeScale * 0.62);
+      matrix.compose(position, quaternion, scale);
+      trunks.setMatrixAt(count, matrix);
+
+      position.set(x, y + 10.2 * treeScale, z);
+      scale.set(treeScale * (0.88 + random() * 0.22), treeScale * (0.84 + random() * 0.35), treeScale * (0.88 + random() * 0.22));
+      matrix.compose(position, quaternion, scale);
+      crowns.setMatrixAt(count, matrix);
+      color.set(0x315f38).offsetHSL((random() - 0.5) * 0.025, (random() - 0.5) * 0.1, (random() - 0.5) * 0.12);
+      crowns.setColorAt(count, color);
+      treePositions.push({ x, z, radius: 2.2 + treeScale * 1.6 });
+      count += 1;
+    }
+
+    trunks.count = count;
+    crowns.count = count;
+    trunks.instanceMatrix.needsUpdate = true;
+    crowns.instanceMatrix.needsUpdate = true;
+    if (crowns.instanceColor) crowns.instanceColor.needsUpdate = true;
+    trunks.computeBoundingSphere?.();
+    crowns.computeBoundingSphere?.();
+    return count;
   }
-  trunks.count = count;
-  crowns.count = count;
-  trunks.instanceMatrix.needsUpdate = true;
-  crowns.instanceMatrix.needsUpdate = true;
-  crowns.instanceColor.needsUpdate = true;
+
+  populate();
   scene.add(trunks, crowns);
 
-  return { id: VEGETATION_CLUSTER_KIT_ID, trunks, crowns, count, clusters, treePositions };
+  function dispose() {
+    trunks.removeFromParent();
+    crowns.removeFromParent();
+    trunkGeometry.dispose();
+    crownGeometry.dispose();
+    trunkMaterial.dispose();
+    crownMaterial.dispose();
+    clusters.length = 0;
+    treePositions.length = 0;
+  }
+
+  return {
+    id: VEGETATION_CLUSTER_KIT_ID,
+    trunks,
+    crowns,
+    get count() { return count; },
+    clusters,
+    treePositions,
+    refresh: populate,
+    dispose
+  };
 }
 
 if (typeof window !== "undefined") {

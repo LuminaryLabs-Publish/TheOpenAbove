@@ -49,6 +49,9 @@ jobs:
       - name: Headless renderer validation
         run: npm run headless:renderer
 
+      - name: Headless world generation validation
+        run: npm run headless:world
+
       - name: Headless smoke validation
         run: npm run headless:check
 

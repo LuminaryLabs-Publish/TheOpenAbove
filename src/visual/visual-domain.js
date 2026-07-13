@@ -5,7 +5,7 @@ import { createSunLight } from "./illumination/sun-light-kit.js";
 import { createAerialPerspective } from "./illumination/aerial-perspective-kit.js";
 import { createCloudWeatherMap } from "./atmosphere/cloud-weather-map-kit.js";
 import { createVolumetricClouds } from "./atmosphere/volumetric-cloud-kit.js";
-import { createTerrainSurface, terrainHeight as legacyTerrainHeight } from "./landscape/terrain-surface-kit.js";
+import { createTerrainSurface, terrainHeight as legacyTerrainHeight, moistureAt as legacyMoistureAt } from "./landscape/terrain-surface-kit.js";
 import { createVegetationClusters } from "./landscape/vegetation-cluster-kit.js";
 import { createGrassFieldDomain } from "./grass-field/grass-field-domain.js";
 import { createFlowerFieldDomain } from "./flower-field/flower-field-domain.js";
@@ -27,7 +27,14 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.physicallyCorrectLights = true;
 
-  const world = createWorldGenerationKit({ worldConfig, legacyTerrainHeight, anchors: worldAnchors });
+  const world = createWorldGenerationKit({
+    worldConfig,
+    legacyTerrainHeight,
+    legacyMoistureAt,
+    anchors: worldAnchors,
+    staged: true,
+    workBudget: worldConfig.generation?.workBudget
+  });
   const terrain = createTerrainSurface(scene, worldConfig, quality, world);
   const vegetation = createVegetationClusters(scene, worldConfig, quality, terrain.terrainHeight, world);
   const grass = createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation, world);
@@ -53,8 +60,18 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
     drawCalls: 0,
     triangles: 0,
     grass: grass.getState(),
-    flowers: flowers.getState()
+    flowers: flowers.getState(),
+    firstFramePresented: false,
+    worldGeneration: world.getGenerationState()
   };
+
+  const stopGenerationSubscription = world.subscribeGeneration((generation) => {
+    state.worldGeneration = generation;
+    if (generation.status !== "ready") return;
+    vegetation.refresh?.();
+    grass.refresh?.();
+    flowers.refresh?.();
+  });
 
   function resize() {
     const width = Math.max(1, innerWidth || 1);
@@ -68,6 +85,9 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
   resize();
 
   function update({ dt, elapsed, flightState, cameraContext }) {
+    if (state.firstFramePresented && world.getGenerationState().status === "working") {
+      state.worldGeneration = world.advanceGeneration();
+    }
     weather.update(dt, elapsed);
     sun.update(flightState.position, elapsed);
     sky.update(camera, sun.direction);
@@ -82,6 +102,7 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
     state.renderScale = resolution.state.scale;
     state.grass = grass.getState();
     state.flowers = flowers.getState();
+    state.worldGeneration = world.getGenerationState();
     return state;
   }
 
@@ -90,14 +111,18 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
     resolution.sample(frameMs, innerWidth || 1, innerHeight || 1);
     state.drawCalls = renderer.info.render.calls;
     state.triangles = renderer.info.render.triangles;
+    state.firstFramePresented = true;
   }
 
   function dispose() {
     removeEventListener("resize", resize);
+    stopGenerationSubscription();
+    world.dispose();
     landmarks.dispose?.();
     water.dispose?.();
     flowers.dispose();
     grass.dispose();
+    vegetation.dispose?.();
     terrain.dispose?.();
     composer.dispose();
   }
