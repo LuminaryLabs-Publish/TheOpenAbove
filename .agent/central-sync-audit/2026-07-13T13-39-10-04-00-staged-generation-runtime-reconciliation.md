@@ -2,7 +2,7 @@
 
 ## Summary
 
-Runtime revision `a47cb530963e01a07fcc839ca1dcce2f70bd169f` added staged procedural world generation after the prior centrally reconciled dual-surface documentation head. This audit records the new runtime ownership and remaining scheduler/adoption gap for synchronization into `LuminaryLabs-Dev/LuminaryLabs`.
+Runtime revision `a47cb530963e01a07fcc839ca1dcce2f70bd169f` added staged procedural world generation after the prior centrally reconciled documentation head. The new runtime ownership and remaining scheduler/adoption gap are now synchronized into `LuminaryLabs-Dev/LuminaryLabs`.
 
 ## Plan ledger
 
@@ -14,8 +14,9 @@ Runtime revision `a47cb530963e01a07fcc839ca1dcce2f70bd169f` added staged procedu
 - [x] Record the new runtime revision and source-backed behavior.
 - [x] Create a new tracker and audit family.
 - [x] Refresh root audit routes and registry.
-- [ ] Update the central repository ledger with the final repo-local documentation head.
-- [ ] Add a central internal change-log entry.
+- [x] Update the central repository ledger with the repo-local documentation state.
+- [x] Add a central internal change-log entry.
+- [x] Use `main`; create no branch or pull request.
 
 ## Reconciled runtime change
 
