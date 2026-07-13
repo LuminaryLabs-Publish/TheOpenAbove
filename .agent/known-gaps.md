@@ -91,13 +91,14 @@ built-output-telemetry-parity
 pages-telemetry-parity
 ```
 
-## Reconciliation gap closed
+## Reconciliation completed
 
 ```txt
 repo-local telemetry audit newer than central ledger: identified
 new reconciliation tracker and audit family: added
 required root .agent files: refreshed
-central ledger and internal change log: pending final repo head capture
+central ledger: updated
+internal change log: recorded by the paired central commit
 ```
 
 ## Non-claim
