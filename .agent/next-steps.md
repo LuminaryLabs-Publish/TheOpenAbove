@@ -1,6 +1,6 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T21-18-18-04-00`
+**Last aligned:** `2026-07-12T21-31-40-04-00`
 
 ## Plan ledger
 
@@ -95,3 +95,7 @@ tests/
 ## Compatibility constraint
 
 Keep the current `engine.openAbove.getState()`, `getVisualState()` and `GameHost.getState()` field shapes during the first cut, but return immutable revisioned envelopes or detached compatibility projections. Do not silently change flight, mail, visual or map behavior while establishing ownership.
+
+## Central reconciliation state
+
+The repo-local audit and root `.agent` state are aligned at `2026-07-12T21-31-40-04-00`. The central ledger and internal change log must cite the final repo documentation head from this pass.
