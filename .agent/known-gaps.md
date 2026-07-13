@@ -1,96 +1,96 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-13T05-19-21-04-00`
+**Last aligned:** `2026-07-13T09-40-27-04-00`
 
 ## Primary ordered gaps
 
 ```txt
-1. runtime module/provider admission and immutable source identity
-2. session, listener, frame and failure ownership
-3. fixed-step clock and sequenced input
-4. Air Mail delivery completion lifecycle and mission progression
-5. flight/mail session persistence and restore authority
-6. telemetry snapshot immutability and public readback isolation
-7. procedural world identity and flight membership provenance
-8. terrain streaming aggregate ownership and rollback
-9. vegetation spatial coverage, adoption and disposal
-10. flora exclusion artifact coherence
-11. HDR surface and visible-frame coherence
-12. parchment map spatial navigation and accessibility
+1. map/world dual-surface frame coherence and visible map-open acceptance
+2. runtime module/provider admission and immutable source identity
+3. session, listener, frame and failure ownership
+4. fixed-step clock and sequenced input
+5. Air Mail delivery completion lifecycle and mission progression
+6. flight/mail session persistence and restore authority
+7. telemetry snapshot immutability and public readback isolation
+8. procedural world identity and flight membership provenance
+9. terrain streaming aggregate ownership and rollback
+10. vegetation spatial coverage, adoption and disposal
+11. flora exclusion artifact coherence
+12. HDR surface and visible-frame coherence
+13. parchment-map spatial navigation and accessibility
+```
+
+## Dual-surface frame-coherence gaps
+
+```txt
+world and map use independent recursive RAF chains
+map visibility becomes true before its first matching map draw is proven
+map draw reads mutable simulation state through a live getter
+map draw reads mutable parcel state through a live getter
+no FlightStateRevision
+no MailStateRevision
+no immutable DualSurfaceFrameEnvelope
+no MapTransitionGeneration
+no WorldProjectionResult
+no MapProjectionResult
+no DualSurfaceCommitId or terminal commit result
+no partial-frame recovery result
+no stale map-callback rejection receipt
+no first coherent visible map frame acknowledgement
+no map marker fingerprint
+no world/map pair in telemetry or GameHost readback
+no browser, dist or Pages dual-surface fixtures
+```
+
+## Concrete visible risks
+
+```txt
+map overlay can expose blank or predecessor canvas pixels for its first visible frame
+player marker can cite a different logical instant than the world frame
+mail destination marker has no source revision
+rapid map open/close can leave unproven callback ordering
+world render success can coexist with map projection failure without a common result
+public diagnostics cannot prove which surface pair was visible
+```
+
+## Required dual-surface fixtures
+
+```txt
+immutable-frame-envelope-fingerprint
+same-envelope-world-map-projection
+open-map-first-frame-not-blank
+open-map-player-marker-current
+open-map-destination-marker-current
+rapid-open-close-stale-callback-rejected
+map-resize-revision-admitted
+map-projection-failure-preserves-predecessor
+world-projection-failure-preserves-predecessor
+GameHost-readback-cites-dual-surface-commit
+source-dist-pages-dual-surface-parity
 ```
 
 ## Runtime provider-admission gaps
 
 ```txt
 NexusEngine browser source uses mutable @main
-no immutable browser engine commit or release identity
-no versioned runtime-provider manifest
-no provider-set generation
-no provider command, attempt or result identity
-no expected-predecessor admission
-no provider content fingerprint or integrity result
-no required-export validation
-no API-contract compatibility probe
-no timeout, retry or approved fallback policy
-no partial-provider-set rollback result
-no provider-independent bootstrap error projection
-no provider identity in telemetry
-no provider identity in GameHost readback
-raw THREE and NexusEngine providers are exposed publicly
-no browser/headless provider revision parity result
-no built-artifact provider reference inspection
-no first provider-backed visible-frame acknowledgement
-no first provider-failure visible-frame acknowledgement
-no pure/browser/build/Pages provider fixtures
-```
-
-## Concrete provider risks
-
-```txt
-same app revision can load different NexusEngine code on different days
-headless validation can cover a different main revision than the deployed browser
-provider fetch or module failure can leave the error panel hidden
-API drift can fail after partial owner construction
-runtime reports cannot identify the provider revision in use
-telemetry, save or replay evidence lacks provider provenance
-mutable provider references can change without an app commit
-```
-
-## Required provider fixtures
-
-```txt
-provider-manifest-schema-valid
-mutable-branch-reference-rejected
-exact-provider-revision-accepted
-provider-fingerprint-stable
-fingerprint-mismatch-rejected
-missing-required-export-rejected
-API-contract-drift-rejected
-provider-timeout-rejected
-partial-provider-set-never-published
-same-command-id-same-result
-stale-provider-generation-zero-mutation
-browser-headless-engine-revision-equal
-provider-independent-failure-visible
-first-provider-frame-cites-generation
-first-provider-failure-frame-cites-result
-built-artifact-provider-reference-exact
-source-build-pages-provider-parity
+no immutable browser engine identity or provider manifest
+no provider fingerprint, integrity result or API-contract probe
+no timeout, retry, approved fallback or partial-set rollback
+no provider-independent bootstrap rejection surface
+no browser/headless exact-revision parity result
+no first provider-backed or provider-failure frame acknowledgement
 ```
 
 ## Delivery-completion gaps
 
 ```txt
-no mail campaign manifest or content version
-no mission, route or parcel revision
+no mail campaign manifest or mission revision
 no delivery command/result identity
-no expected-predecessor admission
 no exactly-once continuation result
 no next-parcel selection
 no route-complete or campaign-complete transition
 no durable completion-message projection
-no map or Three.js destination-marker retirement
-no first visible completion-frame acknowledgement
+no destination-marker retirement result
 ```
 
 ## Persistence gaps
@@ -99,9 +99,8 @@ no first visible completion-frame acknowledgement
 no save, restore or durable reset command
 no persistence schema version or generation
 no browser storage adapter
-no staging, readback or atomic active-pointer commit
-no migration or corrupt-record quarantine
-no multi-tab writer conflict result
+no staged write, readback or atomic active-pointer commit
+no migration, corrupt-record quarantine or multi-tab writer result
 no page-lifecycle flush result
 no first visible restored-frame acknowledgement
 ```
@@ -123,8 +122,8 @@ map heading, bounds and focus semantics remain unresolved
 
 ## Documentation state
 
-The `2026-07-13T05-19-21-04-00` runtime module/provider admission audit family is complete in the repo-local `.agent` tree. Central ledger synchronization is recorded separately.
+The `2026-07-13T09-40-27-04-00` map/world dual-surface frame-coherence audit family is complete in the repo-local `.agent` tree. Central ledger synchronization is recorded separately.
 
 ## Non-claim
 
-A pinned Three.js package URL, a mutable NexusEngine branch URL, successful module evaluation and a separate headless checkout do not prove provider immutability, integrity, compatibility, browser/headless parity, visible failure handling or reproducible runtime identity.
+Two visually functioning canvases, stable pause behavior and repeated RAF callbacks do not prove that the world and map present the same committed state, recover atomically from partial failure or expose a truthful first visible map frame.
