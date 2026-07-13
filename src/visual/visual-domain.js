@@ -14,10 +14,17 @@ import { createDistantLandmarks } from "./landscape/distant-landmark-kit.js";
 import { createHdrComposer } from "./post-process/hdr-composer-kit.js";
 import { createLensResponse } from "./camera-presentation/lens-response-kit.js";
 import { createWorldGenerationKit } from "../world/world-generation-kit.js";
+import { createWorldFeatureFoundation } from "../world/world-feature-foundation-kit.js";
 
 export const VISUAL_DOMAIN_ID = "open-above-visual-domain";
 
-export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
+export function createVisualDomain({
+  canvas,
+  worldConfig,
+  worldAnchors = {},
+  worldFeatures = null,
+  worldFoundation = null
+}) {
   const quality = detectQualityTier();
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x9fc8df);
@@ -27,13 +34,18 @@ export function createVisualDomain({ canvas, worldConfig, worldAnchors = {} }) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.physicallyCorrectLights = true;
 
-  const world = createWorldGenerationKit({
+  const generatedWorld = createWorldGenerationKit({
     worldConfig,
     legacyTerrainHeight,
     legacyMoistureAt,
     anchors: worldAnchors,
     staged: true,
     workBudget: worldConfig.generation?.workBudget
+  });
+  const world = createWorldFeatureFoundation(generatedWorld, {
+    worldConfig,
+    worldFeatures,
+    worldFoundation
   });
   const terrain = createTerrainSurface(scene, worldConfig, quality, world);
   const vegetation = createVegetationClusters(scene, worldConfig, quality, terrain.terrainHeight, world);

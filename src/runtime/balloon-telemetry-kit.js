@@ -1,6 +1,6 @@
 export const BALLOON_TELEMETRY_KIT_ID = "open-above-balloon-telemetry-kit";
 
-export function createBalloonTelemetryEngine(NexusEngine, getSnapshot) {
+export function createBalloonTelemetryEngine(NexusEngine, getSnapshot, { worldFeatures = [] } = {}) {
   const BalloonSnapshot = NexusEngine.defineResource("openAbove.balloonSnapshot");
   const BalloonTicked = NexusEngine.defineEvent("openAbove.balloonTicked");
   const VisualSnapshot = NexusEngine.defineResource("openAbove.visualSnapshot");
@@ -45,7 +45,12 @@ export function createBalloonTelemetryEngine(NexusEngine, getSnapshot) {
     }
   });
 
-  return NexusEngine.createRealtimeGame({ kits: [telemetryKit], provides: ["n:runtime.engine"] });
+  const engine = NexusEngine.createRealtimeGame({
+    kits: [NexusEngine.createCoreWorldDomain(), telemetryKit],
+    provides: ["n:runtime.engine"]
+  });
+  for (const feature of worldFeatures) engine.n.worldFeatures.registerFeature(feature);
+  return engine;
 }
 
 window.OpenAboveBalloonTelemetryKit = { id: BALLOON_TELEMETRY_KIT_ID, createBalloonTelemetryEngine };

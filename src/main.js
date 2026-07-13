@@ -1,5 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@main/src/index.js";
+import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@112de886131c00121c36f004c257bd50ff122589/src/index.js";
 import { CAMPAIGN, WORLD } from "./data/campaign.config.js";
 import { loadHotAirBalloonModel, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
 import { createBalloonSimulation } from "./runtime/balloon-simulation-kit.js";
@@ -27,7 +27,17 @@ async function createGame() {
   canvas.setAttribute("aria-busy", "true");
   const routes = createDefaultAirstreamRoutes();
   const mailRoute = createDefaultMailRoute();
-  const visual = createVisualDomain({ canvas, worldConfig: WORLD, worldAnchors: { routes, towns: mailRoute.towns } });
+  let snapshotReader = () => ({ status: "booting" });
+  const engine = createBalloonTelemetryEngine(NexusEngine, () => snapshotReader(), {
+    worldFeatures: WORLD.features?.landforms ?? []
+  });
+  const visual = createVisualDomain({
+    canvas,
+    worldConfig: WORLD,
+    worldAnchors: { routes, towns: mailRoute.towns },
+    worldFeatures: engine.n.worldFeatures,
+    worldFoundation: engine.n.worldFoundation
+  });
   const balloon = await loadHotAirBalloonModel(undefined, { yieldToFrame: true });
   visual.scene.add(balloon);
   const airstream = createAirstreamDomain({ scene: visual.scene, routes, debug: false });
@@ -79,8 +89,8 @@ async function createGame() {
       worldGeneration: visualState.worldGeneration
     }
   });
+  snapshotReader = getSnapshot;
 
-  const engine = createBalloonTelemetryEngine(NexusEngine, getSnapshot);
   let last = performance.now();
   function frame(now) {
     const frameMs = Math.max(0, Math.min(80, now - last || 16.7));

@@ -34,6 +34,38 @@ export const WORLD = Object.freeze({
     edgeBlendWidth: 600,
     edgeFloor: -120
   }),
+  features: Object.freeze({
+    landforms: Object.freeze([
+      Object.freeze({
+        id: "northern-wall",
+        type: "mountain",
+        seed: "open-above-northern-wall",
+        priority: 10,
+        definition: Object.freeze({
+          path: Object.freeze([
+            Object.freeze({ x: -5200, z: 4900 }),
+            Object.freeze({ x: 0, z: 5500 }),
+            Object.freeze({ x: 5000, z: 4700 })
+          ]),
+          width: 2000,
+          height: 500,
+          sharpness: 2.8,
+          variation: 0,
+          cliffThreshold: 0.68,
+          materialZones: Object.freeze([
+            Object.freeze({ id: "mountain-rock", minimumHeight: 180 }),
+            Object.freeze({ id: "mountain-summit", minimumHeight: 390 })
+          ])
+        }),
+        fidelity: Object.freeze({
+          near: "feature-mesh",
+          middle: "foundation-field",
+          far: "silhouette",
+          collision: "foundation"
+        })
+      })
+    ])
+  }),
   terrainSize: 2400,
   terrainSegments: 128,
   treeCount: 360,
