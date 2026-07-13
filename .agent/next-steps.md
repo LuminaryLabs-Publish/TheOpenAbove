@@ -1,130 +1,115 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-13T05-19-21-04-00`
+**Last aligned:** `2026-07-13T09-40-27-04-00`
 
 ## Plan ledger
 
-**Goal:** replace implicit static-provider trust with one immutable provider manifest, provider-set admission result, provider-independent failure shell and browser/headless/build/Pages parity proof.
+**Goal:** replace independent live-state rendering with one immutable world/map frame envelope, typed projection results, transition generations, partial-frame recovery and visible acknowledgements.
 
-### Gate 1: freeze provider identity
+### Gate 1: revision authoritative state
 
-- [ ] Add `open-above-runtime-module-provider-admission-authority-domain`.
-- [ ] Define a versioned runtime-provider manifest.
-- [ ] Replace the NexusEngine `@main` browser reference with an immutable commit or release identity.
-- [ ] Record exact Three.js source identity and approved content fingerprint policy.
-- [ ] Make the same NexusEngine revision available to browser and headless validation.
+- [ ] Add monotonic flight-state and mail-state revisions.
+- [ ] Add a runtime-session and simulation-generation identity.
+- [ ] Capture a detached `DualSurfaceFrameEnvelope` at one admitted boundary.
+- [ ] Fingerprint the envelope and prevent renderer mutation.
 
-### Gate 2: create a provider-independent bootstrap shell
+### Gate 2: admit map visibility transitions
 
-- [ ] Move provider resolution behind a bootstrap module that imports no Three.js or NexusEngine code.
-- [ ] Keep loading, rejection and fallback UI entirely provider-independent.
-- [ ] Add bounded timeout and explicit retry policy.
-- [ ] Preserve the current HTML error surface and accessibility semantics.
+- [ ] Add `SetMapVisibilityCommand` and command IDs.
+- [ ] Add expected `MapTransitionGeneration`.
+- [ ] Represent Closed, Opening, Open, Closing, Failed and Retired explicitly.
+- [ ] Reject stale, duplicate and retired commands with zero DOM or scheduler mutation.
 
-### Gate 3: verify providers before adoption
+### Gate 3: separate projection from truth
 
-- [ ] Validate manifest schema and immutable source identities.
-- [ ] Verify content fingerprints or an explicit integrity policy.
-- [ ] Validate module MIME/evaluation outcome.
-- [ ] Validate required exports.
-- [ ] Probe the NexusEngine API contract without mutating gameplay.
-- [ ] Reject partial provider sets.
+- [ ] Make world and map renderers consume the same envelope.
+- [ ] Remove live simulation and parcel getters from map drawing.
+- [ ] Return typed `WorldProjectionResult` and `MapProjectionResult`.
+- [ ] Record viewport, surface and render generations.
 
-### Gate 4: commit one provider generation
+### Gate 4: commit required surfaces
 
-- [ ] Add command ID, runtime-session ID and expected provider generation.
-- [ ] Add provider IDs, source revisions and fingerprints.
-- [ ] Atomically commit one provider-set generation.
-- [ ] Publish `RuntimeProviderAdmissionResult`.
-- [ ] Return the prior result for duplicate command IDs.
-- [ ] Reject stale expected generations with zero gameplay mutation.
+- [ ] Add one `DualSurfaceCommitId`.
+- [ ] Require world-only completion while the map is closed.
+- [ ] Require matching world and map projections while the map is open.
+- [ ] Classify Complete, Partial, Failed, Stale, Superseded and Cancelled.
+- [ ] Preserve the last complete frame on partial failure.
 
-### Gate 5: compose runtime only after acceptance
+### Gate 5: first visible map frame
 
-- [ ] Create visual, simulation, airstream, mail, map and telemetry owners only after provider acceptance.
-- [ ] Prevent partially constructed owner graphs from becoming public.
-- [ ] Publish provider identity through telemetry and `GameHost` as detached readback.
-- [ ] Keep raw provider objects behind an explicit capability boundary.
+- [ ] Do not report map-open acceptance from the CSS class alone.
+- [ ] Prepare or draw the accepted first map frame before visible success.
+- [ ] Add `FirstCoherentMapFrameAck`.
+- [ ] Correlate the acknowledgement with frame envelope and transition generation.
+- [ ] Preserve current focus and accessibility semantics.
 
-### Gate 6: visible proof
+### Gate 6: scheduler and lifecycle fencing
 
-- [ ] Add provider loading, accepted, rejected and fallback-selected projections.
-- [ ] Add first provider-backed visible-frame acknowledgement.
-- [ ] Add first provider-failure visible-frame acknowledgement.
-- [ ] Correlate each visible frame with provider-set generation and result ID.
+- [ ] Give world and map RAF chains explicit scheduler generations.
+- [ ] Reject stale callbacks after rapid open/close transitions.
+- [ ] Retire callbacks, observers and listeners exactly once.
+- [ ] Integrate terminal host lifecycle and BFCache policy.
 
-### Gate 7: deployment parity
+### Gate 7: public evidence
 
-- [ ] Make the Pages workflow checkout the exact manifest NexusEngine revision.
-- [ ] Validate the browser artifact references the same provider identity.
-- [ ] Inspect `dist` for mutable provider references.
-- [ ] Publish a provider manifest with the Pages artifact.
-- [ ] Compare source, headless, build and live Pages receipts.
+- [ ] Publish detached dual-surface receipts through telemetry.
+- [ ] Replace raw mutable surface readback with bounded `GameHost` observations.
+- [ ] Add a bounded frame journal.
+- [ ] Include map marker and world render fingerprints.
 
 ### Gate 8: proof
 
-- [ ] Add mutable-branch rejection fixture.
-- [ ] Add exact-revision acceptance fixture.
-- [ ] Add fingerprint mismatch fixture.
-- [ ] Add missing-export and API-drift fixtures.
-- [ ] Add timeout and provider-unavailable fixtures.
-- [ ] Add partial-set rollback fixture.
-- [ ] Add duplicate/stale command fixtures.
-- [ ] Add browser/headless revision parity fixture.
-- [ ] Add provider-independent failure UI fixture.
-- [ ] Add first-visible-provider-frame fixture.
-- [ ] Add source/build/Pages parity fixture.
+- [ ] Add immutable envelope and duplicate/stale pure-domain fixtures.
+- [ ] Add first-map-frame-not-blank browser fixture.
+- [ ] Add player and destination marker revision fixtures.
+- [ ] Add rapid M/Escape stale-callback fixture.
+- [ ] Add resize-generation fixture.
+- [ ] Add partial map/world failure recovery fixtures.
+- [ ] Add source, dist and Pages parity fixtures.
 
 ## Implementation order
 
 ```txt
-1. provider manifest and immutable identities
-2. provider-independent bootstrap shell
-3. source resolution and bounded timeout
-4. fingerprint/integrity verification
-5. export and API-contract probes
-6. provider-set generation and typed result
-7. accepted-owner composition
-8. telemetry and GameHost receipts
-9. provider-independent failure projection
-10. browser/headless/build/Pages parity
-11. first visible frame acknowledgements
-12. pure, browser, build and Pages fixtures
+1. flight/mail revisions and immutable frame envelope
+2. map transition command and generation
+3. projection commands and results
+4. required-surface commit policy
+5. first coherent map frame acknowledgement
+6. scheduler and lifecycle fencing
+7. telemetry and GameHost receipts
+8. pure/browser/build/Pages fixtures
 ```
 
 ## Recommended file cut
 
 ```txt
-src/bootstrap/
-  runtime-provider-manifest.js
-  provider-resolution-command.js
-  provider-verification.js
-  provider-admission-result.js
-  provider-independent-shell.js
+src/runtime/presentation/
+  dual-surface-frame-envelope-kit.js
+  map-world-dual-surface-frame-coherence-authority-domain.js
+  dual-surface-commit-kit.js
+  partial-frame-recovery-kit.js
 
-src/runtime/provider-admission/
-  runtime-module-provider-admission-authority-domain.js
-  provider-set-generation-kit.js
-  provider-api-contract-kit.js
-  provider-parity-kit.js
-  provider-telemetry-receipt-kit.js
+src/ui/
+  parchment-map-overlay.js
+  map-open-transition-kit.js
+  map-projection-result-kit.js
+
+src/visual/
+  world-projection-result-kit.js
 
 src/main.js
-  consume accepted provider set instead of static remote imports
-
-.github/workflows/deploy-pages.yml
-  checkout and validate the exact manifest NexusEngine revision
+  capture and submit one immutable frame envelope
 
 tests/
-  provider-admission.mjs
-  provider-failure-browser.mjs
-  provider-parity.mjs
+  dual-surface-frame-domain.mjs
+  map-first-frame.browser.mjs
+  map-world-parity.browser.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve current Three.js version, controls, Air Mail gameplay, world generation, visual quality, map behavior and telemetry schema during the first provider-admission cut. Do not combine provider admission with delivery-completion or persistence implementation.
+Preserve current controls, map art, pause behavior, Air Mail route, Three.js version, visual quality and telemetry schema during the first authority cut. Do not combine this work with provider admission, delivery progression or persistence implementation.
 
 ## Current documentation state
 
-Repo-local documentation is aligned through the `2026-07-13T05-19-21-04-00` runtime module/provider admission audit family. Runtime implementation and executable proof remain open.
+Repo-local documentation is aligned through the `2026-07-13T09-40-27-04-00` map/world dual-surface frame-coherence audit family.
