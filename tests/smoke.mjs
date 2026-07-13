@@ -12,6 +12,7 @@ const requiredFiles = [
   "src/ui/parchment-map-overlay.js",
   "src/data/campaign.config.js",
   "src/world/world-generation-kit.js",
+  "src/world/world-generation-support.js",
   "src/balloon-envelope-profile-kit.js",
   "src/balloon-envelope-panel-kit.js",
   "src/balloon-mouth-kit.js",
@@ -210,8 +211,9 @@ assert.match(visualDomain, /flowers\.update\(elapsed, camera\)/);
 assert.match(visualDomain, /worldAnchors/);
 
 const worldGeneration = readFileSync("src/world/world-generation-kit.js", "utf8");
-assert.match(worldGeneration, /WORLD_GRID_SIZE = 257/);
-assert.match(worldGeneration, /WORLD_FEATURE_CELL_SIZE = 2080/);
+const worldGenerationSupport = readFileSync("src/world/world-generation-support.js", "utf8");
+assert.match(worldGenerationSupport, /WORLD_GRID_SIZE = 257/);
+assert.match(worldGenerationSupport, /WORLD_FEATURE_CELL_SIZE = 2080/);
 assert.match(worldGeneration, /sampleHeight/);
 assert.match(worldGeneration, /sampleFlora/);
 assert.match(worldGeneration, /sampleMapColor/);
