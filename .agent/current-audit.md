@@ -1,55 +1,60 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-13T00-00-02-04-00`  
-**Status:** `air-mail-session-persistence-central-reconciled`  
+**Last aligned:** `2026-07-13T02-18-03-04-00`  
+**Status:** `air-mail-delivery-completion-lifecycle-authority-audited`  
 **Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
 
 ## Summary
 
-TheOpenAbove has no executable persistence authority. Browser boot constructs a new default mail route, a fresh parcel and a fresh balloon simulation. Gameplay mutates those owners only in memory, and reload or navigation discards all flight and delivery progress.
+The Air Mail runtime can commit one parcel-delivery mutation, but it has no authoritative completion lifecycle. The accepted event is transient, the confirmation message is overwritten on the next flight update, the delivered town remains marked as the active destination, and no next parcel, route completion, campaign completion or safe reset transition exists.
 
 ## Plan ledger
 
-**Goal:** define one atomic and durable save/restore authority for Air Mail progress while preserving existing domain ownership.
+**Goal:** define one revisioned completion transaction across parcel truth, mission progression, message projection, map/town presentation, telemetry and the first visible completion frame.
 
 - [x] Compare the complete Publish inventory against central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` for reconciliation.
-- [x] Trace boot, flight, airstream, mail, telemetry, map and render paths.
+- [x] Select only `TheOpenAbove`, the oldest eligible central entry.
+- [x] Trace the complete browser, flight, airstream, mail, map, town-marker, telemetry and proof paths.
 - [x] Preserve all active domains and all kit/service mappings.
-- [x] Define save, restore, reset, migration, conflict and visible-frame contracts.
+- [x] Define parcel, route and campaign completion contracts.
 - [x] Add the current timestamped tracker and audit family.
-- [x] Synchronize central tracking.
-- [ ] Implement and execute persistence fixtures.
+- [x] Change no runtime source, dependency, package script or workflow.
+- [x] Push only to `main`; create no branch or pull request.
+- [ ] Implement and execute completion-lifecycle fixtures.
 
 ## Complete interaction loop
 
 ```txt
 browser boot
-  -> default routes
-  -> deterministic visual world
-  -> fresh mail parcel
-  -> fresh balloon simulation at [0, 105, 0]
-  -> map, camera, presentation and telemetry
-  -> GameHost and RAF
+  -> default airstream routes
+  -> default mail route
+  -> one active parcel for Brookhaven
+  -> three town visuals
+  -> balloon simulation, map, camera, visual domain and telemetry
 
 running frame
-  -> keyboard-held state
-  -> balloon integration
+  -> balloon simulation update
   -> airstream sample and force
-  -> parcel delivery update
-  -> camera/world/telemetry/map projection
+  -> delivery-volume/progress update
+  -> town marker update
+  -> balloon/camera/world update
+  -> Nexus telemetry tick
   -> render
 
-lifecycle end
-  -> no save command
-  -> no durable write or readback verification
-  -> no lifecycle flush result
+accepted delivery frame
+  -> parcel becomes delivered
+  -> mail-delivered event returned once
+  -> host copies parcel message into simulation message
+  -> render
 
-next boot
-  -> defaults recreated
-  -> no restore generation or restored-frame acknowledgement
+next frame
+  -> simulation overwrites message with current guidance
+  -> mail update returns null
+  -> destinationTownId remains Brookhaven
+  -> map and town marker remain active
+  -> no successor mission or terminal state
 ```
 
 ## Domains in use
@@ -60,14 +65,13 @@ runtime boot, input, RAF, session and telemetry
 Nexus resources, events and journals
 balloon motion, steering, burner, vent, heading, altitude, elapsed and distance
 airstream routes, sampling, field, force, visuals and debug
-mail parcel, route, towns, volumes, progress and reset
+mail parcel, route, towns, volumes, progress, reset and missing completion lifecycle
 seeded world generation, membership, erosion, climate, biome and flora
 near/horizon terrain streaming and disposal
 vegetation, grass and flowers, exclusions, chunks, LOD, culling and wind
 balloon geometry, materials, rigging, secondary motion, camera and clipping
 quality, dynamic resolution, sky, sun, aerial perspective, clouds, water, HDR and lens
 parchment-map projection, headless proof, tests, build and Pages
-missing persistence identity, durable commit, restore, migration, conflict and proof
 ```
 
 ## Kit census
@@ -81,7 +85,7 @@ tooling/proof: 4
 active source-backed total: 68
 runtime-implied adapters: 12
 inactive/retired legacy: 12
-planned persistence authority including parent: 22
+planned completion authority including parent: 21
 ```
 
 ## Implemented kits
@@ -195,68 +199,99 @@ open-above-pages-deploy-kit
 
 ```txt
 runtime/gameplay:
-  flight input/integration and telemetry publication
-  airstream route/field/force/visual/debug
-  mail parcel/route/town/volume/progress/reset
+  flight input and integration
+  Nexus telemetry resource/event publication
+  airstream route, field, sample, force, visuals and diagnostics
+  mail parcel, route, town, volume, progress, snapshot, direct reset and disposal
 
 balloon/object/presentation:
-  procedural construction, deferred loading and GPU ownership
-  materials, rigging, burner, ropes, secondary motion, camera and clipping
+  procedural envelope, basket, burner, rope and rigging construction
+  deferred loading and persistent GPU ownership
+  materials, secondary motion, camera, clipping and animation
 
 world/environment:
-  world-grid generation, anchors, erosion, flow, climate, biome and membership
+  seeded world-grid generation and membership
+  protected anchors, erosion, flow, climate, biome and flora
   near/horizon terrain streaming and disposal
-  vegetation, grass and flowers, deterministic chunks, LOD, culling and wind
+  vegetation, grass and flower chunks, LOD, culling and wind
   quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
 
 UI/tooling:
-  parchment-map lifecycle and projection
-  headless inspection, source/static checks, domain tests, build and Pages adaptation
+  parchment-map lifecycle and world/route/town/player projection
+  headless inspection and renderer validation
+  source/static, route/mail and world/flora checks
+  build and Pages adaptation
 ```
 
 ## Source-backed findings
 
 ```txt
-fresh default route every boot: confirmed
-fresh default parcel every boot: confirmed
-fresh balloon state at [0,105,0]: confirmed
-flight and mail mutation are memory-only: confirmed
-balloon snapshot exists: confirmed
-mail snapshot/reset exist: confirmed
-balloon/mail restore transaction: absent
-persistence domain and storage adapter: absent
-schema, generation and fingerprint: absent
-migration, quarantine and writer-conflict result: absent
-lifecycle flush result: absent
-first restored-frame acknowledgement: absent
+one default route object: confirmed
+three town definitions: confirmed
+one active parcel definition: confirmed
+one correct-current field: confirmed
+one-shot mail-delivered event: confirmed
+parcel delivered mutation persists in memory: confirmed
+mail-domain reset helper: confirmed
+host use of reset helper: absent
+next-parcel selection: absent
+route-complete state/result: absent
+campaign-complete state/result: absent
+mission revision and expected predecessor: absent
+completion result identity: absent
+completion message lifetime: absent
+map marker retirement: absent
+town marker retirement: absent
+first visible completion frame acknowledgement: absent
+```
+
+## Concrete presentation divergence
+
+```txt
+accepted parcel state: delivered
+mail snapshot message: Mail delivered to Brookhaven.
+flight message one frame later: Riding <route>... or Between currents...
+map active destination: Brookhaven
+Three.js active marker: Brookhaven
+next objective: none
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-flight-session-persistence-authority-domain
+open-above-mail-delivery-completion-lifecycle-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-SaveSessionCommand
-  -> validate runtime, writer and predecessor
-  -> collect detached participant snapshots
-  -> canonicalize, validate and fingerprint
-  -> stage and readback-verify
-  -> atomically promote the active generation
-  -> publish SaveCommitResult
-
-RestoreSessionCommand
-  -> verify active generation or bounded backup
-  -> migrate or quarantine
-  -> prepare every participant candidate off-line
-  -> atomically install one generation
-  -> publish RestoreCommitResult
+CompleteDeliveryCommand
+  -> validate runtime, mission, route, parcel and predecessor revisions
+  -> validate immutable volume/current evidence
+  -> commit parcel completion exactly once
+  -> increment mission revision
+  -> select next-parcel, route-complete or campaign-complete policy
+  -> commit completion message and destination projection
+  -> publish DeliveryCompletionResult
+  -> publish map, town, telemetry and GameHost receipts
   -> acknowledge the first matching visible frame
+```
+
+## Retained architecture priorities
+
+```txt
+flight-session persistence and restore authority
+immutable runtime/module admission
+session, listener, frame and failure ownership
+fixed-step clock and sequenced input
+telemetry snapshot immutability
+world identity and flight membership
+terrain and vegetation aggregate adoption
+flora exclusion coherence
+HDR surface coherence
+map spatial navigation and accessibility
 ```
 
 ## Validation boundary
 
-Documentation only. No runtime source, dependency, package script, gameplay, rendering or deployment workflow changed. No persistence fixture was run.
+Documentation only. No runtime completion, continuation, reset, map/town projection or visible-frame fixture was executed.
