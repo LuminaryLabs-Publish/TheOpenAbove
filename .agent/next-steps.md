@@ -1,107 +1,128 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-13T00-00-02-04-00`
+**Last aligned:** `2026-07-13T02-18-03-04-00`
 
 ## Plan ledger
 
-**Goal:** implement a verified, revisioned save/restore boundary for flight and mail progress without hiding browser durability inside gameplay kits or regressing simulation and rendering.
+**Goal:** implement an exactly-once Air Mail completion lifecycle that advances parcel, route and campaign truth while keeping message, map, town-marker, telemetry and visible-frame projections coherent.
 
 ### Gate 1: preserve upstream authority
+
 - [ ] Pin Nexus Engine to an immutable revision.
 - [ ] Establish one runtime session, lifecycle and frame owner.
 - [ ] Add fixed-step input/simulation admission.
 - [ ] Make telemetry snapshots and public readback immutable.
+- [ ] Preserve the separate flight-session persistence authority.
 
-### Gate 2: define portable participant contracts
-- [ ] Add `open-above-flight-session-persistence-authority-domain`.
-- [ ] Add detached balloon, mail, airstream and compatibility snapshot/load-candidate adapters.
-- [ ] Define schema `open-above-session-save/1`.
-- [ ] Validate finite vectors, bounded scalars, route references and delivery invariants.
-- [ ] Bind candidates to runtime, world, route and participant revisions.
+### Gate 2: define mail campaign content and state
 
-### Gate 3: implement durable save commit
-- [ ] Add command ID, save ID, writer ID and persistence generation.
-- [ ] Canonicalize field order and calculate a deterministic fingerprint.
-- [ ] Write to a staging generation.
-- [ ] Read back and verify exact bytes, schema and fingerprint.
-- [ ] Compare the expected active predecessor and writer lease.
-- [ ] Atomically promote the verified active generation.
-- [ ] Retain one bounded verified backup.
-- [ ] Publish `SaveCommitResult` only after durable verification.
+- [ ] Add `open-above-mail-delivery-completion-lifecycle-authority-domain`.
+- [ ] Define a versioned Air Mail campaign manifest.
+- [ ] Make parcel-to-route, route-to-town and route-to-airstream references explicit.
+- [ ] Define campaign, route, mission and parcel revisions.
+- [ ] Define parcel phases: `in-transit`, `delivery-candidate`, `delivered`.
+- [ ] Define continuation outcomes: `next-parcel`, `route-complete`, `next-route`, `campaign-complete`.
 
-### Gate 4: implement atomic restore
-- [ ] Resolve the active generation, then verified backup only when required.
-- [ ] Migrate supported predecessor schemas.
-- [ ] Quarantine corrupt, incompatible or unsupported records.
-- [ ] Prepare all participant candidates outside live ownership.
-- [ ] Suspend input and ticks during installation.
-- [ ] Install all participants atomically or preserve the predecessor.
-- [ ] Publish `RestoreCommitResult` and a first-restored-frame acknowledgement.
+### Gate 3: admit delivery exactly once
 
-### Gate 5: lifecycle, reset and conflicts
-- [ ] Add bounded save, restore and reset commands to `GameHost`.
-- [ ] Add explicit autosave, delivery and lifecycle policies.
-- [ ] Never claim page-lifecycle success without verified durable completion.
-- [ ] Add multi-tab writer identity and expected-predecessor conflict handling.
-- [ ] Make reset converge live and durable generations.
+- [ ] Add command ID, delivery-attempt ID and runtime-session ID.
+- [ ] Capture immutable position, volume and current evidence.
+- [ ] Validate the expected mission predecessor.
+- [ ] Validate route, parcel and destination identity.
+- [ ] Apply route policy for required-current evidence.
+- [ ] Cache and return the prior result for duplicate command IDs.
+- [ ] Reject stale attempts with zero mutation.
+- [ ] Commit parcel and mission successor state atomically.
+- [ ] Publish `DeliveryCompletionResult`.
 
-### Gate 6: proof
-- [ ] Add canonicalization, fingerprint, migration and quarantine unit fixtures.
-- [ ] Add browser save/reload/restore and multi-tab fixtures.
-- [ ] Prove delivered mail remains delivered after reload.
-- [ ] Prove mid-flight position, elapsed and distance restore consistently.
-- [ ] Prove partial restore never reaches a visible frame.
-- [ ] Prove source, build and Pages parity.
+### Gate 4: make continuation explicit
+
+- [ ] Add deterministic next-parcel selection.
+- [ ] Add route-complete and campaign-complete transitions.
+- [ ] Define behavior when the current manifest has no successor parcel.
+- [ ] Keep reset and replay as explicit commands with expected-predecessor validation.
+- [ ] Never call the low-level parcel-reset helper as an implicit continuation.
+
+### Gate 5: synchronize projections
+
+- [ ] Move completion messaging out of the per-frame flight guidance field.
+- [ ] Define message priority, lifetime and acknowledgement policy.
+- [ ] Retire or replace the map destination marker after delivery.
+- [ ] Retire or replace the Three.js town-marker emphasis after delivery.
+- [ ] Publish mission and projection revisions through telemetry and `GameHost`.
+- [ ] Add consumer receipts for map, town, message and telemetry projections.
+- [ ] Add first-visible-completion-frame acknowledgement.
+
+### Gate 6: connect persistence
+
+- [ ] Persist the admitted mail progression aggregate through the flight-session persistence authority.
+- [ ] Restore active parcel, completed parcels, route phase and campaign phase atomically.
+- [ ] Validate manifest compatibility during restore.
+- [ ] Prove delivered state and successor objectives survive reload.
+
+### Gate 7: proof
+
+- [ ] Add manifest and reference-validation fixtures.
+- [ ] Add exactly-once, duplicate and stale-attempt fixtures.
+- [ ] Add next-parcel, route-complete and campaign-complete fixtures.
+- [ ] Add completion-message and marker-retirement browser fixtures.
+- [ ] Add reset and replay fixtures.
+- [ ] Add first-visible-completion-frame fixture.
+- [ ] Add source, build and Pages parity fixtures.
 
 ## Implementation order
 
 ```txt
-1. participant snapshot/load-candidate adapters
-2. schema and validation
-3. command/session/save/generation identities
-4. canonicalization and content fingerprint
-5. browser storage staging and readback verification
-6. active-pointer and backup commit
-7. detached restore preparation and atomic installation
-8. migration and quarantine
-9. writer conflicts, lifecycle and reset
-10. bounded GameHost surface
-11. visible restored-frame acknowledgement
-12. pure/browser/build/Pages fixtures
+1. campaign manifest and aggregate schema
+2. mission, route and parcel revisions
+3. command, attempt and result identities
+4. delivery evidence and admission
+5. atomic successor commit
+6. continuation policy
+7. message, map and town-marker projection adapters
+8. telemetry and GameHost receipts
+9. reset and replay commands
+10. persistence participant adapter
+11. first visible completion frame acknowledgement
+12. pure, browser, build and Pages fixtures
 ```
 
 ## Recommended file cut
 
 ```txt
-src/runtime/persistence/
-  flight-session-persistence-authority-domain.js
-  persistence-schema-kit.js
-  persistence-canonicalization-kit.js
-  persistence-fingerprint-kit.js
-  browser-storage-adapter-kit.js
-  persistence-commit-kit.js
-  persistence-restore-kit.js
-  persistence-migration-kit.js
-  persistence-quarantine-kit.js
-  persistence-conflict-kit.js
-
-src/runtime/balloon-simulation-kit.js
-  detached snapshot/load-candidate adapters
+src/gameplay/mail-progression/
+  mail-delivery-completion-lifecycle-authority-domain.js
+  mail-campaign-manifest-kit.js
+  mail-mission-state-kit.js
+  delivery-command-envelope-kit.js
+  delivery-evidence-kit.js
+  delivery-admission-kit.js
+  delivery-result-kit.js
+  mail-continuation-policy-kit.js
+  destination-projection-kit.js
+  delivery-reset-command-kit.js
+  delivery-journal-kit.js
 
 src/gameplay/mail-delivery-domain/
-  detached snapshot/load-candidate adapters
+  adapt existing route, parcel, volume, progress and town services
+
+src/ui/parchment-map-overlay.js
+  consume committed destination projection
+
+src/main.js
+  compose authority and projection receipts
 
 tests/
-  session-persistence.mjs
-  session-persistence-migration.mjs
-  session-persistence-corruption.mjs
-  session-persistence-browser.mjs
+  mail-campaign-manifest.mjs
+  mail-delivery-completion.mjs
+  mail-delivery-browser.mjs
+  mail-delivery-replay.mjs
 ```
 
-## Compatibility constraint
+## Compatibility constraints
 
-Preserve current controls, route data, parcel fields, map projection and telemetry field shapes during the first persistence cut.
+Preserve current controls, route geometry, town locations, parcel field names, map visual style, airstream sampling and balloon-flight behavior during the first completion-lifecycle cut.
 
-## Central reconciliation state
+## Current documentation state
 
-Repo-local and central documentation are synchronized through the `2026-07-13T00-00-02-04-00` audit family.
+Repo-local documentation is aligned through the `2026-07-13T02-18-03-04-00` delivery-completion audit family. Runtime implementation and executable proof remain open.
