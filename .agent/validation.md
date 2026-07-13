@@ -21,6 +21,7 @@ Documentation-only reconciliation of telemetry snapshot construction, Nexus reso
 - [x] Confirm no snapshot ID, fingerprint, freeze, clone or visible acknowledgement exists.
 - [x] Preserve all 68 active source-backed kits and offered services.
 - [x] Add tracker, turn ledger and complete reconciliation audit family.
+- [x] Refresh the central ledger and paired internal change-log record in this run.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
@@ -127,7 +128,8 @@ deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger/change log: pending final repo documentation head capture
+central ledger changed: yes
+central internal change log added: yes
 ```
 
 ## Completion boundary
