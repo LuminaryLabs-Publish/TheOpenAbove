@@ -1,129 +1,116 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-13T09-40-27-04-00`
+**Last aligned:** `2026-07-13T13-39-10-04-00`
 
 ## Primary ordered gaps
 
 ```txt
-1. map/world dual-surface frame coherence and visible map-open acceptance
-2. runtime module/provider admission and immutable source identity
-3. session, listener, frame and failure ownership
-4. fixed-step clock and sequenced input
-5. Air Mail delivery completion lifecycle and mission progression
-6. flight/mail session persistence and restore authority
-7. telemetry snapshot immutability and public readback isolation
-8. procedural world identity and flight membership provenance
-9. terrain streaming aggregate ownership and rollback
-10. vegetation spatial coverage, adoption and disposal
-11. flora exclusion artifact coherence
-12. HDR surface and visible-frame coherence
-13. parchment-map spatial navigation and accessibility
+1. staged world-generation scheduler and consumer adoption authority
+2. map/world dual-surface frame coherence and visible map-open acceptance
+3. runtime module/provider admission and immutable source identity
+4. session, listener, frame and failure ownership
+5. fixed-step clock and sequenced input
+6. Air Mail delivery completion lifecycle and mission progression
+7. flight/mail session persistence and restore authority
+8. telemetry snapshot immutability and public readback isolation
+9. procedural world identity and flight membership provenance
+10. terrain streaming aggregate ownership and rollback
+11. vegetation spatial coverage, adoption and disposal
+12. flora exclusion artifact coherence
+13. HDR surface and visible-frame coherence
+14. parchment-map spatial navigation and accessibility
 ```
 
-## Dual-surface frame-coherence gaps
+## Staged world-generation gaps
 
 ```txt
-world and map use independent recursive RAF chains
-map visibility becomes true before its first matching map draw is proven
-map draw reads mutable simulation state through a live getter
-map draw reads mutable parcel state through a live getter
-no FlightStateRevision
-no MailStateRevision
+generation advancement is coupled to visual.update
+generation receives no work while the map is open
+work budget is unit-count only and has no elapsed-time receipt
+completed candidate arrays are installed before consumer adoption is proven
+ready listeners directly refresh vegetation, grass and flowers
+terrain refresh and chunk rebuild are synchronous
+local grass and flower rebuilds are synchronous
+map cache adoption is lazy and separate
+no consumer registry or dependency order
+no per-consumer prepare result
+no adoption plan or commit ID
+no rollback after listener or rebuild failure
+no first visible adopted-world acknowledgement
+no active-versus-visible revision readback
+no consumer adoption frame-time budget
+```
+
+## Concrete failure risks
+
+```txt
+map-open can stall generation indefinitely
+completion can produce one large rebuild frame
+listener failure can mark generation failed after successor sampling is active
+some consumers can be cleared while others remain predecessor state
+map cache can remain on predecessor revision until a later draw
+public diagnostics cannot prove which world revision was fully visible
+```
+
+## Proof gaps
+
+```txt
+tests/world-generation.mjs is not invoked by npm run check
+headless:world checks source markers then runs the unrelated check chain
+no browser map-open progress fixture
+no consumer-failure injection fixture
+no completion-frame budget fixture
+no visible sampling/terrain/vegetation/flora/map parity fixture
+no built-dist or Pages staged-generation fixture
+```
+
+## Required staged-generation fixtures
+
+```txt
+identical-seed-output
+staged-equals-synchronous
+first-frame-fallback
+phase-order-monotonic-progress
+map-open-progress-continues
+reset-retains-predecessor
+stale-attempt-rejected
+consumer-prepare-dependency-order
+consumer-failure-preserves-predecessor
+partial-successor-disposal
+atomic-adoption-commit
+first-visible-adopted-world-revision
+source-dist-pages-parity
+```
+
+## Retained dual-surface gaps
+
+```txt
+world and map use independent RAF chains
+map visibility precedes first matching map draw proof
+map projection reads live simulation and parcel getters
 no immutable DualSurfaceFrameEnvelope
-no MapTransitionGeneration
-no WorldProjectionResult
-no MapProjectionResult
-no DualSurfaceCommitId or terminal commit result
-no partial-frame recovery result
-no stale map-callback rejection receipt
-no first coherent visible map frame acknowledgement
-no map marker fingerprint
-no world/map pair in telemetry or GameHost readback
-no browser, dist or Pages dual-surface fixtures
+no typed world/map projection and common commit result
+no partial-frame recovery or first coherent map frame acknowledgement
 ```
 
-## Concrete visible risks
+## Retained provider, persistence and architecture gaps
 
 ```txt
-map overlay can expose blank or predecessor canvas pixels for its first visible frame
-player marker can cite a different logical instant than the world frame
-mail destination marker has no source revision
-rapid map open/close can leave unproven callback ordering
-world render success can coexist with map projection failure without a common result
-public diagnostics cannot prove which surface pair was visible
-```
-
-## Required dual-surface fixtures
-
-```txt
-immutable-frame-envelope-fingerprint
-same-envelope-world-map-projection
-open-map-first-frame-not-blank
-open-map-player-marker-current
-open-map-destination-marker-current
-rapid-open-close-stale-callback-rejected
-map-resize-revision-admitted
-map-projection-failure-preserves-predecessor
-world-projection-failure-preserves-predecessor
-GameHost-readback-cites-dual-surface-commit
-source-dist-pages-dual-surface-parity
-```
-
-## Runtime provider-admission gaps
-
-```txt
-NexusEngine browser source uses mutable @main
-no immutable browser engine identity or provider manifest
-no provider fingerprint, integrity result or API-contract probe
-no timeout, retry, approved fallback or partial-set rollback
-no provider-independent bootstrap rejection surface
-no browser/headless exact-revision parity result
-no first provider-backed or provider-failure frame acknowledgement
-```
-
-## Delivery-completion gaps
-
-```txt
-no mail campaign manifest or mission revision
-no delivery command/result identity
-no exactly-once continuation result
-no next-parcel selection
-no route-complete or campaign-complete transition
-no durable completion-message projection
-no destination-marker retirement result
-```
-
-## Persistence gaps
-
-```txt
-no save, restore or durable reset command
-no persistence schema version or generation
-no browser storage adapter
-no staged write, readback or atomic active-pointer commit
-no migration, corrupt-record quarantine or multi-tab writer result
-no page-lifecycle flush result
-no first visible restored-frame acknowledgement
-```
-
-## Retained architecture gaps
-
-```txt
+NexusEngine browser source remains mutable @main
+no immutable provider manifest, integrity result or browser/headless parity
+no durable save/restore/reset authority or page-lifecycle flush
 no unified runtime session owns RAF, listeners and teardown
 simulation remains variable-step at the host boundary
-telemetry resources and journals retain mutable references
-no immutable WorldGridArtifact with complete consumer receipts
+telemetry resources retain mutable references
 flight does not admit bounded-world membership
-terrain generations lack atomic aggregate adoption
-vegetation remains boot-time and centrally bounded
-flora chunks lack one shared exclusion artifact revision
-HDR attachments and visible-frame receipts remain incomplete
-map heading, bounds and focus semantics remain unresolved
+terrain and vegetation generations lack aggregate rollback
+HDR and map visible-frame receipts remain incomplete
 ```
 
 ## Documentation state
 
-The `2026-07-13T09-40-27-04-00` map/world dual-surface frame-coherence audit family is complete in the repo-local `.agent` tree. Central ledger synchronization is recorded separately.
+The `2026-07-13T13-39-10-04-00` staged world-generation scheduler/adoption audit family is current. Central synchronization is recorded separately.
 
 ## Non-claim
 
-Two visually functioning canvases, stable pause behavior and repeated RAF callbacks do not prove that the world and map present the same committed state, recover atomically from partial failure or expose a truthful first visible map frame.
+A deterministic core candidate, monotonic progress and a normal-path same-callback rebuild do not prove continuous scheduling, bounded adoption cost, failure rollback or one visibly coherent successor world.
