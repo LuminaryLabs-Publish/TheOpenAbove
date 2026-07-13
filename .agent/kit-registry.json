@@ -1,20 +1,23 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-13T05-19-21-04-00",
-  "status": "runtime-module-provider-admission-authority-audited",
-  "repositoryRuntimeRevisionReviewed": "030b16d41f95e47a4a07022fdfcd16bde2381a05",
-  "latestTracker": ".agent/trackers/2026-07-13T05-19-21-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T05-19-21-04-00.md",
+  "lastAligned": "2026-07-13T13-39-10-04-00",
+  "status": "staged-world-generation-scheduler-adoption-authority-audited",
+  "repositoryRuntimeRevisionReviewed": "a47cb530963e01a07fcc839ca1dcce2f70bd169f",
+  "latestTracker": ".agent/trackers/2026-07-13T13-39-10-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T13-39-10-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-13T05-19-21-04-00-runtime-module-provider-admission-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-13T05-19-21-04-00-provider-failure-visible-surface-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-13T05-19-21-04-00-provider-drift-runtime-bootstrap-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-13T05-19-21-04-00-provider-resolve-admit-boot-map.md",
-    "providerAdmission": ".agent/provider-admission-audit/2026-07-13T05-19-21-04-00-module-source-integrity-parity-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-13T05-19-21-04-00-runtime-provider-parity-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-13T13-39-10-04-00-staged-world-generation-adoption-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-13T13-39-10-04-00-generated-world-visible-adoption-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-13T13-39-10-04-00-generation-map-pause-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-13T13-39-10-04-00-generation-command-adoption-map.md",
+    "worldGeneration": ".agent/world-generation-audit/2026-07-13T13-39-10-04-00-scheduler-adoption-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-13T13-39-10-04-00-staged-generation-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-13T13-39-10-04-00-staged-generation-runtime-reconciliation.md"
   },
   "retainedAudits": {
+    "dualSurfaceFrameCoherence": ".agent/map-system-audit/2026-07-13T09-40-27-04-00-dual-surface-frame-envelope-contract.md",
+    "runtimeProviderAdmission": ".agent/provider-admission-audit/2026-07-13T05-19-21-04-00-module-source-integrity-parity-contract.md",
     "mailDeliveryCompletion": ".agent/mail-progression-audit/2026-07-13T02-18-03-04-00-parcel-route-campaign-completion-contract.md",
     "flightSessionPersistence": ".agent/persistence-audit/2026-07-13T00-00-02-04-00-central-ledger-reconciliation.md",
     "telemetryImmutability": ".agent/telemetry-audit/2026-07-12T21-31-40-04-00-immutable-resource-readback-reconciliation.md",
@@ -22,8 +25,7 @@
     "flightWorldMembership": ".agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md",
     "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
     "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
-    "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
-    "parchmentMap": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-frame-focus-contract.md"
+    "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md"
   },
   "selection": {
     "inventoryCount": 10,
@@ -32,9 +34,8 @@
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "repoLocalAheadOfCentralCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "No eligible repository was new, ledger-missing, root-agent-missing or locally ahead of central tracking; TheOpenAbove had the oldest eligible central update.",
+    "reason": "Runtime revision a47cb530963e01a07fcc839ca1dcce2f70bd169f introduced staged procedural world generation after the centrally reviewed documentation head.",
     "excluded": [
       "LuminaryLabs-Publish/TheCavalryOfRome"
     ]
@@ -48,32 +49,35 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedProviderAdmissionIncludingParent": 16
+    "plannedSchedulerAdoptionIncludingParent": 16
   },
   "interactionLoop": [
-    "parse-html-and-import-map",
-    "resolve-static-three-provider",
-    "resolve-static-nexusengine-main-provider",
-    "evaluate-module-graph-before-boot-handler-exists",
-    "compose-gameplay-render-and-telemetry-after-success",
-    "publish-raw-providers-through-gamehost",
-    "headless-validate-separate-nexusengine-main-checkout",
-    "deploy-and-resolve-browser-provider-again-at-page-load"
+    "boot-staged-generator-and-fallback-consumers",
+    "present-first-webgl-frame",
+    "advance-fixed-generation-units-during-closed-map-visual-update",
+    "process-height-erosion-flow-climate-biome",
+    "swap-active-world-arrays",
+    "notify-ready-listeners",
+    "refresh-vegetation-grass-flowers-and-terrain",
+    "lazily-refresh-map-cache",
+    "pause-generation-while-map-open",
+    "retain-active-world-during-reset",
+    "dispose-pending-active-caches-and-listeners"
   ],
   "domains": [
-    "browser-document-import-map-module-loader-canvas-error-panel-public-host",
-    "runtime-boot-provider-resolution-session-input-raf-telemetry",
-    "nexus-resource-event-journal-storage",
-    "balloon-simulation-steering-burner-vent-altitude-heading-distance",
-    "airstream-route-sample-field-force-visual-debug",
-    "mail-parcel-route-town-volume-progress-reset-completion",
-    "seeded-world-generation-membership-erosion-flow-climate-biome-flora",
-    "terrain-near-horizon-streaming-ownership-disposal",
-    "vegetation-grass-flower-exclusion-chunk-lod-culling-wind",
-    "balloon-object-material-rigging-secondary-motion-camera-clipping",
-    "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
-    "parchment-map-headless-tests-vite-build-pages",
-    "missing-runtime-module-provider-admission-authority"
+    "browser-document-import-map-module-loader-canvas-error-panel-gamehost",
+    "runtime-boot-session-input-raf-telemetry-map-pause",
+    "balloon-simulation-presentation-airstream-mail",
+    "seeded-world-identity-membership-anchors-feature-cells",
+    "height-erosion-flow-climate-biome-generation",
+    "fallback-active-sampling-progress-diagnostics-reset-disposal",
+    "terrain-near-horizon-streaming-lod-refresh",
+    "vegetation-population-obstacle-query-refresh",
+    "grass-flower-density-chunks-lod-culling-exclusions-wind",
+    "parchment-map-cache-generation-revision",
+    "sky-cloud-water-hdr-lens-dynamic-resolution",
+    "headless-tests-vite-pages",
+    "missing-staged-world-generation-scheduler-adoption-authority"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -170,6 +174,16 @@
     "open-above-pages-deploy-kit"
   ],
   "serviceMap": {
+    "worldGeneration": [
+      "deterministic-seed-grid-and-feature-cell-identity",
+      "protected-route-town-lake-anchors",
+      "height-erosion-flow-climate-biome-phases",
+      "fixed-unit-budget-advancement",
+      "incremental-flow-merge-sort",
+      "fallback-and-active-sampling-through-unchanged-api",
+      "generation-progress-phase-history-timing-failure-diagnostics",
+      "subscriptions-reset-active-retention-and-disposal"
+    ],
     "runtimeAndGameplay": [
       "flight-input-and-integration",
       "telemetry-resource-and-event-publication",
@@ -182,59 +196,64 @@
       "materials-secondary-motion-camera-clipping"
     ],
     "worldAndEnvironment": [
-      "seeded-world-grid-and-membership",
-      "protected-anchors-erosion-flow-climate-biome-flora",
-      "near-and-horizon-terrain-streaming-and-disposal",
-      "vegetation-grass-flower-density-chunks-lod-culling-wind",
+      "near-and-horizon-terrain-streaming-lod-and-disposal",
+      "vegetation-population-and-obstacle-queries",
+      "grass-flower-density-chunks-lod-culling-exclusions-wind",
       "quality-dynamic-resolution-sky-cloud-water-hdr-lens"
     ],
     "uiAndProof": [
-      "parchment-map-lifecycle-and-world-route-town-player-projection",
-      "headless-inspection-and-renderer-validation",
+      "parchment-map-lifecycle-and-revision-aware-world-cache",
+      "headless-project-renderer-and-world-generation-inspection",
       "source-static-route-mail-world-flora-proof",
       "vite-build-and-pages-adaptation"
     ]
   },
-  "plannedProviderAdmissionKits": [
-    "open-above-runtime-module-provider-admission-authority-domain",
-    "open-above-runtime-provider-manifest-kit",
-    "open-above-provider-source-identity-kit",
-    "open-above-provider-resolution-command-kit",
-    "open-above-provider-fetch-adapter-kit",
-    "open-above-provider-content-fingerprint-kit",
-    "open-above-provider-integrity-verification-kit",
-    "open-above-provider-api-contract-kit",
-    "open-above-provider-version-compatibility-kit",
-    "open-above-provider-set-generation-kit",
-    "open-above-provider-admission-result-kit",
-    "open-above-provider-failure-projection-kit",
-    "open-above-browser-headless-provider-parity-kit",
-    "open-above-provider-telemetry-receipt-kit",
-    "open-above-first-provider-frame-ack-kit",
-    "open-above-provider-fixture-gate-kit"
-  ],
-  "sourceBackedProviderState": {
-    "threeImportMapVersion": "0.165.0",
-    "threeMainImportVersion": "0.165.0",
-    "nexusEngineBrowserRef": "main",
-    "nexusEngineBrowserRefImmutable": false,
-    "providerManifestAvailable": false,
-    "providerFingerprintAvailable": false,
-    "providerIntegrityResultAvailable": false,
-    "requiredExportValidationAvailable": false,
-    "apiCompatibilityProbeAvailable": false,
-    "providerTimeoutAvailable": false,
-    "providerFallbackPolicyAvailable": false,
-    "providerSetGenerationAvailable": false,
-    "typedAdmissionResultAvailable": false,
-    "providerIndependentFailureProjectionAvailable": false,
-    "gameHostProviderReceiptAvailable": false,
-    "telemetryProviderReceiptAvailable": false,
-    "firstProviderFrameAckAvailable": false,
-    "headlessNexusEngineRef": "main",
-    "browserHeadlessImmutableRevisionParityAvailable": false
+  "sourceBackedGenerationState": {
+    "phasedGeneration": true,
+    "phaseOrder": [
+      "height",
+      "erosion",
+      "flow",
+      "climate",
+      "biome",
+      "ready"
+    ],
+    "fixedUnitBudget": true,
+    "elapsedTimeBudgetReceipt": false,
+    "incrementalFlowSort": true,
+    "firstFrameFallback": true,
+    "publicSamplingApiPreserved": true,
+    "activeWorldRetainedDuringReset": true,
+    "atomicActiveArrayAssignment": true,
+    "progressAndFailureDiagnostics": true,
+    "mapOpenGenerationProgress": false,
+    "consumerRegistry": false,
+    "consumerPrepareResults": false,
+    "budgetedConsumerAdoption": false,
+    "consumerRollback": false,
+    "firstVisibleAdoptedWorldAck": false,
+    "stagedTestFilePresent": true,
+    "stagedTestWiredIntoNpmCheck": false
   },
-  "requiredParentDomain": "open-above-runtime-module-provider-admission-authority-domain",
+  "plannedSchedulerAdoptionKits": [
+    "open-above-staged-world-generation-scheduler-adoption-authority-domain",
+    "open-above-world-generation-attempt-kit",
+    "open-above-world-generation-frame-command-kit",
+    "open-above-generation-work-budget-kit",
+    "open-above-generation-progress-receipt-kit",
+    "open-above-world-candidate-artifact-kit",
+    "open-above-world-consumer-registry-kit",
+    "open-above-world-consumer-adoption-plan-kit",
+    "open-above-terrain-generation-prepare-kit",
+    "open-above-vegetation-generation-prepare-kit",
+    "open-above-flora-generation-prepare-kit",
+    "open-above-map-cache-generation-prepare-kit",
+    "open-above-world-adoption-result-kit",
+    "open-above-world-adoption-rollback-kit",
+    "open-above-first-adopted-world-frame-ack-kit",
+    "open-above-world-generation-fixture-gate-kit"
+  ],
+  "requiredParentDomain": "open-above-staged-world-generation-scheduler-adoption-authority-domain",
   "validation": {
     "runtimeChanged": false,
     "htmlChanged": false,
@@ -245,8 +264,8 @@
     "deploymentChanged": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "providerFixturesRun": false,
-    "browserSmokeRun": false,
+    "stagedTestExecuted": false,
+    "browserFixturesRun": false,
     "buildRun": false,
     "pagesSmokeRun": false
   }
