@@ -1,98 +1,96 @@
-# START HERE: TheOpenAbove
+# START HERE: TheOpenAbove Core World Feature/Foundation Adoption
 
-**Last aligned:** `2026-07-13T13-39-10-04-00`  
+**Last aligned:** `2026-07-13T18-40-52-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Runtime revision reviewed:** `a47cb530963e01a07fcc839ca1dcce2f70bd169f`  
-**Status:** `staged-world-generation-scheduler-adoption-authority-audited`
+**Runtime revision reviewed:** `bde5e6f5ca660715d2c1b4592d508431e89587cd`  
+**Nexus Engine provider:** `112de886131c00121c36f004c257bd50ff122589`  
+**Status:** `core-world-feature-foundation-adoption-authority-audited`
 
 ## Summary
 
-TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, airstream routing, parcel delivery, streamed terrain and flora, HDR rendering, a parchment map, Nexus telemetry and headless proof surfaces.
-
-The latest runtime now stages world generation through height, erosion, flow, climate and biome phases after the first rendered frame while preserving the existing sampling API and fallback world. The current priority is the missing scheduler/adoption boundary: map-open pauses generation, and ready-world adoption by terrain, vegetation, grass, flowers and the map is synchronous, unbudgeted and lacks rollback or visible-frame proof.
+TheOpenAbove now uses pinned Nexus Engine Core World Foundation, Features, and Landform domains to define and resolve a semantic 500 metre `northern-wall` mountain. Elevation reaches terrain, flora, map coloring, and gameplay height sampling, but material, collision, fidelity, revision, rollback, and visible-frame adoption remain incomplete.
 
 ## Plan ledger
 
-**Goal:** keep deterministic staged generation and first-frame rendering while making progress and all consumer adoption continuous, revision-bound, failure-safe and visibly provable.
+**Goal:** preserve the new mountain while making Core World feature compilation and every resolved foundation channel revision-bound, atomically adopted, rollback-safe, and visibly provable.
 
-- [x] Compare the full Publish inventory against central tracking.
+- [x] Compare all ten Publish repositories against central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `LuminaryLabs-Publish/TheOpenAbove` because its runtime advanced beyond central documentation.
-- [x] Trace generation phases, scheduling, fallback, reset, disposal and consumer refresh.
-- [x] Preserve all 68 source-backed kits, 12 implied adapters and their services.
-- [x] Add the `2026-07-13T13-39-10-04-00` tracker and audit family.
-- [x] Refresh all required root `.agent` documents.
-- [x] Change no runtime source, dependency, script or workflow.
+- [x] Confirm all nine eligible repositories have ledger and root `.agent` coverage.
+- [x] Select only `LuminaryLabs-Publish/TheOpenAbove` because runtime advanced beyond central documentation.
+- [x] Inspect the pinned Core World, Foundation, Features, Landform, and mountain services.
+- [x] Trace the mountain through generation, terrain, flora, map, collision-height sampling, and proof wiring.
+- [x] Preserve the previous staged-generation scheduler/adoption audit.
+- [x] Add the `2026-07-13T18-40-52-04-00` tracker and audit family.
+- [x] Refresh all required root `.agent` documents and registry.
 - [x] Use `main`; create no branch or pull request.
-- [ ] Implement the staged-world scheduler and consumer-adoption authority.
-- [ ] Execute pure, browser, built-output and Pages fixtures.
+- [ ] Implement feature/foundation adoption authority and executable proof.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-13T13-39-10-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-13T13-39-10-04-00.md
-.agent/architecture-audit/2026-07-13T13-39-10-04-00-staged-world-generation-adoption-dsk-map.md
-.agent/render-audit/2026-07-13T13-39-10-04-00-generated-world-visible-adoption-gap.md
-.agent/gameplay-audit/2026-07-13T13-39-10-04-00-generation-map-pause-loop.md
-.agent/interaction-audit/2026-07-13T13-39-10-04-00-generation-command-adoption-map.md
-.agent/world-generation-audit/2026-07-13T13-39-10-04-00-scheduler-adoption-contract.md
-.agent/deploy-audit/2026-07-13T13-39-10-04-00-staged-generation-fixture-gate.md
-.agent/central-sync-audit/2026-07-13T13-39-10-04-00-staged-generation-runtime-reconciliation.md
+.agent/trackers/2026-07-13T18-40-52-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-13T18-40-52-04-00.md
+.agent/architecture-audit/2026-07-13T18-40-52-04-00-world-feature-foundation-adoption-dsk-map.md
+.agent/render-audit/2026-07-13T18-40-52-04-00-mountain-fidelity-visible-frame-gap.md
+.agent/gameplay-audit/2026-07-13T18-40-52-04-00-mountain-height-collision-adoption-loop.md
+.agent/interaction-audit/2026-07-13T18-40-52-04-00-feature-compile-foundation-adoption-map.md
+.agent/world-feature-audit/2026-07-13T18-40-52-04-00-foundation-channel-revision-contract.md
+.agent/deploy-audit/2026-07-13T18-40-52-04-00-world-feature-foundation-fixture-gate.md
+.agent/central-sync-audit/2026-07-13T18-40-52-04-00-core-world-mountain-runtime-reconciliation.md
 ```
 
 ## Current interaction loop
 
 ```txt
 boot
-  -> create staged world generator and fallback-backed consumers
-  -> render first WebGL frame
+  -> import immutable Nexus Engine revision
+  -> install Core World, Foundation, Features, and Landform domains
+  -> register northern-wall semantic mountain
+  -> create staged base world
+  -> compile one global foundation cell
+  -> create terrain, flora, map, and gameplay consumers
 
-map closed frame
-  -> update gameplay
-  -> advance fixed generation-unit budget
-  -> update render consumers
-  -> render
+first frame
+  -> base generation is working
+  -> mountain elevation is suppressed
+  -> fallback world renders
 
-map open frame
-  -> skip visual.update and generation work
-  -> continue WebGL render at dt 0
-  -> draw map from active revision
-
-ready
-  -> core swaps active arrays
-  -> direct synchronous consumer refresh
-  -> terrain and flora rebuild before normal render
-  -> map cache refreshes lazily
+base ready
+  -> foundation elevation becomes active
+  -> composed height adds up to 500m
+  -> terrain, vegetation, grass, flowers, map, and collision-height users refresh
+  -> no shared foundation adoption or visible-frame result is published
 ```
 
 ## Domain and kit census
 
 ```txt
-runtime/gameplay kits: 15
-balloon/object/presentation kits: 15
-visual/world/environment kits: 33
-UI kits: 1
-tooling/proof kits: 4
-active source-backed total: 68
-runtime-implied adapters: 12
-inactive/retired legacy: 12
-planned scheduler/adoption authority including parent: 16
+local source-backed kits:          70
+runtime-implied adapters:          12
+pinned Core World surfaces:        17
+current documented active total:   99
+inactive/retired legacy surfaces:  12
+planned adoption surfaces:         15
 ```
 
-The complete kit and service map is in `.agent/current-audit.md`, `.agent/kit-registry.json` and the latest tracker.
+The full kit and service map is in `.agent/current-audit.md`, `.agent/kit-registry.json`, and the latest tracker.
+
+## Main gap
+
+The product installs Core World but does not register the rendered world through the parent world/cell/provider builder. Its local bridge compiles one global cell and consumes only elevation. Material zones, collision descriptors, near/middle/far fidelity, feature lifecycle revisions, foundation cell revisions, atomic adoption, rollback, and first-visible mountain proof are absent.
 
 ## Required parent domain
 
 ```txt
-open-above-staged-world-generation-scheduler-adoption-authority-domain
+open-above-world-feature-foundation-adoption-authority-domain
 ```
 
 ## Next safe ledge
 
-Separate generation work admission from gameplay/map pause. Keep the candidate detached, prepare every mandatory world consumer under explicit budgets, commit the sampling and visible consumer revision together, preserve the predecessor on failure and acknowledge the first matching visible frame.
+Publish one immutable resolved foundation artifact for the completed base candidate. Include elevation, material, collision, and fidelity channels; prepare every mandatory consumer under the existing staged-world adoption plan; commit all revisions together; preserve the predecessor after failure; and acknowledge the first matching visible mountain frame.
 
 ## Retained priorities
 
-Map/world dual-surface frame coherence, runtime-provider admission, delivery completion, flight-session persistence, lifecycle ownership, fixed-step input, telemetry immutability, bounded-world membership, terrain/vegetation ownership, flora exclusions, HDR coherence and map accessibility remain active dependencies.
+Staged world-generation scheduling/adoption remains the upstream world commit authority. Map/world dual-surface coherence, provider admission, runtime lifecycle, fixed-step input, Air Mail completion, persistence, telemetry immutability, bounded-world membership, terrain/vegetation ownership, flora exclusions, HDR coherence, and map accessibility remain active dependencies.
