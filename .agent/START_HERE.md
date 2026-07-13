@@ -1,52 +1,47 @@
 # START HERE: TheOpenAbove
 
-**Last aligned:** `2026-07-12T19-31-06-04-00`  
+**Last aligned:** `2026-07-12T21-18-18-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
 **Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`  
-**Status:** `flora-exclusion-artifact-coherence-authority-audited`
+**Status:** `telemetry-snapshot-immutability-readback-authority-audited`
 
 ## Summary
 
-TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, parcel delivery, camera-relative terrain, streamed grass and flowers, boot-time tree vegetation, HDR rendering, a parchment map, telemetry and browser/headless proof surfaces.
+TheOpenAbove is an Air Mail hot-air-balloon experience with deterministic world generation, airstream routing, parcel delivery, camera-relative terrain and flora, HDR rendering, a parchment map, Nexus telemetry and browser/headless proof surfaces.
 
-The current audit isolates flora exclusion coherence. Grass and flower systems each snapshot `vegetation.treePositions` into separate private spatial maps at construction. Grass also snapshots vegetation cluster geometry for density shaping. Neither consumer receives a vegetation revision, exclusion-artifact fingerprint, replacement notification or stale-result fence.
+The current audit isolates telemetry snapshot immutability. The Nexus telemetry kit stores one mutable object as `BalloonSnapshot` and stores its nested `visual` object as `VisualSnapshot`. Nexus resources and journals retain supplied object references, and engine/GameHost getters return those references. External readback can therefore mutate both resource views and alter publication evidence without a new tick or visible frame.
 
 ## Plan ledger
 
-**Goal:** make vegetation exclusion one immutable, revisioned artifact that grass and flowers must admit before chunk generation, so vegetation replacement cannot leave stale overlaps or mismatched visible flora.
+**Goal:** make every telemetry publication one immutable, revisioned commit across complete and visual resources, journal evidence, public readback and visible-frame acknowledgement.
 
 - [x] Compare all ten accessible Publish repositories with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central-ledger coverage and recorded root `.agent` state.
-- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
-- [x] Identify the complete interaction loop and all active domains.
-- [x] Preserve all 68 active source-backed kits and offered services.
-- [x] Trace vegetation construction, grass/flower exclusion snapshots, chunk rebuilds and visual update order.
-- [x] Add a timestamped tracker, turn ledger and architecture/system audit family.
+- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
+- [x] Select only `TheOpenAbove` as the oldest eligible central entry.
+- [x] Trace snapshot construction, Nexus resource storage, journal recording and public readback.
+- [x] Identify complete interaction loops, domains, 68 source-backed kits and offered services.
+- [x] Define snapshot identity, fingerprint, immutability, alias, atomic commit and readback contracts.
+- [x] Add a timestamped tracker and complete system audit family.
 - [x] Refresh required root `.agent` state and machine registry.
 - [x] Push only to `main`; create no branch or pull request.
-- [ ] Implement the authority and executable source/build/Pages fixtures.
+- [ ] Runtime implementation and executable mutation fixtures remain future work.
 
-## Read this first
+## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-12T19-31-06-04-00/project-breakdown.md
-.agent/current-audit.md
-.agent/next-steps.md
-.agent/known-gaps.md
-.agent/validation.md
-.agent/architecture-audit/2026-07-12T19-31-06-04-00-flora-exclusion-artifact-dsk-map.md
-.agent/render-audit/2026-07-12T19-31-06-04-00-stale-tree-exclusion-visible-flora-gap.md
-.agent/gameplay-audit/2026-07-12T19-31-06-04-00-vegetation-replacement-flora-overlap-loop.md
-.agent/interaction-audit/2026-07-12T19-31-06-04-00-exclusion-artifact-consumer-admission-map.md
-.agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md
-.agent/deploy-audit/2026-07-12T19-31-06-04-00-flora-exclusion-coherence-fixture-gate.md
-.agent/turn-ledger/2026-07-12T19-31-06-04-00.md
-.agent/kit-registry.json
+.agent/trackers/2026-07-12T21-18-18-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-12T21-18-18-04-00.md
+.agent/architecture-audit/2026-07-12T21-18-18-04-00-telemetry-snapshot-immutability-dsk-map.md
+.agent/render-audit/2026-07-12T21-18-18-04-00-mutable-readback-visible-telemetry-gap.md
+.agent/gameplay-audit/2026-07-12T21-18-18-04-00-public-readback-resource-alias-loop.md
+.agent/interaction-audit/2026-07-12T21-18-18-04-00-snapshot-build-commit-read-map.md
+.agent/telemetry-audit/2026-07-12T21-18-18-04-00-resource-alias-freeze-readback-contract.md
+.agent/deploy-audit/2026-07-12T21-18-18-04-00-telemetry-immutability-fixture-gate.md
 ```
 
-The flight/world membership audit at `2026-07-12T17-41-25-04-00` remains the immediate predecessor.
+The flora-exclusion artifact audit at `2026-07-12T19-31-06-04-00` remains the immediate predecessor.
 
 ## Selection
 
@@ -55,61 +50,52 @@ accessible Publish repositories: 10
 eligible non-Cavalry repositories: 9
 new eligible repositories: 0
 central-ledger-missing eligible repositories: 0
-recorded root-.agent-missing eligible repositories: 0
+root-.agent-missing eligible repositories: 0
 
-TheOpenAbove       2026-07-12T17-41-25-04-00 selected
-IntoTheMeadow      2026-07-12T17-58-43-04-00
-PhantomCommand     2026-07-12T18-11-53-04-00
-PrehistoricRush    2026-07-12T18-18-59-04-00
-HorrorCorridor     2026-07-12T18-38-51-04-00
-ZombieOrchard      2026-07-12T18-48-07-04-00
-MyCozyIsland       2026-07-12T19-00-22-04-00
-TheUnmappedHouse   2026-07-12T19-11-01-04-00
-AetherVale         2026-07-12T19-21-29-04-00
-TheCavalryOfRome   excluded
+TheOpenAbove:     2026-07-12T19-31-06-04-00 selected
+IntoTheMeadow:    2026-07-12T19-49-41-04-00
+PhantomCommand:   2026-07-12T19-58-07-04-00
+PrehistoricRush:  2026-07-12T20-10-25-04-00
+HorrorCorridor:   2026-07-12T20-20-02-04-00
+ZombieOrchard:    2026-07-12T20-31-27-04-00
+MyCozyIsland:     2026-07-12T20-40-56-04-00
+TheUnmappedHouse: 2026-07-12T20-51-16-04-00
+AetherVale:       2026-07-12T21-10-16-04-00
+TheCavalryOfRome: excluded
 ```
 
 ## Interaction loop
 
 ```txt
-boot
-  -> build seeded world and terrain
-  -> create one boot-time vegetation cluster field
-  -> derive treePositions and cluster records
-  -> create grass private obstacle/proximity indexes from those records
-  -> create flower private obstacle index from those records
-  -> start camera-relative grass and flower chunk streaming
+RAF
+  -> update balloon, mail, airstream, camera and visual state
+  -> build complete getSnapshot() projection
+  -> telemetry system stores complete object as BalloonSnapshot
+  -> telemetry system stores snapshot.visual as VisualSnapshot
+  -> Nexus journal records the same references
+  -> engine.openAbove getters return those references
+  -> GameHost returns the complete resource reference
+  -> render frame
 
-camera crosses flora chunk boundary
-  -> grass independently removes and builds live chunks
-  -> flower independently removes and builds live chunks
-  -> both query their construction-time exclusion snapshots
-  -> no vegetation or exclusion revision is checked
-  -> render HDR frame and publish counts only
-
-future vegetation replacement or rebuild
-  -> tree ownership can change
-  -> grass and flower exclusion snapshots remain predecessor-derived
-  -> stale candidates can overlap current trees or preserve obsolete clearings
-  -> no cross-consumer parity result or visible-frame acknowledgement exists
+external reader
+  -> receives mutable engine-owned object
+  -> can alter complete or visual resource values without a tick
+  -> can make journal-held value/previous references drift
+  -> no snapshot ID, mutation rejection or visible-frame receipt exists
 ```
 
 ## Domains in use
 
 ```txt
 browser shell, canvas, map, fatal projection and public host
-runtime boot, session, keyboard/wheel input, RAF and telemetry
-balloon motion, steering, burner, vent, altitude and distance
-airstream routes, sampling, force, visuals and debug
-mail parcel, town, delivery volume and progress
-seeded world generation, bounded-disk membership, erosion, climate, biome and flora
-terrain near/horizon streaming, ownership, geometry and disposal
-boot-time vegetation clusters and tree-position records
-grass/flower placement, private exclusions, chunks, LOD, culling and wind
-balloon construction, rigging, material, camera and secondary presentation
-quality, dynamic resolution, sky, sun, clouds, water, HDR and lens response
-parchment-map projection, headless proof, tests, build and Pages
-missing shared vegetation-exclusion artifact, admission, replacement and proof
+runtime boot, session, input, RAF and telemetry
+balloon simulation, steering, airstream and mail delivery
+seeded world, terrain, vegetation, grass and flowers
+balloon object, camera and presentation
+quality, dynamic resolution, sky, clouds, water, HDR and lens
+map projection, headless proof, tests, build and Pages
+Nexus resource/event/journal storage
+missing telemetry identity, immutability, readback isolation and visible proof
 ```
 
 ## Kits and services
@@ -125,32 +111,39 @@ runtime-implied adapters: 12
 inactive/retired legacy: 12
 ```
 
-The complete kit-by-kit inventory and service map are in the latest tracker and `.agent/kit-registry.json`.
+The complete kit-by-kit inventory and service map are in the current tracker and `.agent/kit-registry.json`.
 
 ## Main finding
 
-`createGrassFieldDomain()` copies `vegetation.treePositions` and `vegetation.clusters` into private query structures once. `createFlowerFieldDomain()` separately copies `vegetation.treePositions` into another private grid and applies a different clearance radius. Their `update()` methods only move camera-relative chunk windows; no service refreshes those exclusion indexes or binds chunks to a vegetation/exclusion revision.
+```txt
+BalloonSnapshot = snapshot
+VisualSnapshot = snapshot.visual
+BalloonSnapshot.visual === VisualSnapshot
+```
 
-This is already an ownership gap and becomes a visible overlap defect as soon as the retained vegetation-streaming plan replaces the boot field. The repository currently cannot prove that a grass or flower chunk was generated against the vegetation generation shown in the same frame.
+Nexus `setResource()` stores supplied values directly, `getResource()` returns them directly, and resource journal rows retain `previous` and `value` references. `engine.openAbove` and `window.GameHost` expose those engine-owned objects. No clone, freeze, revision, fingerprint, alias policy or consumer receipt protects publication truth.
 
 ## Required parent domain
 
 ```txt
-open-above-flora-exclusion-artifact-authority-domain
+open-above-telemetry-snapshot-immutability-authority-domain
 ```
 
 ## Next safe ledge
 
 ```txt
-VegetationCommitResult
-  -> immutable FloraExclusionArtifact
-  -> artifact fingerprint and revision
-  -> grass/flower candidate admission
-  -> atomic paired chunk adoption or last-good retention
-  -> stale artifact rejection
+TelemetrySnapshotCommand
+  -> detached normalized candidate
+  -> source revisions and snapshot ID
+  -> alias validation
+  -> content fingerprint
+  -> deep-freeze or explicit copy boundaries
+  -> atomic complete/visual resource commit
+  -> immutable public readback envelope
+  -> immutable journal evidence
   -> first matching visible-frame acknowledgement
 ```
 
 ## Retained priorities
 
-Runtime admission, session/frame ownership, procedural-world identity, flight/world membership, terrain and vegetation atomic adoption, HDR coherence, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
+Runtime admission, session/frame ownership, fixed-step input, procedural-world and flight membership, terrain and vegetation atomic adoption, flora exclusion coherence, HDR surface correctness, map authority, mission accessibility and deployment parity remain active dependencies. This documentation pass changes no runtime behavior.
