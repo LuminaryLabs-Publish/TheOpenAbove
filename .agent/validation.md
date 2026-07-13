@@ -1,25 +1,27 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-13T02-18-03-04-00`
+**Last aligned:** `2026-07-13T05-19-21-04-00`
 
 ## Scope
 
-Documentation-only audit of the active Air Mail delivery-completion lifecycle at runtime revision `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`.
+Documentation-only audit of runtime module/provider admission at repository revision `030b16d41f95e47a4a07022fdfcd16bde2381a05`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed one-shot parcel mutation from executable proof of exactly-once mission progression, stable completion projection, continuation and visible-frame coherence.
+**Goal:** distinguish source-backed provider references from executable proof of immutable identity, integrity, API compatibility, browser/headless parity, provider-independent failure handling and visible-frame provenance.
 
 - [x] Compare all ten accessible Publish repositories and central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
+- [x] Confirm repo-local documentation heads match central tracking.
 - [x] Select only `TheOpenAbove`, the oldest eligible central entry.
-- [x] Inspect route, parcel, delivery-volume, progress, browser-host, map, town-marker, telemetry and test paths.
-- [x] Confirm one parcel and three visible towns are configured.
-- [x] Confirm delivery mutates once and returns one transient event.
-- [x] Confirm the delivery message is overwritten on the next simulation update.
-- [x] Confirm map and town markers remain active from the unchanged destination ID.
-- [x] Confirm no next-parcel, route-complete, campaign-complete or reset command exists.
+- [x] Inspect `index.html`, `src/main.js`, `package.json` and `.github/workflows/deploy-pages.yml`.
+- [x] Confirm Three.js uses exact version `0.165.0` in the import map and direct main import.
+- [x] Confirm NexusEngine uses mutable `@main` in the browser.
+- [x] Confirm provider imports are static and precede `boot()` evaluation.
+- [x] Confirm the error panel is hidden until in-module `showFatal()` runs.
+- [x] Confirm package dependencies do not own Three.js or NexusEngine.
+- [x] Confirm Pages checks out NexusEngine `main` separately for headless proof.
 - [x] Preserve all 68 active source-backed kits, 12 implied adapters and services.
 - [x] Add the timestamped tracker and complete audit family.
 - [x] Change no runtime source, dependency, script or workflow.
@@ -28,76 +30,72 @@ Documentation-only audit of the active Air Mail delivery-completion lifecycle at
 ## Source-backed checks
 
 ```txt
-default mail route ID: meadow-mail-run
-configured towns: three
-configured active parcels: one
-active parcel ID: parcel-001
-active destination: brookhaven
-configured correct current: meadow-to-brookhaven
-one-shot mail-delivered event: confirmed
-parcel delivered flag/status mutation: confirmed
-subsequent delivery update returns null: confirmed
-mail-domain snapshot service: confirmed
-mail-domain direct reset service: confirmed
-host continuation use of reset: absent
-next-parcel selection: absent
-route-complete state/result: absent
-campaign-complete state/result: absent
-mission revision: absent
-completion result identity: absent
-completion message survives next simulation update: false
-map marker retires after completion: false
-town marker retires after completion: false
-first visible completion-frame acknowledgement: absent
+index import-map Three.js version: 0.165.0
+main direct Three.js version: 0.165.0
+browser NexusEngine source: @main
+immutable browser NexusEngine revision: absent
+runtime-provider manifest: absent
+provider fingerprint/integrity result: absent
+required-export validation: absent
+API compatibility probe: absent
+provider timeout/retry/fallback: absent
+provider-set generation: absent
+typed admission result: absent
+provider-independent rejection UI: absent
+provider receipt in telemetry: absent
+provider receipt in GameHost state: absent
+first provider-backed frame acknowledgement: absent
+headless NexusEngine checkout: main
+shared immutable browser/headless revision: absent
 ```
 
 ## Source inspected
 
 ```txt
+index.html
 src/main.js
-src/runtime/balloon-simulation-kit.js
 src/runtime/balloon-telemetry-kit.js
-src/gameplay/mail-delivery-domain/mail-route-kit.js
-src/gameplay/mail-delivery-domain/mail-delivery-domain.js
-src/gameplay/mail-delivery-domain/delivery-progress-kit.js
-src/gameplay/mail-delivery-domain/mail-town-kit.js
-src/ui/parchment-map-overlay.js
-tests/airstream-mail.mjs
-tests/smoke.mjs
-existing repo-local .agent state
+package.json
+.github/workflows/deploy-pages.yml
+.agent/START_HERE.md
+.agent/current-audit.md
+.agent/next-steps.md
+.agent/known-gaps.md
+.agent/kit-registry.json
 central repository ledger entries
+current repository heads for all eligible Publish repositories
 ```
 
 ## Existing executable proof observed
 
 ```txt
-deterministic airstream sampling test: declared
-route flow direction test: declared
-destination-volume test: declared
-one-shot parcel delivery test: declared
-direct parcel reset test: declared
+headless editor status step: declared
+headless project inspection step: declared
+headless renderer validation step: declared
+headless smoke validation step: declared
+Vite production build step: declared
+Pages artifact upload/deploy: declared
 ```
 
-These tests were read, not executed in this documentation pass.
+These workflow steps were read, not executed in this documentation pass.
 
 ## Missing proof
 
 ```txt
-campaign manifest validation
-route/parcel/town/current reference validation
-exactly-once completion command/result
-duplicate command idempotence
-stale mission zero mutation
-next-parcel selection
-route-complete transition
-campaign-complete transition
-completion message lifetime
-map destination retirement
-town marker retirement
-reset/replay command behavior
-completion persistence and restore
-first visible completion-frame acknowledgement
-source/build/Pages parity
+provider-manifest validation
+immutable provider-reference enforcement
+content fingerprint or integrity verification
+required-export validation
+NexusEngine API-contract compatibility
+provider timeout and unavailable-source behavior
+partial provider-set rollback
+provider-independent visible failure shell
+browser/headless exact-revision parity
+built-artifact provider reference inspection
+Pages runtime provider receipt
+first provider-backed visible-frame acknowledgement
+first provider-failure visible-frame acknowledgement
+source/build/Pages provider parity
 ```
 
 ## Commands not run
@@ -107,8 +105,9 @@ npm install
 npm run check
 npm run headless:check
 npm run build
-browser completion matrix
-Pages completion smoke
+browser provider-failure matrix
+built-dist provider inspection
+Pages provider smoke
 ```
 
 ## Change-state validation
@@ -130,4 +129,4 @@ central internal change log added: pending at repo-local validation write
 
 ## Completion boundary
 
-No runtime mission progression, stable completion confirmation, destination-marker retirement, next-parcel selection, route/campaign completion, reset safety, replay determinism, persistence integration, visible-frame correlation or production-readiness claim is made.
+No runtime provider immutability, integrity, compatibility, timeout, fallback, browser/headless parity, public provenance, visible failure, first-frame correlation or production-readiness claim is made.
