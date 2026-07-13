@@ -1,21 +1,23 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-13T13-39-10-04-00",
-  "status": "staged-world-generation-scheduler-adoption-authority-audited",
-  "repositoryRuntimeRevisionReviewed": "a47cb530963e01a07fcc839ca1dcce2f70bd169f",
-  "latestTracker": ".agent/trackers/2026-07-13T13-39-10-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T13-39-10-04-00.md",
+  "lastAligned": "2026-07-13T18-40-52-04-00",
+  "status": "core-world-feature-foundation-adoption-authority-audited",
+  "repositoryRuntimeRevisionReviewed": "bde5e6f5ca660715d2c1b4592d508431e89587cd",
+  "nexusEngineProviderRevision": "112de886131c00121c36f004c257bd50ff122589",
+  "latestTracker": ".agent/trackers/2026-07-13T18-40-52-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T18-40-52-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-13T13-39-10-04-00-staged-world-generation-adoption-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-13T13-39-10-04-00-generated-world-visible-adoption-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-13T13-39-10-04-00-generation-map-pause-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-13T13-39-10-04-00-generation-command-adoption-map.md",
-    "worldGeneration": ".agent/world-generation-audit/2026-07-13T13-39-10-04-00-scheduler-adoption-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-13T13-39-10-04-00-staged-generation-fixture-gate.md",
-    "centralSync": ".agent/central-sync-audit/2026-07-13T13-39-10-04-00-staged-generation-runtime-reconciliation.md"
+    "architecture": ".agent/architecture-audit/2026-07-13T18-40-52-04-00-world-feature-foundation-adoption-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-13T18-40-52-04-00-mountain-fidelity-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-13T18-40-52-04-00-mountain-height-collision-adoption-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-13T18-40-52-04-00-feature-compile-foundation-adoption-map.md",
+    "worldFeature": ".agent/world-feature-audit/2026-07-13T18-40-52-04-00-foundation-channel-revision-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-13T18-40-52-04-00-world-feature-foundation-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-13T18-40-52-04-00-core-world-mountain-runtime-reconciliation.md"
   },
   "retainedAudits": {
+    "stagedWorldGenerationAdoption": ".agent/world-generation-audit/2026-07-13T13-39-10-04-00-scheduler-adoption-contract.md",
     "dualSurfaceFrameCoherence": ".agent/map-system-audit/2026-07-13T09-40-27-04-00-dual-surface-frame-envelope-contract.md",
     "runtimeProviderAdmission": ".agent/provider-admission-audit/2026-07-13T05-19-21-04-00-module-source-integrity-parity-contract.md",
     "mailDeliveryCompletion": ".agent/mail-progression-audit/2026-07-13T02-18-03-04-00-parcel-route-campaign-completion-contract.md",
@@ -24,8 +26,7 @@
     "floraExclusion": ".agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md",
     "flightWorldMembership": ".agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md",
     "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
-    "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
-    "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md"
+    "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md"
   },
   "selection": {
     "inventoryCount": 10,
@@ -34,50 +35,67 @@
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
+    "runtimeAheadCount": 1,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "Runtime revision a47cb530963e01a07fcc839ca1dcce2f70bd169f introduced staged procedural world generation after the centrally reviewed documentation head.",
+    "reason": "Runtime revision bde5e6f5ca660715d2c1b4592d508431e89587cd added a pinned Core World feature/foundation-backed 500 metre mountain after the previous central and repo-local audit.",
     "excluded": [
       "LuminaryLabs-Publish/TheCavalryOfRome"
+    ],
+    "inventory": [
+      "LuminaryLabs-Publish/AetherVale",
+      "LuminaryLabs-Publish/HorrorCorridor",
+      "LuminaryLabs-Publish/IntoTheMeadow",
+      "LuminaryLabs-Publish/MyCozyIsland",
+      "LuminaryLabs-Publish/PhantomCommand",
+      "LuminaryLabs-Publish/PrehistoricRush",
+      "LuminaryLabs-Publish/TheCavalryOfRome",
+      "LuminaryLabs-Publish/TheOpenAbove",
+      "LuminaryLabs-Publish/TheUnmappedHouse",
+      "LuminaryLabs-Publish/ZombieOrchard"
     ]
   },
   "counts": {
-    "runtimeAndGameplay": 15,
-    "balloonObjectAndPresentation": 15,
-    "visualWorldAndEnvironment": 33,
-    "ui": 1,
-    "toolingAndProof": 4,
-    "activeSourceBackedTotal": 68,
-    "runtimeImplied": 12,
+    "localRuntimeAndGameplay": 15,
+    "localBalloonObjectAndPresentation": 15,
+    "localVisualWorldAndEnvironment": 34,
+    "localUi": 1,
+    "localToolingAndProof": 5,
+    "localSourceBackedTotal": 70,
+    "runtimeImpliedAdapters": 12,
+    "pinnedCoreWorldSurfaces": 17,
+    "currentDocumentedActiveTotal": 99,
     "inactiveOrRetiredLegacy": 12,
-    "plannedSchedulerAdoptionIncludingParent": 16
+    "plannedFeatureFoundationIncludingParent": 15
   },
   "interactionLoop": [
-    "boot-staged-generator-and-fallback-consumers",
-    "present-first-webgl-frame",
-    "advance-fixed-generation-units-during-closed-map-visual-update",
-    "process-height-erosion-flow-climate-biome",
-    "swap-active-world-arrays",
-    "notify-ready-listeners",
-    "refresh-vegetation-grass-flowers-and-terrain",
-    "lazily-refresh-map-cache",
-    "pause-generation-while-map-open",
-    "retain-active-world-during-reset",
-    "dispose-pending-active-caches-and-listeners"
+    "boot-pinned-nexus-engine",
+    "install-core-world-foundation-features-and-landforms",
+    "register-northern-wall-semantic-mountain",
+    "create-staged-base-world",
+    "compile-global-foundation-cell",
+    "render-fallback-world-before-base-ready",
+    "complete-height-erosion-flow-climate-biome-generation",
+    "activate-resolved-mountain-elevation",
+    "refresh-terrain-vegetation-grass-flowers-and-map",
+    "sample-composed-height-for-flight-and-collision",
+    "publish-base-generation-state-with-unversioned-feature-flags"
   ],
   "domains": [
-    "browser-document-import-map-module-loader-canvas-error-panel-gamehost",
-    "runtime-boot-session-input-raf-telemetry-map-pause",
-    "balloon-simulation-presentation-airstream-mail",
-    "seeded-world-identity-membership-anchors-feature-cells",
-    "height-erosion-flow-climate-biome-generation",
-    "fallback-active-sampling-progress-diagnostics-reset-disposal",
-    "terrain-near-horizon-streaming-lod-refresh",
-    "vegetation-population-obstacle-query-refresh",
-    "grass-flower-density-chunks-lod-culling-exclusions-wind",
-    "parchment-map-cache-generation-revision",
+    "browser-document-module-canvas-raf-input-error-gamehost",
+    "balloon-simulation-airstream-mail-telemetry",
+    "nexus-realtime-resource-event-publication",
+    "core-world-parent-definition-partition-cell-surface-provider-effect-snapshot",
+    "world-foundation-definition-contribution-composition-sampling-cell-resolution",
+    "world-features-registry-lifecycle-query-composition-compile-snapshot",
+    "landform-features-mountain-canyon-cliff-plateau",
+    "product-world-feature-configuration-and-global-cell-bridge",
+    "staged-base-world-generation-fallback-reset-disposal",
+    "terrain-near-horizon-streaming-and-height-query",
+    "vegetation-grass-flowers",
+    "parchment-map-cache-projection-and-color",
     "sky-cloud-water-hdr-lens-dynamic-resolution",
     "headless-tests-vite-pages",
-    "missing-staged-world-generation-scheduler-adoption-authority"
+    "missing-world-feature-foundation-adoption-authority"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -117,6 +135,7 @@
     "visualWorldAndEnvironment": [
       "open-above-visual-domain",
       "open-above-world-generation-kit",
+      "open-above-world-feature-foundation-kit",
       "open-above-quality-tier-kit",
       "open-above-dynamic-resolution-kit",
       "open-above-physical-sky-kit",
@@ -156,10 +175,11 @@
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
       "open-above-airstream-mail-test-kit",
-      "open-above-world-flora-test-kit"
+      "open-above-world-flora-test-kit",
+      "open-above-world-feature-foundation-test-kit"
     ]
   },
-  "runtimeImpliedKits": [
+  "runtimeImpliedAdapters": [
     "open-above-route-shell-kit",
     "open-above-importmap-kit",
     "open-above-runtime-composer-kit",
@@ -173,100 +193,159 @@
     "open-above-raf-clock-adapter-kit",
     "open-above-pages-deploy-kit"
   ],
+  "pinnedCoreWorldSurfaces": [
+    "n-world-domain",
+    "world-builder-runtime-kit",
+    "n-world-foundation-domain",
+    "foundation-definition-kit",
+    "foundation-composition-kit",
+    "foundation-sampling-kit",
+    "foundation-cell-resolution-kit",
+    "n-world-feature-domain",
+    "feature-registry-kit",
+    "feature-lifecycle-kit",
+    "feature-query-kit",
+    "feature-composition-kit",
+    "n-world-landform-feature-domain",
+    "mountain-feature-kit",
+    "canyon-feature-kit",
+    "cliff-feature-kit",
+    "plateau-feature-kit"
+  ],
   "serviceMap": {
-    "worldGeneration": [
-      "deterministic-seed-grid-and-feature-cell-identity",
-      "protected-route-town-lake-anchors",
-      "height-erosion-flow-climate-biome-phases",
-      "fixed-unit-budget-advancement",
-      "incremental-flow-merge-sort",
-      "fallback-and-active-sampling-through-unchanged-api",
-      "generation-progress-phase-history-timing-failure-diagnostics",
-      "subscriptions-reset-active-retention-and-disposal"
+    "coreWorld": [
+      "world-definition",
+      "world-partition",
+      "world-cell",
+      "world-surface",
+      "world-effects",
+      "provider-lifecycle",
+      "world-builder",
+      "world-snapshot",
+      "diagnostics-and-reset"
     ],
-    "runtimeAndGameplay": [
-      "flight-input-and-integration",
-      "telemetry-resource-and-event-publication",
+    "worldFoundation": [
+      "definition",
+      "contribution",
+      "composition",
+      "elevation-and-channel-sampling",
+      "cell-resolution",
+      "cell-provider",
+      "snapshot-and-reset"
+    ],
+    "worldFeatures": [
+      "type-registry",
+      "semantic-definition",
+      "lifecycle",
+      "bounds-query",
+      "ordered-composition",
+      "feature-and-cell-compile",
+      "samplers",
+      "snapshot-and-reset"
+    ],
+    "landformFeatures": [
+      "mountain-normalize-compile-sample-fidelity",
+      "canyon-contract",
+      "cliff-contract",
+      "plateau-contract"
+    ],
+    "productFeatureFoundation": [
+      "global-cell-compile",
+      "staged-elevation-activation",
+      "base-plus-foundation-height",
+      "biome-and-flora-height-propagation",
+      "map-color-tint",
+      "generation-state-proxy",
+      "reset-and-disposal-delegation"
+    ],
+    "existingProduct": [
+      "balloon-flight-and-presentation",
       "airstream-route-sample-field-force-visual-debug",
-      "mail-parcel-route-town-volume-progress-snapshot-reset-disposal"
-    ],
-    "balloonObjectAndPresentation": [
-      "procedural-envelope-basket-burner-rope-rigging-construction",
-      "deferred-model-loading-and-persistent-gpu-resources",
-      "materials-secondary-motion-camera-clipping"
-    ],
-    "worldAndEnvironment": [
-      "near-and-horizon-terrain-streaming-lod-and-disposal",
-      "vegetation-population-and-obstacle-queries",
-      "grass-flower-density-chunks-lod-culling-exclusions-wind",
-      "quality-dynamic-resolution-sky-cloud-water-hdr-lens"
-    ],
-    "uiAndProof": [
-      "parchment-map-lifecycle-and-revision-aware-world-cache",
-      "headless-project-renderer-and-world-generation-inspection",
-      "source-static-route-mail-world-flora-proof",
-      "vite-build-and-pages-adaptation"
+      "mail-parcel-route-town-volume-progress-snapshot-reset-disposal",
+      "terrain-vegetation-grass-flowers-map-atmosphere-hdr",
+      "headless-check-build-and-pages"
     ]
   },
-  "sourceBackedGenerationState": {
-    "phasedGeneration": true,
-    "phaseOrder": [
-      "height",
-      "erosion",
-      "flow",
-      "climate",
-      "biome",
-      "ready"
+  "semanticMountain": {
+    "id": "northern-wall",
+    "type": "mountain",
+    "seed": "open-above-northern-wall",
+    "priority": 10,
+    "height": 500,
+    "width": 2000,
+    "sharpness": 2.8,
+    "variation": 0,
+    "cliffThreshold": 0.68,
+    "materialZones": [
+      "mountain-rock",
+      "mountain-summit"
     ],
-    "fixedUnitBudget": true,
-    "elapsedTimeBudgetReceipt": false,
-    "incrementalFlowSort": true,
-    "firstFrameFallback": true,
-    "publicSamplingApiPreserved": true,
-    "activeWorldRetainedDuringReset": true,
-    "atomicActiveArrayAssignment": true,
-    "progressAndFailureDiagnostics": true,
-    "mapOpenGenerationProgress": false,
-    "consumerRegistry": false,
-    "consumerPrepareResults": false,
-    "budgetedConsumerAdoption": false,
-    "consumerRollback": false,
-    "firstVisibleAdoptedWorldAck": false,
-    "stagedTestFilePresent": true,
-    "stagedTestWiredIntoNpmCheck": false
+    "fidelity": {
+      "near": "feature-mesh",
+      "middle": "foundation-field",
+      "far": "silhouette",
+      "collision": "foundation"
+    }
   },
-  "plannedSchedulerAdoptionKits": [
-    "open-above-staged-world-generation-scheduler-adoption-authority-domain",
-    "open-above-world-generation-attempt-kit",
-    "open-above-world-generation-frame-command-kit",
-    "open-above-generation-work-budget-kit",
-    "open-above-generation-progress-receipt-kit",
-    "open-above-world-candidate-artifact-kit",
-    "open-above-world-consumer-registry-kit",
-    "open-above-world-consumer-adoption-plan-kit",
-    "open-above-terrain-generation-prepare-kit",
-    "open-above-vegetation-generation-prepare-kit",
-    "open-above-flora-generation-prepare-kit",
-    "open-above-map-cache-generation-prepare-kit",
-    "open-above-world-adoption-result-kit",
-    "open-above-world-adoption-rollback-kit",
-    "open-above-first-adopted-world-frame-ack-kit",
-    "open-above-world-generation-fixture-gate-kit"
+  "sourceBackedFeatureFoundationState": {
+    "immutableProviderPin": true,
+    "coreWorldInstalled": true,
+    "foundationInstalled": true,
+    "featuresInstalled": true,
+    "landformsInstalled": true,
+    "mountainRegistered": true,
+    "mountainCompiled": true,
+    "elevationConsumed": true,
+    "biomeFloraHeightPropagation": true,
+    "mapTint": true,
+    "featureTestWiredIntoNpmCheck": true,
+    "renderedWorldRegisteredWithCoreWorldParent": false,
+    "materialChannelConsumed": false,
+    "explicitCollisionChannelConsumed": false,
+    "fidelityConsumersImplemented": false,
+    "featureRegistryRevisionPublished": false,
+    "featureLifecycleRevisionPublished": false,
+    "foundationCellRevisionPublished": false,
+    "channelFingerprintPublished": false,
+    "lifecycleTriggeredRecompile": false,
+    "atomicConsumerAdoption": false,
+    "consumerRollback": false,
+    "firstVisibleMountainFrameAck": false,
+    "realPinnedEngineIntegrationFixture": false
+  },
+  "plannedFeatureFoundationKits": [
+    "open-above-world-feature-foundation-adoption-authority-domain",
+    "open-above-world-feature-compile-command-kit",
+    "open-above-world-feature-registry-revision-kit",
+    "open-above-foundation-cell-artifact-kit",
+    "open-above-foundation-channel-manifest-kit",
+    "open-above-foundation-elevation-adapter-kit",
+    "open-above-foundation-material-adapter-kit",
+    "open-above-foundation-collision-adapter-kit",
+    "open-above-landform-fidelity-plan-kit",
+    "open-above-world-feature-consumer-registry-kit",
+    "open-above-world-feature-adoption-plan-kit",
+    "open-above-world-feature-adoption-result-kit",
+    "open-above-world-feature-adoption-rollback-kit",
+    "open-above-first-visible-landform-frame-ack-kit",
+    "open-above-world-feature-foundation-fixture-gate-kit"
   ],
-  "requiredParentDomain": "open-above-staged-world-generation-scheduler-adoption-authority-domain",
+  "requiredParentDomain": "open-above-world-feature-foundation-adoption-authority-domain",
   "validation": {
-    "runtimeChanged": false,
-    "htmlChanged": false,
-    "dependenciesChanged": false,
-    "packageScriptsChanged": false,
-    "gameplayChanged": false,
-    "renderingChanged": false,
-    "deploymentChanged": false,
+    "runtimeChangedByAudit": false,
+    "htmlChangedByAudit": false,
+    "dependenciesChangedByAudit": false,
+    "packageScriptsChangedByAudit": false,
+    "gameplayChangedByAudit": false,
+    "renderChangedByAudit": false,
+    "deploymentChangedByAudit": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "stagedTestExecuted": false,
-    "browserFixturesRun": false,
+    "sourceInspected": true,
+    "stubTestPresentAndWired": true,
+    "npmCheckRun": false,
+    "browserFixtureRun": false,
     "buildRun": false,
-    "pagesSmokeRun": false
+    "pagesFixtureRun": false
   }
 }
