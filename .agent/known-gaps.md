@@ -1,84 +1,111 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-13T13-39-10-04-00`
+**Last aligned:** `2026-07-13T18-40-52-04-00`
 
 ## Primary ordered gaps
 
 ```txt
-1. staged world-generation scheduler and consumer adoption authority
-2. map/world dual-surface frame coherence and visible map-open acceptance
-3. runtime module/provider admission and immutable source identity
-4. session, listener, frame and failure ownership
-5. fixed-step clock and sequenced input
-6. Air Mail delivery completion lifecycle and mission progression
-7. flight/mail session persistence and restore authority
-8. telemetry snapshot immutability and public readback isolation
-9. procedural world identity and flight membership provenance
-10. terrain streaming aggregate ownership and rollback
-11. vegetation spatial coverage, adoption and disposal
-12. flora exclusion artifact coherence
-13. HDR surface and visible-frame coherence
-14. parchment-map spatial navigation and accessibility
+1. staged world-generation scheduler and atomic consumer adoption authority
+2. Core World feature/foundation channel, revision, and visible adoption authority
+3. map/world dual-surface frame coherence and visible map-open acceptance
+4. runtime module/provider admission and immutable source identity
+5. session, listener, frame, and failure ownership
+6. fixed-step clock and sequenced input
+7. Air Mail delivery completion lifecycle and mission progression
+8. flight/mail session persistence and restore authority
+9. telemetry snapshot immutability and public readback isolation
+10. procedural world identity and flight membership provenance
+11. terrain streaming aggregate ownership and rollback
+12. vegetation spatial coverage, adoption, and disposal
+13. flora exclusion artifact coherence
+14. HDR surface and visible-frame coherence
+15. parchment-map spatial navigation and accessibility
 ```
 
-## Staged world-generation gaps
+## Core World feature/foundation gaps
 
 ```txt
-generation advancement is coupled to visual.update
-generation receives no work while the map is open
-work budget is unit-count only and has no elapsed-time receipt
-completed candidate arrays are installed before consumer adoption is proven
-ready listeners directly refresh vegetation, grass and flowers
-terrain refresh and chunk rebuild are synchronous
-local grass and flower rebuilds are synchronous
-map cache adoption is lazy and separate
-no consumer registry or dependency order
-no per-consumer prepare result
-no adoption plan or commit ID
-no rollback after listener or rebuild failure
-no first visible adopted-world acknowledgement
-no active-versus-visible revision readback
-no consumer adoption frame-time budget
+rendered world is not registered with the Core World parent builder
+one global foundation cell replaces bounded partition/cell ownership
+feature compilation is one-shot and guarded only by a local boolean
+feature registry and lifecycle revisions are not published
+foundation cell revision is not carried into product generation state
+contribution IDs and channel fingerprints are not exposed
+elevation is the only resolved foundation channel consumed
+material zones are not connected to terrain or map materials
+collision channel is not explicitly adopted or revisioned
+near/middle/far fidelity requirements do not select render artifacts
+cliff threshold metadata has no product consumer
+base and foundation artifacts do not commit together
+terrain, horizon, flora, map, and collision return no common adoption result
+partial preparation has no rollback
+first visible mountain frame acknowledgement is absent
 ```
 
 ## Concrete failure risks
 
 ```txt
-map-open can stall generation indefinitely
-completion can produce one large rebuild frame
-listener failure can mark generation failed after successor sampling is active
-some consumers can be cleared while others remain predecessor state
-map cache can remain on predecessor revision until a later draw
-public diagnostics cannot prove which world revision was fully visible
+feature lifecycle changes can leave the compiled global cell stale
+future feature registration can be ignored because compiled remains true
+base sampling can switch before every visible consumer adopts the mountain
+map, terrain, horizon, flora, and collision can expose different revisions
+manual map tint can diverge from material-zone semantics
+collision agreement is implicit and cannot be proven from descriptors
+one global cell cannot express bounded feature/cell lifecycle at scale
+consumer failure can leave mixed predecessor and successor artifacts
+public diagnostics cannot identify the foundation revision fully visible
+```
+
+## Staged world-generation gaps retained
+
+```txt
+generation advancement remains coupled to visual.update
+generation receives no work while the map is open
+work budget is unit-count only and has no elapsed-time receipt
+completed base arrays install before all consumer adoption is proven
+consumer rebuilds are synchronous and unbudgeted
+map cache adoption is lazy
+no common rollback or first visible adopted-world acknowledgement
 ```
 
 ## Proof gaps
 
 ```txt
-tests/world-generation.mjs is not invoked by npm run check
-headless:world checks source markers then runs the unrelated check chain
-no browser map-open progress fixture
-no consumer-failure injection fixture
-no completion-frame budget fixture
-no visible sampling/terrain/vegetation/flora/map parity fixture
-no built-dist or Pages staged-generation fixture
+current feature/foundation test uses stubs rather than pinned Nexus Engine
+no real Core World child-domain installation fixture
+no actual mountain contribution/channel inspection
+no parent world/partition/cell/provider integration fixture
+no feature lifecycle recompile or stale-artifact fixture
+no material-zone rendering fixture
+no explicit collision-channel parity fixture
+no near/middle/far fidelity fixture
+no Air Mail route/town nonintersection proof
+no consumer-failure rollback fixture
+no visible terrain/horizon/flora/map/collision revision parity fixture
+no first visible mountain frame acknowledgement
+no built-dist or Pages feature/foundation fixture
+existing tests/world-generation.mjs remains outside npm run check
 ```
 
-## Required staged-generation fixtures
+## Required feature/foundation fixtures
 
 ```txt
-identical-seed-output
-staged-equals-synchronous
-first-frame-fallback
-phase-order-monotonic-progress
-map-open-progress-continues
-reset-retains-predecessor
-stale-attempt-rejected
-consumer-prepare-dependency-order
+real-engine-core-world-installation
+semantic-mountain-normalization
+mountain-contribution-channel-manifest
+foundation-cell-revision-and-fingerprint
+fallback-before-base-ready
+base-plus-500m-foundation-height
+feature-lifecycle-recompile
+stale-artifact-rejected
+material-zone-selection
+collision-height-parity
+near-middle-far-fidelity
+route-town-nonintersection
+atomic-base-foundation-adoption
 consumer-failure-preserves-predecessor
 partial-successor-disposal
-atomic-adoption-commit
-first-visible-adopted-world-revision
+first-visible-mountain-frame
 source-dist-pages-parity
 ```
 
@@ -93,13 +120,13 @@ no typed world/map projection and common commit result
 no partial-frame recovery or first coherent map frame acknowledgement
 ```
 
-## Retained provider, persistence and architecture gaps
+## Retained provider, persistence, and architecture gaps
 
 ```txt
-NexusEngine browser source remains mutable @main
-no immutable provider manifest, integrity result or browser/headless parity
+Nexus Engine is now immutable-pinned for this runtime, but provider manifest,
+integrity result, fallback, and browser/headless admission parity remain absent
 no durable save/restore/reset authority or page-lifecycle flush
-no unified runtime session owns RAF, listeners and teardown
+no unified runtime session owns RAF, listeners, and teardown
 simulation remains variable-step at the host boundary
 telemetry resources retain mutable references
 flight does not admit bounded-world membership
@@ -109,8 +136,8 @@ HDR and map visible-frame receipts remain incomplete
 
 ## Documentation state
 
-The `2026-07-13T13-39-10-04-00` staged world-generation scheduler/adoption audit family is current. Central synchronization is recorded separately.
+The `2026-07-13T18-40-52-04-00` Core World feature/foundation adoption audit family is current. The previous staged-generation scheduler/adoption audit remains active and upstream.
 
 ## Non-claim
 
-A deterministic core candidate, monotonic progress and a normal-path same-callback rebuild do not prove continuous scheduling, bounded adoption cost, failure rollback or one visibly coherent successor world.
+A semantic mountain, resolved elevation, deterministic sampler, and normal-path terrain rebuild do not prove full Core World parent ownership, channel completeness, lifecycle correctness, atomic adoption, collision parity, fidelity realization, rollback, or one visibly coherent mountain revision.
