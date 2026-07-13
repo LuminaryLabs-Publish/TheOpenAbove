@@ -21,6 +21,7 @@ Documentation-only audit of flight/mail state creation, mutation, reload behavio
 - [x] Confirm no persistence domain or browser storage path is installed.
 - [x] Preserve all 68 active source-backed kits and offered services.
 - [x] Add tracker, turn ledger and complete persistence audit family.
+- [x] Refresh the central ledger and paired internal change log.
 - [x] Change no runtime source, dependency, script or workflow.
 - [x] Create no branch or pull request.
 
@@ -129,8 +130,8 @@ deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger changed: pending paired central write
-central internal change log added: pending paired central write
+central ledger changed: yes
+central internal change log added: yes
 ```
 
 ## Completion boundary
