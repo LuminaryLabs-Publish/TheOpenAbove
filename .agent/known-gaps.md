@@ -106,7 +106,8 @@ full Publish comparison: completed
 selected only TheOpenAbove: completed
 new timestamped tracker and audit family: added
 required root .agent files: refreshed
-central ledger and change log: pending paired central write
+central ledger: updated
+internal change log: added
 ```
 
 ## Non-claim
