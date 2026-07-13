@@ -1,90 +1,95 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-13T09-40-27-04-00`  
-**Status:** `map-world-dual-surface-frame-coherence-authority-audited`  
-**Runtime revision reviewed:** `0af1b7c8d3131c2af6f60bcc0d655bf399f52ef5`
+**Last aligned:** `2026-07-13T13-39-10-04-00`  
+**Status:** `staged-world-generation-scheduler-adoption-authority-audited`  
+**Runtime revision reviewed:** `a47cb530963e01a07fcc839ca1dcce2f70bd169f`
 
 ## Summary
 
-The WebGL world and parchment-map Canvas2D surface are driven by separate recursive RAF chains. `setOpen(true)` makes the map visible before its first matching draw, while the world renderer keeps submitting frames. Both surfaces read mutable flight/mail state without one immutable frame envelope, projection result, dual-surface commit result or visible-frame acknowledgement.
+The runtime now performs deterministic phased world generation after the first visible frame while retaining legacy terrain and the public sampling API. The core candidate swap is atomic at the array reference, but generation scheduling and render-consumer adoption are not owned by one transaction. Map-open starves generation, consumer refresh is synchronous and unbudgeted, and a listener/rebuild failure can leave the successor sampling revision active without complete consumer adoption or rollback.
 
 ## Plan ledger
 
-**Goal:** define one revisioned presentation transaction from committed flight/mail state through world projection, map projection, map-transition acceptance, recovery and visible proof.
+**Goal:** establish one scheduler and adoption authority from frame-budget admission through candidate generation, consumer preparation, active commit and first visible adopted-world proof.
 
-- [x] Compare the complete Publish inventory against central tracking.
+- [x] Compare the current Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` under the oldest eligible rule.
-- [x] Trace both RAF chains, map visibility input, state getters, WebGL render, Canvas2D draw and GameHost readback.
-- [x] Preserve all active domains and complete kit/service mappings.
-- [x] Define the dual-surface frame-coherence authority.
-- [x] Add the timestamped tracker and audit family.
-- [x] Change no runtime source, dependency, package script or workflow.
-- [x] Create no branch or pull request.
-- [ ] Implement and execute dual-surface fixtures.
+- [x] Select only `TheOpenAbove` because staged-generation runtime is newer than central documentation.
+- [x] Trace phase execution, fallback, progress, reset, disposal and failure.
+- [x] Trace terrain, vegetation, grass, flowers and map revision adoption.
+- [x] Identify all domains, kits and offered services.
+- [x] Add a timestamped tracker and system audits.
+- [x] Change no runtime source or deployment configuration.
+- [ ] Implement and validate scheduler/adoption authority.
 
 ## Complete interaction loop
 
 ```txt
 browser boot
-  -> resolve providers and evaluate src/main.js
-  -> construct visual/world/balloon/airstream/mail/map/camera/telemetry owners
-  -> perform initial state updates
-  -> request world RAF
+  -> create world generator with staged=true and autoStart
+  -> create terrain, vegetation, grass, flowers and map against fallback sampling
+  -> render initial WebGL frame
 
-world RAF while map closed
-  -> clamp frameMs and dt
-  -> update flight simulation
-  -> update mail delivery and airstream
-  -> update balloon, camera, world, flora, atmosphere, HDR and telemetry
-  -> render WebGL world
-  -> request successor world RAF
+map closed RAF
+  -> update balloon, mail, airstream and camera
+  -> visual.update
+     -> if first frame presented and generation working, advance configured units
+     -> update terrain, flora, atmosphere and HDR
+  -> render WebGL
 
-map-open input
-  -> toggle open state and CSS immediately
-  -> aria-hidden=false
-  -> resize map canvas
-  -> request first map RAF
+world generation
+  -> height per grid cell
+  -> erosion scan/apply across six passes
+  -> flow initialization
+  -> incremental merge sort by height
+  -> flow accumulation
+  -> climate and channel carving
+  -> biome classification
+  -> active array swap and ready notification
 
-world RAF while map open
-  -> skip simulation/mail/visual/telemetry update
-  -> continue WebGL render with dt 0
-  -> request successor world RAF
+consumer adoption
+  -> vegetation refresh synchronously repopulates instances
+  -> grass/flowers synchronously clear current chunks
+  -> terrain observes revision and clears/rebuilds near/horizon chunks
+  -> grass/flowers rebuild local chunks on update
+  -> map cache rebuilds lazily on next draw
 
-map RAF while open
-  -> read mutable simulation state
-  -> read mutable parcel state
-  -> draw world background, routes, towns and player marker
-  -> request successor map RAF
+map open RAF
+  -> main loop skips visual.update
+  -> generation receives no units
+  -> WebGL continues rendering at dt 0
+  -> map draws current active revision
 
-map-close input
-  -> hide overlay
-  -> cancel stored map RAF handle
-  -> next world RAF resumes updates
+reset
+  -> retain active world
+  -> create new pending workset
+  -> generate replacement
 
-GameHost.getState()
-  -> capture a fresh aggregate
-  -> return no committed world/map frame pair
+dispose
+  -> drop pending and active state
+  -> clear listeners and caches
+  -> reject later reset
 ```
 
 ## Domains in use
 
 ```txt
-browser document, import map, module loader, canvas, map overlay, error panel and GameHost
-runtime boot, provider dependency, session, keyboard/wheel input, RAF and telemetry
-Nexus resources, events and journals
-balloon motion, steering, burner, vent, heading, altitude, elapsed and distance
+browser document/import map/module loader/canvas/error panel/GameHost
+runtime boot/session/keyboard/wheel/RAF/telemetry/map pause
+Nexus resource/event/journal surfaces
+balloon simulation and presentation
 airstream routes, sampling, field, force, visuals and debug
-mail parcel, route, towns, volumes, progress, reset and completion
-seeded world generation, membership, erosion, flow, climate, biome and flora
-near/horizon terrain streaming, ownership and disposal
-vegetation, grass, flowers, exclusions, chunks, LOD, culling and wind
-balloon geometry, materials, rigging, secondary motion, camera and clipping
-quality, dynamic resolution, sky, sun, aerial perspective, clouds, water, HDR and lens
-parchment-map projection, focus and accessibility
-headless proof, tests, Vite build and Pages
-missing map/world dual-surface frame-coherence authority
+Air Mail parcel, route, towns, volumes, progress, reset and completion
+seeded world identity, spatial membership, anchors and feature cells
+height, erosion, flow, climate and biome generation
+fallback and active world sampling, diagnostics, reset and disposal
+terrain near/horizon streaming, LOD, ownership and refresh
+vegetation population and obstacle queries
+grass/flower distribution, chunks, LOD, culling, exclusions and wind
+parchment map cache, routes, towns, player marker and revision refresh
+quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
+headless editor, tests, Vite and Pages
+missing staged-world-generation scheduler/adoption authority
 ```
 
 ## Kit census
@@ -98,7 +103,7 @@ tooling/proof: 4
 active source-backed total: 68
 runtime-implied adapters: 12
 inactive/retired legacy: 12
-planned dual-surface authority including parent: 15
+planned scheduler/adoption authority including parent: 16
 ```
 
 ## Implemented kits
@@ -211,111 +216,120 @@ open-above-pages-deploy-kit
 ## Offered services
 
 ```txt
+open-above-world-generation-kit:
+  deterministic seed/grid/feature-cell identity
+  protected route/town/lake anchors
+  height, erosion, flow, climate and biome phases
+  fixed unit-budget advancement
+  synchronous completion option
+  fallback and active sampling through unchanged APIs
+  progress, phase, phase timing, history and failure diagnostics
+  generation subscriptions
+  reset with active-world retention
+  disposal
+
 runtime/gameplay:
-  flight input and integration
-  Nexus telemetry resource/event publication
-  airstream route, field, sample, force, visuals and diagnostics
-  mail parcel, route, town, volume, progress, snapshot, reset and disposal
+  flight integration and telemetry
+  airstream route/sample/field/force/visual/debug
+  mail parcel/route/town/volume/progress/snapshot/reset/disposal
 
-balloon/object/presentation:
-  procedural envelope, basket, burner, rope and rigging construction
-  deferred model loading and persistent GPU ownership
-  materials, secondary motion, camera, clipping and animation
+balloon/presentation:
+  procedural construction, materials, rigging and secondary motion
+  camera, clipping, animation and persistent GPU resources
 
-world/environment:
-  seeded world-grid generation and membership
-  protected anchors, erosion, flow, climate, biome and flora
-  near/horizon terrain streaming and disposal
-  vegetation, grass and flower chunks, LOD, culling, exclusions and wind
-  quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
+world/render:
+  terrain near/horizon streaming and LOD
+  vegetation population and queries
+  grass/flower chunks, density, culling, exclusions and wind
+  sky, clouds, water, HDR, grading, lens and dynamic resolution
 
 UI/tooling:
-  parchment-map lifecycle and world/route/town/player projection
-  headless inspection and renderer validation
+  parchment map projection and revision-aware cache
+  headless project/renderer/world-generation inspection
   source/static, route/mail and world/flora checks
-  Vite build and Pages adaptation
+  Vite build and Pages deployment
 ```
 
 ## Source-backed findings
 
 ```txt
-world RAF chain: present
-map RAF chain: present
-world rendering continues while map is open: yes
-simulation/mail/visual/telemetry updates pause while map is open: yes
-map overlay visible before first map RAF draw: possible by ordering
-map draw reads live simulation getter: yes
-map draw reads live parcel getter: yes
-shared immutable world/map frame envelope: absent
-flight-state revision in map projection: absent
-mail-state revision in map projection: absent
-map transition generation: absent
-world projection result: absent
-map projection result: absent
-dual-surface commit result: absent
-partial-frame recovery result: absent
-first coherent map frame acknowledgement: absent
-GameHost world/map commit receipt: absent
+phased generator: implemented
+incremental flow ordering: implemented
+first-frame fallback: implemented
+active retained during reset: implemented
+active array reference swap: implemented
+phase/progress/timing/failure diagnostics: implemented
+sampling API compatibility: preserved
+generation while map open: absent
+consumer preparation artifacts: absent
+per-consumer revision receipts: absent
+budgeted adoption: absent
+consumer rollback: absent
+first visible adopted-world ack: absent
+world-generation test wired into npm check: no
+```
+
+## Critical failure path
+
+```txt
+completeAtomicSwap
+  -> active successor arrays assigned
+  -> pending removed
+  -> generation marked ready
+  -> listener refresh begins
+
+listener or rebuild throws
+  -> advanceGeneration catches and marks failed
+  -> successor active arrays remain installed
+  -> some consumers may already be cleared or rebuilt
+  -> no rollback or mixed-generation result exists
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-map-world-dual-surface-frame-coherence-authority-domain
+open-above-staged-world-generation-scheduler-adoption-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-PresentFlightFrameCommand
-  -> bind runtime session, flight revision and mail revision
-  -> capture one immutable DualSurfaceFrameEnvelope
-  -> classify map Closed, Opening, Open, Closing or Retired
-  -> prepare required world/map projection candidates
-  -> validate viewport, transition and surface generations
-  -> commit accepted projections under one DualSurfaceCommitId
-  -> return Complete, Partial, Failed, Stale, Superseded or Cancelled
-  -> preserve the last complete frame on partial failure
-  -> publish detached telemetry and GameHost receipts
-  -> acknowledge the first coherent visible frame per transition
+WorldGenerationFrameCommand
+  -> bind attempt and scheduler generations
+  -> admit bounded work independently of gameplay/map pause
+  -> publish monotonic work and progress receipts
+  -> retain predecessor on failure/cancel
+
+WorldGenerationAdoptionCommand
+  -> bind candidate and predecessor revisions
+  -> prepare mandatory consumer resources under budgets
+  -> collect typed terrain/vegetation/flora/map receipts
+  -> commit sampling and visible consumer generations together
+  -> roll back partial preparation on failure
+  -> acknowledge first matching visible frame
 ```
 
 ## Planned coordinating kits
 
 ```txt
-open-above-map-world-dual-surface-frame-coherence-authority-domain
-open-above-dual-surface-frame-envelope-kit
-open-above-flight-state-revision-kit
-open-above-mail-state-revision-kit
-open-above-map-open-transition-kit
-open-above-world-projection-command-kit
-open-above-map-projection-command-kit
-open-above-world-projection-result-kit
-open-above-map-projection-result-kit
-open-above-dual-surface-commit-kit
-open-above-partial-frame-recovery-kit
-open-above-map-first-frame-ack-kit
-open-above-world-map-readback-kit
-open-above-dual-surface-frame-journal-kit
-open-above-dual-surface-fixture-gate-kit
-```
-
-## Retained architecture priorities
-
-```txt
-runtime module/provider admission and immutable identity
-delivery completion and mission progression
-flight-session persistence and restore authority
-session, listener, frame and failure ownership
-fixed-step clock and sequenced input
-telemetry snapshot immutability
-world identity and flight membership
-terrain and vegetation aggregate adoption
-flora exclusion coherence
-HDR surface coherence
-map spatial navigation and accessibility
+open-above-staged-world-generation-scheduler-adoption-authority-domain
+open-above-world-generation-attempt-kit
+open-above-world-generation-frame-command-kit
+open-above-generation-work-budget-kit
+open-above-generation-progress-receipt-kit
+open-above-world-candidate-artifact-kit
+open-above-world-consumer-registry-kit
+open-above-world-consumer-adoption-plan-kit
+open-above-terrain-generation-prepare-kit
+open-above-vegetation-generation-prepare-kit
+open-above-flora-generation-prepare-kit
+open-above-map-cache-generation-prepare-kit
+open-above-world-adoption-result-kit
+open-above-world-adoption-rollback-kit
+open-above-first-adopted-world-frame-ack-kit
+open-above-world-generation-fixture-gate-kit
 ```
 
 ## Validation boundary
 
-Documentation only. No runtime dual-surface authority, browser frame fixture, pixel readback, build, Pages smoke or production-readiness proof was executed.
+Documentation only. No command, browser fixture, consumer failure injection, built output or Pages smoke was executed.
