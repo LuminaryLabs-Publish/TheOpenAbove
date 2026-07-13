@@ -1,76 +1,90 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-13T05-19-21-04-00`  
-**Status:** `runtime-module-provider-admission-authority-audited`  
-**Runtime revision reviewed:** `030b16d41f95e47a4a07022fdfcd16bde2381a05`
+**Last aligned:** `2026-07-13T09-40-27-04-00`  
+**Status:** `map-world-dual-surface-frame-coherence-authority-audited`  
+**Runtime revision reviewed:** `0af1b7c8d3131c2af6f60bcc0d655bf399f52ef5`
 
 ## Summary
 
-The browser runtime has no explicit module-provider admission boundary. Three.js is loaded from an exact CDN package version, while NexusEngine is loaded from the mutable `main` branch. Static provider imports must resolve before `src/main.js` evaluates, which means provider failures can bypass the in-module error handler entirely. The Pages workflow validates a separate NexusEngine `main` checkout, not one immutable provider revision shared by headless proof, the built artifact and later browser sessions.
+The WebGL world and parchment-map Canvas2D surface are driven by separate recursive RAF chains. `setOpen(true)` makes the map visible before its first matching draw, while the world renderer keeps submitting frames. Both surfaces read mutable flight/mail state without one immutable frame envelope, projection result, dual-surface commit result or visible-frame acknowledgement.
 
 ## Plan ledger
 
-**Goal:** define one immutable provider-set transaction across source identity, integrity, API compatibility, browser/headless parity, runtime adoption, public receipts and the first visible provider-backed frame.
+**Goal:** define one revisioned presentation transaction from committed flight/mail state through world projection, map projection, map-transition acceptance, recovery and visible proof.
 
 - [x] Compare the complete Publish inventory against central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Confirm repo-local documentation heads match central tracking.
-- [x] Select only `TheOpenAbove`, the oldest eligible central entry.
-- [x] Trace HTML, import-map, module-loader, boot, provider, GameHost, headless, build and Pages paths.
-- [x] Preserve all active domains and all kit/service mappings.
-- [x] Define runtime module/provider admission contracts.
-- [x] Add the current timestamped tracker and audit family.
+- [x] Select only `TheOpenAbove` under the oldest eligible rule.
+- [x] Trace both RAF chains, map visibility input, state getters, WebGL render, Canvas2D draw and GameHost readback.
+- [x] Preserve all active domains and complete kit/service mappings.
+- [x] Define the dual-surface frame-coherence authority.
+- [x] Add the timestamped tracker and audit family.
 - [x] Change no runtime source, dependency, package script or workflow.
-- [x] Push only to `main`; create no branch or pull request.
-- [ ] Implement and execute provider-admission fixtures.
+- [x] Create no branch or pull request.
+- [ ] Implement and execute dual-surface fixtures.
 
 ## Complete interaction loop
 
 ```txt
-browser document
-  -> parse import map with Three.js 0.165.0
-  -> request src/main.js
-  -> resolve direct Three.js 0.165.0 CDN import
-  -> resolve NexusEngine @main CDN import
-  -> evaluate the complete static module graph
-  -> define showFatal(), createGame() and boot()
+browser boot
+  -> resolve providers and evaluate src/main.js
+  -> construct visual/world/balloon/airstream/mail/map/camera/telemetry owners
+  -> perform initial state updates
+  -> request world RAF
 
-accepted provider path
-  -> construct visual/world/balloon/airstream/mail/map/camera owners
-  -> create telemetry engine from imported NexusEngine
-  -> expose raw THREE and NexusEngine providers through GameHost
-  -> tick and render
+world RAF while map closed
+  -> clamp frameMs and dt
+  -> update flight simulation
+  -> update mail delivery and airstream
+  -> update balloon, camera, world, flora, atmosphere, HDR and telemetry
+  -> render WebGL world
+  -> request successor world RAF
 
-provider failure before evaluation
-  -> boot() never executes
-  -> showFatal() is unavailable
-  -> error panel remains hidden
-  -> no typed provider result or visible failure frame
+map-open input
+  -> toggle open state and CSS immediately
+  -> aria-hidden=false
+  -> resize map canvas
+  -> request first map RAF
 
-Pages path
-  -> checkout app main
-  -> checkout NexusEngine main separately for headless validation
-  -> build and upload dist
-  -> browser later resolves NexusEngine @main again
+world RAF while map open
+  -> skip simulation/mail/visual/telemetry update
+  -> continue WebGL render with dt 0
+  -> request successor world RAF
+
+map RAF while open
+  -> read mutable simulation state
+  -> read mutable parcel state
+  -> draw world background, routes, towns and player marker
+  -> request successor map RAF
+
+map-close input
+  -> hide overlay
+  -> cancel stored map RAF handle
+  -> next world RAF resumes updates
+
+GameHost.getState()
+  -> capture a fresh aggregate
+  -> return no committed world/map frame pair
 ```
 
 ## Domains in use
 
 ```txt
-browser document, import map, module loader, canvas, error panel and public GameHost
-runtime boot, provider resolution, session, input, RAF and telemetry
+browser document, import map, module loader, canvas, map overlay, error panel and GameHost
+runtime boot, provider dependency, session, keyboard/wheel input, RAF and telemetry
 Nexus resources, events and journals
 balloon motion, steering, burner, vent, heading, altitude, elapsed and distance
 airstream routes, sampling, field, force, visuals and debug
-mail parcel, route, towns, volumes, progress, reset and completion lifecycle
-seeded world generation, membership, erosion, climate, biome and flora
-near/horizon terrain streaming and disposal
-vegetation, grass and flowers, exclusions, chunks, LOD, culling and wind
+mail parcel, route, towns, volumes, progress, reset and completion
+seeded world generation, membership, erosion, flow, climate, biome and flora
+near/horizon terrain streaming, ownership and disposal
+vegetation, grass, flowers, exclusions, chunks, LOD, culling and wind
 balloon geometry, materials, rigging, secondary motion, camera and clipping
 quality, dynamic resolution, sky, sun, aerial perspective, clouds, water, HDR and lens
-parchment-map projection, headless proof, tests, Vite build and Pages
-missing runtime module/provider admission authority
+parchment-map projection, focus and accessibility
+headless proof, tests, Vite build and Pages
+missing map/world dual-surface frame-coherence authority
 ```
 
 ## Kit census
@@ -84,7 +98,7 @@ tooling/proof: 4
 active source-backed total: 68
 runtime-implied adapters: 12
 inactive/retired legacy: 12
-planned provider-admission authority including parent: 16
+planned dual-surface authority including parent: 15
 ```
 
 ## Implemented kits
@@ -201,7 +215,7 @@ runtime/gameplay:
   flight input and integration
   Nexus telemetry resource/event publication
   airstream route, field, sample, force, visuals and diagnostics
-  mail parcel, route, town, volume, progress, snapshot, direct reset and disposal
+  mail parcel, route, town, volume, progress, snapshot, reset and disposal
 
 balloon/object/presentation:
   procedural envelope, basket, burner, rope and rigging construction
@@ -212,7 +226,7 @@ world/environment:
   seeded world-grid generation and membership
   protected anchors, erosion, flow, climate, biome and flora
   near/horizon terrain streaming and disposal
-  vegetation, grass and flower chunks, LOD, culling and wind
+  vegetation, grass and flower chunks, LOD, culling, exclusions and wind
   quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
 
 UI/tooling:
@@ -225,84 +239,71 @@ UI/tooling:
 ## Source-backed findings
 
 ```txt
-index import map Three.js identity: 0.165.0
-main.js direct Three.js identity: 0.165.0
-main.js NexusEngine identity: @main
-immutable NexusEngine browser commit: absent
-provider manifest: absent
-content fingerprint or integrity result: absent
-required-export/API compatibility probe: absent
-timeout, retry or approved fallback: absent
-provider-set generation: absent
-typed RuntimeProviderAdmissionResult: absent
-provider-independent failure projection: absent
-GameHost provider identity receipt: absent
-telemetry provider identity receipt: absent
-first provider-backed frame acknowledgement: absent
-package-owned Three.js dependency: absent
-package-owned NexusEngine dependency: absent
-headless checkout uses NexusEngine main: confirmed
-browser/headless shared immutable revision: absent
-```
-
-## Concrete provider divergence
-
-```txt
-application revision: unchanged
-headless NexusEngine revision: whichever main resolved during workflow
-browser NexusEngine revision: whichever main resolves at page load
-provider-set fingerprint: none
-runtime-visible provider provenance: none
+world RAF chain: present
+map RAF chain: present
+world rendering continues while map is open: yes
+simulation/mail/visual/telemetry updates pause while map is open: yes
+map overlay visible before first map RAF draw: possible by ordering
+map draw reads live simulation getter: yes
+map draw reads live parcel getter: yes
+shared immutable world/map frame envelope: absent
+flight-state revision in map projection: absent
+mail-state revision in map projection: absent
+map transition generation: absent
+world projection result: absent
+map projection result: absent
+dual-surface commit result: absent
+partial-frame recovery result: absent
+first coherent map frame acknowledgement: absent
+GameHost world/map commit receipt: absent
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-runtime-module-provider-admission-authority-domain
+open-above-map-world-dual-surface-frame-coherence-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-AdmitRuntimeProvidersCommand
-  -> validate immutable provider manifest
-  -> resolve exact source identities
-  -> fetch/import through one bootstrap boundary
-  -> verify fingerprints or integrity policy
-  -> validate required exports and API compatibility
-  -> compare browser/headless NexusEngine revisions
-  -> atomically commit one provider-set generation
-  -> publish RuntimeProviderAdmissionResult
-  -> initialize gameplay/rendering only after acceptance
-  -> publish telemetry and GameHost receipts
-  -> render provider-independent rejection UI when needed
-  -> acknowledge the first matching visible frame
+PresentFlightFrameCommand
+  -> bind runtime session, flight revision and mail revision
+  -> capture one immutable DualSurfaceFrameEnvelope
+  -> classify map Closed, Opening, Open, Closing or Retired
+  -> prepare required world/map projection candidates
+  -> validate viewport, transition and surface generations
+  -> commit accepted projections under one DualSurfaceCommitId
+  -> return Complete, Partial, Failed, Stale, Superseded or Cancelled
+  -> preserve the last complete frame on partial failure
+  -> publish detached telemetry and GameHost receipts
+  -> acknowledge the first coherent visible frame per transition
 ```
 
 ## Planned coordinating kits
 
 ```txt
-open-above-runtime-module-provider-admission-authority-domain
-open-above-runtime-provider-manifest-kit
-open-above-provider-source-identity-kit
-open-above-provider-resolution-command-kit
-open-above-provider-fetch-adapter-kit
-open-above-provider-content-fingerprint-kit
-open-above-provider-integrity-verification-kit
-open-above-provider-api-contract-kit
-open-above-provider-version-compatibility-kit
-open-above-provider-set-generation-kit
-open-above-provider-admission-result-kit
-open-above-provider-failure-projection-kit
-open-above-browser-headless-provider-parity-kit
-open-above-provider-telemetry-receipt-kit
-open-above-first-provider-frame-ack-kit
-open-above-provider-fixture-gate-kit
+open-above-map-world-dual-surface-frame-coherence-authority-domain
+open-above-dual-surface-frame-envelope-kit
+open-above-flight-state-revision-kit
+open-above-mail-state-revision-kit
+open-above-map-open-transition-kit
+open-above-world-projection-command-kit
+open-above-map-projection-command-kit
+open-above-world-projection-result-kit
+open-above-map-projection-result-kit
+open-above-dual-surface-commit-kit
+open-above-partial-frame-recovery-kit
+open-above-map-first-frame-ack-kit
+open-above-world-map-readback-kit
+open-above-dual-surface-frame-journal-kit
+open-above-dual-surface-fixture-gate-kit
 ```
 
 ## Retained architecture priorities
 
 ```txt
+runtime module/provider admission and immutable identity
 delivery completion and mission progression
 flight-session persistence and restore authority
 session, listener, frame and failure ownership
@@ -317,4 +318,4 @@ map spatial navigation and accessibility
 
 ## Validation boundary
 
-Documentation only. No runtime provider admission, integrity, compatibility, parity, failure projection or first-frame fixture was executed.
+Documentation only. No runtime dual-surface authority, browser frame fixture, pixel readback, build, Pages smoke or production-readiness proof was executed.
