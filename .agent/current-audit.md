@@ -1,26 +1,26 @@
 # Current Audit: TheOpenAbove
 
-**Last aligned:** `2026-07-12T21-31-40-04-00`  
-**Status:** `telemetry-snapshot-immutability-central-reconciled`  
+**Last aligned:** `2026-07-12T23-50-01-04-00`  
+**Status:** `air-mail-session-persistence-authority-audited`  
 **Runtime revision reviewed:** `c2b96fa4d0dc44f6f3cf52762834324e712ed7d9`
 
 ## Summary
 
-The repo-local telemetry snapshot immutability audit was newer than the central ledger, so TheOpenAbove was selected for reconciliation. The current telemetry path still lacks an immutable read-model boundary: `getSnapshot()` creates one complete projection, the telemetry kit stores it directly as `BalloonSnapshot`, stores its nested `visual` object directly as `VisualSnapshot`, and Nexus resources, journals, engine getters and `GameHost` retain or return those mutable references.
+TheOpenAbove currently has no executable persistence domain. Browser boot constructs a new default mail parcel and a new balloon simulation, gameplay mutates those objects in memory, and reload or navigation discards all flight and delivery progress. The source exposes snapshot/reset services for some participants, but it has no coordinated save, durable verification, restore, migration, quarantine, conflict or visible restored-frame result.
 
 ## Plan ledger
 
-**Goal:** synchronize one source-backed telemetry audit and preserve the exact authority needed for immutable complete/visual resources, journal evidence, public readback and visible-frame acknowledgement.
+**Goal:** document one atomic and durable authority for session progress before the mail objective is treated as recoverable gameplay state.
 
 - [x] Compare the full Publish inventory with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` because its repo-local telemetry audit was newer than central tracking.
-- [x] Inspect `getSnapshot()`, telemetry publication, Nexus resource storage and public readback.
-- [x] Identify the complete interaction loop, domains, 68 source-backed kits and services.
-- [x] Preserve snapshot identity, normalization, alias control, fingerprint, atomic commit and readback requirements.
-- [x] Add a reconciliation tracker and complete system audit family.
-- [ ] Runtime implementation and executable mutation fixtures remain future work.
+- [x] Select only `TheOpenAbove` by the oldest eligible central timestamp.
+- [x] Inspect boot composition, balloon state, mail state and current proof scripts.
+- [x] Preserve the full interaction loop, domains, kit census and services.
+- [x] Define save, restore, reset, storage, migration, conflict and visible-frame contracts.
+- [x] Add a timestamped tracker and complete persistence audit family.
+- [ ] Runtime implementation and executable persistence fixtures remain future work.
 
 ## Selection result
 
@@ -31,7 +31,7 @@ new eligible repositories: 0
 central-ledger-missing eligible repositories: 0
 root-.agent-missing eligible repositories: 0
 selected repository: LuminaryLabs-Publish/TheOpenAbove
-selection basis: repo-local telemetry audit newer than central ledger
+selection basis: oldest eligible central update
 excluded repository: LuminaryLabs-Publish/TheCavalryOfRome
 ```
 
@@ -39,72 +39,75 @@ excluded repository: LuminaryLabs-Publish/TheCavalryOfRome
 
 ```txt
 browser boot
-  -> compose visual, balloon, airstream, mail, map and camera services
-  -> create balloon simulation and Nexus telemetry engine
-  -> publish GameHost
-  -> start recursive RAF
+  -> create default routes
+  -> create visual world and balloon
+  -> create fresh mail domain and parcel
+  -> create fresh balloon simulation at [0, 105, 0]
+  -> create map, camera, presentation and telemetry
+  -> publish GameHost and start RAF
 
-frame while map is closed
-  -> update simulation, delivery, airstream, pose, camera and visual state
-  -> engine.tick(dt)
-      -> build getSnapshot() object
-      -> store complete object as BalloonSnapshot
-      -> store snapshot.visual as VisualSnapshot
-      -> emit BalloonTicked scalar event
-      -> append resource journal records containing object references
-  -> render the frame
+running frame
+  -> mutate balloon position, velocity, elapsed and distance
+  -> mutate selected current and parcel delivery state
+  -> update world presentation and telemetry
+  -> render
 
-public consumer
-  -> call engine.openAbove.getState/getVisualState or GameHost.getState
-  -> receive engine-owned object reference
-  -> mutate nested state without command or tick
-  -> complete/visual resources and journal evidence can drift
+browser lifecycle end
+  -> no save command
+  -> no durable write or verification
+  -> no pagehide/visibility flush result
+
+next boot
+  -> default route, parcel and flight state are recreated
+  -> no restore, migration, quarantine or restored-frame receipt
 ```
 
 ## Source-backed findings
 
-### Full and visual resources share a writable subtree
+### Boot always creates defaults
 
-`world.setResource(BalloonSnapshot, snapshot)` stores the complete object. `world.setResource(VisualSnapshot, snapshot.visual ?? null)` stores the exact nested visual object.
+`src/main.js` calls `createDefaultMailRoute()`, constructs the mail domain from that route and constructs the balloon simulation with `startPosition: [0, 105, 0]`.
 
-### Nexus stores and reads by reference
+### Flight state is memory-only
 
-`setResource()` places the supplied value directly in `resourceValues`; `getResource()` returns it directly. Resource journal rows retain the supplied `previous` and `value` references.
+The balloon simulation owns mutable vectors and scalar fields for position, velocity, wind, altitude, burner, vent, heading, elapsed and distance. It exposes update, snapshot and dispose, but no load or restore transaction.
 
-### Public readback exposes engine ownership
+### Mail state is memory-only
 
-`engine.openAbove.getState()` and `getVisualState()` return Nexus resource values. `window.GameHost.getState().nexusEngine` returns the complete resource again. No immutable envelope, consumer identity, snapshot ID or clone-on-read boundary exists.
+`createMailParcel()` initializes an in-transit, undelivered parcel. Delivery progress mutates `selectedAirstreamId`, `status`, `delivered`, `deliveredAt` and `message` directly. The mail domain exposes snapshot and reset, but no persistence adapter.
 
-### Render and telemetry have no shared receipt
+### No durable boundary is installed
 
-The frame renders after the telemetry tick, but the snapshot has no runtime session, frame identity, content fingerprint or first-visible-frame acknowledgement. A post-tick mutation can change telemetry without a new visible frame.
+The browser composition imports no persistence domain and registers no storage or page-lifecycle save path. `package.json` declares no persistence test.
+
+### No restored visible proof exists
+
+The renderer and telemetry have no persistence generation or restore commit ID. A future sequential restore could project mixed participant generations without detection.
 
 ## Reachable failure classes
 
 ```txt
-cross-resource mutation
-  -> mutate VisualSnapshot
-  -> BalloonSnapshot.visual changes without a tick
+progress loss
+  -> deliver or fly for an extended session
+  -> refresh or navigate
+  -> default state returns
 
-public-readback mutation
-  -> mutate GameHost Nexus snapshot
-  -> engine-owned telemetry changes in place
+false save claim risk
+  -> future host marks captured before durable verification
+  -> storage failure remains invisible
 
-journal evidence drift
-  -> mutate retained resource object
-  -> journal previous/value no longer reflects append-time state
+partial restore risk
+  -> install mail and balloon sequentially
+  -> frame renders mixed generations
 
-stale read ambiguity
-  -> consumer retains predecessor object
-  -> successor commits
-  -> no identity distinguishes generations
+stale overwrite risk
+  -> two tabs save from one predecessor
+  -> later writer silently replaces newer progress
 
-visible telemetry mismatch
-  -> mutate published values after render
-  -> telemetry no longer describes the visible frame
+corrupt record risk
+  -> parse untrusted bytes without schema/fingerprint/quarantine
+  -> invalid state enters runtime
 ```
-
-No claim is made that a production consumer currently exercises these paths. The ownership boundary permits them.
 
 ## Domains in use
 
@@ -114,14 +117,14 @@ runtime boot, session, input, RAF and telemetry
 Nexus resource, event and journal storage
 balloon motion, steering, burner, vent, altitude and distance
 airstream routes, samples, force, visuals and debug
-mail parcel, towns, delivery volumes and progress
+mail parcel, towns, delivery volumes, progress and reset
 seeded world generation, erosion, climate, biome and flora
 terrain near/horizon streaming and disposal
 vegetation, grass and flowers, exclusions, chunks, LOD, culling and wind
 balloon geometry, materials, rigging, camera and presentation
 quality, dynamic resolution, illumination, clouds, water, HDR and lens
 map projection, headless proof, tests, build and Pages
-missing telemetry identity, immutability, alias control, readback isolation and proof
+missing persistence identity, durable commit, restore, migration, conflict and proof
 ```
 
 ## Implemented kit census
@@ -135,68 +138,72 @@ tooling/proof: 4
 active source-backed total: 68
 runtime-implied adapters: 12
 inactive/retired legacy: 12
-planned telemetry authority including parent: 25
+planned persistence authority including parent: 22
 ```
 
 ## Offered services
 
 ```txt
 runtime/gameplay:
-  flight input/integration, telemetry resource/event publication,
-  airstream route/field/force/visual/debug, mail parcel/town/volume/progress/reset
+  flight input/integration, telemetry publication,
+  airstream route/field/force/visual/debug,
+  mail parcel/town/volume/progress/reset
 
 balloon/object/presentation:
-  envelope/basket/rigging/burner/rope construction, materials,
-  deferred loading, secondary motion, camera and clipping
+  procedural envelope/basket/rigging/burner/rope construction,
+  materials, deferred loading, secondary motion, camera and clipping
 
 world/environment:
-  seeded world, erosion, biome, terrain streaming, vegetation, grass/flowers,
-  quality, dynamic resolution, sky, clouds, water, HDR, color grade and lens
+  seeded world, erosion, biome, terrain streaming, vegetation,
+  grass/flowers, quality, dynamic resolution, sky, clouds, water, HDR and lens
 
 UI/tooling:
   parchment map, headless inspection, source/static checks,
-  world/flora and route/mail proof, build and Pages adaptation
+  route/mail and world/flora proof, build and Pages adaptation
 ```
 
-All active kit names and per-kit services are preserved in the latest tracker and `.agent/kit-registry.json`.
+All kit names and per-kit services are preserved in the current tracker and `.agent/kit-registry.json`.
 
 ## Required parent domain
 
 ```txt
-open-above-telemetry-snapshot-immutability-authority-domain
+open-above-flight-session-persistence-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-TelemetrySnapshotCommand
-  -> validate runtime session, frame and predecessor snapshot
-  -> collect detached provider projections and source revisions
-  -> normalize nested values into a canonical candidate
-  -> derive complete and visual projections
-  -> reject prohibited writable aliasing
-  -> calculate content fingerprint
-  -> deep-freeze or establish explicit copy boundaries
-  -> atomically commit both resources
-  -> publish typed commit result
-  -> append immutable journal evidence
-  -> expose immutable revisioned readback
-  -> collect consumer receipts
-  -> acknowledge the first visible matching frame
+SaveSessionCommand
+  -> validate runtime, world, route and participant predecessors
+  -> collect detached participant snapshots
+  -> canonicalize and fingerprint
+  -> stage and readback-verify bytes
+  -> compare writer and active predecessor
+  -> atomically promote a verified generation
+  -> publish SaveCommitResult
+
+RestoreSessionCommand
+  -> verify active or backup generation
+  -> migrate supported schemas or quarantine invalid data
+  -> prepare every participant candidate
+  -> atomically install one restored generation
+  -> publish RestoreCommitResult
+  -> acknowledge the first visible restored frame
 ```
 
 ## Required invariants
 
 ```txt
-public callers cannot mutate engine-owned telemetry
-complete and visual resources cite one snapshot and frame
-shared subtrees are immutable or detached
-resource journals cannot drift after append
-failed or stale candidates perform zero live mutation
-predecessor pair remains available until successor commit succeeds
-visible acknowledgement follows successful commit and render
+accepted save means durable readback verification succeeded
+reload restores matching balloon and mail revisions
+failed or stale saves preserve the verified predecessor
+partial restore never reaches live presentation
+reset and durable storage converge
+corrupt or incompatible records are quarantined
+multi-tab conflicts return typed results
+visible restored frames cite the installed persistence generation
 ```
 
 ## Validation boundary
 
-Documentation only. Runtime source, HTML, package scripts, dependencies, gameplay, rendering and deployment were not changed. No mutation, alias, journal-integrity, browser, built-output or Pages fixture was run.
+Documentation only. Runtime source, HTML, package scripts, dependencies, gameplay, rendering and deployment were not changed. No browser-storage, migration, corruption, multi-tab, page-lifecycle, build or Pages persistence fixture was run.
