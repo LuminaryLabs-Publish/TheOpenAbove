@@ -1,122 +1,81 @@
-# Next Steps: TheOpenAbove Core World Feature/Foundation Adoption
+# Next Steps: TheOpenAbove World Generation Public Contract Proof
 
-**Last aligned:** `2026-07-13T18-40-52-04-00`
+**Last aligned:** `2026-07-13T18-59-14-04-00`  
+**Status:** `world-generation-public-contract-proof-authority-audited`
 
 ## Plan ledger
 
-**Goal:** integrate the new semantic mountain with the existing staged-world adoption path so every physical and visible consumer commits one versioned Core World foundation artifact.
+**Goal:** replace file-location proof with a canonical public-contract manifest while retaining useful structural checks as non-authoritative diagnostics.
 
-### Gate 1: parent Core World identity
+### Gate 1: canonical public contract
 
-- [ ] Register the rendered world through `engine.n.coreWorld.registerWorld()`.
-- [ ] Define the bounded-disk surface and a compatible partition/cell policy.
-- [ ] Represent the staged generator and feature foundation as provider-owned data.
-- [ ] Publish portable effect descriptors rather than heavy arrays or GPU objects.
-- [ ] Bind world, provider, and runtime generations.
+- [ ] Define `WorldGenerationPublicContractManifest`.
+- [ ] Include public IDs, constants, phases, factory entry point and descriptor schema.
+- [ ] Add `WorldGenerationContractRevision` and deterministic fingerprint.
+- [ ] Export the manifest from `world-generation-kit.js`.
+- [ ] Keep `world-generation-support.js` private to the facade.
 
-### Gate 2: feature and foundation revisions
+### Gate 2: module graph evidence
 
-- [ ] Add `FeatureRegistryRevision` and `FeatureLifecycleRevision`.
-- [ ] Add `FoundationCellRevision` and contribution fingerprint.
-- [ ] Recompile after feature registration, lifecycle changes, reset, or replacement.
-- [ ] Reject stale compile work after runtime or base-candidate retirement.
-- [ ] Expose bounded revision diagnostics.
+- [ ] Record the facade-to-support dependency graph.
+- [ ] Classify source-file existence checks separately from API proof.
+- [ ] Reject missing, duplicate or stale public exports.
+- [ ] Allow internal file moves that preserve the manifest and behavior.
+- [ ] Detect accidental internal imports by product consumers.
 
-### Gate 3: immutable resolved artifact
+### Gate 3: executable source proof
 
-- [ ] Publish `ResolvedWorldFoundationArtifact` for one base candidate and cell.
-- [ ] Include feature IDs, contribution IDs, bounds, dependency order, and fingerprint.
-- [ ] Include elevation, material, collision, and fidelity channel manifests.
-- [ ] Keep the artifact detached until consumer preparation succeeds.
-- [ ] Retain the predecessor artifact until visible acknowledgement.
+- [ ] Import all public values from `world-generation-kit.js`.
+- [ ] Verify grid size, feature-cell size, phases and kit ID through the facade.
+- [ ] Retain deterministic, protection, staged lifecycle, reset and disposal fixtures.
+- [ ] Publish per-fixture typed results.
+- [ ] Calculate one source proof fingerprint.
 
-### Gate 4: channel adapters
+### Gate 4: build and deployment parity
 
-- [ ] Keep the elevation adapter compatible with current `sampleHeight` signatures.
-- [ ] Replace manual map tinting with a material-channel adapter.
-- [ ] Add an explicit collision-channel adapter and revision receipt.
-- [ ] Add a landform fidelity plan for near mesh, middle field, and far silhouette.
-- [ ] Preserve current mountain shape and Air Mail route protection.
+- [ ] Build the Vite artifact.
+- [ ] Import or probe the built public module boundary.
+- [ ] Compare source and build manifests and deterministic fixtures.
+- [ ] Probe the GitHub Pages artifact and revision identity.
+- [ ] Publish source/build/Pages parity results.
 
-### Gate 5: consumer preparation and adoption
+### Gate 5: consumer and visible proof
 
-- [ ] Register terrain-near, terrain-horizon, vegetation, grass, flowers, map, and collision consumers.
-- [ ] Mark mandatory and optional consumers.
-- [ ] Prepare resources under explicit work/time budgets.
-- [ ] Return typed per-channel and per-consumer preparation results.
-- [ ] Commit base-world and foundation revisions together.
-- [ ] Publish `WorldFeatureFoundationAdoptionResult`.
+- [ ] Bind terrain-near, terrain-horizon, vegetation, flora, map and collision-height consumers to the contract revision.
+- [ ] Expose the accepted contract revision through telemetry and `GameHost`.
+- [ ] Publish a frame envelope containing contract and consumer revisions.
+- [ ] Add `FirstContractRevisionFrameAck`.
+- [ ] Reject mixed-revision visible frames.
 
-### Gate 6: rollback and lifecycle
+### Gate 6: failure and drift fixtures
 
-- [ ] Inject elevation, material, collision, terrain, flora, and map failures.
-- [ ] Preserve predecessor sampling and render resources after preparation failure.
-- [ ] Dispose incomplete successor resources exactly once.
-- [ ] Retire stale artifacts after feature lifecycle changes, reset, or disposal.
-- [ ] Publish terminal rollback and retirement receipts.
-
-### Gate 7: visible and physical proof
-
-- [ ] Publish one adopted landform frame envelope.
-- [ ] Correlate foundation, terrain, horizon, material, flora, map, and collision revisions.
-- [ ] Add near, middle, and far observation checks.
-- [ ] Add `FirstVisibleLandformFrameAck`.
-- [ ] Expose detached receipts through telemetry and `GameHost`.
-
-### Gate 8: executable proof wiring
-
-- [ ] Replace or supplement the stub with a real pinned-engine integration test.
-- [ ] Add the existing staged world-generation test to `npm run check`.
-- [ ] Add feature lifecycle and stale-artifact fixtures.
-- [ ] Add material-zone and collision parity fixtures.
-- [ ] Add route/town nonintersection proof.
-- [ ] Add adoption failure/rollback and visible-frame browser fixtures.
-- [ ] Add source, dist, and Pages parity checks.
-
-## Implementation order
-
-```txt
-1. Core World parent registration and provider identity
-2. feature/foundation revisions
-3. detached resolved foundation artifact
-4. elevation/material/collision/fidelity adapters
-5. consumer registry and bounded preparation
-6. atomic adoption and rollback
-7. visible and collision acknowledgement
-8. source/browser/build/Pages gates
-```
+- [ ] Move constants between internal modules without changing the facade and prove the suite remains valid.
+- [ ] Change a public value without updating the manifest and require rejection.
+- [ ] Change behavior while retaining source markers and require rejection.
+- [ ] Inject a stale build artifact and require parity failure.
+- [ ] Inject Pages revision drift and require parity failure.
 
 ## Recommended file cut
 
 ```txt
-src/world/feature-foundation-runtime/
-  world-feature-compile-command-kit.js
-  world-feature-registry-revision-kit.js
-  foundation-cell-artifact-kit.js
-  foundation-channel-manifest-kit.js
-  world-feature-foundation-adoption-authority-domain.js
-
-src/visual/world-feature-adoption/
-  foundation-elevation-adapter-kit.js
-  foundation-material-adapter-kit.js
-  foundation-collision-adapter-kit.js
-  landform-fidelity-plan-kit.js
-  world-feature-consumer-registry-kit.js
-  world-feature-adoption-plan-kit.js
-  world-feature-adoption-result-kit.js
-  world-feature-adoption-rollback-kit.js
-  first-visible-landform-frame-ack-kit.js
+src/world/proof/
+  world-generation-public-api-manifest-kit.js
+  world-generation-contract-revision-kit.js
+  world-generation-module-graph-kit.js
+  world-generation-proof-result-kit.js
+  world-generation-contract-proof-authority-domain.js
 
 tests/
-  world-feature-foundation.mjs
-  world-feature-foundation-real-engine.mjs
-  world-feature-foundation-adoption.browser.mjs
+  world-generation-public-contract.mjs
+  world-generation-build-parity.mjs
+  world-generation-pages-parity.mjs
+  world-generation-contract.browser.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve the current 500 metre mountain profile, deterministic seed, fallback world, staged generation, sampling signatures, route/town protection, balloon controls, Air Mail behavior, map style, terrain appearance, and existing public host. Do not combine the first authority cut with provider admission, persistence, or map/world dual-surface implementation.
+Preserve the public imports from `world-generation-kit.js`, `WORLD_GRID_SIZE = 257`, `WORLD_FEATURE_CELL_SIZE = 2080`, staged fallback behavior, deterministic output, route/town protection, reset retention, mountain composition, current rendering and Air Mail gameplay.
 
-## Current documentation state
+## Do not claim
 
-Repo-local documentation is aligned through the `2026-07-13T18-40-52-04-00` Core World feature/foundation adoption audit family.
+Do not claim canonical contract ownership, source/build/deployed parity or visible consumer convergence until all gates pass on `main`.

@@ -1,173 +1,90 @@
-# Validation: TheOpenAbove Core World Feature/Foundation Adoption
+# Validation: TheOpenAbove World Generation Public Contract Proof
 
-**Last aligned:** `2026-07-13T18-40-52-04-00`
+**Last aligned:** `2026-07-13T18-59-14-04-00`
 
 ## Scope
 
-Documentation-only audit of the Core World feature/foundation mountain integration at runtime revision `bde5e6f5ca660715d2c1b4592d508431e89587cd` using Nexus Engine revision `112de886131c00121c36f004c257bd50ff122589`.
+Documentation-only review of commit `b30ff05719d659c42fbad5cbbde6b8fd72848229`, the world-generation public facade/support split, behavior and structural tests, package proof wiring, build boundary and Pages proof requirements.
 
 ## Plan ledger
 
-**Goal:** separate source-backed implementation facts from executable proof of complete foundation channels, atomic consumer adoption, collision parity, fidelity, rollback, and visible completion.
+**Goal:** state exactly what was inspected and what still requires executable evidence.
 
-- [x] Compare all ten current Publish repositories against central tracking.
-- [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because its runtime is newer than central documentation.
-- [x] Inspect the runtime commit and changed product files.
-- [x] Inspect the pinned Core World parent, Foundation, Features, Landform, and mountain source.
-- [x] Inspect terrain, flora, map, telemetry, package, and feature test paths.
-- [x] Confirm the implemented elevation path by source.
-- [x] Confirm missing material, collision, fidelity, revision, adoption, rollback, and visible-frame results.
-- [x] Preserve the complete kit and service inventory.
-- [x] Synchronize repo-local and central documentation.
-- [x] Change no runtime source, dependency, script, or workflow.
-- [x] Create no branch or pull request.
-- [ ] Execute pure, browser, build, and Pages fixtures.
+- [x] Compare full Publish inventory with central tracking and root `.agent` state.
+- [x] Confirm TheOpenAbove is the only eligible repository ahead of central tracking.
+- [x] Inspect the unreconciled commit and changed test file.
+- [x] Inspect the public facade and internal support module.
+- [x] Inspect world-generation behavioral proof and structural smoke.
+- [x] Inspect feature/foundation stub proof and package check wiring.
+- [x] Inspect the latest commit's combined status checks.
+- [x] Preserve the existing kit and service inventory.
+- [ ] Execute source, build, browser and Pages proof.
 
-## Source-backed checks
+## Source-backed observations
 
 ```txt
-immutable Nexus Engine revision: present
-Core World installation: present
-World Foundation child installation: present
-World Features child installation: present
-Landform Features child installation: present
-mountain type registration: present
-semantic northern-wall definition: present
-500m elevation field: present
-foundation cell compilation: present
-base + foundation height: present
-biome/flora composed-height propagation: present
-feature-aware map tint: present
-feature test in npm run check: present
+reviewed repository head: b30ff05719d659c42fbad5cbbde6b8fd72848229
+unreconciled commits: 1
+changed files: tests/smoke.mjs
+runtime source changed by unreconciled commit: no
+test source changed by unreconciled commit: yes
 
-rendered-world parent registration: absent
-bounded product cell/provider lifecycle: absent
-material-channel product adapter: absent
-explicit collision-channel adapter: absent
-fidelity-specific render consumers: absent
-feature registry/lifecycle revision receipt: absent
-foundation cell revision in product state: absent
-contribution/channel fingerprint: absent
-atomic foundation consumer adoption: absent
-rollback result: absent
-first visible mountain frame acknowledgement: absent
+public facade: src/world/world-generation-kit.js
+internal support: src/world/world-generation-support.js
+public constant re-exports: present
+behavior test public-facade import: present
+structural smoke internal-file read: present
+world-generation behavior indirectly wired through smoke: present
+feature/foundation proof uses stubs: yes
+combined status checks reported: none
 ```
 
-## Source inspected
+## Existing proof
+
+`tests/world-generation.mjs` proves deterministic public sampling, route/town protection, flora and biome coverage, staged progress and phase completion, successor parity, reset retention and disposal through the public facade.
+
+`tests/smoke.mjs` checks required files and source markers, imports behavior suites, and now reads the internal support module for the moved constants.
+
+`tests/world-feature-foundation.mjs` proves product wrapper math and delegation against hand-authored feature/foundation stubs, not the pinned Nexus Engine implementation.
+
+## Required fixtures
 
 ```txt
-LuminaryLabs-Publish/TheOpenAbove:
-  package.json
-  src/data/campaign.config.js
-  src/main.js
-  src/runtime/balloon-telemetry-kit.js
-  src/visual/visual-domain.js
-  src/world/world-feature-foundation-kit.js
-  tests/world-feature-foundation.mjs
-  root .agent documentation
-
-LuminaryLabs-Dev/NexusEngine @ 112de886...:
-  src/core-domains/core-world-domain/README.md
-  src/core-domains/core-world-domain/world-domain.js
-  subdomains/world-foundation-domain/world-foundation-domain.js
-  subdomains/world-feature-domain/world-feature-domain.js
-  subdomains/world-feature-domain/subdomains/landform-feature-domain/landform-feature-domain.js
-  subdomains/world-feature-domain/subdomains/landform-feature-domain/kits/mountain-feature-kit/index.js
-
-LuminaryLabs-Dev/LuminaryLabs:
-  repo-ledger/LuminaryLabs-Publish/TheOpenAbove.md
-  central repo inventory and internal change-log context
+public manifest import and fingerprint
+internal module graph diagnostic
+source facade export parity
+deterministic source behavior result
+support-file relocation without public change
+public change without manifest revision rejection
+source marker with behavior drift rejection
+Vite build manifest and behavior parity
+stale build artifact rejection
+Pages artifact identity and parity
+terrain/map/collision consumer revision correlation
+first visible contract revision frame
 ```
 
-## Existing executable proof observed
+## Validation result
 
 ```txt
-npm run check includes tests/world-feature-foundation.mjs
-
-stub assertions:
-  compile called once
-  feature elevation hidden before base ready
-  500m elevation added after ready
-  outside terrain unchanged
-  biome receives composed height
-  flora receives composed height
-  map color changes
-  feature ID appears in descriptor
-  reset and dispose delegate
-```
-
-## Limit of existing test
-
-The test substitutes hand-written `worldFeatures` and `worldFoundation` objects. It does not:
-
-```txt
-import the pinned Nexus Engine runtime
-install Core World or child domains
-normalize the real mountain definition
-compile the real foundation contribution
-inspect elevation/material/collision channel descriptors
-inspect foundation or feature revisions
-register the rendered world with Core World
-render terrain, horizon, flora, or map
-execute balloon collision or route membership
-change feature lifecycle
-inject adoption failure
-inspect a visible frame
-```
-
-## Missing executable proof
-
-```txt
-real pinned-engine feature/foundation integration
-parent Core World world/provider/cell lifecycle
-foundation channel manifest and fingerprint
-feature lifecycle recompile and stale rejection
-material-zone presentation
-explicit collision-channel parity
-near/middle/far fidelity behavior
-route/town nonintersection
-atomic base/foundation adoption
-consumer failure rollback
-first visible mountain frame
-source/dist/Pages parity
-```
-
-## Commands not run
-
-```txt
-npm install
-npm run check
-node tests/world-feature-foundation.mjs
-node tests/world-generation.mjs
-npm run headless:world
-npm run headless:check
-npm run build
-browser feature/foundation fixture
-collision parity fixture
-built-dist browser smoke
-GitHub Pages smoke
-```
-
-## Change-state validation
-
-```txt
-runtime JavaScript changed: no
-HTML or CSS changed: no
-package scripts changed: no
-dependencies changed: no
-gameplay changed: no
-render behavior changed: no
-map behavior changed: no
-collision behavior changed: no
-deployment workflow changed: no
+documentation files changed by this audit: yes
+runtime JavaScript changed by this audit: no
+test source changed by this audit: no
+package scripts changed by this audit: no
+dependencies changed by this audit: no
+workflow changed by this audit: no
+deployment changed by this audit: no
 branch created: no
 pull request created: no
-.agent documentation changed: yes
-central ledger synchronization: yes
-central internal change log: yes
+
+source inspected: yes
+test source inspected: yes
+package wiring inspected: yes
+combined status checks: none
+npm run check: not run
+npm run build: not run
+browser fixture: not run
+Pages fixture: not run
 ```
 
-## Completion boundary
-
-No complete Core World parent adoption, feature lifecycle correctness, material-zone rendering, explicit collision-channel use, fidelity realization, atomic consumer commit, rollback, first-visible mountain parity, or production-readiness claim is made.
+No public-contract parity, build parity, deployed parity, consumer convergence or production-readiness claim is made.

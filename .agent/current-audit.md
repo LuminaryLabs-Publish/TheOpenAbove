@@ -1,452 +1,184 @@
-# Current Audit: TheOpenAbove Core World Feature/Foundation Adoption
+# Current Audit: TheOpenAbove World Generation Public Contract Proof
 
-**Last aligned:** `2026-07-13T18-40-52-04-00`  
-**Status:** `core-world-feature-foundation-adoption-authority-audited`  
-**Runtime revision reviewed:** `bde5e6f5ca660715d2c1b4592d508431e89587cd`  
+**Last aligned:** `2026-07-13T18-59-14-04-00`  
+**Status:** `world-generation-public-contract-proof-authority-audited`  
+**Repository revision reviewed:** `b30ff05719d659c42fbad5cbbde6b8fd72848229`  
 **Nexus Engine provider:** `112de886131c00121c36f004c257bd50ff122589`
 
 ## Summary
 
-The runtime now uses pinned Nexus Engine Core World Foundation, Features, and Landform domains to register and compile a semantic `northern-wall` mountain with a 500 metre elevation field. A local product bridge adds resolved elevation to the staged base world, propagates the composed height into biome and flora sampling, tints the parchment map, and lets terrain-height consumers encounter the new physical shape.
+The repository moved world-generation constants and helpers into `src/world/world-generation-support.js` while keeping `src/world/world-generation-kit.js` as the public facade. Commit `b30ff05719d659c42fbad5cbbde6b8fd72848229` repaired structural smoke by reading the constants from their new physical file.
 
-The integration stops short of complete Core World adoption. The rendered world is not registered through the parent Core World builder. One global foundation cell is compiled once, only elevation is consumed, and the compiler’s material, collision, and fidelity descriptors do not receive typed product adapters. Feature/foundation revisions are not correlated with terrain, flora, map, collision, or a visible frame, and partial adoption has no rollback.
+The repair is correct for the current layout, but proof ownership is split. Runtime and behavioral tests consume the public facade; structural smoke consumes internal file placement. No manifest, contract revision, proof fingerprint, source/build/Pages parity result or visible consumer acknowledgement unifies those layers.
 
 ## Plan ledger
 
-**Goal:** preserve the implemented mountain while establishing one authority from semantic feature registration through resolved foundation channels, consumer preparation, atomic adoption, rollback, and visible proof.
+**Goal:** preserve the support-module split while making the public facade canonical and proving the same contract through behavior, build, deployment and visible consumers.
 
-- [x] Compare the current Publish inventory and central ledger.
+- [x] Compare the full Publish inventory, central ledgers, root `.agent` states and repository heads.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all eligible repositories have ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` because its runtime advanced beyond central documentation.
-- [x] Inspect the runtime diff and every affected product file.
-- [x] Inspect the pinned Core World parent and child-domain implementations.
-- [x] Trace height, biome, flora, map, collision, rendering, reset, disposal, and tests.
-- [x] Identify all domains, kits, adapters, and offered services.
-- [x] Add a timestamped tracker and focused audits.
-- [x] Change no runtime source or deployment configuration.
-- [ ] Implement and validate feature/foundation adoption authority.
+- [x] Select only TheOpenAbove because it is the sole eligible runtime-ahead repository.
+- [x] Inspect the unreconciled commit, facade, support module, tests and package wiring.
+- [x] Preserve the 99 active kit and adapter surfaces.
+- [x] Define the proof parent domain and fixture gate.
+- [x] Change documentation only.
+- [ ] Implement and execute the proof authority.
+
+## Selection comparison
+
+```txt
+accessible Publish repositories: 10
+eligible non-Cavalry repositories: 9
+central ledger entries: 9
+root .agent states: 9
+new eligible repositories: 0
+central-ledger-missing repositories: 0
+root-agent-missing repositories: 0
+runtime-ahead repositories: 1
+selected: LuminaryLabs-Publish/TheOpenAbove
+prior repo-local documentation head: 438f4cb9c0d8ceec4861ee9d4344dbd7e4723c40
+reviewed repository head: b30ff05719d659c42fbad5cbbde6b8fd72848229
+reconciled commits: 1
+changed runtime/test files: tests/smoke.mjs
+excluded: LuminaryLabs-Publish/TheCavalryOfRome
+```
+
+## Reconciled change
+
+```txt
+commit: b30ff05719d659c42fbad5cbbde6b8fd72848229
+message: fix(test): read staged world constants from support module
+changed file: tests/smoke.mjs
+
+change:
+  require src/world/world-generation-support.js
+  read WORLD_GRID_SIZE and WORLD_FEATURE_CELL_SIZE from support source
+  retain public facade re-exports and behavior-test imports
+```
 
 ## Complete interaction loop
 
 ```txt
-browser boot
-  -> import Three.js 0.165.0
-  -> import Nexus Engine at immutable commit 112de886...
-  -> create airstream routes and Air Mail towns
+source organization
+  -> world-generation-support.js owns constants and internal helpers
+  -> world-generation-kit.js imports and re-exports the public contract
+  -> runtime consumers import createWorldGenerationKit and sample the generated world
 
-Nexus composition
-  -> create balloon telemetry engine
-  -> install createCoreWorldDomain
-  -> auto-install n:world:foundation
-  -> auto-install n:world:features
-  -> auto-install n:world:features:landform
-  -> landform domain registers mountain type
-  -> register WORLD.features.landforms
-     -> northern-wall
-     -> mountain
-     -> 500m height
-     -> path, width, sharpness, zones, cliff threshold, fidelity
+proof organization
+  -> tests/world-generation.mjs imports the public facade
+  -> behavior proof checks public constants, determinism, staged lifecycle,
+     route/town protection, reset, replacement and disposal
+  -> tests/smoke.mjs imports the behavior suite
+  -> smoke additionally opens physical source files and applies regex assertions
+  -> latest fix redirects constant regex checks from the facade to the support module
+  -> npm run check executes smoke, feature/foundation, streaming, protection and overlay proof
+  -> Vite build and Pages deployment depend on the same source graph
 
-visual construction
-  -> create staged generated base world
-  -> create local world-feature-foundation bridge
-  -> compile open-above-global-foundation cell
-  -> World Features compiles mountain contribution
-  -> World Foundation resolves the cell
-  -> create terrain, vegetation, grass, flowers, map, and gameplay sampling
-     against the wrapper
-
-first-frame fallback
-  -> base generator status is working
-  -> featureElevation returns 0
-  -> terrain/map/collision-height users see only fallback base world
-  -> first WebGL frame is presented
-
-base generation
-  -> height
-  -> erosion
-  -> flow
-  -> climate
-  -> biome
-  -> base revision becomes ready
-
-feature/foundation activation
-  -> wrapper samples resolved mountain elevation
-  -> world.sampleHeight becomes base + feature elevation
-  -> biome and flora receive composed height
-  -> map color receives local elevation-based rock tint
-  -> generation-ready callback refreshes vegetation, grass, and flowers
-  -> terrain observes base generation revision and rebuilds
-  -> horizon and map update on their own consumer paths
-
-steady flight
-  -> balloon simulation samples terrainHeight for clearance
-  -> mail and vegetation use terrain-height queries
-  -> terrain near/horizon and flora sample composed world
-  -> telemetry reports base generation state, compiled flag, and feature count
-  -> no common feature/foundation adoption or visible-frame result exists
-
-reset/dispose
-  -> wrapper delegates reset/dispose to base world
-  -> compiled global-cell flag remains local and unversioned
-  -> no feature lifecycle recompile or artifact retirement result exists
+current gap
+  -> public export and physical source location are separate proof authorities
+  -> no versioned contract manifest or proof fingerprint states which evidence is canonical
+  -> no source/build/Pages parity result or browser-visible contract acknowledgement exists
 ```
 
 ## Domains in use
 
 ```txt
-browser document, module loading, canvas, RAF, input, error projection, GameHost
-balloon simulation, airstream routes/force/visuals, Air Mail, telemetry
+browser document, ES modules, canvas, RAF, input, error projection and GameHost
+balloon simulation, airstream routing/force/visuals and Air Mail
 Nexus Realtime resource and event publication
-Core World identity, definitions, partitions, cells, surfaces, providers, effects, snapshots
-World Foundation definitions, contributions, composition, sampling, cell resolution, snapshots
-World Features type registry, semantic definitions, lifecycle, queries, composition, compile, samplers, snapshots
-Landform Features mountain implementation and canyon/cliff/plateau contracts
-product world-feature configuration and global-cell foundation bridge
-staged base world generation, fallback sampling, progress, reset, disposal
-terrain near/horizon streaming, LOD, refresh, and height queries
-vegetation population and obstacle queries
-grass/flower density, chunks, LOD, culling, exclusions, wind
-parchment map cache, projection, routes, towns, marker, coloring
-quality, dynamic resolution, sky, clouds, water, HDR, grading, lens
-headless editor, static tests, Vite build, Pages deployment
-missing world-feature/foundation adoption authority
+Core World identity, definitions, partitions, cells, surfaces, providers, effects and snapshots
+World Foundation definitions, contributions, composition, sampling and cell resolution
+World Features registry, lifecycle, queries, compilation, samplers and snapshots
+Landform Features mountain, canyon, cliff and plateau contracts
+product world-feature configuration and foundation bridge
+staged world generation, support math, fallback sampling, progress, reset and disposal
+public world-generation facade and internal support-module dependency
+terrain near/horizon streaming, LOD, refresh and height queries
+vegetation, grass and flower population, density, culling and wind
+parchment map cache, routes, towns, marker, color and resize
+quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
+static structural proof, behavioral proof, module graph and contract parity
+headless editor, Vite build, GitHub Actions and Pages deployment
+missing world-generation public-contract proof authority
 ```
 
-## Kit census
+## Kit and service census
 
 ```txt
-local runtime/gameplay:             15
-local balloon/object/presentation:  15
-local visual/world/environment:     34
-local UI:                            1
-local tooling/proof:                 5
-local source-backed total:          70
-runtime-implied adapters:           12
-pinned Core World surfaces:         17
-current documented active total:    99
-inactive/retired legacy:            12
-planned feature/foundation parent:  15
+local source-backed kits:          70
+runtime-implied adapters:          12
+pinned Core World surfaces:        17
+current documented active total:   99
+inactive/retired legacy surfaces:  12
+planned proof-authority surfaces:  18
 ```
 
-## Local source-backed kits
-
-### Runtime and gameplay
-
-```txt
-open-above-balloon-simulation-kit
-open-above-balloon-telemetry-kit
-open-above-airstream-domain
-open-above-airstream-route-kit
-open-above-airstream-sampler-kit
-open-above-airstream-field-kit
-open-above-airstream-balloon-force-kit
-open-above-airstream-visual-kit
-open-above-airstream-debug-kit
-open-above-mail-delivery-domain
-open-above-mail-parcel-kit
-open-above-mail-route-kit
-open-above-delivery-volume-kit
-open-above-delivery-progress-kit
-open-above-mail-town-kit
-```
-
-### Balloon object and presentation
-
-```txt
-open-above-hot-air-balloon-object-kit
-open-above-balloon-envelope-profile-kit
-open-above-balloon-envelope-panel-kit
-open-above-balloon-mouth-kit
-open-above-balloon-streamer-fit-kit
-open-above-balloon-fabric-seam-kit
-open-above-hot-air-balloon-basket-kit
-open-above-hot-air-balloon-rigging-kit
-open-above-hot-air-balloon-burner-kit
-open-above-rope-kit
-open-above-balloon-presentation-domain
-open-above-envelope-fabric-material-kit
-open-above-basket-material-kit
-open-above-balloon-camera-rig-kit
-open-above-clipping-fade-kit
-```
-
-### Visual, world, and environment
-
-```txt
-open-above-visual-domain
-open-above-world-generation-kit
-open-above-world-feature-foundation-kit
-open-above-quality-tier-kit
-open-above-dynamic-resolution-kit
-open-above-physical-sky-kit
-open-above-sun-light-kit
-open-above-aerial-perspective-kit
-open-above-cloud-weather-map-kit
-open-above-volumetric-cloud-kit
-open-above-cloud-lod-kit
-open-above-cloud-lighting-kit
-open-above-terrain-surface-kit
-open-above-terrain-streaming-contract-kit
-open-above-terrain-chunk-streaming-kit
-open-above-terrain-horizon-streaming-kit
-open-above-vegetation-cluster-kit
-open-above-grass-world-seed-kit
-open-above-grass-biome-density-kit
-open-above-grass-exclusion-mask-kit
-open-above-grass-patch-density-kit
-open-above-grass-texture-atlas-kit
-open-above-grass-chunk-placement-kit
-open-above-grass-lod-kit
-open-above-grass-compute-culling-kit
-open-above-grass-field-domain
-open-above-flower-chunk-placement-kit
-open-above-flower-texture-atlas-kit
-open-above-flower-field-domain
-open-above-water-surface-kit
-open-above-distant-landmark-kit
-open-above-hdr-composer-kit
-open-above-color-grade-kit
-open-above-lens-response-kit
-```
-
-### UI and tooling/proof
-
-```txt
-open-above-parchment-map-overlay-kit
-open-above-headless-editor-environment
-open-above-static-smoke-test-kit
-open-above-airstream-mail-test-kit
-open-above-world-flora-test-kit
-open-above-world-feature-foundation-test-kit
-```
-
-## Runtime-implied adapters
-
-```txt
-open-above-route-shell-kit
-open-above-importmap-kit
-open-above-runtime-composer-kit
-open-above-keyboard-input-kit
-open-above-wheel-zoom-input-kit
-open-above-parchment-map-shell-kit
-open-above-error-panel-kit
-open-above-gamehost-legacy-readback-kit
-open-above-nexusengine-cdn-adapter-kit
-open-above-campaign-source-kit
-open-above-raf-clock-adapter-kit
-open-above-pages-deploy-kit
-```
-
-## Pinned Core World surfaces
-
-```txt
-n-world-domain
-world-builder-runtime-kit
-n-world-foundation-domain
-foundation-definition-kit
-foundation-composition-kit
-foundation-sampling-kit
-foundation-cell-resolution-kit
-n-world-feature-domain
-feature-registry-kit
-feature-lifecycle-kit
-feature-query-kit
-feature-composition-kit
-n-world-landform-feature-domain
-mountain-feature-kit
-canyon-feature-kit
-cliff-feature-kit
-plateau-feature-kit
-```
-
-## Offered services
-
-```txt
-Core World:
-  world definitions
-  partitions and stable cells
-  surfaces and focus
-  provider prepare/update/release lifecycle
-  portable effect descriptors
-  rollback-safe preparation
-  snapshots, restoration, diagnostics, reset
-
-World Foundation:
-  foundation definitions
-  bounded per-cell contributions
-  ordered contribution composition
-  elevation and arbitrary channel sampling
-  resolved cell revisions
-  cell provider creation
-  snapshots and reset
-
-World Features:
-  feature-type registry
-  semantic feature definitions
-  lifecycle updates
-  bounds-based queries
-  ordered contribution composition
-  feature and cell compilation
-  type samplers
-  snapshots and reset
-
-Landform Features:
-  mountain normalize, compile, sample, fidelity
-  canyon, cliff, and plateau contracts
-
-Product world-feature bridge:
-  one global-cell compile
-  staged feature-elevation gate
-  base + foundation height
-  biome/flora re-evaluation
-  local map-color tint
-  descriptor and base generation lifecycle proxy
-
-Existing product services:
-  balloon integration and presentation
-  airstream route/sample/field/force/visual/debug
-  mail parcel/route/town/volume/progress/snapshot/reset/disposal
-  terrain streaming, vegetation, grass, flowers
-  map, atmosphere, water, HDR, grading, lens, dynamic resolution
-  headless inspection, checks, build, deployment
-```
-
-## Semantic mountain definition
-
-```txt
-id: northern-wall
-type: mountain
-seed: open-above-northern-wall
-priority: 10
-path: (-5200,4900) -> (0,5500) -> (5000,4700)
-width: 2000
-height: 500
-sharpness: 2.8
-variation: 0
-cliffThreshold: 0.68
-material zones: mountain-rock >= 180, mountain-summit >= 390
-fidelity: near feature-mesh, middle foundation-field, far silhouette, collision foundation
-```
-
-## Compiler output and product adoption
-
-```txt
-elevation world-feature-field: consumed
-material mountain-material-zones: not consumed
-collision foundation-heightfield: not explicitly consumed
-fidelity metadata: not consumed
-cliffThreshold metadata: not consumed
-```
-
-The product map color is a local elevation tint rather than a material-channel adapter. Gameplay collision currently agrees only because it samples the composed terrain-height function.
+The complete implemented kit inventory and per-domain services are recorded in `.agent/trackers/2026-07-13T18-59-14-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
 
 ## Source-backed findings
 
-```txt
-immutable Nexus Engine provider pin: implemented
-Core World parent installation: implemented
-Foundation child installation: implemented
-Features child installation: implemented
-Landform child installation: implemented
-mountain feature type registration: implemented
-semantic northern-wall registration: implemented
-500m mountain contribution and sampler: implemented
-base + foundation elevation composition: implemented
-biome/flora composed-height propagation: implemented
-feature-aware map tint: implemented
-feature test in npm run check: implemented
+### Public facade remains stable
 
-rendered world registered with Core World parent: absent
-partition/cell/provider lifecycle used by product world: absent
-material-channel render adapter: absent
-explicit collision-channel adapter and receipt: absent
-near/middle/far fidelity adapters: absent
-feature registry/lifecycle revision: absent
-foundation cell revision in product state: absent
-contribution/channel fingerprint: absent
-lifecycle-triggered recompile: absent
-atomic feature/foundation consumer adoption: absent
-rollback after partial adoption: absent
-first visible mountain frame acknowledgement: absent
-real pinned-engine product integration fixture: absent
-```
+`world-generation-kit.js` imports constants and helpers from the support module and re-exports `WORLD_GRID_SIZE`, `WORLD_FEATURE_CELL_SIZE`, `WORLD_GENERATION_KIT_ID` and `WORLD_GENERATION_PHASES` alongside `createWorldGenerationKit`.
 
-## Stale and failure path
+### Behavioral proof already uses the facade
 
-```txt
-boot compile
-  -> local compiled=true
-  -> global foundation cell resolved
+`tests/world-generation.mjs` imports the public constants and factory from `world-generation-kit.js`. It proves deterministic sampling, protected routes and towns, staged progress, phase history, successor parity, reset retention and disposal.
 
-feature registration or lifecycle changes later
-  -> compiled remains true
-  -> no recompile
-  -> consumers retain predecessor artifact without stale result
+### Structural smoke uses internal layout
 
-base generation ready
-  -> elevation begins applying through sampling
-  -> consumers refresh separately
+`tests/smoke.mjs` now opens `world-generation-support.js` and checks physical constant definitions with regular expressions. This follows the refactor but acts as a second proof authority based on source location.
 
-consumer preparation or rebuild fails
-  -> no common adoption result
-  -> no foundation/base rollback
-  -> sampling, terrain, flora, map, and collision may expose mixed revisions
-```
+### Package proof has no typed aggregate result
+
+`npm run check` starts with smoke, which imports behavior suites, then runs feature/foundation, streaming, route-protection and overlay tests. The command returns process success or failure, not a contract manifest, dependency graph, proof fingerprint or per-layer result.
+
+### Build, deployment and visible parity are absent
+
+No fixture imports the Vite artifact and compares exports or deterministic behavior with source. No Pages fixture validates the same contract revision. Terrain, map and gameplay consumers publish no common contract revision in a frame envelope.
 
 ## Required parent domain
 
 ```txt
-open-above-world-feature-foundation-adoption-authority-domain
+open-above-world-generation-contract-proof-authority-domain
 ```
-
-This product authority should participate in the retained staged-world-generation scheduler/adoption authority.
 
 ## Required transaction
 
 ```txt
-WorldFeatureCompileCommand
-  -> bind runtime, Core World provider, world, base candidate, cell,
-     feature registry, lifecycle, and expected foundation revisions
-  -> compile bounded semantic features
-  -> resolve elevation, material, collision, and metadata channels
-  -> publish immutable ResolvedWorldFoundationArtifact
-
-WorldFoundationAdoptionCommand
-  -> bind base and foundation artifacts
-  -> prepare terrain-near, terrain-horizon, vegetation, grass, flowers,
-     map, and collision consumers
-  -> apply fidelity by observation range
-  -> collect typed channel and consumer receipts
-  -> atomically commit base and foundation revisions
-  -> preserve predecessor and dispose partial successor on failure
-  -> publish WorldFeatureFoundationAdoptionResult
-  -> acknowledge the first matching visible mountain frame
+WorldGenerationContractChange
+  -> bind repository, public facade, support graph and predecessor contract revisions
+  -> derive immutable WorldGenerationPublicContractManifest
+  -> classify structural, export, behavioral, integration, build and deployed assertions
+  -> execute source public-facade and deterministic behavior proof
+  -> execute build and Pages artifact parity proof
+  -> reject source-location-only, stale or partial evidence
+  -> publish WorldGenerationProofResult and evidence fingerprint
+  -> correlate terrain, map and gameplay consumer revisions
+  -> publish FirstContractRevisionFrameAck
 ```
 
 ## Planned coordinating kits
 
-```txt
-open-above-world-feature-foundation-adoption-authority-domain
-open-above-world-feature-compile-command-kit
-open-above-world-feature-registry-revision-kit
-open-above-foundation-cell-artifact-kit
-open-above-foundation-channel-manifest-kit
-open-above-foundation-elevation-adapter-kit
-open-above-foundation-material-adapter-kit
-open-above-foundation-collision-adapter-kit
-open-above-landform-fidelity-plan-kit
-open-above-world-feature-consumer-registry-kit
-open-above-world-feature-adoption-plan-kit
-open-above-world-feature-adoption-result-kit
-open-above-world-feature-adoption-rollback-kit
-open-above-first-visible-landform-frame-ack-kit
-open-above-world-feature-foundation-fixture-gate-kit
-```
+- `open-above-world-generation-contract-proof-authority-domain`
+- `open-above-world-generation-public-api-manifest-kit`
+- `open-above-world-generation-contract-revision-kit`
+- `open-above-world-generation-module-graph-kit`
+- `open-above-world-generation-support-dependency-kit`
+- `open-above-world-generation-source-import-proof-kit`
+- `open-above-world-generation-public-export-proof-kit`
+- `open-above-world-generation-behavior-proof-kit`
+- `open-above-world-generation-staged-lifecycle-proof-kit`
+- `open-above-world-generation-route-protection-proof-kit`
+- `open-above-world-generation-consumer-contract-kit`
+- `open-above-world-generation-build-artifact-proof-kit`
+- `open-above-world-generation-pages-artifact-proof-kit`
+- `open-above-world-generation-proof-result-kit`
+- `open-above-world-generation-proof-fingerprint-kit`
+- `open-above-world-generation-proof-drift-rejection-kit`
+- `open-above-world-generation-visible-frame-proof-kit`
+- `open-above-world-generation-proof-fixture-gate-kit`
 
 ## Validation boundary
 
-The standard package check now includes `tests/world-feature-foundation.mjs`, but that test uses hand-written feature/foundation stubs. It proves wrapper math and delegation only. It does not instantiate the pinned engine, inspect actual contribution channels or revisions, register the rendered world with Core World, execute browser terrain/collision behavior, inject adoption failure, or inspect a visible frame.
-
-Documentation only. No runtime, dependency, script, workflow, browser, build, Pages, lifecycle, collision, fidelity, rollback, or visible-frame behavior was changed or executed in this audit.
+Documentation only. The upstream test fix was inspected, but this audit did not change runtime, tests, package scripts, workflow or deployment. No local check, build, browser or Pages fixture was executed, and the latest commit reports no combined status checks.
