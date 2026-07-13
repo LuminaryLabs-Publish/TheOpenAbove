@@ -1,20 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-13T02-18-03-04-00",
-  "status": "air-mail-delivery-completion-lifecycle-authority-audited",
-  "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-13T02-18-03-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T02-18-03-04-00.md",
+  "lastAligned": "2026-07-13T05-19-21-04-00",
+  "status": "runtime-module-provider-admission-authority-audited",
+  "repositoryRuntimeRevisionReviewed": "030b16d41f95e47a4a07022fdfcd16bde2381a05",
+  "latestTracker": ".agent/trackers/2026-07-13T05-19-21-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T05-19-21-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-13T02-18-03-04-00-mail-delivery-completion-lifecycle-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-13T02-18-03-04-00-delivery-confirmation-visible-marker-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-13T02-18-03-04-00-single-parcel-terminal-progression-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-13T02-18-03-04-00-delivery-event-result-continuation-map.md",
-    "mailProgression": ".agent/mail-progression-audit/2026-07-13T02-18-03-04-00-parcel-route-campaign-completion-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-13T02-18-03-04-00-delivery-completion-fixture-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-13T05-19-21-04-00-runtime-module-provider-admission-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-13T05-19-21-04-00-provider-failure-visible-surface-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-13T05-19-21-04-00-provider-drift-runtime-bootstrap-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-13T05-19-21-04-00-provider-resolve-admit-boot-map.md",
+    "providerAdmission": ".agent/provider-admission-audit/2026-07-13T05-19-21-04-00-module-source-integrity-parity-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-13T05-19-21-04-00-runtime-provider-parity-fixture-gate.md"
   },
   "retainedAudits": {
+    "mailDeliveryCompletion": ".agent/mail-progression-audit/2026-07-13T02-18-03-04-00-parcel-route-campaign-completion-contract.md",
     "flightSessionPersistence": ".agent/persistence-audit/2026-07-13T00-00-02-04-00-central-ledger-reconciliation.md",
     "telemetryImmutability": ".agent/telemetry-audit/2026-07-12T21-31-40-04-00-immutable-resource-readback-reconciliation.md",
     "floraExclusion": ".agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md",
@@ -22,8 +23,7 @@
     "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
     "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
     "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
-    "parchmentMap": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-frame-focus-contract.md",
-    "correctCurrentDelivery": ".agent/mail-authority-audit/2026-07-11T05-25-29-04-00-correct-current-delivery-transaction.md"
+    "parchmentMap": ".agent/map-system-audit/2026-07-12T08-50-32-04-00-pause-input-frame-focus-contract.md"
   },
   "selection": {
     "inventoryCount": 10,
@@ -32,8 +32,9 @@
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
+    "repoLocalAheadOfCentralCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "No eligible repository was new, ledger-missing or root-agent-missing; TheOpenAbove had the oldest eligible central update.",
+    "reason": "No eligible repository was new, ledger-missing, root-agent-missing or locally ahead of central tracking; TheOpenAbove had the oldest eligible central update.",
     "excluded": [
       "LuminaryLabs-Publish/TheCavalryOfRome"
     ]
@@ -47,31 +48,32 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedCompletionLifecycleIncludingParent": 21
+    "plannedProviderAdmissionIncludingParent": 16
   },
   "interactionLoop": [
-    "boot-default-routes-world-balloon-single-parcel-map-camera-telemetry",
-    "update-flight-airstream-and-mail-delivery",
-    "commit-one-shot-mail-delivered-mutation",
-    "copy-delivery-message-for-one-frame",
-    "overwrite-message-on-next-simulation-update",
-    "retain-delivered-town-as-active-map-and-scene-destination",
-    "continue-without-next-parcel-route-complete-or-campaign-complete"
+    "parse-html-and-import-map",
+    "resolve-static-three-provider",
+    "resolve-static-nexusengine-main-provider",
+    "evaluate-module-graph-before-boot-handler-exists",
+    "compose-gameplay-render-and-telemetry-after-success",
+    "publish-raw-providers-through-gamehost",
+    "headless-validate-separate-nexusengine-main-checkout",
+    "deploy-and-resolve-browser-provider-again-at-page-load"
   ],
   "domains": [
-    "browser-shell-canvas-map-fatal-projection-public-host",
-    "runtime-boot-session-input-raf-telemetry",
+    "browser-document-import-map-module-loader-canvas-error-panel-public-host",
+    "runtime-boot-provider-resolution-session-input-raf-telemetry",
     "nexus-resource-event-journal-storage",
     "balloon-simulation-steering-burner-vent-altitude-heading-distance",
     "airstream-route-sample-field-force-visual-debug",
-    "mail-parcel-route-town-volume-progress-reset",
-    "missing-mail-delivery-completion-lifecycle-and-mission-progression",
+    "mail-parcel-route-town-volume-progress-reset-completion",
     "seeded-world-generation-membership-erosion-flow-climate-biome-flora",
     "terrain-near-horizon-streaming-ownership-disposal",
     "vegetation-grass-flower-exclusion-chunk-lod-culling-wind",
     "balloon-object-material-rigging-secondary-motion-camera-clipping",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
-    "parchment-map-headless-tests-build-pages"
+    "parchment-map-headless-tests-vite-build-pages",
+    "missing-runtime-module-provider-admission-authority"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -167,20 +169,6 @@
     "open-above-raf-clock-adapter-kit",
     "open-above-pages-deploy-kit"
   ],
-  "inactiveOrRetiredLegacyKits": [
-    "open-above-hud-projection-kit",
-    "open-above-hot-air-balloon-envelope-kit",
-    "open-above-grass-detail-kit",
-    "open-above-bloom-kit",
-    "open-above-god-ray-kit",
-    "open-above-auto-exposure-kit",
-    "open-above-bird-camera-kit",
-    "open-above-bird-posture-kit",
-    "open-above-bird-dive-domain-kit",
-    "open-above-bird-flight-frame-kit",
-    "open-above-bird-flight-input-kit",
-    "open-above-bird-flight-physics-kit"
-  ],
   "serviceMap": {
     "runtimeAndGameplay": [
       "flight-input-and-integration",
@@ -204,55 +192,49 @@
       "parchment-map-lifecycle-and-world-route-town-player-projection",
       "headless-inspection-and-renderer-validation",
       "source-static-route-mail-world-flora-proof",
-      "static-build-and-pages-adaptation"
+      "vite-build-and-pages-adaptation"
     ]
   },
-  "plannedCompletionLifecycleKits": [
-    "open-above-mail-delivery-completion-lifecycle-authority-domain",
-    "open-above-delivery-command-envelope-kit",
-    "open-above-delivery-attempt-identity-kit",
-    "open-above-delivery-evidence-kit",
-    "open-above-delivery-admission-kit",
-    "open-above-delivery-result-kit",
-    "open-above-mail-mission-revision-kit",
-    "open-above-parcel-lifecycle-state-kit",
-    "open-above-mail-route-progress-kit",
-    "open-above-mail-continuation-policy-kit",
-    "open-above-next-parcel-selection-kit",
-    "open-above-route-completion-kit",
-    "open-above-campaign-completion-kit",
-    "open-above-delivery-message-projection-kit",
-    "open-above-destination-marker-retirement-kit",
-    "open-above-delivery-telemetry-receipt-kit",
-    "open-above-delivery-public-readback-kit",
-    "open-above-delivery-reset-command-kit",
-    "open-above-delivery-journal-kit",
-    "open-above-first-delivery-frame-ack-kit",
-    "open-above-delivery-completion-fixture-gate-kit"
+  "plannedProviderAdmissionKits": [
+    "open-above-runtime-module-provider-admission-authority-domain",
+    "open-above-runtime-provider-manifest-kit",
+    "open-above-provider-source-identity-kit",
+    "open-above-provider-resolution-command-kit",
+    "open-above-provider-fetch-adapter-kit",
+    "open-above-provider-content-fingerprint-kit",
+    "open-above-provider-integrity-verification-kit",
+    "open-above-provider-api-contract-kit",
+    "open-above-provider-version-compatibility-kit",
+    "open-above-provider-set-generation-kit",
+    "open-above-provider-admission-result-kit",
+    "open-above-provider-failure-projection-kit",
+    "open-above-browser-headless-provider-parity-kit",
+    "open-above-provider-telemetry-receipt-kit",
+    "open-above-first-provider-frame-ack-kit",
+    "open-above-provider-fixture-gate-kit"
   ],
-  "sourceBackedCompletionState": {
-    "defaultRouteId": "meadow-mail-run",
-    "configuredTownCount": 3,
-    "configuredActiveParcelCount": 1,
-    "activeParcelId": "parcel-001",
-    "activeDestinationTownId": "brookhaven",
-    "correctAirstreamId": "meadow-to-brookhaven",
-    "oneShotDeliveryEventAvailable": true,
-    "parcelDeliveredMutationAvailable": true,
-    "mailSnapshotAvailable": true,
-    "lowLevelParcelResetAvailable": true,
-    "hostContinuationUsesReset": false,
-    "missionRevisionAvailable": false,
-    "completionResultIdentityAvailable": false,
-    "nextParcelSelectionAvailable": false,
-    "routeCompletionAvailable": false,
-    "campaignCompletionAvailable": false,
-    "completionMessagePersistsAcrossNextSimulationUpdate": false,
-    "mapMarkerRetiresAfterDelivery": false,
-    "townMarkerRetiresAfterDelivery": false,
-    "firstCompletionFrameAckAvailable": false
+  "sourceBackedProviderState": {
+    "threeImportMapVersion": "0.165.0",
+    "threeMainImportVersion": "0.165.0",
+    "nexusEngineBrowserRef": "main",
+    "nexusEngineBrowserRefImmutable": false,
+    "providerManifestAvailable": false,
+    "providerFingerprintAvailable": false,
+    "providerIntegrityResultAvailable": false,
+    "requiredExportValidationAvailable": false,
+    "apiCompatibilityProbeAvailable": false,
+    "providerTimeoutAvailable": false,
+    "providerFallbackPolicyAvailable": false,
+    "providerSetGenerationAvailable": false,
+    "typedAdmissionResultAvailable": false,
+    "providerIndependentFailureProjectionAvailable": false,
+    "gameHostProviderReceiptAvailable": false,
+    "telemetryProviderReceiptAvailable": false,
+    "firstProviderFrameAckAvailable": false,
+    "headlessNexusEngineRef": "main",
+    "browserHeadlessImmutableRevisionParityAvailable": false
   },
-  "requiredParentDomain": "open-above-mail-delivery-completion-lifecycle-authority-domain",
+  "requiredParentDomain": "open-above-runtime-module-provider-admission-authority-domain",
   "validation": {
     "runtimeChanged": false,
     "htmlChanged": false,
@@ -263,8 +245,9 @@
     "deploymentChanged": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "completionFixturesRun": false,
+    "providerFixturesRun": false,
     "browserSmokeRun": false,
+    "buildRun": false,
     "pagesSmokeRun": false
   }
 }
