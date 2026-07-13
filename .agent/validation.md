@@ -19,6 +19,7 @@ Documentation-only audit of staged procedural world generation at runtime revisi
 - [x] Confirm map-open generation starvation by source ordering.
 - [x] Confirm missing consumer-adoption and rollback results.
 - [x] Preserve the full kit and service inventory.
+- [x] Synchronize the central ledger and internal change log.
 - [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
 - [ ] Execute generation, browser, build and Pages fixtures.
@@ -66,7 +67,7 @@ package.json
 tools/headless-editor-environment.mjs
 .github/workflows/deploy-pages.yml
 root .agent documentation
-central repository ledger
+central repository ledger and internal change log
 ```
 
 ## Existing executable proof observed
@@ -134,8 +135,8 @@ deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger synchronization: pending at repo-local validation write
-central internal change log: pending at repo-local validation write
+central ledger synchronized: yes
+central internal change log added: yes
 ```
 
 ## Completion boundary
