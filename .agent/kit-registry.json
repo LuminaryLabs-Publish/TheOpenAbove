@@ -1,21 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T21-31-40-04-00",
-  "status": "telemetry-snapshot-immutability-central-reconciled",
+  "lastAligned": "2026-07-12T23-50-01-04-00",
+  "status": "air-mail-session-persistence-authority-audited",
   "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-12T21-31-40-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T21-31-40-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-12T23-50-01-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T23-50-01-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T21-31-40-04-00-telemetry-immutability-central-reconciliation-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T21-31-40-04-00-mutable-telemetry-visible-proof-reconciliation.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T21-31-40-04-00-public-readback-mutation-reconciliation.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T21-31-40-04-00-snapshot-publication-readback-reconciliation.md",
-    "telemetry": ".agent/telemetry-audit/2026-07-12T21-31-40-04-00-immutable-resource-readback-reconciliation.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T21-31-40-04-00-telemetry-fixture-central-gate.md"
+    "architecture": ".agent/architecture-audit/2026-07-12T23-50-01-04-00-flight-session-persistence-authority-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-12T23-50-01-04-00-restored-session-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-12T23-50-01-04-00-flight-delivery-reload-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-12T23-50-01-04-00-save-restore-lifecycle-admission-map.md",
+    "persistence": ".agent/persistence-audit/2026-07-12T23-50-01-04-00-session-schema-commit-restore-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-12T23-50-01-04-00-session-persistence-fixture-gate.md"
   },
   "retainedAudits": {
-    "sourceTelemetryImmutability": ".agent/telemetry-audit/2026-07-12T21-18-18-04-00-resource-alias-freeze-readback-contract.md",
+    "telemetryImmutability": ".agent/telemetry-audit/2026-07-12T21-31-40-04-00-immutable-resource-readback-reconciliation.md",
     "floraExclusion": ".agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md",
     "flightWorldMembership": ".agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md",
     "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
@@ -27,17 +27,15 @@
     "publicHost": ".agent/host-capability-audit/2026-07-12T02-29-50-04-00-owner-quarantine-read-model-command-contract.md"
   },
   "selection": {
-    "reason": "TheOpenAbove had repo-local telemetry audit state newer than its central ledger after confirming no new, ledger-missing or root-agent-missing eligible repository.",
+    "reason": "No eligible repository was new, ledger-missing or root-agent-missing; TheOpenAbove had the oldest eligible central update.",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
     "rootAgentCount": 9,
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "unsynchronizedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "excluded": [
-      "LuminaryLabs-Publish/TheCavalryOfRome"
-    ]
+    "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
+    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
   },
   "counts": {
     "runtimeAndGameplay": 15,
@@ -48,17 +46,15 @@
     "activeSourceBackedTotal": 68,
     "runtimeImplied": 12,
     "inactiveOrRetiredLegacy": 12,
-    "plannedTelemetryIncludingParent": 25
+    "plannedPersistenceIncludingParent": 22
   },
   "interactionLoop": [
-    "compose-visual-balloon-airstream-mail-map-camera-and-telemetry",
-    "update-live-simulation-mail-airstream-camera-and-visual-state",
-    "build-complete-snapshot-projection",
-    "store-complete-object-as-balloon-resource",
-    "store-nested-visual-object-as-visual-resource",
-    "record-resource-references-in-journal",
-    "expose-engine-owned-references-through-engine-and-gamehost",
-    "render-without-snapshot-identity-or-visible-ack"
+    "boot-default-routes-world-balloon-mail-map-camera-telemetry",
+    "create-fresh-default-parcel-and-balloon-state",
+    "update-flight-and-delivery-in-memory",
+    "publish-telemetry-and-render",
+    "terminate-without-save-or-durable-flush",
+    "next-boot-recreates-default-state-without-restore"
   ],
   "domains": [
     "browser-shell-canvas-map-fatal-projection-public-host",
@@ -66,14 +62,14 @@
     "nexus-resource-event-journal-storage",
     "balloon-simulation-steering-burner-vent-altitude-distance",
     "airstream-route-sample-force-visual-debug",
-    "mail-parcel-town-volume-progress",
+    "mail-parcel-town-volume-progress-reset",
     "seeded-world-generation-disk-membership-erosion-climate-biome-flora",
     "terrain-streaming-near-horizon-ownership",
     "vegetation-grass-flower-exclusion-placement-lod-culling-wind",
     "balloon-object-material-rigging-camera-presentation",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
     "map-projection-headless-tests-build-pages",
-    "missing-telemetry-identity-immutability-alias-readback-visible-proof"
+    "missing-session-persistence-commit-restore-migration-conflict-visible-proof"
   ],
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -145,9 +141,7 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": [
-      "open-above-parchment-map-overlay-kit"
-    ],
+    "ui": ["open-above-parchment-map-overlay-kit"],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
@@ -239,54 +233,54 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
-  "plannedTelemetryKits": [
-    "open-above-telemetry-snapshot-immutability-authority-domain",
-    "open-above-telemetry-snapshot-session-kit",
-    "open-above-telemetry-frame-id-kit",
-    "open-above-telemetry-source-revision-kit",
-    "open-above-telemetry-snapshot-id-kit",
-    "open-above-telemetry-snapshot-builder-kit",
-    "open-above-telemetry-normalization-kit",
-    "open-above-telemetry-content-fingerprint-kit",
-    "open-above-telemetry-deep-freeze-kit",
-    "open-above-telemetry-resource-projection-kit",
-    "open-above-visual-snapshot-projection-kit",
-    "open-above-telemetry-alias-detector-kit",
-    "open-above-telemetry-atomic-commit-kit",
-    "open-above-telemetry-readback-envelope-kit",
-    "open-above-telemetry-clone-on-read-kit",
-    "open-above-telemetry-consumer-receipt-kit",
-    "open-above-telemetry-mutation-rejection-kit",
-    "open-above-telemetry-observation-kit",
-    "open-above-telemetry-immutable-journal-kit",
-    "open-above-first-visible-telemetry-frame-ack-kit",
-    "open-above-cross-resource-alias-fixture-kit",
-    "open-above-public-readback-mutation-fixture-kit",
-    "open-above-journal-retroactive-mutation-fixture-kit",
-    "open-above-telemetry-consumer-parity-fixture-kit",
-    "open-above-telemetry-pages-smoke-kit"
+  "plannedPersistenceKits": [
+    "open-above-flight-session-persistence-authority-domain",
+    "open-above-session-save-command-kit",
+    "open-above-session-restore-command-kit",
+    "open-above-session-reset-command-kit",
+    "open-above-persistence-schema-kit",
+    "open-above-persistence-participant-snapshot-kit",
+    "open-above-persistence-canonicalization-kit",
+    "open-above-persistence-content-fingerprint-kit",
+    "open-above-persistence-generation-kit",
+    "open-above-browser-storage-adapter-kit",
+    "open-above-persistence-staging-write-kit",
+    "open-above-persistence-readback-verification-kit",
+    "open-above-persistence-atomic-pointer-commit-kit",
+    "open-above-persistence-backup-retention-kit",
+    "open-above-persistence-migration-kit",
+    "open-above-persistence-quarantine-kit",
+    "open-above-persistence-writer-conflict-kit",
+    "open-above-persistence-dirty-revision-kit",
+    "open-above-page-lifecycle-flush-kit",
+    "open-above-persistence-result-kit",
+    "open-above-restored-visible-frame-ack-kit",
+    "open-above-persistence-fixture-gate-kit"
   ],
-  "sourceBackedTelemetryState": {
-    "freshTopLevelSnapshot": true,
-    "completeResourceStoresDirectReference": true,
-    "visualResourceStoresNestedReference": true,
-    "completeVisualWritableAlias": true,
-    "resourceStoreClonesOnWrite": false,
-    "resourceGetterClonesOnRead": false,
-    "journalDetachesResourceValues": false,
-    "engineGetterReturnsResourceReference": true,
-    "gameHostReturnsResourceReference": true,
-    "snapshotIdentity": false,
-    "contentFingerprint": false,
-    "deepFreezePolicy": false,
-    "cloneOnReadPolicy": false,
-    "atomicMultiResourceCommitResult": false,
-    "mutationRejectionObservation": false,
-    "consumerReceipt": false,
-    "firstVisibleTelemetryFrameAck": false
+  "sourceBackedPersistenceState": {
+    "freshDefaultParcelEveryBoot": true,
+    "freshDefaultBalloonStateEveryBoot": true,
+    "flightStateMutableInMemory": true,
+    "mailStateMutableInMemory": true,
+    "mailSnapshotAvailable": true,
+    "mailResetAvailable": true,
+    "balloonSnapshotAvailable": true,
+    "balloonRestoreAvailable": false,
+    "mailRestoreAvailable": false,
+    "persistenceDomainInstalled": false,
+    "browserStorageAdapterInstalled": false,
+    "pageLifecycleFlushInstalled": false,
+    "schemaVersionAvailable": false,
+    "persistenceGenerationAvailable": false,
+    "contentFingerprintAvailable": false,
+    "readbackVerificationAvailable": false,
+    "migrationAvailable": false,
+    "quarantineAvailable": false,
+    "writerConflictResultAvailable": false,
+    "firstRestoredFrameAckAvailable": false
   },
-  "mainFinding": "The telemetry kit stores the complete snapshot and its nested visual object as separate Nexus resources, while Nexus resources, journal rows and public getters retain direct mutable references. External readback can alter resource state and publication evidence without a new tick or visible frame.",
-  "requiredParentDomain": "open-above-telemetry-snapshot-immutability-authority-domain",
+  "mainFinding": "Flight and mail progress are held only in mutable memory. Browser boot always recreates the default parcel and balloon state, while no persistence authority captures, durably verifies, restores, migrates, quarantines or visibly acknowledges a session generation.",
+  "requiredParentDomain": "open-above-flight-session-persistence-authority-domain",
   "validation": {
     "runtimeChangedByDocumentationPass": false,
     "htmlChangedByDocumentationPass": false,
@@ -298,7 +292,7 @@
     "branchCreated": false,
     "pullRequestCreated": false,
     "commandsRunThisPass": false,
-    "telemetryMutationFixturesAvailable": false,
+    "persistenceFixturesAvailable": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
