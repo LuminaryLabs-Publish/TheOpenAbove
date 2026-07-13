@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T21-18-18-04-00`
+**Last aligned:** `2026-07-12T21-31-40-04-00`
 
 ## Primary ordered gaps
 
@@ -39,6 +39,7 @@ no atomic complete/visual multi-resource commit result
 no public readback envelope or consumer identity
 no stale-snapshot result
 no mutation rejection observation
+no consumer receipt
 no first visible telemetry-frame acknowledgement
 no source/build/Pages immutability fixture
 ```
@@ -53,7 +54,7 @@ retained predecessor references have no stale identity
 local getSnapshot and Nexus resource can disagree without a result
 telemetry can change after the visible frame without new presentation
 future editor or gameplay consumers can treat mutable diagnostics as authority
-failed partial publication can leave resource projections without an explicit parity result
+failed partial publication can leave resource projections without explicit parity
 ```
 
 ## Retained world and rendering gaps
@@ -67,7 +68,7 @@ flight movement does not admit bounded-world membership
 terrain near/horizon generations lack atomic aggregate adoption
 vegetation remains boot-time and centrally bounded
 flora chunks lack one shared exclusion artifact revision
-HDR attachments and visible frame receipts remain incomplete
+HDR attachments and visible-frame receipts remain incomplete
 map projection has unresolved heading, bounds and focus semantics
 ```
 
@@ -88,6 +89,15 @@ telemetry-visible-frame-ack
 browser-telemetry-mutation-matrix
 built-output-telemetry-parity
 pages-telemetry-parity
+```
+
+## Reconciliation gap closed
+
+```txt
+repo-local telemetry audit newer than central ledger: identified
+new reconciliation tracker and audit family: added
+required root .agent files: refreshed
+central ledger and internal change log: pending final repo head capture
 ```
 
 ## Non-claim
