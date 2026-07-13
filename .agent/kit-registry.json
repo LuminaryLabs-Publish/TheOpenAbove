@@ -1,33 +1,21 @@
 {
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-12T23-50-01-04-00",
-  "status": "air-mail-session-persistence-authority-audited",
+  "lastAligned": "2026-07-13T00-00-02-04-00",
+  "status": "air-mail-session-persistence-central-reconciled",
   "repositoryRuntimeRevisionReviewed": "c2b96fa4d0dc44f6f3cf52762834324e712ed7d9",
-  "latestTracker": ".agent/trackers/2026-07-12T23-50-01-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-12T23-50-01-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-13T00-00-02-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-13T00-00-02-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-12T23-50-01-04-00-flight-session-persistence-authority-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-12T23-50-01-04-00-restored-session-visible-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-12T23-50-01-04-00-flight-delivery-reload-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-12T23-50-01-04-00-save-restore-lifecycle-admission-map.md",
-    "persistence": ".agent/persistence-audit/2026-07-12T23-50-01-04-00-session-schema-commit-restore-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-12T23-50-01-04-00-session-persistence-fixture-gate.md"
-  },
-  "retainedAudits": {
-    "telemetryImmutability": ".agent/telemetry-audit/2026-07-12T21-31-40-04-00-immutable-resource-readback-reconciliation.md",
-    "floraExclusion": ".agent/grass-system-audit/2026-07-12T19-31-06-04-00-shared-vegetation-exclusion-revision-contract.md",
-    "flightWorldMembership": ".agent/flight-boundary-audit/2026-07-12T17-41-25-04-00-membership-policy-consumer-contract.md",
-    "vegetationCoverage": ".agent/vegetation-system-audit/2026-07-12T15-40-04-04-00-coverage-registry-reconciliation-contract.md",
-    "terrainStreamingOwnership": ".agent/terrain-system-audit/2026-07-12T13-29-56-04-00-shared-frame-atomic-adoption-contract.md",
-    "proceduralWorldGeneration": ".agent/world-generation-audit/2026-07-12T11-01-59-04-00-build-sampling-membership-cache-contract.md",
-    "parchmentMapSpatialNavigation": ".agent/map-system-audit/2026-07-12T09-02-10-04-00-coordinate-heading-bounds-contract.md",
-    "hdrSurface": ".agent/hdr-surface-audit/2026-07-12T05-11-46-04-00-attachment-identity-lifecycle-commit-contract.md",
-    "frameFailure": ".agent/frame-failure-audit/2026-07-12T04-00-32-04-00-stage-containment-last-good-restart-contract.md",
-    "publicHost": ".agent/host-capability-audit/2026-07-12T02-29-50-04-00-owner-quarantine-read-model-command-contract.md"
+    "architecture": ".agent/architecture-audit/2026-07-13T00-00-02-04-00-flight-session-persistence-central-reconciliation-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-13T00-00-02-04-00-restored-session-visible-frame-central-reconciliation.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-13T00-00-02-04-00-flight-delivery-reload-central-reconciliation.md",
+    "interaction": ".agent/interaction-audit/2026-07-13T00-00-02-04-00-save-restore-lifecycle-central-reconciliation-map.md",
+    "persistence": ".agent/persistence-audit/2026-07-13T00-00-02-04-00-central-ledger-reconciliation.md",
+    "deploy": ".agent/deploy-audit/2026-07-13T00-00-02-04-00-persistence-central-sync-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-13T00-00-02-04-00-repo-ledger-flight-persistence-reconciliation.md"
   },
   "selection": {
-    "reason": "No eligible repository was new, ledger-missing or root-agent-missing; TheOpenAbove had the oldest eligible central update.",
     "inventoryCount": 10,
     "eligibleCount": 9,
     "centralLedgerCount": 9,
@@ -35,6 +23,7 @@
     "newOrLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
+    "reason": "The repo-local flight-session persistence audit required central reconciliation after no new, ledger-missing or root-agent-missing eligible repository was found.",
     "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
   },
   "counts": {
@@ -51,24 +40,24 @@
   "interactionLoop": [
     "boot-default-routes-world-balloon-mail-map-camera-telemetry",
     "create-fresh-default-parcel-and-balloon-state",
-    "update-flight-and-delivery-in-memory",
-    "publish-telemetry-and-render",
-    "terminate-without-save-or-durable-flush",
+    "update-flight-airstream-and-delivery-in-memory",
+    "publish-telemetry-map-and-render",
+    "terminate-without-save-or-verified-lifecycle-flush",
     "next-boot-recreates-default-state-without-restore"
   ],
   "domains": [
     "browser-shell-canvas-map-fatal-projection-public-host",
     "runtime-boot-session-input-raf-telemetry",
     "nexus-resource-event-journal-storage",
-    "balloon-simulation-steering-burner-vent-altitude-distance",
-    "airstream-route-sample-force-visual-debug",
-    "mail-parcel-town-volume-progress-reset",
-    "seeded-world-generation-disk-membership-erosion-climate-biome-flora",
-    "terrain-streaming-near-horizon-ownership",
-    "vegetation-grass-flower-exclusion-placement-lod-culling-wind",
-    "balloon-object-material-rigging-camera-presentation",
+    "balloon-simulation-steering-burner-vent-altitude-heading-distance",
+    "airstream-route-sample-field-force-visual-debug",
+    "mail-parcel-route-town-volume-progress-reset",
+    "seeded-world-generation-membership-erosion-flow-climate-biome-flora",
+    "terrain-near-horizon-streaming-ownership-disposal",
+    "vegetation-grass-flower-exclusion-chunk-lod-culling-wind",
+    "balloon-object-material-rigging-secondary-motion-camera-clipping",
     "quality-dynamic-resolution-sky-cloud-water-hdr-lens",
-    "map-projection-headless-tests-build-pages",
+    "parchment-map-headless-tests-build-pages",
     "missing-session-persistence-commit-restore-migration-conflict-visible-proof"
   ],
   "activeSourceBackedKits": {
@@ -149,62 +138,6 @@
       "open-above-world-flora-test-kit"
     ]
   },
-  "serviceMap": {
-    "runtimeAndGameplay": [
-      "flight-input-and-integration",
-      "telemetry-resource-and-event-publication",
-      "airstream-route-field-force-visual-debug",
-      "mail-parcel-town-volume-progress-reset"
-    ],
-    "balloonObjectAndPresentation": [
-      "profile-and-shell-construction",
-      "mouth-seams-basket-rigging-burner-rope",
-      "deferred-model-loading",
-      "secondary-motion-material-camera-clipping"
-    ],
-    "worldGeneration": [
-      "seeded-grid-build",
-      "protected-anchor-blending",
-      "erosion-and-flow",
-      "climate-biome-flora",
-      "disk-membership",
-      "map-color-query"
-    ],
-    "terrain": [
-      "shared-camera-relative-frame",
-      "near-horizon-partition",
-      "lod-and-clip-signatures",
-      "near-and-horizon-geometry",
-      "skirts-live-replacement-disposal"
-    ],
-    "vegetationGrassFlowers": [
-      "tree-cluster-and-position-records",
-      "world-flora-density",
-      "five-grass-species",
-      "five-flower-types",
-      "deterministic-camera-relative-chunks",
-      "private-tree-spatial-indexes",
-      "instanced-rendering-lod-culling-wind"
-    ],
-    "environmentAndRender": [
-      "quality-selection-and-dynamic-resolution",
-      "sky-sun-aerial-clouds",
-      "water-landmarks-and-draped-overlays",
-      "hdr-composition-color-grade-lens-response"
-    ],
-    "map": [
-      "toggle-and-lifecycle",
-      "world-background-raster",
-      "route-town-player-projection",
-      "map-raf-snapshot-disposal"
-    ],
-    "toolingAndProof": [
-      "headless-inspection",
-      "source-validation",
-      "terrain-route-overlay-world-flora-proof",
-      "build-and-pages-adaptation"
-    ]
-  },
   "runtimeImpliedKits": [
     "open-above-route-shell-kit",
     "open-above-importmap-kit",
@@ -233,6 +166,32 @@
     "open-above-bird-flight-input-kit",
     "open-above-bird-flight-physics-kit"
   ],
+  "serviceMap": {
+    "runtimeAndGameplay": [
+      "flight-input-and-integration",
+      "telemetry-resource-and-event-publication",
+      "airstream-route-sample-field-force-visual-debug",
+      "mail-parcel-route-town-volume-progress-reset"
+    ],
+    "balloonObjectAndPresentation": [
+      "procedural-envelope-basket-burner-rope-rigging-construction",
+      "deferred-model-loading-and-persistent-gpu-resources",
+      "materials-secondary-motion-camera-clipping"
+    ],
+    "worldAndEnvironment": [
+      "seeded-world-grid-and-membership",
+      "protected-anchors-erosion-flow-climate-biome-flora",
+      "near-and-horizon-terrain-streaming-and-disposal",
+      "vegetation-grass-flower-density-chunks-lod-culling-wind",
+      "quality-dynamic-resolution-sky-cloud-water-hdr-lens"
+    ],
+    "uiAndProof": [
+      "parchment-map-lifecycle-and-projection",
+      "headless-inspection-and-public-diagnostics",
+      "source-static-route-mail-world-flora-proof",
+      "static-build-and-pages-adaptation"
+    ]
+  },
   "plannedPersistenceKits": [
     "open-above-flight-session-persistence-authority-domain",
     "open-above-session-save-command-kit",
@@ -262,9 +221,9 @@
     "freshDefaultBalloonStateEveryBoot": true,
     "flightStateMutableInMemory": true,
     "mailStateMutableInMemory": true,
+    "balloonSnapshotAvailable": true,
     "mailSnapshotAvailable": true,
     "mailResetAvailable": true,
-    "balloonSnapshotAvailable": true,
     "balloonRestoreAvailable": false,
     "mailRestoreAvailable": false,
     "persistenceDomainInstalled": false,
@@ -273,26 +232,21 @@
     "schemaVersionAvailable": false,
     "persistenceGenerationAvailable": false,
     "contentFingerprintAvailable": false,
-    "readbackVerificationAvailable": false,
     "migrationAvailable": false,
     "quarantineAvailable": false,
     "writerConflictResultAvailable": false,
     "firstRestoredFrameAckAvailable": false
   },
-  "mainFinding": "Flight and mail progress are held only in mutable memory. Browser boot always recreates the default parcel and balloon state, while no persistence authority captures, durably verifies, restores, migrates, quarantines or visibly acknowledges a session generation.",
   "requiredParentDomain": "open-above-flight-session-persistence-authority-domain",
   "validation": {
-    "runtimeChangedByDocumentationPass": false,
-    "htmlChangedByDocumentationPass": false,
-    "packageScriptsChangedByDocumentationPass": false,
-    "dependenciesChangedByDocumentationPass": false,
-    "gameplayChangedByDocumentationPass": false,
-    "renderChangedByDocumentationPass": false,
-    "deploymentChangedByDocumentationPass": false,
+    "runtimeChanged": false,
+    "dependenciesChanged": false,
+    "packageScriptsChanged": false,
+    "renderingChanged": false,
+    "deploymentChanged": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "commandsRunThisPass": false,
-    "persistenceFixturesAvailable": false,
+    "persistenceFixturesRun": false,
     "browserSmokeRun": false,
     "pagesSmokeRun": false
   }
