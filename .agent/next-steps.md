@@ -1,101 +1,107 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T21-31-40-04-00`
+**Last aligned:** `2026-07-12T23-50-01-04-00`
 
 ## Plan ledger
 
-**Goal:** establish an immutable telemetry commit and public readback boundary before diagnostics, editor tooling or future gameplay consumers depend on Nexus resource values as authoritative evidence.
+**Goal:** establish a verified, revisioned save/restore boundary for flight and mail progress without hiding browser storage inside gameplay kits or regressing existing simulation and rendering behavior.
 
-### Gate 1: immutable runtime admission
-- [ ] Pin Nexus Engine instead of importing `@main`.
-- [ ] Validate module capabilities and publish a module-graph fingerprint.
+### Gate 1: preserve upstream runtime authority
+- [ ] Pin Nexus Engine to an immutable revision.
+- [ ] Establish one runtime session and fixed-step/frame authority.
+- [ ] Keep telemetry readback immutable and revisioned.
 
-### Gate 2: session, frame and failure ownership
-- [ ] Own RAF, listeners and resources through one runtime session.
-- [ ] Add fixed-step clock, sequenced input and stage failure containment.
+### Gate 2: define portable participant contracts
+- [ ] Add `open-above-flight-session-persistence-authority-domain`.
+- [ ] Add explicit balloon, mail, airstream and world snapshot/load adapters.
+- [ ] Define canonical schema `open-above-session-save/1`.
+- [ ] Reject non-finite vectors, invalid route references and inconsistent delivery state.
+- [ ] Bind every candidate to runtime, world, route and participant revisions.
 
-### Gate 3: telemetry snapshot immutability
-- [ ] Add `open-above-telemetry-snapshot-immutability-authority-domain`.
-- [ ] Add runtime session, frame, source revision and snapshot identity.
-- [ ] Make every provider return a detached projection.
-- [ ] Normalize arrays, objects and numeric values into one canonical schema.
-- [ ] Derive complete and visual resources from one snapshot candidate.
-- [ ] Detect and reject prohibited writable cross-resource aliasing.
-- [ ] Calculate a deterministic content fingerprint.
-- [ ] Deep-freeze committed resources or enforce explicit clone boundaries.
-- [ ] Commit complete and visual resources atomically.
-- [ ] Replace raw getters with revisioned immutable readback envelopes.
-- [ ] Store detached journal metadata and fingerprints.
-- [ ] Add consumer receipts and first-visible-frame acknowledgement.
-- [ ] Pass mutation, alias, journal-integrity, browser and Pages fixtures.
+### Gate 3: implement durable save commit
+- [ ] Add command ID, save ID and persistence generation.
+- [ ] Canonicalize field order and calculate a deterministic fingerprint.
+- [ ] Write to a staging generation.
+- [ ] Read back and verify exact bytes, schema and fingerprint.
+- [ ] Compare expected active predecessor and writer lease.
+- [ ] Atomically promote the verified active generation.
+- [ ] Retain one bounded verified backup.
+- [ ] Publish `SaveCommitResult` only after durable verification.
 
-### Gate 4: procedural world and flight authority
-- [ ] Add `WorldBuildId`, world revision and immutable `WorldGridArtifact`.
-- [ ] Admit flight proposals against the bounded world surface.
-- [ ] Publish typed world/flight results and consumer receipts.
+### Gate 4: implement atomic restore
+- [ ] Resolve active generation, then verified backup only when required.
+- [ ] Migrate supported predecessor schemas.
+- [ ] Quarantine corrupt, incompatible or unsupported records.
+- [ ] Prepare all participant candidates outside live ownership.
+- [ ] Suspend input/ticks during installation.
+- [ ] Install all authoritative participants atomically or restore the predecessor truthfully.
+- [ ] Publish `RestoreCommitResult` and first-restored-frame acknowledgement.
 
-### Gate 5: terrain, vegetation and flora ownership
-- [ ] Build terrain and vegetation candidates outside live scene ownership.
-- [ ] Commit near/horizon terrain and vegetation generations atomically.
-- [ ] Publish one immutable flora-exclusion artifact.
-- [ ] Bind grass and flower chunks to world, vegetation, exclusion and quality revisions.
-- [ ] Atomically adopt paired flora candidates or retain the last-good pair.
+### Gate 5: lifecycle, reset and conflicts
+- [ ] Add explicit save and reset commands to a bounded host API.
+- [ ] Add typed autosave/delivery/pagehide policy.
+- [ ] Do not claim page-lifecycle success without verified durable completion.
+- [ ] Add multi-tab writer identity and expected-predecessor conflict handling.
+- [ ] Make reset replace or remove the durable active generation.
 
-### Gate 6: HDR and visible-frame coherence
-- [ ] Complete HDR attachment/resolution ownership and rollback.
-- [ ] Bind telemetry, world, terrain, flora and HDR presentation to one frame identity.
-- [ ] Reject false visible acknowledgements after render failure.
+### Gate 6: proof
+- [ ] Add pure canonicalization, fingerprint, migration and quarantine fixtures.
+- [ ] Add browser save/reload/restore and multi-tab fixtures.
+- [ ] Prove delivered mail remains delivered after reload.
+- [ ] Prove mid-flight position, elapsed and distance restore consistently.
+- [ ] Prove partial restore never reaches a visible frame.
+- [ ] Prove source, build and Pages persistence parity.
 
-### Gate 7: map, accessibility and deployment
-- [ ] Bind map projection to the same world, flight and telemetry result.
-- [ ] Fix marker bearing, route emphasis, mission semantics and focus behavior.
-- [ ] Require source, build and Pages fingerprint parity.
-
-## Telemetry implementation order
+## Implementation order
 
 ```txt
-1. snapshot schema and provider contracts
-2. runtime session, frame and snapshot IDs
-3. detached canonical builder
-4. source revision collection
-5. alias detection and normalization
-6. content fingerprint
-7. freeze or copy policy
-8. atomic complete/visual resource commit
-9. immutable public readback envelope
-10. detached journal evidence
-11. consumer receipts
-12. first visible frame acknowledgement
+1. persistence schema and participant adapters
+2. command/session/save/generation identities
+3. canonicalization and validation
+4. content fingerprint
+5. browser storage staging adapter
+6. readback verification
+7. active-pointer and backup commit
+8. restore preparation and atomic installation
+9. migration and quarantine
+10. conflict and page-lifecycle policy
+11. bounded GameHost command/readback surface
+12. visible restored-frame receipt
 13. source/build/Pages fixtures
 ```
 
 ## Recommended file cut
 
 ```txt
-src/runtime/telemetry-snapshot/
-  telemetry-snapshot-authority-domain.js
-  telemetry-snapshot-builder-kit.js
-  telemetry-normalization-kit.js
-  telemetry-alias-detector-kit.js
-  telemetry-content-fingerprint-kit.js
-  telemetry-commit-kit.js
-  telemetry-readback-envelope-kit.js
-  telemetry-journal-kit.js
+src/runtime/persistence/
+  flight-session-persistence-authority-domain.js
+  persistence-schema-kit.js
+  persistence-canonicalization-kit.js
+  persistence-fingerprint-kit.js
+  browser-storage-adapter-kit.js
+  persistence-commit-kit.js
+  persistence-restore-kit.js
+  persistence-migration-kit.js
+  persistence-quarantine-kit.js
+  persistence-conflict-kit.js
 
-src/runtime/balloon-telemetry-kit.js
-  adapt provider projections and typed commit result
+src/runtime/balloon-simulation-kit.js
+  add detached snapshot/load candidate adapters
+
+src/gameplay/mail-delivery-domain/
+  add detached snapshot/load candidate adapters
 
 tests/
-  telemetry-snapshot-immutability.mjs
-  telemetry-resource-alias.mjs
-  telemetry-journal-integrity.mjs
-  telemetry-visible-frame.mjs
+  session-persistence.mjs
+  session-persistence-migration.mjs
+  session-persistence-corruption.mjs
+  session-persistence-browser.mjs
 ```
 
 ## Compatibility constraint
 
-Keep the current `engine.openAbove.getState()`, `getVisualState()` and `GameHost.getState()` field shapes during the first cut, but return immutable revisioned envelopes or detached compatibility projections. Do not silently change flight, mail, visual or map behavior while establishing ownership.
+Preserve the current flight controls, route data, parcel fields, map projection and telemetry field shapes during the first cut. Persistence installation must not silently alter simulation, delivery or render semantics.
 
 ## Central reconciliation state
 
-The repo-local audit and root `.agent` state are aligned at `2026-07-12T21-31-40-04-00`. The central ledger and internal change log must cite the final repo documentation head from this pass.
+The repo-local audit and root `.agent` state are aligned at `2026-07-12T23-50-01-04-00`. The central ledger and internal change log must cite the final repo documentation head from this pass.
