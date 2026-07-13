@@ -1,128 +1,130 @@
 # Next Steps: TheOpenAbove
 
-**Last aligned:** `2026-07-13T02-18-03-04-00`
+**Last aligned:** `2026-07-13T05-19-21-04-00`
 
 ## Plan ledger
 
-**Goal:** implement an exactly-once Air Mail completion lifecycle that advances parcel, route and campaign truth while keeping message, map, town-marker, telemetry and visible-frame projections coherent.
+**Goal:** replace implicit static-provider trust with one immutable provider manifest, provider-set admission result, provider-independent failure shell and browser/headless/build/Pages parity proof.
 
-### Gate 1: preserve upstream authority
+### Gate 1: freeze provider identity
 
-- [ ] Pin Nexus Engine to an immutable revision.
-- [ ] Establish one runtime session, lifecycle and frame owner.
-- [ ] Add fixed-step input/simulation admission.
-- [ ] Make telemetry snapshots and public readback immutable.
-- [ ] Preserve the separate flight-session persistence authority.
+- [ ] Add `open-above-runtime-module-provider-admission-authority-domain`.
+- [ ] Define a versioned runtime-provider manifest.
+- [ ] Replace the NexusEngine `@main` browser reference with an immutable commit or release identity.
+- [ ] Record exact Three.js source identity and approved content fingerprint policy.
+- [ ] Make the same NexusEngine revision available to browser and headless validation.
 
-### Gate 2: define mail campaign content and state
+### Gate 2: create a provider-independent bootstrap shell
 
-- [ ] Add `open-above-mail-delivery-completion-lifecycle-authority-domain`.
-- [ ] Define a versioned Air Mail campaign manifest.
-- [ ] Make parcel-to-route, route-to-town and route-to-airstream references explicit.
-- [ ] Define campaign, route, mission and parcel revisions.
-- [ ] Define parcel phases: `in-transit`, `delivery-candidate`, `delivered`.
-- [ ] Define continuation outcomes: `next-parcel`, `route-complete`, `next-route`, `campaign-complete`.
+- [ ] Move provider resolution behind a bootstrap module that imports no Three.js or NexusEngine code.
+- [ ] Keep loading, rejection and fallback UI entirely provider-independent.
+- [ ] Add bounded timeout and explicit retry policy.
+- [ ] Preserve the current HTML error surface and accessibility semantics.
 
-### Gate 3: admit delivery exactly once
+### Gate 3: verify providers before adoption
 
-- [ ] Add command ID, delivery-attempt ID and runtime-session ID.
-- [ ] Capture immutable position, volume and current evidence.
-- [ ] Validate the expected mission predecessor.
-- [ ] Validate route, parcel and destination identity.
-- [ ] Apply route policy for required-current evidence.
-- [ ] Cache and return the prior result for duplicate command IDs.
-- [ ] Reject stale attempts with zero mutation.
-- [ ] Commit parcel and mission successor state atomically.
-- [ ] Publish `DeliveryCompletionResult`.
+- [ ] Validate manifest schema and immutable source identities.
+- [ ] Verify content fingerprints or an explicit integrity policy.
+- [ ] Validate module MIME/evaluation outcome.
+- [ ] Validate required exports.
+- [ ] Probe the NexusEngine API contract without mutating gameplay.
+- [ ] Reject partial provider sets.
 
-### Gate 4: make continuation explicit
+### Gate 4: commit one provider generation
 
-- [ ] Add deterministic next-parcel selection.
-- [ ] Add route-complete and campaign-complete transitions.
-- [ ] Define behavior when the current manifest has no successor parcel.
-- [ ] Keep reset and replay as explicit commands with expected-predecessor validation.
-- [ ] Never call the low-level parcel-reset helper as an implicit continuation.
+- [ ] Add command ID, runtime-session ID and expected provider generation.
+- [ ] Add provider IDs, source revisions and fingerprints.
+- [ ] Atomically commit one provider-set generation.
+- [ ] Publish `RuntimeProviderAdmissionResult`.
+- [ ] Return the prior result for duplicate command IDs.
+- [ ] Reject stale expected generations with zero gameplay mutation.
 
-### Gate 5: synchronize projections
+### Gate 5: compose runtime only after acceptance
 
-- [ ] Move completion messaging out of the per-frame flight guidance field.
-- [ ] Define message priority, lifetime and acknowledgement policy.
-- [ ] Retire or replace the map destination marker after delivery.
-- [ ] Retire or replace the Three.js town-marker emphasis after delivery.
-- [ ] Publish mission and projection revisions through telemetry and `GameHost`.
-- [ ] Add consumer receipts for map, town, message and telemetry projections.
-- [ ] Add first-visible-completion-frame acknowledgement.
+- [ ] Create visual, simulation, airstream, mail, map and telemetry owners only after provider acceptance.
+- [ ] Prevent partially constructed owner graphs from becoming public.
+- [ ] Publish provider identity through telemetry and `GameHost` as detached readback.
+- [ ] Keep raw provider objects behind an explicit capability boundary.
 
-### Gate 6: connect persistence
+### Gate 6: visible proof
 
-- [ ] Persist the admitted mail progression aggregate through the flight-session persistence authority.
-- [ ] Restore active parcel, completed parcels, route phase and campaign phase atomically.
-- [ ] Validate manifest compatibility during restore.
-- [ ] Prove delivered state and successor objectives survive reload.
+- [ ] Add provider loading, accepted, rejected and fallback-selected projections.
+- [ ] Add first provider-backed visible-frame acknowledgement.
+- [ ] Add first provider-failure visible-frame acknowledgement.
+- [ ] Correlate each visible frame with provider-set generation and result ID.
 
-### Gate 7: proof
+### Gate 7: deployment parity
 
-- [ ] Add manifest and reference-validation fixtures.
-- [ ] Add exactly-once, duplicate and stale-attempt fixtures.
-- [ ] Add next-parcel, route-complete and campaign-complete fixtures.
-- [ ] Add completion-message and marker-retirement browser fixtures.
-- [ ] Add reset and replay fixtures.
-- [ ] Add first-visible-completion-frame fixture.
-- [ ] Add source, build and Pages parity fixtures.
+- [ ] Make the Pages workflow checkout the exact manifest NexusEngine revision.
+- [ ] Validate the browser artifact references the same provider identity.
+- [ ] Inspect `dist` for mutable provider references.
+- [ ] Publish a provider manifest with the Pages artifact.
+- [ ] Compare source, headless, build and live Pages receipts.
+
+### Gate 8: proof
+
+- [ ] Add mutable-branch rejection fixture.
+- [ ] Add exact-revision acceptance fixture.
+- [ ] Add fingerprint mismatch fixture.
+- [ ] Add missing-export and API-drift fixtures.
+- [ ] Add timeout and provider-unavailable fixtures.
+- [ ] Add partial-set rollback fixture.
+- [ ] Add duplicate/stale command fixtures.
+- [ ] Add browser/headless revision parity fixture.
+- [ ] Add provider-independent failure UI fixture.
+- [ ] Add first-visible-provider-frame fixture.
+- [ ] Add source/build/Pages parity fixture.
 
 ## Implementation order
 
 ```txt
-1. campaign manifest and aggregate schema
-2. mission, route and parcel revisions
-3. command, attempt and result identities
-4. delivery evidence and admission
-5. atomic successor commit
-6. continuation policy
-7. message, map and town-marker projection adapters
+1. provider manifest and immutable identities
+2. provider-independent bootstrap shell
+3. source resolution and bounded timeout
+4. fingerprint/integrity verification
+5. export and API-contract probes
+6. provider-set generation and typed result
+7. accepted-owner composition
 8. telemetry and GameHost receipts
-9. reset and replay commands
-10. persistence participant adapter
-11. first visible completion frame acknowledgement
+9. provider-independent failure projection
+10. browser/headless/build/Pages parity
+11. first visible frame acknowledgements
 12. pure, browser, build and Pages fixtures
 ```
 
 ## Recommended file cut
 
 ```txt
-src/gameplay/mail-progression/
-  mail-delivery-completion-lifecycle-authority-domain.js
-  mail-campaign-manifest-kit.js
-  mail-mission-state-kit.js
-  delivery-command-envelope-kit.js
-  delivery-evidence-kit.js
-  delivery-admission-kit.js
-  delivery-result-kit.js
-  mail-continuation-policy-kit.js
-  destination-projection-kit.js
-  delivery-reset-command-kit.js
-  delivery-journal-kit.js
+src/bootstrap/
+  runtime-provider-manifest.js
+  provider-resolution-command.js
+  provider-verification.js
+  provider-admission-result.js
+  provider-independent-shell.js
 
-src/gameplay/mail-delivery-domain/
-  adapt existing route, parcel, volume, progress and town services
-
-src/ui/parchment-map-overlay.js
-  consume committed destination projection
+src/runtime/provider-admission/
+  runtime-module-provider-admission-authority-domain.js
+  provider-set-generation-kit.js
+  provider-api-contract-kit.js
+  provider-parity-kit.js
+  provider-telemetry-receipt-kit.js
 
 src/main.js
-  compose authority and projection receipts
+  consume accepted provider set instead of static remote imports
+
+.github/workflows/deploy-pages.yml
+  checkout and validate the exact manifest NexusEngine revision
 
 tests/
-  mail-campaign-manifest.mjs
-  mail-delivery-completion.mjs
-  mail-delivery-browser.mjs
-  mail-delivery-replay.mjs
+  provider-admission.mjs
+  provider-failure-browser.mjs
+  provider-parity.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve current controls, route geometry, town locations, parcel field names, map visual style, airstream sampling and balloon-flight behavior during the first completion-lifecycle cut.
+Preserve current Three.js version, controls, Air Mail gameplay, world generation, visual quality, map behavior and telemetry schema during the first provider-admission cut. Do not combine provider admission with delivery-completion or persistence implementation.
 
 ## Current documentation state
 
-Repo-local documentation is aligned through the `2026-07-13T02-18-03-04-00` delivery-completion audit family. Runtime implementation and executable proof remain open.
+Repo-local documentation is aligned through the `2026-07-13T05-19-21-04-00` runtime module/provider admission audit family. Runtime implementation and executable proof remain open.
