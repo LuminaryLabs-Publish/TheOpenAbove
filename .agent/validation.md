@@ -1,108 +1,135 @@
-# Validation: TheOpenAbove
+# Validation: TheOpenAbove Core World Feature/Foundation Adoption
 
-**Last aligned:** `2026-07-13T13-39-10-04-00`
+**Last aligned:** `2026-07-13T18-40-52-04-00`
 
 ## Scope
 
-Documentation-only audit of staged procedural world generation at runtime revision `a47cb530963e01a07fcc839ca1dcce2f70bd169f`.
+Documentation-only audit of the Core World feature/foundation mountain integration at runtime revision `bde5e6f5ca660715d2c1b4592d508431e89587cd` using Nexus Engine revision `112de886131c00121c36f004c257bd50ff122589`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed generation behavior from executable proof of continuous scheduling, atomic consumer adoption, rollback and visible parity.
+**Goal:** separate source-backed implementation facts from executable proof of complete foundation channels, atomic consumer adoption, collision parity, fidelity, rollback, and visible completion.
 
-- [x] Compare all ten accessible Publish repositories against central tracking.
+- [x] Compare all ten current Publish repositories against central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because its staged-generation runtime is newer than central documentation.
-- [x] Inspect the generation core, phase processors, visual scheduling and all major consumers.
-- [x] Inspect tests, package scripts, headless validation and Pages workflow.
-- [x] Confirm phased generation and public API compatibility by source.
-- [x] Confirm map-open generation starvation by source ordering.
-- [x] Confirm missing consumer-adoption and rollback results.
-- [x] Preserve the full kit and service inventory.
-- [x] Synchronize the central ledger and internal change log.
-- [x] Change no runtime source, dependency, package script or workflow.
+- [x] Select only `TheOpenAbove` because its runtime is newer than central documentation.
+- [x] Inspect the runtime commit and changed product files.
+- [x] Inspect the pinned Core World parent, Foundation, Features, Landform, and mountain source.
+- [x] Inspect terrain, flora, map, telemetry, package, and feature test paths.
+- [x] Confirm the implemented elevation path by source.
+- [x] Confirm missing material, collision, fidelity, revision, adoption, rollback, and visible-frame results.
+- [x] Preserve the complete kit and service inventory.
+- [x] Synchronize repo-local and central documentation.
+- [x] Change no runtime source, dependency, script, or workflow.
 - [x] Create no branch or pull request.
-- [ ] Execute generation, browser, build and Pages fixtures.
+- [ ] Execute pure, browser, build, and Pages fixtures.
 
 ## Source-backed checks
 
 ```txt
-height/erosion/flow/climate/biome phases: present
-incremental merge-sort flow ordering: present
-fixed unit work budget: present
-first-frame fallback sampling: present
-public sampling signatures preserved: yes
-active world retained during reset: present
-active array swap through one assignment: present
-progress, phase, history, timing and failure diagnostics: present
-reset and disposal APIs: present
-terrain revision refresh: present
-vegetation/grass/flower ready refresh: present
-map revision-aware cache refresh: present
-generation work while map open: absent
-elapsed-time work receipt: absent
-consumer registry and prepare results: absent
-budgeted consumer adoption: absent
-rollback after consumer failure: absent
-first visible adopted-world acknowledgement: absent
+immutable Nexus Engine revision: present
+Core World installation: present
+World Foundation child installation: present
+World Features child installation: present
+Landform Features child installation: present
+mountain type registration: present
+semantic northern-wall definition: present
+500m elevation field: present
+foundation cell compilation: present
+base + foundation height: present
+biome/flora composed-height propagation: present
+feature-aware map tint: present
+feature test in npm run check: present
+
+rendered-world parent registration: absent
+bounded product cell/provider lifecycle: absent
+material-channel product adapter: absent
+explicit collision-channel adapter: absent
+fidelity-specific render consumers: absent
+feature registry/lifecycle revision receipt: absent
+foundation cell revision in product state: absent
+contribution/channel fingerprint: absent
+atomic foundation consumer adoption: absent
+rollback result: absent
+first visible mountain frame acknowledgement: absent
 ```
 
 ## Source inspected
 
 ```txt
-src/world/world-generation-kit.js
-src/world/world-generation-phases.js
-src/world/world-generation-support.js
-src/visual/visual-domain.js
-src/visual/landscape/terrain-surface-kit.js
-src/visual/landscape/terrain-chunk-streaming-kit.js
-src/visual/landscape/terrain-horizon-streaming-kit.js
-src/visual/landscape/vegetation-cluster-kit.js
-src/visual/grass-field/grass-field-domain.js
-src/visual/flower-field/flower-field-domain.js
-src/ui/parchment-map-overlay.js
-src/main.js
-tests/world-generation.mjs
-package.json
-tools/headless-editor-environment.mjs
-.github/workflows/deploy-pages.yml
-root .agent documentation
-central repository ledger and internal change log
+LuminaryLabs-Publish/TheOpenAbove:
+  package.json
+  src/data/campaign.config.js
+  src/main.js
+  src/runtime/balloon-telemetry-kit.js
+  src/visual/visual-domain.js
+  src/world/world-feature-foundation-kit.js
+  tests/world-feature-foundation.mjs
+  root .agent documentation
+
+LuminaryLabs-Dev/NexusEngine @ 112de886...:
+  src/core-domains/core-world-domain/README.md
+  src/core-domains/core-world-domain/world-domain.js
+  subdomains/world-foundation-domain/world-foundation-domain.js
+  subdomains/world-feature-domain/world-feature-domain.js
+  subdomains/world-feature-domain/subdomains/landform-feature-domain/landform-feature-domain.js
+  subdomains/world-feature-domain/subdomains/landform-feature-domain/kits/mountain-feature-kit/index.js
+
+LuminaryLabs-Dev/LuminaryLabs:
+  repo-ledger/LuminaryLabs-Publish/TheOpenAbove.md
+  central repo inventory and internal change-log context
 ```
 
 ## Existing executable proof observed
 
 ```txt
-tests/world-generation.mjs:
-  deterministic same-seed sampling
-  staged output equals synchronous output
-  fallback before ready
-  monotonic progress and phase history
-  fixed-budget multi-update convergence
-  active-world retention during reset
-  disposal rejection
+npm run check includes tests/world-feature-foundation.mjs
 
-headless:world:
-  declared in package scripts
-  invoked by Pages workflow
-  performs source-marker inspection
-  then invokes npm run check
+stub assertions:
+  compile called once
+  feature elevation hidden before base ready
+  500m elevation added after ready
+  outside terrain unchanged
+  biome receives composed height
+  flora receives composed height
+  map color changes
+  feature ID appears in descriptor
+  reset and dispose delegate
 ```
 
-The staged test file is not part of `npm run check`, so the advertised headless world-generation command and production build do not execute its assertions.
+## Limit of existing test
+
+The test substitutes hand-written `worldFeatures` and `worldFoundation` objects. It does not:
+
+```txt
+import the pinned Nexus Engine runtime
+install Core World or child domains
+normalize the real mountain definition
+compile the real foundation contribution
+inspect elevation/material/collision channel descriptors
+inspect foundation or feature revisions
+register the rendered world with Core World
+render terrain, horizon, flora, or map
+execute balloon collision or route membership
+change feature lifecycle
+inject adoption failure
+inspect a visible frame
+```
 
 ## Missing executable proof
 
 ```txt
-node tests/world-generation.mjs in the standard gate
-map-open generation progress
-frame-time budget under browser load
-completion-frame adoption cost
-consumer dependency order
+real pinned-engine feature/foundation integration
+parent Core World world/provider/cell lifecycle
+foundation channel manifest and fingerprint
+feature lifecycle recompile and stale rejection
+material-zone presentation
+explicit collision-channel parity
+near/middle/far fidelity behavior
+route/town nonintersection
+atomic base/foundation adoption
 consumer failure rollback
-reset and disposal during browser scheduling
-sampling/terrain/vegetation/flora/map revision parity
-first visible adopted-world acknowledgement
+first visible mountain frame
 source/dist/Pages parity
 ```
 
@@ -111,12 +138,13 @@ source/dist/Pages parity
 ```txt
 npm install
 npm run check
+node tests/world-feature-foundation.mjs
 node tests/world-generation.mjs
 npm run headless:world
 npm run headless:check
 npm run build
-browser map-open generation fixture
-consumer-failure injection fixture
+browser feature/foundation fixture
+collision parity fixture
 built-dist browser smoke
 GitHub Pages smoke
 ```
@@ -131,14 +159,15 @@ dependencies changed: no
 gameplay changed: no
 render behavior changed: no
 map behavior changed: no
+collision behavior changed: no
 deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger synchronized: yes
-central internal change log added: yes
+central ledger synchronization: yes
+central internal change log: yes
 ```
 
 ## Completion boundary
 
-No deterministic browser cadence, map-open continuity, bounded adoption cost, consumer rollback, first-visible-world parity or production-readiness claim is made.
+No complete Core World parent adoption, feature lifecycle correctness, material-zone rendering, explicit collision-channel use, fidelity realization, atomic consumer commit, rollback, first-visible mountain parity, or production-readiness claim is made.
