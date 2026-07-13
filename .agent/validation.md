@@ -1,93 +1,107 @@
 # Validation: TheOpenAbove
 
-**Last aligned:** `2026-07-13T09-40-27-04-00`
+**Last aligned:** `2026-07-13T13-39-10-04-00`
 
 ## Scope
 
-Documentation-only audit of map/world dual-surface frame coherence at repository revision `0af1b7c8d3131c2af6f60bcc0d655bf399f52ef5`.
+Documentation-only audit of staged procedural world generation at runtime revision `a47cb530963e01a07fcc839ca1dcce2f70bd169f`.
 
 ## Plan ledger
 
-**Goal:** distinguish source-backed scheduler and rendering structure from executable proof that WebGL world and Canvas2D map surfaces cite one committed state envelope and produce a coherent visible result.
+**Goal:** distinguish source-backed generation behavior from executable proof of continuous scheduling, atomic consumer adoption, rollback and visible parity.
 
-- [x] Compare all ten accessible Publish repositories and central tracking.
+- [x] Compare all ten accessible Publish repositories against central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm all nine eligible repositories have central-ledger and root `.agent` coverage.
-- [x] Select only `TheOpenAbove` under the oldest eligible rule.
-- [x] Inspect `src/main.js`, `src/ui/parchment-map-overlay.js`, `src/visual/visual-domain.js` and `package.json`.
-- [x] Confirm the world and map own separate recursive RAF chains.
-- [x] Confirm world rendering continues while map-open pauses state updates.
-- [x] Confirm map-open visibility precedes its first scheduled map draw by source ordering.
-- [x] Confirm map projection reads live simulation and parcel getters.
-- [x] Confirm no shared frame envelope, projection results or dual-surface commit receipt exists.
-- [x] Preserve all 68 active source-backed kits, 12 implied adapters and services.
-- [x] Add the timestamped tracker and complete audit family.
-- [x] Change no runtime source, dependency, script or workflow.
+- [x] Select only `TheOpenAbove` because its staged-generation runtime is newer than central documentation.
+- [x] Inspect the generation core, phase processors, visual scheduling and all major consumers.
+- [x] Inspect tests, package scripts, headless validation and Pages workflow.
+- [x] Confirm phased generation and public API compatibility by source.
+- [x] Confirm map-open generation starvation by source ordering.
+- [x] Confirm missing consumer-adoption and rollback results.
+- [x] Preserve the full kit and service inventory.
+- [x] Change no runtime source, dependency, package script or workflow.
 - [x] Create no branch or pull request.
+- [ ] Execute generation, browser, build and Pages fixtures.
 
 ## Source-backed checks
 
 ```txt
-world recursive RAF: present
-map recursive RAF: present
-world render while map open: present
-simulation/mail/visual/telemetry pause while map open: present
-map overlay CSS visibility before first map draw: source-order confirmed
-map live player-state getter: present
-map live parcel getter: present
-shared immutable frame envelope: absent
-flight/mail source revisions: absent
-map transition generation: absent
-world projection result: absent
-map projection result: absent
-dual-surface commit result: absent
-partial-frame recovery receipt: absent
-first coherent map frame acknowledgement: absent
-public dual-surface readback receipt: absent
+height/erosion/flow/climate/biome phases: present
+incremental merge-sort flow ordering: present
+fixed unit work budget: present
+first-frame fallback sampling: present
+public sampling signatures preserved: yes
+active world retained during reset: present
+active array swap through one assignment: present
+progress, phase, history, timing and failure diagnostics: present
+reset and disposal APIs: present
+terrain revision refresh: present
+vegetation/grass/flower ready refresh: present
+map revision-aware cache refresh: present
+generation work while map open: absent
+elapsed-time work receipt: absent
+consumer registry and prepare results: absent
+budgeted consumer adoption: absent
+rollback after consumer failure: absent
+first visible adopted-world acknowledgement: absent
 ```
 
 ## Source inspected
 
 ```txt
-src/main.js
-src/ui/parchment-map-overlay.js
+src/world/world-generation-kit.js
+src/world/world-generation-phases.js
+src/world/world-generation-support.js
 src/visual/visual-domain.js
+src/visual/landscape/terrain-surface-kit.js
+src/visual/landscape/terrain-chunk-streaming-kit.js
+src/visual/landscape/terrain-horizon-streaming-kit.js
+src/visual/landscape/vegetation-cluster-kit.js
+src/visual/grass-field/grass-field-domain.js
+src/visual/flower-field/flower-field-domain.js
+src/ui/parchment-map-overlay.js
+src/main.js
+tests/world-generation.mjs
 package.json
-.agent/START_HERE.md
-.agent/current-audit.md
-.agent/next-steps.md
-.agent/known-gaps.md
-central repository ledger entries
-current repository inventory and heads
+tools/headless-editor-environment.mjs
+.github/workflows/deploy-pages.yml
+root .agent documentation
+central repository ledger
 ```
 
 ## Existing executable proof observed
 
 ```txt
-source/static smoke scripts: declared
-terrain streaming tests: declared
-world route protection tests: declared
-terrain overlay tests: declared
-headless project and renderer commands: declared
-Vite production build: declared
-Pages deployment: declared
+tests/world-generation.mjs:
+  deterministic same-seed sampling
+  staged output equals synchronous output
+  fallback before ready
+  monotonic progress and phase history
+  fixed-budget multi-update convergence
+  active-world retention during reset
+  disposal rejection
+
+headless:world:
+  declared in package scripts
+  invoked by Pages workflow
+  performs source-marker inspection
+  then invokes npm run check
 ```
 
-These surfaces were read, not executed in this documentation pass. None of the declared Node/headless checks proves concurrent browser WebGL/Canvas2D frame coherence.
+The staged test file is not part of `npm run check`, so the advertised headless world-generation command and production build do not execute its assertions.
 
-## Missing proof
+## Missing executable proof
 
 ```txt
-immutable frame-envelope capture
-flight/mail revision correlation
-map transition command and generation
-world/map projection result correlation
-first map frame nonblank/current
-rapid open-close stale callback rejection
-map resize revision handling
-partial world/map commit recovery
-visible pixel or bounded render readback
-GameHost/telemetry dual-surface receipt
+node tests/world-generation.mjs in the standard gate
+map-open generation progress
+frame-time budget under browser load
+completion-frame adoption cost
+consumer dependency order
+consumer failure rollback
+reset and disposal during browser scheduling
+sampling/terrain/vegetation/flora/map revision parity
+first visible adopted-world acknowledgement
 source/dist/Pages parity
 ```
 
@@ -96,19 +110,21 @@ source/dist/Pages parity
 ```txt
 npm install
 npm run check
+node tests/world-generation.mjs
+npm run headless:world
 npm run headless:check
 npm run build
-browser map-open fixture
-WebGL/Canvas2D frame-correlation fixture
+browser map-open generation fixture
+consumer-failure injection fixture
 built-dist browser smoke
-Pages browser smoke
+GitHub Pages smoke
 ```
 
 ## Change-state validation
 
 ```txt
 runtime JavaScript changed: no
-HTML changed: no
+HTML or CSS changed: no
 package scripts changed: no
 dependencies changed: no
 gameplay changed: no
@@ -118,10 +134,10 @@ deployment workflow changed: no
 branch created: no
 pull request created: no
 .agent documentation changed: yes
-central ledger synchronized: pending at repo-local validation write
-central internal change log added: pending at repo-local validation write
+central ledger synchronization: pending at repo-local validation write
+central internal change log: pending at repo-local validation write
 ```
 
 ## Completion boundary
 
-No map/world atomicity, first-map-frame correctness, stale-callback fencing, partial-frame recovery, visible parity or production-readiness claim is made.
+No deterministic browser cadence, map-open continuity, bounded adoption cost, consumer rollback, first-visible-world parity or production-readiness claim is made.
