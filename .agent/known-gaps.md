@@ -1,6 +1,6 @@
 # Known Gaps: TheOpenAbove
 
-**Last aligned:** `2026-07-12T23-50-01-04-00`
+**Last aligned:** `2026-07-13T00-00-02-04-00`
 
 ## Primary ordered gaps
 
@@ -23,27 +23,21 @@
 ```txt
 no save, restore or durable reset command
 no persistence schema version
-no save ID or persistence generation
-no runtime/world/route/participant revision bundle
-no detached participant snapshot contract
-no canonical field ordering
-no content fingerprint
+no save ID, writer ID or persistence generation
+no detached participant snapshot/load-candidate contract
+no canonical field ordering or content fingerprint
 no browser storage adapter
-no staging generation
-no readback verification
-no atomic active pointer
-no bounded verified backup
-no migration registry
-no corrupt/incompatible record quarantine
-no multi-tab writer identity or conflict result
-no dirty gameplay revision
-no delivery-triggered or explicit save policy
+no staging generation or readback verification
+no atomic active pointer or verified backup
+no migration registry or corrupt-record quarantine
+no multi-tab writer conflict result
+no dirty gameplay revision or autosave policy
 no pagehide/visibility lifecycle flush result
 no atomic multi-participant restore
-no restore rollback classification
-no restored persistence generation in telemetry/map/render
+no truthful restore rollback classification
+no persistence generation in telemetry, map or render frames
 no first visible restored-frame acknowledgement
-no source/build/Pages persistence fixture
+no pure/browser/build/Pages persistence fixtures
 ```
 
 ## Concrete risks
@@ -57,26 +51,26 @@ future storage failure can be mistaken for a successful save
 multiple tabs can silently overwrite newer progress
 corrupt or old records can enter runtime without quarantine
 reset can diverge between live and durable state
-page lifecycle termination can discard dirty progress silently
+page termination can discard dirty progress silently
 ```
 
-## Retained telemetry and world gaps
+## Retained architecture gaps
 
 ```txt
-Nexus Engine import remains pinned to @main rather than an immutable revision
+Nexus Engine import remains pinned to @main
 no unified runtime session owns RAF, listeners and teardown
-simulation remains variable-step at the browser host boundary
+simulation remains variable-step at the host boundary
 telemetry resources and journals retain mutable references
 no immutable WorldGridArtifact with complete consumer receipts
-flight movement does not admit bounded-world membership
-terrain near/horizon generations lack atomic aggregate adoption
+flight does not admit bounded-world membership
+terrain generations lack atomic aggregate adoption
 vegetation remains boot-time and centrally bounded
 flora chunks lack one shared exclusion artifact revision
 HDR attachments and visible-frame receipts remain incomplete
-map projection has unresolved heading, bounds and focus semantics
+map heading, bounds and focus semantics remain unresolved
 ```
 
-## Required persistence fixtures
+## Required fixtures
 
 ```txt
 canonical-save-determinism
@@ -87,7 +81,7 @@ save-after-delivery-reload-remains-delivered
 save-mid-flight-reload-restores-position
 failed-candidate-preserves-predecessor
 stale-save-zero-mutation
-migration-supported-schema
+supported-schema-migration
 unsupported-schema-quarantine
 corrupt-record-quarantine
 verified-backup-recovery
@@ -99,17 +93,10 @@ first-restored-frame-cites-generation
 source-build-pages-persistence-parity
 ```
 
-## Documentation completed
+## Documentation state
 
-```txt
-full Publish comparison: completed
-selected only TheOpenAbove: completed
-new timestamped tracker and audit family: added
-required root .agent files: refreshed
-central ledger: updated
-internal change log: added
-```
+The `2026-07-13T00-00-02-04-00` repo-local reconciliation family and central ledger/change-log update are complete.
 
 ## Non-claim
 
-Do not treat mail-domain `snapshot()` and `reset()`, balloon telemetry snapshots, a successful delivery event, or public `GameHost` readback as proof of durable save, verified restore, migration safety, conflict handling or restored visible-frame coherence.
+Snapshot helpers, delivery events and `GameHost` readback are not evidence of durable save, verified restore, migration safety, conflict handling or restored visible-frame coherence.
