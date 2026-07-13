@@ -1,112 +1,136 @@
-# Current Audit: TheOpenAbove
+# Current Audit: TheOpenAbove Core World Feature/Foundation Adoption
 
-**Last aligned:** `2026-07-13T13-39-10-04-00`  
-**Status:** `staged-world-generation-scheduler-adoption-authority-audited`  
-**Runtime revision reviewed:** `a47cb530963e01a07fcc839ca1dcce2f70bd169f`
+**Last aligned:** `2026-07-13T18-40-52-04-00`  
+**Status:** `core-world-feature-foundation-adoption-authority-audited`  
+**Runtime revision reviewed:** `bde5e6f5ca660715d2c1b4592d508431e89587cd`  
+**Nexus Engine provider:** `112de886131c00121c36f004c257bd50ff122589`
 
 ## Summary
 
-The runtime now performs deterministic phased world generation after the first visible frame while retaining legacy terrain and the public sampling API. The core candidate swap is atomic at the array reference, but generation scheduling and render-consumer adoption are not owned by one transaction. Map-open starves generation, consumer refresh is synchronous and unbudgeted, and a listener/rebuild failure can leave the successor sampling revision active without complete consumer adoption or rollback.
+The runtime now uses pinned Nexus Engine Core World Foundation, Features, and Landform domains to register and compile a semantic `northern-wall` mountain with a 500 metre elevation field. A local product bridge adds resolved elevation to the staged base world, propagates the composed height into biome and flora sampling, tints the parchment map, and lets terrain-height consumers encounter the new physical shape.
+
+The integration stops short of complete Core World adoption. The rendered world is not registered through the parent Core World builder. One global foundation cell is compiled once, only elevation is consumed, and the compiler’s material, collision, and fidelity descriptors do not receive typed product adapters. Feature/foundation revisions are not correlated with terrain, flora, map, collision, or a visible frame, and partial adoption has no rollback.
 
 ## Plan ledger
 
-**Goal:** establish one scheduler and adoption authority from frame-budget admission through candidate generation, consumer preparation, active commit and first visible adopted-world proof.
+**Goal:** preserve the implemented mountain while establishing one authority from semantic feature registration through resolved foundation channels, consumer preparation, atomic adoption, rollback, and visible proof.
 
 - [x] Compare the current Publish inventory and central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only `TheOpenAbove` because staged-generation runtime is newer than central documentation.
-- [x] Trace phase execution, fallback, progress, reset, disposal and failure.
-- [x] Trace terrain, vegetation, grass, flowers and map revision adoption.
-- [x] Identify all domains, kits and offered services.
-- [x] Add a timestamped tracker and system audits.
+- [x] Confirm all eligible repositories have ledger and root `.agent` coverage.
+- [x] Select only `TheOpenAbove` because its runtime advanced beyond central documentation.
+- [x] Inspect the runtime diff and every affected product file.
+- [x] Inspect the pinned Core World parent and child-domain implementations.
+- [x] Trace height, biome, flora, map, collision, rendering, reset, disposal, and tests.
+- [x] Identify all domains, kits, adapters, and offered services.
+- [x] Add a timestamped tracker and focused audits.
 - [x] Change no runtime source or deployment configuration.
-- [ ] Implement and validate scheduler/adoption authority.
+- [ ] Implement and validate feature/foundation adoption authority.
 
 ## Complete interaction loop
 
 ```txt
 browser boot
-  -> create world generator with staged=true and autoStart
-  -> create terrain, vegetation, grass, flowers and map against fallback sampling
-  -> render initial WebGL frame
+  -> import Three.js 0.165.0
+  -> import Nexus Engine at immutable commit 112de886...
+  -> create airstream routes and Air Mail towns
 
-map closed RAF
-  -> update balloon, mail, airstream and camera
-  -> visual.update
-     -> if first frame presented and generation working, advance configured units
-     -> update terrain, flora, atmosphere and HDR
-  -> render WebGL
+Nexus composition
+  -> create balloon telemetry engine
+  -> install createCoreWorldDomain
+  -> auto-install n:world:foundation
+  -> auto-install n:world:features
+  -> auto-install n:world:features:landform
+  -> landform domain registers mountain type
+  -> register WORLD.features.landforms
+     -> northern-wall
+     -> mountain
+     -> 500m height
+     -> path, width, sharpness, zones, cliff threshold, fidelity
 
-world generation
-  -> height per grid cell
-  -> erosion scan/apply across six passes
-  -> flow initialization
-  -> incremental merge sort by height
-  -> flow accumulation
-  -> climate and channel carving
-  -> biome classification
-  -> active array swap and ready notification
+visual construction
+  -> create staged generated base world
+  -> create local world-feature-foundation bridge
+  -> compile open-above-global-foundation cell
+  -> World Features compiles mountain contribution
+  -> World Foundation resolves the cell
+  -> create terrain, vegetation, grass, flowers, map, and gameplay sampling
+     against the wrapper
 
-consumer adoption
-  -> vegetation refresh synchronously repopulates instances
-  -> grass/flowers synchronously clear current chunks
-  -> terrain observes revision and clears/rebuilds near/horizon chunks
-  -> grass/flowers rebuild local chunks on update
-  -> map cache rebuilds lazily on next draw
+first-frame fallback
+  -> base generator status is working
+  -> featureElevation returns 0
+  -> terrain/map/collision-height users see only fallback base world
+  -> first WebGL frame is presented
 
-map open RAF
-  -> main loop skips visual.update
-  -> generation receives no units
-  -> WebGL continues rendering at dt 0
-  -> map draws current active revision
+base generation
+  -> height
+  -> erosion
+  -> flow
+  -> climate
+  -> biome
+  -> base revision becomes ready
 
-reset
-  -> retain active world
-  -> create new pending workset
-  -> generate replacement
+feature/foundation activation
+  -> wrapper samples resolved mountain elevation
+  -> world.sampleHeight becomes base + feature elevation
+  -> biome and flora receive composed height
+  -> map color receives local elevation-based rock tint
+  -> generation-ready callback refreshes vegetation, grass, and flowers
+  -> terrain observes base generation revision and rebuilds
+  -> horizon and map update on their own consumer paths
 
-dispose
-  -> drop pending and active state
-  -> clear listeners and caches
-  -> reject later reset
+steady flight
+  -> balloon simulation samples terrainHeight for clearance
+  -> mail and vegetation use terrain-height queries
+  -> terrain near/horizon and flora sample composed world
+  -> telemetry reports base generation state, compiled flag, and feature count
+  -> no common feature/foundation adoption or visible-frame result exists
+
+reset/dispose
+  -> wrapper delegates reset/dispose to base world
+  -> compiled global-cell flag remains local and unversioned
+  -> no feature lifecycle recompile or artifact retirement result exists
 ```
 
 ## Domains in use
 
 ```txt
-browser document/import map/module loader/canvas/error panel/GameHost
-runtime boot/session/keyboard/wheel/RAF/telemetry/map pause
-Nexus resource/event/journal surfaces
-balloon simulation and presentation
-airstream routes, sampling, field, force, visuals and debug
-Air Mail parcel, route, towns, volumes, progress, reset and completion
-seeded world identity, spatial membership, anchors and feature cells
-height, erosion, flow, climate and biome generation
-fallback and active world sampling, diagnostics, reset and disposal
-terrain near/horizon streaming, LOD, ownership and refresh
+browser document, module loading, canvas, RAF, input, error projection, GameHost
+balloon simulation, airstream routes/force/visuals, Air Mail, telemetry
+Nexus Realtime resource and event publication
+Core World identity, definitions, partitions, cells, surfaces, providers, effects, snapshots
+World Foundation definitions, contributions, composition, sampling, cell resolution, snapshots
+World Features type registry, semantic definitions, lifecycle, queries, composition, compile, samplers, snapshots
+Landform Features mountain implementation and canyon/cliff/plateau contracts
+product world-feature configuration and global-cell foundation bridge
+staged base world generation, fallback sampling, progress, reset, disposal
+terrain near/horizon streaming, LOD, refresh, and height queries
 vegetation population and obstacle queries
-grass/flower distribution, chunks, LOD, culling, exclusions and wind
-parchment map cache, routes, towns, player marker and revision refresh
-quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
-headless editor, tests, Vite and Pages
-missing staged-world-generation scheduler/adoption authority
+grass/flower density, chunks, LOD, culling, exclusions, wind
+parchment map cache, projection, routes, towns, marker, coloring
+quality, dynamic resolution, sky, clouds, water, HDR, grading, lens
+headless editor, static tests, Vite build, Pages deployment
+missing world-feature/foundation adoption authority
 ```
 
 ## Kit census
 
 ```txt
-runtime/gameplay: 15
-balloon/object/presentation: 15
-visual/world/environment: 33
-UI: 1
-tooling/proof: 4
-active source-backed total: 68
-runtime-implied adapters: 12
-inactive/retired legacy: 12
-planned scheduler/adoption authority including parent: 16
+local runtime/gameplay:             15
+local balloon/object/presentation:  15
+local visual/world/environment:     34
+local UI:                            1
+local tooling/proof:                 5
+local source-backed total:          70
+runtime-implied adapters:           12
+pinned Core World surfaces:         17
+current documented active total:    99
+inactive/retired legacy:            12
+planned feature/foundation parent:  15
 ```
 
-## Implemented kits
+## Local source-backed kits
 
 ### Runtime and gameplay
 
@@ -148,11 +172,12 @@ open-above-balloon-camera-rig-kit
 open-above-clipping-fade-kit
 ```
 
-### Visual, world and environment
+### Visual, world, and environment
 
 ```txt
 open-above-visual-domain
 open-above-world-generation-kit
+open-above-world-feature-foundation-kit
 open-above-quality-tier-kit
 open-above-dynamic-resolution-kit
 open-above-physical-sky-kit
@@ -194,9 +219,10 @@ open-above-headless-editor-environment
 open-above-static-smoke-test-kit
 open-above-airstream-mail-test-kit
 open-above-world-flora-test-kit
+open-above-world-feature-foundation-test-kit
 ```
 
-### Runtime-implied adapters
+## Runtime-implied adapters
 
 ```txt
 open-above-route-shell-kit
@@ -213,123 +239,214 @@ open-above-raf-clock-adapter-kit
 open-above-pages-deploy-kit
 ```
 
+## Pinned Core World surfaces
+
+```txt
+n-world-domain
+world-builder-runtime-kit
+n-world-foundation-domain
+foundation-definition-kit
+foundation-composition-kit
+foundation-sampling-kit
+foundation-cell-resolution-kit
+n-world-feature-domain
+feature-registry-kit
+feature-lifecycle-kit
+feature-query-kit
+feature-composition-kit
+n-world-landform-feature-domain
+mountain-feature-kit
+canyon-feature-kit
+cliff-feature-kit
+plateau-feature-kit
+```
+
 ## Offered services
 
 ```txt
-open-above-world-generation-kit:
-  deterministic seed/grid/feature-cell identity
-  protected route/town/lake anchors
-  height, erosion, flow, climate and biome phases
-  fixed unit-budget advancement
-  synchronous completion option
-  fallback and active sampling through unchanged APIs
-  progress, phase, phase timing, history and failure diagnostics
-  generation subscriptions
-  reset with active-world retention
-  disposal
+Core World:
+  world definitions
+  partitions and stable cells
+  surfaces and focus
+  provider prepare/update/release lifecycle
+  portable effect descriptors
+  rollback-safe preparation
+  snapshots, restoration, diagnostics, reset
 
-runtime/gameplay:
-  flight integration and telemetry
+World Foundation:
+  foundation definitions
+  bounded per-cell contributions
+  ordered contribution composition
+  elevation and arbitrary channel sampling
+  resolved cell revisions
+  cell provider creation
+  snapshots and reset
+
+World Features:
+  feature-type registry
+  semantic feature definitions
+  lifecycle updates
+  bounds-based queries
+  ordered contribution composition
+  feature and cell compilation
+  type samplers
+  snapshots and reset
+
+Landform Features:
+  mountain normalize, compile, sample, fidelity
+  canyon, cliff, and plateau contracts
+
+Product world-feature bridge:
+  one global-cell compile
+  staged feature-elevation gate
+  base + foundation height
+  biome/flora re-evaluation
+  local map-color tint
+  descriptor and base generation lifecycle proxy
+
+Existing product services:
+  balloon integration and presentation
   airstream route/sample/field/force/visual/debug
   mail parcel/route/town/volume/progress/snapshot/reset/disposal
-
-balloon/presentation:
-  procedural construction, materials, rigging and secondary motion
-  camera, clipping, animation and persistent GPU resources
-
-world/render:
-  terrain near/horizon streaming and LOD
-  vegetation population and queries
-  grass/flower chunks, density, culling, exclusions and wind
-  sky, clouds, water, HDR, grading, lens and dynamic resolution
-
-UI/tooling:
-  parchment map projection and revision-aware cache
-  headless project/renderer/world-generation inspection
-  source/static, route/mail and world/flora checks
-  Vite build and Pages deployment
+  terrain streaming, vegetation, grass, flowers
+  map, atmosphere, water, HDR, grading, lens, dynamic resolution
+  headless inspection, checks, build, deployment
 ```
+
+## Semantic mountain definition
+
+```txt
+id: northern-wall
+type: mountain
+seed: open-above-northern-wall
+priority: 10
+path: (-5200,4900) -> (0,5500) -> (5000,4700)
+width: 2000
+height: 500
+sharpness: 2.8
+variation: 0
+cliffThreshold: 0.68
+material zones: mountain-rock >= 180, mountain-summit >= 390
+fidelity: near feature-mesh, middle foundation-field, far silhouette, collision foundation
+```
+
+## Compiler output and product adoption
+
+```txt
+elevation world-feature-field: consumed
+material mountain-material-zones: not consumed
+collision foundation-heightfield: not explicitly consumed
+fidelity metadata: not consumed
+cliffThreshold metadata: not consumed
+```
+
+The product map color is a local elevation tint rather than a material-channel adapter. Gameplay collision currently agrees only because it samples the composed terrain-height function.
 
 ## Source-backed findings
 
 ```txt
-phased generator: implemented
-incremental flow ordering: implemented
-first-frame fallback: implemented
-active retained during reset: implemented
-active array reference swap: implemented
-phase/progress/timing/failure diagnostics: implemented
-sampling API compatibility: preserved
-generation while map open: absent
-consumer preparation artifacts: absent
-per-consumer revision receipts: absent
-budgeted adoption: absent
-consumer rollback: absent
-first visible adopted-world ack: absent
-world-generation test wired into npm check: no
+immutable Nexus Engine provider pin: implemented
+Core World parent installation: implemented
+Foundation child installation: implemented
+Features child installation: implemented
+Landform child installation: implemented
+mountain feature type registration: implemented
+semantic northern-wall registration: implemented
+500m mountain contribution and sampler: implemented
+base + foundation elevation composition: implemented
+biome/flora composed-height propagation: implemented
+feature-aware map tint: implemented
+feature test in npm run check: implemented
+
+rendered world registered with Core World parent: absent
+partition/cell/provider lifecycle used by product world: absent
+material-channel render adapter: absent
+explicit collision-channel adapter and receipt: absent
+near/middle/far fidelity adapters: absent
+feature registry/lifecycle revision: absent
+foundation cell revision in product state: absent
+contribution/channel fingerprint: absent
+lifecycle-triggered recompile: absent
+atomic feature/foundation consumer adoption: absent
+rollback after partial adoption: absent
+first visible mountain frame acknowledgement: absent
+real pinned-engine product integration fixture: absent
 ```
 
-## Critical failure path
+## Stale and failure path
 
 ```txt
-completeAtomicSwap
-  -> active successor arrays assigned
-  -> pending removed
-  -> generation marked ready
-  -> listener refresh begins
+boot compile
+  -> local compiled=true
+  -> global foundation cell resolved
 
-listener or rebuild throws
-  -> advanceGeneration catches and marks failed
-  -> successor active arrays remain installed
-  -> some consumers may already be cleared or rebuilt
-  -> no rollback or mixed-generation result exists
+feature registration or lifecycle changes later
+  -> compiled remains true
+  -> no recompile
+  -> consumers retain predecessor artifact without stale result
+
+base generation ready
+  -> elevation begins applying through sampling
+  -> consumers refresh separately
+
+consumer preparation or rebuild fails
+  -> no common adoption result
+  -> no foundation/base rollback
+  -> sampling, terrain, flora, map, and collision may expose mixed revisions
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-staged-world-generation-scheduler-adoption-authority-domain
+open-above-world-feature-foundation-adoption-authority-domain
 ```
+
+This product authority should participate in the retained staged-world-generation scheduler/adoption authority.
 
 ## Required transaction
 
 ```txt
-WorldGenerationFrameCommand
-  -> bind attempt and scheduler generations
-  -> admit bounded work independently of gameplay/map pause
-  -> publish monotonic work and progress receipts
-  -> retain predecessor on failure/cancel
+WorldFeatureCompileCommand
+  -> bind runtime, Core World provider, world, base candidate, cell,
+     feature registry, lifecycle, and expected foundation revisions
+  -> compile bounded semantic features
+  -> resolve elevation, material, collision, and metadata channels
+  -> publish immutable ResolvedWorldFoundationArtifact
 
-WorldGenerationAdoptionCommand
-  -> bind candidate and predecessor revisions
-  -> prepare mandatory consumer resources under budgets
-  -> collect typed terrain/vegetation/flora/map receipts
-  -> commit sampling and visible consumer generations together
-  -> roll back partial preparation on failure
-  -> acknowledge first matching visible frame
+WorldFoundationAdoptionCommand
+  -> bind base and foundation artifacts
+  -> prepare terrain-near, terrain-horizon, vegetation, grass, flowers,
+     map, and collision consumers
+  -> apply fidelity by observation range
+  -> collect typed channel and consumer receipts
+  -> atomically commit base and foundation revisions
+  -> preserve predecessor and dispose partial successor on failure
+  -> publish WorldFeatureFoundationAdoptionResult
+  -> acknowledge the first matching visible mountain frame
 ```
 
 ## Planned coordinating kits
 
 ```txt
-open-above-staged-world-generation-scheduler-adoption-authority-domain
-open-above-world-generation-attempt-kit
-open-above-world-generation-frame-command-kit
-open-above-generation-work-budget-kit
-open-above-generation-progress-receipt-kit
-open-above-world-candidate-artifact-kit
-open-above-world-consumer-registry-kit
-open-above-world-consumer-adoption-plan-kit
-open-above-terrain-generation-prepare-kit
-open-above-vegetation-generation-prepare-kit
-open-above-flora-generation-prepare-kit
-open-above-map-cache-generation-prepare-kit
-open-above-world-adoption-result-kit
-open-above-world-adoption-rollback-kit
-open-above-first-adopted-world-frame-ack-kit
-open-above-world-generation-fixture-gate-kit
+open-above-world-feature-foundation-adoption-authority-domain
+open-above-world-feature-compile-command-kit
+open-above-world-feature-registry-revision-kit
+open-above-foundation-cell-artifact-kit
+open-above-foundation-channel-manifest-kit
+open-above-foundation-elevation-adapter-kit
+open-above-foundation-material-adapter-kit
+open-above-foundation-collision-adapter-kit
+open-above-landform-fidelity-plan-kit
+open-above-world-feature-consumer-registry-kit
+open-above-world-feature-adoption-plan-kit
+open-above-world-feature-adoption-result-kit
+open-above-world-feature-adoption-rollback-kit
+open-above-first-visible-landform-frame-ack-kit
+open-above-world-feature-foundation-fixture-gate-kit
 ```
 
 ## Validation boundary
 
-Documentation only. No command, browser fixture, consumer failure injection, built output or Pages smoke was executed.
+The standard package check now includes `tests/world-feature-foundation.mjs`, but that test uses hand-written feature/foundation stubs. It proves wrapper math and delegation only. It does not instantiate the pinned engine, inspect actual contribution channels or revisions, register the rendered world with Core World, execute browser terrain/collision behavior, inject adoption failure, or inspect a visible frame.
+
+Documentation only. No runtime, dependency, script, workflow, browser, build, Pages, lifecycle, collision, fidelity, rollback, or visible-frame behavior was changed or executed in this audit.
