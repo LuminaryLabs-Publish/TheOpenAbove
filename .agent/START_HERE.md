@@ -1,45 +1,45 @@
-# START HERE: TheOpenAbove World Domain Composition and Provider Admission
+# START HERE: TheOpenAbove Pinned Provider Capability Contract Forwarding
 
-**Last aligned:** `2026-07-13T22-58-22-04-00`  
+**Last aligned:** `2026-07-14T01-39-09-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Runtime revision reviewed:** `3884cc509562c07c7c8eee15dd67fd707be64198`  
-**Nexus Engine provider:** `112de886131c00121c36f004c257bd50ff122589`  
-**Status:** `world-domain-composition-provider-admission-authority-audited`
+**Runtime revision reviewed:** `09bb6b95549d9480dfc2caa4517575ab4009ba98`  
+**Nexus Engine provider:** `ea973811342fe3ba2a35bb018323d987d3fec4b5`  
+**Status:** `pinned-provider-capability-contract-forwarding-authority-audited`
 
 ## Summary
 
-The latest runtime commit correctly fixes the startup crash by explicitly composing Core World, World Foundation, World Features and Landform Features before Balloon Telemetry, disabling implicit children and validating `registerFeature`.
+The latest runtime pins the Nexus Engine revision that repairs Core capability DSK contract forwarding. `domainPath`, `parentDomainPath`, `apiPath`, visibility, `requires`, `provides`, and custom `install` hooks now reach `defineDomainServiceKit()`.
 
-The current audit focuses on the remaining proof boundary. The new composition test uses a fake provider, so real pinned-provider exports, dependency ownership, duplicate prevention, aggregate feature registration, browser boot and first visible world-frame convergence are not yet proven.
+The fix is directly relevant to TheOpenAbove's explicit Core World composition. The remaining gap is real-provider proof: the product test still uses fake factories and a handcrafted engine namespace, so the pinned provider's actual metadata, tokens, API addressability, install aliases, feature registration, and first visible world frame are not yet proven.
 
 ## Plan ledger
 
-**Goal:** preserve the targeted runtime fix while making the exact domain graph, provider revision, feature set and visible world generation one admitted and observable startup result.
+**Goal:** make the immutable provider revision and its complete Core World capability contract an admitted, inspectable prerequisite for authored landforms and the playable world.
 
 - [x] Compare all ten accessible Publish repositories.
 - [x] Exclude `LuminaryLabs-Publish/TheCavalryOfRome`.
-- [x] Confirm central-ledger and root `.agent` coverage.
+- [x] Confirm nine eligible central ledgers and root `.agent` states.
 - [x] Select only TheOpenAbove as the sole runtime-ahead repository.
-- [x] Inspect commit `3884cc509562c07c7c8eee15dd67fd707be64198`.
-- [x] Trace provider import, domain factories, feature registration, visual startup and RAF.
-- [x] Inventory 100 active kit, adapter and proof surfaces.
-- [x] Add the `2026-07-13T22-58-22-04-00` audit family.
+- [x] Inspect product commit `09bb6b9...` and provider commit `ea973811...`.
+- [x] Inspect the Core capability wrapper, DSK constructor, World Features domain, product boot, fake-provider test, and package wiring.
+- [x] Preserve all 100 active kit, adapter, and Core World surfaces.
+- [x] Add the `2026-07-14T01-39-09-04-00` audit family.
 - [x] Use `main`; create no branch or pull request.
-- [ ] Execute real-provider, browser, build and Pages fixtures.
+- [ ] Execute real-provider, browser, build, and Pages fixtures.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-13T22-58-22-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-13T22-58-22-04-00.md
-.agent/architecture-audit/2026-07-13T22-58-22-04-00-world-domain-composition-admission-dsk-map.md
-.agent/render-audit/2026-07-13T22-58-22-04-00-world-feature-startup-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-13T22-58-22-04-00-boot-world-feature-registration-loop.md
-.agent/interaction-audit/2026-07-13T22-58-22-04-00-provider-domain-composition-result-map.md
-.agent/world-domain-composition-audit/2026-07-13T22-58-22-04-00-explicit-core-world-feature-registration-contract.md
-.agent/deploy-audit/2026-07-13T22-58-22-04-00-pinned-provider-browser-boot-fixture-gate.md
-.agent/central-sync-audit/2026-07-13T22-58-22-04-00-repo-ledger-world-domain-composition-reconciliation.md
+.agent/trackers/2026-07-14T01-39-09-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-14T01-39-09-04-00.md
+.agent/architecture-audit/2026-07-14T01-39-09-04-00-pinned-provider-capability-contract-dsk-map.md
+.agent/render-audit/2026-07-14T01-39-09-04-00-provider-contract-visible-frame-gap.md
+.agent/gameplay-audit/2026-07-14T01-39-09-04-00-provider-contract-world-boot-loop.md
+.agent/interaction-audit/2026-07-14T01-39-09-04-00-provider-admission-result-map.md
+.agent/provider-contract-audit/2026-07-14T01-39-09-04-00-core-capability-forwarding-contract.md
+.agent/deploy-audit/2026-07-14T01-39-09-04-00-pinned-provider-contract-fixture-gate.md
+.agent/central-sync-audit/2026-07-14T01-39-09-04-00-provider-pin-runtime-reconciliation.md
 ```
 
 ## Selection
@@ -52,44 +52,43 @@ root .agent states: 9
 new or missing eligible repositories: 0
 runtime-ahead repositories: 1
 selected: LuminaryLabs-Publish/TheOpenAbove
-prior documentation head: a3656e9d9ce2ca626317eadc9c0483c631f45fdd
-reviewed runtime head: 3884cc509562c07c7c8eee15dd67fd707be64198
+prior documentation head: c06f9a7df59a605ac22619dbefef831d412d619a
+reviewed runtime head: 09bb6b95549d9480dfc2caa4517575ab4009ba98
 ```
 
 ## Main finding
 
 ```txt
-repaired runtime
-  -> Core World root with childDomains:false
-  -> explicit World Foundation
-  -> explicit World Features
-  -> explicit Landform Features
-  -> telemetry requires n:world:features
-  -> registerFeature capability check
+pinned provider repair
+  -> forwards canonical domain and API paths
+  -> forwards parent hierarchy and visibility
+  -> forwards requires and provides tokens
+  -> forwards custom install hooks
+  -> restores World Features alias/addressability semantics
 
 remaining proof gap
   -> fake provider only
-  -> no provider API manifest
-  -> no real dependency/duplicate-owner proof
-  -> no aggregate feature registration result
-  -> no composition revision in visual startup
-  -> no FirstRegisteredWorldFrameAck
+  -> no real kit metadata/token assertion
+  -> no provider contract fingerprint
+  -> no feature-set transaction
+  -> no visual bootstrap revision
+  -> no FirstProviderContractWorldFrameAck
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-world-domain-composition-admission-authority-domain
+open-above-pinned-provider-capability-contract-admission-authority-domain
 ```
 
 ## Next safe ledge
 
-Add provider-manifest preflight and a real-provider composition fixture first. Then add transactional feature-set registration, visual-bootstrap revision binding and browser/build/Pages first-frame proof without restructuring Nexus Engine or re-enabling implicit Core World children.
+Add a Node real-provider fixture for revision `ea973811...` that inspects exact kit metadata, requires/provides, addressability, custom install aliases, unique token ownership, feature registration, and candidate retirement. Then bind the accepted contract fingerprint to visual bootstrap and source/build/Pages first-frame proof.
 
 ## Retained audits
 
-The grass-seed publication, world-generation public-contract proof, Core World feature/foundation adoption, staged generation, map/world frame coherence, runtime provider admission, Air Mail completion and flight persistence audits remain valid.
+Explicit world composition, grass-seed publication, world-generation public contracts, Core World feature/foundation adoption, staged generation, map/world coherence, runtime provider admission, Air Mail completion, and flight persistence audits remain valid.
 
 ## Do not claim
 
-Do not claim pinned-provider parity, duplicate-safe composition, atomic feature-set registration, browser startup readiness, source/build/Pages parity or first matching world-frame proof until the fixture matrix passes on `main`.
+Do not claim real-provider contract parity, unique capability ownership, alias correctness, transactional feature registration, browser readiness, source/build/Pages parity, or first matching world-frame proof until the fixture matrix passes on `main`.
