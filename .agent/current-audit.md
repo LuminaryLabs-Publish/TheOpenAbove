@@ -1,28 +1,30 @@
-# Current Audit: TheOpenAbove World Generation Public Contract Proof
+# Current Audit: TheOpenAbove Grass Seed Module Environment and Publication Authority
 
-**Last aligned:** `2026-07-13T18-59-14-04-00`  
-**Status:** `world-generation-public-contract-proof-authority-audited`  
-**Repository revision reviewed:** `b30ff05719d659c42fbad5cbbde6b8fd72848229`  
+**Last aligned:** `2026-07-13T21-58-55-04-00`  
+**Status:** `grass-seed-module-environment-publication-authority-audited`  
+**Runtime revision reviewed:** `d3d4e735e56a36f2e18250a30c72b10152c2fdba`  
 **Nexus Engine provider:** `112de886131c00121c36f004c257bd50ff122589`
 
 ## Summary
 
-The repository moved world-generation constants and helpers into `src/world/world-generation-support.js` while keeping `src/world/world-generation-kit.js` as the public facade. Commit `b30ff05719d659c42fbad5cbbde6b8fd72848229` repaired structural smoke by reading the constants from their new physical file.
+Commit `d3d4e735e56a36f2e18250a30c72b10152c2fdba` wraps the grass-seed compatibility-global assignment in `if (typeof window !== "undefined")`. This is a correct Node/headless portability repair because world-generation support imports the seed module transitively.
 
-The repair is correct for the current layout, but proof ownership is split. Runtime and behavioral tests consume the public facade; structural smoke consumes internal file placement. No manifest, contract revision, proof fingerprint, source/build/Pages parity result or visible consumer acknowledgement unifies those layers.
+The reusable ESM remains impure in browsers. It writes `window.OpenAboveGrassWorldSeedKit` during module evaluation, while current repository consumers use named ESM imports. There is no explicit installer, publication identity, API revision, collision handling, host-generation admission, idempotent result, disposal or visible consumer proof.
 
 ## Plan ledger
 
-**Goal:** preserve the support-module split while making the public facade canonical and proving the same contract through behavior, build, deployment and visible consumers.
+**Goal:** preserve deterministic world, grass and flower generation while moving optional legacy global exposure into an explicit host-owned lifecycle.
 
-- [x] Compare the full Publish inventory, central ledgers, root `.agent` states and repository heads.
-- [x] Exclude `TheCavalryOfRome`.
-- [x] Select only TheOpenAbove because it is the sole eligible runtime-ahead repository.
-- [x] Inspect the unreconciled commit, facade, support module, tests and package wiring.
+- [x] Compare the full Publish inventory and central ledger.
+- [x] Exclude TheCavalryOfRome.
+- [x] Confirm all nine eligible repositories are tracked and have root `.agent` state.
+- [x] Compare every eligible repository head with its recorded documentation head.
+- [x] Select only TheOpenAbove as the sole runtime-ahead repository.
+- [x] Inspect the latest commit, seed module, world support, grass tests, smoke, headless environment and package scripts.
 - [x] Preserve the 99 active kit and adapter surfaces.
-- [x] Define the proof parent domain and fixture gate.
+- [x] Define the parent authority and fixture gate.
 - [x] Change documentation only.
-- [ ] Implement and execute the proof authority.
+- [ ] Implement and execute the publication authority.
 
 ## Selection comparison
 
@@ -32,74 +34,72 @@ eligible non-Cavalry repositories: 9
 central ledger entries: 9
 root .agent states: 9
 new eligible repositories: 0
-central-ledger-missing repositories: 0
-root-agent-missing repositories: 0
+ledger-missing eligible repositories: 0
+root-agent-missing eligible repositories: 0
 runtime-ahead repositories: 1
 selected: LuminaryLabs-Publish/TheOpenAbove
-prior repo-local documentation head: 438f4cb9c0d8ceec4861ee9d4344dbd7e4723c40
-reviewed repository head: b30ff05719d659c42fbad5cbbde6b8fd72848229
+prior documentation head: d6d43dfd44b851ab14ead93e8791e567deda9806
+reviewed runtime head: d3d4e735e56a36f2e18250a30c72b10152c2fdba
 reconciled commits: 1
-changed runtime/test files: tests/smoke.mjs
+changed runtime file: src/visual/grass-field/grass-world-seed-kit.js
 excluded: LuminaryLabs-Publish/TheCavalryOfRome
 ```
 
 ## Reconciled change
 
 ```txt
-commit: b30ff05719d659c42fbad5cbbde6b8fd72848229
-message: fix(test): read staged world constants from support module
-changed file: tests/smoke.mjs
+before
+  window.OpenAboveGrassWorldSeedKit = { ... }
 
-change:
-  require src/world/world-generation-support.js
-  read WORLD_GRID_SIZE and WORLD_FEATURE_CELL_SIZE from support source
-  retain public facade re-exports and behavior-test imports
+after
+  if (typeof window !== "undefined") {
+    window.OpenAboveGrassWorldSeedKit = { ... }
+  }
 ```
+
+Node and headless module evaluation no longer requires a browser global. Browser evaluation still performs ambient compatibility publication.
 
 ## Complete interaction loop
 
 ```txt
-source organization
-  -> world-generation-support.js owns constants and internal helpers
-  -> world-generation-kit.js imports and re-exports the public contract
-  -> runtime consumers import createWorldGenerationKit and sample the generated world
+headless world validation
+  -> Nexus editor capability world-generation.validate
+  -> npm run check
+  -> smoke imports world and grass fixtures
+  -> world-generation-support imports grass-world-seed-kit
+  -> seed exports evaluate in Node
+  -> guard suppresses global write
+  -> deterministic world and flora proof continues
 
-proof organization
-  -> tests/world-generation.mjs imports the public facade
-  -> behavior proof checks public constants, determinism, staged lifecycle,
-     route/town protection, reset, replacement and disposal
-  -> tests/smoke.mjs imports the behavior suite
-  -> smoke additionally opens physical source files and applies regex assertions
-  -> latest fix redirects constant regex checks from the facade to the support module
-  -> npm run check executes smoke, feature/foundation, streaming, protection and overlay proof
-  -> Vite build and Pages deployment depend on the same source graph
+browser runtime
+  -> world, grass or flower consumer imports the seed module
+  -> deterministic named exports become available
+  -> module also overwrites window.OpenAboveGrassWorldSeedKit
+  -> no host admission or terminal publication result
+  -> world and flora build from the seed utilities
+  -> renderer presents content without seed/publication revision evidence
 
-current gap
-  -> public export and physical source location are separate proof authorities
-  -> no versioned contract manifest or proof fingerprint states which evidence is canonical
-  -> no source/build/Pages parity result or browser-visible contract acknowledgement exists
+retirement
+  -> no owner tracks the ambient global
+  -> route or runtime disposal cannot prove safe removal
 ```
 
 ## Domains in use
 
 ```txt
-browser document, ES modules, canvas, RAF, input, error projection and GameHost
-balloon simulation, airstream routing/force/visuals and Air Mail
-Nexus Realtime resource and event publication
-Core World identity, definitions, partitions, cells, surfaces, providers, effects and snapshots
-World Foundation definitions, contributions, composition, sampling and cell resolution
-World Features registry, lifecycle, queries, compilation, samplers and snapshots
-Landform Features mountain, canyon, cliff and plateau contracts
-product world-feature configuration and foundation bridge
-staged world generation, support math, fallback sampling, progress, reset and disposal
-public world-generation facade and internal support-module dependency
-terrain near/horizon streaming, LOD, refresh and height queries
-vegetation, grass and flower population, density, culling and wind
-parchment map cache, routes, towns, marker, color and resize
-quality, dynamic resolution, sky, clouds, water, HDR, grading and lens
-static structural proof, behavioral proof, module graph and contract parity
-headless editor, Vite build, GitHub Actions and Pages deployment
-missing world-generation public-contract proof authority
+browser and Node ESM evaluation
+globalThis/window environment classification
+import purity and compatibility publication
+headless editor capability execution
+smoke, build and Pages proof
+balloon simulation, airstream and Air Mail
+Nexus Realtime resource/event publication
+Core World, World Foundation, World Features and Landform Features
+product world generation and deterministic support math
+terrain streaming and height queries
+vegetation, grass and flower generation
+map, sky, clouds, water, HDR and lens presentation
+visible seed-consumer revision proof
 ```
 
 ## Kit and service census
@@ -109,76 +109,65 @@ local source-backed kits:          70
 runtime-implied adapters:          12
 pinned Core World surfaces:        17
 current documented active total:   99
-inactive/retired legacy surfaces:  12
-planned proof-authority surfaces:  18
+inactive or retired legacy:        12
+planned publication surfaces:      18
 ```
 
-The complete implemented kit inventory and per-domain services are recorded in `.agent/trackers/2026-07-13T18-59-14-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
+The complete kit-by-kit inventory and service map is recorded in `.agent/trackers/2026-07-13T21-58-55-04-00/project-breakdown.md`.
 
 ## Source-backed findings
 
-### Public facade remains stable
+### Portability repair is valid
 
-`world-generation-kit.js` imports constants and helpers from the support module and re-exports `WORLD_GRID_SIZE`, `WORLD_FEATURE_CELL_SIZE`, `WORLD_GENERATION_KIT_ID` and `WORLD_GENERATION_PHASES` alongside `createWorldGenerationKit`.
+The environment guard prevents the seed module from referencing an undeclared browser global in Node. This is required because `world-generation-support.js` imports `hashGrassSeed`, `normalizeGrassSeed` and `seedFloat` from the visual grass module.
 
-### Behavioral proof already uses the facade
+### Import purity remains unresolved
 
-`tests/world-generation.mjs` imports the public constants and factory from `world-generation-kit.js`. It proves deterministic sampling, protected routes and towns, staged progress, phase history, successor parity, reset retention and disposal.
+Browser import still mutates `window`. The retained import-purity audit states that reusable kit imports must publish no global runtime object and that legacy globals must be explicitly installed and removed by the host.
 
-### Structural smoke uses internal layout
+### Compatibility global has no current in-repo consumer
 
-`tests/smoke.mjs` now opens `world-generation-support.js` and checks physical constant definitions with regular expressions. This follows the refactor but acts as a second proof authority based on source location.
+Repository search found `OpenAboveGrassWorldSeedKit` only at its declaration. World, grass and flower systems import named ESM exports.
 
-### Package proof has no typed aggregate result
+### Tests do not prove purity
 
-`npm run check` starts with smoke, which imports behavior suites, then runs feature/foundation, streaming, route-protection and overlay tests. The command returns process success or failure, not a contract manifest, dependency graph, proof fingerprint or per-layer result.
+`tests/grass-field.mjs` assigns `globalThis.window = globalThis` before importing modules. It proves deterministic output and budgets, but not zero ambient mutation, explicit installation, collision handling or disposal.
 
-### Build, deployment and visible parity are absent
+### Cross-domain coupling remains
 
-No fixture imports the Vite artifact and compares exports or deterministic behavior with source. No Pages fixture validates the same contract revision. Terrain, map and gameplay consumers publish no common contract revision in a frame envelope.
+World-generation support imports a seed utility located under the visual grass domain. That module's browser side effect is therefore triggered by world-generation consumers even when no grass compatibility surface is requested.
+
+### Publication lifecycle is absent
+
+No publication ID, API revision, host session, host generation, target inspection, collision result, idempotence policy, ownership marker or retirement receipt exists.
+
+### Visible correlation is absent
+
+World, grass and flower consumer snapshots and frames carry no common seed algorithm revision or first-visible-frame acknowledgement.
 
 ## Required parent domain
 
 ```txt
-open-above-world-generation-contract-proof-authority-domain
+open-above-module-environment-compatibility-publication-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-WorldGenerationContractChange
-  -> bind repository, public facade, support graph and predecessor contract revisions
-  -> derive immutable WorldGenerationPublicContractManifest
-  -> classify structural, export, behavioral, integration, build and deployed assertions
-  -> execute source public-facade and deterministic behavior proof
-  -> execute build and Pages artifact parity proof
-  -> reject source-location-only, stale or partial evidence
-  -> publish WorldGenerationProofResult and evidence fingerprint
-  -> correlate terrain, map and gameplay consumer revisions
-  -> publish FirstContractRevisionFrameAck
+CompatibilityPublicationCommand
+  -> bind module ID, API revision, target environment and host generation
+  -> import reusable ESM with zero ambient mutation
+  -> classify publication as required or unnecessary
+  -> inspect target namespace and existing owner
+  -> reject foreign collision, incompatible revision or stale generation
+  -> install one immutable compatibility facade
+  -> publish CompatibilityPublicationResult
+  -> correlate seed revision with world, grass and flower consumers
+  -> retire only the owned publication
+  -> publish CompatibilityRetirementResult
+  -> publish FirstSeedRevisionFrameAck
 ```
-
-## Planned coordinating kits
-
-- `open-above-world-generation-contract-proof-authority-domain`
-- `open-above-world-generation-public-api-manifest-kit`
-- `open-above-world-generation-contract-revision-kit`
-- `open-above-world-generation-module-graph-kit`
-- `open-above-world-generation-support-dependency-kit`
-- `open-above-world-generation-source-import-proof-kit`
-- `open-above-world-generation-public-export-proof-kit`
-- `open-above-world-generation-behavior-proof-kit`
-- `open-above-world-generation-staged-lifecycle-proof-kit`
-- `open-above-world-generation-route-protection-proof-kit`
-- `open-above-world-generation-consumer-contract-kit`
-- `open-above-world-generation-build-artifact-proof-kit`
-- `open-above-world-generation-pages-artifact-proof-kit`
-- `open-above-world-generation-proof-result-kit`
-- `open-above-world-generation-proof-fingerprint-kit`
-- `open-above-world-generation-proof-drift-rejection-kit`
-- `open-above-world-generation-visible-frame-proof-kit`
-- `open-above-world-generation-proof-fixture-gate-kit`
 
 ## Validation boundary
 
-Documentation only. The upstream test fix was inspected, but this audit did not change runtime, tests, package scripts, workflow or deployment. No local check, build, browser or Pages fixture was executed, and the latest commit reports no combined status checks.
+Documentation only. The upstream runtime fix was inspected. This audit did not change runtime, tests, dependencies, scripts, workflow or deployment. No local check, build, browser, worker or Pages fixture was executed, and the reviewed runtime commit reported no combined status checks.
