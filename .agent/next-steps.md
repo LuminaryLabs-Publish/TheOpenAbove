@@ -1,87 +1,79 @@
-# Next Steps: TheOpenAbove Route Runtime Resource Retirement
+# Next Steps: TheOpenAbove Pages Deployment URL Publication
 
-**Last aligned:** `2026-07-14T06-38-49-04-00`  
-**Status:** `route-runtime-resource-retirement-authority-audited`
+**Last aligned:** `2026-07-14T11-39-41-04-00`  
+**Status:** `pages-deployment-url-artifact-publication-authority-audited`
 
 ## Plan ledger
 
-**Goal:** implement complete route ownership from startup through failure rollback, stop, disposal and verified successor re-entry.
+**Goal:** make every public Pages link traceable to immutable source, a hashed artifact, an accepted deployment and a matching browser frame.
 
-### Gate 1: route and session generations
+### Gate 1: immutable workflow inputs
 
-- [ ] Add immutable `RouteGeneration` and `SessionGeneration` identifiers.
-- [ ] Make every gameplay frame cite both generations.
-- [ ] Reject stale or superseded callbacks before mutation.
+- [ ] Checkout TheOpenAbove at `${{ github.sha }}` or an explicitly admitted revision.
+- [ ] Resolve and record the exact NexusEngine commit before checkout.
+- [ ] Bind `WorkflowRunId`, product revision and provider revision.
+- [ ] Use lockfile-governed dependency installation and record its fingerprint.
 
-### Gate 2: owned resource manifest
+### Gate 2: typed build proof
 
-- [ ] Register every gameplay/map RAF.
-- [ ] Register input and resize listeners.
-- [ ] Register ResizeObserver and world-generation subscriptions.
-- [ ] Register public `GameHost` ownership.
-- [ ] Register scene, render-target, composer and renderer resources.
+- [ ] Publish structured results for headless status, inspection, renderer, world and smoke checks.
+- [ ] Bind each result to the same source/provider pair.
+- [ ] Fail stale or mixed-revision work before artifact creation.
 
-### Gate 3: aggregate start and rollback
+### Gate 3: artifact manifest
 
-- [ ] Split bootstrap into named preparation stages.
-- [ ] Record acquired ownership after every successful stage.
-- [ ] Roll back all candidate resources after any failure.
-- [ ] Restore terminal canvas and error accessibility state.
-- [ ] Publish `RouteRuntimeStartResult` or `RouteRuntimeFailureResult`.
+- [ ] Generate `dist/deployment-manifest.json`.
+- [ ] Record product revision, NexusEngine revision, lockfile fingerprint and build policy.
+- [ ] Record every deployed file path, byte size and SHA-256 hash.
+- [ ] Hash the manifest and retain it with artifact metadata.
 
-### Gate 4: stop and dispose transaction
+### Gate 4: deployment settlement
 
-- [ ] Stop frame admission before component disposal.
-- [ ] Cancel gameplay and map RAFs.
-- [ ] Clear input state and reject new commands.
-- [ ] Dispose map, simulation, mail, airstream, presentation and visual owners in dependency order.
-- [ ] Retire scene/model geometry, materials, targets, composer and renderer according to explicit ownership.
-- [ ] Retire engine subscriptions.
-- [ ] Remove or replace predecessor `window.GameHost`.
-- [ ] Publish per-owner receipts and one `RouteRuntimeRetirementResult`.
+- [ ] Capture the uploaded artifact identity.
+- [ ] Capture the Pages deployment identity.
+- [ ] Publish `PageUrl` only from the accepted deployment result.
+- [ ] Classify failed, cancelled, superseded and timed-out deployments.
 
-### Gate 5: re-entry proof
+### Gate 5: public-origin proof
 
-- [ ] Start a second route in the same document.
-- [ ] Prove no predecessor RAF can commit.
-- [ ] Prove listener and observer counts do not increase unexpectedly.
-- [ ] Prove predecessor GPU resource counts retire.
-- [ ] Publish `FirstSuccessorRouteFrameAck`.
+- [ ] Fetch the returned URL with bounded retry.
+- [ ] Validate HTTP status, content type, base path and manifest identity.
+- [ ] Open one browser page against the deployed origin.
+- [ ] Require no fatal panel and require canvas readiness.
+- [ ] Admit the deployed `GameHost` generation.
+- [ ] Capture one matching Air Mail renderer frame and screenshot hash.
+- [ ] Publish `FirstDeployedAirMailFrameAck`.
 
-### Gate 6: artifact parity
+### Gate 6: parity and retention
 
-- [ ] Add source-browser stop/re-entry fixture.
-- [ ] Add built-browser stop/re-entry fixture.
-- [ ] Add Pages stop/re-entry fixture.
-- [ ] Compare route generations, receipts and resource counts.
-- [ ] Exercise failure after engine, renderer, balloon and map creation.
+- [ ] Compare source, built and deployed manifest identities.
+- [ ] Retain artifact manifest, workflow results, deployment result and browser evidence.
+- [ ] Ensure superseded runs cannot promote public readiness.
+- [ ] Add a central ledger receipt for the accepted deployment.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/route-lifecycle/
-  route-runtime-resource-retirement-authority-domain.js
-  route-generation-kit.js
-  owned-resource-manifest-kit.js
-  gameplay-frame-admission-kit.js
-  route-runtime-start-result-kit.js
-  route-runtime-retirement-result-kit.js
-  startup-failure-rollback-kit.js
+scripts/deployment/
+  create-deployment-manifest.mjs
+  verify-pages-origin.mjs
+  verify-pages-browser.mjs
 
-browser fixtures/
-  route-stop-reentry.mjs
-  route-startup-failure-rollback.mjs
-  route-webgl-retirement.mjs
+src/deployment/
+  pages-deployment-url-artifact-publication-authority-domain.js
+  pages-deployment-result-kit.js
+  deployed-route-admission-kit.js
+  first-deployed-airmail-frame-ack-kit.js
 ```
 
 ## Compatibility constraints
 
-Preserve current Core World composition, provider pin, balloon handling, airstream behavior, Air Mail behavior, map behavior, world generation, visual quality, telemetry and public diagnostic needs. Add parent coordination rather than merging existing semantic domains.
+Preserve current gameplay, provider pin used by the product, Core World composition, world generation, Air Mail behavior, visual quality and environment URL projection. Add immutable admission and evidence around the existing workflow rather than moving gameplay ownership into deployment tooling.
 
 ## Retained next steps
 
-Real-provider contract proof, atomic feature registration, world/foundation revision adoption, first-world-frame provenance, grass publication, Air Mail authority and persistence work remain open.
+Route runtime retirement, failure rollback, WebGL cleanup, re-entry, provider contract proof, feature registration, world/foundation revision adoption, grass publication, Air Mail completion and persistence remain open.
 
 ## Do not claim
 
-Do not claim safe route teardown, failure rollback, complete GPU retirement, stale-callback isolation, same-document re-entry or source/build/Pages lifecycle parity until the full matrix passes on `main`.
+Do not claim exact deployment identity, artifact integrity, deployed-origin readiness, visible-frame equivalence or production readiness until the full source/build/Pages matrix passes on `main`.
