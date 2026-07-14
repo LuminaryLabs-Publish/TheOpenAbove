@@ -1,53 +1,68 @@
-# Known Gaps: TheOpenAbove World Domain Composition and Provider Admission
+# Known Gaps: TheOpenAbove Pinned Provider Capability Contract Forwarding
 
-**Last aligned:** `2026-07-13T22-58-22-04-00`  
-**Status:** `world-domain-composition-provider-admission-authority-audited`
+**Last aligned:** `2026-07-14T01-39-09-04-00`  
+**Status:** `pinned-provider-capability-contract-forwarding-authority-audited`
 
 ## Summary
 
-Explicit composition repairs the immediate failure, but the production contract is still inferred from a fake-provider smoke. Provider capability, token ownership, aggregate feature registration, visual adoption and first-frame proof remain unresolved.
+The provider pin repairs the wrapper defect, but the product does not yet prove the real provider contract at runtime. Exact metadata, generated capability tokens, dependency ownership, addressability, install aliases, feature-set settlement, visual adoption, and first-frame provenance remain unresolved.
 
 ## Plan ledger
 
-**Goal:** keep remaining composition gaps dependency ordered and tied to executable evidence.
+**Goal:** keep provider-contract gaps dependency ordered and tied to executable evidence.
 
-- [ ] Provider API manifest.
-- [ ] Composition manifest and revision.
-- [ ] Real pinned-provider fixture.
-- [ ] Unique token/provider proof.
-- [ ] Aggregate feature-set registration.
-- [ ] Typed composition and registration results.
-- [ ] Visual-bootstrap admission.
-- [ ] Source/build/Pages browser proof.
-- [ ] First registered-world frame acknowledgement.
+- [ ] Provider revision and export manifest.
+- [ ] Real Core capability contract inspection.
+- [ ] Canonical path and parent hierarchy proof.
+- [ ] Requires/provides and unique-owner proof.
+- [ ] Install-hook and API-addressability proof.
+- [ ] Disposable real-provider composition fixture.
+- [ ] Transactional feature-set registration.
+- [ ] Visual-bootstrap revision binding.
+- [ ] First provider-contract world-frame acknowledgement.
+- [ ] Source/build/Pages parity.
 
 ## Identity gaps
 
 ```txt
-ProviderApiManifest: absent
-WorldDomainCompositionManifest: absent
-WorldDomainCompositionRevision: absent
-WorldDomainCompositionCommand: absent
-WorldDomainCompositionResult: absent
-DomainPreparationReceipt: absent
+ProviderRevisionManifest: absent
+ProviderModuleFingerprint: absent
+ProviderCapabilityContractManifest: absent
+ProviderContractFingerprint: absent
+ProviderCapabilityContractCommand: absent
+ProviderCapabilityContractResult: absent
+CompositionRevision: absent
 FeatureSetFingerprint: absent
-FeatureSetRegistrationCommand: absent
 FeatureSetRegistrationResult: absent
-FeatureRegistryRevision: not correlated
 VisualBootstrapRevision: absent
-FirstRegisteredWorldFrameAck: absent
+FirstProviderContractWorldFrameAck: absent
 ```
 
-## Provider and dependency gaps
+## Contract-forwarding proof gaps
 
 ```txt
-required export preflight: absent
-real pinned-provider composition test: absent
-actual kit ID proof: absent
-actual requires/provides proof: absent
-unique token owner proof: absent
-duplicate child installation proof: absent
-provider-upgrade compatibility result: absent
+real domainPath assertion: absent
+real parentDomainPath assertion: absent
+real apiPath assertion: absent
+real visibility assertion: absent
+real requires assertion: absent
+real provides assertion: absent
+real custom install execution assertion: absent
+canonical token-generation assertion: absent
+DSK validation assertion: absent
+API overwrite-rejection assertion: absent
+```
+
+## Composition and ownership gaps
+
+```txt
+real pinned-provider import fixture: absent
+one owner per mandatory token: unproven
+no implicit child duplication: unproven
+engine.n addressability: source-assumed
+engine.worldFeatures alias parity: unproven
+candidate disposal after failure: absent
+provider-upgrade comparison: absent
 ```
 
 ## Feature registration gaps
@@ -65,11 +80,12 @@ per-feature receipt set: absent
 ## Visual and gameplay gaps
 
 ```txt
-composition revision passed to visual domain: absent
-feature registry revision passed to world generation: absent
-foundation revision passed to terrain sampler: absent
-playable world readiness result: absent
-public immutable composition readback: absent
+provider revision passed to visual domain: absent
+contract fingerprint passed to visual domain: absent
+composition revision passed to world generation: absent
+feature registry revision passed to foundation bridge: absent
+playable-world admission result: absent
+public immutable provider readback: absent
 first matching world frame: absent
 mixed-revision rejection: absent
 ```
@@ -77,16 +93,18 @@ mixed-revision rejection: absent
 ## Test gaps
 
 ```txt
-current fake test controls provider behavior
+current composition test bypasses the real wrapper and DSK constructor
 real provider export fixture: absent
+real contract metadata fixture: absent
 real dependency graph fixture: absent
 duplicate provider fixture: absent
-multiple-feature rollback fixture: absent
-source browser boot fixture: absent
+install alias fixture: absent
+feature rollback fixture: absent
+source browser fixture: absent
 production build browser fixture: absent
-Pages browser fixture: absent
+Pages fixture: absent
 fatal fallback and retry fixture: absent
-first visible world frame fixture: absent
+first visible world-frame fixture: absent
 ```
 
 ## Validation gaps
@@ -98,26 +116,28 @@ npm run build during audit: not run
 npm run headless:world during audit: not run
 browser fixture: not run
 Pages fixture: not run
+local clone attempt: blocked by DNS resolution failure
 ```
 
 ## Dependency order
 
 ```txt
-provider API manifest
-  -> composition manifest and child policy
-  -> real-provider preparation
-  -> dependency and ownership proof
-  -> aggregate feature registration
-  -> typed composition result
+provider revision manifest
+  -> real provider import
+  -> contract metadata inspection
+  -> dependency and token ownership proof
+  -> install and addressability proof
+  -> disposable candidate composition
+  -> feature-set transaction
   -> visual bootstrap admission
   -> visible-frame acknowledgement
-  -> build and Pages parity
+  -> source/build/Pages parity
 ```
 
 ## Retained gaps
 
-Grass-seed import purity, world-generation public contract, staged generation, map/world frame coherence, runtime provider admission, Air Mail completion and flight persistence gaps remain open. This audit narrows only the startup-critical Core World composition boundary.
+Explicit composition, grass-seed publication, world-generation public contracts, Core World feature/foundation adoption, staged generation, map/world coherence, Air Mail completion, and flight persistence gaps remain open.
 
 ## Do not claim
 
-Do not treat a successful fake-provider smoke as proof of pinned-provider compatibility, duplicate-safe ownership, atomic registration, browser readiness or production readiness.
+Do not treat the corrected provider source or fake-provider smoke as proof of real pinned-provider parity, unique ownership, alias correctness, atomic feature registration, browser readiness, or production readiness.
