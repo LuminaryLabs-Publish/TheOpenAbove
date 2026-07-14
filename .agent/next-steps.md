@@ -1,81 +1,91 @@
-# Next Steps: TheOpenAbove World Generation Public Contract Proof
+# Next Steps: TheOpenAbove Grass Seed Module Environment and Publication Authority
 
-**Last aligned:** `2026-07-13T18-59-14-04-00`  
-**Status:** `world-generation-public-contract-proof-authority-audited`
+**Last aligned:** `2026-07-13T21-58-55-04-00`  
+**Status:** `grass-seed-module-environment-publication-authority-audited`
 
 ## Plan ledger
 
-**Goal:** replace file-location proof with a canonical public-contract manifest while retaining useful structural checks as non-authoritative diagnostics.
+**Goal:** make deterministic seed imports pure and portable, then provide optional legacy browser publication through a typed, host-owned and reversible adapter.
 
-### Gate 1: canonical public contract
+### Gate 1: pure seed module
 
-- [ ] Define `WorldGenerationPublicContractManifest`.
-- [ ] Include public IDs, constants, phases, factory entry point and descriptor schema.
-- [ ] Add `WorldGenerationContractRevision` and deterministic fingerprint.
-- [ ] Export the manifest from `world-generation-kit.js`.
-- [ ] Keep `world-generation-support.js` private to the facade.
+- [ ] Remove the `window.OpenAboveGrassWorldSeedKit` assignment from `grass-world-seed-kit.js`.
+- [ ] Keep the existing named ESM exports unchanged.
+- [ ] Define a stable `GrassSeedPublicApiManifest` and algorithm revision.
+- [ ] Confirm import registers no callbacks, listeners, timers or globals.
 
-### Gate 2: module graph evidence
+### Gate 2: compatibility adapter
 
-- [ ] Record the facade-to-support dependency graph.
-- [ ] Classify source-file existence checks separately from API proof.
-- [ ] Reject missing, duplicate or stale public exports.
-- [ ] Allow internal file moves that preserve the manifest and behavior.
-- [ ] Detect accidental internal imports by product consumers.
+- [ ] Add `grass-world-seed-compatibility-adapter.js`.
+- [ ] Require an explicit publication command from the browser host.
+- [ ] Freeze the published facade.
+- [ ] Include API revision, publication ID and host generation.
+- [ ] Return typed installation and retirement results.
 
-### Gate 3: executable source proof
+### Gate 3: target and collision policy
 
-- [ ] Import all public values from `world-generation-kit.js`.
-- [ ] Verify grid size, feature-cell size, phases and kit ID through the facade.
-- [ ] Retain deterministic, protection, staged lifecycle, reset and disposal fixtures.
-- [ ] Publish per-fixture typed results.
-- [ ] Calculate one source proof fingerprint.
+- [ ] Inspect the target namespace before mutation.
+- [ ] Treat same-owner same-revision installation as idempotent.
+- [ ] Reject foreign or incompatible globals without overwriting them.
+- [ ] Reject stale host generations.
+- [ ] Define explicit hot-reload replacement policy.
 
-### Gate 4: build and deployment parity
+### Gate 4: owned retirement
 
-- [ ] Build the Vite artifact.
-- [ ] Import or probe the built public module boundary.
-- [ ] Compare source and build manifests and deterministic fixtures.
-- [ ] Probe the GitHub Pages artifact and revision identity.
-- [ ] Publish source/build/Pages parity results.
+- [ ] Remove only the publication created by the active adapter.
+- [ ] Preserve foreign or successor values.
+- [ ] Return `already-retired`, `not-owner` and `stale-publication` results.
+- [ ] Integrate retirement with browser host disposal.
 
-### Gate 5: consumer and visible proof
+### Gate 5: environment proof
 
-- [ ] Bind terrain-near, terrain-horizon, vegetation, flora, map and collision-height consumers to the contract revision.
-- [ ] Expose the accepted contract revision through telemetry and `GameHost`.
-- [ ] Publish a frame envelope containing contract and consumer revisions.
-- [ ] Add `FirstContractRevisionFrameAck`.
-- [ ] Reject mixed-revision visible frames.
+- [ ] Import in Node without `window`.
+- [ ] Import in Node with a synthetic `window` and prove zero mutation.
+- [ ] Import in a worker-like environment.
+- [ ] Import in a browser and prove zero implicit publication.
+- [ ] Exercise explicit install, idempotence, collision and disposal.
 
-### Gate 6: failure and drift fixtures
+### Gate 6: source/build/Pages parity
 
-- [ ] Move constants between internal modules without changing the facade and prove the suite remains valid.
-- [ ] Change a public value without updating the manifest and require rejection.
-- [ ] Change behavior while retaining source markers and require rejection.
-- [ ] Inject a stale build artifact and require parity failure.
-- [ ] Inject Pages revision drift and require parity failure.
+- [ ] Probe the source ESM API manifest.
+- [ ] Build with Vite and probe the built API manifest.
+- [ ] Probe the Pages artifact revision.
+- [ ] Execute compatibility installation against built and deployed outputs.
+- [ ] Publish one `ModuleEnvironmentProofResult`.
+
+### Gate 7: consumer and visible proof
+
+- [ ] Bind world generation to the grass-seed algorithm revision.
+- [ ] Bind grass and flower consumers to the same revision.
+- [ ] Expose revisions through diagnostics and GameHost.
+- [ ] Add `FirstSeedRevisionFrameAck`.
+- [ ] Reject mixed-revision world/flora frames.
 
 ## Recommended file cut
 
 ```txt
-src/world/proof/
-  world-generation-public-api-manifest-kit.js
-  world-generation-contract-revision-kit.js
-  world-generation-module-graph-kit.js
-  world-generation-proof-result-kit.js
-  world-generation-contract-proof-authority-domain.js
+src/visual/grass-field/
+  grass-world-seed-kit.js
+  grass-world-seed-compatibility-adapter.js
+  grass-seed-public-api-manifest-kit.js
+
+src/runtime/compatibility/
+  compatibility-publication-authority-domain.js
+  compatibility-publication-result-kit.js
+  compatibility-retirement-kit.js
 
 tests/
-  world-generation-public-contract.mjs
-  world-generation-build-parity.mjs
-  world-generation-pages-parity.mjs
-  world-generation-contract.browser.mjs
+  grass-seed-import-purity.mjs
+  grass-seed-compatibility.browser.mjs
+  grass-seed-worker-import.mjs
+  grass-seed-build-parity.mjs
+  grass-seed-pages-parity.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve the public imports from `world-generation-kit.js`, `WORLD_GRID_SIZE = 257`, `WORLD_FEATURE_CELL_SIZE = 2080`, staged fallback behavior, deterministic output, route/town protection, reset retention, mountain composition, current rendering and Air Mail gameplay.
+Preserve deterministic normalization and hashing output, existing ESM import paths, current world generation, grass and flower layouts, route/town protection, staged generation, map rendering, flight behavior and Air Mail gameplay.
 
 ## Do not claim
 
-Do not claim canonical contract ownership, source/build/deployed parity or visible consumer convergence until all gates pass on `main`.
+Do not claim import purity, collision-safe installation, owned retirement, worker compatibility, source/build/Pages parity or visible seed revision convergence until all gates pass on `main`.
