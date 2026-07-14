@@ -1,123 +1,124 @@
-# Known Gaps: TheOpenAbove World Generation Public Contract Proof
+# Known Gaps: TheOpenAbove Grass Seed Module Environment and Publication Authority
 
-**Last aligned:** `2026-07-13T18-59-14-04-00`  
-**Status:** `world-generation-public-contract-proof-authority-audited`
+**Last aligned:** `2026-07-13T21-58-55-04-00`  
+**Status:** `grass-seed-module-environment-publication-authority-audited`
 
 ## Summary
 
-The current tests pass conceptually through two different authorities: public-facade behavior and internal-source location. There is no manifest or proof result that distinguishes diagnostic source checks from canonical API, build, deployed and visible-runtime evidence.
+The latest guard fixes imports when `window` is absent. Browser imports still perform an uncommanded global write, and no contract proves that source, build and deployed modules remain import-pure or that any explicitly installed compatibility facade is owned and retired safely.
 
 ## Plan ledger
 
-**Goal:** keep proof gaps dependency ordered and tied to executable acceptance evidence.
+**Goal:** keep remaining gaps dependency ordered and tied to executable environment, lifecycle and visible-frame evidence.
 
-- [ ] Canonical public contract manifest.
-- [ ] Contract revision and fingerprint.
-- [ ] Public-facade export proof.
-- [ ] Internal module-graph diagnostics.
-- [ ] Typed behavioral proof results.
-- [ ] Build-artifact import and parity proof.
-- [ ] Pages artifact identity and parity proof.
-- [ ] Consumer revision correlation.
-- [ ] First visible contract frame acknowledgement.
-- [ ] Drift, stale artifact and source-layout fixtures.
+- [ ] Pure reusable seed module.
+- [ ] Seed API manifest and algorithm revision.
+- [ ] Explicit compatibility publication command.
+- [ ] Target inspection and collision policy.
+- [ ] Publication identity and host-generation ownership.
+- [ ] Idempotent installation result.
+- [ ] Owned retirement result.
+- [ ] Node, browser and worker import-purity fixtures.
+- [ ] Source/build/Pages module parity.
+- [ ] Seed consumer revision receipts.
+- [ ] First matching visible frame acknowledgement.
 
 ## Identity gaps
 
 ```txt
-WorldGenerationContractRevision: absent
-WorldGenerationPublicContractManifest: absent
-WorldGenerationModuleGraphRevision: absent
-WorldGenerationSourceProofFingerprint: absent
-WorldGenerationBuildProofFingerprint: absent
-WorldGenerationPagesProofFingerprint: absent
-WorldGenerationProofResult: absent
-FirstContractRevisionFrameAck: absent
+GrassSeedPublicApiManifest: absent
+GrassSeedAlgorithmRevision: absent
+CompatibilityPublicationCommand: absent
+CompatibilityPublicationId: absent
+CompatibilityPublicationResult: absent
+CompatibilityRetirementResult: absent
+CompatibilityOwnerGeneration: absent
+ModuleEnvironmentProofResult: absent
+SeedConsumerAdoptionResult: absent
+FirstSeedRevisionFrameAck: absent
 ```
 
-## Current authority split
+## Import-purity gaps
 
 ```txt
-world-generation-kit.js
-  public runtime facade
-  public re-exports
-  behavioral test import
-
-world-generation-support.js
-  internal constant definitions
-  internal helpers
-  structural smoke import by file path
+browser import mutates window
+module does not declare the mutation as a host capability
+world-generation imports inherit the visual module side effect
+no worker import proof
+no synthetic-window zero-mutation proof
+no browser zero-mutation proof
 ```
 
-The split is valid implementation architecture. The gap is allowing physical file location to act as terminal proof of a public runtime contract.
-
-## Structural-proof gaps
+## Compatibility publication gaps
 
 ```txt
-source regex assertions have no declared diagnostic-only status
-public export parity is not compared with physical definitions
-internal refactors are not distinguished from contract changes
-source markers can pass without executing behavior
-required-file checks have no module-graph receipt
+no explicit installation API
+no API version on global facade
+no immutable facade
+no namespace inspection
+no collision rejection
+no same-revision idempotence
+no stale-generation rejection
+no hot-reload replacement policy
+no ownership marker
+no safe disposal
 ```
 
-## Behavioral-proof gaps
+## Consumer gaps
 
 ```txt
-fixtures return process status only
-no per-case typed result or fingerprint
-no explicit public descriptor schema revision
-no stale-contract rejection
-no proof correlation with feature/foundation adoption
-```
-
-## Build and deployment gaps
-
-```txt
-built public exports are not imported and compared
-built deterministic behavior is not compared with source
-artifact revision is not bound to proof results
-Pages artifact identity is not checked
-source/build/Pages terminal parity result is absent
-```
-
-## Render and gameplay gaps
-
-```txt
-terrain consumer contract revision: absent
-horizon consumer contract revision: absent
-vegetation/flora consumer contract revision: absent
-map consumer contract revision: absent
-collision-height consumer contract revision: absent
-visible frame contract revision: absent
+world generation seed algorithm revision: absent
+grass consumer revision: absent
+flower consumer revision: absent
+map consumer revision: absent
+save and telemetry seed revision: absent
 mixed-revision rejection: absent
+```
+
+## Test gaps
+
+```txt
+tests/grass-field.mjs creates globalThis.window
+global mutation is not asserted
+explicit installation is not exercised
+collision and disposal are not exercised
+worker environment is not exercised
+built artifact import is not probed
+Pages artifact import is not probed
+first visible seed revision frame is not exercised
 ```
 
 ## Validation gaps
 
 ```txt
 npm run check during this audit: not run
-Vite production build during this audit: not run
-source-to-build contract parity fixture: absent
-Pages contract parity fixture: absent
-browser visible-consumer fixture: absent
-source-layout refactor fixture: absent
-stale artifact fixture: absent
+npm run build during this audit: not run
+headless:world during this audit: not run
+browser import-purity fixture: absent
+worker import fixture: absent
+compatibility lifecycle fixture: absent
+source/build/Pages parity fixture: absent
+visible consumer fixture: absent
 ```
 
 ## Dependency order
 
 ```txt
-public manifest
-  -> contract revision and fingerprint
-  -> source facade proof
-  -> behavior proof
-  -> build parity
-  -> Pages parity
-  -> consumer correlation
+pure seed ESM
+  -> API manifest and revision
+  -> explicit compatibility adapter
+  -> target/collision policy
+  -> installation and retirement results
+  -> environment fixtures
+  -> source/build/Pages parity
+  -> consumer revision correlation
   -> visible-frame acknowledgement
 ```
 
+## Retained gaps
+
+The prior world-generation public-contract proof gaps remain open and compatible with this audit. The seed API manifest should become one dependency of the broader world-generation public contract rather than a competing authority.
+
 ## Do not claim
 
-Do not claim that the current structural smoke proves the complete public contract, or that source, build, Pages and visible consumers share one revision.
+Do not claim that the environment guard provides import purity, explicit compatibility ownership, collision safety, cleanup, deployed parity or visible seed-consumer convergence.
