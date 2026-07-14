@@ -1,121 +1,118 @@
-# Known Gaps: TheOpenAbove Route Runtime Resource Retirement
+# Known Gaps: TheOpenAbove Pages Deployment URL Publication
 
-**Last aligned:** `2026-07-14T06-38-49-04-00`  
-**Status:** `route-runtime-resource-retirement-authority-audited`
+**Last aligned:** `2026-07-14T11-39-41-04-00`  
+**Status:** `pages-deployment-url-artifact-publication-authority-audited`
 
 ## Summary
 
-The route has useful component-level disposal services but no aggregate lifecycle authority. Gameplay callbacks, browser listeners, observers, subscriptions, public references, scene resources and GPU ownership are not bound to a route generation or terminal retirement result.
+The deployment URL is now visible in GitHub, but source identity, provider identity, artifact contents, deployment settlement, public-route admission and the first visible frame are not bound into one evidence chain.
 
 ## Plan ledger
 
-**Goal:** keep route-retirement gaps dependency ordered and tied to executable browser evidence.
+**Goal:** keep deployment gaps dependency ordered and prevent a clickable URL from being promoted into readiness evidence.
 
-- [ ] Route/session generations.
-- [ ] Owned callback, listener, observer and subscription manifests.
-- [ ] Named startup stages and rollback.
-- [ ] Gameplay-frame admission and stale rejection.
-- [ ] Ordered aggregate disposal.
-- [ ] Scene and GPU resource retirement receipts.
-- [ ] Public `GameHost` retirement.
-- [ ] Same-document re-entry proof.
-- [ ] Source/build/Pages lifecycle parity.
+- [ ] Immutable product checkout.
+- [ ] Immutable NexusEngine checkout.
+- [ ] Lockfile and build-policy fingerprints.
+- [ ] Typed headless proof results.
+- [ ] Hashed artifact manifest.
+- [ ] Artifact and deployment identities.
+- [ ] HTTP and route-content admission.
+- [ ] Deployed GameHost and renderer-frame admission.
+- [ ] Source/build/Pages parity.
+- [ ] Evidence retention and supersession policy.
 
-## Identity and admission gaps
-
-```txt
-RouteGeneration: absent
-SessionGeneration: absent
-StartupAttemptId: absent
-OwnedResourceManifest: absent
-ActiveRouteRuntimeResult: absent
-FrameAdmissionResult: absent
-RouteRuntimeRetirementResult: absent
-FirstSuccessorRouteFrameAck: absent
-```
-
-## Callback and input gaps
+## Identity gaps
 
 ```txt
-gameplay RAF ID retained: no
-gameplay RAF cancellation: absent
-map RAF aggregate ownership: absent
-stale callback classification: absent
-input admission after stop: undefined
-input state clear on stop: absent
-duplicate listener detection: absent
+WorkflowRunId in product evidence: absent
+trigger ProductRevision binding: absent from artifact
+resolved NexusEngineRevision: absent from artifact
+DependencyLockFingerprint: absent
+BuildPolicyRevision: absent
+ArtifactId in repo evidence: absent
+ArtifactManifestHash: absent
+DeploymentId in repo evidence: absent
+PageUrlPublicationResult: absent
 ```
 
-## Rollback gaps
+## Checkout gaps
 
 ```txt
-named startup stages: absent
-acquired-resource ledger: absent
-partial startup rollback: absent
-failed-stage identity: absent
-rollback receipts: absent
-canvas aria-busy terminal repair: incomplete
-predecessor preservation during failed replacement: absent
+product checkout ref: mutable main
+provider checkout ref: mutable main
+mixed-revision detection: absent
+branch-moved classification: absent
+provider-moved classification: absent
 ```
 
-## Disposal gaps
+## Artifact gaps
 
 ```txt
-aggregate dispose command: absent
-component disposal call order: absent
-engine subscription retirement receipt: absent
-camera/presentation retirement receipt: absent
-balloon model resource retirement receipt: absent
-scene resource count result: absent
-render-target retirement result: absent
-renderer/context retirement policy: absent
+deployment-manifest.json: absent
+deployed file list: absent
+file byte sizes: absent
+file SHA-256 hashes: absent
+manifest hash: absent
+artifact/source equivalence receipt: absent
 ```
 
-## Public-state gaps
+## Deployment gaps
 
 ```txt
-GameHost generation: absent
-GameHost status: absent
-GameHost terminal snapshot: absent
-GameHost predecessor removal: absent
-retired method behavior: undefined
-successor publication acknowledgement: absent
+environment URL projection: present
+typed deployment result: absent
+failed/cancelled/superseded classification: workflow-native only
+accepted deployment journal: absent
+artifact retention receipt: absent
 ```
 
-## Browser proof gaps
+## Public-origin gaps
 
 ```txt
-normal stop fixture: absent
-stop before first frame: absent
-failure after engine creation: absent
-failure after renderer creation: absent
-failure after balloon creation: absent
-map-open stop fixture: absent
-same-document second boot: absent
-stale predecessor RAF fixture: absent
-listener/observer count fixture: absent
-WebGL resource-count fixture: absent
-source/build/Pages parity: absent
+post-deploy HTTP request: absent
+status/content-type admission: absent
+base-path validation: absent
+manifest fetch and comparison: absent
+browser boot against PageUrl: absent
+fatal-panel assertion: absent
+GameHost admission: absent
+renderer-frame identity: absent
+FirstDeployedAirMailFrameAck: absent
 ```
+
+## Status and workflow evidence gaps
+
+```txt
+combined commit statuses observed: empty
+workflow run accepted by this audit: no
+job logs inspected: no
+artifact downloaded: no
+PageUrl fetched: no
+browser fixture run: no
+```
+
+The empty combined-status surface is not treated as proof of failure or success.
 
 ## Dependency order
 
 ```txt
-route/session generations
-  -> owned resource manifest
-  -> staged startup
-  -> frame admission
-  -> failure rollback
-  -> aggregate disposal
-  -> GPU/public retirement
-  -> successor first-frame acknowledgement
+immutable revisions
+  -> dependency/build fingerprints
+  -> typed headless proof
+  -> hashed artifact manifest
+  -> artifact upload result
+  -> deployment result
+  -> PageUrl publication
+  -> HTTP/content admission
+  -> GameHost/frame admission
   -> source/build/Pages parity
 ```
 
 ## Retained gaps
 
-Pinned-provider proof, Core World feature registration, foundation adoption, staged generation, map/world coherence, grass publication, Air Mail completion and flight persistence gaps remain open.
+Route retirement, startup rollback, stale callback rejection, renderer cleanup, provider contract proof, Core World revision adoption, grass publication, Air Mail completion and flight persistence remain open.
 
 ## Do not claim
 
-Do not treat local component `dispose()` methods as proof of route retirement. Complete cleanup requires aggregate command admission, stale-callback rejection, per-owner receipts and executable re-entry evidence.
+Do not treat `environment.url` as evidence that the reviewed source was built, the intended artifact was deployed, the public route is reachable, or the game rendered correctly.
