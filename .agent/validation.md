@@ -1,83 +1,95 @@
-# Validation: TheOpenAbove World Domain Composition and Provider Admission
+# Validation: TheOpenAbove Pinned Provider Capability Contract Forwarding
 
-**Last aligned:** `2026-07-13T22-58-22-04-00`
+**Last aligned:** `2026-07-14T01-39-09-04-00`
 
 ## Scope
 
-Documentation-only review of runtime commit `3884cc509562c07c7c8eee15dd67fd707be64198`, its explicit Core World composition, telemetry dependency, API guard, package wiring, fake-provider test, pinned provider import, browser boot and visual readiness boundary.
+Documentation-only review of product commit `09bb6b95549d9480dfc2caa4517575ab4009ba98`, provider commit `ea973811342fe3ba2a35bb018323d987d3fec4b5`, the Core capability wrapper, DSK constructor, World Features domain, product boot, fake-provider composition test, package wiring, and visible-frame boundary.
 
 ## Plan ledger
 
-**Goal:** state exactly what was inspected, what the upstream fix proves and what still requires executable evidence.
+**Goal:** state exactly what the provider pin repairs, what was inspected, and what still requires executable evidence.
 
 - [x] Compare the full Publish inventory with central tracking.
 - [x] Confirm TheOpenAbove is the sole eligible runtime-ahead repository.
-- [x] Compare prior documentation head with current runtime head.
-- [x] Inspect the unreconciled commit and all changed files.
-- [x] Inspect `src/main.js` provider import and boot flow.
-- [x] Inspect `src/runtime/balloon-telemetry-kit.js` composition and registration.
-- [x] Inspect `tests/world-domain-composition.mjs`.
-- [x] Inspect package check/build wiring.
+- [x] Compare the recorded documentation head with current runtime head.
+- [x] Inspect the unreconciled product commit and changed file.
+- [x] Inspect the exact upstream provider commit.
+- [x] Inspect `createCoreCapabilityKit()`.
+- [x] Inspect `defineDomainServiceKit()` validation and installation behavior.
+- [x] Inspect `createWorldFeatureDomain()` contract declarations.
+- [x] Inspect `src/main.js`, telemetry composition, fake-provider test, and package wiring.
 - [x] Inspect combined commit status.
 - [x] Preserve and update the complete kit/service inventory.
-- [ ] Execute real-provider, browser, build and Pages proof.
+- [ ] Execute real-provider, browser, build, and Pages proof.
 
 ## Source-backed observations
 
 ```txt
-reviewed runtime head: 3884cc509562c07c7c8eee15dd67fd707be64198
-prior documentation head: a3656e9d9ce2ca626317eadc9c0483c631f45fdd
+reviewed runtime head: 09bb6b95549d9480dfc2caa4517575ab4009ba98
+prior documentation head: c06f9a7df59a605ac22619dbefef831d412d619a
 unreconciled commits before audit: 1
-changed files: package.json, src/runtime/balloon-telemetry-kit.js, tests/world-domain-composition.mjs
+changed product files: src/main.js
+previous provider: 112de886131c00121c36f004c257bd50ff122589
+current provider: ea973811342fe3ba2a35bb018323d987d3fec4b5
 
-explicit Core World root: present
-childDomains:false: present
-explicit World Foundation: present
-explicit World Features: present
-explicit Landform Features: present
-telemetry requires n:world:features: present
-registerFeature guard: present
-browser global guard: present
-new fake-provider smoke: present
+provider repair forwards domainPath: present
+provider repair forwards parentDomainPath: present
+provider repair forwards apiPath: present
+provider repair forwards visibility: present
+provider repair forwards requires: present
+provider repair forwards provides: present
+provider repair forwards install: present
+
+World Features declares n:world:features: present
+World Features parent n:world: present
+World Features requires n:world: present
+World Features custom alias install: present
+product uses engine.n.worldFeatures: present
+product validates registerFeature: present
+fake-provider composition smoke: present
 package check includes smoke: present
 
-provider API manifest: absent
+provider revision runtime manifest: absent
 real pinned-provider fixture: absent
+actual metadata/token proof: absent
 unique token-owner proof: absent
+install alias runtime proof: absent
 aggregate feature registration: absent
-composition revision: absent
+provider contract fingerprint: absent
 visual bootstrap revision: absent
-first registered-world frame acknowledgement: absent
+first provider-contract world-frame acknowledgement: absent
 combined status checks reported: none
 ```
 
 ## Existing proof
 
-`tests/world-domain-composition.mjs` proves the product calls Core World with `childDomains:false`, supplies the intended explicit kit order, registers one feature and rejects a missing `worldFeatures` API. Because the test owns every factory and the returned engine namespace, it does not prove actual provider exports, domain identity, dependency resolution, duplicate ownership or browser behavior.
-
-`npm run check` now includes the new smoke before terrain and overlay checks. `npm run build` still runs `npm run check` before Vite.
+The upstream diff proves the provider source now forwards the missing fields. The product diff proves TheOpenAbove selects that immutable revision. The fake-provider smoke proves intended product call order and API guarding, but it bypasses the repaired wrapper and DSK constructor.
 
 ## Required fixtures
 
 ```txt
-pinned provider export manifest
-real provider engine composition
-real domain ID and requires/provides graph
-unique namespace/token ownership
+exact provider export manifest
+real Core World kit instantiation
+real domainPath and parentDomainPath assertions
+real apiPath and visibility assertions
+real requires/provides assertions
+canonical token-generation and unique-owner proof
+custom install-hook and alias proof
+engine.n addressability proof
 no implicit child duplication
+candidate disposal after failure
 empty feature set
 one valid mountain
 multiple valid landforms
 identical duplicate idempotence
 conflicting duplicate rejection
 late invalid feature with zero partial adoption
-worldFeatures and worldFoundation API probes
 source browser startup
-fatal fallback on provider mismatch
 production build startup
 Pages startup
-composition and registry readback
-first matching registered-world frame
+provider/composition/registry readback
+first matching provider-contract world frame
 ```
 
 ## Validation result
@@ -94,11 +106,16 @@ branch created: no
 pull request created: no
 
 source inspected: yes
-latest commit inspected: yes
-changed test inspected: yes
+latest product commit inspected: yes
+upstream provider commit inspected: yes
+core capability wrapper inspected: yes
+DSK constructor inspected: yes
+World Features domain inspected: yes
 main boot inspected: yes
+fake test inspected: yes
 package wiring inspected: yes
 combined status checks: none
+local clone/test attempt: failed before clone because github.com DNS resolution was unavailable
 npm run check: not run
 npm run build: not run
 npm run headless:world: not run
@@ -107,4 +124,4 @@ browser fixture: not run
 Pages fixture: not run
 ```
 
-No real-provider compatibility, duplicate-safe composition, atomic feature registration, visual readiness, source/build/Pages parity or production-readiness claim is made.
+No real-provider contract parity, unique capability ownership, install alias correctness, atomic feature registration, visual readiness, source/build/Pages parity, or production-readiness claim is made.
