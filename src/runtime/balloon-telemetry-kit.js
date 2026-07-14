@@ -7,6 +7,7 @@ export function createBalloonTelemetryEngine(NexusEngine, getSnapshot, { worldFe
 
   const telemetryKit = NexusEngine.defineRuntimeKit({
     id: BALLOON_TELEMETRY_KIT_ID,
+    requires: ["n:world:features"],
     provides: ["open-above:balloon-telemetry", "open-above:wind-drift-state", "open-above:visual-state"],
     resources: { BalloonSnapshot, VisualSnapshot },
     events: { BalloonTicked },
@@ -46,11 +47,24 @@ export function createBalloonTelemetryEngine(NexusEngine, getSnapshot, { worldFe
   });
 
   const engine = NexusEngine.createRealtimeGame({
-    kits: [NexusEngine.createCoreWorldDomain(), telemetryKit],
+    kits: [
+      NexusEngine.createCoreWorldDomain({ childDomains: false }),
+      NexusEngine.createWorldFoundationDomain(),
+      NexusEngine.createWorldFeatureDomain(),
+      NexusEngine.createLandformFeatureDomain(),
+      telemetryKit
+    ],
     provides: ["n:runtime.engine"]
   });
-  for (const feature of worldFeatures) engine.n.worldFeatures.registerFeature(feature);
+
+  const worldFeaturesApi = engine.n?.worldFeatures;
+  if (!worldFeaturesApi || typeof worldFeaturesApi.registerFeature !== "function") {
+    throw new TypeError("World Features API is unavailable before Open Above feature registration.");
+  }
+  for (const feature of worldFeatures) worldFeaturesApi.registerFeature(feature);
   return engine;
 }
 
-window.OpenAboveBalloonTelemetryKit = { id: BALLOON_TELEMETRY_KIT_ID, createBalloonTelemetryEngine };
+if (typeof window !== "undefined") {
+  window.OpenAboveBalloonTelemetryKit = { id: BALLOON_TELEMETRY_KIT_ID, createBalloonTelemetryEngine };
+}
