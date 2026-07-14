@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 107,
+  "schemaVersion": 108,
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-14T12-38-21-04-00",
-  "status": "checked-out-provider-build-browser-identity-authority-audited",
-  "technicalStatus": "checked-out-provider-build-browser-identity-authority-audited",
+  "lastAligned": "2026-07-14T17-39-01-04-00",
+  "status": "ground-contact-delivery-eligibility-settlement-authority-audited",
+  "technicalStatus": "ground-contact-delivery-eligibility-settlement-authority-audited",
   "retainedStatuses": [
+    "checked-out-provider-build-browser-identity-authority-audited",
     "pages-deployment-url-artifact-publication-authority-audited",
     "route-runtime-resource-retirement-authority-audited",
     "pinned-provider-capability-contract-forwarding-authority-audited",
@@ -19,23 +20,8 @@
     "mail-delivery-completion-authority-central-reconciled",
     "flight-session-persistence-authority-central-reconciled"
   ],
-  "reviewedPreAuditHead": "0d9ea6f6f977b63d09f22f8ae36107bfccd81811",
-  "reviewedRuntimeCommits": [
-    "0ff6d20eaf6d3d5f9e9e861d2cda77f04ed04d70",
-    "661369889ccd156cf9c483e9ed5413fcae0d5f09",
-    "1994b0d88bfbf46395fc1bb2747bbbdb176ed477",
-    "0d9ea6f6f977b63d09f22f8ae36107bfccd81811"
-  ],
-  "providerSelection": {
-    "workflowRef": "main",
-    "checkoutPath": ".nexus-engine",
-    "entryPath": ".nexus-engine/src/index.js",
-    "viteAlias": "@nexus-engine",
-    "shaEnvironment": "VITE_NEXUS_ENGINE_SHA",
-    "browserProjection": "GameHost.nexusEngineSha",
-    "localFallback": "local-main",
-    "immutable": false
-  },
+  "reviewedPreAuditHead": "542b6db53269d1c5a78825f0e70b0f630dd0fbd8",
+  "runtimeRevisionReviewed": "0d9ea6f6f977b63d09f22f8ae36107bfccd81811",
   "selection": {
     "inventoryCount": 11,
     "eligibleCount": 10,
@@ -44,21 +30,25 @@
     "newEligibleCount": 0,
     "centralLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
-    "runtimeAheadCount": 1,
+    "runtimeAheadCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "Only eligible repository ahead of its recorded repo-local documentation head.",
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
+    "reason": "Oldest aligned eligible repository after no new, missing, undocumented, root-agent-missing or runtime-ahead candidate was found.",
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ],
+    "selectedPriorAlignment": "2026-07-14T12-38-21-04-00",
+    "nextOldestPriorAlignment": "2026-07-14T13-00-39-04-00"
   },
-  "latestTracker": ".agent/trackers/2026-07-14T12-38-21-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-14T12-38-21-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-14T17-39-01-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-14T17-39-01-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-14T12-38-21-04-00-checked-out-provider-build-identity-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-14T12-38-21-04-00-provider-sha-visible-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-14T12-38-21-04-00-provider-build-to-airmail-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-14T12-38-21-04-00-provider-build-command-result-map.md",
-    "providerBuild": ".agent/provider-build-audit/2026-07-14T12-38-21-04-00-provider-checkout-bundle-identity-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-14T12-38-21-04-00-provider-build-identity-fixture-gate.md",
-    "centralSync": ".agent/central-sync-audit/2026-07-14T12-38-21-04-00-provider-build-runtime-reconciliation.md"
+    "architecture": ".agent/architecture-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-eligibility-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-14T17-39-01-04-00-grounded-delivery-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-14T17-39-01-04-00-ground-contact-mail-delivery-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-command-result-map.md",
+    "landing": ".agent/landing-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-eligibility-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-14T17-39-01-04-00-grounded-delivery-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-14T17-39-01-04-00-oldest-selection-ground-contact-reconciliation.md"
   },
   "counts": {
     "localRuntimeAndGameplay": 15,
@@ -71,7 +61,7 @@
     "coreWorldSurfaces": 17,
     "currentDocumentedActiveTotal": 101,
     "inactiveOrRetiredLegacy": 13,
-    "plannedIdentityAuthorityIncludingParent": 23
+    "plannedGroundContactAuthorityIncludingParent": 19
   },
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -144,7 +134,9 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": ["open-above-parchment-map-overlay-kit"],
+    "ui": [
+      "open-above-parchment-map-overlay-kit"
+    ],
     "toolingAndProof": [
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
@@ -196,7 +188,14 @@
       "explicit-core-world-composition",
       "airstream-route-field-sampling",
       "balloon-force-and-airstream-visuals",
-      "mail-parcel-route-town-and-delivery-progress"
+      "mail-parcel-route-town-volume-and-delivery-progress"
+    ],
+    "groundContactAndDelivery": [
+      "terrain-height-contact-clamp",
+      "partial-vertical-contact-settlement",
+      "destination-volume-sampling",
+      "parcel-delivery-mutation-and-event",
+      "town-visual-update-and-disposal"
     ],
     "balloonPresentation": [
       "procedural-envelope-and-mouth",
@@ -228,32 +227,16 @@
       "pages-artifact-upload-deployment-and-environment-url"
     ]
   },
-  "plannedParentDomain": "open-above-checked-out-provider-build-browser-identity-authority-domain",
-  "plannedIdentityAuthorityKits": [
-    "open-above-checked-out-provider-build-browser-identity-authority-domain",
-    "open-above-workflow-event-identity-kit",
-    "open-above-product-revision-admission-kit",
-    "open-above-provider-policy-revision-kit",
-    "open-above-provider-revision-resolution-kit",
-    "open-above-immutable-product-checkout-kit",
-    "open-above-immutable-provider-checkout-kit",
-    "open-above-provider-entry-byte-fingerprint-kit",
-    "open-above-dependency-state-fingerprint-kit",
-    "open-above-local-provider-preflight-kit",
-    "open-above-real-provider-node-contract-result-kit",
-    "open-above-vite-provider-alias-admission-kit",
-    "open-above-bundle-provider-fingerprint-kit",
-    "open-above-product-build-identity-manifest-kit",
-    "open-above-gamehost-build-identity-kit",
-    "open-above-browser-build-identity-admission-kit",
-    "open-above-renderer-frame-build-identity-kit",
-    "open-above-first-build-identity-frame-ack-kit",
-    "open-above-build-identity-conflict-kit",
-    "open-above-build-candidate-retirement-kit",
-    "open-above-provider-build-identity-result-kit",
-    "open-above-source-build-pages-identity-parity-kit",
-    "open-above-provider-build-fault-injection-kit"
-  ],
+  "providerSelection": {
+    "workflowRef": "main",
+    "checkoutPath": ".nexus-engine",
+    "entryPath": ".nexus-engine/src/index.js",
+    "viteAlias": "@nexus-engine",
+    "shaEnvironment": "VITE_NEXUS_ENGINE_SHA",
+    "browserProjection": "GameHost.nexusEngineSha",
+    "localFallback": "local-main",
+    "immutable": false
+  },
   "identityState": {
     "realProviderNodeTestSource": true,
     "sameCheckoutUsedByTestAndVite": true,
@@ -271,20 +254,56 @@
     "firstBuildIdentityFrameAck": false,
     "sourceBuildPagesIdentityParity": false
   },
+  "groundContactDeliveryState": {
+    "terrainClampPresent": true,
+    "terrainClampClearance": 30,
+    "contactClassification": false,
+    "contactRevision": false,
+    "positionSettlement": true,
+    "verticalVelocitySettlement": true,
+    "fullVelocitySettlement": false,
+    "deliveryConsumesContactState": false,
+    "brookhavenSafeAltitude": 92,
+    "brookhavenAltitudeTolerance": 72,
+    "groundedDeliveryPossibleBySource": true,
+    "mailDeliveryResultIdentity": false,
+    "firstMailDeliveryFrameAck": false
+  },
+  "plannedParentDomain": "open-above-ground-contact-delivery-eligibility-settlement-authority-domain",
+  "plannedGroundContactAuthorityKits": [
+    "open-above-ground-contact-delivery-eligibility-settlement-authority-domain",
+    "open-above-flight-step-identity-kit",
+    "open-above-terrain-contact-sample-kit",
+    "open-above-ground-contact-classification-kit",
+    "open-above-contact-position-settlement-kit",
+    "open-above-contact-velocity-settlement-kit",
+    "open-above-impact-event-kit",
+    "open-above-landing-event-kit",
+    "open-above-contact-revision-kit",
+    "open-above-mail-clearance-policy-kit",
+    "open-above-delivery-contact-admission-kit",
+    "open-above-delivery-volume-revision-kit",
+    "open-above-mail-delivery-eligibility-result-kit",
+    "open-above-contact-delivery-conflict-kit",
+    "open-above-grounded-delivery-rejection-kit",
+    "open-above-contact-telemetry-projection-kit",
+    "open-above-delivery-presentation-descriptor-kit",
+    "open-above-first-mail-delivery-frame-ack-kit",
+    "open-above-contact-delivery-fixture-kit"
+  ],
   "validation": {
     "documentationOnly": true,
     "sourceInspected": true,
     "organizationInventoryCompared": true,
     "centralLedgerCompared": true,
+    "allEligibleRootAgentsChecked": true,
     "allEligibleHeadsCompared": true,
-    "aheadCommitsInspected": 4,
-    "changedFilesInspected": 4,
     "combinedCommitStatusInspected": true,
     "combinedStatusesReturned": 0,
-    "workflowRunInspected": false,
-    "realProviderTestRun": false,
-    "viteBuildRun": false,
+    "groundedDeliverySourcePathDerived": true,
+    "headlessContactFixtureRun": false,
     "browserFixtureRun": false,
+    "viteBuildRun": false,
     "artifactDownloaded": false,
     "pageUrlFetched": false,
     "runtimeChangedByAudit": false,
