@@ -1,67 +1,72 @@
-# Validation: TheOpenAbove World Generation Public Contract Proof
+# Validation: TheOpenAbove Grass Seed Module Environment and Publication Authority
 
-**Last aligned:** `2026-07-13T18-59-14-04-00`
+**Last aligned:** `2026-07-13T21-58-55-04-00`
 
 ## Scope
 
-Documentation-only review of commit `b30ff05719d659c42fbad5cbbde6b8fd72848229`, the world-generation public facade/support split, behavior and structural tests, package proof wiring, build boundary and Pages proof requirements.
+Documentation-only review of runtime commit `d3d4e735e56a36f2e18250a30c72b10152c2fdba`, its grass-seed browser-global guard, transitive world-generation imports, grass proof, headless environment, package scripts, compatibility publication and visible consumer requirements.
 
 ## Plan ledger
 
 **Goal:** state exactly what was inspected and what still requires executable evidence.
 
-- [x] Compare full Publish inventory with central tracking and root `.agent` state.
-- [x] Confirm TheOpenAbove is the only eligible repository ahead of central tracking.
-- [x] Inspect the unreconciled commit and changed test file.
-- [x] Inspect the public facade and internal support module.
-- [x] Inspect world-generation behavioral proof and structural smoke.
-- [x] Inspect feature/foundation stub proof and package check wiring.
+- [x] Compare the full Publish inventory with central tracking.
+- [x] Confirm TheOpenAbove is the sole eligible runtime-ahead repository.
+- [x] Inspect the unreconciled commit and changed runtime file.
+- [x] Inspect the grass seed module and world-generation support import.
+- [x] Inspect grass smoke behavior and synthetic `window` setup.
+- [x] Inspect headless world validation and package check/build wiring.
+- [x] Inspect the retained import-purity contract.
 - [x] Inspect the latest commit's combined status checks.
 - [x] Preserve the existing kit and service inventory.
-- [ ] Execute source, build, browser and Pages proof.
+- [ ] Execute import-purity, lifecycle, build, browser, worker and Pages proof.
 
 ## Source-backed observations
 
 ```txt
-reviewed repository head: b30ff05719d659c42fbad5cbbde6b8fd72848229
-unreconciled commits: 1
-changed files: tests/smoke.mjs
-runtime source changed by unreconciled commit: no
-test source changed by unreconciled commit: yes
+reviewed runtime head: d3d4e735e56a36f2e18250a30c72b10152c2fdba
+unreconciled commits before audit: 1
+changed runtime files: src/visual/grass-field/grass-world-seed-kit.js
+runtime source changed by upstream commit: yes
+tests changed by upstream commit: no
 
-public facade: src/world/world-generation-kit.js
-internal support: src/world/world-generation-support.js
-public constant re-exports: present
-behavior test public-facade import: present
-structural smoke internal-file read: present
-world-generation behavior indirectly wired through smoke: present
-feature/foundation proof uses stubs: yes
+Node/headless window guard: present
+browser global assignment: present
+named ESM exports: present
+world-generation transitive import: present
+synthetic test window: present
+explicit compatibility installer: absent
+collision policy: absent
+retirement API: absent
+seed algorithm revision: absent
+first visible seed frame acknowledgement: absent
 combined status checks reported: none
 ```
 
 ## Existing proof
 
-`tests/world-generation.mjs` proves deterministic public sampling, route/town protection, flora and biome coverage, staged progress and phase completion, successor parity, reset retention and disposal through the public facade.
+`tests/grass-field.mjs` proves deterministic seed normalization, five grass species, LOD budgets, deterministic chunk candidates, width/height bands and dense/bare distribution. It creates `globalThis.window = globalThis` before imports and does not test import purity or publication lifecycle.
 
-`tests/smoke.mjs` checks required files and source markers, imports behavior suites, and now reads the internal support module for the moved constants.
-
-`tests/world-feature-foundation.mjs` proves product wrapper math and delegation against hand-authored feature/foundation stubs, not the pinned Nexus Engine implementation.
+`tests/smoke.mjs` imports the grass fixture and required source files. `npm run check` executes smoke and world/terrain proof. `npm run build` runs check before Vite. `npm run headless:world` invokes the headless editor and then `npm run check`.
 
 ## Required fixtures
 
 ```txt
-public manifest import and fingerprint
-internal module graph diagnostic
-source facade export parity
-deterministic source behavior result
-support-file relocation without public change
-public change without manifest revision rejection
-source marker with behavior drift rejection
-Vite build manifest and behavior parity
-stale build artifact rejection
-Pages artifact identity and parity
-terrain/map/collision consumer revision correlation
-first visible contract revision frame
+Node import without window
+Node import with synthetic window and zero mutation
+worker import
+browser import with zero implicit global
+explicit compatibility installation
+same-revision idempotence
+foreign collision rejection
+stale generation rejection
+owned disposal
+foreign global preservation
+source/build API manifest parity
+source/build deterministic behavior parity
+Pages module identity and parity
+world/grass/flower consumer revision convergence
+first matching seed revision frame
 ```
 
 ## Validation result
@@ -78,13 +83,17 @@ branch created: no
 pull request created: no
 
 source inspected: yes
+latest commit inspected: yes
 test source inspected: yes
+headless environment inspected: yes
 package wiring inspected: yes
 combined status checks: none
 npm run check: not run
 npm run build: not run
+npm run headless:world: not run
 browser fixture: not run
+worker fixture: not run
 Pages fixture: not run
 ```
 
-No public-contract parity, build parity, deployed parity, consumer convergence or production-readiness claim is made.
+No import-purity, compatibility ownership, collision safety, cleanup, source/build/Pages parity, consumer convergence or production-readiness claim is made.
