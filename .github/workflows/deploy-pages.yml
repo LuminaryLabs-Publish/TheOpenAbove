@@ -25,12 +25,18 @@ jobs:
         with:
           ref: main
 
-      - name: Checkout NexusEngine headless editor
+      - name: Checkout NexusEngine main
         uses: actions/checkout@v7
         with:
           repository: LuminaryLabs-Dev/NexusEngine
           ref: main
           path: .nexus-engine
+
+      - name: Record NexusEngine revision
+        run: |
+          NEXUS_ENGINE_SHA="$(git -C .nexus-engine rev-parse HEAD)"
+          echo "VITE_NEXUS_ENGINE_SHA=$NEXUS_ENGINE_SHA" >> "$GITHUB_ENV"
+          echo "NexusEngine SHA: $NEXUS_ENGINE_SHA"
 
       - name: Setup Node
         uses: actions/setup-node@v6
