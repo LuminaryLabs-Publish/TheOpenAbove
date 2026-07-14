@@ -1,143 +1,121 @@
-# Known Gaps: TheOpenAbove Pinned Provider Capability Contract Forwarding
+# Known Gaps: TheOpenAbove Route Runtime Resource Retirement
 
-**Last aligned:** `2026-07-14T01-39-09-04-00`  
-**Status:** `pinned-provider-capability-contract-forwarding-authority-audited`
+**Last aligned:** `2026-07-14T06-38-49-04-00`  
+**Status:** `route-runtime-resource-retirement-authority-audited`
 
 ## Summary
 
-The provider pin repairs the wrapper defect, but the product does not yet prove the real provider contract at runtime. Exact metadata, generated capability tokens, dependency ownership, addressability, install aliases, feature-set settlement, visual adoption, and first-frame provenance remain unresolved.
+The route has useful component-level disposal services but no aggregate lifecycle authority. Gameplay callbacks, browser listeners, observers, subscriptions, public references, scene resources and GPU ownership are not bound to a route generation or terminal retirement result.
 
 ## Plan ledger
 
-**Goal:** keep provider-contract gaps dependency ordered and tied to executable evidence.
+**Goal:** keep route-retirement gaps dependency ordered and tied to executable browser evidence.
 
-- [ ] Provider revision and export manifest.
-- [ ] Real Core capability contract inspection.
-- [ ] Canonical path and parent hierarchy proof.
-- [ ] Requires/provides and unique-owner proof.
-- [ ] Install-hook and API-addressability proof.
-- [ ] Disposable real-provider composition fixture.
-- [ ] Transactional feature-set registration.
-- [ ] Visual-bootstrap revision binding.
-- [ ] First provider-contract world-frame acknowledgement.
-- [ ] Source/build/Pages parity.
+- [ ] Route/session generations.
+- [ ] Owned callback, listener, observer and subscription manifests.
+- [ ] Named startup stages and rollback.
+- [ ] Gameplay-frame admission and stale rejection.
+- [ ] Ordered aggregate disposal.
+- [ ] Scene and GPU resource retirement receipts.
+- [ ] Public `GameHost` retirement.
+- [ ] Same-document re-entry proof.
+- [ ] Source/build/Pages lifecycle parity.
 
-## Identity gaps
+## Identity and admission gaps
 
 ```txt
-ProviderRevisionManifest: absent
-ProviderModuleFingerprint: absent
-ProviderCapabilityContractManifest: absent
-ProviderContractFingerprint: absent
-ProviderCapabilityContractCommand: absent
-ProviderCapabilityContractResult: absent
-CompositionRevision: absent
-FeatureSetFingerprint: absent
-FeatureSetRegistrationResult: absent
-VisualBootstrapRevision: absent
-FirstProviderContractWorldFrameAck: absent
+RouteGeneration: absent
+SessionGeneration: absent
+StartupAttemptId: absent
+OwnedResourceManifest: absent
+ActiveRouteRuntimeResult: absent
+FrameAdmissionResult: absent
+RouteRuntimeRetirementResult: absent
+FirstSuccessorRouteFrameAck: absent
 ```
 
-## Contract-forwarding proof gaps
+## Callback and input gaps
 
 ```txt
-real domainPath assertion: absent
-real parentDomainPath assertion: absent
-real apiPath assertion: absent
-real visibility assertion: absent
-real requires assertion: absent
-real provides assertion: absent
-real custom install execution assertion: absent
-canonical token-generation assertion: absent
-DSK validation assertion: absent
-API overwrite-rejection assertion: absent
+gameplay RAF ID retained: no
+gameplay RAF cancellation: absent
+map RAF aggregate ownership: absent
+stale callback classification: absent
+input admission after stop: undefined
+input state clear on stop: absent
+duplicate listener detection: absent
 ```
 
-## Composition and ownership gaps
+## Rollback gaps
 
 ```txt
-real pinned-provider import fixture: absent
-one owner per mandatory token: unproven
-no implicit child duplication: unproven
-engine.n addressability: source-assumed
-engine.worldFeatures alias parity: unproven
-candidate disposal after failure: absent
-provider-upgrade comparison: absent
+named startup stages: absent
+acquired-resource ledger: absent
+partial startup rollback: absent
+failed-stage identity: absent
+rollback receipts: absent
+canvas aria-busy terminal repair: incomplete
+predecessor preservation during failed replacement: absent
 ```
 
-## Feature registration gaps
+## Disposal gaps
 
 ```txt
-all-features prevalidation: absent
-aggregate candidate: absent
-expected predecessor revision: absent
-identical duplicate policy: absent
-conflicting duplicate policy: absent
-partial-registration rollback: absent
-per-feature receipt set: absent
+aggregate dispose command: absent
+component disposal call order: absent
+engine subscription retirement receipt: absent
+camera/presentation retirement receipt: absent
+balloon model resource retirement receipt: absent
+scene resource count result: absent
+render-target retirement result: absent
+renderer/context retirement policy: absent
 ```
 
-## Visual and gameplay gaps
+## Public-state gaps
 
 ```txt
-provider revision passed to visual domain: absent
-contract fingerprint passed to visual domain: absent
-composition revision passed to world generation: absent
-feature registry revision passed to foundation bridge: absent
-playable-world admission result: absent
-public immutable provider readback: absent
-first matching world frame: absent
-mixed-revision rejection: absent
+GameHost generation: absent
+GameHost status: absent
+GameHost terminal snapshot: absent
+GameHost predecessor removal: absent
+retired method behavior: undefined
+successor publication acknowledgement: absent
 ```
 
-## Test gaps
+## Browser proof gaps
 
 ```txt
-current composition test bypasses the real wrapper and DSK constructor
-real provider export fixture: absent
-real contract metadata fixture: absent
-real dependency graph fixture: absent
-duplicate provider fixture: absent
-install alias fixture: absent
-feature rollback fixture: absent
-source browser fixture: absent
-production build browser fixture: absent
-Pages fixture: absent
-fatal fallback and retry fixture: absent
-first visible world-frame fixture: absent
-```
-
-## Validation gaps
-
-```txt
-combined status checks: none
-npm run check during audit: not run
-npm run build during audit: not run
-npm run headless:world during audit: not run
-browser fixture: not run
-Pages fixture: not run
-local clone attempt: blocked by DNS resolution failure
+normal stop fixture: absent
+stop before first frame: absent
+failure after engine creation: absent
+failure after renderer creation: absent
+failure after balloon creation: absent
+map-open stop fixture: absent
+same-document second boot: absent
+stale predecessor RAF fixture: absent
+listener/observer count fixture: absent
+WebGL resource-count fixture: absent
+source/build/Pages parity: absent
 ```
 
 ## Dependency order
 
 ```txt
-provider revision manifest
-  -> real provider import
-  -> contract metadata inspection
-  -> dependency and token ownership proof
-  -> install and addressability proof
-  -> disposable candidate composition
-  -> feature-set transaction
-  -> visual bootstrap admission
-  -> visible-frame acknowledgement
+route/session generations
+  -> owned resource manifest
+  -> staged startup
+  -> frame admission
+  -> failure rollback
+  -> aggregate disposal
+  -> GPU/public retirement
+  -> successor first-frame acknowledgement
   -> source/build/Pages parity
 ```
 
 ## Retained gaps
 
-Explicit composition, grass-seed publication, world-generation public contracts, Core World feature/foundation adoption, staged generation, map/world coherence, Air Mail completion, and flight persistence gaps remain open.
+Pinned-provider proof, Core World feature registration, foundation adoption, staged generation, map/world coherence, grass publication, Air Mail completion and flight persistence gaps remain open.
 
 ## Do not claim
 
-Do not treat the corrected provider source or fake-provider smoke as proof of real pinned-provider parity, unique ownership, alias correctness, atomic feature registration, browser readiness, or production readiness.
+Do not treat local component `dispose()` methods as proof of route retirement. Complete cleanup requires aggregate command admission, stale-callback rejection, per-owner receipts and executable re-entry evidence.
