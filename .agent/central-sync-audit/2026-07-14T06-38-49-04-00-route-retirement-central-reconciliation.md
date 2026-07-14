@@ -11,8 +11,10 @@
 - [x] Record the 100-surface kit/service census.
 - [x] Record the missing route-runtime retirement authority.
 - [x] Record all repo-local files added and refreshed.
-- [ ] Insert the final repo-local documentation head after local documentation commits.
-- [ ] Add the paired central internal change log.
+- [x] Complete the repo-local documentation audit on `main`.
+- [x] Update the central repository ledger.
+- [x] Add the paired central internal change log.
+- [x] Create no branch or pull request.
 
 ## Reconciliation payload
 
@@ -28,13 +30,17 @@ planned retirement surfaces: 22
 runtime changed: no
 ```
 
-## Central targets
+## Central targets completed
 
 ```txt
 repo-ledger/LuminaryLabs-Publish/TheOpenAbove.md
 internal-change-log/2026-07-14T06-38-49-04-00-the-open-above-route-runtime-retirement.md
 ```
 
-## Finding to preserve
+## Finding preserved
 
 The route has component-level disposal services but no aggregate owner. The gameplay RAF, input listeners, map observer/RAF, domain visuals, world resources, renderer state and `window.GameHost` have no generation-bound stop, failure rollback or terminal retirement result.
+
+## Validation boundary
+
+The reconciliation records documentation-only findings. Runtime source, tests, package wiring, dependencies, workflows and deployment were unchanged. Browser lifecycle, failure-injection, WebGL-retirement, build and Pages fixtures remain unexecuted.
