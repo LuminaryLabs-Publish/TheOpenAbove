@@ -1,75 +1,77 @@
-# Next Steps: TheOpenAbove World Domain Composition and Provider Admission
+# Next Steps: TheOpenAbove Pinned Provider Capability Contract Forwarding
 
-**Last aligned:** `2026-07-13T22-58-22-04-00`  
-**Status:** `world-domain-composition-provider-admission-authority-audited`
+**Last aligned:** `2026-07-14T01-39-09-04-00`  
+**Status:** `pinned-provider-capability-contract-forwarding-authority-audited`
 
 ## Plan ledger
 
-**Goal:** turn the targeted explicit-composition fix into a real-provider, duplicate-safe and visibly proven startup contract without restructuring Nexus Engine.
+**Goal:** prove the exact pinned provider contract before extending feature registration, visual readiness, or deployment claims.
 
-### Gate 1: provider API manifest
+### Gate 1: provider revision manifest
 
-- [ ] Declare the pinned provider revision.
-- [ ] Validate `defineResource`, `defineEvent`, `defineRuntimeKit` and `createRealtimeGame`.
-- [ ] Validate the four required Core World domain factories.
-- [ ] Return a typed provider-admission result before kit creation.
+- [ ] Declare provider URL and revision `ea973811342fe3ba2a35bb018323d987d3fec4b5` in a local manifest.
+- [ ] Validate required exports before domain construction.
+- [ ] Calculate a provider-module fingerprint.
+- [ ] Publish `ProviderModuleResult`.
 
-### Gate 2: composition manifest
+### Gate 2: real Core capability contract inspection
 
-- [ ] Declare the ordered participant list.
-- [ ] Keep `createCoreWorldDomain({ childDomains: false })`.
-- [ ] Record expected IDs, `requires` and `provides` tokens.
-- [ ] Reject duplicate token providers and implicit-child conflicts.
-- [ ] Record one composition revision and host generation.
+- [ ] Instantiate Core World, Foundation, Features, and Landforms from the real provider.
+- [ ] Assert IDs, domains, `domainPath`, `parentDomainPath`, and `apiPath`.
+- [ ] Assert API visibility.
+- [ ] Assert every `requires` and `provides` token.
+- [ ] Assert service lists and metadata.
+- [ ] Calculate one provider-contract fingerprint.
 
-### Gate 3: real-provider fixture
+### Gate 3: install and addressability proof
 
-- [ ] Import Nexus Engine revision `112de886131c00121c36f004c257bd50ff122589`.
-- [ ] Compose the actual engine.
-- [ ] Assert `worldFeatures` and `worldFoundation` capabilities.
-- [ ] Assert one owner per required namespace/token.
-- [ ] Assert no duplicate child installation.
+- [ ] Compose with `childDomains:false`.
+- [ ] Assert one owner for every mandatory capability token.
+- [ ] Assert `engine.n.worldFeatures` and `engine.n.worldFoundation`.
+- [ ] Assert `engine.worldFeatures === engine.n.worldFeatures`.
+- [ ] Assert no API overwrite or duplicate child installation.
+- [ ] Retire the candidate cleanly after the fixture.
 
-### Gate 4: feature-set transaction
+### Gate 4: product feature-set transaction
 
-- [ ] Fingerprint the complete authored landform set.
-- [ ] Validate every feature before mutation.
+- [ ] Validate all authored landforms before mutation.
+- [ ] Fingerprint the complete feature set.
 - [ ] Define identical-duplicate idempotence and conflicting-duplicate rejection.
 - [ ] Adopt all features or none.
-- [ ] Return per-feature receipts and one aggregate result.
+- [ ] Publish per-feature receipts and one aggregate result.
 
 ### Gate 5: visual bootstrap admission
 
-- [ ] Bind visual construction to composition and feature registry revisions.
-- [ ] Bind world generation and terrain sampling to the same revisions.
-- [ ] Publish a typed visual-bootstrap result.
+- [ ] Bind visual creation to provider contract, composition, registry, and foundation revisions.
 - [ ] Expose immutable revision readback through GameHost diagnostics.
+- [ ] Prevent visual startup from a rejected or stale provider contract.
 
 ### Gate 6: visible-frame proof
 
-- [ ] Add a frame envelope carrying provider, composition, registry and world-generation revisions.
-- [ ] Publish `FirstRegisteredWorldFrameAck`.
-- [ ] Reject a frame produced from predecessor or mixed revisions.
+- [ ] Add a frame envelope with provider and world revisions.
+- [ ] Publish `FirstProviderContractWorldFrameAck`.
+- [ ] Reject mixed, predecessor, stale, or timed-out frames.
 
-### Gate 7: source/build/Pages fixtures
+### Gate 7: source/build/Pages parity
 
+- [ ] Add `tests/world-domain-composition.real-provider.mjs`.
 - [ ] Run `npm run check`.
-- [ ] Run the real-provider Node fixture.
-- [ ] Run a source browser boot fixture.
-- [ ] Run the production Vite build and browser fixture.
-- [ ] Run the deployed Pages fixture.
-- [ ] Exercise missing factory, duplicate provider, partial registration and visible-frame timeout failures.
+- [ ] Run `npm run build`.
+- [ ] Run source-browser, built-browser, and Pages fixtures.
+- [ ] Compare provider and contract fingerprints across all surfaces.
+- [ ] Exercise missing-export, wrong-path, unsatisfied-dependency, duplicate-owner, alias-failure, feature-conflict, and frame-timeout cases.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/world-composition/
-  world-domain-composition-authority-domain.js
-  nexus-provider-api-manifest-kit.js
-  world-domain-composition-manifest-kit.js
-  world-domain-composition-result-kit.js
-  feature-set-registration-kit.js
-  visual-bootstrap-admission-kit.js
+src/runtime/provider-contract/
+  pinned-provider-capability-contract-authority-domain.js
+  provider-revision-manifest-kit.js
+  provider-export-probe-kit.js
+  core-capability-contract-manifest-kit.js
+  provider-capability-contract-result-kit.js
+  feature-set-registration-result-kit.js
+  visual-bootstrap-contract-admission-kit.js
 
 tests/
   world-domain-composition.real-provider.mjs
@@ -80,12 +82,12 @@ tests/
 
 ## Compatibility constraints
 
-Preserve the explicit domain list, `childDomains:false`, existing telemetry API, authored world features, deterministic generation, terrain and flora output, flight behavior, Air Mail, map behavior and the pinned provider until a deliberate provider upgrade is separately admitted.
+Preserve the explicit domain order, `childDomains:false`, current telemetry API, authored world features, deterministic world generation, terrain and flora behavior, flight, Air Mail, map behavior, and immutable provider pin until a candidate revision passes the same contract matrix.
 
 ## Retained next steps
 
-The grass-seed import-purity and compatibility-publication work remains open. It should proceed independently after the startup-critical world composition fixture is established.
+The earlier grass-seed publication, world-generation public contract, feature/foundation adoption, staged-generation, and frame-coherence work remains open. It should not replace the startup-critical real-provider fixture.
 
 ## Do not claim
 
-Do not claim real-provider compatibility, duplicate-safe composition, atomic feature registration, browser readiness or visible-frame convergence until every gate passes on `main`.
+Do not claim provider-contract parity, unique token ownership, correct install aliases, atomic feature registration, browser readiness, or visible-frame convergence until all gates pass on `main`.
