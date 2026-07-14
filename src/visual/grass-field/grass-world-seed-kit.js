@@ -34,4 +34,11 @@ export function seedFloat(seed, lane = 0) {
   return hashU32(seed ^ Math.imul(lane + 1, 0x9e3779b1)) / 4294967296;
 }
 
-window.OpenAboveGrassWorldSeedKit = { id: GRASS_WORLD_SEED_KIT_ID, normalizeGrassSeed, hashGrassSeed, seedFloat };
+if (typeof window !== "undefined") {
+  window.OpenAboveGrassWorldSeedKit = {
+    id: GRASS_WORLD_SEED_KIT_ID,
+    normalizeGrassSeed,
+    hashGrassSeed,
+    seedFloat
+  };
+}
