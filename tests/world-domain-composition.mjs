@@ -1,67 +1,34 @@
 import assert from "node:assert/strict";
+import * as NexusEngine from "../.nexus-engine/src/index.js";
+import { WORLD } from "../src/data/campaign.config.js";
 import { createBalloonTelemetryEngine } from "../src/runtime/balloon-telemetry-kit.js";
 
-function createKit(id, provides = [], requires = []) {
-  return { id, provides, requires };
-}
-
-const calls = [];
-const registered = [];
-const fakeNexusEngine = {
-  defineResource(name) { return { kind: "resource", name }; },
-  defineEvent(name) { return { kind: "event", name }; },
-  defineRuntimeKit(config) { return { ...config, requires: config.requires ?? [], provides: config.provides ?? [] }; },
-  createCoreWorldDomain(options = {}) {
-    calls.push({ name: "core-world", options });
-    return createKit("core-world", ["n:world"]);
-  },
-  createWorldFoundationDomain() {
-    calls.push({ name: "world-foundation" });
-    return createKit("world-foundation", ["n:world:foundation"], ["n:world"]);
-  },
-  createWorldFeatureDomain() {
-    calls.push({ name: "world-features" });
-    return createKit("world-features", ["n:world:features"], ["n:world"]);
-  },
-  createLandformFeatureDomain() {
-    calls.push({ name: "landform-features" });
-    return createKit("landform-features", ["n:world:features:landform"], ["n:world:features"]);
-  },
-  createRealtimeGame({ kits }) {
-    calls.push({ name: "realtime-game", kits: kits.map((kit) => kit.id) });
-    return {
-      n: {
-        worldFeatures: {
-          registerFeature(feature) {
-            registered.push(feature);
-            return feature;
-          }
-        }
-      }
-    };
-  }
-};
-
-const mountain = { id: "test-mountain", type: "mountain" };
-createBalloonTelemetryEngine(fakeNexusEngine, () => ({}), { worldFeatures: [mountain] });
-
-assert.deepEqual(calls[0], { name: "core-world", options: { childDomains: false } });
-assert.deepEqual(calls.at(-1).kits, [
-  "core-world",
-  "world-foundation",
-  "world-features",
-  "landform-features",
-  "open-above-balloon-telemetry-kit"
-]);
-assert.deepEqual(registered, [mountain]);
-
-const unavailableNexusEngine = {
-  ...fakeNexusEngine,
-  createRealtimeGame() { return { n: {} }; }
-};
-assert.throws(
-  () => createBalloonTelemetryEngine(unavailableNexusEngine, () => ({}), { worldFeatures: [mountain] }),
-  /World Features API is unavailable/
+const engine = createBalloonTelemetryEngine(
+  NexusEngine,
+  () => ({ altitude: 0, windSpeed: 0, burner: false, visual: {} }),
+  { worldFeatures: WORLD.features?.landforms ?? [] }
 );
 
-console.log("world domain composition smoke passed");
+const worldFeatures = engine.n?.worldFeatures;
+const worldFoundation = engine.n?.worldFoundation;
+assert.equal(typeof worldFeatures?.registerFeature, "function");
+assert.equal(typeof worldFeatures?.compileCell, "function");
+assert.equal(typeof worldFoundation?.sampleElevation, "function");
+assert.equal(worldFeatures.getFeature("northern-wall")?.type, "mountain");
+
+const cellId = "open-above-browser-boot";
+const result = worldFeatures.compileCell({
+  id: cellId,
+  bounds: { minX: -10000, minZ: -10000, maxX: 10000, maxZ: 10000 }
+}, { foundation: worldFoundation, baseFoundation: { elevation: 0 } });
+
+assert.equal(result.contributions.length, 1);
+const elevation = worldFoundation.sampleElevation(
+  cellId,
+  { x: 0, z: 5500 },
+  worldFeatures.getSamplers()
+);
+assert.ok(elevation >= 499.9 && elevation <= 500.1, `expected 500m mountain, received ${elevation}`);
+assert.doesNotThrow(() => engine.tick(0));
+
+console.log("NexusEngine main browser-boot world contract passed");
