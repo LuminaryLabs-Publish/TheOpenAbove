@@ -1,126 +1,117 @@
-# Known Gaps: TheOpenAbove Provider Build Identity
+# Known Gaps: TheOpenAbove Ground Contact and Delivery Eligibility
 
-**Last aligned:** `2026-07-14T12-38-21-04-00`  
-**Status:** `checked-out-provider-build-browser-identity-authority-audited`
+**Last aligned:** `2026-07-14T17-39-01-04-00`  
+**Status:** `ground-contact-delivery-eligibility-settlement-authority-audited`
 
 ## Summary
 
-The real provider now powers both the composition test and Vite bundle, and CI records its checkout SHA. Exact source selection, local setup, byte identity, artifact provenance and browser-frame acknowledgement remain incomplete.
+Terrain penetration is resolved by a positional clamp, but no authoritative contact state governs mail delivery. Brookhaven's configured altitude tolerance includes the clamp altitude, making grounded delivery source-permitted.
 
 ## Plan ledger
 
-**Goal:** keep identity gaps dependency ordered and prevent an observed checkout SHA from being promoted into reproducible build proof.
+**Goal:** keep contact, delivery, presentation and proof gaps dependency ordered.
 
-- [ ] Immutable product checkout.
-- [ ] Immutable provider policy and checkout.
-- [ ] Local provider setup/preflight.
-- [ ] Provider entry and dependency fingerprints.
-- [ ] Real-provider test receipt bound to revisions.
-- [ ] Vite bundle identity receipt.
-- [ ] Build identity manifest and file hashes.
-- [ ] Browser `GameHost` identity admission.
+- [ ] Flight-step identity.
+- [ ] Versioned terrain-contact sample.
+- [ ] Contact classification and immutable result.
+- [ ] Atomic position and velocity settlement.
+- [ ] Impact and landing events.
+- [ ] Versioned mail-clearance policy.
+- [ ] Delivery admission bound to contact state.
+- [ ] Typed rejection, duplicate and conflict results.
+- [ ] Telemetry and GameHost correlation.
 - [ ] First matching visible frame.
-- [ ] Source/build/Pages identity parity.
+- [ ] Source/build/Pages fixture parity.
 
-## Source and checkout gaps
-
-```txt
-product checkout ref: mutable main
-provider checkout ref: mutable main
-workflow event-to-product checkout equality: unproved
-provider policy revision: absent
-rerun provider reproducibility: absent
-branch-moved classification: absent
-```
-
-## Local development gaps
+## Contact-state gaps
 
 ```txt
-.nexus-engine setup command: absent
-checkout existence preflight: implicit module-resolution failure
-checkout revision validation: absent
-local fallback identity: local-main
-release rejection for local-main: absent
+RunId and StepId: absent
+terrain sample ID and revision: absent
+ContactRevision: absent
+Airborne/SoftLanding/HardLanding/Grounded classification: absent
+impact-speed result: absent
+landing event: absent
+impact event: absent
 ```
 
-## Byte and dependency identity gaps
+## State-settlement gaps
 
 ```txt
-provider entry SHA-256: absent
-provider manifest fingerprint: absent
-package lock: not found
-lock-governed install: absent
-bundle file hashes: absent
-product build identity manifest: absent
+position clamp: present
+verticalVelocity nonnegative clamp: present
+velocity.y settlement in contact branch: absent
+single terrain sample shared by contact and altitude: absent
+atomic settlement receipt: absent
+late/stale contact rejection: absent
 ```
 
-## Test and bundle gaps
+## Delivery-admission gaps
 
 ```txt
-real-provider Node contract test: present
-World Features/Foundation and northern-wall proof: present in source
-independent execution by this audit: not performed
-browser boot proof: absent
-Vite alias resolution fixture: absent
-embedded SHA-to-provider-byte comparison: absent
-mixed-provider artifact rejection: absent
+destination geometry: present
+parcel idempotency boolean: partial
+contact-state requirement: absent
+airborne-clearance policy: absent
+hard-landing exclusion: absent
+contact/delivery same-step precedence: implicit
+typed grounded rejection: absent
+immutable delivery result and fingerprint: absent
 ```
 
-## Browser and render gaps
+## Confirmed geometric case
 
 ```txt
-GameHost.nexusEngineSha projection: present
-manifest comparison: absent
-product SHA projection: absent
-renderer generation binding: absent
-frame ID binding: absent
-image hash: absent
-FirstBuildIdentityFrameAck: absent
+Brookhaven safe altitude: 92
+Brookhaven altitude tolerance: 72
+accepted altitude interval: 20..164
+balloon terrain clamp: 30
+delta at town center: 62
+current geometric admission: inside
 ```
 
-## Artifact and deployment gaps
+## Telemetry and render gaps
 
 ```txt
-artifact manifest and hashes: absent
-artifact identity retained in repo evidence: absent
-deployment identity retained: absent
-post-deploy HTTP and browser admission: absent
-source/build/Pages identity parity: absent
+ContactRevision readback: absent
+GroundContactResultId: absent
+MailDeliveryResultId: absent
+contact-aware message descriptor: absent
+renderer generation correlation: absent
+frame ID and image hash: absent
+FirstMailDeliveryFrameAck: absent
 ```
 
-## Status and validation gaps
+## Validation gaps
 
 ```txt
-combined commit statuses observed: empty
-workflow run inspected: no
-job logs inspected: no
-npm install/check/build executed: no
-browser fixture run: no
-artifact downloaded: no
-Page URL fetched: no
+headless grounded-delivery fixture: unavailable
+soft/hard landing fixture: unavailable
+vertical-state coherence fixture: unavailable
+same-step precedence fixture: unavailable
+browser result/frame fixture: unavailable
+built artifact fixture: unavailable
+Pages fixture: unavailable
 ```
-
-The empty status surface is not proof of success or failure.
 
 ## Dependency order
 
 ```txt
-immutable product/provider revisions
-  -> local setup and byte fingerprints
-  -> lock-governed dependencies
-  -> real-provider test receipt
-  -> Vite bundle identity receipt
-  -> build identity manifest
-  -> artifact/deployment identity
-  -> GameHost admission
+flight and terrain identity
+  -> contact classification
+  -> atomic state settlement
+  -> contact revision
+  -> delivery clearance policy
+  -> delivery result
+  -> telemetry/presentation
   -> visible frame acknowledgement
   -> source/build/Pages parity
 ```
 
 ## Retained gaps
 
-Route retirement, startup rollback, stale callback rejection, WebGL cleanup, provider capability contract proof, Core World revision adoption, grass publication, Air Mail completion and flight persistence remain open.
+Immutable provider/build identity, lifecycle retirement, startup rollback, renderer cleanup, world adoption, terrain/vegetation proof, Air Mail completion history and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not treat a recorded checkout SHA or `GameHost.nexusEngineSha` as proof that immutable provider bytes produced the built or deployed visible frame.
+Do not describe grounded delivery as browser-observed, and do not claim the path is fixed until executable fixtures prove the new authority.
