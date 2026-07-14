@@ -1,79 +1,84 @@
-# Next Steps: TheOpenAbove Pages Deployment URL Publication
+# Next Steps: TheOpenAbove Provider Build Identity
 
-**Last aligned:** `2026-07-14T11-39-41-04-00`  
-**Status:** `pages-deployment-url-artifact-publication-authority-audited`
+**Last aligned:** `2026-07-14T12-38-21-04-00`  
+**Status:** `checked-out-provider-build-browser-identity-authority-audited`
 
 ## Plan ledger
 
-**Goal:** make every public Pages link traceable to immutable source, a hashed artifact, an accepted deployment and a matching browser frame.
+**Goal:** make the real-provider test, Vite bundle, browser host and deployed frame cite one immutable product/provider identity.
 
-### Gate 1: immutable workflow inputs
+### Gate 1: immutable source admission
 
-- [ ] Checkout TheOpenAbove at `${{ github.sha }}` or an explicitly admitted revision.
-- [ ] Resolve and record the exact NexusEngine commit before checkout.
-- [ ] Bind `WorkflowRunId`, product revision and provider revision.
-- [ ] Use lockfile-governed dependency installation and record its fingerprint.
+- [ ] Checkout TheOpenAbove at `${{ github.sha }}` or another explicitly admitted immutable revision.
+- [ ] Replace NexusEngine `ref: main` selection with an exact revision resolved from a checked-in provider policy.
+- [ ] Record workflow run, attempt, product SHA, provider policy revision and provider SHA.
+- [ ] Reject event/checkout drift before tests run.
 
-### Gate 2: typed build proof
+### Gate 2: local provider setup
 
-- [ ] Publish structured results for headless status, inspection, renderer, world and smoke checks.
-- [ ] Bind each result to the same source/provider pair.
-- [ ] Fail stale or mixed-revision work before artifact creation.
+- [ ] Add a checked-in setup/preflight command for `.nexus-engine`.
+- [ ] Return typed `MissingCheckout`, `WrongRevision` and `ProviderUnavailable` results.
+- [ ] Prevent `local-main` from qualifying as a release identity.
+- [ ] Keep development override explicit and visibly non-releasable.
 
-### Gate 3: artifact manifest
+### Gate 3: byte and dependency identity
 
-- [ ] Generate `dist/deployment-manifest.json`.
-- [ ] Record product revision, NexusEngine revision, lockfile fingerprint and build policy.
-- [ ] Record every deployed file path, byte size and SHA-256 hash.
-- [ ] Hash the manifest and retain it with artifact metadata.
+- [ ] Hash `.nexus-engine/src/index.js` and any required provider manifest.
+- [ ] Add and enforce a package lock.
+- [ ] Replace `npm install` with lock-governed installation.
+- [ ] Record dependency and build-policy fingerprints.
 
-### Gate 4: deployment settlement
+### Gate 4: contract and bundle proof
 
-- [ ] Capture the uploaded artifact identity.
-- [ ] Capture the Pages deployment identity.
-- [ ] Publish `PageUrl` only from the accepted deployment result.
-- [ ] Classify failed, cancelled, superseded and timed-out deployments.
+- [ ] Preserve the real-provider World Features/Foundation test.
+- [ ] Bind the test receipt to the exact product/provider pair.
+- [ ] Add a Vite bundle fixture proving `@nexus-engine` resolves to the accepted checkout.
+- [ ] Inspect emitted bundle identity and fail mixed-provider artifacts.
 
-### Gate 5: public-origin proof
+### Gate 5: artifact identity
 
-- [ ] Fetch the returned URL with bounded retry.
-- [ ] Validate HTTP status, content type, base path and manifest identity.
-- [ ] Open one browser page against the deployed origin.
-- [ ] Require no fatal panel and require canvas readiness.
-- [ ] Admit the deployed `GameHost` generation.
-- [ ] Capture one matching Air Mail renderer frame and screenshot hash.
-- [ ] Publish `FirstDeployedAirMailFrameAck`.
+- [ ] Generate `dist/product-build-identity.json`.
+- [ ] Record product SHA, provider SHA, provider entry hash, dependency fingerprint and bundle file hashes.
+- [ ] Bind upload and deployment identities to the manifest hash.
 
-### Gate 6: parity and retention
+### Gate 6: browser and frame admission
 
-- [ ] Compare source, built and deployed manifest identities.
-- [ ] Retain artifact manifest, workflow results, deployment result and browser evidence.
-- [ ] Ensure superseded runs cannot promote public readiness.
-- [ ] Add a central ledger receipt for the accepted deployment.
+- [ ] Open the built artifact and deployed origin in a browser.
+- [ ] Require `GameHost.nexusEngineSha` to match the manifest.
+- [ ] Require Core World feature/foundation APIs and `northern-wall` registration.
+- [ ] Capture renderer generation, frame ID and image hash.
+- [ ] Publish `FirstBuildIdentityFrameAck`.
+
+### Gate 7: parity and retirement
+
+- [ ] Compare source, local build, workflow artifact and Pages identities.
+- [ ] Reject stale/superseded candidates.
+- [ ] Retain test, bundle, artifact, deployment and browser receipts.
+- [ ] Preserve route-runtime retirement and rollback requirements.
 
 ## Recommended file cut
 
 ```txt
-scripts/deployment/
-  create-deployment-manifest.mjs
-  verify-pages-origin.mjs
-  verify-pages-browser.mjs
+scripts/provider/
+  resolve-provider-revision.mjs
+  prepare-provider-checkout.mjs
+  create-build-identity-manifest.mjs
+  verify-build-identity-browser.mjs
 
-src/deployment/
-  pages-deployment-url-artifact-publication-authority-domain.js
-  pages-deployment-result-kit.js
-  deployed-route-admission-kit.js
-  first-deployed-airmail-frame-ack-kit.js
+src/provider-build/
+  checked-out-provider-build-browser-identity-authority-domain.js
+  provider-build-identity-result-kit.js
+  first-build-identity-frame-ack-kit.js
 ```
 
 ## Compatibility constraints
 
-Preserve current gameplay, provider pin used by the product, Core World composition, world generation, Air Mail behavior, visual quality and environment URL projection. Add immutable admission and evidence around the existing workflow rather than moving gameplay ownership into deployment tooling.
+Preserve the checked-out real-provider test, Vite bundling path, current Core World composition, gameplay, presentation and Pages URL projection. Add admission and evidence around them rather than moving gameplay ownership into CI.
 
 ## Retained next steps
 
-Route runtime retirement, failure rollback, WebGL cleanup, re-entry, provider contract proof, feature registration, world/foundation revision adoption, grass publication, Air Mail completion and persistence remain open.
+Route retirement, startup rollback, WebGL cleanup, provider capability contracts, world/foundation adoption, grass publication, Air Mail completion, persistence and deployed-origin proof remain open.
 
 ## Do not claim
 
-Do not claim exact deployment identity, artifact integrity, deployed-origin readiness, visible-frame equivalence or production readiness until the full source/build/Pages matrix passes on `main`.
+Do not claim reproducible provider selection, browser/provider equality, bundle provenance, deployed-frame identity or production readiness until the full identity matrix passes.
