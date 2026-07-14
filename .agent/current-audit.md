@@ -1,27 +1,25 @@
-# Current Audit: TheOpenAbove Pages Deployment URL Publication
+# Current Audit: TheOpenAbove Checked-out Provider Build Identity
 
-**Last aligned:** `2026-07-14T11-39-41-04-00`  
-**Status:** `pages-deployment-url-artifact-publication-authority-audited`  
-**Reviewed pre-audit head:** `18307d0c07d525467f0357fb5110856d04f1265c`  
-**Runtime revision retained:** `09bb6b95549d9480dfc2caa4517575ab4009ba98`  
-**Nexus Engine provider retained:** `ea973811342fe3ba2a35bb018323d987d3fec4b5`
+**Last aligned:** `2026-07-14T12-38-21-04-00`  
+**Status:** `checked-out-provider-build-browser-identity-authority-audited`  
+**Reviewed pre-audit head:** `0d9ea6f6f977b63d09f22f8ae36107bfccd81811`
 
 ## Summary
 
-The workflow now projects the Pages deployment output URL into the `github-pages` environment. The link is useful, but it is not an immutable deployment receipt. Product and NexusEngine checkouts still use mutable `main`, the uploaded `dist` tree has no retained content manifest, and the publish job runs no post-deploy route or browser proof.
+The latest four commits replace the pinned CDN NexusEngine import with a Vite alias to the workflow checkout, stamp the checkout SHA, expose it through `GameHost`, and replace the fake-provider composition test with a real checked-out-provider contract test. Test and build source now converge, but exact provider admission and browser-frame identity remain unproved.
 
 ## Plan ledger
 
-**Goal:** turn URL publication into the final projection of an accepted source-to-artifact-to-deployment transaction.
+**Goal:** promote same-checkout convergence into immutable, byte-bound, browser-acknowledged build identity.
 
 - [x] Compare the full Publish inventory with central tracking.
 - [x] Exclude TheCavalryOfRome.
 - [x] Select only TheOpenAbove as the sole current-head mismatch.
-- [x] Inspect the ahead commit and complete Pages workflow.
-- [x] Preserve the complete 100-surface kit/service census.
-- [x] Define parent authority, results and evidence gates.
+- [x] Inspect all four commits and changed files.
+- [x] Preserve all gameplay/render domains and update the census to 101 active surfaces.
+- [x] Define the provider-build identity parent domain and fixture gates.
 - [x] Change documentation only.
-- [ ] Implement and execute immutable deployment proof.
+- [ ] Implement and execute provider identity admission.
 
 ## Selection comparison
 
@@ -30,9 +28,8 @@ accessible Publish repositories: 11
 eligible non-Cavalry repositories: 10
 central ledger entries: 10
 root .agent states: 10
-new repositories: 0
-ledger missing: 0
-root .agent missing: 0
+new or ledger missing: 0
+root-agent missing: 0
 runtime ahead: 1
 selected: LuminaryLabs-Publish/TheOpenAbove
 ```
@@ -40,103 +37,103 @@ selected: LuminaryLabs-Publish/TheOpenAbove
 ## Complete interaction loop
 
 ```txt
-push main
-  -> workflow checks out product main
-  -> workflow checks out NexusEngine main
-  -> npm install and headless checks
-  -> production build to dist
-  -> upload Pages artifact
-  -> deploy artifact
-  -> expose deployment page_url
+workflow
+  -> checkout product main
+  -> checkout NexusEngine main into .nexus-engine
+  -> record provider checkout HEAD
+  -> run headless and real-provider Node contract checks
+  -> Vite aliases @nexus-engine to the same checkout
+  -> embed provider SHA string
+  -> build, upload and deploy
 
-open page_url
-  -> boot browser route
-  -> compose Core World and authored features
-  -> create WebGL world and balloon
-  -> create airstream, Air Mail and map domains
-  -> publish GameHost
-  -> render and admit player interaction
-
-current proof boundary
-  -> no immutable source/provider binding
-  -> no artifact manifest or hashes
-  -> no post-deploy HTTP/content admission
-  -> no deployed GameHost or frame acknowledgement
+browser
+  -> boot bundled provider and Core World
+  -> create balloon, world, airstream, Air Mail, map and renderer
+  -> publish GameHost.nexusEngineSha
+  -> tick and render
 ```
 
 ## Domains in use
 
 ```txt
-GitHub workflow and deployment environment
-source and provider revision admission
-Node/npm dependency and build admission
-headless proof and Vite build
-artifact manifest, upload and deployment
-Page URL publication and HTTP route admission
-browser GameHost and visible-frame evidence
-Nexus Engine Core World, simulation, Air Mail, airstream, map and WebGL presentation
-route lifecycle and resource retirement
-repo-local and central audit governance
+workflow/event and source checkout
+product/provider revision admission
+provider entry and dependency fingerprints
+Node contract validation
+Vite alias, define and bundle admission
+artifact and Pages deployment
+browser GameHost and renderer-frame identity
+Core World, foundation, features and landforms
+balloon, airstream and Air Mail gameplay
+terrain, flora, atmosphere and HDR presentation
+map, input, lifecycle and audit governance
 ```
 
 ## Kit and service census
 
 ```txt
-local source-backed kits:          71
-runtime-implied adapters:          12
-pinned Core World surfaces:        17
-current documented active total:  100
-inactive or retired legacy:        12
-planned Pages authority surfaces:  22
+local source-backed kits:           71
+runtime-implied adapters:           13
+Core World surfaces:                17
+active documented total:           101
+inactive or retired legacy:         13
+planned identity authority family:  23
 ```
 
-The complete kit-by-kit service inventory is in `.agent/trackers/2026-07-14T11-39-41-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
+The complete kit-by-kit inventory and service map are in the timestamped tracker and `.agent/kit-registry.json`.
 
 ## Source-backed findings
 
-### Environment URL projection now exists
+### Same-checkout test/build convergence now exists
 
-The publish job assigns `steps.deployment.outputs.page_url` to the `github-pages` environment URL.
+`tests/world-domain-composition.mjs` imports the real provider from `.nexus-engine/src/index.js`. Vite resolves `@nexus-engine` to the same path.
 
-### Product and provider admission remain mutable
+### The real-provider test is stronger but not a browser test
 
-Both checkouts use `ref: main`. The workflow-run event identity does not by itself prove the exact source and validation-provider commits that were checked out.
+It validates World Features, World Foundation, the authored `northern-wall`, a compiled-cell contribution, elevation sampling and `engine.tick(0)`. It does not create DOM, WebGL, `GameHost` or a visible frame.
 
-### Artifact identity is incomplete
+### Provider selection remains mutable
 
-`dist` is uploaded without a product evidence manifest containing exact source revisions, lockfile fingerprint, build policy, file sizes and content hashes.
+The workflow checks out NexusEngine using `ref: main`. The recorded SHA accurately describes that checkout, but it is observed after mutable selection rather than resolved by an immutable provider policy.
 
-### Deployed-route proof is absent
+### Product selection remains mutable
 
-No publish step fetches the returned URL, validates the served artifact, opens a browser, admits `GameHost`, or acknowledges a renderer frame.
+The product checkout also uses `ref: main`, so a queued or rerun workflow is not explicitly bound to the event commit.
 
-### Status evidence is incomplete
+### Local setup and identity remain ambiguous
 
-The inspected commit exposed no combined status records through the available commit-status surface. No success or failure inference is made from that absence.
+Vite and the test require `.nexus-engine`; no checked-in setup/preflight owns that directory. Without `VITE_NEXUS_ENGINE_SHA`, builds expose `local-main`, which is not a unique release identity.
+
+### SHA projection is not byte-bound
+
+No manifest records the provider entry hash, bundle hashes or product revision. No browser fixture compares `GameHost.nexusEngineSha` to accepted artifact evidence or a renderer frame.
+
+### Dependency reproducibility remains open
+
+The workflow runs `npm install`, and no package lock was found.
 
 ## Required parent domain
 
 ```txt
-open-above-pages-deployment-url-artifact-publication-authority-domain
+open-above-checked-out-provider-build-browser-identity-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-PagesDeploymentCommand
-  -> bind workflow run and immutable product/provider revisions
-  -> bind lockfile and build-policy fingerprints
-  -> execute headless proof and build
-  -> create and hash ArtifactManifest
-  -> upload and bind ArtifactId
-  -> deploy and bind DeploymentId
-  -> publish canonical PageUrl
-  -> verify HTTP and route fingerprints
-  -> admit GameHost and one deployed renderer frame
-  -> publish FirstDeployedAirMailFrameAck
-  -> publish PagesDeploymentResult
+ProviderBuildIdentityCommand
+  -> bind workflow event and exact product revision
+  -> resolve provider policy to an exact NexusEngine revision
+  -> checkout both immutable revisions
+  -> hash provider entry and dependency state
+  -> execute real-provider Node contract proof
+  -> execute Vite bundle proof from the same checkout
+  -> write ProductBuildIdentityManifest into dist
+  -> admit matching GameHost identity
+  -> acknowledge one matching visible frame
+  -> publish ProviderBuildIdentityResult
 ```
 
 ## Validation boundary
 
-Documentation only. No workflow rerun, job-log inspection, artifact download, URL fetch, browser launch, build execution or Pages frame proof was performed.
+Documentation only. Source, diffs and the empty combined-status surface were inspected. No workflow run, local setup, install, test, build, browser, artifact or Pages proof was executed.
