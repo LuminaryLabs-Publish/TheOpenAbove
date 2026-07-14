@@ -1,5 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@112de886131c00121c36f004c257bd50ff122589/src/index.js";
+import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@ea973811342fe3ba2a35bb018323d987d3fec4b5/src/index.js";
 import { CAMPAIGN, WORLD } from "./data/campaign.config.js";
 import { loadHotAirBalloonModel, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
 import { createBalloonSimulation } from "./runtime/balloon-simulation-kit.js";
