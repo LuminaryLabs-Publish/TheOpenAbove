@@ -1,68 +1,68 @@
-# START HERE: TheOpenAbove Checked-out Provider Build Identity
+# START HERE: TheOpenAbove Ground Contact and Delivery Eligibility
 
-**Last aligned:** `2026-07-14T12-38-21-04-00`  
+**Last aligned:** `2026-07-14T17-39-01-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Reviewed pre-audit head:** `0d9ea6f6f977b63d09f22f8ae36107bfccd81811`  
-**Status:** `checked-out-provider-build-browser-identity-authority-audited`
+**Reviewed repository head:** `542b6db53269d1c5a78825f0e70b0f630dd0fbd8`  
+**Reviewed runtime revision:** `0d9ea6f6f977b63d09f22f8ae36107bfccd81811`  
+**Status:** `ground-contact-delivery-eligibility-settlement-authority-audited`
 
 ## Summary
 
-The Node composition test and Vite browser build now consume the same checked-out NexusEngine source. CI records the checkout SHA and the browser exposes it through `GameHost.nexusEngineSha`. Provider selection is still mutable, local setup is implicit, and no byte fingerprint, artifact manifest or visible-frame acknowledgement proves that the reported SHA produced the deployed experience.
+The balloon simulation clamps terrain contact to `ground + 30`, then the same frame evaluates mail delivery without a contact result. Brookhaven accepts altitude `92 ± 72`, so the clamp altitude is inside the configured delivery band and the current source permits a grounded delivery at the town center.
 
 ## Plan ledger
 
-**Goal:** bind exact product/provider revisions, provider bytes, bundle identity, browser host state and one visible Air Mail frame.
+**Goal:** bind terrain sampling, contact classification, full velocity settlement, delivery eligibility and the first visible result frame into one deterministic authority.
 
-- [x] Compare all 11 Publish repositories and ten eligible central ledgers.
-- [x] Exclude `TheCavalryOfRome`.
-- [x] Select only TheOpenAbove as the sole runtime-ahead repository.
-- [x] Inspect four ahead commits and four changed files.
-- [x] Reconcile the complete interaction loop, domains, services and 101 active surfaces.
-- [x] Add the `2026-07-14T12-38-21-04-00` audit family.
+- [x] Compare all 11 Publish repositories with the central ledger.
+- [x] Exclude TheCavalryOfRome.
+- [x] Confirm ten eligible central ledgers and root `.agent` states.
+- [x] Select only TheOpenAbove by the oldest aligned-documentation rule.
+- [x] Inspect flight, terrain-contact and Air Mail source paths.
+- [x] Preserve the complete 101-surface kit and adapter inventory.
+- [x] Add the `2026-07-14T17-39-01-04-00` audit family.
 - [x] Push on `main`; create no branch or pull request.
-- [ ] Implement immutable provider admission and executable browser/artifact proof.
+- [ ] Implement contact and delivery settlement with executable fixtures.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-14T12-38-21-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-14T12-38-21-04-00.md
-.agent/architecture-audit/2026-07-14T12-38-21-04-00-checked-out-provider-build-identity-dsk-map.md
-.agent/render-audit/2026-07-14T12-38-21-04-00-provider-sha-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-14T12-38-21-04-00-provider-build-to-airmail-loop.md
-.agent/interaction-audit/2026-07-14T12-38-21-04-00-provider-build-command-result-map.md
-.agent/provider-build-audit/2026-07-14T12-38-21-04-00-provider-checkout-bundle-identity-contract.md
-.agent/deploy-audit/2026-07-14T12-38-21-04-00-provider-build-identity-fixture-gate.md
-.agent/central-sync-audit/2026-07-14T12-38-21-04-00-provider-build-runtime-reconciliation.md
+.agent/trackers/2026-07-14T17-39-01-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-14T17-39-01-04-00.md
+.agent/architecture-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-eligibility-dsk-map.md
+.agent/render-audit/2026-07-14T17-39-01-04-00-grounded-delivery-visible-frame-gap.md
+.agent/gameplay-audit/2026-07-14T17-39-01-04-00-ground-contact-mail-delivery-loop.md
+.agent/interaction-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-command-result-map.md
+.agent/landing-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-eligibility-contract.md
+.agent/deploy-audit/2026-07-14T17-39-01-04-00-grounded-delivery-fixture-gate.md
+.agent/central-sync-audit/2026-07-14T17-39-01-04-00-oldest-selection-ground-contact-reconciliation.md
 ```
 
 ## Main finding
 
 ```txt
-improved
-  -> real checked-out provider used by Node contract test
-  -> same checkout bundled through Vite alias
-  -> checkout SHA exposed by GameHost
-
-still missing
-  -> immutable product and provider selection
-  -> provider entry and bundle hashes
-  -> deterministic local provider setup
-  -> release rejection for local-main
-  -> browser identity admission and first matching frame
+Brookhaven safe altitude: 92
+altitude tolerance: 72
+accepted relative-altitude band: 20..164
+balloon terrain clamp: 30
+center-point altitude delta: 62
+current volume result: inside
+contact-state requirement: absent
 ```
+
+The path is source-permitted. It has not been reproduced in a browser fixture during this audit.
 
 ## Required parent domain
 
 ```txt
-open-above-checked-out-provider-build-browser-identity-authority-domain
+open-above-ground-contact-delivery-eligibility-settlement-authority-domain
 ```
 
 ## Next safe ledge
 
-Resolve both product and provider to exact revisions before checkout, hash the provider entry, add a local preflight/setup command, write a build identity manifest into `dist`, and require the browser to acknowledge one matching frame.
+Publish one `GroundContactResult` per flight step, settle `position`, `verticalVelocity` and `velocity.y` together, require `MailDeliveryEligibilityCommand` to cite the accepted `ContactRevision`, reject grounded and unsafe contact states, and acknowledge the first matching result frame.
 
 ## Do not claim
 
-Do not claim reproducible provider selection, bundle provenance, browser/provider identity, deployed-frame identity or production readiness from `GameHost.nexusEngineSha` alone.
+Do not claim landing safety, grounded-delivery rejection, contact/velocity coherence, visible-frame convergence or production readiness until the source, browser, built-artifact and Pages fixture matrix passes.
