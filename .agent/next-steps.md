@@ -1,84 +1,84 @@
-# Next Steps: TheOpenAbove Provider Build Identity
+# Next Steps: TheOpenAbove Ground Contact and Delivery Eligibility
 
-**Last aligned:** `2026-07-14T12-38-21-04-00`  
-**Status:** `checked-out-provider-build-browser-identity-authority-audited`
+**Last aligned:** `2026-07-14T17-39-01-04-00`  
+**Status:** `ground-contact-delivery-eligibility-settlement-authority-audited`
 
 ## Plan ledger
 
-**Goal:** make the real-provider test, Vite bundle, browser host and deployed frame cite one immutable product/provider identity.
+**Goal:** introduce the smallest authoritative boundary that makes terrain contact and Air Mail completion coherent without restructuring existing flight, world or rendering systems.
 
-### Gate 1: immutable source admission
+### Gate 1: flight-step and terrain identity
 
-- [ ] Checkout TheOpenAbove at `${{ github.sha }}` or another explicitly admitted immutable revision.
-- [ ] Replace NexusEngine `ref: main` selection with an exact revision resolved from a checked-in provider policy.
-- [ ] Record workflow run, attempt, product SHA, provider policy revision and provider SHA.
-- [ ] Reject event/checkout drift before tests run.
+- [ ] Allocate `RunId`, `StepId` and accepted flight revision.
+- [ ] Sample terrain once for contact settlement.
+- [ ] Record terrain provider, generation and sample identity.
+- [ ] Reject stale or superseded terrain samples.
 
-### Gate 2: local provider setup
+### Gate 2: contact classification and settlement
 
-- [ ] Add a checked-in setup/preflight command for `.nexus-engine`.
-- [ ] Return typed `MissingCheckout`, `WrongRevision` and `ProviderUnavailable` results.
-- [ ] Prevent `local-main` from qualifying as a release identity.
-- [ ] Keep development override explicit and visibly non-releasable.
+- [ ] Add `GroundContactSettlementCommand`.
+- [ ] Classify Airborne, SoftLanding, HardLanding and Grounded.
+- [ ] Settle position, `verticalVelocity` and `velocity.y` atomically.
+- [ ] Publish impact and landing events with one `ContactRevision`.
+- [ ] Preserve existing buoyancy, wind and steering behavior outside contact.
 
-### Gate 3: byte and dependency identity
+### Gate 3: delivery eligibility
 
-- [ ] Hash `.nexus-engine/src/index.js` and any required provider manifest.
-- [ ] Add and enforce a package lock.
-- [ ] Replace `npm install` with lock-governed installation.
-- [ ] Record dependency and build-policy fingerprints.
+- [ ] Add a versioned mail-clearance policy.
+- [ ] Require every delivery attempt to cite the accepted `ContactRevision`.
+- [ ] Reject Grounded, HardLanding, unresolved and stale contact states.
+- [ ] Keep destination radius and altitude geometry as necessary but insufficient conditions.
+- [ ] Publish immutable accepted, rejected, duplicate and conflict results.
 
-### Gate 4: contract and bundle proof
+### Gate 4: telemetry and presentation
 
-- [ ] Preserve the real-provider World Features/Foundation test.
-- [ ] Bind the test receipt to the exact product/provider pair.
-- [ ] Add a Vite bundle fixture proving `@nexus-engine` resolves to the accepted checkout.
-- [ ] Inspect emitted bundle identity and fail mixed-provider artifacts.
+- [ ] Add contact state and result identity to telemetry.
+- [ ] Project accepted delivery and grounded rejection from immutable descriptors.
+- [ ] Correlate `GameHost` readback with the accepted contact and mail results.
+- [ ] Publish `FirstMailDeliveryFrameAck` with renderer generation, frame ID and image hash.
 
-### Gate 5: artifact identity
+### Gate 5: deterministic fixtures
 
-- [ ] Generate `dist/product-build-identity.json`.
-- [ ] Record product SHA, provider SHA, provider entry hash, dependency fingerprint and bundle file hashes.
-- [ ] Bind upload and deployment identities to the manifest hash.
+- [ ] Prove grounded Brookhaven-center delivery is rejected.
+- [ ] Prove airborne safe-altitude delivery is accepted once.
+- [ ] Prove hard landing inside the volume does not deliver.
+- [ ] Prove full vertical-velocity settlement.
+- [ ] Prove same-step contact precedence, stale rejection and idempotency.
 
-### Gate 6: browser and frame admission
+### Gate 6: artifact and deployment parity
 
-- [ ] Open the built artifact and deployed origin in a browser.
-- [ ] Require `GameHost.nexusEngineSha` to match the manifest.
-- [ ] Require Core World feature/foundation APIs and `northern-wall` registration.
-- [ ] Capture renderer generation, frame ID and image hash.
-- [ ] Publish `FirstBuildIdentityFrameAck`.
-
-### Gate 7: parity and retirement
-
-- [ ] Compare source, local build, workflow artifact and Pages identities.
-- [ ] Reject stale/superseded candidates.
-- [ ] Retain test, bundle, artifact, deployment and browser receipts.
-- [ ] Preserve route-runtime retirement and rollback requirements.
+- [ ] Run the fixture against source and built artifact.
+- [ ] Run a browser fixture against local build and Pages.
+- [ ] Bind product/provider revisions, result IDs and frame evidence.
+- [ ] Preserve the existing provider-build identity and route-retirement gates.
 
 ## Recommended file cut
 
 ```txt
-scripts/provider/
-  resolve-provider-revision.mjs
-  prepare-provider-checkout.mjs
-  create-build-identity-manifest.mjs
-  verify-build-identity-browser.mjs
+src/runtime/ground-contact/
+  ground-contact-settlement-authority-domain.js
+  terrain-contact-sample-kit.js
+  ground-contact-classification-kit.js
+  contact-velocity-settlement-kit.js
+  ground-contact-result-kit.js
 
-src/provider-build/
-  checked-out-provider-build-browser-identity-authority-domain.js
-  provider-build-identity-result-kit.js
-  first-build-identity-frame-ack-kit.js
+src/gameplay/mail-delivery-domain/
+  mail-clearance-policy-kit.js
+  mail-delivery-eligibility-result-kit.js
+  contact-delivery-admission-kit.js
+
+tests/
+  ground-contact-delivery-eligibility.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve the checked-out real-provider test, Vite bundling path, current Core World composition, gameplay, presentation and Pages URL projection. Add admission and evidence around them rather than moving gameplay ownership into CI.
+Preserve the existing balloon simulation API, terrain-height provider, route data, town visuals, Air Mail state, map behavior and visual domain. Add typed admission around their existing data flow rather than moving gameplay ownership into `main.js`.
 
 ## Retained next steps
 
-Route retirement, startup rollback, WebGL cleanup, provider capability contracts, world/foundation adoption, grass publication, Air Mail completion, persistence and deployed-origin proof remain open.
+Immutable provider/build identity, route retirement, startup rollback, WebGL cleanup, Core World revision adoption, grass publication, mail completion history and flight persistence remain open.
 
 ## Do not claim
 
-Do not claim reproducible provider selection, browser/provider equality, bundle provenance, deployed-frame identity or production readiness until the full identity matrix passes.
+Do not claim safe landing, grounded-delivery exclusion, exact contact settlement, visible-frame convergence or deployment parity until all gates pass.
