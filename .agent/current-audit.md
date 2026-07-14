@@ -1,96 +1,91 @@
-# Current Audit: TheOpenAbove Pinned Provider Capability Contract Forwarding
+# Current Audit: TheOpenAbove Route Runtime Resource Retirement
 
-**Last aligned:** `2026-07-14T01-39-09-04-00`  
-**Status:** `pinned-provider-capability-contract-forwarding-authority-audited`  
-**Runtime revision reviewed:** `09bb6b95549d9480dfc2caa4517575ab4009ba98`  
+**Last aligned:** `2026-07-14T06-38-49-04-00`  
+**Status:** `route-runtime-resource-retirement-authority-audited`  
+**Reviewed pre-audit head:** `71a69d1bf4821bb985d4a1eb22658d1d1478ea5c`  
+**Runtime revision retained:** `09bb6b95549d9480dfc2caa4517575ab4009ba98`  
 **Nexus Engine provider:** `ea973811342fe3ba2a35bb018323d987d3fec4b5`
 
 ## Summary
 
-Commit `09bb6b95549d9480dfc2caa4517575ab4009ba98` updates the immutable Nexus Engine import to the revision that repairs `createCoreCapabilityKit()` contract forwarding. The provider now preserves domain paths, parent hierarchy, API paths, visibility, dependency tokens, provided tokens, and custom install hooks when creating Core DSKs.
+The route creates a full engine, WebGL world, balloon, airstream, mail, simulation, map, camera and presentation stack. It then exposes the mutable stack through `window.GameHost` and starts a recursive gameplay RAF. No route/session generation owns stop, failure rollback, disposal, GPU retirement, public-reference retirement or re-entry.
 
-The product still proves composition with a fake provider. It does not execute the pinned module or inspect real kit metadata, generated tokens, dependency resolution, API addressability, install aliases, token ownership, feature-set registration, visual adoption, or first-frame provenance.
+Component disposal methods exist but are never coordinated by `src/main.js`. A partial asynchronous startup failure can also leave earlier resources active while only the fatal panel is updated.
 
 ## Plan ledger
 
-**Goal:** turn the provider pin into an executable compatibility result that gates Core World composition and the playable world.
+**Goal:** turn route lifecycle into a typed, generation-bound transaction without restructuring the existing gameplay or visual domains.
 
-- [x] Compare the full Publish inventory and central ledger.
+- [x] Compare the full current Publish inventory with central tracking.
 - [x] Exclude TheCavalryOfRome.
-- [x] Select only TheOpenAbove as the sole runtime-ahead repository.
-- [x] Inspect the one changed product file and exact upstream commit.
-- [x] Inspect the Core capability wrapper, DSK constructor, World Features domain, product boot, test, and package wiring.
-- [x] Preserve all 100 active surfaces and services.
-- [x] Define the parent authority, result map, and fixture gate.
+- [x] Select only TheOpenAbove by oldest eligible central timestamp.
+- [x] Inspect current boot, RAF, input, map, domain and visual disposal paths.
+- [x] Preserve the 100-surface kit/service census.
+- [x] Define parent authority, results, receipts and fixture gate.
 - [x] Change documentation only.
 - [ ] Implement and execute the authority.
 
 ## Selection comparison
 
 ```txt
-accessible Publish repositories: 10
-eligible non-Cavalry repositories: 9
-central ledger entries: 9
-root .agent states: 9
+accessible Publish repositories: 11
+eligible non-Cavalry repositories: 10
+central ledger entries: 10
+root .agent states recorded: 10
 new eligible repositories: 0
-ledger-missing eligible repositories: 0
-root-agent-missing eligible repositories: 0
-runtime-ahead repositories: 1
+ledger-missing repositories: 0
+root-agent-missing repositories: 0
+runtime-ahead repositories: 0
 selected: LuminaryLabs-Publish/TheOpenAbove
-prior documentation head: c06f9a7df59a605ac22619dbefef831d412d619a
-reviewed runtime head: 09bb6b95549d9480dfc2caa4517575ab4009ba98
-reconciled commits: 1
-changed files: src/main.js
+selection rule: oldest eligible central documentation timestamp
 ```
 
 ## Complete interaction loop
 
 ```txt
-main.js imports immutable Nexus Engine ea973811...
-  -> createBalloonTelemetryEngine
-  -> define telemetry resources/event/system
-  -> compose Core World with childDomains:false
-  -> compose World Foundation
-  -> compose World Features
-  -> compose Landform Features
-  -> compose Balloon Telemetry
-  -> repaired provider preserves domain hierarchy, requires/provides and install hooks
-  -> engine installs canonical engine.n APIs and domain addressability
-  -> World Features install publishes engine.worldFeatures alias
-  -> product validates engine.n.worldFeatures.registerFeature
-  -> authored landforms register
-  -> visual domain receives World Features and Foundation APIs
-  -> world, terrain, flora, balloon, airstream, mail, camera and presentation initialize
-  -> initial update and engine tick
-  -> canvas leaves aria-busy
-  -> RAF updates flight, world, rendering and telemetry
+boot
+  -> create routes and telemetry engine
+  -> register authored landforms
+  -> create visual world and renderer
+  -> await balloon model
+  -> create airstream and mail domains
+  -> create simulation and install global input listeners
+  -> create map and install key listener, observer and private RAF
+  -> create camera and presentation
+  -> publish window.GameHost
+  -> clear aria-busy
+  -> start recursive gameplay RAF
 
-failure
-  -> import, contract, composition, feature, model or visual error throws
-  -> boot catches and projects fatal text
-  -> no typed provider result, retry, rollback or cleanup receipt
+frame
+  -> update simulation, mail, airstream, balloon, camera, world and telemetry
+  -> render
+  -> request next frame
 
-proof
-  -> npm run check includes fake-provider composition smoke
-  -> fake factories and engine namespace bypass the repaired provider code
+exit/failure/re-entry
+  -> no aggregate stop or rollback
+  -> no gameplay RAF cancellation
+  -> no participant disposal transaction
+  -> no GPU retirement result
+  -> no GameHost retirement
+  -> no stale predecessor rejection
 ```
 
 ## Domains in use
 
 ```txt
-browser ESM, DOM, canvas, error panel, GameHost and RAF
-immutable provider identity and capability contract forwarding
-Nexus resources, events, systems, runtime kits and DSK construction
-Core World root and child policy
-World Foundation, World Features and Landform Features
-product landform descriptors and foundation bridge
-staged world generation, terrain, vegetation, grass and flowers
-balloon simulation, telemetry, airstream and Air Mail
-balloon object, camera and presentation
-map, sky, clouds, water, HDR and lens
-provider manifest, contract fingerprint and token ownership
-feature registration, visual admission and visible-frame proof
-headless, source, build, browser and Pages validation
+browser route, ESM, DOM, canvas, accessibility, error handling and RAF
+route/session generation, callback admission and public host publication
+Nexus Engine runtime, telemetry and Core World composition
+World Foundation, Features, Landforms and authored feature registration
+balloon simulation and keyboard input
+airstream field, force, visuals and diagnostics
+Air Mail parcel, routes, towns, delivery and visuals
+world generation, terrain, vegetation, grass, flowers, water and landmarks
+sky, sun, atmosphere, clouds, HDR, grading, lens and dynamic resolution
+balloon geometry, materials, rigging, burner, rope, camera and presentation
+parchment map, map input, ResizeObserver and map RAF
+component disposal, aggregate retirement, failure rollback and re-entry proof
+source, build, browser and Pages validation
 ```
 
 ## Kit and service census
@@ -101,60 +96,62 @@ runtime-implied adapters:          12
 pinned Core World surfaces:        17
 current documented active total:  100
 inactive or retired legacy:        12
-planned provider-contract surfaces: 23
+planned retirement surfaces:       22
 ```
 
-The complete kit-by-kit service inventory is recorded in `.agent/trackers/2026-07-14T01-39-09-04-00/project-breakdown.md`.
+The complete kit-by-kit service inventory is in `.agent/trackers/2026-07-14T06-38-49-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
 
 ## Source-backed findings
 
-### The provider pin is correctly targeted
+### Existing disposers are orphaned
 
-The only product change selects the exact upstream revision whose only change forwards Core capability contract fields into the DSK constructor.
+Simulation, airstream, mail, map and visual domains expose disposal services. The route never invokes them.
 
-### The repair restores real DSK semantics
+### Frame ownership is implicit
 
-`defineDomainServiceKit()` uses these fields for canonical path validation, generated capability tokens, dependency admission, API visibility, overwrite rejection, addressability, and custom post-install behavior.
+The gameplay RAF request ID is discarded, and each callback unconditionally schedules its successor. There is no route generation or stale-callback test.
 
-### World Features depends on the repaired fields
+### Failure rollback is absent
 
-The domain declares `n:world:features`, parent `n:world`, dependency `n:world`, and a custom alias install. TheOpenAbove consumes `engine.n.worldFeatures` and passes it into its visual foundation bridge.
+The asynchronous bootstrap catches errors only at the outer boundary. Resources acquired before a failed stage are not retired and no rollback receipt is emitted.
 
-### The current product test cannot regress this bug
+### Public authority never terminates
 
-The fake test returns plain kit objects and a handcrafted `engine.n.worldFeatures`. It never runs `createCoreCapabilityKit()` or `defineDomainServiceKit()` from the pinned provider.
+`window.GameHost` remains a live mutable object with engine, renderer, scene, camera and domain references. It has no status, generation or retirement result.
 
-### Provider identity is static but not observable
+### Visual retirement is not proven
 
-The SHA is embedded in an import URL. No runtime result or GameHost readback exposes the provider revision and contract fingerprint.
-
-### Feature and frame adoption remain uncorrelated
-
-Features register sequentially, and rendered frames do not carry provider, composition, registry, foundation, or world-generation revisions.
+The visual domain owns a WebGL renderer and post-processing resources, but no aggregate result proves final frame, scene resource counts, renderer/context policy or complete successor isolation.
 
 ## Required parent domain
 
 ```txt
-open-above-pinned-provider-capability-contract-admission-authority-domain
+open-above-route-runtime-resource-retirement-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-PinnedProviderCapabilityAdmissionCommand
-  -> bind immutable provider revision and host generation
-  -> validate exports
-  -> instantiate and inspect real Core World domain contracts
-  -> verify paths, hierarchy, visibility, requires, provides and install hooks
-  -> validate unique token ownership and API addressability
-  -> compose a disposable candidate engine
-  -> prove canonical and legacy aliases
-  -> register and fingerprint the complete feature set
-  -> publish ProviderCapabilityContractResult
-  -> bind visual bootstrap to accepted revisions
-  -> publish FirstProviderContractWorldFrameAck
+RouteRuntimeStartCommand
+  -> allocate route/session generations
+  -> register all owned resources
+  -> atomically publish ActiveRouteRuntimeResult
+  -> admit frames only for active generations
+
+RouteRuntimeStopCommand
+  -> reject new frames and input
+  -> cancel owned callbacks
+  -> dispose participants in dependency order
+  -> retire GPU and public ownership
+  -> publish receipts and RouteRuntimeRetirementResult
+  -> acknowledge no predecessor callback can commit
+
+RouteRuntimeFailureCommand
+  -> cite failed stage
+  -> roll back all resources acquired by the candidate generation
+  -> publish one immutable terminal failure result
 ```
 
 ## Validation boundary
 
-Documentation only. The latest product and upstream commits, provider wrapper, DSK constructor, World Features domain, product boot, fake test, package wiring, and empty combined status were inspected. A local clone could not start because the execution environment could not resolve `github.com`. No check, build, headless, browser, or Pages fixture was executed.
+Documentation only. No runtime, test, package, dependency, workflow or deployment file changed. Browser stop, re-entry, failure injection, WebGL retirement, source/build parity and Pages lifecycle fixtures were not executed.
