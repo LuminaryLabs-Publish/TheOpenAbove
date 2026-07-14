@@ -1,30 +1,29 @@
-# Current Audit: TheOpenAbove Grass Seed Module Environment and Publication Authority
+# Current Audit: TheOpenAbove World Domain Composition and Provider Admission
 
-**Last aligned:** `2026-07-13T21-58-55-04-00`  
-**Status:** `grass-seed-module-environment-publication-authority-audited`  
-**Runtime revision reviewed:** `d3d4e735e56a36f2e18250a30c72b10152c2fdba`  
+**Last aligned:** `2026-07-13T22-58-22-04-00`  
+**Status:** `world-domain-composition-provider-admission-authority-audited`  
+**Runtime revision reviewed:** `3884cc509562c07c7c8eee15dd67fd707be64198`  
 **Nexus Engine provider:** `112de886131c00121c36f004c257bd50ff122589`
 
 ## Summary
 
-Commit `d3d4e735e56a36f2e18250a30c72b10152c2fdba` wraps the grass-seed compatibility-global assignment in `if (typeof window !== "undefined")`. This is a correct Node/headless portability repair because world-generation support imports the seed module transitively.
+Commit `3884cc509562c07c7c8eee15dd67fd707be64198` fixes the deployed startup failure by explicitly composing the Core World root, World Foundation, World Features and Landform Features before the telemetry kit. It disables implicit child-domain installation, adds the telemetry dependency, validates `registerFeature`, guards the telemetry browser global and adds a composition smoke test.
 
-The reusable ESM remains impure in browsers. It writes `window.OpenAboveGrassWorldSeedKit` during module evaluation, while current repository consumers use named ESM imports. There is no explicit installer, publication identity, API revision, collision handling, host-generation admission, idempotent result, disposal or visible consumer proof.
+The remaining audit gap is executable provider admission. The new test supplies fake factory methods and a handcrafted engine namespace. It does not prove the pinned provider's actual exports, token ownership, duplicate prevention, aggregate feature registration, browser visual bootstrap or first visible frame.
 
 ## Plan ledger
 
-**Goal:** preserve deterministic world, grass and flower generation while moving optional legacy global exposure into an explicit host-owned lifecycle.
+**Goal:** make the repaired domain graph a provider-versioned startup contract with typed preparation, feature registration and visible readiness results.
 
 - [x] Compare the full Publish inventory and central ledger.
 - [x] Exclude TheCavalryOfRome.
-- [x] Confirm all nine eligible repositories are tracked and have root `.agent` state.
-- [x] Compare every eligible repository head with its recorded documentation head.
 - [x] Select only TheOpenAbove as the sole runtime-ahead repository.
-- [x] Inspect the latest commit, seed module, world support, grass tests, smoke, headless environment and package scripts.
-- [x] Preserve the 99 active kit and adapter surfaces.
-- [x] Define the parent authority and fixture gate.
+- [x] Inspect the latest commit and its three changed files.
+- [x] Trace domain composition into feature registration and visual startup.
+- [x] Preserve all prior kit surfaces and add the new proof surface.
+- [x] Define the parent authority, result map and fixture gate.
 - [x] Change documentation only.
-- [ ] Implement and execute the publication authority.
+- [ ] Implement and execute the authority.
 
 ## Selection comparison
 
@@ -38,136 +37,129 @@ ledger-missing eligible repositories: 0
 root-agent-missing eligible repositories: 0
 runtime-ahead repositories: 1
 selected: LuminaryLabs-Publish/TheOpenAbove
-prior documentation head: d6d43dfd44b851ab14ead93e8791e567deda9806
-reviewed runtime head: d3d4e735e56a36f2e18250a30c72b10152c2fdba
+prior documentation head: a3656e9d9ce2ca626317eadc9c0483c631f45fdd
+reviewed runtime head: 3884cc509562c07c7c8eee15dd67fd707be64198
 reconciled commits: 1
-changed runtime file: src/visual/grass-field/grass-world-seed-kit.js
-excluded: LuminaryLabs-Publish/TheCavalryOfRome
+changed files: package.json, src/runtime/balloon-telemetry-kit.js, tests/world-domain-composition.mjs
 ```
-
-## Reconciled change
-
-```txt
-before
-  window.OpenAboveGrassWorldSeedKit = { ... }
-
-after
-  if (typeof window !== "undefined") {
-    window.OpenAboveGrassWorldSeedKit = { ... }
-  }
-```
-
-Node and headless module evaluation no longer requires a browser global. Browser evaluation still performs ambient compatibility publication.
 
 ## Complete interaction loop
 
 ```txt
-headless world validation
-  -> Nexus editor capability world-generation.validate
-  -> npm run check
-  -> smoke imports world and grass fixtures
-  -> world-generation-support imports grass-world-seed-kit
-  -> seed exports evaluate in Node
-  -> guard suppresses global write
-  -> deterministic world and flora proof continues
+main.js imports pinned Nexus Engine
+  -> createBalloonTelemetryEngine
+  -> define telemetry resources/event/system
+  -> compose Core World root with childDomains:false
+  -> compose World Foundation
+  -> compose World Features
+  -> compose Landform Features
+  -> compose Balloon Telemetry
+  -> validate engine.n.worldFeatures.registerFeature
+  -> register WORLD.features.landforms
+  -> create visual domain with worldFeatures and worldFoundation
+  -> build world, terrain and flora
+  -> initialize balloon, airstream, mail, simulation and camera
+  -> initial update and engine tick
+  -> publish GameHost and start RAF
 
-browser runtime
-  -> world, grass or flower consumer imports the seed module
-  -> deterministic named exports become available
-  -> module also overwrites window.OpenAboveGrassWorldSeedKit
-  -> no host admission or terminal publication result
-  -> world and flora build from the seed utilities
-  -> renderer presents content without seed/publication revision evidence
+failure
+  -> missing API throws
+  -> boot catches
+  -> error panel displays stack/message
+  -> no typed composition or cleanup result
 
-retirement
-  -> no owner tracks the ambient global
-  -> route or runtime disposal cannot prove safe removal
+proof
+  -> npm run check includes world-domain-composition.mjs
+  -> fake provider records factory order
+  -> fake engine supplies registerFeature
+  -> no real provider or browser boot is exercised
 ```
 
 ## Domains in use
 
 ```txt
-browser and Node ESM evaluation
-globalThis/window environment classification
-import purity and compatibility publication
-headless editor capability execution
-smoke, build and Pages proof
-balloon simulation, airstream and Air Mail
-Nexus Realtime resource/event publication
-Core World, World Foundation, World Features and Landform Features
-product world generation and deterministic support math
-terrain streaming and height queries
-vegetation, grass and flower generation
-map, sky, clouds, water, HDR and lens presentation
-visible seed-consumer revision proof
+browser ESM, DOM, canvas, error panel, GameHost and RAF
+pinned provider resolution and provider revision
+Nexus resources, events, systems and runtime composition
+Core World root and child-domain policy
+World Foundation, World Features and Landform Features
+product feature descriptors and foundation bridge
+world generation, terrain streaming, vegetation, grass and flowers
+balloon simulation, telemetry, airstream and Air Mail
+balloon object, camera and visual presentation
+map, sky, clouds, water, HDR and lens
+provider manifest and domain dependency admission
+feature-set registration and registry revision
+visual bootstrap and first visible world-frame proof
+headless, smoke, build and Pages validation
 ```
 
 ## Kit and service census
 
 ```txt
-local source-backed kits:          70
+local source-backed kits:          71
 runtime-implied adapters:          12
 pinned Core World surfaces:        17
-current documented active total:   99
+current documented active total:  100
 inactive or retired legacy:        12
-planned publication surfaces:      18
+planned composition surfaces:      20
 ```
 
-The complete kit-by-kit inventory and service map is recorded in `.agent/trackers/2026-07-13T21-58-55-04-00/project-breakdown.md`.
+The complete kit-by-kit service inventory is recorded in `.agent/trackers/2026-07-13T22-58-22-04-00/project-breakdown.md`.
 
 ## Source-backed findings
 
-### Portability repair is valid
+### Immediate runtime defect is fixed
 
-The environment guard prevents the seed module from referencing an undeclared browser global in Node. This is required because `world-generation-support.js` imports `hashGrassSeed`, `normalizeGrassSeed` and `seedFloat` from the visual grass module.
+The product no longer assumes `createCoreWorldDomain()` will install nested APIs. The exact required world domains are explicit, and the telemetry kit states its feature dependency.
 
-### Import purity remains unresolved
+### Fake-provider proof is narrower than production
 
-Browser import still mutates `window`. The retained import-purity audit states that reusable kit imports must publish no global runtime object and that legacy globals must be explicitly installed and removed by the host.
+The test controls every factory and the returned namespace. It cannot detect an export rename, actual token mismatch, unexpected child installation, duplicate provider, installer-order difference or real engine namespace behavior.
 
-### Compatibility global has no current in-repo consumer
+### Provider preflight is absent
 
-Repository search found `OpenAboveGrassWorldSeedKit` only at its declaration. World, grass and flower systems import named ESM exports.
+No manifest validates the pinned module's required exports before resources and kits are created. Provider compatibility is discovered through thrown JavaScript errors.
 
-### Tests do not prove purity
+### Feature registration is sequential
 
-`tests/grass-field.mjs` assigns `globalThis.window = globalThis` before importing modules. It proves deterministic output and budgets, but not zero ambient mutation, explicit installation, collision handling or disposal.
+Features are registered one by one after engine construction. There is no aggregate candidate, feature-set fingerprint, expected registry revision, conflict policy, rollback receipt or terminal set result.
 
-### Cross-domain coupling remains
+### Visual readiness is uncorrelated
 
-World-generation support imports a seed utility located under the visual grass domain. That module's browser side effect is therefore triggered by world-generation consumers even when no grass compatibility surface is requested.
+The visual domain receives engine APIs, but no composition revision or feature registry revision is carried into world generation, public readback or rendered frames.
 
-### Publication lifecycle is absent
+### Error projection is useful but untyped
 
-No publication ID, API revision, host session, host generation, target inspection, collision result, idempotence policy, ownership marker or retirement receipt exists.
+The error panel contains startup failures, but no structured status supports retry, diagnostics, stale-generation rejection or cleanup proof.
 
-### Visible correlation is absent
+### Validation remains incomplete
 
-World, grass and flower consumer snapshots and frames carry no common seed algorithm revision or first-visible-frame acknowledgement.
+The package check includes the new smoke, but this audit did not run it. The reviewed commit reports no combined status checks. Real-provider, browser, build and Pages fixtures are absent.
 
 ## Required parent domain
 
 ```txt
-open-above-module-environment-compatibility-publication-authority-domain
+open-above-world-domain-composition-admission-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-CompatibilityPublicationCommand
-  -> bind module ID, API revision, target environment and host generation
-  -> import reusable ESM with zero ambient mutation
-  -> classify publication as required or unnecessary
-  -> inspect target namespace and existing owner
-  -> reject foreign collision, incompatible revision or stale generation
-  -> install one immutable compatibility facade
-  -> publish CompatibilityPublicationResult
-  -> correlate seed revision with world, grass and flower consumers
-  -> retire only the owned publication
-  -> publish CompatibilityRetirementResult
-  -> publish FirstSeedRevisionFrameAck
+WorldDomainCompositionCommand
+  -> bind provider revision and host generation
+  -> validate provider exports and composition manifest
+  -> prepare explicit Core World, Foundation, Features, Landforms and Telemetry kits
+  -> validate IDs, provides, requires and unique ownership
+  -> compose the real candidate engine
+  -> probe worldFeatures and worldFoundation
+  -> prepare and validate the complete feature set
+  -> reject stale, duplicate, conflicting or failed work without partial adoption
+  -> publish WorldDomainCompositionResult and FeatureSetRegistrationResult
+  -> admit visual bootstrap against those revisions
+  -> publish FirstRegisteredWorldFrameAck
 ```
 
 ## Validation boundary
 
-Documentation only. The upstream runtime fix was inspected. This audit did not change runtime, tests, dependencies, scripts, workflow or deployment. No local check, build, browser, worker or Pages fixture was executed, and the reviewed runtime commit reported no combined status checks.
+Documentation only. No runtime, tests, dependencies, package scripts, workflow or deployment were changed by this audit. No local check, build, headless, browser or Pages fixture was executed.
