@@ -1,91 +1,91 @@
-# Next Steps: TheOpenAbove Grass Seed Module Environment and Publication Authority
+# Next Steps: TheOpenAbove World Domain Composition and Provider Admission
 
-**Last aligned:** `2026-07-13T21-58-55-04-00`  
-**Status:** `grass-seed-module-environment-publication-authority-audited`
+**Last aligned:** `2026-07-13T22-58-22-04-00`  
+**Status:** `world-domain-composition-provider-admission-authority-audited`
 
 ## Plan ledger
 
-**Goal:** make deterministic seed imports pure and portable, then provide optional legacy browser publication through a typed, host-owned and reversible adapter.
+**Goal:** turn the targeted explicit-composition fix into a real-provider, duplicate-safe and visibly proven startup contract without restructuring Nexus Engine.
 
-### Gate 1: pure seed module
+### Gate 1: provider API manifest
 
-- [ ] Remove the `window.OpenAboveGrassWorldSeedKit` assignment from `grass-world-seed-kit.js`.
-- [ ] Keep the existing named ESM exports unchanged.
-- [ ] Define a stable `GrassSeedPublicApiManifest` and algorithm revision.
-- [ ] Confirm import registers no callbacks, listeners, timers or globals.
+- [ ] Declare the pinned provider revision.
+- [ ] Validate `defineResource`, `defineEvent`, `defineRuntimeKit` and `createRealtimeGame`.
+- [ ] Validate the four required Core World domain factories.
+- [ ] Return a typed provider-admission result before kit creation.
 
-### Gate 2: compatibility adapter
+### Gate 2: composition manifest
 
-- [ ] Add `grass-world-seed-compatibility-adapter.js`.
-- [ ] Require an explicit publication command from the browser host.
-- [ ] Freeze the published facade.
-- [ ] Include API revision, publication ID and host generation.
-- [ ] Return typed installation and retirement results.
+- [ ] Declare the ordered participant list.
+- [ ] Keep `createCoreWorldDomain({ childDomains: false })`.
+- [ ] Record expected IDs, `requires` and `provides` tokens.
+- [ ] Reject duplicate token providers and implicit-child conflicts.
+- [ ] Record one composition revision and host generation.
 
-### Gate 3: target and collision policy
+### Gate 3: real-provider fixture
 
-- [ ] Inspect the target namespace before mutation.
-- [ ] Treat same-owner same-revision installation as idempotent.
-- [ ] Reject foreign or incompatible globals without overwriting them.
-- [ ] Reject stale host generations.
-- [ ] Define explicit hot-reload replacement policy.
+- [ ] Import Nexus Engine revision `112de886131c00121c36f004c257bd50ff122589`.
+- [ ] Compose the actual engine.
+- [ ] Assert `worldFeatures` and `worldFoundation` capabilities.
+- [ ] Assert one owner per required namespace/token.
+- [ ] Assert no duplicate child installation.
 
-### Gate 4: owned retirement
+### Gate 4: feature-set transaction
 
-- [ ] Remove only the publication created by the active adapter.
-- [ ] Preserve foreign or successor values.
-- [ ] Return `already-retired`, `not-owner` and `stale-publication` results.
-- [ ] Integrate retirement with browser host disposal.
+- [ ] Fingerprint the complete authored landform set.
+- [ ] Validate every feature before mutation.
+- [ ] Define identical-duplicate idempotence and conflicting-duplicate rejection.
+- [ ] Adopt all features or none.
+- [ ] Return per-feature receipts and one aggregate result.
 
-### Gate 5: environment proof
+### Gate 5: visual bootstrap admission
 
-- [ ] Import in Node without `window`.
-- [ ] Import in Node with a synthetic `window` and prove zero mutation.
-- [ ] Import in a worker-like environment.
-- [ ] Import in a browser and prove zero implicit publication.
-- [ ] Exercise explicit install, idempotence, collision and disposal.
+- [ ] Bind visual construction to composition and feature registry revisions.
+- [ ] Bind world generation and terrain sampling to the same revisions.
+- [ ] Publish a typed visual-bootstrap result.
+- [ ] Expose immutable revision readback through GameHost diagnostics.
 
-### Gate 6: source/build/Pages parity
+### Gate 6: visible-frame proof
 
-- [ ] Probe the source ESM API manifest.
-- [ ] Build with Vite and probe the built API manifest.
-- [ ] Probe the Pages artifact revision.
-- [ ] Execute compatibility installation against built and deployed outputs.
-- [ ] Publish one `ModuleEnvironmentProofResult`.
+- [ ] Add a frame envelope carrying provider, composition, registry and world-generation revisions.
+- [ ] Publish `FirstRegisteredWorldFrameAck`.
+- [ ] Reject a frame produced from predecessor or mixed revisions.
 
-### Gate 7: consumer and visible proof
+### Gate 7: source/build/Pages fixtures
 
-- [ ] Bind world generation to the grass-seed algorithm revision.
-- [ ] Bind grass and flower consumers to the same revision.
-- [ ] Expose revisions through diagnostics and GameHost.
-- [ ] Add `FirstSeedRevisionFrameAck`.
-- [ ] Reject mixed-revision world/flora frames.
+- [ ] Run `npm run check`.
+- [ ] Run the real-provider Node fixture.
+- [ ] Run a source browser boot fixture.
+- [ ] Run the production Vite build and browser fixture.
+- [ ] Run the deployed Pages fixture.
+- [ ] Exercise missing factory, duplicate provider, partial registration and visible-frame timeout failures.
 
 ## Recommended file cut
 
 ```txt
-src/visual/grass-field/
-  grass-world-seed-kit.js
-  grass-world-seed-compatibility-adapter.js
-  grass-seed-public-api-manifest-kit.js
-
-src/runtime/compatibility/
-  compatibility-publication-authority-domain.js
-  compatibility-publication-result-kit.js
-  compatibility-retirement-kit.js
+src/runtime/world-composition/
+  world-domain-composition-authority-domain.js
+  nexus-provider-api-manifest-kit.js
+  world-domain-composition-manifest-kit.js
+  world-domain-composition-result-kit.js
+  feature-set-registration-kit.js
+  visual-bootstrap-admission-kit.js
 
 tests/
-  grass-seed-import-purity.mjs
-  grass-seed-compatibility.browser.mjs
-  grass-seed-worker-import.mjs
-  grass-seed-build-parity.mjs
-  grass-seed-pages-parity.mjs
+  world-domain-composition.real-provider.mjs
+  world-domain-composition.browser.mjs
+  world-domain-composition.build.mjs
+  world-domain-composition.pages.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve deterministic normalization and hashing output, existing ESM import paths, current world generation, grass and flower layouts, route/town protection, staged generation, map rendering, flight behavior and Air Mail gameplay.
+Preserve the explicit domain list, `childDomains:false`, existing telemetry API, authored world features, deterministic generation, terrain and flora output, flight behavior, Air Mail, map behavior and the pinned provider until a deliberate provider upgrade is separately admitted.
+
+## Retained next steps
+
+The grass-seed import-purity and compatibility-publication work remains open. It should proceed independently after the startup-critical world composition fixture is established.
 
 ## Do not claim
 
-Do not claim import purity, collision-safe installation, owned retirement, worker compatibility, source/build/Pages parity or visible seed revision convergence until all gates pass on `main`.
+Do not claim real-provider compatibility, duplicate-safe composition, atomic feature registration, browser readiness or visible-frame convergence until every gate passes on `main`.
