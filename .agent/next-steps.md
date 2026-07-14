@@ -1,93 +1,87 @@
-# Next Steps: TheOpenAbove Pinned Provider Capability Contract Forwarding
+# Next Steps: TheOpenAbove Route Runtime Resource Retirement
 
-**Last aligned:** `2026-07-14T01-39-09-04-00`  
-**Status:** `pinned-provider-capability-contract-forwarding-authority-audited`
+**Last aligned:** `2026-07-14T06-38-49-04-00`  
+**Status:** `route-runtime-resource-retirement-authority-audited`
 
 ## Plan ledger
 
-**Goal:** prove the exact pinned provider contract before extending feature registration, visual readiness, or deployment claims.
+**Goal:** implement complete route ownership from startup through failure rollback, stop, disposal and verified successor re-entry.
 
-### Gate 1: provider revision manifest
+### Gate 1: route and session generations
 
-- [ ] Declare provider URL and revision `ea973811342fe3ba2a35bb018323d987d3fec4b5` in a local manifest.
-- [ ] Validate required exports before domain construction.
-- [ ] Calculate a provider-module fingerprint.
-- [ ] Publish `ProviderModuleResult`.
+- [ ] Add immutable `RouteGeneration` and `SessionGeneration` identifiers.
+- [ ] Make every gameplay frame cite both generations.
+- [ ] Reject stale or superseded callbacks before mutation.
 
-### Gate 2: real Core capability contract inspection
+### Gate 2: owned resource manifest
 
-- [ ] Instantiate Core World, Foundation, Features, and Landforms from the real provider.
-- [ ] Assert IDs, domains, `domainPath`, `parentDomainPath`, and `apiPath`.
-- [ ] Assert API visibility.
-- [ ] Assert every `requires` and `provides` token.
-- [ ] Assert service lists and metadata.
-- [ ] Calculate one provider-contract fingerprint.
+- [ ] Register every gameplay/map RAF.
+- [ ] Register input and resize listeners.
+- [ ] Register ResizeObserver and world-generation subscriptions.
+- [ ] Register public `GameHost` ownership.
+- [ ] Register scene, render-target, composer and renderer resources.
 
-### Gate 3: install and addressability proof
+### Gate 3: aggregate start and rollback
 
-- [ ] Compose with `childDomains:false`.
-- [ ] Assert one owner for every mandatory capability token.
-- [ ] Assert `engine.n.worldFeatures` and `engine.n.worldFoundation`.
-- [ ] Assert `engine.worldFeatures === engine.n.worldFeatures`.
-- [ ] Assert no API overwrite or duplicate child installation.
-- [ ] Retire the candidate cleanly after the fixture.
+- [ ] Split bootstrap into named preparation stages.
+- [ ] Record acquired ownership after every successful stage.
+- [ ] Roll back all candidate resources after any failure.
+- [ ] Restore terminal canvas and error accessibility state.
+- [ ] Publish `RouteRuntimeStartResult` or `RouteRuntimeFailureResult`.
 
-### Gate 4: product feature-set transaction
+### Gate 4: stop and dispose transaction
 
-- [ ] Validate all authored landforms before mutation.
-- [ ] Fingerprint the complete feature set.
-- [ ] Define identical-duplicate idempotence and conflicting-duplicate rejection.
-- [ ] Adopt all features or none.
-- [ ] Publish per-feature receipts and one aggregate result.
+- [ ] Stop frame admission before component disposal.
+- [ ] Cancel gameplay and map RAFs.
+- [ ] Clear input state and reject new commands.
+- [ ] Dispose map, simulation, mail, airstream, presentation and visual owners in dependency order.
+- [ ] Retire scene/model geometry, materials, targets, composer and renderer according to explicit ownership.
+- [ ] Retire engine subscriptions.
+- [ ] Remove or replace predecessor `window.GameHost`.
+- [ ] Publish per-owner receipts and one `RouteRuntimeRetirementResult`.
 
-### Gate 5: visual bootstrap admission
+### Gate 5: re-entry proof
 
-- [ ] Bind visual creation to provider contract, composition, registry, and foundation revisions.
-- [ ] Expose immutable revision readback through GameHost diagnostics.
-- [ ] Prevent visual startup from a rejected or stale provider contract.
+- [ ] Start a second route in the same document.
+- [ ] Prove no predecessor RAF can commit.
+- [ ] Prove listener and observer counts do not increase unexpectedly.
+- [ ] Prove predecessor GPU resource counts retire.
+- [ ] Publish `FirstSuccessorRouteFrameAck`.
 
-### Gate 6: visible-frame proof
+### Gate 6: artifact parity
 
-- [ ] Add a frame envelope with provider and world revisions.
-- [ ] Publish `FirstProviderContractWorldFrameAck`.
-- [ ] Reject mixed, predecessor, stale, or timed-out frames.
-
-### Gate 7: source/build/Pages parity
-
-- [ ] Add `tests/world-domain-composition.real-provider.mjs`.
-- [ ] Run `npm run check`.
-- [ ] Run `npm run build`.
-- [ ] Run source-browser, built-browser, and Pages fixtures.
-- [ ] Compare provider and contract fingerprints across all surfaces.
-- [ ] Exercise missing-export, wrong-path, unsatisfied-dependency, duplicate-owner, alias-failure, feature-conflict, and frame-timeout cases.
+- [ ] Add source-browser stop/re-entry fixture.
+- [ ] Add built-browser stop/re-entry fixture.
+- [ ] Add Pages stop/re-entry fixture.
+- [ ] Compare route generations, receipts and resource counts.
+- [ ] Exercise failure after engine, renderer, balloon and map creation.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/provider-contract/
-  pinned-provider-capability-contract-authority-domain.js
-  provider-revision-manifest-kit.js
-  provider-export-probe-kit.js
-  core-capability-contract-manifest-kit.js
-  provider-capability-contract-result-kit.js
-  feature-set-registration-result-kit.js
-  visual-bootstrap-contract-admission-kit.js
+src/runtime/route-lifecycle/
+  route-runtime-resource-retirement-authority-domain.js
+  route-generation-kit.js
+  owned-resource-manifest-kit.js
+  gameplay-frame-admission-kit.js
+  route-runtime-start-result-kit.js
+  route-runtime-retirement-result-kit.js
+  startup-failure-rollback-kit.js
 
-tests/
-  world-domain-composition.real-provider.mjs
-  world-domain-composition.browser.mjs
-  world-domain-composition.build.mjs
-  world-domain-composition.pages.mjs
+browser fixtures/
+  route-stop-reentry.mjs
+  route-startup-failure-rollback.mjs
+  route-webgl-retirement.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve the explicit domain order, `childDomains:false`, current telemetry API, authored world features, deterministic world generation, terrain and flora behavior, flight, Air Mail, map behavior, and immutable provider pin until a candidate revision passes the same contract matrix.
+Preserve current Core World composition, provider pin, balloon handling, airstream behavior, Air Mail behavior, map behavior, world generation, visual quality, telemetry and public diagnostic needs. Add parent coordination rather than merging existing semantic domains.
 
 ## Retained next steps
 
-The earlier grass-seed publication, world-generation public contract, feature/foundation adoption, staged-generation, and frame-coherence work remains open. It should not replace the startup-critical real-provider fixture.
+Real-provider contract proof, atomic feature registration, world/foundation revision adoption, first-world-frame provenance, grass publication, Air Mail authority and persistence work remain open.
 
 ## Do not claim
 
-Do not claim provider-contract parity, unique token ownership, correct install aliases, atomic feature registration, browser readiness, or visible-frame convergence until all gates pass on `main`.
+Do not claim safe route teardown, failure rollback, complete GPU retirement, stale-callback isolation, same-document re-entry or source/build/Pages lifecycle parity until the full matrix passes on `main`.
