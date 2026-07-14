@@ -1,5 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import * as NexusEngine from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Dev/NexusEngine@ea973811342fe3ba2a35bb018323d987d3fec4b5/src/index.js";
+import * as NexusEngine from "@nexus-engine";
 import { CAMPAIGN, WORLD } from "./data/campaign.config.js";
 import { loadHotAirBalloonModel, animateHotAirBalloon } from "./hot-air-balloon-object-kit.js";
 import { createBalloonSimulation } from "./runtime/balloon-simulation-kit.js";
@@ -13,6 +13,7 @@ import { createBalloonCameraRig } from "./visual/camera-presentation/balloon-cam
 import { createBalloonPresentationDomain } from "./visual/balloon-presentation/balloon-presentation-domain.js";
 import { createParchmentMapOverlay } from "./ui/parchment-map-overlay.js";
 
+const NEXUS_ENGINE_SHA = __NEXUS_ENGINE_SHA__;
 const canvas = document.querySelector("#game");
 const mapRoot = document.querySelector("#mapOverlay");
 const mapCanvas = document.querySelector("#mapCanvas");
@@ -113,7 +114,7 @@ async function createGame() {
   }
 
   window.GameHost = {
-    engine, NexusEngine, THREE, scene: visual.scene, renderer: visual.renderer, camera: visual.camera,
+    engine, NexusEngine, nexusEngineSha: NEXUS_ENGINE_SHA, THREE, scene: visual.scene, renderer: visual.renderer, camera: visual.camera,
     balloon, visual, simulation, airstream, mail, cameraRig, balloonPresentation,
     getState: () => ({ nexusEngine: engine.openAbove?.getState?.(), local: getSnapshot() })
   };
@@ -131,4 +132,5 @@ async function createGame() {
 async function boot() {
   try { await createGame(); } catch (error) { showFatal(error); }
 }
+
 boot();
