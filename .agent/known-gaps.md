@@ -1,124 +1,123 @@
-# Known Gaps: TheOpenAbove Grass Seed Module Environment and Publication Authority
+# Known Gaps: TheOpenAbove World Domain Composition and Provider Admission
 
-**Last aligned:** `2026-07-13T21-58-55-04-00`  
-**Status:** `grass-seed-module-environment-publication-authority-audited`
+**Last aligned:** `2026-07-13T22-58-22-04-00`  
+**Status:** `world-domain-composition-provider-admission-authority-audited`
 
 ## Summary
 
-The latest guard fixes imports when `window` is absent. Browser imports still perform an uncommanded global write, and no contract proves that source, build and deployed modules remain import-pure or that any explicitly installed compatibility facade is owned and retired safely.
+Explicit composition repairs the immediate failure, but the production contract is still inferred from a fake-provider smoke. Provider capability, token ownership, aggregate feature registration, visual adoption and first-frame proof remain unresolved.
 
 ## Plan ledger
 
-**Goal:** keep remaining gaps dependency ordered and tied to executable environment, lifecycle and visible-frame evidence.
+**Goal:** keep remaining composition gaps dependency ordered and tied to executable evidence.
 
-- [ ] Pure reusable seed module.
-- [ ] Seed API manifest and algorithm revision.
-- [ ] Explicit compatibility publication command.
-- [ ] Target inspection and collision policy.
-- [ ] Publication identity and host-generation ownership.
-- [ ] Idempotent installation result.
-- [ ] Owned retirement result.
-- [ ] Node, browser and worker import-purity fixtures.
-- [ ] Source/build/Pages module parity.
-- [ ] Seed consumer revision receipts.
-- [ ] First matching visible frame acknowledgement.
+- [ ] Provider API manifest.
+- [ ] Composition manifest and revision.
+- [ ] Real pinned-provider fixture.
+- [ ] Unique token/provider proof.
+- [ ] Aggregate feature-set registration.
+- [ ] Typed composition and registration results.
+- [ ] Visual-bootstrap admission.
+- [ ] Source/build/Pages browser proof.
+- [ ] First registered-world frame acknowledgement.
 
 ## Identity gaps
 
 ```txt
-GrassSeedPublicApiManifest: absent
-GrassSeedAlgorithmRevision: absent
-CompatibilityPublicationCommand: absent
-CompatibilityPublicationId: absent
-CompatibilityPublicationResult: absent
-CompatibilityRetirementResult: absent
-CompatibilityOwnerGeneration: absent
-ModuleEnvironmentProofResult: absent
-SeedConsumerAdoptionResult: absent
-FirstSeedRevisionFrameAck: absent
+ProviderApiManifest: absent
+WorldDomainCompositionManifest: absent
+WorldDomainCompositionRevision: absent
+WorldDomainCompositionCommand: absent
+WorldDomainCompositionResult: absent
+DomainPreparationReceipt: absent
+FeatureSetFingerprint: absent
+FeatureSetRegistrationCommand: absent
+FeatureSetRegistrationResult: absent
+FeatureRegistryRevision: not correlated
+VisualBootstrapRevision: absent
+FirstRegisteredWorldFrameAck: absent
 ```
 
-## Import-purity gaps
+## Provider and dependency gaps
 
 ```txt
-browser import mutates window
-module does not declare the mutation as a host capability
-world-generation imports inherit the visual module side effect
-no worker import proof
-no synthetic-window zero-mutation proof
-no browser zero-mutation proof
+required export preflight: absent
+real pinned-provider composition test: absent
+actual kit ID proof: absent
+actual requires/provides proof: absent
+unique token owner proof: absent
+duplicate child installation proof: absent
+provider-upgrade compatibility result: absent
 ```
 
-## Compatibility publication gaps
+## Feature registration gaps
 
 ```txt
-no explicit installation API
-no API version on global facade
-no immutable facade
-no namespace inspection
-no collision rejection
-no same-revision idempotence
-no stale-generation rejection
-no hot-reload replacement policy
-no ownership marker
-no safe disposal
+all-features prevalidation: absent
+aggregate candidate: absent
+expected predecessor revision: absent
+identical duplicate policy: absent
+conflicting duplicate policy: absent
+partial-registration rollback: absent
+per-feature receipt set: absent
 ```
 
-## Consumer gaps
+## Visual and gameplay gaps
 
 ```txt
-world generation seed algorithm revision: absent
-grass consumer revision: absent
-flower consumer revision: absent
-map consumer revision: absent
-save and telemetry seed revision: absent
+composition revision passed to visual domain: absent
+feature registry revision passed to world generation: absent
+foundation revision passed to terrain sampler: absent
+playable world readiness result: absent
+public immutable composition readback: absent
+first matching world frame: absent
 mixed-revision rejection: absent
 ```
 
 ## Test gaps
 
 ```txt
-tests/grass-field.mjs creates globalThis.window
-global mutation is not asserted
-explicit installation is not exercised
-collision and disposal are not exercised
-worker environment is not exercised
-built artifact import is not probed
-Pages artifact import is not probed
-first visible seed revision frame is not exercised
+current fake test controls provider behavior
+real provider export fixture: absent
+real dependency graph fixture: absent
+duplicate provider fixture: absent
+multiple-feature rollback fixture: absent
+source browser boot fixture: absent
+production build browser fixture: absent
+Pages browser fixture: absent
+fatal fallback and retry fixture: absent
+first visible world frame fixture: absent
 ```
 
 ## Validation gaps
 
 ```txt
-npm run check during this audit: not run
-npm run build during this audit: not run
-headless:world during this audit: not run
-browser import-purity fixture: absent
-worker import fixture: absent
-compatibility lifecycle fixture: absent
-source/build/Pages parity fixture: absent
-visible consumer fixture: absent
+combined status checks: none
+npm run check during audit: not run
+npm run build during audit: not run
+npm run headless:world during audit: not run
+browser fixture: not run
+Pages fixture: not run
 ```
 
 ## Dependency order
 
 ```txt
-pure seed ESM
-  -> API manifest and revision
-  -> explicit compatibility adapter
-  -> target/collision policy
-  -> installation and retirement results
-  -> environment fixtures
-  -> source/build/Pages parity
-  -> consumer revision correlation
+provider API manifest
+  -> composition manifest and child policy
+  -> real-provider preparation
+  -> dependency and ownership proof
+  -> aggregate feature registration
+  -> typed composition result
+  -> visual bootstrap admission
   -> visible-frame acknowledgement
+  -> build and Pages parity
 ```
 
 ## Retained gaps
 
-The prior world-generation public-contract proof gaps remain open and compatible with this audit. The seed API manifest should become one dependency of the broader world-generation public contract rather than a competing authority.
+Grass-seed import purity, world-generation public contract, staged generation, map/world frame coherence, runtime provider admission, Air Mail completion and flight persistence gaps remain open. This audit narrows only the startup-critical Core World composition boundary.
 
 ## Do not claim
 
-Do not claim that the environment guard provides import purity, explicit compatibility ownership, collision safety, cleanup, deployed parity or visible seed-consumer convergence.
+Do not treat a successful fake-provider smoke as proof of pinned-provider compatibility, duplicate-safe ownership, atomic registration, browser readiness or production readiness.
