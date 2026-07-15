@@ -98,9 +98,28 @@ void main() {
 }
 `;
 
+const compositeVertexShader = /* glsl */`
+varying vec2 vCloudUv;
+void main() {
+  vCloudUv = uv;
+  gl_Position = vec4(position.xy, 1.0, 1.0);
+}
+`;
+
+const compositeFragmentShader = /* glsl */`
+uniform sampler2D uCloudTexture;
+varying vec2 vCloudUv;
+void main() {
+  vec4 cloud = texture2D(uCloudTexture, vCloudUv);
+  if (cloud.a < 0.002) discard;
+  gl_FragColor = cloud;
+}
+`;
+
 export function createVolumetricClouds(scene, quality, weatherMap) {
   const lod = createCloudLodProfile(quality);
   const lighting = createCloudLightingState();
+  const cloudScene = new THREE.Scene();
   const uniforms = {
     uSunDirection: { value: new THREE.Vector3(-0.48, 0.24, -0.84).normalize() },
     uSunColor: { value: new THREE.Color(0xffb66f) },
@@ -120,18 +139,62 @@ export function createVolumetricClouds(scene, quality, weatherMap) {
     uniforms,
     vertexShader,
     fragmentShader,
-    transparent: true,
+    transparent: false,
     depthWrite: false,
-    depthTest: true,
+    depthTest: false,
     side: THREE.BackSide,
-    blending: THREE.NormalBlending,
+    blending: THREE.NoBlending,
     fog: false
   });
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(4050, 36, 24), material);
   mesh.name = "open-above-volumetric-cloud-layer";
   mesh.frustumCulled = false;
-  mesh.renderOrder = -90;
-  scene.add(mesh);
+  cloudScene.add(mesh);
+
+  const renderTarget = new THREE.WebGLRenderTarget(1, 1, {
+    type: THREE.HalfFloatType,
+    format: THREE.RGBAFormat,
+    minFilter: THREE.LinearFilter,
+    magFilter: THREE.LinearFilter,
+    depthBuffer: false,
+    stencilBuffer: false
+  });
+  renderTarget.texture.name = "open-above-volumetric-cloud-low-resolution";
+  renderTarget.texture.generateMipmaps = false;
+
+  const compositeMaterial = new THREE.ShaderMaterial({
+    name: "OpenAboveVolumetricCloudDepthCompositeMaterial",
+    uniforms: { uCloudTexture: { value: renderTarget.texture } },
+    vertexShader: compositeVertexShader,
+    fragmentShader: compositeFragmentShader,
+    transparent: true,
+    depthWrite: false,
+    depthTest: true,
+    blending: THREE.NormalBlending,
+    fog: false,
+    toneMapped: false
+  });
+  const compositeMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), compositeMaterial);
+  compositeMesh.name = "open-above-volumetric-cloud-depth-composite";
+  compositeMesh.frustumCulled = false;
+  compositeMesh.renderOrder = -90;
+  scene.add(compositeMesh);
+
+  const drawingBufferSize = new THREE.Vector2();
+  const previousClearColor = new THREE.Color();
+  let renderWidth = 1;
+  let renderHeight = 1;
+
+  function resizeRenderTarget(renderer) {
+    renderer.getDrawingBufferSize(drawingBufferSize);
+    const width = Math.max(1, Math.floor(drawingBufferSize.x * lod.renderScale));
+    const height = Math.max(1, Math.floor(drawingBufferSize.y * lod.renderScale));
+    if (width === renderWidth && height === renderHeight) return false;
+    renderWidth = width;
+    renderHeight = height;
+    renderTarget.setSize(width, height);
+    return true;
+  }
 
   function update(camera, sunDirection, elapsed) {
     mesh.position.copy(camera.position);
@@ -145,7 +208,49 @@ export function createVolumetricClouds(scene, quality, weatherMap) {
     uniforms.uTime.value = elapsed;
   }
 
-  return { id: VOLUMETRIC_CLOUD_KIT_ID, mesh, uniforms, lod, lighting, update };
+  function render(renderer, camera) {
+    resizeRenderTarget(renderer);
+    const previousTarget = renderer.getRenderTarget();
+    const previousAutoClear = renderer.autoClear;
+    const previousClearAlpha = renderer.getClearAlpha();
+    renderer.getClearColor(previousClearColor);
+
+    try {
+      renderer.setRenderTarget(renderTarget);
+      renderer.setClearColor(0x000000, 0);
+      renderer.autoClear = true;
+      renderer.clear(true, false, false);
+      renderer.render(cloudScene, camera);
+    } finally {
+      renderer.setRenderTarget(previousTarget);
+      renderer.setClearColor(previousClearColor, previousClearAlpha);
+      renderer.autoClear = previousAutoClear;
+    }
+  }
+
+  function dispose() {
+    scene.remove(compositeMesh);
+    cloudScene.remove(mesh);
+    mesh.geometry.dispose();
+    material.dispose();
+    compositeMesh.geometry.dispose();
+    compositeMaterial.dispose();
+    renderTarget.dispose();
+  }
+
+  return {
+    id: VOLUMETRIC_CLOUD_KIT_ID,
+    mesh,
+    compositeMesh,
+    renderTarget,
+    uniforms,
+    lod,
+    lighting,
+    update,
+    render,
+    dispose,
+    getRenderSize: () => ({ width: renderWidth, height: renderHeight, scale: lod.renderScale })
+  };
 }
 
 window.OpenAboveVolumetricCloudKit = { id: VOLUMETRIC_CLOUD_KIT_ID, createVolumetricClouds };
