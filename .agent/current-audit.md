@@ -1,70 +1,72 @@
-# Current Audit: TheOpenAbove HDR Depth Size Coherence
+# Current Audit: TheOpenAbove Host Clock Fixed-Step Flight Simulation
 
-**Last aligned:** `2026-07-15T07-39-52-04-00`  
-**Status:** `hdr-dynamic-resolution-depth-attachment-size-coherence-authority-audited`  
-**Reviewed documentation head:** `1417c80309218c7c61def3b2f09a977eaab8b953`
+**Last aligned:** `2026-07-15T12-02-38-04-00`  
+**Status:** `host-clock-fixed-step-flight-simulation-authority-audited`  
+**Reviewed repository head:** `d122f875e321eb3a52fda37af4de9abc4ca47105`  
+**Reviewed runtime source revision:** `1417c80309218c7c61def3b2f09a977eaab8b953`
 
 ## Summary
 
-The active renderer combines a quality-tier pixel-ratio cap with a dynamic scale, passes that effective ratio to the Three.js `EffectComposer`, and sizes the composer color targets in physical pixels. The visual-domain resize path then calls the local HDR resize helper, which manually rewrites both independently owned depth textures to CSS viewport dimensions. The resulting color/depth dimension contract is coherent only when the effective pixel ratio equals `1`.
+The active browser host derives `frameMs` from `performance.now()`, caps it at 80 ms, derives `dt`, caps that at `1/30` second, and executes one update batch per RAF callback. No accumulator or residual-time state carries the unconsumed interval. Sustained callback rates below 30 FPS therefore permit flight and simulation time to advance slower than wall time.
 
 ## Plan ledger
 
-**Goal:** isolate the smallest authority boundary that makes every HDR color and depth attachment share one physical render-surface generation.
+**Goal:** isolate the smallest authority boundary that makes browser time admission, fixed-step execution, map suspension, overload handling, render interpolation, telemetry, and visible proof consume one clock generation.
 
 - [x] Compare the full Publish inventory, central ledger, root `.agent` coverage, and current heads.
 - [x] Select only TheOpenAbove using the oldest synchronized eligible rule.
-- [x] Inspect `quality-tier-kit.js`, `visual-domain.js`, `hdr-composer-kit.js`, `volumetric-cloud-kit.js`, `main.js`, package scripts, and Three.js `EffectComposer` r165 sizing.
-- [x] Trace boot, resize, dynamic-scale, cloud, composer, presentation, and disposal order.
+- [x] Inspect `src/main.js`, balloon simulation, Air Mail, airstream, visual, map, telemetry, current audits, and machine registry.
+- [x] Trace boot, active callbacks, map-suspended callbacks, delayed callbacks, rendering, and public readback.
 - [x] Preserve all 101 active named surfaces and their service ownership.
-- [x] Add the timestamped tracker and HDR-specific audit family.
-- [ ] Implement and prove atomic color/depth target sizing, retirement, and visible-frame acknowledgement.
+- [x] Add the timestamped tracker and host-clock-specific audit family.
+- [ ] Implement and prove deterministic fixed steps, residual time, bounded overload, suspension, resume, interpolation, and first-frame acknowledgement.
 
 ## Complete interaction loop
 
 ```txt
 workflow and browser admission
   -> checkout product and NexusEngine provider
-  -> test bundle upload and deploy
+  -> test build artifact and Pages deployment
   -> compose balloon airstream Air Mail Core World visual and UI domains
-  -> create renderer scene camera HDR composer and independent depth textures
+  -> create renderer scene camera world cloud HDR map and GameHost
 
-initial and browser resize
-  -> read CSS viewport width and height
-  -> update camera projection
-  -> derive capped DPR and dynamic scale
-  -> set renderer pixel ratio and drawing-buffer size
-  -> set EffectComposer pixel ratio and size
-  -> EffectComposer sizes both color targets to CSS size * effective pixel ratio
-  -> call local HDR resize helper
-  -> EffectComposer keeps the same effective physical color size
-  -> local helper rewrites both depth textures to CSS width and height
+active callback
+  -> read performance timestamp
+  -> clamp callback interval to 80 ms
+  -> clamp simulation delta to 33.333 ms
+  -> update balloon once
+  -> update Air Mail once
+  -> update airstream once
+  -> update balloon model presentation camera and visual world once
+  -> tick NexusEngine once
+  -> render one cloud/HDR frame
 
-frame update and render
-  -> advance balloon airstream Air Mail world and presentation state
-  -> render low-resolution cloud target from current drawing buffer
-  -> render HDR scene through composer color and depth attachments
-  -> color grade and present
-  -> sample frame time and possibly change dynamic scale
+map-suspended callback
+  -> update host timestamp
+  -> skip simulation mail airstream camera world and engine updates
+  -> render with zero simulation delta
 
-teardown
-  -> dispose cloud resources
-  -> dispose independent depth textures target and composer
+low-FPS callback
+  -> callback interval exceeds 33.333 ms
+  -> execute one capped update batch
+  -> discard all remaining interval
+  -> publish no discarded-time or overload receipt
 ```
 
 ## Domains in use
 
 ```txt
 GitHub workflow provider checkout Vite build artifact and Pages deployment
-browser route import map RAF input errors resize and GameHost
-Nexus Engine telemetry Core World foundations features and landforms
+browser route import map RAF input resize errors visibility and GameHost
+host-clock identity interval admission accumulator fixed steps suspension resume overload and interpolation
+Nexus Engine telemetry and Core World foundations features and landforms
 balloon flight telemetry presentation camera clipping and model lifecycle
 airstream routes fields forces visuals and diagnostics
-Air Mail parcels routes towns volumes progress and completion
+Air Mail parcels routes towns volumes progress timestamps and completion
 staged world generation terrain vegetation grass flowers water and landmarks
 quality detection DPR policy dynamic resolution and render-surface sizing
 weather sky sun aerial perspective volumetric clouds and cloud LOD
-HDR render targets depth attachments composer passes color grading and lens response
+HDR targets depth attachments composer passes color grading and lens response
 parchment map validation tests and central tracking
 ```
 
@@ -76,74 +78,83 @@ runtime-implied adapters:           13
 Core World provider surfaces:       17
 active documented total:           101
 inactive or retired legacy:         13
-planned HDR coherence surfaces:     18
+planned host-clock surfaces:        20
 new runtime kit IDs:                 0
 ```
 
-The complete kit-by-kit service inventory is in the timestamped tracker and `.agent/kit-registry.json`.
+The complete kit-by-kit service inventory is in `.agent/trackers/2026-07-15T12-02-38-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
 
 ## Source-backed findings
 
 ```txt
-quality pixel-ratio caps: high 1.60 medium 1.35 low 1.05
-initial dynamic scales: high 1.00 medium 0.86 low 0.72
-dynamic scale floor: 0.62
-effective pixel ratio: min(device DPR, cap) * dynamic scale
-composer target size rule: CSS width/height * effective pixel ratio
-independent depth texture count: 2
-local depth resize rule: CSS width/height
-boot calls resolution resize then local HDR resize: yes
-browser resize uses the same order: yes
-color/depth physical-size descriptor: absent
-attachment generation identity: absent
-atomic resize adoption result: absent
-resize rollback or predecessor preservation: absent
-first matching HDR frame acknowledgement: absent
+host frameMs cap: 80 ms
+host dt cap: 1/30 second
+simulation updates per callback: 1
+active accumulator: absent
+residual time: absent
+fixed-step batch result: absent
+catch-up budget: absent
+discarded-time receipt: absent
+map suspension result: absent
+resume rebase result: absent
+interpolation alpha: absent
+FirstClockAlignedFrameAck: absent
 ```
 
 ## Source-permitted examples
 
 ```txt
-high tier device DPR 2.0
-  -> effective pixel ratio 1.6
-  -> color target uses 1.6x CSS dimensions
-  -> depth texture is rewritten to 1.0x CSS dimensions
+10 FPS
+  -> 100 ms callback interval
+  -> 33.333 ms simulation admitted
+  -> about 66.667 ms discarded
+  -> simulation advances at about one-third wall speed
 
-medium tier device DPR 1.0
-  -> effective pixel ratio 0.86
-  -> color target uses 0.86x CSS dimensions
-  -> depth texture is rewritten to 1.0x CSS dimensions
-
-low tier device DPR 1.0
-  -> effective pixel ratio 0.72
-  -> color target uses 0.72x CSS dimensions
-  -> depth texture is rewritten to 1.0x CSS dimensions
+5 FPS
+  -> 200 ms callback interval
+  -> 33.333 ms simulation admitted
+  -> about 166.667 ms discarded
+  -> simulation advances at about one-sixth wall speed
 ```
 
-These are source-derived dimension paths. No browser framebuffer or visual failure was reproduced.
+These are source-derived timing paths. No browser pacing defect was reproduced.
+
+## Affected consumers
+
+```txt
+state.elapsed
+fallback wind phase and speed
+airstream sampling and force contribution
+burner vent steering and bank smoothing
+buoyancy velocity position altitude and distance
+Air Mail progress deliveredAt and town visuals
+balloon animation and presentation
+camera update
+visual world weather terrain vegetation and cloud update
+NexusEngine tick and telemetry
+```
 
 ## Required parent domain
 
 ```txt
-open-above-hdr-render-target-depth-size-coherence-authority-domain
+open-above-host-clock-fixed-step-flight-simulation-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-RenderSurfaceResizeCommand
-  -> bind ViewportRevision RendererGeneration ComposerGeneration QualityRevision and DynamicScaleRevision
-  -> derive one immutable effective pixel ratio and physical size
-  -> prepare both composer color targets
-  -> prepare both independent depth attachments at identical dimensions
-  -> validate type format samples depth ownership and pass compatibility
-  -> atomically adopt RenderTargetGeneration
-  -> preserve the accepted predecessor on failure
-  -> publish RenderSurfaceResizeResult and per-attachment receipts
-  -> retire replaced targets and attachments exactly once
-  -> publish FirstHdrResizeFrameAck
+HostClockFrameCommand
+  -> bind document runtime RAF clock map input and simulation revisions
+  -> admit one monotonic callback interval
+  -> classify active suspended resumed and overload states
+  -> accumulate active elapsed time
+  -> execute bounded deterministic fixed steps in declared domain order
+  -> retain residual time or publish explicit discarded-time receipts
+  -> publish HostClockFrameResult ClockSnapshot and per-domain step receipts
+  -> render previous/current accepted revisions with interpolation
+  -> publish FirstClockAlignedFrameAck
 ```
 
 ## Validation boundary
 
-Documentation only. Runtime code, shaders, gameplay, packages, tests, workflows, and deployment were not changed. No browser, GPU, build, artifact, or Pages fixture was run.
+Documentation only. Runtime code, shaders, gameplay, packages, tests, workflows, and deployment were not changed. No browser, controlled-clock, build, artifact, or Pages fixture was run.
