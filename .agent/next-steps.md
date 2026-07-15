@@ -1,53 +1,71 @@
-# Next Steps: TheOpenAbove Cloud Low-Resolution Rendering
+# Next Steps: TheOpenAbove Cloud Depth Composite
 
-**Last aligned:** `2026-07-14T22-39-00-04-00`  
-**Status:** `cloud-low-resolution-depth-upscale-authority-audited`
+**Last aligned:** `2026-07-15T02-09-29-04-00`  
+**Status:** `cloud-low-resolution-composite-depth-occlusion-authority-audited`
+
+## Summary
+
+The cloud-only color target and LOD scale are implemented. The next work should add representative cloud depth and scene-depth-aware reconstruction to the existing path, then publish typed pass, timing, fallback, retirement, and visible-frame receipts.
 
 ## Plan ledger
 
-**Goal:** implement the smallest cloud-only target and depth-aware composite that honors the existing LOD descriptor.
+**Goal:** complete the smallest depth-aware extension without replacing the current ray marcher, HDR composer, weather model, or whole-scene dynamic resolution controller.
 
-### Gate 1: frame and profile identity
+### Completed foundation
 
-- [ ] Allocate `FrameId`, renderer generation and `CloudLodProfileRevision`.
-- [ ] Bind quality tier, viewport, DPR, weather and camera revisions.
-- [ ] Validate scale and sample budgets.
-- [ ] Reject stale or superseded frames.
+- [x] Move volumetric clouds into a private cloud scene.
+- [x] Allocate a cloud-only RGBA half-float target.
+- [x] Size the target from drawing buffer × LOD `renderScale`.
+- [x] Execute the cloud pass before the main composer.
+- [x] Composite cloud color/alpha through the main scene.
+- [x] Add target size readback and disposal.
 
-### Gate 2: cloud-only targets
+### Gate 1: frame and resource identity
 
-- [ ] Allocate color, transmittance and representative-depth targets at the declared scale.
-- [ ] Keep the main scene target at the admitted whole-scene resolution.
-- [ ] Publish dimensions, formats, generation and byte estimates.
-- [ ] Retire old targets on resize, quality transition and context recovery.
+- [ ] Add `FrameId`, renderer generation, `CloudLodProfileRevision`, and `CloudTargetGeneration`.
+- [ ] Bind quality, viewport, DPR, weather, camera, and scene-depth revisions.
+- [ ] Reject stale, superseded, or cross-generation frames.
+- [ ] Publish target dimensions, formats, scale, and estimated bytes.
 
-### Gate 3: ray march and history
+### Gate 2: cloud depth output
 
-- [ ] Dispatch existing density and light logic into the cloud target.
+- [ ] Choose a capability-admitted representative linear cloud-depth encoding.
+- [ ] Preserve accumulated color and transmittance semantics.
+- [ ] Emit cloud depth using the same camera, target dimensions, and ray-march revision.
 - [ ] Publish actual view/light sample receipts.
-- [ ] Add optional jitter/history ownership.
-- [ ] Reset history on camera, weather, scale or renderer discontinuity.
 
-### Gate 4: depth-aware upscale and HDR composite
+### Gate 3: scene-depth reconstruction
 
-- [ ] Consume the accepted scene-depth revision.
-- [ ] Prevent cloud bleeding across terrain, balloon, rope and town silhouettes.
-- [ ] Composite in one explicit HDR order.
-- [ ] Publish upscale and composite receipts.
+- [ ] Expose the accepted main-scene depth texture and its projection parameters.
+- [ ] Convert scene and cloud depth into one linear coordinate space.
+- [ ] Reconstruct cloud color/transmittance/depth without crossing nearer geometry edges.
+- [ ] Preserve clouds in front of farther terrain, mountains, towns, and vegetation.
+- [ ] Occlude clouds behind nearer terrain, balloon geometry, ropes, and props.
 
-### Gate 5: shadow and fallback policy
+### Gate 4: HDR composite and fallback
 
-- [ ] Admit terrain cloud shadows under the same weather and budget revision.
-- [ ] Support procedural, cached, disabled and future impostor policies.
-- [ ] Classify Full, Reduced, Impostor, Disabled or Rejected execution.
-- [ ] Expose fallback reasons in telemetry.
+- [ ] Composite in one explicit HDR order before color grading.
+- [ ] Classify `Full`, `Reduced`, `ColorOnly`, `FarDepthFallback`, `Disabled`, or `Rejected`.
+- [ ] Record fallback reasons and capability decisions.
+- [ ] Preserve a safe predecessor frame on allocation or render failure.
+
+### Gate 5: lifecycle and telemetry
+
+- [ ] Retire old targets on resize, DPR, quality change, context recovery, and disposal.
+- [ ] Prevent in-flight predecessor frames from publishing after retirement.
+- [ ] Add cloud pass GPU/CPU timing receipts.
+- [ ] Bind terrain shadow policy to the same weather and quality revisions.
+- [ ] Publish `CloudFrameResult` and `FirstVisibleCloudFrameAck`.
 
 ### Gate 6: fixtures
 
-- [ ] Run the target, scale, edge, history, fallback and retirement matrix.
-- [ ] Capture GPU timings without asserting a fixed threshold prematurely.
-- [ ] Correlate `GameHost`, `CloudFrameResult` and `FirstVisibleCloudFrameAck`.
-- [ ] Prove source, built artifact and Pages parity.
+- [ ] Exact high/medium/low target dimensions and sample budgets.
+- [ ] Cloud before and behind mountain geometry.
+- [ ] Terrain, balloon, rope, town, and vegetation silhouette edges.
+- [ ] Resize, DPR, quality transition, and context recovery.
+- [ ] Full/reduced/color-only/far-depth/disabled/rejected profiles.
+- [ ] Terrain shadow policy correlation.
+- [ ] Source, production build, artifact, and Pages parity.
 
 ## Recommended file cut
 
@@ -55,27 +73,27 @@
 src/visual/cloud-frame/
   cloud-low-resolution-depth-upscale-authority-domain.js
   cloud-frame-identity-kit.js
-  cloud-target-allocation-kit.js
-  cloud-raymarch-dispatch-kit.js
-  cloud-temporal-history-kit.js
-  cloud-depth-aware-upscale-kit.js
+  cloud-target-generation-kit.js
+  cloud-transmittance-depth-kit.js
+  cloud-scene-depth-reconstruction-kit.js
   cloud-hdr-composite-kit.js
-  terrain-cloud-shadow-policy-kit.js
+  cloud-execution-profile-kit.js
   cloud-frame-result-kit.js
   cloud-target-retirement-kit.js
+  terrain-cloud-shadow-policy-kit.js
 
 tests/
-  cloud-low-resolution-depth-upscale.mjs
+  cloud-depth-composite.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve current weather, cloud density, lighting, quality tiers, scene depth, color grading, terrain material and gameplay APIs. Wire the existing `renderScale` into rendering rather than replacing the cloud look.
+Preserve the existing weather, density, lighting, sample budgets, target scale, balloon and mail APIs, visual-domain API, terrain material, HDR grade, and browser host.
 
 ## Retained next steps
 
-Ground-contact delivery eligibility, immutable provider/build identity, route retirement, world adoption, Air Mail history and flight persistence remain open.
+Ground-contact delivery eligibility, immutable provider/build identity, route retirement, world adoption, Air Mail history, and flight persistence remain open.
 
 ## Do not claim
 
-Do not claim faster rendering, visual equivalence, temporal stability, correct silhouette reconstruction or deployment parity until the full fixture matrix passes.
+Do not claim depth-aware correctness, visual equivalence, measured performance improvement, resource retirement, or deployment parity until the complete fixture matrix passes.
