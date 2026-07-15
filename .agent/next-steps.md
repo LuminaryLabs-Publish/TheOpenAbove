@@ -1,105 +1,101 @@
-# Next Steps: TheOpenAbove Host Clock Fixed-Step Flight Simulation
+# Next Steps: TheOpenAbove Device-Control Action Coverage
 
-**Last aligned:** `2026-07-15T12-02-38-04-00`  
-**Status:** `host-clock-fixed-step-flight-simulation-authority-audited`
+**Last aligned:** `2026-07-15T16-58-19-04-00`  
+**Status:** `device-control-action-coverage-authority-audited`
 
 ## Summary
 
-The next work should replace one clipped update per RAF callback with a versioned host-clock service that admits monotonic elapsed time, executes bounded deterministic steps, retains residual time, treats the map as an explicit suspension lease, and renders accepted simulation revisions with interpolation.
+The next work should replace direct device-specific state mutation with one semantic control authority. Device capability and required action coverage must be resolved before a profile is admitted, visible controls must be prepared when required, and all producers must settle into one revisioned `FlightActionState`.
 
 ## Plan ledger
 
-**Goal:** repair only host timing ownership while preserving the current balloon feel, airstreams, Air Mail, Core World, rendering, quality system, map, public readback, and deployment surfaces.
+**Goal:** add complete keyboard/mouse, keyboard-only, touch-only, gamepad, and hybrid profiles without changing flight equations, route logic, camera limits, map suspension, rendering, or deployment.
 
 ### Completed understanding
 
-- [x] Locate the RAF callback and both time clamps.
-- [x] Trace every `dt` and `state.elapsed` consumer.
-- [x] Confirm one update batch per callback and no accumulator.
-- [x] Trace map-open suspension and timestamp rebasing.
-- [x] Preserve the 101-surface domain and service inventory.
+- [x] Locate all active keyboard, wheel, and map listeners.
+- [x] Confirm missing pointer, touch, gamepad, and on-screen producers.
+- [x] Define required actions and control profiles.
+- [x] Define producer ownership, cancellation, duplicate suppression, and visible-frame evidence.
+- [x] Preserve the 101-surface architecture and service inventory.
 
-### Gate 1: clock identity and policy
+### Gate 1: identities and descriptors
 
-- [ ] Add `HostClockGeneration`, `ClockPolicyRevision`, `RafGeneration`, and `SimulationRevision`.
-- [ ] Define one fixed-step size through controlled flight fixtures.
-- [ ] Define maximum steps per callback and maximum catch-up duration.
-- [ ] Reject non-finite, negative, non-monotonic, stale, duplicate, or retired callback work.
+- [ ] Add `DeviceCapabilityRevision`, `ActionMapRevision`, `ControlGeneration`, and `ProducerGeneration`.
+- [ ] Define `ControlProfileDescriptor` and required action coverage.
+- [ ] Classify zoom as required or provide a keyboard-only fallback.
+- [ ] Reject stale, incomplete, conflicting, and retired profiles.
 
-### Gate 2: accumulator and step batch
+### Gate 2: semantic action state
 
-- [ ] Accumulate active elapsed wall time exactly once.
-- [ ] Execute zero or more fixed steps within the accepted budget.
-- [ ] Retain residual time below one fixed step.
-- [ ] Publish explicit discarded-time and overload receipts.
-- [ ] Bind one input revision to each accepted step batch.
+- [ ] Define burner, vent, steer, map, zoom, and cancellation actions.
+- [ ] Replace direct key-set and zoom mutation with producer commands.
+- [ ] Normalize digital and analog values into one `FlightActionState`.
+- [ ] Preserve current keyboard mappings and flight response.
 
-### Gate 3: deterministic consumer order
+### Gate 3: touch and visible controls
 
-- [ ] Step balloon simulation first.
-- [ ] Step Air Mail from the accepted balloon revision.
-- [ ] Step airstream visual state from the same revision.
-- [ ] Apply balloon animation and presentation.
-- [ ] Step camera, world/visual state, and NexusEngine in one declared order.
-- [ ] Publish per-domain step receipts and final `SimulationRevision`.
+- [ ] Add responsive burner, vent, steering, map, and zoom controls.
+- [ ] Respect safe areas, orientation, viewport changes, and minimum hit targets.
+- [ ] Route map gestures separately from flight gestures.
+- [ ] Publish `FirstDeviceControlSurfaceFrameAck`.
 
-### Gate 4: suspension and resume
+### Gate 4: gamepad and hybrid ownership
 
-- [ ] Convert map-open behavior into an explicit simulation lease.
-- [ ] Advance no active simulation time while suspended.
-- [ ] Continue rendering the accepted suspended revision.
-- [ ] Rebase the host clock on resume without hidden catch-up debt.
-- [ ] Clear stale input edges at suspension and resume boundaries.
-- [ ] Extend the same policy to visibility and runtime replacement.
+- [ ] Add gamepad discovery, polling, mapping, disconnect, and cancellation.
+- [ ] Arbitrate action ownership per producer and action phase.
+- [ ] Suppress duplicate near-simultaneous hybrid actions.
+- [ ] Publish producer-switch and duplicate results.
 
-### Gate 5: rendering and telemetry
+### Gate 5: lifecycle settlement
 
-- [ ] Preserve previous and current accepted simulation snapshots.
-- [ ] Derive interpolation alpha from residual time.
-- [ ] Bind cloud, HDR, map, and public readback to the rendered revision.
-- [ ] Publish `HostClockFrameResult`, `ClockSnapshot`, and overload telemetry.
-- [ ] Publish `FirstClockAlignedFrameAck` after presentation.
+- [ ] Cancel held actions on blur, hide, pagehide, map transitions, pointer/touch cancellation, gamepad disconnect, runtime replacement, and retirement.
+- [ ] Prove no stuck burner, vent, steering, or zoom state.
+- [ ] Preserve explicit map simulation suspension.
 
-### Gate 6: fixtures
+### Gate 6: results and fixtures
 
-- [ ] Compare 60, 30, 20, 10, and 5 FPS controlled callback schedules.
-- [ ] Test 250 ms and 1000 ms stalls.
-- [ ] Test map suspension and resume.
-- [ ] Test visibility hide and restore.
-- [ ] Test non-monotonic, duplicate, and retired callbacks.
-- [ ] Compare flight position, distance, mail timing, and engine step counts.
-- [ ] Prove source, production build, artifact, and Pages parity.
+- [ ] Publish `DeviceControlAdmissionResult` and `FlightActionEffectResult`.
+- [ ] Publish `FirstDeviceActionEffectFrameAck`.
+- [ ] Test keyboard/wheel, keyboard-only, touch, gamepad, and hybrid profiles.
+- [ ] Prove the same seeded delivery scenario is completable with each admitted profile.
+- [ ] Prove source, build, artifact, and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/clock/
-  host-clock-fixed-step-flight-simulation-authority-domain.js
-  host-clock-identity-kit.js
-  monotonic-interval-admission-kit.js
-  simulation-lease-kit.js
-  fixed-step-descriptor-kit.js
-  fixed-step-accumulator-kit.js
-  step-order-contract-kit.js
-  clock-overload-kit.js
-  clock-suspension-kit.js
-  clock-resume-rebase-kit.js
-  render-interpolation-kit.js
-  host-clock-result-kit.js
-  first-clock-aligned-frame-ack-kit.js
+src/runtime/device-control/
+  device-control-action-coverage-authority-domain.js
+  device-capability-observation-kit.js
+  control-profile-descriptor-kit.js
+  required-action-coverage-kit.js
+  keyboard-action-producer-kit.js
+  wheel-action-producer-kit.js
+  pointer-touch-gesture-producer-kit.js
+  gamepad-action-producer-kit.js
+  flight-action-command-kit.js
+  flight-action-normalization-kit.js
+  input-ownership-arbitration-kit.js
+  hybrid-action-deduplication-kit.js
+  gesture-cancellation-kit.js
+  device-control-result-kit.js
 
-tests/
-  host-clock-fixed-step-flight.mjs
+src/ui/device-controls/
+  on-screen-flight-controls-kit.js
+  on-screen-map-control-kit.js
+  on-screen-camera-zoom-kit.js
+
+ tests/device-control-action-coverage.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve Three.js `0.165.0`, the public `GameHost` shape, the current map behavior, balloon controls and force equations, airstream and mail APIs, Core World composition, dynamic-resolution policy, HDR/cloud rendering, and Pages deployment.
+Preserve Three.js `0.165.0`, balloon force and smoothing equations, current keyboard bindings, camera zoom bounds, map behavior, public `GameHost`, Core World composition, dynamic resolution, clouds, HDR, and Pages deployment.
 
 ## Retained next steps
 
-HDR depth-size coherence, cloud relative-depth reconstruction, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history, and flight persistence remain open.
+Host-clock fixed steps, HDR depth-size coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history, and flight persistence remain open.
 
 ## Do not claim
 
-Do not claim real-time pacing, deterministic equivalence, overload recovery, suspension correctness, interpolation quality, visible-frame convergence, artifact parity, deployed parity, or production readiness until the full fixture matrix passes.
+Do not claim touch playability, gamepad support, keyboard-only completeness, hybrid safety, visible control correctness, action-effect convergence, artifact parity, deployed parity, or production readiness until the full fixture matrix passes.
