@@ -1,93 +1,87 @@
-# Validation: TheOpenAbove Ground Contact and Delivery Eligibility
+# Validation: TheOpenAbove Cloud Low-Resolution Rendering
 
-**Last aligned:** `2026-07-14T17-39-01-04-00`
+**Last aligned:** `2026-07-14T22-39-00-04-00`
 
 ## Scope
 
-Documentation-only inspection of repository selection, balloon terrain-contact settlement, Air Mail delivery admission, current kit/service inventory and central tracking.
+Documentation-only inspection of repository selection, cloud LOD descriptors, volumetric ray marching, scene/composer ownership, dynamic resolution, terrain cloud shadows, the 101-surface inventory and central tracking.
 
 ## Plan ledger
 
-**Goal:** distinguish the source-permitted grounded-delivery path from browser-observed behavior and from a completed runtime fix.
+**Goal:** distinguish a source-backed unused descriptor and cost shape from a measured performance problem or completed optimization.
 
 - [x] Enumerate all 11 Publish repositories.
 - [x] Exclude TheCavalryOfRome.
-- [x] Compare ten eligible repos with central ledger and root `.agent` coverage.
-- [x] Confirm no new, missing or runtime-ahead candidate.
-- [x] Select TheOpenAbove by the oldest aligned-documentation rule.
-- [x] Inspect balloon simulation and frame-loop ordering.
-- [x] Inspect mail domain, delivery progress, volume and route configuration.
-- [x] Preserve the complete kit and service inventory.
-- [x] Inspect the reviewed head's combined commit-status surface.
-- [ ] Execute source, browser, build, artifact and Pages fixtures.
+- [x] Confirm ten eligible ledgers and root `.agent` states.
+- [x] Compare every eligible repository head with its recorded documentation head.
+- [x] Select TheOpenAbove by the oldest synchronized timestamp.
+- [x] Inspect cloud LOD, volumetric shader, visual domain, HDR composer, dynamic resolution and terrain shadows.
+- [x] Preserve all kits and service groups.
+- [x] Inspect combined commit statuses.
+- [ ] Execute headless, browser, GPU, build, artifact and Pages fixtures.
 
 ## Source-backed observations
 
 ```txt
-reviewed repository head: 542b6db53269d1c5a78825f0e70b0f630dd0fbd8
+reviewed repository head: e407aa0c8ae98406f467e05c0fadfff988bdd304
 reviewed runtime revision: 0d9ea6f6f977b63d09f22f8ae36107bfccd81811
-terrain clamp: terrainHeight(x,z) + 30
-contact classification: absent
-contact revision: absent
-position settlement: present
-verticalVelocity clamp: present
-velocity.y contact settlement: not explicit
-mail update order: immediately after simulation update
-mail contact-state input: absent
-Brookhaven safe altitude: 92
-Brookhaven tolerance: 72
-clamp altitude delta: 62
-geometric result at town center: inside
+declared cloud scale: 0.50 / 0.42 / 0.32
+cloud scale read by volumetric kit: no
+cloud mesh in shared scene: yes
+cloud mesh frustum culling: disabled
+shared full-scene RenderPass: yes
+cloud-only target: no
+depth-aware upscaler: no
+whole-scene dynamic resolution: yes
+terrain procedural cloud shadow: two fbm2 fields per terrain fragment
 combined commit statuses: empty
 ```
 
 ## What source inspection proves
 
 ```txt
-the simulation can clamp the balloon to relative altitude 30
-the main frame passes the clamped position into mail update
-delivery admission checks radius and altitude tolerance
-the delivery code does not inspect contact state
-Brookhaven's configured altitude band includes relative altitude 30
-therefore grounded delivery is permitted by the current source path at the town center
+the cloud LOD descriptor exposes a cloud render scale
+the volumetric kit does not consume that field
+the cloud sphere is rendered by the shared HDR scene pass
+whole-scene dynamic resolution is the only active scale controller
+terrain cloud shadows execute through a separate procedural shader path
+no typed cloud pass, result or visible-frame receipt exists
 ```
 
 ## What is not proven
 
 ```txt
-a browser actually reproduced grounded delivery
-a visible frame displayed grounded delivery
-a specific terrain sample at Brookhaven equals the assumed local reference consistently
-a hard or soft landing policy currently exists
-the proposed authority has been implemented
-the proposed fixtures pass
-the built artifact or Pages origin matches source behavior
+current GPU cost on any device
+a specific frame-time regression
+that low-resolution rendering improves performance by a measured amount
+that a proposed upscaler preserves the current visual quality
+that temporal history is required
+that source, dist and Pages currently differ
 ```
 
 ## Required fixtures
 
 ```txt
-grounded Brookhaven-center rejection
-airborne safe-altitude acceptance
-hard-landing delivery rejection
-soft-landing classification
-full vertical-velocity settlement
-contact-before-delivery precedence
-stale and duplicate result handling
-GameHost result correlation
-first visible delivery/rejection frame
-source/build/Pages parity
+high/medium/low profile -> exact target dimensions and sample budgets
+renderScale 0.50/0.42/0.32 -> cloud-only target changes, main scene target unchanged
+cloud target + scene depth -> edge-preserving upscale at terrain and balloon silhouettes
+camera motion -> history accepted or reset deterministically
+coverage zero -> early skip or bounded minimal path
+full/reduced/impostor/disabled -> explicit result classification
+terrain shadow policy -> procedural/cached/disabled receipt
+resize and DPR change -> old targets retired, new generation admitted
+source, built artifact and Pages -> matching CloudFrameResult and visible frame
 ```
 
 ## Validation result
 
 ```txt
 documentation files changed: yes
-runtime JavaScript changed by audit: no
-gameplay or rendering changed by audit: no
-test source changed by audit: no
-package or dependencies changed by audit: no
-workflow or deployment changed by audit: no
+runtime JavaScript or shaders changed: no
+gameplay or rendering behavior changed: no
+test source changed: no
+packages or dependencies changed: no
+workflow or deployment changed: no
 branch created: no
 pull request created: no
 
@@ -97,10 +91,10 @@ root .agent coverage checked: yes
 source and configuration inspected: yes
 combined status inspected: yes, empty result
 npm install/check/build: not run
-headless contact fixture: unavailable
+GPU timing fixture: not run
 browser fixture: not run
 artifact downloaded: no
 Page URL fetched: no
 ```
 
-No landing-safety, grounded-delivery rejection, state-settlement, visible-frame, artifact-parity or production-readiness claim is made.
+No performance improvement, visual-equivalence, depth-upscale correctness, temporal stability, target retirement, artifact parity or production-readiness claim is made.
