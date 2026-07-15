@@ -1,117 +1,106 @@
-# Known Gaps: TheOpenAbove Ground Contact and Delivery Eligibility
+# Known Gaps: TheOpenAbove Cloud Low-Resolution Rendering
 
-**Last aligned:** `2026-07-14T17-39-01-04-00`  
-**Status:** `ground-contact-delivery-eligibility-settlement-authority-audited`
+**Last aligned:** `2026-07-14T22-39-00-04-00`  
+**Status:** `cloud-low-resolution-depth-upscale-authority-audited`
 
 ## Summary
 
-Terrain penetration is resolved by a positional clamp, but no authoritative contact state governs mail delivery. Brookhaven's configured altitude tolerance includes the clamp altitude, making grounded delivery source-permitted.
+The cloud LOD descriptor contains a scale that has no execution owner. Clouds render in the shared HDR scene pass, while the only active resolution controller scales the entire world.
 
 ## Plan ledger
 
-**Goal:** keep contact, delivery, presentation and proof gaps dependency ordered.
+**Goal:** keep target, ray-march, upscale, shadow, fallback, retirement and proof gaps dependency ordered.
 
-- [ ] Flight-step identity.
-- [ ] Versioned terrain-contact sample.
-- [ ] Contact classification and immutable result.
-- [ ] Atomic position and velocity settlement.
-- [ ] Impact and landing events.
-- [ ] Versioned mail-clearance policy.
-- [ ] Delivery admission bound to contact state.
-- [ ] Typed rejection, duplicate and conflict results.
-- [ ] Telemetry and GameHost correlation.
-- [ ] First matching visible frame.
-- [ ] Source/build/Pages fixture parity.
+- [ ] Frame and profile identity.
+- [ ] Cloud-only target allocation.
+- [ ] Executed sample receipts.
+- [ ] Temporal history ownership and reset.
+- [ ] Scene-depth correlation.
+- [ ] Depth-aware upscale.
+- [ ] Explicit HDR composite order.
+- [ ] Terrain shadow budget.
+- [ ] Fallback classification.
+- [ ] Target and history retirement.
+- [ ] GPU timing and visible-frame acknowledgement.
+- [ ] Source, build and Pages parity.
 
-## Contact-state gaps
+## Descriptor and execution gaps
 
 ```txt
-RunId and StepId: absent
-terrain sample ID and revision: absent
-ContactRevision: absent
-Airborne/SoftLanding/HardLanding/Grounded classification: absent
-impact-speed result: absent
-landing event: absent
-impact event: absent
+renderScale descriptor: present
+renderScale consumer: absent
+temporalJitter descriptor: present
+history owner: absent
+maxDistance descriptor: present, shader uses fixed 4200 cap
+fallbackImpostors: false
+execution profile result: absent
 ```
 
-## State-settlement gaps
+## Target and composite gaps
 
 ```txt
-position clamp: present
-verticalVelocity nonnegative clamp: present
-velocity.y settlement in contact branch: absent
-single terrain sample shared by contact and altitude: absent
-atomic settlement receipt: absent
-late/stale contact rejection: absent
+cloud-only color target: absent
+transmittance target: absent
+cloud depth target: absent
+scene-depth input to cloud composite: absent
+depth-aware upscale: absent
+explicit cloud HDR composite pass: absent
 ```
 
-## Delivery-admission gaps
+## Cost and telemetry gaps
 
 ```txt
-destination geometry: present
-parcel idempotency boolean: partial
-contact-state requirement: absent
-airborne-clearance policy: absent
-hard-landing exclusion: absent
-contact/delivery same-step precedence: implicit
-typed grounded rejection: absent
-immutable delivery result and fingerprint: absent
+view/light budgets: configured
+actual executed sample receipt: absent
+cloud GPU timer: absent
+terrain shadow cost receipt: absent
+cloud target dimensions readback: absent
+history generation readback: absent
+fallback reason readback: absent
 ```
 
-## Confirmed geometric case
+## Retirement gaps
 
 ```txt
-Brookhaven safe altitude: 92
-Brookhaven altitude tolerance: 72
-accepted altitude interval: 20..164
-balloon terrain clamp: 30
-delta at town center: 62
-current geometric admission: inside
-```
-
-## Telemetry and render gaps
-
-```txt
-ContactRevision readback: absent
-GroundContactResultId: absent
-MailDeliveryResultId: absent
-contact-aware message descriptor: absent
-renderer generation correlation: absent
-frame ID and image hash: absent
-FirstMailDeliveryFrameAck: absent
+cloud target retirement: not applicable because targets do not exist
+future target-generation fence: absent
+history retirement: absent
+late cloud-result rejection: absent
+context-loss recovery receipt: absent
 ```
 
 ## Validation gaps
 
 ```txt
-headless grounded-delivery fixture: unavailable
-soft/hard landing fixture: unavailable
-vertical-state coherence fixture: unavailable
-same-step precedence fixture: unavailable
-browser result/frame fixture: unavailable
-built artifact fixture: unavailable
-Pages fixture: unavailable
+low-resolution target fixture: unavailable
+depth-edge fixture: unavailable
+history/reset fixture: unavailable
+fallback fixture: unavailable
+terrain-shadow policy fixture: unavailable
+GPU timing capture: not run
+browser visible-frame fixture: not run
+built artifact fixture: not run
+Pages fixture: not run
 ```
 
 ## Dependency order
 
 ```txt
-flight and terrain identity
-  -> contact classification
-  -> atomic state settlement
-  -> contact revision
-  -> delivery clearance policy
-  -> delivery result
-  -> telemetry/presentation
-  -> visible frame acknowledgement
-  -> source/build/Pages parity
+frame/profile identity
+  -> target allocation
+  -> ray march
+  -> optional history
+  -> depth-aware upscale
+  -> HDR composite
+  -> shadow/fallback result
+  -> telemetry and visible frame
+  -> artifact parity
 ```
 
 ## Retained gaps
 
-Immutable provider/build identity, lifecycle retirement, startup rollback, renderer cleanup, world adoption, terrain/vegetation proof, Air Mail completion history and flight persistence remain unresolved.
+Ground-contact delivery, provider/build identity, lifecycle retirement, world adoption, terrain/vegetation proof, Air Mail history and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not describe grounded delivery as browser-observed, and do not claim the path is fixed until executable fixtures prove the new authority.
+Do not claim faster rendering, equivalent cloud quality, correct silhouette reconstruction, target retirement, artifact parity or production readiness until GPU and browser fixtures pass.
