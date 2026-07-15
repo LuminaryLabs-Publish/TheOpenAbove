@@ -1,86 +1,78 @@
-# Current Audit: TheOpenAbove Cloud Low-Resolution Rendering
+# Current Audit: TheOpenAbove Cloud Depth Composite
 
-**Last aligned:** `2026-07-14T22-39-00-04-00`  
-**Status:** `cloud-low-resolution-depth-upscale-authority-audited`  
-**Reviewed repository head:** `e407aa0c8ae98406f467e05c0fadfff988bdd304`  
-**Reviewed runtime revision:** `0d9ea6f6f977b63d09f22f8ae36107bfccd81811`
+**Last aligned:** `2026-07-15T02-09-29-04-00`  
+**Status:** `cloud-low-resolution-composite-depth-occlusion-authority-audited`  
+**Reviewed pre-audit documentation head:** `b1590e1e1e82a56f656db2954870c8252e4213c9`  
+**Reviewed runtime head:** `af3f5b96f28a32b1521c6ab7227c26d0c727370b`
 
 ## Summary
 
-The cloud LOD profile declares a cloud-only render scale of 0.50, 0.42 or 0.32, but the active renderer never consumes that value. The camera-centered, non-culled volumetric sphere is rendered by the main HDR scene pass at the same resolution as the rest of the world, while whole-scene dynamic resolution is the only resolution control.
+The previously unused cloud `renderScale` is now executed. The volume renders into a private low-resolution half-float target and a fullscreen mesh composites cloud color and alpha through the main HDR scene. The implementation does not output representative cloud depth or sample scene depth; its fullscreen geometry is fixed at far clip depth, so all depth-writing scene geometry can occlude the cloud sample regardless of actual cloud distance.
 
 ## Plan ledger
 
-**Goal:** turn the existing cloud LOD descriptor into an authoritative render path without restructuring weather, world generation or gameplay.
+**Goal:** reconcile the implemented optimization and define the smallest remaining reliable cloud-depth composite boundary.
 
-- [x] Compare repository inventory, central ledger and root `.agent` coverage.
-- [x] Exclude TheCavalryOfRome and select one repository only.
-- [x] Inspect all cloud profile, shader, scene, composer and shadow paths.
-- [x] Preserve the 101-surface inventory.
-- [x] Define typed results and fixture gates.
-- [x] Change documentation only.
-- [ ] Implement and execute the authority.
-
-## Selection comparison
-
-```txt
-accessible Publish repositories: 11
-eligible after Cavalry exclusion: 10
-central ledger entries: 10
-root .agent states: 10
-new eligible repositories: 0
-central-ledger missing: 0
-root-agent missing: 0
-runtime-ahead candidates: 0
-selected: LuminaryLabs-Publish/TheOpenAbove
-selection reason: oldest synchronized central documentation timestamp
-selected prior timestamp: 2026-07-14T17-39-01-04-00
-next oldest: AetherVale at 2026-07-14T17-58-14-04-00
-excluded: LuminaryLabs-Publish/TheCavalryOfRome
-```
+- [x] Compare the full Publish inventory, central ledger, root `.agent` coverage, and current heads.
+- [x] Select only TheOpenAbove because it is runtime-ahead by two commits.
+- [x] Inspect cloud target allocation, shader outputs, composite shader, material state, visual-domain render order, and disposal.
+- [x] Preserve all 101 active named surfaces and service ownership.
+- [x] Add and route the timestamped audit family.
+- [ ] Implement and prove cloud/geometry relative-depth reconstruction and typed frame results.
 
 ## Complete interaction loop
 
 ```txt
-workflow and browser admission
-  -> checkout product and NexusEngine provider
-  -> test, bundle, upload and deploy
-  -> compose Core World, balloon, mail and visual domains
-  -> create one Three.js scene and HDR composer
-  -> enter recursive RAF
+browser and workflow admission
+  -> checkout product and provider
+  -> test bundle upload deploy
+  -> compose gameplay world visual and UI domains
+  -> create renderer scene camera and HDR composer
+  -> enter RAF
 
-cloud frame
-  -> detect high, medium or low quality tier
-  -> create cloud LOD profile with renderScale, viewSamples and lightSamples
-  -> create camera-centered sphere with frustumCulled=false
-  -> attach ray-marched transparent cloud material directly to the main scene
-  -> update weather, lighting and camera-centered sphere
-  -> HDR RenderPass draws terrain, vegetation, balloon and clouds together
-  -> cloud fragment shader marches up to the tier view-sample count
-  -> each occupied sample launches up to the tier light-sample count
-  -> color-grade pass composites the same full-scene target
-  -> whole-scene dynamic resolution may resize renderer and composer every 90 samples
+frame update
+  -> advance balloon airstream and Air Mail truth
+  -> update weather sun sky cloud uniforms terrain vegetation grass flowers water and camera
 
-terrain shadow path
-  -> terrain material runs two procedural fbm2 cloud fields per terrain fragment
-  -> shadow cost is independent of cloud LOD renderScale
-  -> no cloud-only target, scene-depth input or depth-aware upscaler exists
+cloud pass
+  -> query drawing-buffer dimensions
+  -> resize cloud target to dimensions * LOD renderScale
+  -> bind RGBA HalfFloat target without depth buffer
+  -> clear transparent black
+  -> ray march private cloud sphere
+  -> write accumulated color and alpha
+  -> restore renderer target clear color alpha and autoClear
+
+HDR pass
+  -> draw the full main scene and scene depth
+  -> draw transparent fullscreen cloud plane
+  -> sample low-resolution color and alpha only
+  -> compare fixed far-plane fragment depth with scene depth
+  -> grade and present the frame
+  -> sample total frame time for whole-scene dynamic resolution
+
+teardown
+  -> remove cloud composite and private mesh
+  -> dispose both geometries both materials and target
+  -> dispose remaining visual resources
 ```
 
 ## Domains in use
 
 ```txt
-GitHub workflow, checked-out provider, Vite build and Pages deployment
-browser route, RAF clock, input, errors and GameHost publication
-Nexus Engine telemetry and Core World composition
-balloon flight, airstream and Air Mail gameplay
-world generation, terrain, vegetation, grass and flowers
-quality-tier detection and whole-scene dynamic resolution
-weather, physical sky, sun, aerial perspective and volumetric clouds
-cloud ray marching, lighting, LOD descriptors and terrain cloud shadows
-HDR scene rendering, color grading, depth textures and visible-frame evidence
-balloon, camera, parchment map and UI presentation
-validation, repo-local audit governance and central tracking
+GitHub workflow provider checkout Vite build artifact and Pages
+browser route import map RAF input errors and GameHost
+Nexus Engine telemetry Core World foundations features and landforms
+balloon flight telemetry presentation camera and clipping
+airstream routes fields forces visuals and debugging
+Air Mail parcels routes towns volumes and progress
+staged world generation terrain vegetation grass flowers water landmarks
+quality tiers whole-scene dynamic resolution and cloud LOD
+weather sky sun aerial perspective cloud lighting and ray marching
+private low-resolution target dispatch and lifecycle
+scene depth cloud depth reconstruction HDR composite and color grading
+terrain procedural cloud shadows
+parchment map headless validation tests and central tracking
 ```
 
 ## Kit and service census
@@ -91,32 +83,36 @@ runtime-implied adapters:           13
 Core World surfaces:                17
 active documented total:           101
 inactive or retired legacy:         13
-planned cloud authority including parent: 20
+planned cloud authority surfaces:   20
+new runtime kit IDs:                 0
 ```
 
-The complete kit-by-kit list and service map are in the timestamped tracker and `.agent/kit-registry.json`.
+The complete kit-by-kit service inventory is in the timestamped tracker and `.agent/kit-registry.json`.
 
 ## Source-backed findings
 
-### Cloud LOD scale is not executed
-
-`createCloudLodProfile()` returns `renderScale`, but `createVolumetricClouds()` reads only the view and light sample counts.
-
-### Clouds render in the shared scene pass
-
-The camera-centered cloud sphere is added directly to the main scene. The HDR composer owns one full-scene `RenderPass`, so no cloud-only target exists.
-
-### Dynamic resolution is whole-scene
-
-The controller changes renderer and composer pixel ratio together. It can reduce cloud cost only by reducing terrain, balloon, vegetation and post-process resolution at the same time.
-
-### Terrain cloud shadows are a separate cost
-
-The terrain shader injects two `fbm2` fields per terrain fragment and is not governed by the cloud LOD profile.
-
-### Frame evidence is absent
-
-No result identifies target dimensions, executed sample counts, history, upscale policy, fallback, shadow policy, timing or the first matching visible frame.
+```txt
+cloud LOD renderScale consumed: yes
+private cloud scene: yes
+cloud-only target: yes
+cloud target type: RGBA HalfFloat
+cloud target depth buffer: no
+cloud target scale: 0.50 / 0.42 / 0.32
+view/light budgets retained: yes
+separate transmittance target: no
+representative cloud-depth target: no
+scene-depth sampler in composite: no
+edge-aware reconstruction: no
+composite clip depth: far plane
+composite depth test: enabled
+relative cloud/geometry comparison: no
+render-size readback: yes
+cloud disposal: yes
+terrain shadow cost joined to result: no
+CloudFrameResult: no
+GPU timing receipt: no
+FirstVisibleCloudFrameAck: no
+```
 
 ## Required parent domain
 
@@ -127,25 +123,20 @@ open-above-cloud-low-resolution-depth-upscale-authority-domain
 ## Required transaction
 
 ```txt
-CloudFrameAdmissionCommand
-  -> bind FrameId, renderer generation, quality tier, viewport, DPR, weather and camera revisions
-  -> validate one CloudLodProfileRevision
-  -> allocate cloud color, transmittance and depth candidates at the declared cloud render scale
-  -> execute the admitted view/light sample budget
-  -> optionally adopt motion-aware temporal history
-  -> depth-aware upscale against the accepted scene-depth revision
-  -> composite clouds into the HDR scene in explicit order
-  -> classify full, reduced, impostor, disabled or rejected execution
-  -> publish CloudFrameResult with target, timing, pass and fallback receipts
+CloudDepthCompositeCommand
+  -> bind FrameId renderer quality viewport DPR weather camera and scene-depth revisions
+  -> admit one target generation
+  -> ray march color transmittance and representative cloud depth
+  -> receipt scale and view/light sample execution
+  -> reconstruct reduced-resolution samples against linear scene depth
+  -> preserve clouds in front of farther geometry
+  -> reject bleeding across nearer terrain balloon rope town and vegetation silhouettes
+  -> composite into HDR before color grading
+  -> classify Full Reduced ColorOnly FarDepthFallback Disabled or Rejected
+  -> publish CloudFrameResult and retirement receipts
   -> publish FirstVisibleCloudFrameAck
-
-TerrainCloudShadowCommand
-  -> bind the same weather and quality revisions
-  -> admit procedural, cached-texture or disabled shadow policy
-  -> publish TerrainCloudShadowResult and cost receipts
-  -> prevent an untracked shadow path from bypassing the cloud budget
 ```
 
 ## Validation boundary
 
-Documentation only. No shader, runtime, render target, test, build or deployment behavior changed, and no GPU timing or browser fixture was run.
+Documentation only. The runtime commits were inspected but not changed by this audit. No browser, GPU, build, artifact, or Pages fixture was run.
