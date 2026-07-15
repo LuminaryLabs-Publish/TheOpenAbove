@@ -1,100 +1,126 @@
-# Validation: TheOpenAbove Cloud Low-Resolution Rendering
+# Validation: TheOpenAbove Cloud Depth Composite
 
-**Last aligned:** `2026-07-14T22-39-00-04-00`
+**Last aligned:** `2026-07-15T02-09-29-04-00`
 
 ## Scope
 
-Documentation-only inspection of repository selection, cloud LOD descriptors, volumetric ray marching, scene/composer ownership, dynamic resolution, terrain cloud shadows, the 101-surface inventory and central tracking.
+Documentation-only reconciliation of two runtime cloud-performance commits, the full Publish selection comparison, the 101-surface inventory, low-resolution target allocation, offscreen ray marching, main-scene composite behavior, disposal, remaining depth ownership, and central tracking.
 
 ## Plan ledger
 
-**Goal:** distinguish a source-backed unused descriptor and cost shape from a measured performance problem or completed optimization.
+**Goal:** distinguish the implemented low-resolution color path from unproven depth-aware reconstruction, measured performance, and deployed parity.
 
 - [x] Enumerate all 11 Publish repositories.
 - [x] Exclude TheCavalryOfRome.
-- [x] Confirm ten eligible ledgers and root `.agent` states.
-- [x] Compare every eligible repository head with its recorded documentation head.
-- [x] Select TheOpenAbove by the oldest synchronized timestamp.
-- [x] Inspect cloud LOD, volumetric shader, visual domain, HDR composer, dynamic resolution and terrain shadows.
-- [x] Preserve all kits and service groups.
+- [x] Confirm ten eligible central ledgers and root `.agent` states.
+- [x] Compare current eligible heads with recorded documentation heads.
+- [x] Select TheOpenAbove as the sole runtime-ahead repository.
+- [x] Inspect both runtime commits and changed source files.
+- [x] Preserve all kits, adapters, providers, domains, and services.
 - [x] Inspect combined commit statuses.
-- [ ] Execute headless, browser, GPU, build, artifact and Pages fixtures.
+- [x] Add and route the timestamped audit family.
+- [ ] Execute source, browser, GPU, build, artifact, and Pages fixtures.
 
-## Source-backed observations
+## Source inspection performed
 
 ```txt
-reviewed repository head: e407aa0c8ae98406f467e05c0fadfff988bdd304
-reviewed runtime revision: 0d9ea6f6f977b63d09f22f8ae36107bfccd81811
-declared cloud scale: 0.50 / 0.42 / 0.32
-cloud scale read by volumetric kit: no
-cloud mesh in shared scene: yes
-cloud mesh frustum culling: disabled
-shared full-scene RenderPass: yes
-cloud-only target: no
-depth-aware upscaler: no
-whole-scene dynamic resolution: yes
-terrain procedural cloud shadow: two fbm2 fields per terrain fragment
-combined commit statuses: empty
+LuminaryLabs-Publish organization inventory
+LuminaryLabs-Dev/LuminaryLabs Publish repo ledger
+all eligible root .agent entrypoints
+commit 71f286d818d8ea8b308815f759c59b419fcfe508
+commit af3f5b96f28a32b1521c6ab7227c26d0c727370b
+src/visual/atmosphere/volumetric-cloud-kit.js
+src/visual/visual-domain.js
+.agent/kit-registry.json
+```
+
+## Confirmed by inspection
+
+```txt
+reviewed pre-audit documentation head: b1590e1e1e82a56f656db2954870c8252e4213c9
+reviewed runtime head: af3f5b96f28a32b1521c6ab7227c26d0c727370b
+runtime commits ahead: 2
+cloud renderScale consumed: yes
+private cloud scene: yes
+cloud-only target: yes
+target type: RGBA HalfFloat
+target depth buffer: false
+target scale: 0.50 / 0.42 / 0.32
+explicit offscreen render before composer: yes
+render-size readback: yes
+cloud resource disposal: yes
+representative cloud depth: no
+scene-depth sampler: no
+edge-aware reconstruction: no
+composite fixed at far clip depth: yes
+composite depth test enabled: yes
+relative cloud/geometry depth comparison: no
+typed CloudFrameResult: no
+first visible cloud-frame acknowledgement: no
+combined commit statuses returned: 0
 ```
 
 ## What source inspection proves
 
 ```txt
-the cloud LOD descriptor exposes a cloud render scale
-the volumetric kit does not consume that field
-the cloud sphere is rendered by the shared HDR scene pass
-whole-scene dynamic resolution is the only active scale controller
-terrain cloud shadows execute through a separate procedural shader path
-no typed cloud pass, result or visible-frame receipt exists
+the LOD scale now controls a cloud-only target
+the cloud ray march no longer executes in the shared full-resolution scene pass
+the low-resolution target stores accumulated color and alpha
+the main scene contains a fullscreen cloud composite
+the cloud target and materials are disposed on visual teardown
+the composite does not have enough data to compare actual cloud and geometry depth
 ```
 
 ## What is not proven
 
 ```txt
-current GPU cost on any device
-a specific frame-time regression
-that low-resolution rendering improves performance by a measured amount
-that a proposed upscaler preserves the current visual quality
-that temporal history is required
-that source, dist and Pages currently differ
+current frame-time or GPU cost on any device
+measured performance improvement
+visual equivalence to the previous path
+an observed occlusion or silhouette defect
+correct cloud-versus-geometry depth reconstruction
+target-generation safety during resize or context loss
+source build artifact or Pages parity
+production readiness
 ```
 
 ## Required fixtures
 
 ```txt
-high/medium/low profile -> exact target dimensions and sample budgets
-renderScale 0.50/0.42/0.32 -> cloud-only target changes, main scene target unchanged
-cloud target + scene depth -> edge-preserving upscale at terrain and balloon silhouettes
-camera motion -> history accepted or reset deterministically
-coverage zero -> early skip or bounded minimal path
-full/reduced/impostor/disabled -> explicit result classification
-terrain shadow policy -> procedural/cached/disabled receipt
-resize and DPR change -> old targets retired, new generation admitted
-source, built artifact and Pages -> matching CloudFrameResult and visible frame
+high medium low profile -> exact cloud target dimensions and sample budgets
+cloud scale transition -> cloud target changes and main scene remains independently admitted
+cloud before mountain -> cloud survives
+cloud behind mountain -> mountain occludes cloud
+terrain balloon rope town vegetation edges -> no silhouette bleed
+resize DPR quality context change -> predecessor target retired
+fallback profiles -> typed reason and result
+terrain shadow policy -> matching weather and quality receipt
+GPU timing -> cloud dispatch and composite measurements
+visible frame -> CloudFrameResult correlates with FirstVisibleCloudFrameAck
+source dist artifact Pages -> matching result and frame identity
 ```
 
-## Validation result
+## Change scope
 
 ```txt
-documentation files changed: yes
-runtime JavaScript or shaders changed: no
-gameplay or rendering behavior changed: no
-test source changed: no
+documentation changed: yes
+runtime JavaScript changed by audit: no
+shader changed by audit: no
+gameplay changed: no
+render behavior changed by audit: no
 packages or dependencies changed: no
-workflow or deployment changed: no
+tests or workflows changed: no
+deployment changed: no
 branch created: no
 pull request created: no
 
-organization inventory compared: yes
-central ledger compared: yes
-root .agent coverage checked: yes
-source and configuration inspected: yes
-combined status inspected: yes, empty result
 npm install/check/build: not run
-GPU timing fixture: not run
 browser fixture: not run
+GPU timing or capture: not run
 artifact downloaded: no
-Page URL fetched: no
+Pages URL fetched: no
 ```
 
-No performance improvement, visual-equivalence, depth-upscale correctness, temporal stability, target retirement, artifact parity or production-readiness claim is made.
+## Claims intentionally withheld
+
+No claim is made for correct depth-aware compositing, visual equivalence, measured performance improvement, temporal stability, target retirement, artifact parity, deployed parity, or production readiness.
