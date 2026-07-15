@@ -1,84 +1,81 @@
-# Next Steps: TheOpenAbove Ground Contact and Delivery Eligibility
+# Next Steps: TheOpenAbove Cloud Low-Resolution Rendering
 
-**Last aligned:** `2026-07-14T17-39-01-04-00`  
-**Status:** `ground-contact-delivery-eligibility-settlement-authority-audited`
+**Last aligned:** `2026-07-14T22-39-00-04-00`  
+**Status:** `cloud-low-resolution-depth-upscale-authority-audited`
 
 ## Plan ledger
 
-**Goal:** introduce the smallest authoritative boundary that makes terrain contact and Air Mail completion coherent without restructuring existing flight, world or rendering systems.
+**Goal:** implement the smallest cloud-only target and depth-aware composite that honors the existing LOD descriptor.
 
-### Gate 1: flight-step and terrain identity
+### Gate 1: frame and profile identity
 
-- [ ] Allocate `RunId`, `StepId` and accepted flight revision.
-- [ ] Sample terrain once for contact settlement.
-- [ ] Record terrain provider, generation and sample identity.
-- [ ] Reject stale or superseded terrain samples.
+- [ ] Allocate `FrameId`, renderer generation and `CloudLodProfileRevision`.
+- [ ] Bind quality tier, viewport, DPR, weather and camera revisions.
+- [ ] Validate scale and sample budgets.
+- [ ] Reject stale or superseded frames.
 
-### Gate 2: contact classification and settlement
+### Gate 2: cloud-only targets
 
-- [ ] Add `GroundContactSettlementCommand`.
-- [ ] Classify Airborne, SoftLanding, HardLanding and Grounded.
-- [ ] Settle position, `verticalVelocity` and `velocity.y` atomically.
-- [ ] Publish impact and landing events with one `ContactRevision`.
-- [ ] Preserve existing buoyancy, wind and steering behavior outside contact.
+- [ ] Allocate color, transmittance and representative-depth targets at the declared scale.
+- [ ] Keep the main scene target at the admitted whole-scene resolution.
+- [ ] Publish dimensions, formats, generation and byte estimates.
+- [ ] Retire old targets on resize, quality transition and context recovery.
 
-### Gate 3: delivery eligibility
+### Gate 3: ray march and history
 
-- [ ] Add a versioned mail-clearance policy.
-- [ ] Require every delivery attempt to cite the accepted `ContactRevision`.
-- [ ] Reject Grounded, HardLanding, unresolved and stale contact states.
-- [ ] Keep destination radius and altitude geometry as necessary but insufficient conditions.
-- [ ] Publish immutable accepted, rejected, duplicate and conflict results.
+- [ ] Dispatch existing density and light logic into the cloud target.
+- [ ] Publish actual view/light sample receipts.
+- [ ] Add optional jitter/history ownership.
+- [ ] Reset history on camera, weather, scale or renderer discontinuity.
 
-### Gate 4: telemetry and presentation
+### Gate 4: depth-aware upscale and HDR composite
 
-- [ ] Add contact state and result identity to telemetry.
-- [ ] Project accepted delivery and grounded rejection from immutable descriptors.
-- [ ] Correlate `GameHost` readback with the accepted contact and mail results.
-- [ ] Publish `FirstMailDeliveryFrameAck` with renderer generation, frame ID and image hash.
+- [ ] Consume the accepted scene-depth revision.
+- [ ] Prevent cloud bleeding across terrain, balloon, rope and town silhouettes.
+- [ ] Composite in one explicit HDR order.
+- [ ] Publish upscale and composite receipts.
 
-### Gate 5: deterministic fixtures
+### Gate 5: shadow and fallback policy
 
-- [ ] Prove grounded Brookhaven-center delivery is rejected.
-- [ ] Prove airborne safe-altitude delivery is accepted once.
-- [ ] Prove hard landing inside the volume does not deliver.
-- [ ] Prove full vertical-velocity settlement.
-- [ ] Prove same-step contact precedence, stale rejection and idempotency.
+- [ ] Admit terrain cloud shadows under the same weather and budget revision.
+- [ ] Support procedural, cached, disabled and future impostor policies.
+- [ ] Classify Full, Reduced, Impostor, Disabled or Rejected execution.
+- [ ] Expose fallback reasons in telemetry.
 
-### Gate 6: artifact and deployment parity
+### Gate 6: fixtures
 
-- [ ] Run the fixture against source and built artifact.
-- [ ] Run a browser fixture against local build and Pages.
-- [ ] Bind product/provider revisions, result IDs and frame evidence.
-- [ ] Preserve the existing provider-build identity and route-retirement gates.
+- [ ] Run the target, scale, edge, history, fallback and retirement matrix.
+- [ ] Capture GPU timings without asserting a fixed threshold prematurely.
+- [ ] Correlate `GameHost`, `CloudFrameResult` and `FirstVisibleCloudFrameAck`.
+- [ ] Prove source, built artifact and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/ground-contact/
-  ground-contact-settlement-authority-domain.js
-  terrain-contact-sample-kit.js
-  ground-contact-classification-kit.js
-  contact-velocity-settlement-kit.js
-  ground-contact-result-kit.js
-
-src/gameplay/mail-delivery-domain/
-  mail-clearance-policy-kit.js
-  mail-delivery-eligibility-result-kit.js
-  contact-delivery-admission-kit.js
+src/visual/cloud-frame/
+  cloud-low-resolution-depth-upscale-authority-domain.js
+  cloud-frame-identity-kit.js
+  cloud-target-allocation-kit.js
+  cloud-raymarch-dispatch-kit.js
+  cloud-temporal-history-kit.js
+  cloud-depth-aware-upscale-kit.js
+  cloud-hdr-composite-kit.js
+  terrain-cloud-shadow-policy-kit.js
+  cloud-frame-result-kit.js
+  cloud-target-retirement-kit.js
 
 tests/
-  ground-contact-delivery-eligibility.mjs
+  cloud-low-resolution-depth-upscale.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve the existing balloon simulation API, terrain-height provider, route data, town visuals, Air Mail state, map behavior and visual domain. Add typed admission around their existing data flow rather than moving gameplay ownership into `main.js`.
+Preserve current weather, cloud density, lighting, quality tiers, scene depth, color grading, terrain material and gameplay APIs. Wire the existing `renderScale` into rendering rather than replacing the cloud look.
 
 ## Retained next steps
 
-Immutable provider/build identity, route retirement, startup rollback, WebGL cleanup, Core World revision adoption, grass publication, mail completion history and flight persistence remain open.
+Ground-contact delivery eligibility, immutable provider/build identity, route retirement, world adoption, Air Mail history and flight persistence remain open.
 
 ## Do not claim
 
-Do not claim safe landing, grounded-delivery exclusion, exact contact settlement, visible-frame convergence or deployment parity until all gates pass.
+Do not claim faster rendering, visual equivalence, temporal stability, correct silhouette reconstruction or deployment parity until the full fixture matrix passes.
