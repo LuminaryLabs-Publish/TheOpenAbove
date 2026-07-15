@@ -119,6 +119,7 @@ export function createVisualDomain({
   }
 
   function render(dt, frameMs) {
+    clouds.render(renderer, camera);
     composer.render(dt);
     resolution.sample(frameMs, innerWidth || 1, innerHeight || 1);
     state.drawCalls = renderer.info.render.calls;
@@ -132,6 +133,7 @@ export function createVisualDomain({
     world.dispose();
     landmarks.dispose?.();
     water.dispose?.();
+    clouds.dispose?.();
     flowers.dispose();
     grass.dispose();
     vegetation.dispose?.();
