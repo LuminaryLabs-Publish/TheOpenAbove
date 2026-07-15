@@ -1,78 +1,86 @@
-# Current Audit: TheOpenAbove Ground Contact and Delivery Eligibility
+# Current Audit: TheOpenAbove Cloud Low-Resolution Rendering
 
-**Last aligned:** `2026-07-14T17-39-01-04-00`  
-**Status:** `ground-contact-delivery-eligibility-settlement-authority-audited`  
-**Reviewed repository head:** `542b6db53269d1c5a78825f0e70b0f630dd0fbd8`  
+**Last aligned:** `2026-07-14T22-39-00-04-00`  
+**Status:** `cloud-low-resolution-depth-upscale-authority-audited`  
+**Reviewed repository head:** `e407aa0c8ae98406f467e05c0fadfff988bdd304`  
 **Reviewed runtime revision:** `0d9ea6f6f977b63d09f22f8ae36107bfccd81811`
 
 ## Summary
 
-The current flight step resolves terrain penetration by moving the balloon to `terrainHeight + 30`, but it publishes no contact state and does not settle the complete velocity vector. Mail delivery is evaluated immediately afterward from geometry alone. Brookhaven's delivery altitude band includes the clamp altitude, so a grounded delivery is permitted by the current source.
+The cloud LOD profile declares a cloud-only render scale of 0.50, 0.42 or 0.32, but the active renderer never consumes that value. The camera-centered, non-culled volumetric sphere is rendered by the main HDR scene pass at the same resolution as the rest of the world, while whole-scene dynamic resolution is the only resolution control.
 
 ## Plan ledger
 
-**Goal:** make every delivery result cite an accepted, versioned ground-contact result from the same flight step.
+**Goal:** turn the existing cloud LOD descriptor into an authoritative render path without restructuring weather, world generation or gameplay.
 
-- [x] Compare the full Publish inventory with central tracking.
-- [x] Exclude TheCavalryOfRome.
-- [x] Confirm ten eligible ledgers and ten root `.agent` states.
-- [x] Confirm no new, missing or runtime-ahead repository.
-- [x] Select only TheOpenAbove as the oldest aligned eligible repository.
-- [x] Inspect all contact and delivery producer/consumer paths.
-- [x] Preserve the 101 active kit and adapter surfaces.
-- [x] Define the authority, typed results and fixture gate.
+- [x] Compare repository inventory, central ledger and root `.agent` coverage.
+- [x] Exclude TheCavalryOfRome and select one repository only.
+- [x] Inspect all cloud profile, shader, scene, composer and shadow paths.
+- [x] Preserve the 101-surface inventory.
+- [x] Define typed results and fixture gates.
 - [x] Change documentation only.
-- [ ] Implement and execute settlement authority.
+- [ ] Implement and execute the authority.
 
 ## Selection comparison
 
 ```txt
 accessible Publish repositories: 11
-eligible non-Cavalry repositories: 10
+eligible after Cavalry exclusion: 10
 central ledger entries: 10
 root .agent states: 10
-new or ledger missing: 0
+new eligible repositories: 0
+central-ledger missing: 0
 root-agent missing: 0
-runtime ahead: 0
+runtime-ahead candidates: 0
 selected: LuminaryLabs-Publish/TheOpenAbove
-reason: oldest aligned eligible repository
-prior alignment: 2026-07-14T12-38-21-04-00
+selection reason: oldest synchronized central documentation timestamp
+selected prior timestamp: 2026-07-14T17-39-01-04-00
+next oldest: AetherVale at 2026-07-14T17-58-14-04-00
+excluded: LuminaryLabs-Publish/TheCavalryOfRome
 ```
 
 ## Complete interaction loop
 
 ```txt
-browser boot
-  -> compose Nexus Engine, Core World and visual domains
-  -> create balloon, flight simulation, airstream, mail and map
-  -> publish GameHost
-  -> enter RAF
+workflow and browser admission
+  -> checkout product and NexusEngine provider
+  -> test, bundle, upload and deploy
+  -> compose Core World, balloon, mail and visual domains
+  -> create one Three.js scene and HDR composer
+  -> enter recursive RAF
 
-flight step
-  -> read burner, vent and steering
-  -> sample airstream and integrate buoyancy
-  -> update full velocity and position
-  -> sample terrain
-  -> clamp position to ground + 30 on penetration
-  -> clamp verticalVelocity nonnegative
-  -> publish altitude from a second terrain sample
-  -> mail samples destination volume from the clamped position
-  -> parcel may become delivered
-  -> presentation, telemetry and render advance
+cloud frame
+  -> detect high, medium or low quality tier
+  -> create cloud LOD profile with renderScale, viewSamples and lightSamples
+  -> create camera-centered sphere with frustumCulled=false
+  -> attach ray-marched transparent cloud material directly to the main scene
+  -> update weather, lighting and camera-centered sphere
+  -> HDR RenderPass draws terrain, vegetation, balloon and clouds together
+  -> cloud fragment shader marches up to the tier view-sample count
+  -> each occupied sample launches up to the tier light-sample count
+  -> color-grade pass composites the same full-scene target
+  -> whole-scene dynamic resolution may resize renderer and composer every 90 samples
+
+terrain shadow path
+  -> terrain material runs two procedural fbm2 cloud fields per terrain fragment
+  -> shadow cost is independent of cloud LOD renderScale
+  -> no cloud-only target, scene-depth input or depth-aware upscaler exists
 ```
 
 ## Domains in use
 
 ```txt
-workflow/provider/build/Pages lifecycle
-browser route, input, RAF and GameHost
-Nexus Engine telemetry and Core World
-balloon flight and terrain contact
-airstream route, sampling, forces and visuals
-mail parcel, route, town, volume and progress
-terrain/world streaming and height sampling
-balloon, camera, map and HDR presentation
-validation and audit governance
+GitHub workflow, checked-out provider, Vite build and Pages deployment
+browser route, RAF clock, input, errors and GameHost publication
+Nexus Engine telemetry and Core World composition
+balloon flight, airstream and Air Mail gameplay
+world generation, terrain, vegetation, grass and flowers
+quality-tier detection and whole-scene dynamic resolution
+weather, physical sky, sun, aerial perspective and volumetric clouds
+cloud ray marching, lighting, LOD descriptors and terrain cloud shadows
+HDR scene rendering, color grading, depth textures and visible-frame evidence
+balloon, camera, parchment map and UI presentation
+validation, repo-local audit governance and central tracking
 ```
 
 ## Kit and service census
@@ -83,65 +91,61 @@ runtime-implied adapters:           13
 Core World surfaces:                17
 active documented total:           101
 inactive or retired legacy:         13
-planned contact authority family:   19
+planned cloud authority including parent: 20
 ```
 
 The complete kit-by-kit list and service map are in the timestamped tracker and `.agent/kit-registry.json`.
 
 ## Source-backed findings
 
-### Terrain contact is an implicit mutation
+### Cloud LOD scale is not executed
 
-The simulation computes `ground = terrainHeight(x, z) + 30`, sets `position.y = ground` when penetrated and makes `verticalVelocity` nonnegative. It publishes no `ContactRevision`, landing class, impact speed or contact event.
+`createCloudLodProfile()` returns `renderScale`, but `createVolumetricClouds()` reads only the view and light sample counts.
 
-### Full velocity settlement is not explicit
+### Clouds render in the shared scene pass
 
-The contact branch settles `verticalVelocity`, but it does not explicitly settle `state.velocity.y` in the same branch. Consumers can therefore observe two vertical-motion values without a common settlement receipt.
+The camera-centered cloud sphere is added directly to the main scene. The HDR composer owns one full-scene `RenderPass`, so no cloud-only target exists.
 
-### Delivery ignores contact state
+### Dynamic resolution is whole-scene
 
-The main frame calls `mail.update()` immediately after simulation. Delivery progress accepts when the geometric delivery volume reports `inside`; it does not require airborne clearance or an accepted contact result.
+The controller changes renderer and composer pixel ratio together. It can reduce cloud cost only by reducing terrain, balloon, vegetation and post-process resolution at the same time.
 
-### Brookhaven includes the ground clamp
+### Terrain cloud shadows are a separate cost
 
-```txt
-safe altitude: 92
-altitude tolerance: 72
-accepted band: 20..164
-terrain clamp altitude: 30
-delta: 62 <= 72
-```
+The terrain shader injects two `fbm2` fields per terrain fragment and is not governed by the cloud LOD profile.
 
-At the destination center, the clamped position qualifies geometrically.
+### Frame evidence is absent
 
-### Visible-frame identity is absent
-
-No renderer frame cites a `GroundContactResultId`, `ContactRevision` or `MailDeliveryResultId`.
+No result identifies target dimensions, executed sample counts, history, upscale policy, fallback, shadow policy, timing or the first matching visible frame.
 
 ## Required parent domain
 
 ```txt
-open-above-ground-contact-delivery-eligibility-settlement-authority-domain
+open-above-cloud-low-resolution-depth-upscale-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-GroundContactSettlementCommand
-  -> bind RunId, StepId, terrain revision and pre-contact state
-  -> classify Airborne, SoftLanding, HardLanding or Grounded
-  -> settle position and both vertical-velocity representations
-  -> publish GroundContactResult and ContactRevision
+CloudFrameAdmissionCommand
+  -> bind FrameId, renderer generation, quality tier, viewport, DPR, weather and camera revisions
+  -> validate one CloudLodProfileRevision
+  -> allocate cloud color, transmittance and depth candidates at the declared cloud render scale
+  -> execute the admitted view/light sample budget
+  -> optionally adopt motion-aware temporal history
+  -> depth-aware upscale against the accepted scene-depth revision
+  -> composite clouds into the HDR scene in explicit order
+  -> classify full, reduced, impostor, disabled or rejected execution
+  -> publish CloudFrameResult with target, timing, pass and fallback receipts
+  -> publish FirstVisibleCloudFrameAck
 
-MailDeliveryEligibilityCommand
-  -> bind parcel, route, destination and ContactRevision
-  -> sample one versioned delivery volume
-  -> apply explicit clearance and contact policy
-  -> reject grounded, hard-impact, unresolved and stale candidates
-  -> publish one immutable MailDeliveryResult
-  -> acknowledge one matching visible frame
+TerrainCloudShadowCommand
+  -> bind the same weather and quality revisions
+  -> admit procedural, cached-texture or disabled shadow policy
+  -> publish TerrainCloudShadowResult and cost receipts
+  -> prevent an untracked shadow path from bypassing the cloud budget
 ```
 
 ## Validation boundary
 
-Documentation only. Source and configuration were inspected. No runtime, test, build, browser, artifact or Pages fixture was executed.
+Documentation only. No shader, runtime, render target, test, build or deployment behavior changed, and no GPU timing or browser fixture was run.
