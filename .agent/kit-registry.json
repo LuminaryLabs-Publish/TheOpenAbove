@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 108,
+  "schemaVersion": 109,
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-14T17-39-01-04-00",
-  "status": "ground-contact-delivery-eligibility-settlement-authority-audited",
-  "technicalStatus": "ground-contact-delivery-eligibility-settlement-authority-audited",
+  "lastAligned": "2026-07-14T22-39-00-04-00",
+  "status": "cloud-low-resolution-depth-upscale-authority-audited",
+  "technicalStatus": "cloud-low-resolution-depth-upscale-authority-audited",
   "retainedStatuses": [
+    "ground-contact-delivery-eligibility-settlement-authority-audited",
     "checked-out-provider-build-browser-identity-authority-audited",
     "pages-deployment-url-artifact-publication-authority-audited",
     "route-runtime-resource-retirement-authority-audited",
@@ -20,7 +21,7 @@
     "mail-delivery-completion-authority-central-reconciled",
     "flight-session-persistence-authority-central-reconciled"
   ],
-  "reviewedPreAuditHead": "542b6db53269d1c5a78825f0e70b0f630dd0fbd8",
+  "reviewedPreAuditHead": "e407aa0c8ae98406f467e05c0fadfff988bdd304",
   "runtimeRevisionReviewed": "0d9ea6f6f977b63d09f22f8ae36107bfccd81811",
   "selection": {
     "inventoryCount": 11,
@@ -32,36 +33,35 @@
     "rootAgentMissingCount": 0,
     "runtimeAheadCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "Oldest aligned eligible repository after no new, missing, undocumented, root-agent-missing or runtime-ahead candidate was found.",
+    "reason": "Oldest synchronized eligible repository after no new, missing, undocumented, root-agent-missing or runtime-ahead candidate was found.",
     "excluded": [
       "LuminaryLabs-Publish/TheCavalryOfRome"
     ],
-    "selectedPriorAlignment": "2026-07-14T12-38-21-04-00",
-    "nextOldestPriorAlignment": "2026-07-14T13-00-39-04-00"
+    "selectedPriorAlignment": "2026-07-14T17-39-01-04-00",
+    "nextOldestPriorAlignment": "2026-07-14T17-58-14-04-00"
   },
-  "latestTracker": ".agent/trackers/2026-07-14T17-39-01-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-14T17-39-01-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-14T22-39-00-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-14T22-39-00-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-eligibility-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-14T17-39-01-04-00-grounded-delivery-visible-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-14T17-39-01-04-00-ground-contact-mail-delivery-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-command-result-map.md",
-    "landing": ".agent/landing-audit/2026-07-14T17-39-01-04-00-ground-contact-delivery-eligibility-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-14T17-39-01-04-00-grounded-delivery-fixture-gate.md",
-    "centralSync": ".agent/central-sync-audit/2026-07-14T17-39-01-04-00-oldest-selection-ground-contact-reconciliation.md"
+    "architecture": ".agent/architecture-audit/2026-07-14T22-39-00-04-00-cloud-low-resolution-depth-upscale-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-14T22-39-00-04-00-cloud-render-scale-execution-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-14T22-39-00-04-00-weather-to-cloud-visible-frame-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-14T22-39-00-04-00-cloud-frame-command-result-map.md",
+    "cloudSystem": ".agent/cloud-system-audit/2026-07-14T22-39-00-04-00-raymarch-target-upscale-shadow-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-14T22-39-00-04-00-cloud-resolution-browser-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-14T22-39-00-04-00-oldest-selection-cloud-resolution-reconciliation.md"
   },
   "counts": {
     "localRuntimeAndGameplay": 15,
     "localBalloonObjectAndPresentation": 15,
     "localVisualWorldAndEnvironment": 34,
-    "localUi": 1,
-    "localToolingAndProof": 6,
+    "localUiAndTooling": 7,
     "localSourceBackedTotal": 71,
     "runtimeImpliedAdapters": 13,
     "coreWorldSurfaces": 17,
     "currentDocumentedActiveTotal": 101,
     "inactiveOrRetiredLegacy": 13,
-    "plannedGroundContactAuthorityIncludingParent": 19
+    "plannedCloudAuthorityIncludingParent": 20
   },
   "activeSourceBackedKits": {
     "runtimeAndGameplay": [
@@ -134,10 +134,8 @@
       "open-above-color-grade-kit",
       "open-above-lens-response-kit"
     ],
-    "ui": [
-      "open-above-parchment-map-overlay-kit"
-    ],
-    "toolingAndProof": [
+    "uiAndTooling": [
+      "open-above-parchment-map-overlay-kit",
       "open-above-headless-editor-environment",
       "open-above-static-smoke-test-kit",
       "open-above-airstream-mail-test-kit",
@@ -190,13 +188,6 @@
       "balloon-force-and-airstream-visuals",
       "mail-parcel-route-town-volume-and-delivery-progress"
     ],
-    "groundContactAndDelivery": [
-      "terrain-height-contact-clamp",
-      "partial-vertical-contact-settlement",
-      "destination-volume-sampling",
-      "parcel-delivery-mutation-and-event",
-      "town-visual-update-and-disposal"
-    ],
     "balloonPresentation": [
       "procedural-envelope-and-mouth",
       "streamer-fit-and-seams",
@@ -211,6 +202,15 @@
       "sky-sun-cloud-water-and-atmosphere",
       "hdr-grade-lens-and-dynamic-resolution",
       "partial-visual-world-disposal"
+    ],
+    "cloudExecution": [
+      "weather-coverage-density-and-offset",
+      "declared-cloud-lod-scale-and-sample-budgets",
+      "camera-centered-volumetric-raymarch",
+      "nested-sun-light-transmittance",
+      "shared-hdr-scene-pass",
+      "whole-scene-dynamic-resolution",
+      "procedural-terrain-cloud-shadow"
     ],
     "uiAndHost": [
       "parchment-map-drawing-and-lifecycle",
@@ -227,69 +227,60 @@
       "pages-artifact-upload-deployment-and-environment-url"
     ]
   },
-  "providerSelection": {
-    "workflowRef": "main",
-    "checkoutPath": ".nexus-engine",
-    "entryPath": ".nexus-engine/src/index.js",
-    "viteAlias": "@nexus-engine",
-    "shaEnvironment": "VITE_NEXUS_ENGINE_SHA",
-    "browserProjection": "GameHost.nexusEngineSha",
-    "localFallback": "local-main",
-    "immutable": false
+  "cloudExecutionState": {
+    "declaredRenderScales": {
+      "high": 0.5,
+      "medium": 0.42,
+      "low": 0.32
+    },
+    "renderScaleConsumed": false,
+    "viewSamples": {
+      "high": 36,
+      "medium": 26,
+      "low": 14
+    },
+    "lightSamples": {
+      "high": 6,
+      "medium": 4,
+      "low": 2
+    },
+    "shaderViewLoopCeiling": 48,
+    "shaderLightLoopCeiling": 8,
+    "cloudSphereRadius": 4050,
+    "frustumCulled": false,
+    "sharedSceneRenderPass": true,
+    "cloudOnlyColorTarget": false,
+    "cloudTransmittanceDepthTarget": false,
+    "sceneDepthAwareUpscale": false,
+    "temporalHistoryOwner": false,
+    "fallbackImpostors": false,
+    "wholeSceneDynamicResolution": true,
+    "terrainCloudShadowFbmFields": 2,
+    "cloudPassTimingReceipt": false,
+    "firstVisibleCloudFrameAck": false
   },
-  "identityState": {
-    "realProviderNodeTestSource": true,
-    "sameCheckoutUsedByTestAndVite": true,
-    "providerCheckoutShaRecorded": true,
-    "browserShaProjection": true,
-    "productCheckoutImmutable": false,
-    "providerCheckoutImmutable": false,
-    "providerPolicyRevision": false,
-    "localProviderSetupContract": false,
-    "providerEntryFingerprint": false,
-    "dependencyLockFingerprint": false,
-    "bundleIdentityReceipt": false,
-    "buildIdentityManifest": false,
-    "browserIdentityAdmission": false,
-    "firstBuildIdentityFrameAck": false,
-    "sourceBuildPagesIdentityParity": false
-  },
-  "groundContactDeliveryState": {
-    "terrainClampPresent": true,
-    "terrainClampClearance": 30,
-    "contactClassification": false,
-    "contactRevision": false,
-    "positionSettlement": true,
-    "verticalVelocitySettlement": true,
-    "fullVelocitySettlement": false,
-    "deliveryConsumesContactState": false,
-    "brookhavenSafeAltitude": 92,
-    "brookhavenAltitudeTolerance": 72,
-    "groundedDeliveryPossibleBySource": true,
-    "mailDeliveryResultIdentity": false,
-    "firstMailDeliveryFrameAck": false
-  },
-  "plannedParentDomain": "open-above-ground-contact-delivery-eligibility-settlement-authority-domain",
-  "plannedGroundContactAuthorityKits": [
-    "open-above-ground-contact-delivery-eligibility-settlement-authority-domain",
-    "open-above-flight-step-identity-kit",
-    "open-above-terrain-contact-sample-kit",
-    "open-above-ground-contact-classification-kit",
-    "open-above-contact-position-settlement-kit",
-    "open-above-contact-velocity-settlement-kit",
-    "open-above-impact-event-kit",
-    "open-above-landing-event-kit",
-    "open-above-contact-revision-kit",
-    "open-above-mail-clearance-policy-kit",
-    "open-above-delivery-contact-admission-kit",
-    "open-above-delivery-volume-revision-kit",
-    "open-above-mail-delivery-eligibility-result-kit",
-    "open-above-contact-delivery-conflict-kit",
-    "open-above-grounded-delivery-rejection-kit",
-    "open-above-contact-telemetry-projection-kit",
-    "open-above-delivery-presentation-descriptor-kit",
-    "open-above-first-mail-delivery-frame-ack-kit",
-    "open-above-contact-delivery-fixture-kit"
+  "plannedParentDomain": "open-above-cloud-low-resolution-depth-upscale-authority-domain",
+  "plannedCloudAuthorityKits": [
+    "open-above-cloud-low-resolution-depth-upscale-authority-domain",
+    "open-above-cloud-frame-identity-kit",
+    "open-above-cloud-lod-profile-revision-kit",
+    "open-above-cloud-target-allocation-kit",
+    "open-above-cloud-raymarch-dispatch-kit",
+    "open-above-cloud-transmittance-depth-kit",
+    "open-above-cloud-temporal-history-kit",
+    "open-above-cloud-history-reset-kit",
+    "open-above-cloud-depth-aware-upscale-kit",
+    "open-above-cloud-hdr-composite-kit",
+    "open-above-cloud-execution-profile-kit",
+    "open-above-cloud-fallback-policy-kit",
+    "open-above-cloud-pass-receipt-kit",
+    "open-above-cloud-target-retirement-kit",
+    "open-above-terrain-cloud-shadow-policy-kit",
+    "open-above-terrain-cloud-shadow-result-kit",
+    "open-above-cloud-frame-result-kit",
+    "open-above-cloud-frame-conflict-kit",
+    "open-above-cloud-telemetry-projection-kit",
+    "open-above-first-visible-cloud-frame-ack-kit"
   ],
   "validation": {
     "documentationOnly": true,
@@ -300,17 +291,13 @@
     "allEligibleHeadsCompared": true,
     "combinedCommitStatusInspected": true,
     "combinedStatusesReturned": 0,
-    "groundedDeliverySourcePathDerived": true,
-    "headlessContactFixtureRun": false,
+    "cloudRenderScaleExecutionGapDerived": true,
+    "gpuTimingFixtureRun": false,
     "browserFixtureRun": false,
     "viteBuildRun": false,
     "artifactDownloaded": false,
     "pageUrlFetched": false,
     "runtimeChangedByAudit": false,
-    "testChangedByAudit": false,
-    "packageChangedByAudit": false,
-    "workflowChangedByAudit": false,
-    "deploymentChangedByAudit": false,
     "branchCreated": false,
     "pullRequestCreated": false
   }
