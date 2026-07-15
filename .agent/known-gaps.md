@@ -1,135 +1,135 @@
-# Known Gaps: TheOpenAbove HDR Depth Size Coherence
+# Known Gaps: TheOpenAbove Host Clock Fixed-Step Flight Simulation
 
-**Last aligned:** `2026-07-15T07-39-52-04-00`  
-**Status:** `hdr-dynamic-resolution-depth-attachment-size-coherence-authority-audited`
+**Last aligned:** `2026-07-15T12-02-38-04-00`  
+**Status:** `host-clock-fixed-step-flight-simulation-authority-audited`
 
 ## Summary
 
-The HDR composer owns two color render targets and two independent depth textures, but no shared physical-size descriptor or atomic resize result binds them. Host resize handling can leave the color targets at effective-pixel dimensions while the depth texture images are rewritten to CSS dimensions.
+The RAF host admits at most `1/30` second per callback and performs one update batch. No accumulator, residual time, bounded catch-up policy, suspension result, overload receipt, interpolation descriptor, or clock-aligned frame acknowledgement exists.
 
 ## Plan ledger
 
-**Goal:** keep render-surface sizing, adoption, retirement, telemetry, browser proof, and retained product gaps dependency ordered.
+**Goal:** keep clock identity, fixed-step execution, suspension, overload handling, rendering, browser proof, and retained product gaps dependency ordered.
 
-- [x] Identify the color/depth dimension split.
-- [x] Trace boot, browser resize, and dynamic-scale paths.
-- [x] Preserve the current cloud and HDR findings.
-- [ ] Add one render-surface generation and descriptor.
-- [ ] Size all color and depth attachments from that descriptor.
-- [ ] Add atomic adoption and predecessor preservation.
-- [ ] Add retirement and stale-generation rejection.
-- [ ] Add exact dimension and framebuffer proof.
-- [ ] Correlate the first visible HDR frame.
+- [x] Identify the callback-time loss path.
+- [x] Trace all time-dependent simulation and presentation consumers.
+- [x] Preserve existing HDR, cloud, world, mail, and lifecycle findings.
+- [ ] Add one host-clock generation and policy descriptor.
+- [ ] Add an active elapsed-time accumulator and residual state.
+- [ ] Add bounded fixed-step execution and explicit overload receipts.
+- [ ] Add map, visibility, and runtime suspension/resume settlement.
+- [ ] Add interpolation and first clock-aligned frame evidence.
 - [ ] Prove source, build, artifact, and Pages parity.
 
 ## Implemented state
 
 ```txt
-quality-tier DPR caps: present
-dynamic-resolution scale: present
-renderer pixel-ratio resize: present
-EffectComposer pixel-ratio resize: present
-two half-float composer color targets: present
-two independent unsigned-int depth textures: present
-cloud target sizes from renderer drawing buffer: present
-manual local depth image resize: present
+performance.now callback timestamps: present
+frameMs cap at 80 ms: present
+dt cap at 1/30 second: present
+one update batch per callback: present
+map-open update suppression: present
+render while map is open: present
+dynamic-resolution frameMs sampling: present
 ```
 
-## Primary size-coherence gaps
+## Primary host-clock gaps
 
 ```txt
-shared CSS/physical size descriptor: absent
-effective pixel-ratio revision: absent
-color target generation identity: absent
-depth attachment generation identity: absent
-color/depth equality validation: absent
-framebuffer completeness proof: absent
-pass-size compatibility receipt: absent
-atomic resize adoption: absent
-predecessor preservation on resize failure: absent
+HostClockGeneration: absent
+ClockPolicyRevision: absent
+monotonic interval admission result: absent
+fixed-step descriptor: absent
+elapsed-time accumulator: absent
+residual time: absent
+bounded catch-up step count: absent
+overload policy: absent
+discarded-time receipt: absent
+input revision binding: absent
+per-domain step receipts: absent
 ```
 
-## Source-permitted divergence paths
+## Source-permitted timing paths
 
-### High-DPR upscale
+### Sustained 20 FPS
 
 ```txt
-quality high and device DPR 2
-  -> capped DPR 1.6
-  -> dynamic scale 1.0
-  -> color targets use 1.6x CSS dimensions
-  -> local depth helper writes 1.0x CSS dimensions
+50 ms callback interval
+  -> 33.333 ms simulation admitted
+  -> about 16.667 ms discarded
+  -> simulation pace about 0.667x wall time
 ```
 
-### Medium or low downscale
+### Sustained 10 FPS
 
 ```txt
-quality medium and device DPR 1
-  -> effective ratio 0.86
-  -> color targets use 0.86x CSS dimensions
-  -> local depth helper writes 1.0x CSS dimensions
-
-quality low and device DPR 1
-  -> effective ratio 0.72
-  -> color targets use 0.72x CSS dimensions
-  -> local depth helper writes 1.0x CSS dimensions
+100 ms callback interval
+  -> frameMs capped to 80 ms
+  -> dt capped to 33.333 ms
+  -> about 66.667 ms discarded
+  -> simulation pace about 0.333x wall time
 ```
 
-### Dynamic-scale transition
+### Sustained 5 FPS
 
 ```txt
-frame-time controller changes scale
-  -> resolution.resize updates composer and attached target sizes
-  -> no RenderSurfaceResizeResult is published
-  -> later browser resize repeats the CSS depth rewrite
-  -> no generation fence proves which dimensions produced the visible frame
+200 ms callback interval
+  -> frameMs capped to 80 ms
+  -> dt capped to 33.333 ms
+  -> about 166.667 ms discarded
+  -> simulation pace about 0.167x wall time
 ```
 
-These paths are derived from source and the imported Three.js `EffectComposer` r165 size rule. They were not reproduced in a browser or GPU capture.
+These are source-derived pacing ratios. They were not reproduced in a browser.
 
-## Lifecycle and evidence gaps
+## Suspension and lifecycle gaps
 
 ```txt
-resize retirement receipt: absent
-DPR transition receipt: absent
-quality transition receipt: absent
-context-recovery generation: absent
-late predecessor rejection: absent
-depth allocation byte receipt: absent
-accepted target readback: absent
-FirstHdrResizeFrameAck: absent
+map suspension identity: absent
+map suspension result: absent
+resume result: absent
+visibility suspension policy: absent
+pagehide settlement: absent
+runtime replacement clock retirement: absent
+stale callback rejection: absent
+input-edge reset receipt: absent
+```
+
+The current map-open loop updates `last` on every callback, so hidden catch-up debt is not accumulated. That behavior is useful but implicit and unversioned.
+
+## Rendering and evidence gaps
+
+```txt
+previous/current simulation snapshots: absent
+interpolation alpha: absent
+rendered simulation revision: absent
+rendered clock generation: absent
+HostClockFrameResult: absent
+ClockSnapshot: absent
+FirstClockAlignedFrameAck: absent
+controlled-clock browser fixture: absent
 source/build/artifact/Pages parity: unproven
-```
-
-## Cloud correlation gaps retained
-
-```txt
-cloud target consumes renderer drawing-buffer size: yes
-cloud target generation bound to HDR target generation: no
-cloud depth output: no
-scene-depth-aware cloud reconstruction: no
-CloudFrameResult: no
-FirstVisibleCloudFrameAck: no
 ```
 
 ## Dependency order
 
 ```txt
-render-surface identity
-  -> physical size derivation
-  -> color and depth target preparation
-  -> attachment validation
-  -> atomic adoption
-  -> predecessor retirement
-  -> dynamic-resolution and cloud correlation
+clock identity and policy
+  -> monotonic interval admission
+  -> active accumulator
+  -> bounded fixed-step batch
+  -> per-domain deterministic order
+  -> residual and overload settlement
+  -> suspension and resume rebasing
+  -> render interpolation
   -> visible-frame acknowledgement
   -> build artifact and Pages parity
 ```
 
 ## Retained product gaps
 
-Ground-contact delivery eligibility, cloud relative depth, provider/build identity, route lifecycle, world adoption, terrain and vegetation proof, Air Mail history, and flight persistence remain unresolved.
+HDR color/depth target coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route lifecycle, world adoption, terrain and vegetation proof, Air Mail history, and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim an observed framebuffer failure, visible corruption, attachment correctness, resize safety, cloud/HDR coherence, artifact parity, deployed parity, or production readiness until the required fixtures pass.
+Do not claim observed slow motion, real-time pacing, fixed-step correctness, overload recovery, pause safety, interpolation quality, artifact parity, deployed parity, or production readiness until the required fixtures pass.
