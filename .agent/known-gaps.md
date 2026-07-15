@@ -1,129 +1,135 @@
-# Known Gaps: TheOpenAbove Cloud Depth Composite
+# Known Gaps: TheOpenAbove HDR Depth Size Coherence
 
-**Last aligned:** `2026-07-15T02-09-29-04-00`  
-**Status:** `cloud-low-resolution-composite-depth-occlusion-authority-audited`
+**Last aligned:** `2026-07-15T07-39-52-04-00`  
+**Status:** `hdr-dynamic-resolution-depth-attachment-size-coherence-authority-audited`
 
 ## Summary
 
-The cloud LOD scale, private scene, low-resolution half-float color target, explicit offscreen render, fullscreen composite, size readback, and disposal now exist. The primary remaining gap is relative depth: no cloud depth is produced, no scene depth is sampled, and the composite is fixed at far clip depth.
+The HDR composer owns two color render targets and two independent depth textures, but no shared physical-size descriptor or atomic resize result binds them. Host resize handling can leave the color targets at effective-pixel dimensions while the depth texture images are rewritten to CSS dimensions.
 
 ## Plan ledger
 
-**Goal:** keep the remaining depth, reconstruction, lifecycle, telemetry, fallback, shadow, and proof work dependency ordered.
+**Goal:** keep render-surface sizing, adoption, retirement, telemetry, browser proof, and retained product gaps dependency ordered.
 
-- [x] Execute cloud `renderScale`.
-- [x] Add cloud-only color target.
-- [x] Add offscreen dispatch, composite, size readback, and disposal.
-- [ ] Add frame and target-generation identity.
-- [ ] Add representative cloud depth and explicit transmittance semantics.
-- [ ] Expose and linearize accepted scene depth.
-- [ ] Add edge-aware depth reconstruction.
-- [ ] Add explicit HDR composite and fallback results.
-- [ ] Add target retirement and stale-frame rejection.
-- [ ] Add cloud and terrain-shadow telemetry.
-- [ ] Add first visible cloud-frame acknowledgement.
+- [x] Identify the color/depth dimension split.
+- [x] Trace boot, browser resize, and dynamic-scale paths.
+- [x] Preserve the current cloud and HDR findings.
+- [ ] Add one render-surface generation and descriptor.
+- [ ] Size all color and depth attachments from that descriptor.
+- [ ] Add atomic adoption and predecessor preservation.
+- [ ] Add retirement and stale-generation rejection.
+- [ ] Add exact dimension and framebuffer proof.
+- [ ] Correlate the first visible HDR frame.
 - [ ] Prove source, build, artifact, and Pages parity.
 
 ## Implemented state
 
 ```txt
-renderScale consumer: present
-private cloud scene: present
-cloud-only color target: present
-color target format: RGBA HalfFloat
-cloud target depth buffer: absent by design
-low-resolution dispatch: present
-main-scene composite: present
-render-size readback: present
-disposal: present
+quality-tier DPR caps: present
+dynamic-resolution scale: present
+renderer pixel-ratio resize: present
+EffectComposer pixel-ratio resize: present
+two half-float composer color targets: present
+two independent unsigned-int depth textures: present
+cloud target sizes from renderer drawing buffer: present
+manual local depth image resize: present
 ```
 
-## Primary depth and composite gaps
+## Primary size-coherence gaps
 
 ```txt
-representative cloud-depth output: absent
-separate transmittance target: absent
-scene-depth input to composite: absent
-scene/cloud depth linearization contract: absent
-relative cloud/geometry depth comparison: absent
-edge-aware or bilateral reconstruction: absent
-composite fragment depth: fixed far plane
-explicit composite result: absent
+shared CSS/physical size descriptor: absent
+effective pixel-ratio revision: absent
+color target generation identity: absent
+depth attachment generation identity: absent
+color/depth equality validation: absent
+framebuffer completeness proof: absent
+pass-size compatibility receipt: absent
+atomic resize adoption: absent
+predecessor preservation on resize failure: absent
 ```
 
-## Cost and telemetry gaps
+## Source-permitted divergence paths
+
+### High-DPR upscale
 
 ```txt
-executed sample receipt: absent
-cloud GPU timing: absent
-cloud CPU timing receipt: absent
-target byte estimate receipt: absent
-terrain shadow cost receipt: absent
-fallback reason readback: absent
-CloudFrameResult: absent
-FirstVisibleCloudFrameAck: absent
+quality high and device DPR 2
+  -> capped DPR 1.6
+  -> dynamic scale 1.0
+  -> color targets use 1.6x CSS dimensions
+  -> local depth helper writes 1.0x CSS dimensions
 ```
 
-## Lifecycle gaps
+### Medium or low downscale
 
 ```txt
-target resize implementation: present
-target generation identity: absent
+quality medium and device DPR 1
+  -> effective ratio 0.86
+  -> color targets use 0.86x CSS dimensions
+  -> local depth helper writes 1.0x CSS dimensions
+
+quality low and device DPR 1
+  -> effective ratio 0.72
+  -> color targets use 0.72x CSS dimensions
+  -> local depth helper writes 1.0x CSS dimensions
+```
+
+### Dynamic-scale transition
+
+```txt
+frame-time controller changes scale
+  -> resolution.resize updates composer and attached target sizes
+  -> no RenderSurfaceResizeResult is published
+  -> later browser resize repeats the CSS depth rewrite
+  -> no generation fence proves which dimensions produced the visible frame
+```
+
+These paths are derived from source and the imported Three.js `EffectComposer` r165 size rule. They were not reproduced in a browser or GPU capture.
+
+## Lifecycle and evidence gaps
+
+```txt
 resize retirement receipt: absent
-quality-transition fence: absent
-context-recovery receipt: absent
-late predecessor result rejection: absent
-in-flight target reference tracking: absent
+DPR transition receipt: absent
+quality transition receipt: absent
+context-recovery generation: absent
+late predecessor rejection: absent
+depth allocation byte receipt: absent
+accepted target readback: absent
+FirstHdrResizeFrameAck: absent
+source/build/artifact/Pages parity: unproven
 ```
 
-## Source-permitted failure paths
-
-### Cloud in front of distant geometry
+## Cloud correlation gaps retained
 
 ```txt
-ray march accumulates nearer cloud
-  -> target stores color and alpha only
-  -> composite emits far-plane depth
-  -> distant geometry depth is still less than far depth
-  -> geometry can occlude the nearer cloud
+cloud target consumes renderer drawing-buffer size: yes
+cloud target generation bound to HDR target generation: no
+cloud depth output: no
+scene-depth-aware cloud reconstruction: no
+CloudFrameResult: no
+FirstVisibleCloudFrameAck: no
 ```
-
-### Low-resolution silhouette edge
-
-```txt
-neighboring low-resolution cloud samples span a terrain or balloon edge
-  -> texture is linearly sampled
-  -> no full-resolution scene-depth discontinuity is consulted
-  -> cloud color can be accepted or rejected without edge-aware reconstruction
-```
-
-### Resize or quality transition
-
-```txt
-target is resized in place
-  -> no target-generation result is published
-  -> no stale-frame or in-flight predecessor fence exists
-```
-
-These paths are derived from source. They were not reproduced in a browser.
 
 ## Dependency order
 
 ```txt
-frame and target identity
-  -> cloud depth/transmittance output
-  -> accepted scene-depth exposure
-  -> linear depth reconstruction
-  -> explicit HDR composite
-  -> fallback and terrain-shadow policy
-  -> timing and visible-frame receipts
-  -> lifecycle and parity fixtures
+render-surface identity
+  -> physical size derivation
+  -> color and depth target preparation
+  -> attachment validation
+  -> atomic adoption
+  -> predecessor retirement
+  -> dynamic-resolution and cloud correlation
+  -> visible-frame acknowledgement
+  -> build artifact and Pages parity
 ```
 
-## Retained gaps
+## Retained product gaps
 
-Ground-contact delivery, provider/build identity, route lifecycle, world adoption, terrain/vegetation proof, Air Mail history, and flight persistence remain unresolved.
+Ground-contact delivery eligibility, cloud relative depth, provider/build identity, route lifecycle, world adoption, terrain and vegetation proof, Air Mail history, and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim correct cloud occlusion, edge reconstruction, visual equivalence, measured performance improvement, resource retirement, artifact parity, or production readiness until the required fixtures pass.
+Do not claim an observed framebuffer failure, visible corruption, attachment correctness, resize safety, cloud/HDR coherence, artifact parity, deployed parity, or production readiness until the required fixtures pass.

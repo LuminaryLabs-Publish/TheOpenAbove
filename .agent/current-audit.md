@@ -1,78 +1,71 @@
-# Current Audit: TheOpenAbove Cloud Depth Composite
+# Current Audit: TheOpenAbove HDR Depth Size Coherence
 
-**Last aligned:** `2026-07-15T02-09-29-04-00`  
-**Status:** `cloud-low-resolution-composite-depth-occlusion-authority-audited`  
-**Reviewed pre-audit documentation head:** `b1590e1e1e82a56f656db2954870c8252e4213c9`  
-**Reviewed runtime head:** `af3f5b96f28a32b1521c6ab7227c26d0c727370b`
+**Last aligned:** `2026-07-15T07-39-52-04-00`  
+**Status:** `hdr-dynamic-resolution-depth-attachment-size-coherence-authority-audited`  
+**Reviewed documentation head:** `1417c80309218c7c61def3b2f09a977eaab8b953`
 
 ## Summary
 
-The previously unused cloud `renderScale` is now executed. The volume renders into a private low-resolution half-float target and a fullscreen mesh composites cloud color and alpha through the main HDR scene. The implementation does not output representative cloud depth or sample scene depth; its fullscreen geometry is fixed at far clip depth, so all depth-writing scene geometry can occlude the cloud sample regardless of actual cloud distance.
+The active renderer combines a quality-tier pixel-ratio cap with a dynamic scale, passes that effective ratio to the Three.js `EffectComposer`, and sizes the composer color targets in physical pixels. The visual-domain resize path then calls the local HDR resize helper, which manually rewrites both independently owned depth textures to CSS viewport dimensions. The resulting color/depth dimension contract is coherent only when the effective pixel ratio equals `1`.
 
 ## Plan ledger
 
-**Goal:** reconcile the implemented optimization and define the smallest remaining reliable cloud-depth composite boundary.
+**Goal:** isolate the smallest authority boundary that makes every HDR color and depth attachment share one physical render-surface generation.
 
 - [x] Compare the full Publish inventory, central ledger, root `.agent` coverage, and current heads.
-- [x] Select only TheOpenAbove because it is runtime-ahead by two commits.
-- [x] Inspect cloud target allocation, shader outputs, composite shader, material state, visual-domain render order, and disposal.
-- [x] Preserve all 101 active named surfaces and service ownership.
-- [x] Add and route the timestamped audit family.
-- [ ] Implement and prove cloud/geometry relative-depth reconstruction and typed frame results.
+- [x] Select only TheOpenAbove using the oldest synchronized eligible rule.
+- [x] Inspect `quality-tier-kit.js`, `visual-domain.js`, `hdr-composer-kit.js`, `volumetric-cloud-kit.js`, `main.js`, package scripts, and Three.js `EffectComposer` r165 sizing.
+- [x] Trace boot, resize, dynamic-scale, cloud, composer, presentation, and disposal order.
+- [x] Preserve all 101 active named surfaces and their service ownership.
+- [x] Add the timestamped tracker and HDR-specific audit family.
+- [ ] Implement and prove atomic color/depth target sizing, retirement, and visible-frame acknowledgement.
 
 ## Complete interaction loop
 
 ```txt
-browser and workflow admission
-  -> checkout product and provider
-  -> test bundle upload deploy
-  -> compose gameplay world visual and UI domains
-  -> create renderer scene camera and HDR composer
-  -> enter RAF
+workflow and browser admission
+  -> checkout product and NexusEngine provider
+  -> test bundle upload and deploy
+  -> compose balloon airstream Air Mail Core World visual and UI domains
+  -> create renderer scene camera HDR composer and independent depth textures
 
-frame update
-  -> advance balloon airstream and Air Mail truth
-  -> update weather sun sky cloud uniforms terrain vegetation grass flowers water and camera
+initial and browser resize
+  -> read CSS viewport width and height
+  -> update camera projection
+  -> derive capped DPR and dynamic scale
+  -> set renderer pixel ratio and drawing-buffer size
+  -> set EffectComposer pixel ratio and size
+  -> EffectComposer sizes both color targets to CSS size * effective pixel ratio
+  -> call local HDR resize helper
+  -> EffectComposer keeps the same effective physical color size
+  -> local helper rewrites both depth textures to CSS width and height
 
-cloud pass
-  -> query drawing-buffer dimensions
-  -> resize cloud target to dimensions * LOD renderScale
-  -> bind RGBA HalfFloat target without depth buffer
-  -> clear transparent black
-  -> ray march private cloud sphere
-  -> write accumulated color and alpha
-  -> restore renderer target clear color alpha and autoClear
-
-HDR pass
-  -> draw the full main scene and scene depth
-  -> draw transparent fullscreen cloud plane
-  -> sample low-resolution color and alpha only
-  -> compare fixed far-plane fragment depth with scene depth
-  -> grade and present the frame
-  -> sample total frame time for whole-scene dynamic resolution
+frame update and render
+  -> advance balloon airstream Air Mail world and presentation state
+  -> render low-resolution cloud target from current drawing buffer
+  -> render HDR scene through composer color and depth attachments
+  -> color grade and present
+  -> sample frame time and possibly change dynamic scale
 
 teardown
-  -> remove cloud composite and private mesh
-  -> dispose both geometries both materials and target
-  -> dispose remaining visual resources
+  -> dispose cloud resources
+  -> dispose independent depth textures target and composer
 ```
 
 ## Domains in use
 
 ```txt
-GitHub workflow provider checkout Vite build artifact and Pages
-browser route import map RAF input errors and GameHost
+GitHub workflow provider checkout Vite build artifact and Pages deployment
+browser route import map RAF input errors resize and GameHost
 Nexus Engine telemetry Core World foundations features and landforms
-balloon flight telemetry presentation camera and clipping
-airstream routes fields forces visuals and debugging
-Air Mail parcels routes towns volumes and progress
-staged world generation terrain vegetation grass flowers water landmarks
-quality tiers whole-scene dynamic resolution and cloud LOD
-weather sky sun aerial perspective cloud lighting and ray marching
-private low-resolution target dispatch and lifecycle
-scene depth cloud depth reconstruction HDR composite and color grading
-terrain procedural cloud shadows
-parchment map headless validation tests and central tracking
+balloon flight telemetry presentation camera clipping and model lifecycle
+airstream routes fields forces visuals and diagnostics
+Air Mail parcels routes towns volumes progress and completion
+staged world generation terrain vegetation grass flowers water and landmarks
+quality detection DPR policy dynamic resolution and render-surface sizing
+weather sky sun aerial perspective volumetric clouds and cloud LOD
+HDR render targets depth attachments composer passes color grading and lens response
+parchment map validation tests and central tracking
 ```
 
 ## Kit and service census
@@ -80,10 +73,10 @@ parchment map headless validation tests and central tracking
 ```txt
 local source-backed kits:           71
 runtime-implied adapters:           13
-Core World surfaces:                17
+Core World provider surfaces:       17
 active documented total:           101
 inactive or retired legacy:         13
-planned cloud authority surfaces:   20
+planned HDR coherence surfaces:     18
 new runtime kit IDs:                 0
 ```
 
@@ -92,51 +85,65 @@ The complete kit-by-kit service inventory is in the timestamped tracker and `.ag
 ## Source-backed findings
 
 ```txt
-cloud LOD renderScale consumed: yes
-private cloud scene: yes
-cloud-only target: yes
-cloud target type: RGBA HalfFloat
-cloud target depth buffer: no
-cloud target scale: 0.50 / 0.42 / 0.32
-view/light budgets retained: yes
-separate transmittance target: no
-representative cloud-depth target: no
-scene-depth sampler in composite: no
-edge-aware reconstruction: no
-composite clip depth: far plane
-composite depth test: enabled
-relative cloud/geometry comparison: no
-render-size readback: yes
-cloud disposal: yes
-terrain shadow cost joined to result: no
-CloudFrameResult: no
-GPU timing receipt: no
-FirstVisibleCloudFrameAck: no
+quality pixel-ratio caps: high 1.60 medium 1.35 low 1.05
+initial dynamic scales: high 1.00 medium 0.86 low 0.72
+dynamic scale floor: 0.62
+effective pixel ratio: min(device DPR, cap) * dynamic scale
+composer target size rule: CSS width/height * effective pixel ratio
+independent depth texture count: 2
+local depth resize rule: CSS width/height
+boot calls resolution resize then local HDR resize: yes
+browser resize uses the same order: yes
+color/depth physical-size descriptor: absent
+attachment generation identity: absent
+atomic resize adoption result: absent
+resize rollback or predecessor preservation: absent
+first matching HDR frame acknowledgement: absent
 ```
+
+## Source-permitted examples
+
+```txt
+high tier device DPR 2.0
+  -> effective pixel ratio 1.6
+  -> color target uses 1.6x CSS dimensions
+  -> depth texture is rewritten to 1.0x CSS dimensions
+
+medium tier device DPR 1.0
+  -> effective pixel ratio 0.86
+  -> color target uses 0.86x CSS dimensions
+  -> depth texture is rewritten to 1.0x CSS dimensions
+
+low tier device DPR 1.0
+  -> effective pixel ratio 0.72
+  -> color target uses 0.72x CSS dimensions
+  -> depth texture is rewritten to 1.0x CSS dimensions
+```
+
+These are source-derived dimension paths. No browser framebuffer or visual failure was reproduced.
 
 ## Required parent domain
 
 ```txt
-open-above-cloud-low-resolution-depth-upscale-authority-domain
+open-above-hdr-render-target-depth-size-coherence-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-CloudDepthCompositeCommand
-  -> bind FrameId renderer quality viewport DPR weather camera and scene-depth revisions
-  -> admit one target generation
-  -> ray march color transmittance and representative cloud depth
-  -> receipt scale and view/light sample execution
-  -> reconstruct reduced-resolution samples against linear scene depth
-  -> preserve clouds in front of farther geometry
-  -> reject bleeding across nearer terrain balloon rope town and vegetation silhouettes
-  -> composite into HDR before color grading
-  -> classify Full Reduced ColorOnly FarDepthFallback Disabled or Rejected
-  -> publish CloudFrameResult and retirement receipts
-  -> publish FirstVisibleCloudFrameAck
+RenderSurfaceResizeCommand
+  -> bind ViewportRevision RendererGeneration ComposerGeneration QualityRevision and DynamicScaleRevision
+  -> derive one immutable effective pixel ratio and physical size
+  -> prepare both composer color targets
+  -> prepare both independent depth attachments at identical dimensions
+  -> validate type format samples depth ownership and pass compatibility
+  -> atomically adopt RenderTargetGeneration
+  -> preserve the accepted predecessor on failure
+  -> publish RenderSurfaceResizeResult and per-attachment receipts
+  -> retire replaced targets and attachments exactly once
+  -> publish FirstHdrResizeFrameAck
 ```
 
 ## Validation boundary
 
-Documentation only. The runtime commits were inspected but not changed by this audit. No browser, GPU, build, artifact, or Pages fixture was run.
+Documentation only. Runtime code, shaders, gameplay, packages, tests, workflows, and deployment were not changed. No browser, GPU, build, artifact, or Pages fixture was run.

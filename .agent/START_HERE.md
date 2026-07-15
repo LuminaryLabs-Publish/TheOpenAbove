@@ -1,72 +1,66 @@
-# START HERE: TheOpenAbove Cloud Depth Composite
+# START HERE: TheOpenAbove HDR Depth Size Coherence
 
-**Last aligned:** `2026-07-15T02-09-29-04-00`  
+**Last aligned:** `2026-07-15T07-39-52-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Reviewed pre-audit documentation head:** `b1590e1e1e82a56f656db2954870c8252e4213c9`  
-**Reviewed runtime head:** `af3f5b96f28a32b1521c6ab7227c26d0c727370b`  
-**Status:** `cloud-low-resolution-composite-depth-occlusion-authority-audited`
+**Reviewed documentation head:** `1417c80309218c7c61def3b2f09a977eaab8b953`  
+**Status:** `hdr-dynamic-resolution-depth-attachment-size-coherence-authority-audited`
 
 ## Summary
 
-The cloud renderer now consumes the declared LOD scale. It ray marches into a private low-resolution RGBA half-float target and composites that texture through the main HDR scene. The remaining gap is relative depth: the target contains no cloud depth, the composite samples no scene depth, and the fullscreen plane is fixed at far clip depth.
+The active HDR path creates two independent depth textures, but browser resize handling sizes the EffectComposer color targets in effective physical pixels and then rewrites those depth textures to unscaled CSS viewport dimensions. The color/depth size invariant is therefore undocumented and source-permitted to diverge whenever the effective render pixel ratio is not exactly `1`.
 
 ## Plan ledger
 
-**Goal:** preserve the implemented cloud-only performance path while making cloud-versus-geometry occlusion, results, telemetry, resource retirement, and visible proof explicit.
+**Goal:** make renderer, composer targets, independent depth attachments, cloud target sizing, resize retirement, telemetry, and the first visible HDR frame consume one versioned physical render-surface descriptor.
 
-- [x] Compare all 11 Publish repositories with central tracking.
+- [x] Compare all 11 Publish repositories with the central ledger.
 - [x] Exclude TheCavalryOfRome.
-- [x] Confirm ten eligible central ledgers and root `.agent` states.
-- [x] Select only TheOpenAbove as the sole runtime-ahead repository.
-- [x] Reconcile both cloud-performance commits.
-- [x] Preserve all 101 active named surfaces and services.
-- [x] Add the `2026-07-15T02-09-29-04-00` tracker and audit family.
-- [x] Push directly to `main`; create no branch or pull request.
-- [ ] Implement and execute representative cloud-depth, reconstruction, telemetry, and parity fixtures.
+- [x] Confirm ten eligible ledgers and ten root `.agent` states.
+- [x] Confirm no new, missing, undocumented, root-agent-missing, or runtime-ahead priority case.
+- [x] Select only TheOpenAbove using the oldest synchronized rule.
+- [x] Inspect the complete interaction loop, domains, kits, adapters, providers, and offered services.
+- [x] Add the `2026-07-15T07-39-52-04-00` tracker and HDR audit family.
+- [x] Preserve all 101 active named surfaces.
+- [ ] Implement and prove render-surface size coherence across boot, resize, DPR, quality, dynamic-scale, and context recovery.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-15T02-09-29-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-15T02-09-29-04-00.md
-.agent/architecture-audit/2026-07-15T02-09-29-04-00-cloud-depth-composite-dsk-map.md
-.agent/render-audit/2026-07-15T02-09-29-04-00-far-plane-cloud-occlusion-gap.md
-.agent/gameplay-audit/2026-07-15T02-09-29-04-00-weather-to-low-resolution-cloud-frame-loop.md
-.agent/interaction-audit/2026-07-15T02-09-29-04-00-cloud-depth-composite-command-result-map.md
-.agent/cloud-system-audit/2026-07-15T02-09-29-04-00-low-resolution-depth-ownership-contract.md
-.agent/deploy-audit/2026-07-15T02-09-29-04-00-cloud-depth-composite-browser-fixture-gate.md
-.agent/central-sync-audit/2026-07-15T02-09-29-04-00-runtime-ahead-cloud-depth-reconciliation.md
+.agent/trackers/2026-07-15T07-39-52-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-15T07-39-52-04-00.md
+.agent/architecture-audit/2026-07-15T07-39-52-04-00-hdr-depth-size-coherence-dsk-map.md
+.agent/render-audit/2026-07-15T07-39-52-04-00-dynamic-resolution-depth-attachment-size-gap.md
+.agent/gameplay-audit/2026-07-15T07-39-52-04-00-flight-to-hdr-frame-size-coherence-loop.md
+.agent/interaction-audit/2026-07-15T07-39-52-04-00-render-surface-resize-command-result-map.md
+.agent/hdr-audit/2026-07-15T07-39-52-04-00-color-depth-target-coherence-contract.md
+.agent/deploy-audit/2026-07-15T07-39-52-04-00-hdr-depth-size-browser-fixture-gate.md
+.agent/central-sync-audit/2026-07-15T07-39-52-04-00-oldest-selection-hdr-depth-reconciliation.md
 ```
 
-## Reconciled implementation
+## Source-backed state
 
 ```txt
-renderScale consumed: yes
-private cloud scene: yes
-cloud-only color target: yes
-color target: RGBA HalfFloat
-render size: drawing buffer * 0.50 / 0.42 / 0.32
-explicit cloud render before composer: yes
-cloud resources disposed: yes
-representative cloud depth: no
-scene-depth sampling: no
-depth-aware upscale: no
-composite depth: fixed far plane
-CloudFrameResult: no
-FirstVisibleCloudFrameAck: no
+dynamic effective pixel ratio: capped device DPR * dynamic scale
+EffectComposer color target size: CSS viewport * effective pixel ratio
+independent depth texture size after host resize: CSS viewport
+color/depth equality when effective pixel ratio = 1: yes
+color/depth equality guaranteed for other ratios: no
+attachment generation identity: absent
+resize adoption result: absent
+first matching HDR frame acknowledgement: absent
 ```
 
 ## Required parent domain
 
 ```txt
-open-above-cloud-low-resolution-depth-upscale-authority-domain
+open-above-hdr-render-target-depth-size-coherence-authority-domain
 ```
 
 ## Next safe ledge
 
-Extend the existing volumetric-cloud output with representative linear cloud depth, expose the accepted scene-depth revision, reconstruct reduced-resolution samples without silhouette bleed, compare cloud and geometry depth in one coordinate space, and publish one typed frame result.
+Create one immutable render-surface descriptor containing CSS size, effective pixel ratio, physical size, quality revision, dynamic-scale revision, target generation, formats, samples, and attachment ownership. Use it to size both composer targets and every depth attachment before atomically adopting the new generation.
 
 ## Do not claim
 
-Do not claim correct depth-aware compositing, equivalent cloud quality, measured performance improvement, target retirement, artifact parity, or production readiness until browser and GPU fixtures pass.
+Do not claim framebuffer incompleteness, visible corruption, correct depth attachment sizing, resize safety, context-recovery safety, artifact parity, deployed parity, or production readiness until the browser and GPU fixture matrix passes.

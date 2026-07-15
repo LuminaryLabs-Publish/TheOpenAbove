@@ -1,99 +1,101 @@
-# Next Steps: TheOpenAbove Cloud Depth Composite
+# Next Steps: TheOpenAbove HDR Depth Size Coherence
 
-**Last aligned:** `2026-07-15T02-09-29-04-00`  
-**Status:** `cloud-low-resolution-composite-depth-occlusion-authority-audited`
+**Last aligned:** `2026-07-15T07-39-52-04-00`  
+**Status:** `hdr-dynamic-resolution-depth-attachment-size-coherence-authority-audited`
 
 ## Summary
 
-The cloud-only color target and LOD scale are implemented. The next work should add representative cloud depth and scene-depth-aware reconstruction to the existing path, then publish typed pass, timing, fallback, retirement, and visible-frame receipts.
+The next work should replace independent CSS-size rewrites with one immutable render-surface descriptor that owns effective pixel ratio, physical color/depth dimensions, target generation, retirement, telemetry, and the first matching HDR frame.
 
 ## Plan ledger
 
-**Goal:** complete the smallest depth-aware extension without replacing the current ray marcher, HDR composer, weather model, or whole-scene dynamic resolution controller.
+**Goal:** repair only HDR resize ownership while preserving the current renderer, EffectComposer, color grade, cloud path, world simulation, gameplay, and public visual-domain API.
 
-### Completed foundation
+### Completed understanding
 
-- [x] Move volumetric clouds into a private cloud scene.
-- [x] Allocate a cloud-only RGBA half-float target.
-- [x] Size the target from drawing buffer × LOD `renderScale`.
-- [x] Execute the cloud pass before the main composer.
-- [x] Composite cloud color/alpha through the main scene.
-- [x] Add target size readback and disposal.
+- [x] Locate quality-tier caps and dynamic-scale policy.
+- [x] Trace renderer and composer pixel-ratio sizing.
+- [x] Identify two independently attached depth textures.
+- [x] Prove the local helper rewrites depth dimensions to CSS size after composer sizing.
+- [x] Preserve the 101-surface domain and service inventory.
 
-### Gate 1: frame and resource identity
+### Gate 1: render-surface identity
 
-- [ ] Add `FrameId`, renderer generation, `CloudLodProfileRevision`, and `CloudTargetGeneration`.
-- [ ] Bind quality, viewport, DPR, weather, camera, and scene-depth revisions.
-- [ ] Reject stale, superseded, or cross-generation frames.
-- [ ] Publish target dimensions, formats, scale, and estimated bytes.
+- [ ] Add `ViewportRevision`, `RenderSurfaceGeneration`, `QualityRevision`, and `DynamicScaleRevision`.
+- [ ] Normalize CSS width, CSS height, device DPR, capped DPR, dynamic scale, effective pixel ratio, and physical width/height once.
+- [ ] Publish immutable color/depth target descriptors.
+- [ ] Reject non-finite, zero, stale, or superseded resize requests.
 
-### Gate 2: cloud depth output
+### Gate 2: target preparation
 
-- [ ] Choose a capability-admitted representative linear cloud-depth encoding.
-- [ ] Preserve accumulated color and transmittance semantics.
-- [ ] Emit cloud depth using the same camera, target dimensions, and ray-march revision.
-- [ ] Publish actual view/light sample receipts.
+- [ ] Allocate or resize both composer color targets from the physical dimensions.
+- [ ] Allocate or resize both independent depth textures to exactly the same physical dimensions.
+- [ ] Preserve required formats, half-float color, unsigned-int depth, nearest depth filtering, samples, and stencil policy.
+- [ ] Validate every attachment before adoption.
+- [ ] Stop manually writing CSS dimensions into physical depth attachments.
 
-### Gate 3: scene-depth reconstruction
+### Gate 3: atomic adoption and retirement
 
-- [ ] Expose the accepted main-scene depth texture and its projection parameters.
-- [ ] Convert scene and cloud depth into one linear coordinate space.
-- [ ] Reconstruct cloud color/transmittance/depth without crossing nearer geometry edges.
-- [ ] Preserve clouds in front of farther terrain, mountains, towns, and vegetation.
-- [ ] Occlude clouds behind nearer terrain, balloon geometry, ropes, and props.
+- [ ] Prepare the candidate generation without mutating the accepted generation.
+- [ ] Atomically adopt both color targets, both depth attachments, and pass sizes.
+- [ ] Preserve the accepted predecessor if any allocation or validation step fails.
+- [ ] Retire replaced textures and targets exactly once.
+- [ ] Fence late work from retired generations.
 
-### Gate 4: HDR composite and fallback
+### Gate 4: dynamic resolution and cloud correlation
 
-- [ ] Composite in one explicit HDR order before color grading.
-- [ ] Classify `Full`, `Reduced`, `ColorOnly`, `FarDepthFallback`, `Disabled`, or `Rejected`.
-- [ ] Record fallback reasons and capability decisions.
-- [ ] Preserve a safe predecessor frame on allocation or render failure.
+- [ ] Route boot, browser resize, DPR change, quality change, and frame-time scale change through the same command.
+- [ ] Bind the cloud target dimensions to the accepted renderer drawing-buffer generation.
+- [ ] Publish actual CSS, physical, cloud, and pass dimensions in one result.
+- [ ] Distinguish a viewport resize from a dynamic-scale transition.
 
-### Gate 5: lifecycle and telemetry
+### Gate 5: telemetry and visible proof
 
-- [ ] Retire old targets on resize, DPR, quality change, context recovery, and disposal.
-- [ ] Prevent in-flight predecessor frames from publishing after retirement.
-- [ ] Add cloud pass GPU/CPU timing receipts.
-- [ ] Bind terrain shadow policy to the same weather and quality revisions.
-- [ ] Publish `CloudFrameResult` and `FirstVisibleCloudFrameAck`.
+- [ ] Publish `RenderSurfaceResizeResult` with target and attachment receipts.
+- [ ] Expose accepted dimensions through diagnostics without exposing mutable renderer owners.
+- [ ] Publish `FirstHdrResizeFrameAck` after a frame uses the accepted generation.
+- [ ] Record fallback or rejection reasons.
 
 ### Gate 6: fixtures
 
-- [ ] Exact high/medium/low target dimensions and sample budgets.
-- [ ] Cloud before and behind mountain geometry.
-- [ ] Terrain, balloon, rope, town, and vegetation silhouette edges.
-- [ ] Resize, DPR, quality transition, and context recovery.
-- [ ] Full/reduced/color-only/far-depth/disabled/rejected profiles.
-- [ ] Terrain shadow policy correlation.
+- [ ] High tier at DPR 1, 1.25, 1.6, and 2.
+- [ ] Medium tier at DPR 1 and 2.
+- [ ] Low tier at DPR 1 and 2.
+- [ ] Dynamic scales from tier default down to `0.62` and back.
+- [ ] Repeated browser resize and orientation changes.
+- [ ] Context loss and recovery.
+- [ ] Color/depth attachment equality and framebuffer completeness.
+- [ ] Cloud target correlation with renderer drawing buffer.
 - [ ] Source, production build, artifact, and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/visual/cloud-frame/
-  cloud-low-resolution-depth-upscale-authority-domain.js
-  cloud-frame-identity-kit.js
-  cloud-target-generation-kit.js
-  cloud-transmittance-depth-kit.js
-  cloud-scene-depth-reconstruction-kit.js
-  cloud-hdr-composite-kit.js
-  cloud-execution-profile-kit.js
-  cloud-frame-result-kit.js
-  cloud-target-retirement-kit.js
-  terrain-cloud-shadow-policy-kit.js
+src/visual/render-surface/
+  hdr-render-target-depth-size-coherence-authority-domain.js
+  render-surface-descriptor-kit.js
+  render-surface-generation-kit.js
+  render-target-preparation-kit.js
+  depth-attachment-preparation-kit.js
+  render-target-validation-kit.js
+  render-surface-adoption-kit.js
+  render-surface-retirement-kit.js
+  dynamic-resolution-transition-kit.js
+  render-surface-result-kit.js
+  first-hdr-resize-frame-ack-kit.js
 
 tests/
-  cloud-depth-composite.mjs
+  hdr-depth-size-coherence.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve the existing weather, density, lighting, sample budgets, target scale, balloon and mail APIs, visual-domain API, terrain material, HDR grade, and browser host.
+Preserve current Three.js `0.165.0`, the public visual-domain shape, quality tiers, dynamic-resolution thresholds, cloud LOD scales, HDR color grade, balloon and mail APIs, Core World composition, and Pages deployment.
 
 ## Retained next steps
 
-Ground-contact delivery eligibility, immutable provider/build identity, route retirement, world adoption, Air Mail history, and flight persistence remain open.
+Cloud relative-depth reconstruction, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, Air Mail history, and flight persistence remain open.
 
 ## Do not claim
 
-Do not claim depth-aware correctness, visual equivalence, measured performance improvement, resource retirement, or deployment parity until the complete fixture matrix passes.
+Do not claim attachment equality, framebuffer completeness, resize safety, visible equivalence, cloud correlation, artifact parity, or production readiness until the full fixture matrix passes.

@@ -1,126 +1,125 @@
-# Validation: TheOpenAbove Cloud Depth Composite
+# Validation: TheOpenAbove HDR Depth Size Coherence
 
-**Last aligned:** `2026-07-15T02-09-29-04-00`
+**Last aligned:** `2026-07-15T07-39-52-04-00`
 
 ## Scope
 
-Documentation-only reconciliation of two runtime cloud-performance commits, the full Publish selection comparison, the 101-surface inventory, low-resolution target allocation, offscreen ray marching, main-scene composite behavior, disposal, remaining depth ownership, and central tracking.
+Documentation-only audit of the full Publish selection comparison, TheOpenAbove interaction loop, 101-surface inventory, quality-tier policy, dynamic-resolution sizing, EffectComposer target sizing, independent depth attachment sizing, cloud drawing-buffer correlation, resize lifecycle, validation gaps, and central tracking.
 
 ## Plan ledger
 
-**Goal:** distinguish the implemented low-resolution color path from unproven depth-aware reconstruction, measured performance, and deployed parity.
+**Goal:** distinguish the source-backed color/depth dimension divergence from an unproven browser framebuffer or visual failure.
 
-- [x] Enumerate all 11 Publish repositories.
+- [x] Enumerate all 11 accessible Publish repositories.
 - [x] Exclude TheCavalryOfRome.
 - [x] Confirm ten eligible central ledgers and root `.agent` states.
-- [x] Compare current eligible heads with recorded documentation heads.
-- [x] Select TheOpenAbove as the sole runtime-ahead repository.
-- [x] Inspect both runtime commits and changed source files.
-- [x] Preserve all kits, adapters, providers, domains, and services.
-- [x] Inspect combined commit statuses.
+- [x] Confirm no new, missing, undocumented, root-agent-missing, or runtime-ahead repository.
+- [x] Select TheOpenAbove using the oldest synchronized eligible rule.
+- [x] Inspect quality, dynamic-resolution, visual, HDR composer, cloud, host, package, and Three.js sizing sources.
+- [x] Preserve all domains, kits, adapters, providers, and services.
+- [x] Inspect combined commit status; no statuses were returned.
 - [x] Add and route the timestamped audit family.
-- [ ] Execute source, browser, GPU, build, artifact, and Pages fixtures.
+- [ ] Execute browser, GPU, build, artifact, and Pages fixtures.
 
 ## Source inspection performed
 
 ```txt
 LuminaryLabs-Publish organization inventory
 LuminaryLabs-Dev/LuminaryLabs Publish repo ledger
-all eligible root .agent entrypoints
-commit 71f286d818d8ea8b308815f759c59b419fcfe508
-commit af3f5b96f28a32b1521c6ab7227c26d0c727370b
-src/visual/atmosphere/volumetric-cloud-kit.js
+latest HorrorCorridor selection comparison
+TheOpenAbove current main head
+.agent root documents and kit registry
+src/visual/quality-tier-kit.js
 src/visual/visual-domain.js
-.agent/kit-registry.json
+src/visual/post-process/hdr-composer-kit.js
+src/visual/atmosphere/volumetric-cloud-kit.js
+src/main.js
+package.json
+three@0.165.0 EffectComposer setPixelRatio and setSize behavior
 ```
 
 ## Confirmed by inspection
 
 ```txt
-reviewed pre-audit documentation head: b1590e1e1e82a56f656db2954870c8252e4213c9
-reviewed runtime head: af3f5b96f28a32b1521c6ab7227c26d0c727370b
-runtime commits ahead: 2
-cloud renderScale consumed: yes
-private cloud scene: yes
-cloud-only target: yes
-target type: RGBA HalfFloat
-target depth buffer: false
-target scale: 0.50 / 0.42 / 0.32
-explicit offscreen render before composer: yes
-render-size readback: yes
-cloud resource disposal: yes
-representative cloud depth: no
-scene-depth sampler: no
-edge-aware reconstruction: no
-composite fixed at far clip depth: yes
-composite depth test enabled: yes
-relative cloud/geometry depth comparison: no
-typed CloudFrameResult: no
-first visible cloud-frame acknowledgement: no
+reviewed documentation head: 1417c80309218c7c61def3b2f09a977eaab8b953
+current main head before audit: 1417c80309218c7c61def3b2f09a977eaab8b953
+runtime-ahead commits: 0
+selected by oldest synchronized rule: yes
+quality DPR caps: 1.60 / 1.35 / 1.05
+initial dynamic scales: 1.00 / 0.86 / 0.72
+dynamic scale floor: 0.62
+effective ratio passed to renderer: yes
+effective ratio passed to EffectComposer: yes
+EffectComposer target size uses effective ratio: yes
+independent depth texture count: 2
+local helper rewrites depth images to CSS size: yes
+visual resize calls dynamic resize before local HDR resize: yes
+shared physical render-surface descriptor: no
+atomic resize result: no
+FirstHdrResizeFrameAck: no
 combined commit statuses returned: 0
 ```
 
 ## What source inspection proves
 
 ```txt
-the LOD scale now controls a cloud-only target
-the cloud ray march no longer executes in the shared full-resolution scene pass
-the low-resolution target stores accumulated color and alpha
-the main scene contains a fullscreen cloud composite
-the cloud target and materials are disposed on visual teardown
-the composite does not have enough data to compare actual cloud and geometry depth
+the color render targets are governed by the EffectComposer pixel ratio
+the two independent depth texture image dimensions are manually overwritten after composer sizing
+the overwrite uses CSS viewport dimensions rather than the derived physical dimensions
+color and depth dimensions are not guaranteed equal when effective pixel ratio differs from 1
+no typed result or frame acknowledgement proves an accepted coherent generation
 ```
 
 ## What is not proven
 
 ```txt
-current frame-time or GPU cost on any device
-measured performance improvement
-visual equivalence to the previous path
-an observed occlusion or silhouette defect
-correct cloud-versus-geometry depth reconstruction
-target-generation safety during resize or context loss
-source build artifact or Pages parity
+an actual incomplete framebuffer
+an observed WebGL error
+an observed depth-test defect
+visible corruption or flicker
+how Three.js or the driver recovers on each target device
+measured performance or memory impact
+correct behavior in production build artifact or Pages
 production readiness
 ```
 
 ## Required fixtures
 
 ```txt
-high medium low profile -> exact cloud target dimensions and sample budgets
-cloud scale transition -> cloud target changes and main scene remains independently admitted
-cloud before mountain -> cloud survives
-cloud behind mountain -> mountain occludes cloud
-terrain balloon rope town vegetation edges -> no silhouette bleed
-resize DPR quality context change -> predecessor target retired
-fallback profiles -> typed reason and result
-terrain shadow policy -> matching weather and quality receipt
-GPU timing -> cloud dispatch and composite measurements
-visible frame -> CloudFrameResult correlates with FirstVisibleCloudFrameAck
-source dist artifact Pages -> matching result and frame identity
+boot at high medium and low tiers -> exact color and depth dimensions
+DPR 1 1.25 1.5 1.6 2 -> exact attachment equality
+dynamic scale default to 0.62 and recovery -> stable generation transitions
+window resize and orientation -> one atomic result per accepted size
+framebuffer status -> complete for both composer targets
+pass dimensions -> match accepted physical dimensions
+cloud target -> derived from matching renderer drawing-buffer generation
+context loss/recovery -> predecessor retired and successor acknowledged
+visible frame -> RenderSurfaceResizeResult matches FirstHdrResizeFrameAck
+source dist artifact Pages -> matching descriptor result and frame identity
 ```
 
 ## Change scope
 
 ```txt
 documentation changed: yes
-runtime JavaScript changed by audit: no
-shader changed by audit: no
+runtime JavaScript changed: no
+shader changed: no
 gameplay changed: no
-render behavior changed by audit: no
+render behavior changed: no
 packages or dependencies changed: no
 tests or workflows changed: no
 deployment changed: no
 branch created: no
 pull request created: no
 
-npm install/check/build: not run
-browser fixture: not run
-GPU timing or capture: not run
+npm run check: not run
+npm run build: not run
+browser framebuffer fixture: not run
+GPU capture: not run
 artifact downloaded: no
 Pages URL fetched: no
 ```
 
 ## Claims intentionally withheld
 
-No claim is made for correct depth-aware compositing, visual equivalence, measured performance improvement, temporal stability, target retirement, artifact parity, deployed parity, or production readiness.
+No claim is made for framebuffer failure, visible corruption, correct attachment sizing, resize safety, context-recovery safety, cloud/HDR frame coherence, artifact parity, deployed parity, or production readiness.
