@@ -1,7 +1,7 @@
 # Central Sync Audit: Oldest-Selection Device-Control Reconciliation
 
 **Timestamp:** `2026-07-15T16-58-19-04-00`  
-**Status:** `device-control-action-coverage-authority-audited`
+**Status:** `device-control-action-coverage-authority-central-reconciled`
 
 ## Summary
 
@@ -17,8 +17,8 @@ The complete accessible Publish inventory contains 11 repositories. `TheCavalryO
 - [x] Confirm no higher-priority new, missing, undocumented, or runtime-ahead case.
 - [x] Select only TheOpenAbove.
 - [x] Add the timestamped repo-local audit family.
-- [ ] Update the central TheOpenAbove ledger with the final repo-local documentation head.
-- [ ] Add the central internal change-log entry.
+- [x] Prepare the central TheOpenAbove ledger update with the final repo-local documentation head.
+- [x] Prepare the central internal change-log entry.
 
 ## Comparison result
 
@@ -51,7 +51,7 @@ PrehistoricRush    2026-07-15T16-00-32-04-00
 HorrorCorridor     2026-07-15T16-39-06-04-00
 ```
 
-## Central record target
+## Central records
 
 ```txt
 repo-ledger/LuminaryLabs-Publish/TheOpenAbove.md
@@ -60,4 +60,4 @@ internal-change-log/2026-07-15T16-58-19-04-00-the-open-above-device-control-acti
 
 ## Validation boundary
 
-This record confirms selection and source synchronization only. It does not claim runtime device support, successful browser fixtures, artifact parity, Pages parity, or production readiness.
+This record confirms selection, source synchronization, and documentation reconciliation only. It does not claim runtime device support, successful browser fixtures, artifact parity, Pages parity, or production readiness.
