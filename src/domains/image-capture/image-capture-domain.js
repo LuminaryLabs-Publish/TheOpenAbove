@@ -1,5 +1,6 @@
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+
 const clamp = (value, minimum, maximum) => Math.max(minimum, Math.min(maximum, Number(value) || 0));
-const distance3 = (a = {}, b = {}) => Math.hypot((a.x || 0) - (b.x || 0), (a.y || 0) - (b.y || 0), (a.z || 0) - (b.z || 0));
 
 export const IMAGE_CAPTURE_DOMAIN_ID = "open-above-image-capture-domain";
 
@@ -39,6 +40,7 @@ export function createImageCaptureDomain({ camera, renderer, landforms = [] } = 
   const snapPoints = Object.freeze(landforms.map(createSnapPoint));
   const captures = [];
   const completed = new Set();
+  const direction = new THREE.Vector3();
   let cameraMode = false;
   let zoom = 1;
   let pendingShutter = false;
@@ -68,7 +70,7 @@ export function createImageCaptureDomain({ camera, renderer, landforms = [] } = 
   function evaluate(playerState) {
     if (!pendingShutter || !camera || !playerState?.position) return null;
     pendingShutter = false;
-    const direction = camera.getWorldDirection?.({ x: 0, y: 0, z: -1 }) ?? { x: 0, y: 0, z: -1 };
+    camera.getWorldDirection(direction);
     let best = null;
     for (const point of snapPoints) {
       const dx = point.position.x - camera.position.x;
@@ -80,7 +82,7 @@ export function createImageCaptureDomain({ camera, renderer, landforms = [] } = 
       const framing = clamp((facing - 0.72) / 0.28, 0, 1);
       const zoomScore = clamp(1 - Math.abs(zoom - 2.2) / 2.2, 0, 1);
       const score = Math.round((framing * 0.55 + proximity * 0.25 + zoomScore * 0.2) * 100);
-      if (!best || score > best.score) best = { point, score, distance, framing };
+      if (!best || score > best.score) best = { point, score };
     }
     const recognized = best && best.score >= 45;
     const capture = Object.freeze({
