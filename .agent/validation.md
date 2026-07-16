@@ -1,103 +1,98 @@
-# Validation: TheOpenAbove WebGL Context-Loss Recovery
+# Validation: TheOpenAbove Page-Lifecycle Suspension and Resume
 
-**Last aligned:** `2026-07-16T03-03-22-04-00`
+**Last aligned:** `2026-07-16T07-58-10-04-00`
 
 ## Scope
 
-Documentation-only audit of the full Publish selection comparison, TheOpenAbove interaction loop, 101-surface inventory, renderer/HDR/cloud/world GPU-resource graph, absent context-loss recovery ownership, required recovery authority, browser fixture matrix, and central tracking.
+Documentation-only audit of the full Publish selection comparison, TheOpenAbove interaction loop, 101-surface inventory, document lifecycle ownership, background suspension, BFCache restoration, resume clock settlement, held-input cancellation and first-resumed-frame proof.
 
 ## Plan ledger
 
-**Goal:** distinguish the source-backed renderer-recovery gap from unproven browser behavior and define the executable proof required before support claims.
+**Goal:** distinguish the source-backed lifecycle gap from unproven browser behavior and define the executable proof required before support claims.
 
 - [x] Enumerate all 11 accessible Publish repositories.
-- [x] Exclude TheCavalryOfRome.
-- [x] Confirm ten eligible central ledgers, root `.agent` states, and synchronized heads.
-- [x] Confirm no new, missing, undocumented, root-agent-missing, or runtime-ahead repository.
-- [x] Select TheOpenAbove by the oldest synchronized eligible rule.
-- [x] Inspect main host, visual domain, HDR composer, volumetric clouds, package scripts, deployment, and current audits.
-- [x] Confirm no product-owned WebGL context-loss/restoration transaction or recovered-frame result.
-- [x] Add and route the timestamped renderer-recovery audit family.
-- [ ] Execute forced-loss, restoration, build, artifact, and Pages fixtures.
+- [x] Exclude `TheCavalryOfRome`.
+- [x] Confirm ten eligible central ledgers and root `.agent` states.
+- [x] Select TheOpenAbove using the oldest synchronized eligible rule.
+- [x] Inspect the main host, simulation input, map RAF, package scripts and prior lifecycle audits.
+- [x] Confirm no product-owned visibility/pagehide/freeze suspension and resume transaction.
+- [x] Add and route the timestamped lifecycle audit family.
+- [ ] Execute visibility, BFCache, freeze/resume, build, artifact and Pages fixtures.
 
 ## Source inspection performed
 
 ```txt
 LuminaryLabs-Publish organization inventory
 LuminaryLabs-Dev/LuminaryLabs Publish repo ledgers
-all ten eligible current repository heads
 TheOpenAbove root .agent documents and prior complete inventory
 src/main.js
-src/visual/visual-domain.js
-src/visual/post-process/hdr-composer-kit.js
-src/visual/atmosphere/volumetric-cloud-kit.js
+src/runtime/balloon-simulation-kit.js
+src/ui/parchment-map-overlay.js
 package.json
 .github/workflows/deploy-pages.yml discovery
-repository code search for webglcontextlost webglcontextrestored forceContextLoss
+repository code search for visibilitychange pagehide pageshow freeze resume
 ```
 
 ## Confirmed by inspection
 
 ```txt
-reviewed pre-audit repository head: 4de46a2f769624e8a65eabc6114185e4dcf738f5
+reviewed pre-audit repository head: d1d48c49ff687d2a6aa10c1ffd152eb6a771b3ff
 reviewed runtime source revision: 1417c80309218c7c61def3b2f09a977eaab8b953
-runtime-ahead eligible repositories: 0
 selected by oldest synchronized rule: yes
-one WebGLRenderer construction: yes
-recursive RAF presentation: yes
-HDR targets and independent depth textures: yes
-cloud private target and shader resources: yes
-streamed terrain/flora resources: yes
-ordinary disposal: yes
-webglcontextlost listener: no
-webglcontextrestored listener: no
-renderer/context/resource generation identity: no
-GPU-resource reconstruction registry: no
-RenderRecoveryResult: no
-RenderFallbackResult: no
-FirstRecoveredFrameAck: no
+recursive flight RAF: yes
+separate map RAF while open: yes
+frame interval clamp to 80 ms: yes
+simulation dt clamp to 1/30 s: yes
+window blur key clearing: yes
+visibilitychange observer: no
+pagehide/pageshow observer: no
+freeze/resume observer: no
+owned suspension result: no
+resume clock rebase result: no
+BFCache restoration result: no
+PageLifecycleResult: no
+FirstResumedFrameAck: no
 ```
 
 ## What source inspection proves
 
 ```txt
-renderer and GPU resources are constructed once during boot
-frame submission continues through direct cloud and composer calls
-firstFramePresented is historical and not renderer-generation-bound
-ordinary disposal is not an ordered reconstruction protocol
-no current product code owns context loss or restoration
-no result binds a recovered visible frame to a rebuilt resource generation
+browser lifecycle changes are not admitted as product commands
+background RAF behavior is left to the browser
+large resume intervals are clipped rather than semantically classified
+only blur explicitly clears held flight keys
+map and flight schedulers have no shared lifecycle generation
+no result binds resumed simulation and rendering to one accepted clock revision
 ```
 
 ## What is not proven
 
 ```txt
-actual browser behavior during context loss
-whether Three.js restores any resource automatically for this graph
-complete resource rehydration
-simulation and input behavior during loss
-repeated-loss and timeout behavior
-fallback usability
-production artifact or Pages behavior
+whether every target browser emits blur before visibility suspension
+actual RAF throttling behavior across browsers and devices
+BFCache eligibility and restore behavior
+input state after freeze or process suspension
+Air Mail and world-generation continuity under lifecycle transitions
+artifact or Pages behavior
 production readiness
 ```
 
 ## Required fixtures
 
 ```txt
-loss before first frame
-loss during steady flight
-loss while map is open
-loss during dynamic-resolution resize
-loss during cloud target rendering
-loss during terrain/flora streaming
-loss inside delivery volume
-repeated loss during recovery
-restoration timeout and fallback
-pagehide and runtime retirement
-resource-manifest verification
-stale-generation rejection
-FirstRecoveredFrameAck
+hide and restore before first frame
+hide and restore during steady flight
+hide while burner vent and steering are held
+hide while map is open
+hide during world generation and dynamic-resolution changes
+hide inside a delivery volume
+pagehide/pageshow without BFCache
+pagehide/pageshow with persisted BFCache restoration
+freeze/resume where supported
+duplicate and stale lifecycle events
+rapid hide/show oscillation
+resume clock rebase and elapsed-time policy
+FirstResumedFrameAck
 source dist artifact Pages identity comparison
 ```
 
@@ -118,13 +113,15 @@ pull request created: no
 
 npm run check: not run
 npm run build: not run
-forced WebGL context-loss fixture: not run
-context-restoration fixture: not run
-resource-rehydration fixture: not run
+visibility fixture: not run
+BFCache fixture: not run
+freeze/resume fixture: not run
+held-input cancellation fixture: not run
+first-resumed-frame fixture: not run
 artifact downloaded: no
 Pages URL fetched: no
 ```
 
 ## Claims intentionally withheld
 
-No claim is made for renderer recovery, context restoration, GPU-resource rehydration, stale-generation rejection, fallback correctness, first-recovered-frame convergence, artifact parity, Pages parity, or production readiness.
+No claim is made for lifecycle suspension correctness, held-input safety, BFCache restoration, resume clock continuity, stale-event rejection, first-resumed-frame convergence, artifact parity, Pages parity or production readiness.
