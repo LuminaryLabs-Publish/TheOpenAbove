@@ -1,105 +1,106 @@
-# Known Gaps: TheOpenAbove Game-Audio Event Projection
+# Known Gaps: TheOpenAbove WebGL Context-Loss Recovery
 
-**Last aligned:** `2026-07-15T22-00-36-04-00`  
-**Status:** `game-audio-event-projection-authority-audited`
+**Last aligned:** `2026-07-16T03-03-22-04-00`  
+**Status:** `webgl-context-resource-recovery-authority-audited`
 
 ## Summary
 
-The current product has accepted state and visual feedback for flight, airstreams, the map, terrain contact, and successful Air Mail delivery, but no owned audio projection authority or executable audible evidence.
+The product has a sophisticated WebGL presentation graph and ordinary disposal, but no owned loss/restoration transaction or executable recovered-frame evidence.
 
 ## Plan ledger
 
-**Goal:** keep audio capability, semantic events, continuous layers, preferences, budgets, lifecycle, proof, and retained product gaps dependency ordered.
+**Goal:** keep renderer identity, loss admission, resource reconstruction, gameplay policy, fallback, proof, and retained product gaps dependency ordered.
 
-- [x] Identify accepted flight and delivery result sources.
-- [x] Confirm no runtime audio owner or provider.
-- [x] Define one-shot and continuous audio responsibilities.
-- [x] Preserve existing device, clock, rendering, world, mail, and lifecycle findings.
-- [ ] Add audio generation and unlock admission.
-- [ ] Add semantic cue and ambience projection.
-- [ ] Add preferences, buses, deduplication, and budgets.
-- [ ] Add lifecycle settlement and acknowledgements.
-- [ ] Prove source, build, artifact, and Pages parity.
+- [x] Identify renderer and GPU-resource owners.
+- [x] Confirm context-loss/restoration listeners are absent.
+- [x] Separate normal disposal from recovery.
+- [x] Define recovery command, result, manifest, deadline, fallback, and acknowledgement surfaces.
+- [ ] Implement loss/restoration admission.
+- [ ] Implement resource registration and reconstruction.
+- [ ] Implement stale-generation rejection and bounded fallback.
+- [ ] Prove source, build, artifact, and Pages behavior.
 
 ## Implemented state
 
 ```txt
-accepted burner and vent levels: present
-accepted velocity altitude and terrain contact: present
-accepted airstream route influence and capture state: present
-accepted map open state: present
-accepted mail-delivered result: present
-camera state for listener projection: present
-Three.js Canvas2D and diagnostic projection: present
+WebGLRenderer creation: present
+shadow/color-space renderer state: present
+HDR composer and half-float targets: present
+independent depth textures: present
+volumetric-cloud target and shaders: present
+terrain vegetation grass flowers water landmarks: present
+balloon airstream and town presentation resources: present
+dynamic resolution and resize: present
+ordinary visual disposal: present
 ```
 
-## Primary audio gaps
+## Primary recovery gaps
 
 ```txt
-AudioCapabilityRevision: absent
-AudioPolicyRevision: absent
-AudioGeneration: absent
-browser audio capability observation: absent
-accepted user-gesture unlock: absent
-AudioContext lifecycle owner: absent
-semantic AudioEventId: absent
-cue descriptor registry: absent
-burner and vent audio layers: absent
-airstream transition cues: absent
-mail-delivered cue: absent
-map UI cues: absent
-flight ambience lifecycle: absent
+RenderCapabilityRevision: absent
+RendererGeneration: absent
+ContextGeneration: absent
+ResourceManifestRevision: absent
+webglcontextlost listener: absent
+webglcontextrestored listener: absent
+loss deduplication: absent
+presentation suspension result: absent
+simulation/input loss policy: absent
+GPU-resource registration manifest: absent
+renderer reconstruction: absent
+composer/depth reconstruction: absent
+cloud-target reconstruction: absent
+terrain/flora reconstruction: absent
+stale-generation rejection: absent
 ```
 
-## Projection and policy gaps
+## Deadline, fallback, and evidence gaps
 
 ```txt
-listener pose revision: absent
-spatial source revision: absent
-master and category buses: absent
-volume and mute preferences: absent
-one-shot cue deduplication: absent
-per-cue concurrency: absent
-global voice budget: absent
-priority and eviction policy: absent
-unsupported-audio fallback result: absent
-```
-
-## Lifecycle and evidence gaps
-
-```txt
-map-open audio policy: absent
-blur and visibility settlement: absent
-pagehide settlement: absent
-route and runtime replacement retirement: absent
-AudioUnlockResult: absent
-AudioProjectionResult: absent
-AudioSessionSettlementResult: absent
-FirstAudibleCueAck: absent
-FirstAudioVisualConvergenceAck: absent
-browser audio fixture: absent
+recovery deadline: absent
+retry budget: absent
+repeated-loss policy: absent
+unsupported-restoration result: absent
+RenderLossResult: absent
+ResourceRehydrationResult: absent
+RenderRecoveryResult: absent
+RenderFallbackResult: absent
+FirstRecoveredFrameAck: absent
+forced-loss browser fixture: absent
 source/build/artifact/Pages parity: unproven
+```
+
+## Gameplay-coherence gaps during loss
+
+```txt
+simulation continue/suspend policy: absent
+elapsed-time policy: absent
+Air Mail settlement policy: absent
+held-input cancellation policy: absent
+map-state policy: absent
+accepted recovery snapshot revision: absent
+resume/catch-up/rollback rule: absent
 ```
 
 ## Dependency order
 
 ```txt
-audio capability and generation
-  -> gesture admission
-  -> semantic events and cue descriptors
-  -> continuous layers and one-shot cues
-  -> listener and spatial projection
-  -> preferences buses deduplication and budgets
-  -> lifecycle settlement
-  -> browser effect receipts
-  -> audible-visible frame acknowledgement
-  -> deployed artifact parity
+capability and generation identity
+  -> context-loss admission
+  -> stale presentation suspension
+  -> simulation/input policy
+  -> restoration admission
+  -> dependency-ordered resource reconstruction
+  -> verification and adoption
+  -> first recovered frame
+  -> acknowledgement or fallback
+  -> artifact and Pages parity
 ```
 
 ## Retained product gaps
 
-Device-control action coverage, host-clock fixed-step pacing, HDR color/depth target coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route lifecycle, world adoption, terrain and vegetation proof, Air Mail history, and flight persistence remain unresolved.
+Game audio, device-control coverage, host-clock fixed steps, HDR/depth attachment coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history, and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim audible gameplay, unlock reliability, cue correctness, spatial correctness, lifecycle safety, artifact parity, deployed parity, or production readiness until the required fixtures pass.
+Do not claim renderer recovery, context restoration, resource rehydration, stale-generation safety, fallback correctness, first-recovered-frame convergence, artifact parity, Pages parity, or production readiness until the required fixtures pass.
