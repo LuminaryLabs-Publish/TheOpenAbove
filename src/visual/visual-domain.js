@@ -23,7 +23,9 @@ export function createVisualDomain({
   worldConfig,
   worldAnchors = {},
   worldFeatures = null,
-  worldFoundation = null
+  worldFoundation = null,
+  weatherDomain = null,
+  layeredWeather = null
 }) {
   const quality = detectQualityTier();
   const scene = new THREE.Scene();
@@ -52,7 +54,7 @@ export function createVisualDomain({
   const grass = createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation, world);
   const flowers = createFlowerFieldDomain(scene, worldConfig, quality, terrain, vegetation, world);
   const landmarks = createDistantLandmarks(scene, terrain.terrainHeight);
-  const weather = createCloudWeatherMap(worldConfig.seed || 1);
+  const weather = createCloudWeatherMap(worldConfig.seed || 1, { weather: weatherDomain, layeredWeather });
   const sun = createSunLight(scene, quality);
   const sky = createPhysicalSky(scene, { zenithColor: 0x75abd0, horizonColor: 0xf0c9a1, groundHazeColor: 0xd7c2ad, turbidity: 4.2, rayleigh: 1.0, mie: 0.55, sunIntensity: 0.9 });
   const clouds = createVolumetricClouds(scene, quality, weather);
@@ -73,6 +75,7 @@ export function createVisualDomain({
     triangles: 0,
     grass: grass.getState(),
     flowers: flowers.getState(),
+    weather: weather.state.snapshot,
     firstFramePresented: false,
     worldGeneration: world.getGenerationState()
   };
@@ -100,7 +103,7 @@ export function createVisualDomain({
     if (state.firstFramePresented && world.getGenerationState().status === "working") {
       state.worldGeneration = world.advanceGeneration();
     }
-    weather.update(dt, elapsed);
+    weather.update(dt, elapsed, camera.position.y);
     sun.update(flightState.position, elapsed);
     sky.update(camera, sun.direction);
     clouds.update(camera, sun.direction, elapsed);
@@ -114,6 +117,7 @@ export function createVisualDomain({
     state.renderScale = resolution.state.scale;
     state.grass = grass.getState();
     state.flowers = flowers.getState();
+    state.weather = weather.state.snapshot;
     state.worldGeneration = world.getGenerationState();
     return state;
   }
