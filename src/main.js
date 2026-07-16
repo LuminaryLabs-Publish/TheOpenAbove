@@ -28,16 +28,23 @@ async function createGame() {
   canvas.setAttribute("aria-busy", "true");
   const routes = createDefaultAirstreamRoutes();
   const mailRoute = createDefaultMailRoute();
+  const worldFeatures = [
+    ...(WORLD.features?.landforms ?? []),
+    ...(WORLD.features?.atmosphere ?? [])
+  ];
   let snapshotReader = () => ({ status: "booting" });
   const engine = createBalloonTelemetryEngine(NexusEngine, () => snapshotReader(), {
-    worldFeatures: WORLD.features?.landforms ?? []
+    worldFeatures,
+    weather: WORLD.weather
   });
   const visual = createVisualDomain({
     canvas,
     worldConfig: WORLD,
     worldAnchors: { routes, towns: mailRoute.towns },
     worldFeatures: engine.n.worldFeatures,
-    worldFoundation: engine.n.worldFoundation
+    worldFoundation: engine.n.worldFoundation,
+    weatherDomain: engine.n.weather,
+    layeredWeather: engine.n.layeredWeather
   });
   const balloon = await loadHotAirBalloonModel(undefined, { yieldToFrame: true });
   visual.scene.add(balloon);
@@ -63,6 +70,7 @@ async function createGame() {
     map: mapOverlay.snapshot(),
     airstream: airstream.snapshot(),
     mail: mail.snapshot(),
+    weather: visualState.weather,
     terrain: {
       nearChunks: visual.landscape.terrain.streamer.chunks.size,
       horizonChunks: visual.landscape.terrain.horizon.chunks.size,
@@ -87,6 +95,7 @@ async function createGame() {
       triangles: visualState.triangles ?? 0,
       grass: visualState.grass,
       flowers: visualState.flowers,
+      weather: visualState.weather,
       worldGeneration: visualState.worldGeneration
     }
   });
