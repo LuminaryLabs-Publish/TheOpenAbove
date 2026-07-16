@@ -1,115 +1,115 @@
-# Current Audit: TheOpenAbove Atmosphere Reference-to-Runtime Traceability
+# Current Audit: TheOpenAbove Layered Weather Clock and Projection Ownership
 
-**Last aligned:** `2026-07-16T09-39-49-04-00`  
-**Status:** `atmosphere-reference-layer-runtime-traceability-authority-audited`  
-**Reviewed pre-audit repository head:** `74c782c6074a90127e544c0ce537ac0a2d93aa18`  
-**Reviewed runtime source revision:** `1417c80309218c7c61def3b2f09a977eaab8b953`
+**Last aligned:** `2026-07-16T10-58-20-04-00`  
+**Status:** `weather-simulation-clock-projection-ownership-authority-audited`  
+**Reviewed pre-audit repository head:** `a2291f95e9eb9447512e00a5fc60a4a7ca83ad10`  
+**Previous central repo-local head:** `e9e0465d3d72995e8e398ab7b821d38fd332bc33`
 
 ## Summary
 
-The highest-value current gap is reference-to-runtime admission. The new atmosphere image describes persistent ground fog, low/mid cumulus, high clouds and cirrus, but no manifest binds that design to existing product kits, world configuration or provider capabilities.
+The layered-atmosphere target is now implemented across Core Weather, Layered Weather, Atmosphere Features and a five-layer volumetric renderer. The highest-value remaining gap is that presentation code owns weather advancement instead of consuming an accepted simulation result.
 
 ## Plan ledger
 
-**Goal:** preserve the image as design evidence while publishing a typed result that classifies every requirement before runtime adoption.
+**Goal:** admit exactly one weather evolution step per accepted simulation tick and bind every visible weather consumer to the resulting immutable revision.
 
 - [x] Compare the current Publish inventory, central ledgers and root `.agent` coverage.
 - [x] Select only TheOpenAbove by runtime-ahead priority.
-- [x] Inspect the reference SVG, visual domain, weather map, cloud renderer, LOD, fog and world features.
-- [x] Preserve all 101 active named surfaces and their services.
-- [x] Add the timestamped atmosphere traceability audit family.
-- [ ] Implement and prove manifest admission, layer adoption and frame convergence.
+- [x] Inspect the layered-weather configuration, provider composition, visual adapter, shader and integration test.
+- [x] Preserve the full 115-surface kit and service inventory.
+- [x] Add the timestamped weather-clock audit family.
+- [ ] Implement and prove simulation-owned advancement, map policy and frame convergence.
 
 ## Complete interaction loop
 
 ```txt
 boot
-  -> compose Core World foundation, features and landforms
-  -> register WORLD.features.landforms only
-  -> create visual world, weather, one cloud shell and global fog
-  -> create balloon, airstream, Air Mail, map and camera
+  -> install World Foundation, Features, Landforms and Atmosphere Features
+  -> install Core Weather and Layered Weather
+  -> register five atmosphere features and five weather layers
+  -> create visual world and five-layer cloud renderer
+  -> create balloon, airstream, Air Mail, map, camera and telemetry
 
 flight frame
-  -> update one weather coverage/density state
-  -> update one cloud shell at 360..960
-  -> update global fog from camera altitude and cloud coverage
-  -> update world and gameplay state
-  -> render cloud target, composite and HDR frame
+  -> simulation, Air Mail, airstream and camera update
+  -> visual adapter advances Core Weather
+  -> visual adapter advances Layered Weather
+  -> clouds, fog, terrain and telemetry read resulting state
+  -> engine tick
+  -> cloud target and HDR frame render
 
-new reference
-  -> records four altitude regimes and named modules
-  -> is not parsed or registered
-  -> has no release, runtime or provider capability result
-  -> no frame cites its revision
+map-open frame
+  -> simulation, visual update, weather advance and engine tick are skipped
+  -> render continues
+  -> no explicit weather pause/resume result exists
 ```
 
 ## Domains in use
 
 ```txt
-workflow, provider, build, artifact and Pages deployment
+workflow, provider checkout, build, artifact and Pages deployment
 browser route, RAF, resize, input, map and GameHost
 balloon flight, telemetry, presentation, camera and clipping
 airstream and Air Mail
-Core World foundation, features and landforms
+Core World foundation, features, landforms and atmosphere features
+Core Weather and Layered Weather
 world generation, terrain, vegetation, grass, flowers, water and landmarks
-quality, sky, sun, aerial perspective, cloud weather, volumetric clouds, HDR and grading
-reference revision, atmosphere manifest, capability classification and layer adoption
-browser altitude-sweep, frame acknowledgement and central tracking
+quality, sky, sun, aerial perspective, five-layer clouds, HDR and grading
+weather-clock admission, feature/layer binding, immutable projection and frame proof
 ```
 
 ## Kit and service census
 
 ```txt
-local source-backed kits:           71
+local source-backed kits:           72
 runtime-implied adapters:           13
-Core World provider surfaces:       17
-active named runtime total:        101
-new non-runtime reference asset:     1
-planned traceability surfaces:      20
-new runtime kit IDs:                 0
+Nexus Engine provider surfaces:     30
+active named surface total:        115
+planned weather-clock surfaces:     20
 ```
 
-The complete inventory and service table is in `.agent/trackers/2026-07-16T09-39-49-04-00/project-breakdown.md`.
+The complete inventory and service table is in `.agent/trackers/2026-07-16T10-58-20-04-00/project-breakdown.md`.
 
 ## Source-backed findings
 
 ```txt
-reference target layers: ground fog, low/mid, high, cirrus
-runtime cloud layers: one
-runtime cloud altitude: 360..960
-runtime global fog: present
-layer-specific sparse floors: absent
-terrain/moisture atmosphere bridge: absent
-WORLD atmosphere features: absent
-provider atmosphere family: absent
-cloud composite independent kit: absent; embedded in volumetric kit
-atmosphere-layer-controller: absent
-module capability classification: absent
-AtmosphereReferenceAdmissionResult: absent
-FirstReferenceBoundAtmosphereFrameAck: absent
+five semantic atmosphere features: present
+five weather layers: present
+five-layer renderer: present
+layered-weather integration test: present
+weather mutation caller: visual adapter
+engine tick after weather mutation: yes
+map-open skips weather mutation: yes
+map-open still renders: yes
+single-step weather command/result: absent
+duplicate-step rejection: absent
+explicit map/pause policy: absent
+feature/layer binding result: absent
+weather-bound frame acknowledgement: absent
 ```
 
 ## Required parent domain
 
-`open-above-atmosphere-reference-layer-runtime-traceability-authority-domain`
+`open-above-weather-simulation-clock-projection-ownership-authority-domain`
 
 ## Required transaction
 
 ```txt
-AtmosphereReferenceAdmissionCommand
-  -> bind reference, release, runtime, world-config and provider revisions
-  -> normalize AtmosphereLayerManifest
-  -> classify modules and feature types
-  -> bind layer profiles and data dependencies
-  -> publish AtmosphereReferenceAdmissionResult
+WeatherAdvanceCommand
+  -> bind session, simulation frame, clock and expected revisions
+  -> apply running/map/pause/suspend policy
+  -> advance Core Weather once
+  -> advance Layered Weather once from that snapshot
+  -> validate atmosphere-feature/layer bindings
+  -> publish WeatherAdvanceResult
 
-AtmosphereLayerAdoptionCommand
-  -> bind accepted manifest and expected visual/world generations
-  -> stage existing owners and missing bridges
-  -> publish adopted, partial, deferred or rejected result
-  -> render and publish FirstReferenceBoundAtmosphereFrameAck
+WeatherProjectionCommand
+  -> consume the immutable result without mutation
+  -> update clouds, fog, terrain and telemetry
+  -> reject stale revisions
+  -> render and publish FirstWeatherBoundFrameAck
 ```
 
 ## Validation boundary
 
-Documentation only. Runtime JavaScript, SVG, shaders, world configuration, provider code, gameplay, packages, tests, workflows and deployment were not changed. No browser, build, artifact or Pages fixture was run.
+Documentation only. The layered-weather runtime was inspected but not changed by this audit. No npm check, Vite build, browser fixture, artifact download or Pages smoke was executed.
