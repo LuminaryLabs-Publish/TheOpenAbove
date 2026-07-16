@@ -1,103 +1,111 @@
-# Known Gaps: TheOpenAbove Page-Lifecycle Suspension and Resume
+# Known Gaps: TheOpenAbove Atmosphere Reference-to-Runtime Traceability
 
-**Last aligned:** `2026-07-16T07-58-10-04-00`  
-**Status:** `page-lifecycle-flight-suspension-resume-authority-audited`
+**Last aligned:** `2026-07-16T09-39-49-04-00`  
+**Status:** `atmosphere-reference-layer-runtime-traceability-authority-audited`
 
 ## Summary
 
-The route has frame clamps and blur-based key clearing, but no owned document lifecycle transaction or executable resume evidence.
+The repository now contains a clear layered-atmosphere target, but the target has no semantic identity, executable capability classification, adoption result or visible-frame proof.
 
 ## Plan ledger
 
-**Goal:** keep lifecycle identity, suspension policy, resume settlement, stale-event rejection and browser proof dependency ordered.
+**Goal:** keep reference identity, module ownership, layer descriptors, world bridges, runtime adoption and browser proof dependency ordered.
 
-- [x] Identify flight and map RAF owners.
-- [x] Confirm lifecycle observers and results are absent.
-- [x] Separate temporary suspension, BFCache restoration and final retirement.
-- [x] Define command, result, clock, input and frame acknowledgement surfaces.
-- [ ] Implement lifecycle admission and cross-domain settlement.
-- [ ] Prove browser, build, artifact and Pages behavior.
+- [x] Identify the runtime-ahead reference asset.
+- [x] Compare its module tree with the executable product and provider surfaces.
+- [x] Separate implemented, embedded, planned and unsupported capabilities.
+- [x] Define command, result and frame acknowledgement surfaces.
+- [ ] Implement reference admission and layer adoption.
+- [ ] Prove source, build, artifact and Pages behavior.
 
 ## Implemented state
 
 ```txt
-flight RAF and clamped dt: present
-map conditional RAF: present
-window blur key clearing: present
-map-open simulation pause: present
-world and renderer updates from flight RAF: present
-ordinary component disposal methods: present
+cloud weather coverage/density/wind state: present
+one volumetric cloud shell: present
+cloud base/top 360..960: present
+low-resolution raymarch target: present
+embedded cloud composite: present
+global aerial FogExp2: present
+altitude-based global fog clearing: present
+Core World foundation/features/landforms: present
+WORLD mountain landform: present
 ```
 
-## Primary lifecycle gaps
+## Primary reference and manifest gaps
 
 ```txt
-DocumentGeneration: absent
-LifecycleRevision: absent
-SuspensionRevision: absent
-ResumeRevision: absent
-visibilitychange observer: absent
-pagehide/pageshow observer: absent
-freeze/resume observer: absent
-suspend-versus-retire classification: absent
-BFCache persisted restoration policy: absent
-held-action cancellation result: absent
-flight simulation suspension result: absent
-Air Mail suspension result: absent
-airstream suspension result: absent
-world-generation suspension result: absent
-map/render scheduler suspension result: absent
+reference content digest: absent
+reference semantic revision: absent
+AtmosphereLayerManifest: absent
+authoritative-versus-illustrative requirement classification: absent
+module capability classification: absent
+unresolved reference identifier result: absent
+AtmosphereReferenceAdmissionResult: absent
 ```
 
-## Resume and evidence gaps
+## Layer architecture gaps
 
 ```txt
-resume clock rebase: absent
-accepted elapsed-time policy: absent
-stale callback rejection: absent
-stale lifecycle event rejection: absent
-renderer/viewport revalidation on restore: absent
-PageLifecycleResult: absent
-FirstResumedFrameAck: absent
-lifecycle snapshot in GameHost: absent
-visibility browser fixture: absent
-BFCache browser fixture: absent
+ground-fog layer descriptor: absent
+low/mid-cumulus descriptor: absent
+high-cloud descriptor: absent
+cirrus descriptor: absent
+altitude-band registry: absent
+sparse density floor policy: absent
+per-layer quality policy: absent
+per-layer renderer ownership: absent
+per-layer disposal policy: absent
+atmosphere-layer-controller: absent
+```
+
+## World and provider gaps
+
+```txt
+WORLD.features.atmosphere: absent
+Core World atmosphere child domain: absent
+cloud-layer feature type: absent
+cloud-bank feature type: absent
+fog-bank feature type: absent
+visibility-zone feature type: absent
+terrain-height atmosphere bridge: absent
+moisture atmosphere bridge: absent
+water-proximity atmosphere bridge: absent
+wind/advection layer contract: absent
+```
+
+## Frame and proof gaps
+
+```txt
+reference revision in visual snapshot: absent
+active atmosphere layer readback: absent
+layer visibility readback: absent
+per-layer GPU timing: absent
+altitude-sweep browser fixture: absent
+terrain/moisture response fixture: absent
 source/build/artifact/Pages parity: unproven
-```
-
-## Gameplay-coherence gaps
-
-```txt
-burner/vent/steering state across hidden transition: undefined
-flight elapsed time while hidden: undefined by product policy
-Air Mail delivery timing while hidden: undefined
-world-generation work while hidden: browser-dependent
-camera transition settlement: undefined
-map-open restoration: undefined
-first resumed simulation revision: absent
-first resumed visible-frame revision: absent
+FirstReferenceBoundAtmosphereFrameAck: absent
 ```
 
 ## Dependency order
 
 ```txt
-lifecycle evidence and generations
-  -> transition normalization
-  -> suspend/resume/retire classification
-  -> held-input cancellation
-  -> simulation and gameplay policy
-  -> world/map/render scheduler settlement
-  -> resume clock rebase
-  -> BFCache restoration admission
-  -> first resumed frame
-  -> acknowledgement or fallback
+reference digest and semantic revision
+  -> manifest normalization
+  -> module and provider capability classification
+  -> layer descriptors and sparse floors
+  -> terrain/moisture/wind bridges
+  -> runtime adoption result
+  -> quality and composite policy
+  -> altitude-sweep frames
+  -> first matching frame acknowledgement
   -> artifact and Pages parity
 ```
 
 ## Retained product gaps
 
-WebGL recovery, game audio, device-control coverage, host-clock fixed steps, HDR/depth attachment coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history and flight persistence remain unresolved.
+Page lifecycle, WebGL recovery, game audio, device-control coverage, host-clock fixed steps, HDR/depth attachment coherence, existing cloud composite depth proof, delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim correct background suspension, held-input safety, BFCache compatibility, elapsed-time continuity, resume convergence, artifact parity, Pages parity or production readiness until the required fixtures pass.
+Do not claim multi-layer atmosphere implementation, persistent cloud coverage, terrain-aware fog, provider support, performance safety, frame convergence, artifact parity, Pages parity or production readiness until the required fixtures pass.
