@@ -1,97 +1,106 @@
-# Current Audit: TheOpenAbove Validation Finding Severity and Release Gate
+# Current Audit: TheOpenAbove Sightseeing Photo Frame Artifact
 
-**Last aligned:** `2026-07-16T13-39-49-04-00`  
-**Status:** `validation-finding-severity-release-gate-authority-audited`  
-**Previous central repo-local head:** `9c4a0f421484f8e68cb93e491fe0af849422312a`  
-**Reviewed pre-audit repository head:** `985fc85b5a3a723ab869eaa0c7344850d63130ca`
+**Last aligned:** `2026-07-16T14-59-39-04-00`  
+**Status:** `sightseeing-photo-frame-artifact-authority-audited`  
+**Previous central repo-local head:** `aac119fd0b793ea4a86edee7167f87d4d740275b`  
+**Reviewed pre-audit repository head:** `d0677937043224bb295bd3b270c336aed0e2a2b1`
 
 ## Summary
 
-The new tiered runner executes seven suites and emits INFO, WARNING or ERROR annotations. Any non-zero suite output matching a broad assertion signature becomes a warning, and warnings do not block the build. The current policy cannot prove whether the failed assertion is harmless contract drift or a real product invariant failure.
+The active Meadow Lift route is now composed from Journey, Ballooning, Sky, Land, Navigation, Image Capture and Experience domains. Air Mail is retired from the scene. Sightseeing capture recognizes landforms from camera direction, distance and zoom, then records metadata and updates the map journal.
+
+The capture domain does not read rendered pixels or create an image artifact. The shutter result settles before `engine.tick(dt)` and before `experience.render(...)`, so the recorded result is not bound to a presented frame.
 
 ## Intent
 
-Make validation severity a typed authority and bind accepted results to the source, provider, Vite artifact, Pages deployment and first stable rendered frame.
+Make one exact rendered frame the authority for photo bytes, score, journal state and visible confirmation.
 
 ## What needs to happen
 
 ```txt
-ValidationSuiteCommand
-  -> run one registered suite
-  -> publish structured findings
-
-ValidationFindingAdmissionCommand
-  -> resolve stable finding identity
-  -> classify impact
-  -> apply explicit active drift/waiver policy
-  -> fail closed on unknowns
-
-ReleaseValidationCommand
-  -> aggregate required suites
-  -> publish accepted, accepted-with-explicit-drift or blocked
-  -> bind accepted result to artifact and Pages release
+PhotoCaptureCommand
+  -> bind request, route, session, camera and frame revisions
+  -> bind world, weather, renderer and capture-policy revisions
+  -> admit one post-update capture frame
+  -> create immutable image bytes and digest
+  -> score recognition from the same accepted camera/frame state
+  -> publish PhotoCaptureResult
+  -> project actual photo into the journal
+  -> publish FirstPhotoArtifactAck and FirstJournalPhotoFrameAck
 ```
 
 ## Checklist
 
-- [x] Compare the full Publish inventory and central coverage.
+- [x] Compare the current Publish inventory and central coverage.
 - [x] Select one priority repository only.
-- [x] Inspect package and runner changes.
-- [x] Inspect representative weather, route and static assertions.
-- [x] Preserve all product domains and 116 active surfaces.
-- [x] Define the validation authority and proof boundary.
-- [ ] Implement typed findings, drift records and waivers.
-- [ ] Execute policy mutation, build and deployment fixtures.
+- [x] Inspect the semantic composition, image capture, map, steering and wind-particle changes.
+- [x] Identify the current interaction loop and domain boundaries.
+- [x] Inventory 121 active named surfaces and their services.
+- [x] Define the photo-frame artifact authority and proof boundary.
+- [ ] Implement bitmap capture, immutable identity, storage and retirement.
+- [ ] Execute capture, journal, build, artifact and deployed-origin fixtures.
 
-## Interaction loops
+## Interaction loop
 
 ```txt
-product:
-  input -> flight/Air Mail/airstream/weather/world updates -> engine tick -> HDR/map render
+boot
+  -> create Core World/Weather engine
+  -> create Land and Experience
+  -> mount Ballooning, Sky, Navigation and Image Capture
+  -> create Journey frame ownership
 
-validation:
-  npm run check -> seven suites -> regex severity inference -> annotations -> process result
+flight frame
+  -> Ballooning updates simulation and immediate wind-relative steering
+  -> Sky updates airstream visualization and 3,200 local wind particles
+  -> Experience updates balloon, camera and visual world
+  -> Image Capture evaluates a pending shutter request
+  -> engine ticks
+  -> Experience renders
 
-release:
-  successful check -> Vite build -> artifact -> Pages
+map frame
+  -> simulation dt becomes zero while map is open
+  -> parchment map redraws world, routes, Snap Points and generic reference card
 ```
 
 ## Domains in use
 
 ```txt
-balloon, Air Mail, airstream and telemetry
-Core World, Weather, Layered Weather and atmosphere features
-world generation, terrain, flora, water and map
-Three.js, clouds, HDR, grading and camera
-Node suite execution and process evidence
-finding severity, drift and waiver policy
-build/artifact/Pages admission and first-frame proof
-repo-local and central audit tracking
+Journey: session, region, map policy, RAF and snapshots
+Ballooning: balloon object, controls, buoyancy, drift, steering and terrain contact
+Sky: airstreams, Core Weather access and local wind visualization
+Land: world configuration, Core World surfaces, terrain and generation readback
+Navigation: map lifecycle, world projection, routes and Snap Point journal
+Image Capture: camera mode, zoom, shutter, recognition, score and metadata records
+Experience: renderer, camera, visual world, balloon presentation and render
+Nexus Engine: World, Foundation, Features, Landforms, Atmosphere, Weather and Layered Weather
+Build/deploy: tiered validation, Vite artifact and GitHub Pages
 ```
 
 ## Current finding
 
 ```txt
-registered suite list: present
-subprocess isolation: present
-GitHub annotations: present
-warning aggregation: present
-build depends on check: present
+semantic capture record: present
+camera-mode and zoom controls: present
+landmark recognition and score: present
+Snap Point completion: present
+journal/map status projection: present
 
-suite-specific severity policy: absent
-stable finding IDs: absent
-expected-drift registry: absent
-waiver owner and expiry: absent
-unknown assertion fail-closed rule: absent
-ReleaseValidationResult: absent
-artifact/Pages validation binding: absent
-FirstValidatedReleaseFrameAck: absent
+rendered pixel capture: absent
+capture frame identity: absent
+camera matrix receipt: absent
+world/weather generation binding: absent
+photo bytes and digest: absent
+artifact persistence/retirement: absent
+actual-photo journal projection: absent
+PhotoCaptureResult: absent
+FirstPhotoArtifactAck: absent
+FirstJournalPhotoFrameAck: absent
 ```
 
 ## Required parent domain
 
-`open-above-validation-finding-severity-release-gate-authority-domain`
+`open-above-sightseeing-photo-frame-artifact-authority-domain`
 
 ## Boundary
 
-Documentation only. The runner, suites, build and deployment were not modified or executed by this audit.
+Documentation only. Runtime, rendering, controls, world generation, tests and deployment were not changed by this audit.
