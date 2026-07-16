@@ -1,101 +1,108 @@
-# Next Steps: TheOpenAbove Device-Control Action Coverage
+# Next Steps: TheOpenAbove Game-Audio Event Projection
 
-**Last aligned:** `2026-07-15T16-58-19-04-00`  
-**Status:** `device-control-action-coverage-authority-audited`
+**Last aligned:** `2026-07-15T22-00-36-04-00`  
+**Status:** `game-audio-event-projection-authority-audited`
 
 ## Summary
 
-The next work should replace direct device-specific state mutation with one semantic control authority. Device capability and required action coverage must be resolved before a profile is admitted, visible controls must be prepared when required, and all producers must settle into one revisioned `FlightActionState`.
+The next work should add one browser-audio authority downstream of accepted flight and Air Mail results. Unlock, context ownership, cues, ambience, preferences, deduplication, budgets, lifecycle settlement, and audible-visible proof must land together as one bounded system.
 
 ## Plan ledger
 
-**Goal:** add complete keyboard/mouse, keyboard-only, touch-only, gamepad, and hybrid profiles without changing flight equations, route logic, camera limits, map suspension, rendering, or deployment.
+**Goal:** add audible feedback and ambience without changing flight equations, delivery eligibility, camera behavior, map suspension, rendering, Core World composition, or deployment.
 
 ### Completed understanding
 
-- [x] Locate all active keyboard, wheel, and map listeners.
-- [x] Confirm missing pointer, touch, gamepad, and on-screen producers.
-- [x] Define required actions and control profiles.
-- [x] Define producer ownership, cancellation, duplicate suppression, and visible-frame evidence.
+- [x] Confirm accepted state and one-shot delivery events already exist.
+- [x] Confirm no runtime AudioContext, HTML audio owner, or imported audio provider.
+- [x] Separate continuous flight layers from one-shot gameplay cues.
+- [x] Define 22 planned audio authority surfaces.
 - [x] Preserve the 101-surface architecture and service inventory.
 
-### Gate 1: identities and descriptors
+### Gate 1: capability and identity
 
-- [ ] Add `DeviceCapabilityRevision`, `ActionMapRevision`, `ControlGeneration`, and `ProducerGeneration`.
-- [ ] Define `ControlProfileDescriptor` and required action coverage.
-- [ ] Classify zoom as required or provide a keyboard-only fallback.
-- [ ] Reject stale, incomplete, conflicting, and retired profiles.
+- [ ] Add `AudioCapabilityRevision`, `AudioPolicyRevision`, and `AudioGeneration`.
+- [ ] Observe browser support without failing gameplay when audio is unavailable.
+- [ ] Admit one context only after an accepted user gesture.
+- [ ] Reject stale unlock callbacks and duplicate context creation.
 
-### Gate 2: semantic action state
+### Gate 2: semantic events and descriptors
 
-- [ ] Define burner, vent, steer, map, zoom, and cancellation actions.
-- [ ] Replace direct key-set and zoom mutation with producer commands.
-- [ ] Normalize digital and analog values into one `FlightActionState`.
-- [ ] Preserve current keyboard mappings and flight response.
+- [ ] Define stable semantic event IDs for burner, vent, airstream, map, contact, and delivery transitions.
+- [ ] Define immutable cue and continuous-layer descriptors.
+- [ ] Drive delivery only from the accepted `mail-delivered` result.
+- [ ] Prevent RAF snapshots from replaying one-shot cues.
 
-### Gate 3: touch and visible controls
+### Gate 3: continuous flight layers
 
-- [ ] Add responsive burner, vent, steering, map, and zoom controls.
-- [ ] Respect safe areas, orientation, viewport changes, and minimum hit targets.
-- [ ] Route map gestures separately from flight gestures.
-- [ ] Publish `FirstDeviceControlSurfaceFrameAck`.
+- [ ] Add wind, burner, vent, rigging, basket, and airstream layers.
+- [ ] Smooth parameters from accepted velocity, intensity, altitude, and route influence.
+- [ ] Reuse nodes and sources instead of allocating per frame.
+- [ ] Define map-open ducking or suspension policy.
 
-### Gate 4: gamepad and hybrid ownership
+### Gate 4: listener and spatial projection
 
-- [ ] Add gamepad discovery, polling, mapping, disconnect, and cancellation.
-- [ ] Arbitrate action ownership per producer and action phase.
-- [ ] Suppress duplicate near-simultaneous hybrid actions.
-- [ ] Publish producer-switch and duplicate results.
+- [ ] Bind listener position and orientation to accepted camera state.
+- [ ] Bind world sources to revisioned source transforms.
+- [ ] Clamp distance, rolloff, cone, and update rates.
+- [ ] Preserve non-spatial UI and accessibility cues.
 
-### Gate 5: lifecycle settlement
+### Gate 5: preferences, buses, and budgets
 
-- [ ] Cancel held actions on blur, hide, pagehide, map transitions, pointer/touch cancellation, gamepad disconnect, runtime replacement, and retirement.
-- [ ] Prove no stuck burner, vent, steering, or zoom state.
-- [ ] Preserve explicit map simulation suspension.
+- [ ] Add master, ambience, flight, world, and UI buses.
+- [ ] Add bounded volume and mute preferences.
+- [ ] Add cue deduplication and per-cue concurrency.
+- [ ] Add global voice budget, priority, and eviction policy.
 
-### Gate 6: results and fixtures
+### Gate 6: lifecycle settlement
 
-- [ ] Publish `DeviceControlAdmissionResult` and `FlightActionEffectResult`.
-- [ ] Publish `FirstDeviceActionEffectFrameAck`.
-- [ ] Test keyboard/wheel, keyboard-only, touch, gamepad, and hybrid profiles.
-- [ ] Prove the same seeded delivery scenario is completable with each admitted profile.
-- [ ] Prove source, build, artifact, and Pages parity.
+- [ ] Suspend or duck on map open according to policy.
+- [ ] Suspend on blur or hidden state without replaying old cues on resume.
+- [ ] Stop sources and retire nodes on pagehide, route replacement, runtime replacement, and disposal.
+- [ ] Prove no loop or callback survives a retired generation.
+
+### Gate 7: results and fixtures
+
+- [ ] Publish `AudioUnlockResult`, `AudioProjectionResult`, and `AudioSessionSettlementResult`.
+- [ ] Publish `FirstAudibleCueAck` and `FirstAudioVisualConvergenceAck`.
+- [ ] Run local browser, build, artifact, and Pages fixture rows.
+- [ ] Prove mute, unlock, cue-once, lifecycle, deduplication, and budget behavior.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/device-control/
-  device-control-action-coverage-authority-domain.js
-  device-capability-observation-kit.js
-  control-profile-descriptor-kit.js
-  required-action-coverage-kit.js
-  keyboard-action-producer-kit.js
-  wheel-action-producer-kit.js
-  pointer-touch-gesture-producer-kit.js
-  gamepad-action-producer-kit.js
-  flight-action-command-kit.js
-  flight-action-normalization-kit.js
-  input-ownership-arbitration-kit.js
-  hybrid-action-deduplication-kit.js
-  gesture-cancellation-kit.js
-  device-control-result-kit.js
+src/audio/
+  game-audio-event-projection-authority-domain.js
+  browser-audio-capability-observation-kit.js
+  audio-gesture-admission-kit.js
+  audio-context-lifecycle-kit.js
+  semantic-audio-event-kit.js
+  audio-cue-descriptor-registry-kit.js
+  burner-vent-audio-cue-kit.js
+  airstream-transition-audio-cue-kit.js
+  mail-delivery-audio-cue-kit.js
+  map-ui-audio-cue-kit.js
+  flight-ambience-lifecycle-kit.js
+  audio-listener-pose-projection-kit.js
+  audio-spatial-source-projection-kit.js
+  audio-preference-kit.js
+  audio-bus-mixer-kit.js
+  audio-cue-deduplication-kit.js
+  audio-voice-pool-budget-kit.js
+  audio-session-settlement-kit.js
+  audio-projection-result-kit.js
 
-src/ui/device-controls/
-  on-screen-flight-controls-kit.js
-  on-screen-map-control-kit.js
-  on-screen-camera-zoom-kit.js
-
- tests/device-control-action-coverage.mjs
+tests/game-audio-browser-fixture.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve Three.js `0.165.0`, balloon force and smoothing equations, current keyboard bindings, camera zoom bounds, map behavior, public `GameHost`, Core World composition, dynamic resolution, clouds, HDR, and Pages deployment.
+Preserve Three.js `0.165.0`, current balloon forces and smoothing, current keyboard bindings, camera bounds, map behavior, public `GameHost`, Core World composition, dynamic resolution, clouds, HDR, and Pages deployment.
 
 ## Retained next steps
 
-Host-clock fixed steps, HDR depth-size coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history, and flight persistence remain open.
+Device-control action coverage, host-clock fixed steps, HDR depth-size coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route retirement, world adoption, terrain/vegetation proof, Air Mail history, and flight persistence remain open.
 
 ## Do not claim
 
-Do not claim touch playability, gamepad support, keyboard-only completeness, hybrid safety, visible control correctness, action-effect convergence, artifact parity, deployed parity, or production readiness until the full fixture matrix passes.
+Do not claim audible gameplay, unlock reliability, cue correctness, spatial correctness, lifecycle safety, artifact parity, deployed parity, or production readiness until the full fixture matrix passes.
