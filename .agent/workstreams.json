@@ -1,0 +1,29 @@
+{
+  "schema": "open-above.agent-workstreams/1",
+  "branch": "main",
+  "rule": "Agents may change only their owned paths. Scene composition and shared entry points require integration ownership.",
+  "workstreams": {
+    "journey-gameplay": {
+      "owns": ["src/domains/journey/**", "src/domains/ballooning/**", "src/domains/air-mail/**"],
+      "tests": ["tests/airstream-mail.mjs", "tests/balloon-profile.mjs"]
+    },
+    "navigation-map": {
+      "owns": ["src/domains/navigation/**", "src/ui/parchment-map-overlay.js"],
+      "tests": ["tests/semantic-domain-composition.mjs"]
+    },
+    "sky-weather": {
+      "owns": ["src/domains/sky/**", "src/visual/atmosphere/**"],
+      "tests": ["tests/layered-weather-integration.mjs"]
+    },
+    "land-world": {
+      "owns": ["src/domains/land/**", "src/world/**", "src/visual/landscape/**", "src/visual/grass-field/**", "src/visual/flower-field/**"],
+      "tests": ["tests/world-generation.mjs", "tests/terrain-streaming.mjs", "tests/terrain-overlays.mjs"]
+    },
+    "experience-presentation": {
+      "owns": ["src/domains/experience/**", "src/visual/balloon-presentation/**", "src/visual/camera-presentation/**", "src/visual/illumination/**", "src/visual/post-process/**"]
+    },
+    "integration": {
+      "owns": ["src/scenes/**", "src/main.js", "src/domains/index.js", "src/data/campaign.config.js", "package.json", ".github/workflows/**"]
+    }
+  }
+}
