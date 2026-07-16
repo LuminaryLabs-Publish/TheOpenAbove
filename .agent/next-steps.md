@@ -1,95 +1,88 @@
-# Next Steps: TheOpenAbove Validation Finding Severity and Release Gate
+# Next Steps: TheOpenAbove Sightseeing Photo Frame Artifact
 
-**Last aligned:** `2026-07-16T13-39-49-04-00`  
-**Status:** `validation-finding-severity-release-gate-authority-audited`
+**Last aligned:** `2026-07-16T14-59-39-04-00`  
+**Status:** `sightseeing-photo-frame-artifact-authority-audited`
 
 ## Summary
 
-Keep the seven-suite runner and annotations, but remove release severity inference from generic assertion text. Failed findings should block unless they resolve to explicit, active drift or waiver records.
+Keep the new semantic sightseeing loop, but make shutter settlement occur against one exact rendered frame and produce a lifecycle-owned image artifact rather than metadata alone.
 
 ## Intent
 
-Create one fail-closed validation authority from suite execution through Vite artifact and deployed-frame evidence.
+Create one frame-bound authority from shutter input through immutable photo bytes, scoring, journal projection and deployment proof.
 
 ## What needs to happen
 
-### Gate 1: Suite and finding identity
+### Gate 1: Capture identity
 
-- [ ] Register every required suite with ID, purpose, owner, version and required release tier.
-- [ ] Give every expected assertion a stable finding ID.
-- [ ] Emit structured JSON results in addition to human-readable output.
-- [ ] Record source location and evidence digest.
+- [ ] Add stable capture request, session, route and frame IDs.
+- [ ] Bind camera transform, projection, zoom and viewport revision.
+- [ ] Bind world, weather, renderer and artifact-policy revisions.
+- [ ] Reject duplicate, stale, map-suspended and retired requests.
 
-### Gate 2: Severity policy
+### Gate 2: Frame admission
 
-- [ ] Classify findings as informational, expected drift, blocking invariant, infrastructure failure or unknown.
-- [ ] Make unknown and infrastructure failures blocking.
-- [ ] Remove direct severity decisions from the broad assertion regex.
-- [ ] Allow regex only as evidence parsing support.
+- [ ] Move capture settlement to a defined post-update/pre-present or post-present stage.
+- [ ] Identify the exact color source: renderer canvas or dedicated capture target.
+- [ ] Freeze exposure, render scale and camera state for the capture transaction.
+- [ ] Publish `PhotoFrameAdmissionResult`.
 
-### Gate 3: Drift and waiver admission
+### Gate 3: Artifact creation
 
-- [ ] Add an explicit expected-drift registry.
-- [ ] Require owner, rationale, scope, introduction date and expiry.
-- [ ] Add immutable, narrow release waivers with compensating evidence.
-- [ ] Reject expired, superseded, scope-mismatched or evidence-mismatched records.
+- [ ] Encode immutable PNG or WebP bytes.
+- [ ] Compute content digest, dimensions, MIME type and byte length.
+- [ ] Own object URL, IndexedDB or file-backed lifecycle explicitly.
+- [ ] Publish `PhotoArtifactResult` and retirement results.
 
-### Gate 4: Build and release result
+### Gate 4: Recognition and scoring
 
-- [ ] Publish `ValidationSuiteResult` for every required suite.
-- [ ] Publish one `ReleaseValidationResult` for the exact source and provider revisions.
-- [ ] Require the accepted result before Vite build admission.
-- [ ] Embed result ID and digest in the artifact.
-- [ ] Record the artifact/result pair in Pages deployment provenance.
+- [ ] Score from the same accepted camera/frame descriptor.
+- [ ] Record Snap Point, distance, facing, framing, zoom and policy revision.
+- [ ] Make completion depend on the accepted artifact result.
+- [ ] Reject score/artifact generation mismatches.
 
-### Gate 5: First-frame proof
+### Gate 5: Journal projection
 
-- [ ] Expose release validation identity through GameHost diagnostics.
-- [ ] Require browser startup to match source, provider, artifact and validation revisions.
-- [ ] Publish `FirstValidatedReleaseFrameAck` after the first stable frame.
+- [ ] Project the actual accepted image into the map journal.
+- [ ] Keep reference art distinct from captured-photo art.
+- [ ] Publish `FirstPhotoArtifactAck`.
+- [ ] Publish `FirstJournalPhotoFrameAck`.
 
-### Gate 6: Fixture matrix
+### Gate 6: Fixtures
 
-- [ ] Prove a passing suite remains informational.
-- [ ] Prove an unknown assertion blocks.
-- [ ] Prove an active expected drift remains non-blocking and visible.
-- [ ] Prove an expired drift blocks.
-- [ ] Mutate weather layer count/floors and confirm blocking.
-- [ ] Mutate route protection and confirm blocking.
-- [ ] Remove a required runtime file and confirm blocking.
-- [ ] Trigger syntax/import/process failures and confirm infrastructure blocking.
-- [ ] Run `npm run check` and `npm run build`.
-- [ ] Compare source, artifact and deployed Pages identities.
+- [ ] Capture a recognized landmark and verify pixels, digest and score.
+- [ ] Capture an unidentified view and verify artifact retention policy.
+- [ ] Verify resize/render-scale changes cannot mix generations.
+- [ ] Verify map-open, route retirement and disposal reject stale requests.
+- [ ] Verify source, Vite artifact and Pages behavior match.
 
 ## Recommended file cut
 
 ```txt
-src/validation/
-  validation-finding-severity-release-gate-authority-domain.mjs
-  validation-suite-registry-kit.mjs
-  validation-finding-schema-kit.mjs
-  assertion-severity-classifier-kit.mjs
-  expected-contract-drift-registry-kit.mjs
-  validation-waiver-kit.mjs
-  validation-suite-result-kit.mjs
-  release-validation-result-kit.mjs
-  build-validation-gate-kit.mjs
-  artifact-validation-binding-kit.mjs
-  pages-validation-binding-kit.mjs
+src/domains/image-capture/
+  sightseeing-photo-frame-artifact-authority-domain.js
+  photo-capture-command-kit.js
+  photo-frame-admission-kit.js
+  photo-artifact-encoder-kit.js
+  photo-artifact-store-kit.js
+  photo-recognition-score-kit.js
+  photo-journal-projection-kit.js
+  photo-capture-result-kit.js
+  photo-artifact-retirement-kit.js
 
 tests/
-  validation-policy-fixture.mjs
-  validation-false-warning-regression.mjs
+  sightseeing-photo-artifact.mjs
+  sightseeing-photo-journal-parity.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve all seven existing suites, GitHub annotations, Vite build, Pages deployment, Nexus Engine provider checkout, layered weather implementation, balloon gameplay, world generation and visual output.
+Preserve semantic domain boundaries, immediate wind-relative steering, local wind particles, current camera controls, world generation, layered weather, map pause behavior, Vite build and Pages deployment.
 
 ## Retained next steps
 
-Weather-clock ownership, map/pause policy and matching weather-frame proof remain the immediately preceding unresolved audit family. Other retained lifecycle, renderer, audio, input, world and deployment gaps remain open.
+Validation severity and release gating remain unresolved. Weather-clock ownership, lifecycle, WebGL recovery, audio, fixed-step pacing, HDR/depth, cloud, world and deployment gaps remain open.
 
 ## Do not claim
 
-Do not claim safe warning classification, release-gate correctness, artifact parity, Pages parity or production readiness until the fixture matrix passes.
+Do not claim actual photo capture, score/frame convergence, durable journal images, artifact parity, Pages parity or production readiness until the fixture matrix passes.
