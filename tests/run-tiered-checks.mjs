@@ -13,7 +13,8 @@ const suites = [
 const findings = {
   info: [],
   warning: [],
-  error: []
+  error: [],
+  blocker: []
 };
 
 function clean(value) {
@@ -23,7 +24,7 @@ function clean(value) {
 function annotation(level, title, message) {
   const safeTitle = clean(title).replace(/[\r\n]+/g, " ");
   const safeMessage = clean(message).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
-  const command = level === "info" ? "notice" : level;
+  const command = level === "info" ? "notice" : level === "blocker" ? "error" : level;
   console.log(`::${command} title=${safeTitle}::${safeMessage}`);
 }
 
@@ -35,6 +36,11 @@ function record(level, suite, message) {
 
 function isAssertionDrift(output) {
   return /AssertionError|ERR_ASSERTION|operator:\s*['"](?:match|doesNotMatch|strictEqual|deepStrictEqual|equal)['"]/i.test(output);
+}
+
+function isBlocker(output, result) {
+  if (result.signal) return true;
+  return /SyntaxError|ERR_MODULE_NOT_FOUND|MODULE_NOT_FOUND|Cannot find module|ENOENT|ERR_UNKNOWN_FILE_EXTENSION|JavaScript heap out of memory|FATAL ERROR/i.test(output);
 }
 
 function runSuite(suite) {
@@ -49,7 +55,7 @@ function runSuite(suite) {
   const output = [stdout, stderr].filter(Boolean).join("\n");
 
   if (result.error) {
-    record("error", suite, result.error.stack || result.error.message || result.error);
+    record("blocker", suite, result.error.stack || result.error.message || result.error);
     return;
   }
 
@@ -63,24 +69,34 @@ function runSuite(suite) {
     return;
   }
 
+  if (isBlocker(output, result)) {
+    record("blocker", suite, output || `Terminated by ${result.signal || "fatal execution failure"}.`);
+    return;
+  }
+
   record("error", suite, output || `Exited with status ${result.status}.`);
 }
 
-console.log("Three-tier validation policy: INFO reports success, WARNING reports non-blocking contract drift, ERROR blocks the build.");
+console.log("Four-tier validation policy: INFO reports success, WARNING reports contract drift, ERROR reports non-blocking failures, and BLOCKER alone stops deployment.");
 for (const suite of suites) runSuite(suite);
 
 console.log("\nValidation summary");
 console.log(`  info: ${findings.info.length}`);
 console.log(`  warning: ${findings.warning.length}`);
 console.log(`  error: ${findings.error.length}`);
+console.log(`  blocker: ${findings.blocker.length}`);
 
 if (findings.warning.length > 0) {
   console.log("Warnings were logged but do not block the build.");
 }
 
 if (findings.error.length > 0) {
-  console.error("Build blocked because one or more validation errors occurred.");
+  console.log("Errors were logged for repair but do not block the build.");
+}
+
+if (findings.blocker.length > 0) {
+  console.error("Deployment blocked because one or more BLOCKER findings occurred.");
   process.exitCode = 1;
 } else {
-  console.log("Validation completed without blocking errors.");
+  console.log("Validation completed without deployment blockers.");
 }
