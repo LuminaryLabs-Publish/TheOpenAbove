@@ -1,61 +1,59 @@
-# Current Audit: TheOpenAbove Game-Audio Event Projection
+# Current Audit: TheOpenAbove WebGL Context-Loss Recovery
 
-**Last aligned:** `2026-07-15T22-00-36-04-00`  
-**Status:** `game-audio-event-projection-authority-audited`  
-**Reviewed pre-audit repository head:** `d481e0a6d95adc0b3d8c742f4f03bd001028a971`  
+**Last aligned:** `2026-07-16T03-03-22-04-00`  
+**Status:** `webgl-context-resource-recovery-authority-audited`  
+**Reviewed pre-audit repository head:** `4de46a2f769624e8a65eabc6114185e4dcf738f5`  
 **Reviewed runtime source revision:** `1417c80309218c7c61def3b2f09a977eaab8b953`
 
 ## Summary
 
-The application owns rich accepted flight, airstream, map, camera, terrain-contact, and Air Mail state but has no runtime audio domain. The highest-value gap is not missing sound assets alone; it is missing semantic event admission, browser unlock, lifecycle settlement, preferences, deduplication, budgets, and typed audible-visible proof.
+The highest-value current gap is renderer liveness after WebGL context loss. The route owns renderer creation, GPU resources, update, render, resize, and ordinary disposal, but not loss/restoration events, resource generations, reconstruction ordering, verification, fallback, or a recovered-frame result.
 
 ## Plan ledger
 
-**Goal:** isolate the smallest authority that converts accepted gameplay results into bounded browser-audio effects while keeping simulation and rendering authoritative for their own state.
+**Goal:** isolate the smallest authority that preserves one coherent visible renderer/resource generation after loss without moving simulation, world, or gameplay truth into browser callbacks.
 
-- [x] Compare the current Publish inventory, central ledger, root `.agent` coverage, and heads.
-- [x] Select only TheOpenAbove by the oldest synchronized rule.
-- [x] Inspect main host, balloon simulation, Air Mail delivery, map lifecycle, package scripts, current audits, and the full inventory.
-- [x] Preserve all 101 active named surfaces and their service ownership.
-- [x] Add the timestamped game-audio audit family.
-- [ ] Implement and prove unlock, cue, ambience, lifecycle, preference, budget, and convergence contracts.
+- [x] Compare the current Publish inventory, central ledgers, root `.agent` coverage, and heads.
+- [x] Select only TheOpenAbove using the oldest synchronized rule.
+- [x] Inspect main host, visual domain, HDR composer, volumetric clouds, package checks, deployment, and previous audits.
+- [x] Preserve all 101 active named surfaces and service ownership.
+- [x] Add the timestamped renderer-recovery audit family.
+- [ ] Implement and prove forced loss, reconstruction, fallback, and first-recovered-frame contracts.
 
 ## Complete interaction loop
 
 ```txt
-workflow and boot
-  -> checkout provider build and publish static route
-  -> create simulation world rendering map camera and telemetry
-  -> no audio capability or gesture admission
+boot
+  -> create renderer scene camera world HDR cloud and streamed resources
+  -> load balloon and compose gameplay/presentation
+  -> publish GameHost and begin RAF
 
-flight
-  -> keyboard state drives burner vent and steering
-  -> accepted simulation state drives balloon camera world and map presentation
-  -> no semantic audio event or continuous audio layer
+frame
+  -> update simulation Air Mail airstream balloon camera world and engine
+  -> render clouds to private target
+  -> render HDR composer to visible canvas
+  -> mark firstFramePresented and schedule RAF
 
-Air Mail
-  -> destination volume settlement returns mail-delivered once
-  -> parcel and visible state update
-  -> no accepted delivery cue or audiovisual acknowledgement
-
-lifecycle
-  -> map open suspends simulation
-  -> blur clears keys
-  -> no audio suspend resume pagehide or route-retirement result
+loss today
+  -> context loss is not admitted by product code
+  -> no generation is retired
+  -> no presentation/simulation policy result exists
+  -> no resource manifest is rebuilt
+  -> no recovered frame or fallback is acknowledged
 ```
 
 ## Domains in use
 
 ```txt
 workflow provider build artifact and Pages deployment
-browser lifecycle viewport input audio capability and GameHost
-semantic flight delivery UI and ambience audio projection
+browser lifecycle RAF resize error projection and GameHost
+WebGL capability context lifecycle renderer generation and recovery
 balloon simulation telemetry presentation and camera
-airstream Air Mail map and simulation suspension
+airstream Air Mail map and suspension
 Nexus Engine telemetry Core World foundation features and landforms
 world generation terrain vegetation grass flowers water and landmarks
-quality dynamic resolution sky clouds HDR and color grading
-audio results lifecycle settlement and frame acknowledgements
+quality dynamic resolution sky clouds HDR depth and color grading
+GPU-resource registration reconstruction verification and retirement
 validation browser fixtures and central tracking
 ```
 
@@ -67,53 +65,50 @@ runtime-implied adapters:           13
 Core World provider surfaces:       17
 active documented total:           101
 inactive or retired legacy:         13
-planned game-audio surfaces:        22
+planned recovery surfaces:          20
 new runtime kit IDs:                 0
 ```
 
-The complete kit-by-kit inventory is in `.agent/trackers/2026-07-15T22-00-36-04-00/project-breakdown.md`.
+The complete kit-by-kit inventory and services are in `.agent/trackers/2026-07-16T03-03-22-04-00/project-breakdown.md`.
 
 ## Source-backed findings
 
 ```txt
-accepted burner vent velocity altitude and contact state: present
-accepted airstream route influence and capture state: present
-accepted map transition state: present
-accepted mail-delivered event: present
-runtime AudioContext or HTML audio owner: absent
-imported audio provider: absent
-semantic AudioEventId and cue descriptors: absent
-listener and spatial source projection: absent
-master category volume and mute preferences: absent
-one-shot cue deduplication: absent
-voice pool and budget: absent
-map blur visibility pagehide and route settlement: absent
-AudioProjectionResult: absent
-FirstAudibleCueAck: absent
-FirstAudioVisualConvergenceAck: absent
+one WebGLRenderer: present
+recursive RAF: present
+HDR targets and independent depth textures: present
+cloud target and shader graph: present
+streamed world GPU resources: present
+ordinary disposal: present
+webglcontextlost/restored listeners: absent
+renderer/context/resource generation: absent
+reconstruction registry: absent
+stale callback/resource rejection: absent
+recovery deadline and retry budget: absent
+RenderLossResult: absent
+RenderRecoveryResult: absent
+RenderFallbackResult: absent
+FirstRecoveredFrameAck: absent
 ```
 
 ## Required parent domain
 
-```txt
-open-above-game-audio-event-projection-authority-domain
-```
+`open-above-webgl-context-resource-recovery-authority-domain`
 
 ## Required transaction
 
 ```txt
-AudioProjectionAdmissionCommand
-  -> bind document runtime flight event camera map and policy revisions
-  -> observe capability and accepted user-gesture unlock
-  -> consume accepted semantic results
-  -> resolve one-shot cues and continuous layers
-  -> reject stale duplicate muted suspended and retired work
-  -> project listener and source transforms
-  -> enforce preferences buses pools priorities and budgets
-  -> settle map blur visibility pagehide and route lifecycle
-  -> publish AudioProjectionResult
-  -> publish FirstAudibleCueAck
-  -> publish FirstAudioVisualConvergenceAck
+RenderRecoveryAdmissionCommand
+  -> bind document runtime renderer context and resource generations
+  -> observe and classify loss once
+  -> suspend stale presentation and apply simulation/input policy
+  -> admit one restoration generation
+  -> rebuild renderer composer cloud and world GPU resources in dependency order
+  -> reject stale generation work
+  -> enforce deadline retry budget and fallback policy
+  -> publish RenderLossResult
+  -> publish RenderRecoveryResult or RenderFallbackResult
+  -> present and acknowledge FirstRecoveredFrameAck
 ```
 
 ## Validation boundary
