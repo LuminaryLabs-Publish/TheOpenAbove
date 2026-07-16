@@ -1,11 +1,14 @@
 {
-  "schemaVersion": 114,
+  "schemaVersion": 115,
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-15T16-58-19-04-00",
-  "status": "device-control-action-coverage-authority-central-reconciled",
-  "technicalStatus": "device-control-action-coverage-authority-audited",
+  "lastAligned": "2026-07-16T07-58-10-04-00",
+  "status": "page-lifecycle-flight-suspension-resume-authority-audited",
+  "technicalStatus": "page-lifecycle-flight-suspension-resume-authority-audited",
   "retainedStatuses": [
+    "webgl-context-resource-recovery-authority-central-reconciled",
+    "game-audio-event-projection-authority-central-reconciled",
+    "device-control-action-coverage-authority-central-reconciled",
     "host-clock-fixed-step-flight-simulation-authority-central-reconciled",
     "hdr-dynamic-resolution-depth-attachment-size-coherence-authority-central-reconciled",
     "cloud-low-resolution-composite-depth-occlusion-authority-central-reconciled",
@@ -25,9 +28,8 @@
     "mail-delivery-completion-authority-central-reconciled",
     "flight-session-persistence-authority-central-reconciled"
   ],
-  "reviewedPreAuditDocumentationHead": "86d3847e89a148671dca8487a9afbbb0a1e04951",
+  "reviewedPreAuditDocumentationHead": "d1d48c49ff687d2a6aa10c1ffd152eb6a771b3ff",
   "reviewedRuntimeHead": "1417c80309218c7c61def3b2f09a977eaab8b953",
-  "runtimeCommitsReconciled": [],
   "selection": {
     "inventoryCount": 11,
     "eligibleCount": 10,
@@ -38,22 +40,24 @@
     "rootAgentMissingCount": 0,
     "runtimeAheadCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "Oldest synchronized eligible repository after all higher-priority categories were empty.",
-    "priorCentralTimestamp": "2026-07-15T12-02-38-04-00",
+    "reason": "Oldest synchronized eligible repository after higher-priority categories were empty.",
+    "priorCentralTimestamp": "2026-07-16T03-03-22-04-00",
     "nextOldestRepository": "LuminaryLabs-Publish/ZombieOrchard",
-    "nextOldestTimestamp": "2026-07-15T12-39-01-04-00",
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
+    "nextOldestTimestamp": "2026-07-16T03-41-28-04-00",
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ]
   },
-  "latestTracker": ".agent/trackers/2026-07-15T16-58-19-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-15T16-58-19-04-00.md",
+  "latestTracker": ".agent/trackers/2026-07-16T07-58-10-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-16T07-58-10-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-15T16-58-19-04-00-device-control-action-coverage-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-15T16-58-19-04-00-device-control-surface-visible-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-15T16-58-19-04-00-touch-only-passive-flight-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-15T16-58-19-04-00-device-action-command-result-map.md",
-    "deviceControl": ".agent/device-control-audit/2026-07-15T16-58-19-04-00-keyboard-wheel-touch-gamepad-coverage-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-15T16-58-19-04-00-device-control-browser-fixture-gate.md",
-    "centralSync": ".agent/central-sync-audit/2026-07-15T16-58-19-04-00-oldest-selection-device-control-reconciliation.md"
+    "architecture": ".agent/architecture-audit/2026-07-16T07-58-10-04-00-page-lifecycle-suspension-resume-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-16T07-58-10-04-00-hidden-resume-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-16T07-58-10-04-00-background-flight-resume-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-16T07-58-10-04-00-page-lifecycle-command-result-map.md",
+    "lifecycle": ".agent/lifecycle-audit/2026-07-16T07-58-10-04-00-visibility-pagehide-freeze-resume-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-16T07-58-10-04-00-page-lifecycle-browser-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-16T07-58-10-04-00-oldest-selection-lifecycle-reconciliation.md"
   },
   "counts": {
     "localRuntimeAndGameplay": 15,
@@ -65,7 +69,7 @@
     "coreWorldSurfaces": 17,
     "currentDocumentedActiveTotal": 101,
     "inactiveOrRetiredLegacy": 13,
-    "plannedDeviceControlIncludingParent": 22,
+    "plannedLifecycleIncludingParent": 20,
     "newNamedRuntimeKitIds": 0
   },
   "kitIds": {
@@ -184,78 +188,97 @@
     ]
   },
   "serviceGroups": {
-    "runtimeAndGameplay": ["balloon-flight-contact-elapsed-distance", "keyboard-flight-state-consumption", "telemetry", "airstream-routes-fields-forces-visuals-debug", "mail-parcels-routes-towns-volumes-progress-timestamps"],
-    "balloonPresentation": ["envelope-mouth-streamers-seams", "basket-rigging-burner-rope", "materials-camera-wheel-zoom-clipping"],
-    "worldAndVisual": ["staged-world-generation", "core-world-foundation-feature-bridge", "terrain-horizon-vegetation-streaming", "grass-flower-generation-lod-culling", "sky-sun-aerial-water-landmarks"],
-    "renderSurface": ["quality-detection", "dynamic-resolution", "renderer-pixel-ratio", "half-float-composer-targets", "independent-depth-textures", "render-pass", "color-grade", "resize", "disposal"],
-    "cloudExecution": ["weather-coverage-density-offset", "lod-scale-and-sample-budgets", "private-cloud-scene", "scaled-half-float-color-target", "offscreen-raymarch", "fullscreen-composite", "render-size-readback", "resource-disposal", "procedural-terrain-cloud-shadows"],
-    "uiAndHost": ["parchment-map", "keyboard-map-toggle", "route-shell", "keyboard-input", "wheel-input", "raf-clock", "suspension", "resize", "errors", "gamehost-readback"],
-    "providerBuildAndDeployment": ["checked-out-provider-contract", "vite-provider-alias", "provider-sha-projection", "headless-validation", "vite-build", "pages-artifact-deployment"]
+    "runtimeAndGameplay": [
+      "balloon flight integration, terrain contact, elapsed time, distance, snapshots and disposal",
+      "keyboard flight-state consumption and held-key clearing on blur",
+      "Nexus Engine telemetry, resources, events and Core World provider installation",
+      "airstream route identity, sampling, fields, balloon forces, visuals and diagnostics",
+      "Air Mail parcels, routes, towns, delivery volumes, progress, completion events and timestamps"
+    ],
+    "balloonPresentation": [
+      "balloon profile, envelope panels, mouth, streamers, seams, basket, rigging, burner and ropes",
+      "balloon model readiness, persistent-resource metadata and animation",
+      "materials, accepted-state presentation, camera modes, wheel zoom, clipping and disposal"
+    ],
+    "worldAndVisual": [
+      "staged deterministic world generation, budgets, subscriptions and snapshots",
+      "Core World foundation/feature bridge and landform composition",
+      "terrain/horizon streaming, vegetation, grass and flowers",
+      "sky, sun, aerial perspective, cloud weather/LOD/lighting, water and landmarks",
+      "quality detection, dynamic resolution, HDR composition, color grade and lens response"
+    ],
+    "uiAndHost": [
+      "parchment map drawing, map RAF, keyboard toggle, resize, snapshots and disposal",
+      "route shell, module resolution, product composition, input, error projection and GameHost readback",
+      "checked-out provider aliasing, provider SHA, campaign config, RAF scheduling and Pages deployment"
+    ],
+    "coreWorld": [
+      "parent domain composition, installation, snapshots and reset",
+      "foundation definitions, contribution composition, sampling and cell resolution",
+      "feature registry, lifecycle, query and composition",
+      "mountain, canyon, cliff and plateau feature contributions"
+    ]
   },
   "interactionLoop": [
-    "browser and workflow admit product and provider",
-    "host creates simulation world rendering map camera and telemetry services",
-    "global keyboard producers mutate flight and map state",
-    "global wheel producer mutates camera zoom",
-    "RAF callback consumes current state and renders",
-    "touch-only signals have no active semantic producer",
-    "hybrid producers have no shared ownership or duplicate result",
-    "cloud and HDR surfaces render the resulting revision"
+    "workflow and browser admit product and checked-out provider",
+    "host composes simulation, world, rendering, map, camera and telemetry",
+    "keyboard and wheel listeners mutate control state",
+    "flight RAF updates accepted game state and rendering",
+    "map-open state runs a second RAF while main simulation dt is zero",
+    "browser may throttle or stop RAF when hidden or frozen",
+    "no product lifecycle result settles suspension or resume",
+    "next callback clips elapsed wall time and resumes without a generation-bound acknowledgement"
   ],
   "domainsInUse": [
-    "workflow provider build artifact and Pages deployment",
-    "browser lifecycle viewport device capability input and GameHost",
-    "device profiles required action coverage producer generations and visible controls",
-    "keyboard flight wheel zoom and map keyboard input",
-    "balloon flight presentation airstream and Air Mail",
+    "workflow, provider, build, artifact and Pages deployment",
+    "document visibility, pagehide/pageshow, freeze/resume, RAF, resize, blur and GameHost",
+    "balloon flight, input, telemetry, presentation, camera and clipping",
+    "airstream and Air Mail",
     "Nexus Engine telemetry and Core World composition",
-    "staged world generation terrain vegetation grass flowers water and landmarks",
-    "quality dynamic resolution and physical render-surface sizing",
-    "weather sky sun aerial perspective clouds and cloud LOD",
-    "HDR targets depth attachments RenderPass and color grading",
-    "map UI validation browser fixtures and central tracking"
+    "world generation, terrain, vegetation, grass, flowers, water and landmarks",
+    "quality, dynamic resolution, sky, clouds, HDR, depth and color grading",
+    "map overlay animation and suspension",
+    "lifecycle generation, suspend, resume, retire and first-resumed-frame proof",
+    "validation, browser fixtures and central tracking"
   ],
-  "deviceControlState": {
-    "requiredActions": ["burner", "vent", "steer", "map-toggle", "map-close", "camera-zoom", "cancel-held-actions"],
-    "keyboardFlightProducerPresent": true,
-    "wheelZoomProducerPresent": true,
-    "keyboardMapProducerPresent": true,
-    "pointerTouchProducerPresent": false,
-    "gamepadProducerPresent": false,
-    "onScreenFlightControlsPresent": false,
-    "onScreenMapControlPresent": false,
-    "onScreenZoomControlPresent": false,
-    "completeProfileAdmissionPresent": false,
-    "hybridDuplicateSuppressionPresent": false,
-    "firstDeviceControlSurfaceFrameAckPresent": false,
-    "firstDeviceActionEffectFrameAckPresent": false
+  "lifecycleState": {
+    "flightRafPresent": true,
+    "mapRafPresent": true,
+    "frameClampPresent": true,
+    "simulationDtClampPresent": true,
+    "blurHeldKeyClearPresent": true,
+    "visibilityObserverPresent": false,
+    "pagehidePageshowObserverPresent": false,
+    "freezeResumeObserverPresent": false,
+    "suspensionResultPresent": false,
+    "resumeClockRebasePresent": false,
+    "bfcacheRestoreResultPresent": false,
+    "firstResumedFrameAckPresent": false
   },
-  "plannedParentDomain": "open-above-device-control-action-coverage-authority-domain",
-  "plannedDeviceControlKits": [
-    "open-above-device-control-action-coverage-authority-domain",
-    "open-above-device-capability-observation-kit",
-    "open-above-control-profile-descriptor-kit",
-    "open-above-required-action-coverage-kit",
-    "open-above-keyboard-action-producer-kit",
-    "open-above-wheel-action-producer-kit",
-    "open-above-pointer-touch-gesture-producer-kit",
-    "open-above-gamepad-action-producer-kit",
-    "open-above-on-screen-flight-controls-kit",
-    "open-above-on-screen-map-control-kit",
-    "open-above-on-screen-camera-zoom-kit",
-    "open-above-flight-action-command-kit",
-    "open-above-flight-action-normalization-kit",
-    "open-above-control-producer-generation-kit",
-    "open-above-input-ownership-arbitration-kit",
-    "open-above-hybrid-action-deduplication-kit",
-    "open-above-gesture-cancellation-kit",
-    "open-above-overlay-control-routing-kit",
-    "open-above-device-control-result-kit",
-    "open-above-first-device-control-surface-frame-ack-kit",
-    "open-above-first-device-action-effect-frame-ack-kit",
-    "open-above-device-control-browser-fixture-kit"
+  "plannedParentDomain": "open-above-page-lifecycle-flight-suspension-resume-authority-domain",
+  "plannedLifecycleKits": [
+    "open-above-page-lifecycle-flight-suspension-resume-authority-domain",
+    "open-above-document-lifecycle-observation-kit",
+    "open-above-lifecycle-generation-identity-kit",
+    "open-above-lifecycle-transition-normalization-kit",
+    "open-above-suspension-reason-policy-kit",
+    "open-above-flight-simulation-suspension-kit",
+    "open-above-held-input-cancellation-kit",
+    "open-above-air-mail-suspension-kit",
+    "open-above-airstream-suspension-kit",
+    "open-above-world-generation-suspension-kit",
+    "open-above-render-scheduler-suspension-kit",
+    "open-above-map-overlay-suspension-kit",
+    "open-above-camera-transition-suspension-kit",
+    "open-above-resume-clock-rebase-kit",
+    "open-above-bfcache-restoration-admission-kit",
+    "open-above-stale-lifecycle-generation-rejection-kit",
+    "open-above-page-lifecycle-result-kit",
+    "open-above-lifecycle-fallback-projection-kit",
+    "open-above-first-resumed-frame-ack-kit",
+    "open-above-page-lifecycle-browser-fixture-kit"
   ],
-  "serviceInventorySource": ".agent/trackers/2026-07-15T16-58-19-04-00/project-breakdown.md",
+  "serviceInventorySource": ".agent/trackers/2026-07-16T07-58-10-04-00/project-breakdown.md",
   "validation": {
     "documentationOnly": true,
     "sourceInspected": true,
@@ -263,16 +286,17 @@
     "centralLedgerCompared": true,
     "allEligibleRootAgentsChecked": true,
     "allEligibleHeadsCompared": true,
-    "physicalDeviceFixtureRun": false,
-    "gamepadFixtureRun": false,
-    "hybridInputFixtureRun": false,
+    "visibilityFixtureRun": false,
+    "bfcacheFixtureRun": false,
+    "freezeResumeFixtureRun": false,
+    "heldInputFixtureRun": false,
     "viteBuildRun": false,
     "artifactDownloaded": false,
     "pageUrlFetched": false,
     "runtimeChangedByAudit": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "centralLedgerSynchronized": true,
-    "centralChangeLogCreated": true
+    "centralLedgerSynchronized": false,
+    "centralChangeLogCreated": false
   }
 }
