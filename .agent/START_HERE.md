@@ -1,70 +1,71 @@
-# START HERE: TheOpenAbove Page-Lifecycle Suspension and Resume
+# START HERE: TheOpenAbove Atmosphere Reference-to-Runtime Traceability
 
-**Last aligned:** `2026-07-16T07-58-10-04-00`  
+**Last aligned:** `2026-07-16T09-39-49-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Reviewed pre-audit repository head:** `d1d48c49ff687d2a6aa10c1ffd152eb6a771b3ff`  
+**Reviewed pre-audit repository head:** `74c782c6074a90127e544c0ce537ac0a2d93aa18`  
 **Reviewed runtime source revision:** `1417c80309218c7c61def3b2f09a977eaab8b953`  
-**Status:** `page-lifecycle-flight-suspension-resume-authority-audited`
+**Status:** `atmosphere-reference-layer-runtime-traceability-authority-audited`
 
 ## Summary
 
-The flight route owns a recursive RAF loop, simulation, Air Mail, airstreams, world generation, map animation, camera transitions, input listeners and rendering. It clears held keys on `blur`, but it does not own `visibilitychange`, `pagehide`, `pageshow`, `freeze` or `resume`; background suspension and restoration are therefore left to browser timing rather than a typed product result.
+A new reference image defines persistent sparse fog and cloud layers from ground level through cirrus altitude. The executable runtime still has one weather state, one volumetric cloud shell at `360..960`, one global aerial-fog field and landform-only Core World feature registration. The immediate gap is a missing reference manifest and capability classification, not a proven browser-rendering failure.
 
 ## Plan ledger
 
-**Goal:** make every document visibility or lifecycle transition settle as one revision-bound suspend, resume or retire result before simulation, input, world work and visible frames continue.
+**Goal:** make the design reference versioned and mechanically comparable with runtime, world configuration and Nexus Engine provider capabilities before new atmosphere layers are implemented.
 
 - [x] Compare all 11 Publish repositories with the central ledger.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Confirm ten eligible ledgers and root `.agent` states.
-- [x] Select only TheOpenAbove using the oldest synchronized timestamp.
-- [x] Trace RAF, input, map, simulation, Air Mail, world-generation and rendering ownership.
+- [x] Select only TheOpenAbove as the sole runtime-ahead/recently undocumented repository.
+- [x] Inspect the reference, cloud weather, volumetric renderer, aerial fog, world config and Core World composition.
 - [x] Preserve the complete 101-surface kit and service inventory.
-- [x] Add the `2026-07-16T07-58-10-04-00` lifecycle audit family.
-- [ ] Implement and prove suspension, held-input cancellation, clock rebase, BFCache restoration and first-resumed-frame convergence.
+- [x] Add the `2026-07-16T09-39-49-04-00` atmosphere traceability audit family.
+- [ ] Implement the manifest, capability bridge, layer adoption and altitude-sweep fixtures.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-16T07-58-10-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-16T07-58-10-04-00.md
-.agent/architecture-audit/2026-07-16T07-58-10-04-00-page-lifecycle-suspension-resume-dsk-map.md
-.agent/render-audit/2026-07-16T07-58-10-04-00-hidden-resume-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-16T07-58-10-04-00-background-flight-resume-loop.md
-.agent/interaction-audit/2026-07-16T07-58-10-04-00-page-lifecycle-command-result-map.md
-.agent/lifecycle-audit/2026-07-16T07-58-10-04-00-visibility-pagehide-freeze-resume-contract.md
-.agent/deploy-audit/2026-07-16T07-58-10-04-00-page-lifecycle-browser-fixture-gate.md
-.agent/central-sync-audit/2026-07-16T07-58-10-04-00-oldest-selection-lifecycle-reconciliation.md
+.agent/trackers/2026-07-16T09-39-49-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-16T09-39-49-04-00.md
+.agent/architecture-audit/2026-07-16T09-39-49-04-00-atmosphere-reference-runtime-dsk-map.md
+.agent/render-audit/2026-07-16T09-39-49-04-00-single-layer-versus-reference-frame-gap.md
+.agent/gameplay-audit/2026-07-16T09-39-49-04-00-altitude-cloud-experience-loop.md
+.agent/interaction-audit/2026-07-16T09-39-49-04-00-atmosphere-reference-command-result-map.md
+.agent/cloud-system-audit/2026-07-16T09-39-49-04-00-layer-manifest-capability-contract.md
+.agent/deploy-audit/2026-07-16T09-39-49-04-00-atmosphere-altitude-sweep-fixture-gate.md
+.agent/central-sync-audit/2026-07-16T09-39-49-04-00-runtime-ahead-reference-reconciliation.md
 ```
 
 ## Source-backed state
 
 ```txt
-recursive flight RAF: present
-separate map RAF while open: present
-frame interval clamp: present
-simulation dt clamp: present
-window blur held-key clearing: present
-document visibility admission: absent
-pagehide/pageshow admission: absent
-freeze/resume admission: absent
-owned suspension reason: absent
-resume clock rebase result: absent
-BFCache restoration policy: absent
-stale lifecycle-generation rejection: absent
-PageLifecycleResult: absent
-FirstResumedFrameAck: absent
+reference asset: present
+four altitude regimes in reference: present
+single runtime cloud shell: present
+runtime cloud base/top: 360 / 960
+global aerial fog: present
+WORLD.features.landforms: present
+WORLD.features.atmosphere: absent
+Core World atmosphere family: absent
+atmosphere-layer-controller: absent
+reference module classification: absent
+AtmosphereReferenceAdmissionResult: absent
+FirstReferenceBoundAtmosphereFrameAck: absent
 ```
 
 ## Required parent domain
 
-`open-above-page-lifecycle-flight-suspension-resume-authority-domain`
+`open-above-atmosphere-reference-layer-runtime-traceability-authority-domain`
 
 ## Next safe ledge
 
-Add lifecycle observers, monotonic document/session generations, one suspension policy across simulation and presentation, held-input cancellation, clock rebasing, BFCache-safe restoration, stale-event rejection and first-resumed-frame proof.
+Create an immutable `AtmosphereLayerManifest`, classify all reference module names, bind terrain/moisture/wind dependencies, preserve existing cloud and fog owners, then prove accepted layers through source, build, artifact and Pages altitude-sweep fixtures.
+
+## Retained priority
+
+The page-lifecycle suspension/resume authority and all earlier renderer, audio, controls, fixed-step, HDR/depth, cloud-composite, delivery, provider, route, world, terrain/flora, Air Mail and persistence gaps remain open.
 
 ## Do not claim
 
-Do not claim background suspension correctness, held-input safety, BFCache compatibility, resume-time continuity, first-resumed-frame convergence, artifact parity, Pages parity or production readiness until the lifecycle fixture matrix passes.
+Do not claim multi-layer atmosphere implementation, persistent cloud visibility, terrain-aware fog correctness, provider atmosphere support, first reference-bound frame convergence, artifact parity, Pages parity or production readiness until the required fixtures pass.
