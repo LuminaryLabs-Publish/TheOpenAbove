@@ -5,16 +5,16 @@ export const NAVIGATION_DOMAIN_ID = "open-above-navigation-domain";
 export function createNavigationDomain({ root, canvas, worldSurface, routes = [] } = {}) {
   let overlay = null;
 
-  function mount({ world, towns, getPlayerState, getParcel } = {}) {
+  function mount({ world, getPlayerState, getSnapPoints, getCaptureState } = {}) {
     overlay = createParchmentMapOverlay({
       root,
       canvas,
       worldSurface,
       world,
-      towns,
       routes,
       getPlayerState,
-      getParcel
+      getSnapPoints,
+      getCaptureState
     });
     return api;
   }
