@@ -1,78 +1,83 @@
-# Validation: TheOpenAbove Page-Lifecycle Suspension and Resume
+# Validation: TheOpenAbove Atmosphere Reference-to-Runtime Traceability
 
-**Last aligned:** `2026-07-16T07-58-10-04-00`
+**Last aligned:** `2026-07-16T09-39-49-04-00`
 
 ## Scope
 
-Documentation-only audit of the full Publish selection comparison, TheOpenAbove interaction loop, 101-surface inventory, document lifecycle ownership, background suspension, BFCache restoration, resume clock settlement, held-input cancellation and first-resumed-frame proof.
+Documentation-only audit of the full Publish selection comparison, the new persistent sparse-cloud reference asset, TheOpenAbove interaction loop, 101-surface inventory, cloud/fog ownership, Core World feature registration, manifest traceability and required altitude-sweep proof.
 
 ## Plan ledger
 
-**Goal:** distinguish the source-backed lifecycle gap from unproven browser behavior and define the executable proof required before support claims.
+**Goal:** distinguish source-backed architecture and reference mismatches from unproven browser visual behavior.
 
 - [x] Enumerate all 11 accessible Publish repositories.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm ten eligible central ledgers and root `.agent` states.
-- [x] Select TheOpenAbove using the oldest synchronized eligible rule.
-- [x] Inspect the main host, simulation input, map RAF, package scripts and prior lifecycle audits.
-- [x] Confirm no product-owned visibility/pagehide/freeze suspension and resume transaction.
-- [x] Add and route the timestamped lifecycle audit family.
-- [ ] Execute visibility, BFCache, freeze/resume, build, artifact and Pages fixtures.
+- [x] Compare all ten eligible current heads with their ledger heads.
+- [x] Select TheOpenAbove as the sole runtime-ahead/recently undocumented repository.
+- [x] Inspect the reference SVG, visual composition, cloud weather, cloud renderer, cloud LOD, aerial fog, campaign world config and Core World composition.
+- [x] Confirm the reference target is not admitted as a manifest or runtime result.
+- [x] Add and route the timestamped audit family.
+- [ ] Execute manifest, browser, build, artifact and Pages fixtures.
 
 ## Source inspection performed
 
 ```txt
 LuminaryLabs-Publish organization inventory
 LuminaryLabs-Dev/LuminaryLabs Publish repo ledgers
+all ten eligible current repository heads
 TheOpenAbove root .agent documents and prior complete inventory
+reference-images/persistent-sparse-clouds-implementation-plan.svg
 src/main.js
-src/runtime/balloon-simulation-kit.js
-src/ui/parchment-map-overlay.js
-package.json
-.github/workflows/deploy-pages.yml discovery
-repository code search for visibilitychange pagehide pageshow freeze resume
+src/data/campaign.config.js
+src/runtime/balloon-telemetry-kit.js
+src/visual/visual-domain.js
+src/visual/atmosphere/cloud-weather-map-kit.js
+src/visual/atmosphere/cloud-lod-kit.js
+src/visual/atmosphere/volumetric-cloud-kit.js
+src/visual/illumination/aerial-perspective-kit.js
 ```
 
 ## Confirmed by inspection
 
 ```txt
-reviewed pre-audit repository head: d1d48c49ff687d2a6aa10c1ffd152eb6a771b3ff
+reviewed pre-audit repository head: 74c782c6074a90127e544c0ce537ac0a2d93aa18
 reviewed runtime source revision: 1417c80309218c7c61def3b2f09a977eaab8b953
-selected by oldest synchronized rule: yes
-recursive flight RAF: yes
-separate map RAF while open: yes
-frame interval clamp to 80 ms: yes
-simulation dt clamp to 1/30 s: yes
-window blur key clearing: yes
-visibilitychange observer: no
-pagehide/pageshow observer: no
-freeze/resume observer: no
-owned suspension result: no
-resume clock rebase result: no
-BFCache restoration result: no
-PageLifecycleResult: no
-FirstResumedFrameAck: no
+selected by runtime-ahead priority: yes
+new reference asset: yes
+reference four-layer target: yes
+one runtime weather state: yes
+one runtime cloud shell: yes
+runtime cloud base/top: 360 / 960
+global aerial fog: yes
+WORLD.features.landforms: yes
+WORLD.features.atmosphere: no
+installed Core World atmosphere family: no
+atmosphere-layer-controller: no
+reference capability result: no
+FirstReferenceBoundAtmosphereFrameAck: no
 ```
 
 ## What source inspection proves
 
 ```txt
-browser lifecycle changes are not admitted as product commands
-background RAF behavior is left to the browser
-large resume intervals are clipped rather than semantically classified
-only blur explicitly clears held flight keys
-map and flight schedulers have no shared lifecycle generation
-no result binds resumed simulation and rendering to one accepted clock revision
+the SVG is not loaded or parsed by the product
+the runtime does not expose four atmosphere layer descriptors
+the cloud composite is embedded in the volumetric cloud kit
+the current world configuration registers only landforms
+the current provider surfaces include landforms but no atmosphere family
+no typed result classifies reference modules or feature types
+no visual snapshot binds a frame to the reference revision
 ```
 
 ## What is not proven
 
 ```txt
-whether every target browser emits blur before visibility suspension
-actual RAF throttling behavior across browsers and devices
-BFCache eligibility and restore behavior
-input state after freeze or process suspension
-Air Mail and world-generation continuity under lifecycle transitions
+whether clouds currently disappear in a target browser
+whether the cloud composite has a visible depth defect
+actual fog density or visual quality at each altitude
+GPU timing on target devices
+whether proposed atmosphere feature kits exist on a newer unpinned provider revision
 artifact or Pages behavior
 production readiness
 ```
@@ -80,20 +85,19 @@ production readiness
 ## Required fixtures
 
 ```txt
-hide and restore before first frame
-hide and restore during steady flight
-hide while burner vent and steering are held
-hide while map is open
-hide during world generation and dynamic-resolution changes
-hide inside a delivery volume
-pagehide/pageshow without BFCache
-pagehide/pageshow with persisted BFCache restoration
-freeze/resume where supported
-duplicate and stale lifecycle events
-rapid hide/show oscillation
-resume clock rebase and elapsed-time policy
-FirstResumedFrameAck
-source dist artifact Pages identity comparison
+reference digest and manifest parsing
+module and feature capability classification
+invalid and stale reference rejection
+layer altitude-range validation
+sparse density floor validation
+terrain/moisture/water query admission
+provider atmosphere capability admission or explicit unsupported result
+altitude sweep at ground, 25, 100, 360, 660, 960, 1500 and 3000 units
+valley, ridge, water, town-route and open-sky rows
+low, medium and high quality rows
+per-layer GPU timing
+FirstReferenceBoundAtmosphereFrameAck
+source, built artifact and deployed Pages identity comparison
 ```
 
 ## Change scope
@@ -101,8 +105,11 @@ source dist artifact Pages identity comparison
 ```txt
 documentation changed: yes
 runtime JavaScript changed: no
+reference SVG changed: no
 HTML or CSS changed: no
 shader changed: no
+world configuration changed: no
+Nexus Engine provider changed: no
 gameplay changed: no
 render behavior changed: no
 packages or dependencies changed: no
@@ -113,15 +120,14 @@ pull request created: no
 
 npm run check: not run
 npm run build: not run
-visibility fixture: not run
-BFCache fixture: not run
-freeze/resume fixture: not run
-held-input cancellation fixture: not run
-first-resumed-frame fixture: not run
+manifest fixture: unavailable
+altitude-sweep fixture: not run
+provider capability fixture: unavailable
+GPU timing capture: not run
 artifact downloaded: no
 Pages URL fetched: no
 ```
 
 ## Claims intentionally withheld
 
-No claim is made for lifecycle suspension correctness, held-input safety, BFCache restoration, resume clock continuity, stale-event rejection, first-resumed-frame convergence, artifact parity, Pages parity or production readiness.
+No claim is made for multi-layer atmosphere implementation, persistent cloud visibility, terrain-aware fog, Core World atmosphere support, performance safety, first reference-bound frame convergence, artifact parity, Pages parity or production readiness.
