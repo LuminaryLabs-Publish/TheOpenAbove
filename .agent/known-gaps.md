@@ -1,83 +1,81 @@
-# Known Gaps: TheOpenAbove Validation Finding Severity and Release Gate
+# Known Gaps: TheOpenAbove Sightseeing Photo Frame Artifact
 
-**Last aligned:** `2026-07-16T13-39-49-04-00`  
-**Status:** `validation-finding-severity-release-gate-authority-audited`
+**Last aligned:** `2026-07-16T14-59-39-04-00`  
+**Status:** `sightseeing-photo-frame-artifact-authority-audited`
 
 ## Summary
 
-The tiered runner improves diagnostic visibility, but it treats generic assertion-shaped failures as non-blocking without explicit product-impact classification. Release eligibility is therefore not bound to stable finding, drift, waiver or artifact identities.
+The current sightseeing domain recognizes views and records metadata, but it does not capture the rendered image that the player framed. The journal therefore tracks completion without owning an actual photograph.
 
 ## Intent
 
-Keep the current warning mechanism visibly provisional until failed assertions are classified by a typed, fail-closed policy.
+Keep the semantic capture record visibly provisional until it is bound to immutable frame evidence and explicit artifact lifecycle ownership.
 
 ## What needs to happen
 
 ### Identity gaps
 
 ```txt
-stable suite registry: absent
-suite purpose/version identity: absent
-stable finding IDs: absent
-finding evidence digest: absent
-policy revision identity: absent
+capture request ID: absent
+accepted frame ID: absent
+camera transform/projection revision: absent
+world and weather generation identity: absent
+renderer/render-scale revision: absent
+capture policy revision: absent
 ```
 
-### Severity gaps
+### Render and artifact gaps
 
 ```txt
-assertion exception class used as severity signal: present
-suite-specific severity rules: absent
-blocking product-invariant class: absent
-infrastructure-failure class: implicit only
-unknown failure class: absent
-unknown non-zero fail-closed rule: absent
+renderer canvas/target pixel capture: absent
+post-update frame admission stage: absent
+encoded image bytes: absent
+content digest: absent
+MIME/dimensions/byte-length record: absent
+artifact URL/storage identity: absent
+artifact retirement result: absent
 ```
 
-### Drift and waiver gaps
+### Score and gameplay gaps
 
 ```txt
-expected-drift registry: absent
-drift owner and rationale: absent
-drift scope and expiry: absent
-replacement assertion plan: absent
-validation waiver record: absent
-waiver approval and compensating evidence: absent
+score bound to accepted frame: absent
+score evidence descriptor: partial only
+artifact required for Snap Point completion: absent
+stale request rejection: absent
+map-open capture policy: implicit
+route/session retirement policy: absent
 ```
 
-### Build and deployment gaps
+### Journal gaps
 
 ```txt
-machine-readable ValidationSuiteResult: absent
-ReleaseValidationResult: absent
-build requires accepted result identity: absent
-artifact embeds validation digest: absent
-Pages deployment binds validation identity: absent
-browser exposes matching validation identity: absent
-FirstValidatedReleaseFrameAck: absent
+actual captured image projection: absent
+reference/captured image distinction: absent
+photo loading/failure state: absent
+journal artifact lifecycle: absent
+FirstPhotoArtifactAck: absent
+FirstJournalPhotoFrameAck: absent
 ```
 
 ### Proof gaps
 
 ```txt
-unknown assertion blocking fixture: absent
-approved drift fixture: absent
-expired drift fixture: absent
-weather invariant mutation fixture: absent
-route-protection mutation fixture: absent
-required-file mutation fixture: absent
-syntax/import/process failure fixture: absent
-artifact and Pages identity fixture: absent
+recognized capture pixel fixture: absent
+unrecognized capture artifact fixture: absent
+resize/render-scale generation fixture: absent
+map-open and disposal fixture: absent
+source/build/Pages photo parity fixture: absent
 ```
 
 ## Current risk boundary
 
-The runner can report an assertion warning and return success. This does not prove an invalid release exists; it proves that build eligibility currently lacks enough semantic evidence to distinguish accepted drift from failed invariants.
+The current score can be correct for its geometric heuristic while still lacking evidence of what was rendered. This is an artifact and convergence gap, not proof that the current recognition formula is wrong.
 
 ## Retained product gaps
 
-Weather simulation-clock ownership, explicit map/pause policy, weather-frame convergence, page lifecycle, WebGL recovery, audio, controls, fixed-step pacing, HDR/depth coherence, cloud composite proof, delivery eligibility, provider/build identity, route retirement, terrain/flora proof, Air Mail history and persistence remain unresolved.
+Validation severity, weather simulation-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, cloud composite proof, provider/build identity, route retirement, terrain/flora proof and persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim safe warning classification, fail-closed validation, accepted drift governance, release provenance, artifact parity, Pages parity or production readiness until the authority and fixtures are implemented.
+Do not claim rendered-photo ownership, immutable artifact identity, score/frame convergence, journal image parity, deployed parity or production readiness until implementation and fixtures exist.
