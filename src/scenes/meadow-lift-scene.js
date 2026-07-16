@@ -78,7 +78,7 @@ export async function createMeadowLiftScene({
 
   function update({ now, dt }) {
     const state = ballooning.update({ dt, now });
-    sky.update({ position: state.position, elapsed: state.elapsed, sample: state.airstream });
+    sky.update({ position: state.position, elapsed: state.elapsed, sample: state.airstream, dt });
     experience.update({ dt, flightState: state });
     const captureEvent = imageCapture.update(state);
     if (captureEvent) state.message = `${captureEvent.name}: ${captureEvent.rating} (${captureEvent.score})`;
@@ -109,7 +109,8 @@ export async function createMeadowLiftScene({
   sky.update({
     position: ballooning.state.position,
     elapsed: 0,
-    sample: sky.sample(ballooning.state.position, 0)
+    sample: sky.sample(ballooning.state.position, 0),
+    dt: 0
   });
   experience.update({ dt: 0, flightState: ballooning.state });
   engine.tick(0);
@@ -127,6 +128,7 @@ export async function createMeadowLiftScene({
     visual: experience.visual,
     simulation: ballooning.simulation,
     airstream: sky.airstream,
+    windParticles: sky.windParticles,
     imageCapture,
     cameraRig: experience.cameraRig,
     balloonPresentation: experience.balloonPresentation,
