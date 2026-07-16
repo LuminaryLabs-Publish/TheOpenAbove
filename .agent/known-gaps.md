@@ -1,104 +1,105 @@
-# Known Gaps: TheOpenAbove Device-Control Action Coverage
+# Known Gaps: TheOpenAbove Game-Audio Event Projection
 
-**Last aligned:** `2026-07-15T16-58-19-04-00`  
-**Status:** `device-control-action-coverage-authority-audited`
+**Last aligned:** `2026-07-15T22-00-36-04-00`  
+**Status:** `game-audio-event-projection-authority-audited`
 
 ## Summary
 
-The active route has no authority that proves each device profile covers the actions required by the Air Mail loop. Keyboard flight, wheel zoom, and keyboard map input exist, but touch, pointer, gamepad, on-screen controls, producer arbitration, complete-profile admission, and visible action-effect evidence are absent.
+The current product has accepted state and visual feedback for flight, airstreams, the map, terrain contact, and successful Air Mail delivery, but no owned audio projection authority or executable audible evidence.
 
 ## Plan ledger
 
-**Goal:** keep device capability, action coverage, visible controls, producer ownership, cancellation, simulation effects, browser proof, and retained product gaps dependency ordered.
+**Goal:** keep audio capability, semantic events, continuous layers, preferences, budgets, lifecycle, proof, and retained product gaps dependency ordered.
 
-- [x] Identify the current producer and consumer paths.
-- [x] Identify incomplete keyboard-only and touch-only profiles.
-- [x] Define required semantic actions.
-- [x] Preserve existing host-clock, rendering, world, mail, and lifecycle findings.
-- [ ] Add device and control-generation identities.
-- [ ] Add complete profile admission.
-- [ ] Add touch and gamepad producers and visible controls.
-- [ ] Add ownership, deduplication, and lifecycle cancellation.
-- [ ] Add result and visible-frame evidence.
+- [x] Identify accepted flight and delivery result sources.
+- [x] Confirm no runtime audio owner or provider.
+- [x] Define one-shot and continuous audio responsibilities.
+- [x] Preserve existing device, clock, rendering, world, mail, and lifecycle findings.
+- [ ] Add audio generation and unlock admission.
+- [ ] Add semantic cue and ambience projection.
+- [ ] Add preferences, buses, deduplication, and budgets.
+- [ ] Add lifecycle settlement and acknowledgements.
 - [ ] Prove source, build, artifact, and Pages parity.
 
 ## Implemented state
 
 ```txt
-keyboard burner vent steering: present
-wheel zoom: present
-M and Escape map control: present
-keyboard blur clears flight key set: present
-map open suppresses simulation update: present
-canvas touch-action none: present
+accepted burner and vent levels: present
+accepted velocity altitude and terrain contact: present
+accepted airstream route influence and capture state: present
+accepted map open state: present
+accepted mail-delivered result: present
+camera state for listener projection: present
+Three.js Canvas2D and diagnostic projection: present
 ```
 
-## Primary coverage gaps
+## Primary audio gaps
 
 ```txt
-DeviceCapabilityRevision: absent
-ActionMapRevision: absent
-ControlGeneration: absent
-ProducerGeneration: absent
-ControlProfileDescriptor: absent
-required-action coverage result: absent
-keyboard-only zoom fallback: absent
-pointer or touch flight producer: absent
-gamepad producer: absent
-on-screen flight controls: absent
-on-screen map control: absent
-on-screen zoom control: absent
+AudioCapabilityRevision: absent
+AudioPolicyRevision: absent
+AudioGeneration: absent
+browser audio capability observation: absent
+accepted user-gesture unlock: absent
+AudioContext lifecycle owner: absent
+semantic AudioEventId: absent
+cue descriptor registry: absent
+burner and vent audio layers: absent
+airstream transition cues: absent
+mail-delivered cue: absent
+map UI cues: absent
+flight ambience lifecycle: absent
 ```
 
-## Arbitration and lifecycle gaps
+## Projection and policy gaps
 
 ```txt
-semantic FlightActionCommand: absent
-normalized FlightActionState revision: absent
-action ownership result: absent
-hybrid duplicate suppression: absent
-pointercancel settlement: absent
-touchcancel settlement: absent
-gamepad disconnect settlement: absent
-visibility and pagehide action cancellation: absent
-map transition action cancellation: absent
-runtime replacement producer retirement: absent
+listener pose revision: absent
+spatial source revision: absent
+master and category buses: absent
+volume and mute preferences: absent
+one-shot cue deduplication: absent
+per-cue concurrency: absent
+global voice budget: absent
+priority and eviction policy: absent
+unsupported-audio fallback result: absent
 ```
 
-## Rendering and evidence gaps
+## Lifecycle and evidence gaps
 
 ```txt
-ControlSurfaceDescriptor: absent
-control layout revision: absent
-safe-area policy: absent
-visible required-action list: absent
-FirstDeviceControlSurfaceFrameAck: absent
-FlightActionEffectResult: absent
-FirstDeviceActionEffectFrameAck: absent
-physical-device browser fixture: absent
+map-open audio policy: absent
+blur and visibility settlement: absent
+pagehide settlement: absent
+route and runtime replacement retirement: absent
+AudioUnlockResult: absent
+AudioProjectionResult: absent
+AudioSessionSettlementResult: absent
+FirstAudibleCueAck: absent
+FirstAudioVisualConvergenceAck: absent
+browser audio fixture: absent
 source/build/artifact/Pages parity: unproven
 ```
 
 ## Dependency order
 
 ```txt
-device and action identities
-  -> required-action coverage
-  -> complete profile admission
-  -> producer preparation
-  -> visible control surfaces
-  -> semantic action normalization
-  -> ownership and duplicate suppression
-  -> lifecycle cancellation
-  -> simulation camera and map effects
-  -> visible frame acknowledgement
+audio capability and generation
+  -> gesture admission
+  -> semantic events and cue descriptors
+  -> continuous layers and one-shot cues
+  -> listener and spatial projection
+  -> preferences buses deduplication and budgets
+  -> lifecycle settlement
+  -> browser effect receipts
+  -> audible-visible frame acknowledgement
   -> deployed artifact parity
 ```
 
 ## Retained product gaps
 
-Host-clock fixed-step pacing, HDR color/depth target coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route lifecycle, world adoption, terrain and vegetation proof, Air Mail history, and flight persistence remain unresolved.
+Device-control action coverage, host-clock fixed-step pacing, HDR color/depth target coherence, cloud relative depth, ground-contact delivery eligibility, provider/build identity, route lifecycle, world adoption, terrain and vegetation proof, Air Mail history, and flight persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim touch playability, gamepad support, keyboard-only completeness, hybrid safety, cancellation correctness, visible-control correctness, action-effect convergence, artifact parity, deployed parity, or production readiness until the required fixtures pass.
+Do not claim audible gameplay, unlock reliability, cue correctness, spatial correctness, lifecycle safety, artifact parity, deployed parity, or production readiness until the required fixtures pass.
