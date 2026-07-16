@@ -69,7 +69,7 @@ float layerDensity(vec3 p, int layerIndex) {
   float coverage = uLayerCoverage[layerIndex];
   if (shape < 0.5) coverage *= 2.2;
   if (shape > 1.5) coverage *= 1.65;
-  float threshold = 1.0 - coverage * (0.78 + w * 0.42);
+  float threshold = 0.79 - coverage * (0.55 + w * 0.18);
   float signal = shape > 1.5 ? base * 0.72 + detail * 0.28 : base * 0.92 + detail * 0.08;
   float softness = shape < 0.5 ? 0.3 : shape > 1.5 ? 0.2 : 0.24;
   float shaped = smoothstep(threshold, threshold + softness, signal);
