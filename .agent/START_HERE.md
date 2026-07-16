@@ -1,71 +1,72 @@
-# START HERE: TheOpenAbove Atmosphere Reference-to-Runtime Traceability
+# START HERE: TheOpenAbove Layered Weather Clock and Projection Ownership
 
-**Last aligned:** `2026-07-16T09-39-49-04-00`  
+**Last aligned:** `2026-07-16T10-58-20-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Reviewed pre-audit repository head:** `74c782c6074a90127e544c0ce537ac0a2d93aa18`  
-**Reviewed runtime source revision:** `1417c80309218c7c61def3b2f09a977eaab8b953`  
-**Status:** `atmosphere-reference-layer-runtime-traceability-authority-audited`
+**Reviewed pre-audit repository head:** `a2291f95e9eb9447512e00a5fc60a4a7ca83ad10`  
+**Previous central repo-local head:** `e9e0465d3d72995e8e398ab7b821d38fd332bc33`  
+**Status:** `weather-simulation-clock-projection-ownership-authority-audited`
 
 ## Summary
 
-A new reference image defines persistent sparse fog and cloud layers from ground level through cirrus altitude. The executable runtime still has one weather state, one volumetric cloud shell at `360..960`, one global aerial-fog field and landform-only Core World feature registration. The immediate gap is a missing reference manifest and capability classification, not a proven browser-rendering failure.
+The runtime now implements Core Weather, Layered Weather, Core World Atmosphere Features, five persistent altitude layers and five-layer volumetric projection. The focused gap is ownership: `open-above-cloud-weather-map-kit`, a visual adapter, advances both renderer-neutral Weather domains, and map-open freezes those revisions implicitly while rendering continues.
 
 ## Plan ledger
 
-**Goal:** make the design reference versioned and mechanically comparable with runtime, world configuration and Nexus Engine provider capabilities before new atmosphere layers are implemented.
+**Goal:** preserve the implemented layered atmosphere while moving weather advancement to one simulation-clock authority and making presentation read immutable snapshots.
 
-- [x] Compare all 11 Publish repositories with the central ledger.
+- [x] Compare all 11 Publish repositories with central tracking.
 - [x] Exclude `TheCavalryOfRome`.
-- [x] Select only TheOpenAbove as the sole runtime-ahead/recently undocumented repository.
-- [x] Inspect the reference, cloud weather, volumetric renderer, aerial fog, world config and Core World composition.
-- [x] Preserve the complete 101-surface kit and service inventory.
-- [x] Add the `2026-07-16T09-39-49-04-00` atmosphere traceability audit family.
-- [ ] Implement the manifest, capability bridge, layer adoption and altitude-sweep fixtures.
+- [x] Select only TheOpenAbove as the sole runtime-ahead repository.
+- [x] Inspect the ten-commit, nine-file layered-weather change set.
+- [x] Identify the interaction loop, domains, 115 active surfaces and their services.
+- [x] Add the `2026-07-16T10-58-20-04-00` weather-clock audit family.
+- [ ] Implement single-owner weather stepping, explicit pause policy and weather-bound frame proof.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-16T09-39-49-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-16T09-39-49-04-00.md
-.agent/architecture-audit/2026-07-16T09-39-49-04-00-atmosphere-reference-runtime-dsk-map.md
-.agent/render-audit/2026-07-16T09-39-49-04-00-single-layer-versus-reference-frame-gap.md
-.agent/gameplay-audit/2026-07-16T09-39-49-04-00-altitude-cloud-experience-loop.md
-.agent/interaction-audit/2026-07-16T09-39-49-04-00-atmosphere-reference-command-result-map.md
-.agent/cloud-system-audit/2026-07-16T09-39-49-04-00-layer-manifest-capability-contract.md
-.agent/deploy-audit/2026-07-16T09-39-49-04-00-atmosphere-altitude-sweep-fixture-gate.md
-.agent/central-sync-audit/2026-07-16T09-39-49-04-00-runtime-ahead-reference-reconciliation.md
+.agent/trackers/2026-07-16T10-58-20-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-16T10-58-20-04-00.md
+.agent/architecture-audit/2026-07-16T10-58-20-04-00-weather-clock-projection-dsk-map.md
+.agent/render-audit/2026-07-16T10-58-20-04-00-render-owned-weather-revision-gap.md
+.agent/gameplay-audit/2026-07-16T10-58-20-04-00-map-open-weather-freeze-loop.md
+.agent/interaction-audit/2026-07-16T10-58-20-04-00-weather-advance-command-result-map.md
+.agent/weather-system-audit/2026-07-16T10-58-20-04-00-simulation-clock-projection-ownership-contract.md
+.agent/deploy-audit/2026-07-16T10-58-20-04-00-weather-clock-parity-fixture-gate.md
+.agent/central-sync-audit/2026-07-16T10-58-20-04-00-runtime-ahead-layered-weather-reconciliation.md
 ```
 
 ## Source-backed state
 
 ```txt
-reference asset: present
-four altitude regimes in reference: present
-single runtime cloud shell: present
-runtime cloud base/top: 360 / 960
-global aerial fog: present
-WORLD.features.landforms: present
-WORLD.features.atmosphere: absent
-Core World atmosphere family: absent
-atmosphere-layer-controller: absent
-reference module classification: absent
-AtmosphereReferenceAdmissionResult: absent
-FirstReferenceBoundAtmosphereFrameAck: absent
+Core Weather: implemented
+Layered Weather: implemented
+Atmosphere Feature Domain: implemented
+semantic atmosphere features: 5
+weather layer descriptors: 5
+volumetric cloud layers supported: 5
+layer integration test: present
+weather advance owner: visual adapter
+map-open weather policy: implicit freeze
+WeatherAdvanceCommand/Result: absent
+duplicate-step rejection: absent
+WeatherProjectionSnapshot: absent
+FirstWeatherBoundFrameAck: absent
 ```
 
 ## Required parent domain
 
-`open-above-atmosphere-reference-layer-runtime-traceability-authority-domain`
+`open-above-weather-simulation-clock-projection-ownership-authority-domain`
 
 ## Next safe ledge
 
-Create an immutable `AtmosphereLayerManifest`, classify all reference module names, bind terrain/moisture/wind dependencies, preserve existing cloud and fog owners, then prove accepted layers through source, build, artifact and Pages altitude-sweep fixtures.
+Move `n:weather.advance()` and `n:weather:layered.advance()` into one simulation-owned step, publish an immutable revision-bound snapshot, make cloud/fog/terrain/telemetry adapters read-only, and prove map/pause/resume policy plus the matching rendered frame.
 
 ## Retained priority
 
-The page-lifecycle suspension/resume authority and all earlier renderer, audio, controls, fixed-step, HDR/depth, cloud-composite, delivery, provider, route, world, terrain/flora, Air Mail and persistence gaps remain open.
+Reference traceability is materially advanced by the new runtime. Page lifecycle, WebGL recovery, audio, controls, fixed-step pacing, HDR/depth coherence, cloud-composite proof, delivery eligibility, provider identity, route retirement, terrain/flora proof, Air Mail history and persistence remain open.
 
 ## Do not claim
 
-Do not claim multi-layer atmosphere implementation, persistent cloud visibility, terrain-aware fog correctness, provider atmosphere support, first reference-bound frame convergence, artifact parity, Pages parity or production readiness until the required fixtures pass.
+Do not claim authoritative weather clock ownership, duplicate-step safety, explicit pause behavior, feature/layer binding correctness, frame convergence, artifact parity, Pages parity or production readiness until the required fixtures pass.
