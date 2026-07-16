@@ -8,7 +8,7 @@ import {
   createSkyDomain,
   createLandDomain,
   createNavigationDomain,
-  createAirMailDomain,
+  createImageCaptureDomain,
   createExperienceDomain
 } from "../domains/index.js";
 
@@ -22,7 +22,6 @@ export async function createMeadowLiftScene({
   onFatal
 } = {}) {
   const sky = createSkyDomain();
-  const airMail = createAirMailDomain();
   const worldFeatures = [
     ...(WORLD.features?.landforms ?? []),
     ...(WORLD.features?.atmosphere ?? [])
@@ -38,13 +37,12 @@ export async function createMeadowLiftScene({
     worldFeatures: engine.n.worldFeatures,
     worldFoundation: engine.n.worldFoundation,
     routes: sky.routes,
-    towns: airMail.route.towns
+    towns: []
   });
   sky.bindRuntimeEngine(engine);
   const experience = createExperienceDomain({ canvas, land, sky });
   land.bindVisual(experience.visual);
   sky.mount({ scene: experience.scene });
-  airMail.mount({ scene: experience.scene, terrainHeight: experience.visual.landscape.terrain.terrainHeight });
 
   const ballooning = createBallooningDomain();
   await ballooning.mount({
@@ -54,6 +52,12 @@ export async function createMeadowLiftScene({
   });
   experience.bindBalloon(ballooning.balloon);
 
+  const imageCapture = createImageCaptureDomain({
+    camera: experience.camera,
+    renderer: experience.renderer,
+    landforms: WORLD.features?.landforms ?? []
+  });
+
   const navigation = createNavigationDomain({
     root: mapRoot,
     canvas: mapCanvas,
@@ -62,22 +66,22 @@ export async function createMeadowLiftScene({
   });
   navigation.mount({
     world: land.world,
-    towns: airMail.towns,
     getPlayerState: () => ballooning.state,
-    getParcel: () => airMail.parcel
+    getSnapPoints: () => imageCapture.snapPoints,
+    getCaptureState: () => imageCapture.snapshot()
   });
 
   const journey = createJourneyDomain({ campaign: CAMPAIGN, onFatal });
-  const domains = Object.freeze({ journey, ballooning, sky, land, navigation, airMail, experience });
+  const domains = Object.freeze({ journey, ballooning, sky, land, navigation, imageCapture, experience });
   const getSnapshot = () => journey.snapshot(domains);
   snapshotReader = getSnapshot;
 
   function update({ now, dt }) {
     const state = ballooning.update({ dt, now });
-    const deliveryEvent = airMail.update(state.position, state.airstream, state.elapsed);
-    if (deliveryEvent) state.message = airMail.parcel.message;
     sky.update({ position: state.position, elapsed: state.elapsed, sample: state.airstream });
     experience.update({ dt, flightState: state });
+    const captureEvent = imageCapture.update(state);
+    if (captureEvent) state.message = `${captureEvent.name}: ${captureEvent.rating} (${captureEvent.score})`;
     engine.tick(dt);
   }
 
@@ -96,8 +100,8 @@ export async function createMeadowLiftScene({
   function dispose() {
     journey.dispose();
     navigation.dispose();
+    imageCapture.dispose();
     ballooning.dispose();
-    airMail.dispose();
     sky.dispose();
     experience.dispose();
   }
@@ -107,7 +111,6 @@ export async function createMeadowLiftScene({
     elapsed: 0,
     sample: sky.sample(ballooning.state.position, 0)
   });
-  airMail.update(ballooning.state.position, ballooning.state.airstream, 0);
   experience.update({ dt: 0, flightState: ballooning.state });
   engine.tick(0);
 
@@ -124,7 +127,7 @@ export async function createMeadowLiftScene({
     visual: experience.visual,
     simulation: ballooning.simulation,
     airstream: sky.airstream,
-    mail: airMail.runtime,
+    imageCapture,
     cameraRig: experience.cameraRig,
     balloonPresentation: experience.balloonPresentation,
     getState: () => ({ nexusEngine: engine.openAbove?.getState?.(), local: getSnapshot() })
