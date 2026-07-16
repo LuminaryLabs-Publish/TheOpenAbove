@@ -3,6 +3,7 @@ import {
   applyAirstreamToBalloonState,
   sampleBalloonAirstream
 } from "./airstream-domain/airstream-balloon-force-kit.js";
+import { createWindRelativeSteering } from "../domains/ballooning/wind-relative-steering-kit.js";
 
 export const BALLOON_SIMULATION_KIT_ID = "open-above-balloon-simulation-kit";
 
@@ -15,6 +16,7 @@ export function createBalloonSimulation({
   startPosition = [0, 105, 0]
 }) {
   const keys = new Set();
+  const steering = createWindRelativeSteering({ maxTurnDegrees: 15 });
   const state = {
     position: new THREE.Vector3(...startPosition),
     velocity: new THREE.Vector3(8, 0, -10),
@@ -24,6 +26,7 @@ export function createBalloonSimulation({
     burner: 0.22,
     vent: 0,
     steeringInput: 0,
+    steeringAngle: 0,
     lateralTrim: 0,
     lateralAcceleration: 0,
     visualBank: 0,
@@ -38,7 +41,7 @@ export function createBalloonSimulation({
       velocity: { x: 8, y: 0, z: -10 },
       contributors: []
     },
-    message: "Mail for Brookhaven. Burn upward into the green meadow current; use A/D for light cross-current trim."
+    message: "Ride the wind, change altitude to find new currents, and use A/D to turn within the current."
   };
 
   const onKeyDown = (event) => keys.add(event.code);
@@ -69,21 +72,17 @@ export function createBalloonSimulation({
     const left = keys.has("KeyA") || keys.has("ArrowLeft");
     const right = keys.has("KeyD") || keys.has("ArrowRight");
     state.steeringInput = (right ? 1 : 0) - (left ? 1 : 0);
-    const previousTrim = state.lateralTrim;
-    const trimTarget = state.steeringInput * 3.6;
-    const response = state.steeringInput === 0 ? 2.8 : 2.5;
-    state.lateralTrim = THREE.MathUtils.lerp(state.lateralTrim, trimTarget, smooth(response, dt));
-    state.lateralAcceleration = dt > 0 ? (state.lateralTrim - previousTrim) / dt : 0;
 
-    const forward = new THREE.Vector3(flow.velocity.x, 0, flow.velocity.z);
-    if (forward.lengthSq() < 0.0001) forward.set(state.wind.x, 0, state.wind.z);
-    if (forward.lengthSq() < 0.0001) forward.set(0, 0, -1);
-    forward.normalize();
-    const rightVector = new THREE.Vector3(-forward.z, 0, forward.x);
-    state.wind.addScaledVector(rightVector, state.lateralTrim);
-    state.heading = Math.atan2(state.wind.x, state.wind.z);
+    const previousAngle = state.steeringAngle;
+    const resolved = steering.resolve(flow.velocity, state.steeringInput);
+    state.steeringAngle = resolved.offset;
+    state.lateralTrim = THREE.MathUtils.radToDeg(resolved.offset);
+    state.lateralAcceleration = dt > 0 ? (state.steeringAngle - previousAngle) / dt : 0;
+
+    state.wind.set(resolved.velocityX, flow.velocity.y || 0, resolved.velocityZ);
+    state.heading = resolved.heading;
     const targetBank = -state.steeringInput * THREE.MathUtils.degToRad(6.5);
-    state.visualBank = THREE.MathUtils.lerp(state.visualBank, targetBank, smooth(3.8, dt));
+    state.visualBank = targetBank;
   }
 
   function update(dt) {
@@ -122,10 +121,11 @@ export function createBalloonSimulation({
     state.altitude = state.position.y - terrainHeight(state.position.x, state.position.z);
     state.distance += Math.hypot(state.velocity.x, state.velocity.z) * dt;
 
+    const turnDegrees = Math.round(THREE.MathUtils.radToDeg(state.steeringAngle));
     if (state.airstream.routeId) {
-      state.message = `Riding ${state.airstream.routeId}. Match altitude; A/D trims across the current.`;
+      state.message = `Riding ${state.airstream.routeId}. Wind-relative turn ${turnDegrees}°.`;
     } else {
-      state.message = "Between currents. Use burner or vent to find a route; A/D provides light correction.";
+      state.message = `Ambient wind. A/D turns up to ±${steering.maxTurnDegrees}° around the flow.`;
     }
     return state;
   }
@@ -140,14 +140,15 @@ export function createBalloonSimulation({
 
   function snapshot(extra = {}) {
     return {
-      status: "mail-flight",
+      status: "sightseeing-flight",
       objectType: "hot-air-balloon",
       elapsed: Number(state.elapsed.toFixed(3)),
       altitude: Number(state.altitude.toFixed(2)),
       burner: Number(state.burner.toFixed(3)),
       vent: Number(state.vent.toFixed(3)),
       steeringInput: state.steeringInput,
-      lateralTrim: Number(state.lateralTrim.toFixed(3)),
+      steeringAngleDegrees: Number(THREE.MathUtils.radToDeg(state.steeringAngle).toFixed(2)),
+      maxSteeringAngleDegrees: steering.maxTurnDegrees,
       visualBank: Number(state.visualBank.toFixed(4)),
       heading: Number(state.heading.toFixed(4)),
       windSpeed: Number(state.wind.length().toFixed(2)),
