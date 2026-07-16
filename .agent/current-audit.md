@@ -1,66 +1,61 @@
-# Current Audit: TheOpenAbove Device-Control Action Coverage
+# Current Audit: TheOpenAbove Game-Audio Event Projection
 
-**Last aligned:** `2026-07-15T16-58-19-04-00`  
-**Status:** `device-control-action-coverage-authority-audited`  
-**Reviewed pre-audit repository head:** `86d3847e89a148671dca8487a9afbbb0a1e04951`  
+**Last aligned:** `2026-07-15T22-00-36-04-00`  
+**Status:** `game-audio-event-projection-authority-audited`  
+**Reviewed pre-audit repository head:** `d481e0a6d95adc0b3d8c742f4f03bd001028a971`  
 **Reviewed runtime source revision:** `1417c80309218c7c61def3b2f09a977eaab8b953`
 
 ## Summary
 
-The active application has a partial desktop control profile assembled from direct global listeners. Keyboard events feed burner, vent, and steering state; wheel events mutate camera zoom; `M` and `Escape` mutate map state. The full-screen gameplay canvas has `touch-action: none`, but there are no current pointer, touch, gamepad, or on-screen action producers.
+The application owns rich accepted flight, airstream, map, camera, terrain-contact, and Air Mail state but has no runtime audio domain. The highest-value gap is not missing sound assets alone; it is missing semantic event admission, browser unlock, lifecycle settlement, preferences, deduplication, budgets, and typed audible-visible proof.
 
 ## Plan ledger
 
-**Goal:** isolate the smallest authority that makes device capability, required action coverage, visible controls, producer arbitration, lifecycle cancellation, simulation consumption, and first visible action effects consume one control generation.
+**Goal:** isolate the smallest authority that converts accepted gameplay results into bounded browser-audio effects while keeping simulation and rendering authoritative for their own state.
 
 - [x] Compare the current Publish inventory, central ledger, root `.agent` coverage, and heads.
 - [x] Select only TheOpenAbove by the oldest synchronized rule.
-- [x] Inspect HTML, host composition, balloon input, camera input, map input, package checks, deployment, current audits, and registry.
-- [x] Trace keyboard/mouse, keyboard-only, touch-only, gamepad, and hybrid paths.
+- [x] Inspect main host, balloon simulation, Air Mail delivery, map lifecycle, package scripts, current audits, and the full inventory.
 - [x] Preserve all 101 active named surfaces and their service ownership.
-- [x] Add the timestamped tracker and device-control audit family.
-- [ ] Implement and prove complete profiles, visible controls, cancellation, deduplication, and first action-effect frames.
+- [x] Add the timestamped game-audio audit family.
+- [ ] Implement and prove unlock, cue, ambience, lifecycle, preference, budget, and convergence contracts.
 
 ## Complete interaction loop
 
 ```txt
 workflow and boot
-  -> checkout product and NexusEngine
-  -> build and publish static route
-  -> create simulation world renderer map camera and telemetry
-  -> install global keyboard wheel and map listeners
+  -> checkout provider build and publish static route
+  -> create simulation world rendering map camera and telemetry
+  -> no audio capability or gesture admission
 
-keyboard/mouse
-  -> keyboard states drive burner vent and steering
-  -> wheel drives camera zoom
-  -> M and Escape drive map state
-  -> RAF consumes state and renders
+flight
+  -> keyboard state drives burner vent and steering
+  -> accepted simulation state drives balloon camera world and map presentation
+  -> no semantic audio event or continuous audio layer
 
-touch-only
-  -> touch reaches touch-action-none canvas
-  -> no active touch or pointer producer
-  -> no semantic flight action
-  -> no map or zoom control
-  -> passive simulation continues
+Air Mail
+  -> destination volume settlement returns mail-delivered once
+  -> parcel and visible state update
+  -> no accepted delivery cue or audiovisual acknowledgement
 
-hybrid
-  -> no shared producer generation
-  -> no ownership or duplicate result
-  -> no complete-profile admission result
+lifecycle
+  -> map open suspends simulation
+  -> blur clears keys
+  -> no audio suspend resume pagehide or route-retirement result
 ```
 
 ## Domains in use
 
 ```txt
 workflow provider build artifact and Pages deployment
-browser lifecycle viewport device capability input and GameHost
-device profiles required actions producer generations and visible controls
-keyboard flight input wheel zoom and map keyboard input
+browser lifecycle viewport input audio capability and GameHost
+semantic flight delivery UI and ambience audio projection
 balloon simulation telemetry presentation and camera
 airstream Air Mail map and simulation suspension
 Nexus Engine telemetry Core World foundation features and landforms
 world generation terrain vegetation grass flowers water and landmarks
 quality dynamic resolution sky clouds HDR and color grading
+audio results lifecycle settlement and frame acknowledgements
 validation browser fixtures and central tracking
 ```
 
@@ -72,56 +67,55 @@ runtime-implied adapters:           13
 Core World provider surfaces:       17
 active documented total:           101
 inactive or retired legacy:         13
-planned device-control surfaces:    22
+planned game-audio surfaces:        22
 new runtime kit IDs:                 0
 ```
 
-The complete kit-by-kit inventory is in `.agent/trackers/2026-07-15T16-58-19-04-00/project-breakdown.md` and `.agent/kit-registry.json`.
+The complete kit-by-kit inventory is in `.agent/trackers/2026-07-15T22-00-36-04-00/project-breakdown.md`.
 
 ## Source-backed findings
 
 ```txt
-required flight actions: burner vent steer map toggle map close camera zoom
-keyboard flight coverage: present
-wheel zoom coverage: present
-keyboard map coverage: present
-keyboard-only zoom coverage: absent
-pointer or touch coverage: absent
-gamepad coverage: absent
-on-screen controls: absent
-control profile descriptor: absent
-required action coverage result: absent
-hybrid duplicate suppression: absent
-held-action cancellation across all producers: absent
-FirstDeviceControlSurfaceFrameAck: absent
-FirstDeviceActionEffectFrameAck: absent
+accepted burner vent velocity altitude and contact state: present
+accepted airstream route influence and capture state: present
+accepted map transition state: present
+accepted mail-delivered event: present
+runtime AudioContext or HTML audio owner: absent
+imported audio provider: absent
+semantic AudioEventId and cue descriptors: absent
+listener and spatial source projection: absent
+master category volume and mute preferences: absent
+one-shot cue deduplication: absent
+voice pool and budget: absent
+map blur visibility pagehide and route settlement: absent
+AudioProjectionResult: absent
+FirstAudibleCueAck: absent
+FirstAudioVisualConvergenceAck: absent
 ```
-
-The touch-only path is not admitted as a complete control profile. Passive drift may continue and could intersect world volumes by chance, but the authored route-reading and flight-control loop is not intentionally operable.
 
 ## Required parent domain
 
 ```txt
-open-above-device-control-action-coverage-authority-domain
+open-above-game-audio-event-projection-authority-domain
 ```
 
 ## Required transaction
 
 ```txt
-DeviceControlAdmissionCommand
-  -> bind document runtime viewport device capability action map and control generation
-  -> resolve a compatible profile
-  -> require burner vent steer map and zoom coverage
-  -> prepare required visible controls
-  -> adopt one producer generation
-  -> normalize producers into FlightActionState
-  -> arbitrate overlay and gesture ownership
-  -> cancel held actions at lifecycle boundaries
-  -> publish DeviceControlAdmissionResult
-  -> publish FirstDeviceControlSurfaceFrameAck
-  -> publish FirstDeviceActionEffectFrameAck
+AudioProjectionAdmissionCommand
+  -> bind document runtime flight event camera map and policy revisions
+  -> observe capability and accepted user-gesture unlock
+  -> consume accepted semantic results
+  -> resolve one-shot cues and continuous layers
+  -> reject stale duplicate muted suspended and retired work
+  -> project listener and source transforms
+  -> enforce preferences buses pools priorities and budgets
+  -> settle map blur visibility pagehide and route lifecycle
+  -> publish AudioProjectionResult
+  -> publish FirstAudibleCueAck
+  -> publish FirstAudioVisualConvergenceAck
 ```
 
 ## Validation boundary
 
-Documentation only. Runtime JavaScript, HTML, CSS, shaders, gameplay, packages, tests, workflows, and deployment were not changed. No physical-device, browser, build, artifact, or Pages fixture was run.
+Documentation only. Runtime JavaScript, HTML, CSS, shaders, gameplay, packages, tests, workflows, and deployment were not changed. No browser, build, artifact, or Pages fixture was run.
