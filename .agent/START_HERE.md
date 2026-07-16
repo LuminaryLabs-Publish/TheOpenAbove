@@ -1,33 +1,35 @@
-# START HERE: TheOpenAbove Validation Finding Severity and Release Gate
+# START HERE: TheOpenAbove Sightseeing Photo Frame Artifact
 
-**Last aligned:** `2026-07-16T13-39-49-04-00`  
+**Last aligned:** `2026-07-16T14-59-39-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Previous central repo-local head:** `9c4a0f421484f8e68cb93e491fe0af849422312a`  
-**Reviewed pre-audit repository head:** `985fc85b5a3a723ab869eaa0c7344850d63130ca`  
-**Status:** `validation-finding-severity-release-gate-authority-audited`
+**Previous central repo-local head:** `aac119fd0b793ea4a86edee7167f87d4d740275b`  
+**Reviewed pre-audit repository head:** `d0677937043224bb295bd3b270c336aed0e2a2b1`  
+**Status:** `sightseeing-photo-frame-artifact-authority-audited`
 
 ## Summary
 
-TheOpenAbove was selected from two runtime-ahead eligible repositories because it had the older unmatched central timestamp. Its two new commits add a seven-suite validation runner and route `npm run check` through it.
+TheOpenAbove was the only eligible Publish repository still ahead of its centrally documented `.agent` head. The 26-commit delta replaces the active Air Mail loop with semantic Meadow Lift domains, sightseeing image capture, Snap Point map regions, immediate wind-relative steering and a player-centered wind particle field.
 
-The runner turns broadly recognized assertion failures into non-blocking warnings. Because `npm run build` depends on that check, world, weather, route, terrain or static contract failures can remain build-eligible without a stable finding ID, explicit expected-drift record, waiver owner, expiry or release result.
+The new image-capture domain records recognition, score, zoom and player position, but it never captures rendered pixels. Capture settlement occurs during update before the frame is rendered, and the map journal draws a generic reference illustration instead of the accepted photograph.
 
 ## Intent
 
-Keep useful warning-level contract drift while making release severity explicit, typed, reviewable and bound to the built and deployed release.
+Keep the new sightseeing loop while making every accepted photo correspond to one exact rendered frame, camera state, world/weather generation and immutable image artifact.
 
 ## What needs to happen
 
 ```txt
-suite evidence
-  -> stable suite and finding IDs
-  -> explicit severity classification
-  -> expected-drift or waiver admission
-  -> fail closed on unknown and infrastructure failures
-  -> ReleaseValidationResult
-  -> artifact and Pages binding
-  -> FirstValidatedReleaseFrameAck
+shutter request
+  -> bind route/session/frame/camera/world/weather/renderer revisions
+  -> render or identify one accepted capture frame
+  -> create immutable photo bytes and digest
+  -> score the same accepted frame
+  -> publish PhotoCaptureResult
+  -> persist or retire the artifact explicitly
+  -> project the actual photo into the journal/map
+  -> publish FirstPhotoArtifactAck
+  -> publish FirstJournalPhotoFrameAck
 ```
 
 ## Checklist
@@ -35,46 +37,48 @@ suite evidence
 - [x] Compare all 11 Publish repositories.
 - [x] Exclude `LuminaryLabs-Publish/TheCavalryOfRome`.
 - [x] Confirm ten eligible central ledgers and root `.agent` states.
-- [x] Identify TheOpenAbove and PrehistoricRush as runtime-ahead.
-- [x] Select only TheOpenAbove by the oldest unmatched priority timestamp.
-- [x] Inspect the two-commit, two-file validation-policy delta.
-- [x] Document the interaction loops, domains, all 116 active surfaces and offered services.
-- [x] Add the `2026-07-16T13-39-49-04-00` audit family on `main`.
-- [ ] Implement structured severity, drift/waiver admission and fail-closed aggregation.
-- [ ] Run check, build, artifact and Pages fixtures.
+- [x] Select only TheOpenAbove as the remaining runtime-ahead repository.
+- [x] Inspect the 26-commit, 19-file semantic-domain and sightseeing delta.
+- [x] Document the interaction loop, domains, active kits and offered services.
+- [x] Reclassify six Air Mail surfaces as inactive migration history.
+- [x] Reconcile 78 active local surfaces and 121 total active named surfaces.
+- [x] Add the `2026-07-16T14-59-39-04-00` audit family on `main`.
+- [ ] Implement exact-frame photo artifact capture and lifecycle ownership.
+- [ ] Run source, browser, build, artifact and Pages fixtures.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-16T13-39-49-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-16T13-39-49-04-00.md
-.agent/architecture-audit/2026-07-16T13-39-49-04-00-validation-finding-severity-dsk-map.md
-.agent/render-audit/2026-07-16T13-39-49-04-00-warning-admitted-build-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-16T13-39-49-04-00-nonblocking-invariant-failure-release-loop.md
-.agent/interaction-audit/2026-07-16T13-39-49-04-00-validation-finding-command-result-map.md
-.agent/validation-policy-audit/2026-07-16T13-39-49-04-00-assertion-drift-release-gate-contract.md
-.agent/deploy-audit/2026-07-16T13-39-49-04-00-tiered-check-build-pages-fixture-gate.md
-.agent/central-sync-audit/2026-07-16T13-39-49-04-00-runtime-ahead-validation-policy-reconciliation.md
+.agent/trackers/2026-07-16T14-59-39-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-16T14-59-39-04-00.md
+.agent/architecture-audit/2026-07-16T14-59-39-04-00-sightseeing-photo-frame-artifact-dsk-map.md
+.agent/render-audit/2026-07-16T14-59-39-04-00-semantic-photo-without-rendered-frame-gap.md
+.agent/gameplay-audit/2026-07-16T14-59-39-04-00-shutter-score-journal-loop.md
+.agent/interaction-audit/2026-07-16T14-59-39-04-00-photo-capture-command-result-map.md
+.agent/photo-capture-audit/2026-07-16T14-59-39-04-00-rendered-frame-artifact-contract.md
+.agent/deploy-audit/2026-07-16T14-59-39-04-00-photo-artifact-source-build-pages-fixture-gate.md
+.agent/central-sync-audit/2026-07-16T14-59-39-04-00-runtime-ahead-sightseeing-reconciliation.md
 ```
 
 ## Required parent domain
 
-`open-above-validation-finding-severity-release-gate-authority-domain`
+`open-above-sightseeing-photo-frame-artifact-authority-domain`
 
 ## Census
 
 ```txt
-local source-backed surfaces: 73
+active local source-backed surfaces: 78
 runtime-implied adapters: 13
 Nexus Engine provider surfaces: 30
-active named surfaces: 116
-planned validation authority surfaces: 20
+active named surfaces: 121
+inactive Air Mail migration surfaces: 6
+planned photo authority surfaces: 20
 ```
 
 ## Retained priority
 
-The weather-clock ownership audit remains unresolved and is retained. Page lifecycle, renderer recovery, audio, controls, fixed-step pacing, HDR/depth coherence, cloud composite proof, delivery eligibility, provider/build identity, route retirement, terrain/flora proof, Air Mail history and persistence also remain open.
+Validation severity, weather-clock ownership, lifecycle, renderer recovery, audio, controls, fixed-step pacing, HDR/depth coherence, cloud proof, provider identity, route retirement, terrain/flora proof and persistence remain unresolved.
 
 ## Claim boundary
 
-Documentation only. No assertion-classification correctness, release-gate correctness, artifact parity, Pages parity or production readiness is claimed.
+Documentation only. No rendered-photo capture, artifact persistence, score/frame convergence, journal projection, artifact parity, Pages parity or production readiness is claimed.
