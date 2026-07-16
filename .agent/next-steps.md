@@ -1,106 +1,95 @@
-# Next Steps: TheOpenAbove Layered Weather Clock and Projection Ownership
+# Next Steps: TheOpenAbove Validation Finding Severity and Release Gate
 
-**Last aligned:** `2026-07-16T10-58-20-04-00`  
-**Status:** `weather-simulation-clock-projection-ownership-authority-audited`
+**Last aligned:** `2026-07-16T13-39-49-04-00`  
+**Status:** `validation-finding-severity-release-gate-authority-audited`
 
 ## Summary
 
-The five-layer atmosphere is implemented. The next work should remove weather mutation from presentation, establish one simulation-clock owner and prove that cloud, fog, terrain and telemetry consume the same accepted revision.
+Keep the seven-suite runner and annotations, but remove release severity inference from generic assertion text. Failed findings should block unless they resolve to explicit, active drift or waiver records.
 
-## Plan ledger
+## Intent
 
-**Goal:** make weather deterministic, pause-aware and revision-bound without replacing Core Weather, Layered Weather or the five-layer renderer.
+Create one fail-closed validation authority from suite execution through Vite artifact and deployed-frame evidence.
 
-### Completed understanding
+## What needs to happen
 
-- [x] Confirm Core Weather, Layered Weather and Atmosphere Features are installed.
-- [x] Confirm five semantic features and five weather layers exist.
-- [x] Confirm the volumetric renderer projects up to five layers.
-- [x] Confirm the visual weather adapter currently advances both Core domains.
-- [x] Preserve the 115-surface inventory and services.
+### Gate 1: Suite and finding identity
 
-### Gate 1: simulation-clock ownership
+- [ ] Register every required suite with ID, purpose, owner, version and required release tier.
+- [ ] Give every expected assertion a stable finding ID.
+- [ ] Emit structured JSON results in addition to human-readable output.
+- [ ] Record source location and evidence digest.
 
-- [ ] Add a stable simulation-frame and weather-command identity.
-- [ ] Move `weather.advance(dt)` out of `open-above-cloud-weather-map-kit`.
-- [ ] Advance Core Weather exactly once per accepted simulation tick.
-- [ ] Advance Layered Weather exactly once from the accepted Weather snapshot.
-- [ ] Reject negative, non-finite, duplicate, stale and retired steps.
+### Gate 2: Severity policy
 
-### Gate 2: immutable projection
+- [ ] Classify findings as informational, expected drift, blocking invariant, infrastructure failure or unknown.
+- [ ] Make unknown and infrastructure failures blocking.
+- [ ] Remove direct severity decisions from the broad assertion regex.
+- [ ] Allow regex only as evidence parsing support.
 
-- [ ] Publish `WeatherAdvanceResult` with weather and layered revisions.
-- [ ] Publish one immutable `WeatherProjectionSnapshot` per accepted step.
-- [ ] Make cloud-weather-map a read-only adapter.
-- [ ] Bind clouds, aerial fog, terrain and telemetry to the same snapshot.
-- [ ] Reject stale visual projections.
+### Gate 3: Drift and waiver admission
 
-### Gate 3: map, pause and lifecycle policy
+- [ ] Add an explicit expected-drift registry.
+- [ ] Require owner, rationale, scope, introduction date and expiry.
+- [ ] Add immutable, narrow release waivers with compensating evidence.
+- [ ] Reject expired, superseded, scope-mismatched or evidence-mismatched records.
 
-- [ ] Choose explicit weather behavior for map-open: paused, continuous or bounded catch-up.
-- [ ] Consume page-lifecycle suspension/resume results.
-- [ ] Rebase clocks on resume.
-- [ ] Bound catch-up work and publish rejected/limited results.
-- [ ] Retire pending work on route or session disposal.
+### Gate 4: Build and release result
 
-### Gate 4: feature/layer binding
+- [ ] Publish `ValidationSuiteResult` for every required suite.
+- [ ] Publish one `ReleaseValidationResult` for the exact source and provider revisions.
+- [ ] Require the accepted result before Vite build admission.
+- [ ] Embed result ID and digest in the artifact.
+- [ ] Record the artifact/result pair in Pages deployment provenance.
 
-- [ ] Map each `WORLD.features.atmosphere` record to its `WORLD.weather.layers` record.
-- [ ] Validate kind, altitude range, coverage and density compatibility.
-- [ ] Preserve feature placement and weather evolution as separate owners.
-- [ ] Publish binding diagnostics through GameHost.
+### Gate 5: First-frame proof
 
-### Gate 5: executable proof
+- [ ] Expose release validation identity through GameHost diagnostics.
+- [ ] Require browser startup to match source, provider, artifact and validation revisions.
+- [ ] Publish `FirstValidatedReleaseFrameAck` after the first stable frame.
 
-- [ ] Add deterministic 60-tick and replay tests.
-- [ ] Add duplicate/stale/invalid command rows.
-- [ ] Prove repeated render or visual calls do not advance weather.
-- [ ] Add map-open, close, pause, hidden and resume browser rows.
-- [ ] Publish `FirstWeatherBoundFrameAck`.
+### Gate 6: Fixture matrix
 
-### Gate 6: artifact and deployment parity
-
+- [ ] Prove a passing suite remains informational.
+- [ ] Prove an unknown assertion blocks.
+- [ ] Prove an active expected drift remains non-blocking and visible.
+- [ ] Prove an expired drift blocks.
+- [ ] Mutate weather layer count/floors and confirm blocking.
+- [ ] Mutate route protection and confirm blocking.
+- [ ] Remove a required runtime file and confirm blocking.
+- [ ] Trigger syntax/import/process failures and confirm infrastructure blocking.
 - [ ] Run `npm run check` and `npm run build`.
-- [ ] Record provider SHA, weather revisions and layer IDs in the artifact.
-- [ ] Compare source, built artifact and deployed Pages behavior.
-- [ ] Validate low, medium and high quality tiers.
-- [ ] Block readiness on stale provider or weather identities.
+- [ ] Compare source, artifact and deployed Pages identities.
 
 ## Recommended file cut
 
 ```txt
-src/runtime/weather/
-  weather-simulation-clock-projection-ownership-authority-domain.js
-  weather-clock-source-kit.js
-  weather-tick-admission-kit.js
-  weather-advance-command-kit.js
-  weather-advance-result-kit.js
-  weather-revision-identity-kit.js
-  layered-weather-revision-bridge-kit.js
-  map-pause-weather-policy-kit.js
-  page-suspension-weather-policy-kit.js
-  bounded-weather-catchup-kit.js
-
-src/visual/atmosphere/
-  visual-weather-read-only-adapter-kit.js
-  weather-frame-convergence-kit.js
-
-src/world/
-  atmosphere-feature-layer-binding-kit.js
+src/validation/
+  validation-finding-severity-release-gate-authority-domain.mjs
+  validation-suite-registry-kit.mjs
+  validation-finding-schema-kit.mjs
+  assertion-severity-classifier-kit.mjs
+  expected-contract-drift-registry-kit.mjs
+  validation-waiver-kit.mjs
+  validation-suite-result-kit.mjs
+  release-validation-result-kit.mjs
+  build-validation-gate-kit.mjs
+  artifact-validation-binding-kit.mjs
+  pages-validation-binding-kit.mjs
 
 tests/
-  weather-clock-ownership.mjs
-  weather-map-pause-browser.mjs
+  validation-policy-fixture.mjs
+  validation-false-warning-regression.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve Three.js `0.165.0`, Core Weather and Layered Weather contracts, the five layer descriptors, balloon simulation, Air Mail, airstreams, terrain generation, dynamic resolution, HDR composition, map behavior, GameHost diagnostics, Vite build and Pages deployment.
+Preserve all seven existing suites, GitHub annotations, Vite build, Pages deployment, Nexus Engine provider checkout, layered weather implementation, balloon gameplay, world generation and visual output.
 
 ## Retained next steps
 
-Page lifecycle, renderer recovery, audio, controls, fixed-step pacing, HDR/depth coherence, cloud-composite proof, delivery eligibility, provider/build identity, route retirement, terrain/flora proof, Air Mail history and persistence remain open.
+Weather-clock ownership, map/pause policy and matching weather-frame proof remain the immediately preceding unresolved audit family. Other retained lifecycle, renderer, audio, input, world and deployment gaps remain open.
 
 ## Do not claim
 
-Do not claim deterministic weather clock ownership, correct map/pause behavior, feature/layer binding, matching-frame convergence, artifact parity, Pages parity or production readiness until the fixture matrix passes.
+Do not claim safe warning classification, release-gate correctness, artifact parity, Pages parity or production readiness until the fixture matrix passes.
