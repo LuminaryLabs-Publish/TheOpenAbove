@@ -1,109 +1,106 @@
-# Next Steps: TheOpenAbove Atmosphere Reference-to-Runtime Traceability
+# Next Steps: TheOpenAbove Layered Weather Clock and Projection Ownership
 
-**Last aligned:** `2026-07-16T09-39-49-04-00`  
-**Status:** `atmosphere-reference-layer-runtime-traceability-authority-audited`
+**Last aligned:** `2026-07-16T10-58-20-04-00`  
+**Status:** `weather-simulation-clock-projection-ownership-authority-audited`
 
 ## Summary
 
-The next work should turn the SVG target into a machine-readable manifest and capability result before changing shaders or adding new feature families.
+The five-layer atmosphere is implemented. The next work should remove weather mutation from presentation, establish one simulation-clock owner and prove that cloud, fog, terrain and telemetry consume the same accepted revision.
 
 ## Plan ledger
 
-**Goal:** add persistent sparse atmosphere layers through existing owners and explicit bridges, not through a second weather system or renderer-specific world features.
+**Goal:** make weather deterministic, pause-aware and revision-bound without replacing Core Weather, Layered Weather or the five-layer renderer.
 
 ### Completed understanding
 
-- [x] Confirm the new reference defines four altitude regimes.
-- [x] Confirm the runtime has one `360..960` volumetric layer and global fog.
-- [x] Confirm current world feature registration is landform-only.
-- [x] Classify existing, embedded and missing module names.
-- [x] Preserve the 101-surface kit and service inventory.
+- [x] Confirm Core Weather, Layered Weather and Atmosphere Features are installed.
+- [x] Confirm five semantic features and five weather layers exist.
+- [x] Confirm the volumetric renderer projects up to five layers.
+- [x] Confirm the visual weather adapter currently advances both Core domains.
+- [x] Preserve the 115-surface inventory and services.
 
-### Gate 1: reference identity and manifest
+### Gate 1: simulation-clock ownership
 
-- [ ] Add a content digest and semantic revision for the SVG reference.
-- [ ] Create `AtmosphereLayerManifest` with explicit ground, low/mid, high and cirrus descriptors.
-- [ ] Separate illustration text from authoritative requirements.
-- [ ] Classify every module and feature type as implemented, embedded, provider-backed, planned, unsupported or stale.
-- [ ] Reject duplicate IDs, invalid altitude ranges and unresolved references.
+- [ ] Add a stable simulation-frame and weather-command identity.
+- [ ] Move `weather.advance(dt)` out of `open-above-cloud-weather-map-kit`.
+- [ ] Advance Core Weather exactly once per accepted simulation tick.
+- [ ] Advance Layered Weather exactly once from the accepted Weather snapshot.
+- [ ] Reject negative, non-finite, duplicate, stale and retired steps.
 
-### Gate 2: capability ownership
+### Gate 2: immutable projection
 
-- [ ] Keep `open-above-cloud-weather-map-kit` as the weather-field owner.
-- [ ] Keep `open-above-volumetric-cloud-kit` as the raymarch/GPU owner.
-- [ ] Identify the embedded composite pass explicitly in the manifest.
-- [ ] Keep `open-above-aerial-perspective-kit` as the global haze owner.
-- [ ] Add a controller that coordinates existing owners rather than duplicating them.
+- [ ] Publish `WeatherAdvanceResult` with weather and layered revisions.
+- [ ] Publish one immutable `WeatherProjectionSnapshot` per accepted step.
+- [ ] Make cloud-weather-map a read-only adapter.
+- [ ] Bind clouds, aerial fog, terrain and telemetry to the same snapshot.
+- [ ] Reject stale visual projections.
 
-### Gate 3: layer data and world bridges
+### Gate 3: map, pause and lifecycle policy
 
-- [ ] Define altitude bands and bounded sparse density floors.
-- [ ] Add terrain-height, moisture and water-proximity query contracts.
-- [ ] Define wind/advection inputs for every layer.
-- [ ] Add a Core World atmosphere capability bridge only after provider support exists.
-- [ ] Keep semantic world features independent from Three.js resource ownership.
+- [ ] Choose explicit weather behavior for map-open: paused, continuous or bounded catch-up.
+- [ ] Consume page-lifecycle suspension/resume results.
+- [ ] Rebase clocks on resume.
+- [ ] Bound catch-up work and publish rejected/limited results.
+- [ ] Retire pending work on route or session disposal.
 
-### Gate 4: runtime adoption
+### Gate 4: feature/layer binding
 
-- [ ] Publish `AtmosphereReferenceAdmissionResult`.
-- [ ] Publish `AtmosphereLayerAdoptionResult` as adopted, partial, deferred or rejected.
-- [ ] Stage layer creation and retirement by visual generation.
-- [ ] Define quality-tier sample, render-scale and fallback policy per layer.
-- [ ] Publish explicit no-gameplay-effect results until gameplay consumers are authored.
+- [ ] Map each `WORLD.features.atmosphere` record to its `WORLD.weather.layers` record.
+- [ ] Validate kind, altitude range, coverage and density compatibility.
+- [ ] Preserve feature placement and weather evolution as separate owners.
+- [ ] Publish binding diagnostics through GameHost.
 
-### Gate 5: visible-frame proof
+### Gate 5: executable proof
 
-- [ ] Add `AtmosphereFrameDescriptor` and reference revision to public diagnostics.
-- [ ] Capture altitude sweeps at ground, 25, 100, 360, 660, 960, 1500 and 3000 units.
-- [ ] Exercise valley, ridge, water-adjacent, town-route and open-sky locations.
-- [ ] Validate minimum sparse coverage, ordinary and dense profiles.
-- [ ] Publish `FirstReferenceBoundAtmosphereFrameAck`.
+- [ ] Add deterministic 60-tick and replay tests.
+- [ ] Add duplicate/stale/invalid command rows.
+- [ ] Prove repeated render or visual calls do not advance weather.
+- [ ] Add map-open, close, pause, hidden and resume browser rows.
+- [ ] Publish `FirstWeatherBoundFrameAck`.
 
-### Gate 6: artifact and deployment proof
+### Gate 6: artifact and deployment parity
 
-- [ ] Run source checks and Vite build.
+- [ ] Run `npm run check` and `npm run build`.
+- [ ] Record provider SHA, weather revisions and layer IDs in the artifact.
+- [ ] Compare source, built artifact and deployed Pages behavior.
 - [ ] Validate low, medium and high quality tiers.
-- [ ] Record per-layer GPU timing and frame cost.
-- [ ] Compare source, built artifact and deployed Pages manifests and frames.
-- [ ] Fail publication on stale reference or layer-manifest identity.
+- [ ] Block readiness on stale provider or weather identities.
 
 ## Recommended file cut
 
 ```txt
+src/runtime/weather/
+  weather-simulation-clock-projection-ownership-authority-domain.js
+  weather-clock-source-kit.js
+  weather-tick-admission-kit.js
+  weather-advance-command-kit.js
+  weather-advance-result-kit.js
+  weather-revision-identity-kit.js
+  layered-weather-revision-bridge-kit.js
+  map-pause-weather-policy-kit.js
+  page-suspension-weather-policy-kit.js
+  bounded-weather-catchup-kit.js
+
 src/visual/atmosphere/
-  atmosphere-reference-layer-runtime-traceability-authority-domain.js
-  reference-asset-revision-kit.js
-  atmosphere-layer-manifest-kit.js
-  reference-module-classification-kit.js
-  atmosphere-layer-controller-kit.js
-  ground-fog-layer-profile-kit.js
-  low-mid-cumulus-layer-profile-kit.js
-  high-cloud-layer-profile-kit.js
-  cirrus-layer-profile-kit.js
-  sparse-density-floor-policy-kit.js
-  atmosphere-altitude-band-kit.js
-  weather-field-layer-adapter-kit.js
-  volumetric-layer-scheduler-kit.js
-  cloud-composite-pass-contract-kit.js
-  aerial-perspective-layer-bridge-kit.js
+  visual-weather-read-only-adapter-kit.js
+  weather-frame-convergence-kit.js
 
 src/world/
-  terrain-moisture-atmosphere-bridge-kit.js
-  core-world-atmosphere-capability-bridge-kit.js
+  atmosphere-feature-layer-binding-kit.js
 
 tests/
-  atmosphere-reference-manifest.mjs
-  atmosphere-altitude-sweep-browser.mjs
+  weather-clock-ownership.mjs
+  weather-map-pause-browser.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve Three.js `0.165.0`, current balloon simulation, Air Mail, airstream ownership, terrain generation, dynamic-resolution tiers, HDR composition, map behavior, GameHost diagnostics, Vite build and Pages deployment.
+Preserve Three.js `0.165.0`, Core Weather and Layered Weather contracts, the five layer descriptors, balloon simulation, Air Mail, airstreams, terrain generation, dynamic resolution, HDR composition, map behavior, GameHost diagnostics, Vite build and Pages deployment.
 
 ## Retained next steps
 
-Page lifecycle, renderer recovery, game audio, device controls, fixed-step pacing, HDR/depth coherence, existing cloud composite/depth proof, delivery eligibility, provider/build identity, route retirement, world adoption, terrain/flora proof, Air Mail history and flight persistence remain open.
+Page lifecycle, renderer recovery, audio, controls, fixed-step pacing, HDR/depth coherence, cloud-composite proof, delivery eligibility, provider/build identity, route retirement, terrain/flora proof, Air Mail history and persistence remain open.
 
 ## Do not claim
 
-Do not claim the reference is implemented, clouds persist at every altitude, fog is terrain-aware, Core World atmosphere features exist, GPU cost is acceptable, or deployed Pages match until the full fixture matrix passes.
+Do not claim deterministic weather clock ownership, correct map/pause behavior, feature/layer binding, matching-frame convergence, artifact parity, Pages parity or production readiness until the fixture matrix passes.
