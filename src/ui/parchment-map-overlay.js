@@ -27,8 +27,8 @@ function createWorldMapCanvas(world, center, radius) {
 }
 
 export function createParchmentMapOverlay({
-  root, canvas, worldSurface, world = null, towns = [], routes = [],
-  getPlayerState = () => null, getParcel = () => null
+  root, canvas, worldSurface, world = null, routes = [],
+  getPlayerState = () => null, getSnapPoints = () => [], getCaptureState = () => null
 } = {}) {
   if (!(root instanceof HTMLElement) || !(canvas instanceof HTMLCanvasElement)) throw new TypeError("Parchment map elements are required.");
   const context = canvas.getContext("2d");
@@ -77,19 +77,43 @@ export function createParchmentMapOverlay({
     context.beginPath();
     route.points.forEach((point, index) => { const mapped = worldToMap(point); if (index === 0) context.moveTo(mapped.x, mapped.y); else context.lineTo(mapped.x, mapped.y); });
     context.save(); context.setLineDash([11, 8]); context.lineCap = "round"; context.lineJoin = "round";
-    context.lineWidth = Math.max(3, Math.min(width, height) * 0.009); context.globalAlpha = 0.72;
+    context.lineWidth = Math.max(3, Math.min(width, height) * 0.009); context.globalAlpha = 0.42;
     context.strokeStyle = toHex(route.color, "#70866a"); context.stroke(); context.restore();
   }
 
-  function drawTown(town, destinationTownId) {
-    const mapped = worldToMap(town.position); const active = town.id === destinationTownId;
-    context.save(); context.translate(mapped.x, mapped.y); context.beginPath(); context.arc(0, 0, active ? 8 : 6, 0, TAU);
-    context.fillStyle = active ? "#7c2f22" : toHex(town.color); context.fill(); context.strokeStyle = "#3f2d1c"; context.stroke();
+  function drawSnapPoint(point, completed) {
+    const mapped = worldToMap(point.position);
+    const scale = Math.min(width, height) * 0.72 / (radius * 2);
+    const regionRadius = Math.max(14, point.searchRadius * scale);
+    context.save(); context.translate(mapped.x, mapped.y);
+    context.beginPath(); context.arc(0, 0, regionRadius, 0, TAU);
+    context.fillStyle = completed ? "rgba(67,112,75,.18)" : "rgba(145,101,42,.13)"; context.fill();
+    context.setLineDash([6, 6]); context.strokeStyle = completed ? "#476f4d" : "#8a612f"; context.lineWidth = 2; context.stroke();
+    context.setLineDash([]); context.beginPath(); context.arc(0, 0, completed ? 7 : 5, 0, TAU);
+    context.fillStyle = completed ? "#476f4d" : "#8a612f"; context.fill(); context.strokeStyle = "#f1dfb5"; context.stroke();
     context.textAlign = "center"; context.textBaseline = "top"; context.fillStyle = "#4b351e";
-    context.font = `600 ${clamp(Math.min(width, height) * 0.025, 12, 22)}px Georgia, serif`;
-    context.fillText(town.label ?? town.id, 0, 12);
-    if (active) { context.fillStyle = "#7c2f22"; context.font = `700 ${clamp(Math.min(width, height) * 0.017, 10, 14)}px Georgia, serif`; context.fillText("MAIL DESTINATION", 0, 35); }
-    context.restore();
+    context.font = `700 ${clamp(Math.min(width, height) * 0.022, 11, 18)}px Georgia, serif`;
+    context.fillText(point.name, 0, regionRadius + 7); context.restore();
+  }
+
+  function drawReferenceCard(point, captureState) {
+    if (!point) return;
+    const cardWidth = clamp(width * 0.27, 190, 330);
+    const cardHeight = clamp(height * 0.28, 150, 235);
+    const x = width - cardWidth - 24, y = height - cardHeight - 24;
+    const completed = captureState?.completed?.includes(point.id);
+    context.save(); context.fillStyle = "rgba(245,226,184,.94)"; context.strokeStyle = "#62472b"; context.lineWidth = 2;
+    context.fillRect(x, y, cardWidth, cardHeight); context.strokeRect(x, y, cardWidth, cardHeight);
+    const imageX = x + 14, imageY = y + 14, imageW = cardWidth - 28, imageH = cardHeight * 0.48;
+    const gradient = context.createLinearGradient(imageX, imageY, imageX, imageY + imageH);
+    gradient.addColorStop(0, "#8ec8dc"); gradient.addColorStop(1, "#cfe7c4"); context.fillStyle = gradient; context.fillRect(imageX, imageY, imageW, imageH);
+    context.fillStyle = "#657c58"; context.beginPath(); context.moveTo(imageX, imageY + imageH);
+    context.lineTo(imageX + imageW * 0.18, imageY + imageH * 0.55); context.lineTo(imageX + imageW * 0.42, imageY + imageH * 0.72);
+    context.lineTo(imageX + imageW * 0.68, imageY + imageH * 0.38); context.lineTo(imageX + imageW, imageY + imageH * 0.62); context.lineTo(imageX + imageW, imageY + imageH); context.closePath(); context.fill();
+    context.fillStyle = "#3f2d1c"; context.textAlign = "left"; context.font = `700 ${clamp(cardWidth * 0.07, 14, 21)}px Georgia, serif`; context.fillText(point.name, x + 14, imageY + imageH + 24);
+    context.font = `500 ${clamp(cardWidth * 0.045, 11, 15)}px Georgia, serif`; context.fillText(point.reference?.clue ?? "Find this landform.", x + 14, imageY + imageH + 49, cardWidth - 28);
+    context.fillStyle = completed ? "#476f4d" : "#7c4d24"; context.font = `700 ${clamp(cardWidth * 0.045, 11, 15)}px Georgia, serif`;
+    context.fillText(completed ? "PHOTOGRAPHED" : "REFERENCE VIEW", x + 14, y + cardHeight - 18); context.restore();
   }
 
   function drawPlayer() {
@@ -107,13 +131,16 @@ export function createParchmentMapOverlay({
     drawWorldBackground(mapRadius);
     context.beginPath(); context.arc(width * 0.5, height * 0.5, mapRadius, 0, TAU); context.fillStyle = "rgba(92,139,89,.08)"; context.fill();
     context.save(); context.setLineDash([8, 7]); context.strokeStyle = "rgba(70,49,27,.62)"; context.lineWidth = 2; context.stroke(); context.restore();
-    routes.forEach(drawRoute); const destinationTownId = getParcel()?.destinationTownId ?? null;
-    towns.forEach((town) => drawTown(town, destinationTownId)); drawPlayer();
+    routes.forEach(drawRoute);
+    const captureState = getCaptureState?.() ?? null;
+    const points = getSnapPoints?.() ?? [];
+    points.forEach((point) => drawSnapPoint(point, captureState?.completed?.includes(point.id)));
+    drawPlayer(); drawReferenceCard(points.find((point) => !captureState?.completed?.includes(point.id)) ?? points[0], captureState);
     context.fillStyle = "#4a321c"; context.textAlign = "center";
     context.font = `700 ${clamp(Math.min(width, height) * 0.052, 22, 42)}px Georgia, serif`;
     context.fillText("The Open Above", width * 0.5, clamp(height * 0.09, 42, 70));
     context.font = `600 ${clamp(Math.min(width, height) * 0.024, 12, 19)}px Georgia, serif`;
-    context.fillText("AIR MAIL ROUTES", width * 0.5, clamp(height * 0.135, 65, 102));
+    context.fillText("SIGHTSEEING JOURNAL", width * 0.5, clamp(height * 0.135, 65, 102));
   }
 
   function animate() { if (!open) return; draw(); frame = requestAnimationFrame(animate); }
