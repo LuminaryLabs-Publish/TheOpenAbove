@@ -110,7 +110,7 @@ export function createGaussianCloudRenderer(scene, quality, weatherMap, cloudFie
     blendDst: THREE.OneMinusSrcAlphaFactor,
     blendEquation: THREE.AddEquation,
     premultipliedAlpha: true,
-    fog: true,
+    fog: false,
     toneMapped: true
   });
   const mesh = new THREE.Mesh(geometry, material);
