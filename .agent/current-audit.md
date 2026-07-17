@@ -1,123 +1,109 @@
-# Current Audit: TheOpenAbove Camera Pointer-Look Gesture Admission and Retirement
+# Current Audit: TheOpenAbove Balloon Rigging Frame Budget and Resource Retirement
 
-**Last aligned:** `2026-07-17T05-41-10-04-00`  
-**Status:** `camera-pointer-look-gesture-admission-retirement-authority-audited`  
-**Previous repo-local documentation head:** `d5c194c6b5da7b1ba15f6ba811cdbb1031cc22a9`  
-**Reviewed pre-audit repository head:** `5611624ff8b59ff40e3a2e12d0d837e91b56f68d`
+**Last aligned:** `2026-07-17T10-41-44-04-00`  
+**Status:** `balloon-rigging-frame-budget-resource-retirement-authority-audited`  
+**Reviewed pre-audit repository head:** `9d9214b8c8cdbadf5c2ce40e6a794b1f88189877`
 
 ## Summary
 
-The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture, and Experience. The new Balloon Camera Rig behavior adds immediate drag yaw/pitch and a five-second delayed recenter toward the current wind-relative flight heading.
+The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture, and Experience. The focused audit covers the animated balloon rigging path from flight-state tension through four soft-rope buffer updates and into the rendered frame.
 
-The focused gap is gesture admission and retirement. Camera input listeners are global, so map and other route surfaces can enter camera state. Capture loss, anonymous blur-listener disposal, replacement binding, accepted pose diagnostics, and matching-frame proof are incomplete.
+Persistent typed arrays are reused, but the CPU path creates fresh endpoint vectors, point arrays, point clones, tangent frames, ring normals, and ring positions every frame. The balloon, rigging, and rope kits expose no authoritative resource inventory, update result, stale-update rejection, or dispose result.
 
 ## Intent
 
-Make one admitted flight-canvas gesture authoritative for camera look while preserving immediate turning and delayed heading recenter.
+Make one rigging generation authoritative for CPU scratch capacity, dynamic GPU buffers, frame budgets, replacement, retirement, diagnostics, and visible-frame proof.
 
 ## What needs to happen
 
 ```txt
-CameraLookGestureAdmissionCommand
-  -> bind session, route, map, rig, surface, pointer, and capture revisions
-  -> CameraLookGestureAdmissionResult
+RiggingResourceAdmissionCommand
+  -> resource manifest
+  -> RiggingResourceAdmissionResult
 
-CameraLookDeltaCommand
-  -> require matching gesture, pointer, surface, and lease
-  -> CameraLookDeltaResult / CameraLookPoseRevision
+RiggingFrameUpdateCommand
+  -> reusable scratch
+  -> buffer writes
+  -> RiggingFrameUpdateResult
 
-CameraLookGestureSettlementCommand
-  -> settle up, cancel, lost capture, blur, hidden, map-open,
-     route retirement, replacement, and disposal exactly once
-  -> CameraLookGestureSettlementResult
+RiggingFrameBudgetSettlementCommand
+  -> RiggingFrameBudgetResult
 
-CameraLookRecenterCommand
-  -> bind simulation clock and heading revision
-  -> CameraLookPoseResult
+RiggingResourceRetirementCommand
+  -> RiggingResourceRetirementResult
 
-CameraLookProjectionCommitCommand
-  -> CameraLookFrameDigest
-  -> FirstCameraLookFrameAck
+RiggingFrameCommitCommand
+  -> RiggingFrameDigest
+  -> FirstRiggingBoundFrameAck
 ```
 
 ## Interaction loop
 
 ```txt
 boot
-  -> Experience creates Visual on #game
-  -> bindBalloon creates Camera Rig
-  -> Camera Rig installs global wheel/pointer/blur listeners
+  -> build balloon, rigging, four ropes, geometries, materials, and buffers
 
-flight input
-  -> primary pointerdown anywhere becomes the owner
-  -> matching pointermove mutates lookYaw/lookPitch
-  -> up/cancel clears the owner
-  -> after five idle seconds yaw/pitch return toward heading
-  -> camera position, target, FOV, and projection update
-  -> Visual renders the frame
+flight
+  -> simulation produces vertical velocity and lateral trim
+  -> rigging derives tension
+  -> every rope recomputes CPU points and local frames
+  -> persistent position/normal buffers update
+  -> frame renders
 
-map/lifecycle boundary
-  -> map overlay becomes pointer-interactive
-  -> global camera input remains active
-  -> lostpointercapture is not handled
-  -> anonymous blur listener is not removed by dispose
-  -> repeated bindBalloon does not retire the prior rig first
+replacement/disposal
+  -> previous vehicle children can be detached
+  -> no explicit resource retirement result exists
 ```
 
 ## Domains in use
 
 ```txt
 Journey: session, map policy, RAF, failure containment, snapshots, disposal
-Ballooning: flight simulation, steering-relative heading, terrain contact, pose
-Sky: airstreams, Weather readback, wind particles, deterministic cloud field
-Land: Core World configuration, features, foundation, terrain readback
-Navigation: map lifecycle, routes, Snap Points, reference cards
-Image Capture: sightseeing mode, shutter, recognition, score
-Experience: renderer, Camera Rig, visual update/render, snapshots, disposal
-Camera presentation: zoom, drag look, recenter, clipping fade, projection
-Core World: Foundation, Features, Landforms, Atmosphere descriptors
-Weather: base and semantic layered weather advancement/snapshots
-Cloud presentation: Gaussian close layers and volumetric distant layers
-Build/deploy: tiered validation, Vite artifact, GitHub Pages
+Ballooning: simulation, controls, steering, terrain contact, pose, model animation
+Sky: airstreams, weather readback, particles, cloud field
+Land: Core World configuration, generation, terrain sampling
+Navigation: map, routes, Snap Points, reference cards
+Image Capture: sightseeing, shutter, recognition, score
+Experience: renderer, camera, balloon presentation, update/render, diagnostics
+Balloon object/presentation: envelope, basket, burner, rigging, ropes, materials
+Core World/Weather: foundation, features, landforms, atmosphere, layered weather
+Visual environment: sky, terrain, water, flora, clouds, HDR, resolution
+Validation/deploy: source checks, Vite artifact, Pages
 ```
 
 ## Current finding
 
 ```txt
-matching pointerId enforcement: present
-primary-button check: present
-immediate yaw/pitch response: present
-yaw/pitch clamps: present
-five-second delayed recenter: present
-heading-relative basis: present
-pointercancel settlement: present
+persistent dynamic rope buffers: present
+in-place position/normal writes: present
+bounded default topology: present
+flight-derived tension: present
 
-main-canvas-only admission: absent
-map-overlay suppression: absent
-HostSessionId/RouteRevision binding: absent
-CameraRigGeneration/GestureId: absent
-lostpointercapture settlement: absent
-capture release result: absent
-anonymous blur listener disposal: absent
-prior-rig replacement retirement: absent
-look pose in cameraSnapshot: absent
-CameraLookFrameDigest: absent
-FirstCameraLookFrameAck: absent
+rigging/resource generation IDs: absent
+resource manifest: absent
+reusable CPU scratch state: absent
+per-frame allocation/update budget: absent
+stale update rejection: absent
+replacement retirement: absent
+idempotent dispose result: absent
+public rigging diagnostics: absent
+RiggingFrameDigest: absent
+FirstRiggingBoundFrameAck: absent
 ```
 
-No specific map-drag camera incident or lifecycle leak was reproduced.
+No stutter, memory leak, or GPU exhaustion was reproduced.
 
 ## Inventory
 
-The complete 125-surface kit/provider/adapter inventory and all offered services are recorded in:
+The complete 125-surface kit/provider/adapter inventory and offered services are recorded in:
 
 ```txt
-.agent/trackers/2026-07-17T05-41-10-04-00/project-breakdown.md
+.agent/trackers/2026-07-17T10-41-44-04-00/project-breakdown.md
 ```
 
 ## Required parent domain
 
-`open-above-camera-pointer-look-gesture-admission-retirement-authority-domain`
+`open-above-balloon-rigging-frame-budget-resource-retirement-authority-domain`
 
 ## Boundary
 
