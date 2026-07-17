@@ -148,7 +148,8 @@ export function createGaussianCloudRenderer(scene, quality, weatherMap, cloudFie
       const dx = bank.center.x - camera.position.x;
       const dy = bank.center.y - camera.position.y;
       const dz = bank.center.z - camera.position.z;
-      const distance = Math.hypot(dx, dy, dz);
+      const bankRadius = Math.max(Number(bank.radius?.x ?? 0), Number(bank.radius?.y ?? 0), Number(bank.radius?.z ?? 0));
+      const distance = Math.max(0, Math.hypot(dx, dy, dz) - bankRadius);
       const tier = cloudField.selectLod(distance);
       if (!tier) continue;
       const layer = layerForBank(layerMap, bank);
@@ -182,9 +183,11 @@ export function createGaussianCloudRenderer(scene, quality, weatherMap, cloudFie
       }
     }
 
+    candidates.sort((left, right) => left.distanceSquared - right.distanceSquared);
+    state.droppedSplats = Math.max(0, candidates.length - capacity);
+    if (candidates.length > capacity) candidates.length = capacity;
     candidates.sort((left, right) => right.distanceSquared - left.distanceSquared);
-    const count = Math.min(capacity, candidates.length);
-    state.droppedSplats = Math.max(0, candidates.length - count);
+    const count = candidates.length;
     const center = geometry.getAttribute("aCenter");
     const scale = geometry.getAttribute("aScale");
     const angle = geometry.getAttribute("aAngle");
