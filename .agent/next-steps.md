@@ -1,90 +1,88 @@
-# Next Steps: TheOpenAbove Balloon Rigging Frame Budget and Resource Retirement
+# Next Steps: TheOpenAbove Wind Particle Budget and Frame Authority
 
-**Last aligned:** `2026-07-17T10-41-44-04-00`  
-**Status:** `balloon-rigging-frame-budget-resource-retirement-authority-audited`
+**Last aligned:** `2026-07-17T15-41-19-04-00`  
+**Status:** `wind-particle-simulation-budget-quality-admission-authority-audited`
 
 ## Summary
 
-Keep the current four-rope shape, sway, sag, tension response, and persistent dynamic buffers. Replace frame-local scratch allocation and implicit resource lifetime with one admitted rigging generation and typed results.
+Keep the new dust-stream visual and retired spline renderer. Replace the fixed implicit policy with one admitted, measured and observable wind-visual generation.
 
 ## Intent
 
-Produce one deterministic path from balloon-model admission through bounded rigging updates, exact resource retirement, diagnostics, and the matching rendered frame.
+Produce one deterministic path from accepted wind evidence through quality policy, bounded particle updates, degradation, retirement and the matching rendered frame.
 
 ## What needs to happen
 
-### Gate 1: Resource admission
+### Gate 1: Policy admission
 
-- [ ] Allocate `BalloonModelGeneration`, `RiggingGeneration`, and `RopeGeneration` identities.
-- [ ] Enumerate owned geometries, materials, dynamic buffers, and scratch sets.
-- [ ] Publish `RiggingResourceAdmissionResult` and an immutable resource manifest.
+- [ ] Add `WindVisualGeneration`, `WindPolicyRevision` and `QualityTierRevision`.
+- [ ] Move count, radii, size, opacity, noise profile and cadence into one immutable policy.
+- [ ] Bind the policy to the existing `open-above-quality-tier-kit`.
+- [ ] Publish `WindVisualAdmissionResult`.
 
-### Gate 2: Reusable scratch
+### Gate 2: Sample and update admission
 
-- [ ] Preallocate endpoint vectors and `segments + 1` point vectors per rope.
-- [ ] Reuse tangent, frame-normal, binormal, ring-normal, and ring-position vectors.
-- [ ] Preserve stable typed-array identities until retirement.
-- [ ] Keep raw Three.js objects outside renderer-neutral result state.
+- [ ] Publish an immutable `WindSampleRevision` from the accepted flight frame.
+- [ ] Bind frame, sample, visual generation, policy and dt before buffer mutation.
+- [ ] Reject stale or retired generations.
+- [ ] Publish `WindParticleUpdateResult`.
 
-### Gate 3: Frame update admission
+### Gate 3: Budget settlement
 
-- [ ] Bind `HostSessionId`, route, simulation, model, rigging, tension, and frame revisions.
-- [ ] Reject stale or retired generations before buffer mutation.
-- [ ] Publish `RiggingFrameUpdateResult` with updated ropes, vertices, and buffer revisions.
+- [ ] Record particles evaluated, noise evaluations and scalar writes.
+- [ ] Record position-buffer bytes and measured update duration.
+- [ ] Define measured low, medium and high policies.
+- [ ] Add explicit capacity, cadence or noise degradation without changing wind truth.
+- [ ] Publish `WindVisualBudgetResult`.
 
-### Gate 4: Budget settlement
+### Gate 4: Diagnostics and frame proof
 
-- [ ] Record update duration and temporary allocation count after warm-up.
-- [ ] Define an accepted long-flight CPU/allocation budget.
-- [ ] Keep any visual degradation explicit and non-authoritative for flight truth.
-- [ ] Publish `RiggingFrameBudgetResult`.
+- [ ] Add generation, sample, policy, quality, capacity, cadence, update and degradation state to diagnostics.
+- [ ] Publish `WindParticleFrameDigest` after the accepted buffer revision is rendered.
+- [ ] Publish `FirstWindParticleBoundFrameAck`.
 
-### Gate 5: Replacement and retirement
+### Gate 5: Retirement
 
-- [ ] Retire predecessor updates before detaching the old model.
-- [ ] Dispose owned geometries and materials exactly once.
-- [ ] Clear updater references and dynamic-buffer ownership.
-- [ ] Publish `RiggingResourceRetirementResult`.
+- [ ] Stop updates before detaching the active Points object.
+- [ ] Dispose geometry, material and texture exactly once.
+- [ ] Make repeated retirement harmless and observable.
+- [ ] Publish `WindVisualRetirementResult`.
 
-### Gate 6: Diagnostics and frame proof
+### Gate 6: Fixtures
 
-- [ ] Add rigging generation, update revision, buffer revisions, budget state, and retirement state to diagnostics.
-- [ ] Publish `RiggingFrameDigest`.
-- [ ] Publish `FirstRiggingBoundFrameAck` for the accepted generation.
-
-### Gate 7: Fixtures
-
-- [ ] Assert stable typed-array identities across updates.
-- [ ] Assert temporary allocation plateaus during a bounded long flight.
-- [ ] Assert stale writes stop after replacement and disposal.
-- [ ] Assert repeated retirement is harmless.
-- [ ] Verify source, Vite artifact, and Pages parity.
+- [ ] Construct the real field in a controlled runtime scene.
+- [ ] Assert stable array, attribute and resource identities across updates.
+- [ ] Assert map-open suspension causes no buffer mutation.
+- [ ] Measure warm and long-flight cost at each admitted quality tier.
+- [ ] Assert degradation does not alter Ballooning or Airstream truth.
+- [ ] Assert stale generation writes are rejected.
+- [ ] Verify source, Vite artifact and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/domains/ballooning/rigging/
-  balloon-rigging-frame-budget-resource-retirement-authority-domain.js
-  rigging-resource-manifest-kit.js
-  rigging-frame-plan-kit.js
-  rigging-update-budget-kit.js
-  rigging-resource-retirement-kit.js
+src/domains/sky/wind/
+  wind-particle-simulation-budget-quality-admission-authority-domain.js
+  wind-particle-policy-kit.js
+  wind-particle-quality-tier-kit.js
+  wind-particle-update-plan-kit.js
+  wind-particle-update-budget-kit.js
+  wind-particle-frame-digest-kit.js
 
-src/
-  rope-kit.js
-  hot-air-balloon-rigging-kit.js
-  hot-air-balloon-object-kit.js
+src/domains/sky/
+  sky-domain.js
+  wind-particle-field-kit.js
 
 tests/
-  rope-allocation-budget.mjs
-  rigging-replacement-retirement.mjs
-  rigging-frame-correlation.mjs
+  wind-particle-runtime.mjs
+  wind-particle-budget.mjs
+  wind-particle-frame-correlation.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve balloon geometry, four-rope layout, default 10×5 topology, sag, sway, tension response, burner animation, camera behavior, flight simulation, map behavior, sightseeing capture, and deployment.
+Preserve Airstream as renderer-neutral wind truth, Sky as production wind-visual owner, the 50 m player-centered field, deterministic seeding, normal blending, map suspension, explicit disposal, balloon simulation, steering, camera, clouds, sightseeing and deployment.
 
 ## Do not claim
 
-Do not claim an allocation plateau, leak-free replacement, exact disposal, stale-write rejection, rigging/frame convergence, artifact parity, Pages parity, or production readiness until implementation and fixtures exist.
+Do not claim an accepted device budget, performance improvement, visual correctness, stale-update rejection, exact wind-sample/frame convergence, artifact parity, Pages parity or production readiness until implementation and fixtures exist.
