@@ -1,38 +1,40 @@
-# START HERE: TheOpenAbove Balloon Rigging Frame Budget and Resource Retirement
+# START HERE: TheOpenAbove Wind Particle Budget and Frame Authority
 
-**Last aligned:** `2026-07-17T10-41-44-04-00`  
+**Last aligned:** `2026-07-17T15-41-19-04-00`  
 **Repository:** `LuminaryLabs-Publish/TheOpenAbove`  
 **Branch:** `main`  
-**Reviewed pre-audit repository head:** `9d9214b8c8cdbadf5c2ce40e6a794b1f88189877`  
-**Status:** `balloon-rigging-frame-budget-resource-retirement-authority-audited`
+**Reviewed pre-audit repository head:** `c066a1f4315ac7e0db87eb30ffb4bbe4201089d4`  
+**Previous documented head:** `2d2b4b3cf022905a61d584ada92cf85e0fcf1a82`  
+**Status:** `wind-particle-simulation-budget-quality-admission-authority-audited`
 
 ## Summary
 
-All ten eligible Publish repositories were tracked, documented, root-agent-covered, and synchronized. TheOpenAbove was selected by the oldest documented-selection rule.
+`TheOpenAbove` was the sole runtime-ahead eligible Publish repository. Seven commits replaced the legacy spline route renderer with a Sky-owned 3,200-particle dust field and added static wind visual policy checks.
 
-The current rigging keeps dynamic GPU buffers stable, but its CPU update path creates fresh endpoint, point, tangent, frame, binormal, and ring vectors every flight frame. Rigging and rope resources also lack an explicit owner/dispose result, and balloon replacement removes prior scene children without retiring their geometries and materials.
+The new field reuses typed buffers and explicitly disposes its resources. It still runs one fixed particle/noise policy on every accepted flight frame without quality-tier admission, measured CPU or buffer-write budgets, adaptive degradation, runtime browser proof or exact wind-sample-to-frame acknowledgement.
 
 ## Intent
 
-Preserve the current soft-rope appearance while binding one rigging generation to reusable scratch state, dynamic buffers, update budgets, replacement, retirement, diagnostics, and the matching rendered frame.
+Preserve the compressed dust-stream aesthetic while binding one wind-visual generation to accepted wind evidence, quality policy, particle capacity, update cadence, budgets, degradation, retirement and the matching rendered frame.
 
 ## What needs to happen
 
 ```txt
-balloon model and rigging construction
-  -> RiggingResourceAdmissionResult
-  -> immutable resource manifest
+WindVisualAdmissionCommand
+  -> WindVisualAdmissionResult
 
-accepted flight frame
-  -> RiggingFrameUpdateResult
-  -> RiggingFrameBudgetResult
+WindParticleUpdateCommand
+  -> WindParticleUpdateResult
 
-replacement / restart / disposal
-  -> RiggingResourceRetirementResult
+WindVisualBudgetSettlementCommand
+  -> WindVisualBudgetResult
 
-render commit
-  -> RiggingFrameDigest
-  -> FirstRiggingBoundFrameAck
+WindVisualRetirementCommand
+  -> WindVisualRetirementResult
+
+WindVisualProjectionCommitCommand
+  -> WindParticleFrameDigest
+  -> FirstWindParticleBoundFrameAck
 ```
 
 ## Checklist
@@ -40,29 +42,32 @@ render commit
 - [x] Compare all 11 Publish repositories.
 - [x] Exclude `LuminaryLabs-Publish/TheCavalryOfRome`.
 - [x] Confirm ten eligible ledgers and root `.agent` states.
-- [x] Select only TheOpenAbove by oldest documented-selection time.
-- [x] Reconcile the interaction loop, domains, 125 active surfaces, kits, and services.
-- [x] Add the `2026-07-17T10-41-44-04-00` audit family on `main`.
-- [ ] Implement scratch reuse, resource manifests, stale-update rejection, exact retirement, and diagnostics.
-- [ ] Run long-flight, replacement, browser, artifact, and Pages fixtures.
+- [x] Select only TheOpenAbove as the sole runtime-ahead repository.
+- [x] Reconcile seven commits and seven changed files.
+- [x] Reconcile the interaction loop, domains, 125 active surfaces, kits and services.
+- [x] Remove the retired Airstream visual kit from active inventory.
+- [x] Add the wind visual policy test kit to active proof inventory.
+- [x] Add the `2026-07-17T15-41-19-04-00` audit family on `main`.
+- [ ] Implement quality admission, cadence, budget results, diagnostics and frame proof.
+- [ ] Run runtime, long-flight, browser, artifact and Pages fixtures.
 
 ## Read this pass first
 
 ```txt
-.agent/trackers/2026-07-17T10-41-44-04-00/project-breakdown.md
-.agent/turn-ledger/2026-07-17T10-41-44-04-00.md
-.agent/architecture-audit/2026-07-17T10-41-44-04-00-balloon-rigging-frame-budget-resource-retirement-dsk-map.md
-.agent/render-audit/2026-07-17T10-41-44-04-00-rigging-buffer-allocation-visible-frame-gap.md
-.agent/gameplay-audit/2026-07-17T10-41-44-04-00-long-flight-rigging-allocation-loop.md
-.agent/interaction-audit/2026-07-17T10-41-44-04-00-rigging-update-retirement-command-result-map.md
-.agent/rigging-system-audit/2026-07-17T10-41-44-04-00-rope-scratch-buffer-resource-contract.md
-.agent/deploy-audit/2026-07-17T10-41-44-04-00-rigging-long-flight-resource-fixture-gate.md
-.agent/central-sync-audit/2026-07-17T10-41-44-04-00-oldest-selection-rigging-resource-reconciliation.md
+.agent/trackers/2026-07-17T15-41-19-04-00/project-breakdown.md
+.agent/turn-ledger/2026-07-17T15-41-19-04-00.md
+.agent/architecture-audit/2026-07-17T15-41-19-04-00-wind-particle-budget-quality-admission-dsk-map.md
+.agent/render-audit/2026-07-17T15-41-19-04-00-fixed-wind-particle-cost-frame-proof-gap.md
+.agent/gameplay-audit/2026-07-17T15-41-19-04-00-flight-wind-particle-update-loop.md
+.agent/interaction-audit/2026-07-17T15-41-19-04-00-wind-visual-command-result-map.md
+.agent/wind-system-audit/2026-07-17T15-41-19-04-00-dust-field-budget-quality-contract.md
+.agent/deploy-audit/2026-07-17T15-41-19-04-00-wind-particle-runtime-browser-fixture-gate.md
+.agent/central-sync-audit/2026-07-17T15-41-19-04-00-runtime-ahead-wind-particle-reconciliation.md
 ```
 
 ## Required parent domain
 
-`open-above-balloon-rigging-frame-budget-resource-retirement-authority-domain`
+`open-above-wind-particle-simulation-budget-quality-admission-authority-domain`
 
 ## Census
 
@@ -72,9 +77,9 @@ runtime-implied adapters:            14
 Nexus Engine provider surfaces:      30
 active documented surfaces:         125
 inactive Air Mail migration:          6
-planned rigging surfaces:            20
+planned wind authority surfaces:     20
 ```
 
 ## Claim boundary
 
-Documentation only. No allocation plateau, leak-free replacement, exact resource retirement, rigging/frame convergence, artifact parity, Pages parity, or production readiness is claimed.
+Documentation only. No accepted wind-visual budget, device-tier correctness, runtime/browser proof, wind-sample-to-frame convergence, artifact parity, Pages parity or production readiness is claimed.
