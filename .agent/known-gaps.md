@@ -1,107 +1,87 @@
-# Known Gaps: TheOpenAbove Camera Pointer-Look Gesture Admission and Retirement
+# Known Gaps: TheOpenAbove Balloon Rigging Frame Budget and Resource Retirement
 
-**Last aligned:** `2026-07-17T05-41-10-04-00`  
-**Status:** `camera-pointer-look-gesture-admission-retirement-authority-audited`
+**Last aligned:** `2026-07-17T10-41-44-04-00`  
+**Status:** `balloon-rigging-frame-budget-resource-retirement-authority-audited`
 
 ## Summary
 
-Immediate pointer drag look and delayed heading recentering are implemented. Surface admission, lifecycle settlement, diagnostics, and exact frame proof are not.
+The rope meshes reuse persistent typed GPU buffers, but the CPU update path and resource lifetime remain implicit. No source-backed claim is made that long-flight allocation plateaus or that replacement/disposal retires every predecessor resource.
 
 ## Intent
 
-Keep camera-look correctness claims provisional until one authority binds pointer evidence to the active flight surface and publishes a terminal gesture result, accepted pose revision, projection digest, and matching frame acknowledgement.
+Keep rigging performance and lifecycle claims provisional until one authority owns scratch memory, dynamic buffers, replacement, disposal, diagnostics, and the matching frame.
 
 ## What needs to happen
 
-### Admission gaps
+### Allocation and update gaps
 
 ```txt
-primary button check: present
-matching pointerId check: present
-main #game canvas requirement: absent
-map-overlay suppression: absent
-error-surface suppression: absent
-HostSessionId binding: absent
-RouteRevision binding: absent
-MapStateRevision binding: absent
-CameraRigGeneration: absent
-GestureId: absent
+persistent typed position/normal buffers: present
+in-place BufferAttribute writes: present
+bounded default topology: present
+fresh endpoint vectors per rope/frame: present
+fresh point array and point vectors: present
+fresh tangent/frame/binormal vectors: present
+fresh ring normal/position vectors: present
+reusable scratch pool: absent
+allocation counter/budget: absent
+update duration result: absent
 ```
 
-### Capture and owner gaps
+### Identity and ownership gaps
 
 ```txt
-event-target pointer capture request: present
-CaptureLeaseRevision: absent
-capture acquisition result: absent
-explicit capture release: absent
-lostpointercapture handler: absent
-owner conflict result: absent
-stale delta rejection: absent
+BalloonModelGeneration: absent
+RiggingGeneration: absent
+RopeGeneration: absent
+resource manifest: absent
+buffer ownership result: absent
+scratch ownership result: absent
+stale update rejection: absent
 ```
 
-### Lifecycle gaps
+### Replacement and retirement gaps
 
 ```txt
-pointerup settlement: present
-pointercancel settlement: present
-blur state clear: present
-named blur listener identity: absent
-blur listener removal on dispose: absent
-visibilitychange settlement: absent
-map-open settlement: absent
-route-retirement settlement: absent
-rig-replacement settlement: absent
-idempotent terminal result: absent
-```
-
-### Pose and recenter gaps
-
-```txt
-lookYaw/lookPitch state: present
-yaw/pitch clamps: present
-five-second recenter delay: present
-heading-relative basis: present
-simulation-clock admission result: absent
-heading revision binding: absent
-CameraLookPoseRevision: absent
-CameraLookPoseResult: absent
+old vehicle children detached: present
+explicit predecessor update stop: absent
+owned geometry disposal result: absent
+owned material disposal result: absent
+idempotent retirement result: absent
+resource-reference clearing: absent
+post-retirement write proof: absent
 ```
 
 ### Render and diagnostics gaps
 
 ```txt
-camera position/target commit: present
-FOV/projection update: present
-cameraSnapshot zoom/mode/blend: present
-cameraSnapshot look/gesture/recenter state: absent
-CameraLookFrameDigest: absent
-FirstCameraLookFrameAck: absent
-map-hidden delta rejection proof: absent
+rigging generation in diagnostics: absent
+rope buffer revisions: absent
+updated vertex count: absent
+budget/degradation state: absent
+RiggingFrameDigest: absent
+FirstRiggingBoundFrameAck: absent
 ```
 
 ### Proof gaps
 
 ```txt
-main-canvas real Pointer Event fixture: absent
-map-canvas rejection fixture: absent
-multi-pointer owner fixture: absent
-lostpointercapture fixture: absent
-blur/hidden fixture: absent
-replacement/disposal listener fixture: absent
-five-second recenter boundary fixture: absent
-pose-to-render-frame correlation fixture: absent
+long-flight allocation plateau: absent
+stable typed-array identity fixture: absent
+replacement resource retirement fixture: absent
+double-retirement fixture: absent
+stale update rejection fixture: absent
 source/build/Pages parity: absent
 ```
 
 ## Current risk boundary
 
-Source inspection proves that all primary pointerdown events are admitted globally and that the map overlay becomes pointer-interactive. It also proves that the anonymous blur listener is not removed by `dispose()` and that no capture-loss or frame acknowledgement exists. It does not prove the severity or frequency of a player-visible failure.
+Source inspection proves that dynamic buffers are reused and temporary CPU objects are constructed during every rope update. It also proves that the balloon, rigging, and rope kits expose no explicit disposal service. It does not prove the severity or frequency of a browser-visible hitch or leak.
 
 ## Retained product gaps
 
-Gaussian cloud membership stability, camera zoom ownership, rendered-photo artifacts, validation severity, weather simulation-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, provider/build identity, route retirement, terrain/flora proof, and persistence remain unresolved.
+Camera pointer admission, Gaussian cloud membership, camera zoom ownership, rendered-photo artifacts, validation severity, weather-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, provider identity, route retirement, terrain/flora proof, and persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim render-surface input isolation, complete gesture settlement, leak-free camera-rig replacement, exact camera-pose frame convergence, artifact parity, Pages parity, or production readiness until implementation and fixtures exist.
+Do not claim bounded rigging allocation, leak-free replacement, exact resource retirement, stable long-flight performance, exact rigging/frame convergence, artifact parity, Pages parity, or production readiness until implementation and fixtures exist.
