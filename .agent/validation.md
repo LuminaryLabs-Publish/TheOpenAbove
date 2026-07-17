@@ -1,48 +1,49 @@
-# Validation: TheOpenAbove Sightseeing Photo Frame Artifact
+# Validation: TheOpenAbove Camera Capture Zoom Projection
 
-**Last aligned:** `2026-07-16T14-59-39-04-00`
+**Last aligned:** `2026-07-16T20-40-58-04-00`
 
 ## Scope
 
-Documentation-only reconciliation of the current Publish inventory, the 26-commit semantic-domain/sightseeing/steering delta, the complete interaction/domain/kit/service inventory and the missing frame-bound photo artifact authority.
+Documentation-only reconciliation of the complete Publish inventory, oldest eligible selection, current interaction/domain/kit/service inventory and the shared wheel/camera projection ownership gap.
 
 ## Summary
 
-Source inspection confirms that the active scene now evaluates shutter requests after camera and visual updates but before the engine tick and render call. It also confirms that the image-capture domain records metadata only; the renderer is used for wheel input registration, not pixel acquisition.
+Source inspection confirms two wheel listeners and two camera policies. Image Capture changes a private capture zoom and writes camera FOV on the renderer-canvas event. The Balloon Camera Rig listens globally, changes follow distance and writes camera FOV during each Experience update. Capture scoring later reads the private zoom value rather than an accepted camera projection result.
 
 ## Intent
 
-Separate verified sightseeing behavior from unimplemented rendered-frame capture, immutable artifact identity, persistence and journal projection.
+Separate verified source behavior from unimplemented single-owner input admission, ordered camera projection commit and projection-bound score evidence.
 
 ## Checklist
 
 - [x] Enumerate all 11 accessible Publish repositories.
 - [x] Exclude `TheCavalryOfRome`.
 - [x] Confirm ten eligible central ledgers and root `.agent` states.
-- [x] Select TheOpenAbove as the remaining runtime-ahead repository.
-- [x] Compare `aac119fd..d0677937`.
-- [x] Inspect semantic domains, Meadow Lift scene, image capture, map, steering and wind particles.
-- [x] Reconcile active and retired kit surfaces.
+- [x] Confirm no new, missing, undocumented or runtime-ahead repository.
+- [x] Select TheOpenAbove by the oldest synchronized timestamp.
+- [x] Inspect Image Capture, Experience, Camera Rig, Meadow Lift, Journey and map lifecycle code.
+- [x] Reconcile all 121 active surfaces and offered services.
 - [x] Add and route the timestamped audit family.
-- [ ] Execute capture, browser, build, artifact and Pages fixtures.
+- [ ] Execute browser, build, artifact and Pages fixtures.
 
 ## Confirmed by inspection
 
 ```txt
-reviewed pre-audit repository head: d0677937043224bb295bd3b270c336aed0e2a2b1
-previous central repo-local head: aac119fd0b793ea4a86edee7167f87d4d740275b
-runtime ahead by: 26 commits
-changed files: 19
+reviewed pre-audit repository head: 7f8de3ab0b6c8540992a22a9605586ef993e14e3
+previous central repo-local head: 7f8de3ab0b6c8540992a22a9605586ef993e14e3
+runtime ahead before audit: no
 semantic active domains: 7
-Air Mail active in Meadow Lift scene: no
-immediate wind-relative steering kit: yes
-player-centered wind particle field: yes
-image capture camera mode and zoom: yes
-landmark recognition and score: yes
-capture metadata records: yes
-rendered pixel capture: no
-image artifact digest/storage: no
-actual-photo journal projection: no
+active named surfaces: 121
+inactive Air Mail migration surfaces: 6
+
+Image Capture renderer-canvas wheel listener: yes
+Camera Rig global wheel listener: yes
+capture direct FOV write: yes
+Camera Rig FOV write each update: yes
+capture score reads private zoom: yes
+score reads committed projection result: no
+single zoom owner result: no
+FirstZoomBoundFrameAck: no
 ```
 
 ## Source inspection performed
@@ -51,42 +52,33 @@ actual-photo journal projection: no
 LuminaryLabs-Publish organization inventory
 LuminaryLabs-Dev/LuminaryLabs Publish ledgers
 TheOpenAbove central ledger and root .agent state
-compare aac119fd..d0677937
-src/domains/README.md
 src/scenes/meadow-lift-scene.js
 src/domains/journey/journey-domain.js
-src/domains/ballooning/ballooning-domain.js
-src/domains/ballooning/wind-relative-steering-kit.js
-src/domains/sky/sky-domain.js
-src/domains/sky/wind-particle-field-kit.js
-src/domains/land/land-domain.js
 src/domains/navigation/navigation-domain.js
 src/domains/image-capture/image-capture-domain.js
 src/domains/experience/experience-domain.js
-src/runtime/balloon-simulation-kit.js
+src/visual/camera-presentation/balloon-camera-rig-kit.js
 src/ui/parchment-map-overlay.js
+previous complete kit/service tracker
 ```
 
 ## What source inspection proves
 
 ```txt
-Meadow Lift owns semantic domain composition
-Air Mail is retired from the active scene
-shutter input creates a pending semantic request
-capture evaluation uses camera direction, distance and zoom
-capture metadata settles before engine tick and render
-no renderer pixel source is read
-no immutable image artifact is created
-map journal renders reference graphics and completion state only
+one canvas wheel event can enter Image Capture
+that event can propagate to the global Camera Rig listener
+both paths mutate camera-related state
+Camera Rig overwrites FOV during the next Experience update
+recognition scoring uses the capture-domain zoom scalar
+no shared projection revision or result exists
 ```
 
 ## What is not proven
 
 ```txt
-that current scoring is incorrect
-that a user-visible capture defect has been reported
-photo bytes or persistence correctness
-artifact lifecycle correctness
+severity of visible mismatch on every browser/device
+that a specific user-visible defect was reported
+correct behavior after a proposed implementation
 source/build/Pages parity
 production readiness
 ```
@@ -94,12 +86,14 @@ production readiness
 ## Required fixtures
 
 ```txt
-recognized landmark -> exact image bytes, digest and accepted score
-unidentified view -> explicit artifact retention result
-resize/render-scale change -> no mixed-generation capture
-map-open or retired route -> request rejected or explicitly deferred
-journal -> actual artifact shown with matching identity
-source -> Vite artifact -> Pages capture parity
+flight mode -> wheel changes follow distance only
+sightseeing mode -> wheel changes optical projection only
+capture after wheel -> score evidence equals rendered FOV
+pixel/line/page wheel -> policy-normalized behavior
+trackpad momentum -> bounded deterministic result
+mode/map/route transition -> stale intents rejected
+resize/DPR/render-scale -> projection revision remains coherent
+source -> Vite artifact -> Pages behavior matches
 ```
 
 ## Change scope
@@ -107,19 +101,19 @@ source -> Vite artifact -> Pages capture parity
 ```txt
 documentation changed: yes
 runtime JavaScript changed by audit: no
+input, camera, gameplay or rendering changed by audit: no
 tests or package scripts changed by audit: no
-world, weather, gameplay or rendering changed by audit: no
 workflow or deployment changed by audit: no
 branch created: no
 pull request created: no
 
 npm run check: not run
 npm run build: not run
-browser photo fixtures: not run
+browser zoom fixtures: not run
 artifact downloaded: no
 Pages origin fetched: no
 ```
 
 ## Claims intentionally withheld
 
-No claim is made for rendered-photo capture, artifact durability, score/frame convergence, journal photo parity, artifact parity, Pages parity or production readiness.
+No claim is made for single-owner wheel input, correct optical zoom, projection-bound scoring, visible-frame convergence, artifact parity, Pages parity or production readiness.
