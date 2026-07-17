@@ -169,7 +169,8 @@ export function createCloudBankField({ layers = [], worldSurface = null, seed = 
       const dx = bank.center.x - Number(position.x ?? 0);
       const dy = bank.center.y - Number(position.y ?? 0);
       const dz = bank.center.z - Number(position.z ?? 0);
-      return dx * dx + dy * dy + dz * dz <= distanceLimitSq;
+      const reach = distanceLimit + Math.max(Number(bank.radius?.x ?? 0), Number(bank.radius?.y ?? 0), Number(bank.radius?.z ?? 0));
+      return dx * dx + dy * dy + dz * dz <= Math.max(distanceLimitSq, reach * reach);
     });
   }
 
