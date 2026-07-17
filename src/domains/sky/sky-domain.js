@@ -24,7 +24,13 @@ export function createSkyDomain({
   function mount({ scene, runtimeEngine } = {}) {
     bindRuntimeEngine(runtimeEngine);
     airstream = createAirstreamDomain({ scene, routes, debug: false });
-    windParticles = createWindParticleField({ scene, particleCount: 3200, radius: 50 });
+    windParticles = createWindParticleField({
+      scene,
+      particleCount: 3200,
+      radius: 50,
+      particleSize: 0.11,
+      opacity: 0.5
+    });
     return api;
   }
 
@@ -61,7 +67,13 @@ export function createSkyDomain({
     weatherSnapshot,
     cloudFormSnapshot: () => cloudField.snapshot(),
     airstreamSnapshot: () => airstream?.snapshot?.() ?? null,
-    windParticleSnapshot: () => windParticles ? Object.freeze({ particleCount: windParticles.particleCount, radius: windParticles.radius }) : null,
+    windParticleSnapshot: () => windParticles ? Object.freeze({
+      particleCount: windParticles.particleCount,
+      radius: windParticles.radius,
+      particleSize: windParticles.particleSize,
+      opacity: windParticles.opacity,
+      noiseModel: windParticles.noiseModel
+    }) : null,
     get airstream() { return airstream; },
     get windParticles() { return windParticles; },
     get weather() { return engine?.n?.weather ?? null; },
