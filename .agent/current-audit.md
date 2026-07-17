@@ -1,106 +1,106 @@
-# Current Audit: TheOpenAbove Sightseeing Photo Frame Artifact
+# Current Audit: TheOpenAbove Camera Capture Zoom Projection
 
-**Last aligned:** `2026-07-16T14-59-39-04-00`  
-**Status:** `sightseeing-photo-frame-artifact-authority-audited`  
-**Previous central repo-local head:** `aac119fd0b793ea4a86edee7167f87d4d740275b`  
-**Reviewed pre-audit repository head:** `d0677937043224bb295bd3b270c336aed0e2a2b1`
+**Last aligned:** `2026-07-16T20-40-58-04-00`  
+**Status:** `camera-capture-zoom-projection-authority-audited`  
+**Previous central repo-local head:** `7f8de3ab0b6c8540992a22a9605586ef993e14e3`  
+**Reviewed pre-audit repository head:** `7f8de3ab0b6c8540992a22a9605586ef993e14e3`
 
 ## Summary
 
-The active Meadow Lift route is now composed from Journey, Ballooning, Sky, Land, Navigation, Image Capture and Experience domains. Air Mail is retired from the scene. Sightseeing capture recognizes landforms from camera direction, distance and zoom, then records metadata and updates the map journal.
-
-The capture domain does not read rendered pixels or create an image artifact. The shutter result settles before `engine.tick(dt)` and before `experience.render(...)`, so the recorded result is not bound to a presented frame.
+The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture and Experience. The current focused gap is shared camera ownership: normal follow zoom and sightseeing optical zoom independently consume wheel evidence and independently write camera state.
 
 ## Intent
 
-Make one exact rendered frame the authority for photo bytes, score, journal state and visible confirmation.
+Make one committed projection result authoritative for what the player sees and what sightseeing recognition scores.
 
 ## What needs to happen
 
 ```txt
-PhotoCaptureCommand
-  -> bind request, route, session, camera and frame revisions
-  -> bind world, weather, renderer and capture-policy revisions
-  -> admit one post-update capture frame
-  -> create immutable image bytes and digest
-  -> score recognition from the same accepted camera/frame state
-  -> publish PhotoCaptureResult
-  -> project actual photo into the journal
-  -> publish FirstPhotoArtifactAck and FirstJournalPhotoFrameAck
+CameraZoomIntentCommand
+  -> bind route, session, camera, mode and viewport revisions
+  -> normalize wheel units
+  -> choose exactly one active owner
+  -> publish CameraZoomIntentResult
+
+CameraProjectionCommitCommand
+  -> combine camera-rig pose with the accepted optical policy
+  -> commit one FOV/projection revision
+  -> publish CameraProjectionResult
+
+PhotoZoomEvidenceCommand
+  -> score from the committed projection result
+  -> render one matching frame
+  -> publish FirstZoomBoundFrameAck
 ```
-
-## Checklist
-
-- [x] Compare the current Publish inventory and central coverage.
-- [x] Select one priority repository only.
-- [x] Inspect the semantic composition, image capture, map, steering and wind-particle changes.
-- [x] Identify the current interaction loop and domain boundaries.
-- [x] Inventory 121 active named surfaces and their services.
-- [x] Define the photo-frame artifact authority and proof boundary.
-- [ ] Implement bitmap capture, immutable identity, storage and retirement.
-- [ ] Execute capture, journal, build, artifact and deployed-origin fixtures.
 
 ## Interaction loop
 
 ```txt
 boot
-  -> create Core World/Weather engine
-  -> create Land and Experience
-  -> mount Ballooning, Sky, Navigation and Image Capture
-  -> create Journey frame ownership
+  -> compose semantic Meadow Lift domains
+  -> Experience creates shared camera and renderer
+  -> Camera Rig binds global wheel input
+  -> Image Capture binds renderer-canvas wheel input
 
-flight frame
-  -> Ballooning updates simulation and immediate wind-relative steering
-  -> Sky updates airstream visualization and 3,200 local wind particles
-  -> Experience updates balloon, camera and visual world
-  -> Image Capture evaluates a pending shutter request
-  -> engine ticks
-  -> Experience renders
+flight mode
+  -> wheel changes camera-rig follow distance
 
-map frame
-  -> simulation dt becomes zero while map is open
-  -> parchment map redraws world, routes, Snap Points and generic reference card
+sightseeing mode
+  -> canvas wheel changes capture zoom and FOV
+  -> the same event can reach global Camera Rig input
+  -> Camera Rig also changes follow distance
+
+next frame
+  -> Experience updates Camera Rig
+  -> Camera Rig writes position, look target and FOV
+  -> Image Capture evaluates with private capture zoom
+  -> Experience renders Camera Rig projection
 ```
 
 ## Domains in use
 
 ```txt
-Journey: session, region, map policy, RAF and snapshots
-Ballooning: balloon object, controls, buoyancy, drift, steering and terrain contact
-Sky: airstreams, Core Weather access and local wind visualization
-Land: world configuration, Core World surfaces, terrain and generation readback
-Navigation: map lifecycle, world projection, routes and Snap Point journal
-Image Capture: camera mode, zoom, shutter, recognition, score and metadata records
-Experience: renderer, camera, visual world, balloon presentation and render
+Journey: session, map policy, RAF and aggregate snapshots
+Ballooning: balloon simulation, steering, terrain contact and pose
+Sky: airstreams, Weather/Layered Weather and local wind particles
+Land: Core World configuration, features, foundation and terrain readback
+Navigation: map lifecycle, routes, Snap Points and journal projection
+Image Capture: camera mode, capture zoom, shutter, recognition and score
+Experience: renderer, camera, Camera Rig, visual update and render
 Nexus Engine: World, Foundation, Features, Landforms, Atmosphere, Weather and Layered Weather
-Build/deploy: tiered validation, Vite artifact and GitHub Pages
+Build/deploy: validation, Vite artifact and GitHub Pages
 ```
 
 ## Current finding
 
 ```txt
-semantic capture record: present
-camera-mode and zoom controls: present
-landmark recognition and score: present
-Snap Point completion: present
-journal/map status projection: present
+flight follow-distance wheel owner: present
+sightseeing optical wheel owner: present
+shared bubbling wheel source: present
+direct FOV writes from both camera paths: present
+capture score private zoom: present
 
-rendered pixel capture: absent
-capture frame identity: absent
-camera matrix receipt: absent
-world/weather generation binding: absent
-photo bytes and digest: absent
-artifact persistence/retirement: absent
-actual-photo journal projection: absent
-PhotoCaptureResult: absent
-FirstPhotoArtifactAck: absent
-FirstJournalPhotoFrameAck: absent
+single mode-aware owner: absent
+ordered camera projection commit: absent
+actual FOV/effective zoom result: absent
+score-to-projection binding: absent
+FirstZoomBoundFrameAck: absent
+```
+
+The Image Capture listener prevents default browser behavior but does not stop the event from reaching the global Camera Rig listener. The Camera Rig then overwrites FOV during `Experience.update()` before capture evaluation and rendering. No specific player incident was reproduced.
+
+## Inventory
+
+The complete 121-surface kit/provider/adapter inventory and offered services are recorded in:
+
+```txt
+.agent/trackers/2026-07-16T20-40-58-04-00/project-breakdown.md
 ```
 
 ## Required parent domain
 
-`open-above-sightseeing-photo-frame-artifact-authority-domain`
+`open-above-sightseeing-camera-zoom-projection-authority-domain`
 
 ## Boundary
 
-Documentation only. Runtime, rendering, controls, world generation, tests and deployment were not changed by this audit.
+Documentation only. Runtime, rendering, input, gameplay, tests, build and deployment were not changed.
