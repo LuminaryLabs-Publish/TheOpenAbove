@@ -36,6 +36,8 @@ assert.match(renderer, /smoothstep\(18\.0, 140\.0, vDistance\)/);
 assert.match(renderer, /candidates\.sort\(\(left, right\) => left\.distanceSquared - right\.distanceSquared\)/);
 assert.match(renderer, /candidates\.length = capacity/);
 assert.match(renderer, /candidates\.sort\(\(left, right\) => right\.distanceSquared - left\.distanceSquared\)/);
+assert.match(renderer, /fog: false/);
+assert.doesNotMatch(renderer, /fog: true/);
 
 const visual = readFileSync("src/visual/visual-domain.js", "utf8");
 assert.match(visual, /createGaussianCloudRenderer/);
