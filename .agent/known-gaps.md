@@ -1,91 +1,107 @@
-# Known Gaps: TheOpenAbove Gaussian Cloud LOD Membership Transition
+# Known Gaps: TheOpenAbove Camera Pointer-Look Gesture Admission and Retirement
 
-**Last aligned:** `2026-07-17T02-32-08-04-00`  
-**Status:** `gaussian-cloud-lod-membership-transition-authority-audited`
+**Last aligned:** `2026-07-17T05-41-10-04-00`  
+**Status:** `camera-pointer-look-gesture-admission-retirement-authority-audited`
 
 ## Summary
 
-The deterministic field, LOD tiers, weather visibility and nearest-first capacity policy are implemented. Cross-frame membership admission and transition proof are not.
+Immediate pointer drag look and delayed heading recentering are implemented. Surface admission, lifecycle settlement, diagnostics, and exact frame proof are not.
 
 ## Intent
 
-Keep cloud continuity claims provisional until one authority publishes stable membership, the committed buffer generation and a matching frame acknowledgement.
+Keep camera-look correctness claims provisional until one authority binds pointer evidence to the active flight surface and publishes a terminal gesture result, accepted pose revision, projection digest, and matching frame acknowledgement.
 
 ## What needs to happen
 
-### Identity gaps
+### Admission gaps
 
 ```txt
-CloudFieldRevision: absent
-CloudFieldDigest: absent
-CloudRebatchGeneration: absent
-CameraPoseRevision binding: absent
-WeatherRevision binding: absent
-predecessor membership revision: absent
+primary button check: present
+matching pointerId check: present
+main #game canvas requirement: absent
+map-overlay suppression: absent
+error-surface suppression: absent
+HostSessionId binding: absent
+RouteRevision binding: absent
+MapStateRevision binding: absent
+CameraRigGeneration: absent
+GestureId: absent
 ```
 
-### Capacity gaps
+### Capture and owner gaps
 
 ```txt
-fixed quality capacity: present
-nearest-first overflow selection: present
-per-bank quota result: absent
-bounded eviction per frame: absent
-capacity settlement receipt: absent
-```
-
-### LOD and transition gaps
-
-```txt
-five distance tiers: present
-single threshold per tier: present
-enter/leave hysteresis: absent
-predecessor retention: absent
-entering/leaving classification: absent
-crossfade: absent
-teleport reset result: absent
-stale rebatch rejection: absent
-```
-
-### Render gaps
-
-```txt
-direct instance-buffer replacement: present
-far-to-near ordering: present
-immutable buffer generation: absent
-membership digest: absent
-CloudProjectionResult: absent
-FirstGaussianCloudFrameAck: absent
+event-target pointer capture request: present
+CaptureLeaseRevision: absent
+capture acquisition result: absent
+explicit capture release: absent
+lostpointercapture handler: absent
+owner conflict result: absent
+stale delta rejection: absent
 ```
 
 ### Lifecycle gaps
 
 ```txt
-map-open transition-clock policy: absent
-page suspension/resume settlement: absent
-WebGL recovery membership reset: absent
-route/disposal pending-work retirement: absent
+pointerup settlement: present
+pointercancel settlement: present
+blur state clear: present
+named blur listener identity: absent
+blur listener removal on dispose: absent
+visibilitychange settlement: absent
+map-open settlement: absent
+route-retirement settlement: absent
+rig-replacement settlement: absent
+idempotent terminal result: absent
+```
+
+### Pose and recenter gaps
+
+```txt
+lookYaw/lookPitch state: present
+yaw/pitch clamps: present
+five-second recenter delay: present
+heading-relative basis: present
+simulation-clock admission result: absent
+heading revision binding: absent
+CameraLookPoseRevision: absent
+CameraLookPoseResult: absent
+```
+
+### Render and diagnostics gaps
+
+```txt
+camera position/target commit: present
+FOV/projection update: present
+cameraSnapshot zoom/mode/blend: present
+cameraSnapshot look/gesture/recenter state: absent
+CameraLookFrameDigest: absent
+FirstCameraLookFrameAck: absent
+map-hidden delta rejection proof: absent
 ```
 
 ### Proof gaps
 
 ```txt
-still-camera membership fixture: absent
-LOD boundary oscillation fixture: absent
-capacity-pressure transition fixture: absent
-low/medium/high browser fixture: absent
-context recovery fixture: absent
-source/build/Pages digest parity: absent
+main-canvas real Pointer Event fixture: absent
+map-canvas rejection fixture: absent
+multi-pointer owner fixture: absent
+lostpointercapture fixture: absent
+blur/hidden fixture: absent
+replacement/disposal listener fixture: absent
+five-second recenter boundary fixture: absent
+pose-to-render-frame correlation fixture: absent
+source/build/Pages parity: absent
 ```
 
 ## Current risk boundary
 
-The source proves that every rebatch recomputes and replaces retained membership without predecessor state or transition metadata. It does not prove the severity of visible popping on every device, and no specific player report was reproduced.
+Source inspection proves that all primary pointerdown events are admitted globally and that the map overlay becomes pointer-interactive. It also proves that the anonymous blur listener is not removed by `dispose()` and that no capture-loss or frame acknowledgement exists. It does not prove the severity or frequency of a player-visible failure.
 
 ## Retained product gaps
 
-Camera zoom ownership, rendered-photo artifacts, validation severity, weather simulation-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, provider/build identity, route retirement, terrain/flora proof and persistence remain unresolved.
+Gaussian cloud membership stability, camera zoom ownership, rendered-photo artifacts, validation severity, weather simulation-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, provider/build identity, route retirement, terrain/flora proof, and persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim stable Gaussian membership, pop-free tier transitions, bounded overflow replacement, exact cloud-frame convergence, artifact parity, Pages parity or production readiness until implementation and fixtures exist.
+Do not claim render-surface input isolation, complete gesture settlement, leak-free camera-rig replacement, exact camera-pose frame convergence, artifact parity, Pages parity, or production readiness until implementation and fixtures exist.
