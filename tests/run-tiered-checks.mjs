@@ -2,6 +2,7 @@ import { spawnSync } from "node:child_process";
 
 const suites = [
   "tests/smoke.mjs",
+  "tests/wind-visuals.mjs",
   "tests/world-feature-foundation.mjs",
   "tests/world-domain-composition.mjs",
   "tests/layered-weather-integration.mjs",
