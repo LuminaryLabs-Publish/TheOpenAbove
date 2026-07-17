@@ -1,106 +1,114 @@
-# Current Audit: TheOpenAbove Camera Capture Zoom Projection
+# Current Audit: TheOpenAbove Gaussian Cloud LOD Membership Transition
 
-**Last aligned:** `2026-07-16T20-40-58-04-00`  
-**Status:** `camera-capture-zoom-projection-authority-audited`  
-**Previous central repo-local head:** `7f8de3ab0b6c8540992a22a9605586ef993e14e3`  
-**Reviewed pre-audit repository head:** `7f8de3ab0b6c8540992a22a9605586ef993e14e3`
+**Last aligned:** `2026-07-17T02-32-08-04-00`  
+**Status:** `gaussian-cloud-lod-membership-transition-authority-audited`  
+**Previous central repo-local head:** `132f1c5998c86a0201b48215167f8bf28d921e6c`  
+**Reviewed pre-audit repository head:** `5695e11ab7948ea6417b3ccf1c1d66550aa5c4df`
 
 ## Summary
 
-The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture and Experience. The current focused gap is shared camera ownership: normal follow zoom and sightseeing optical zoom independently consume wheel evidence and independently write camera state.
+The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture and Experience. Sky now publishes a deterministic close-cloud bank field. Visual projects ground fog, low clouds and mid clouds through an instanced Gaussian adapter while high clouds and cirrus remain on the distant volumetric renderer.
+
+The focused gap is membership settlement. Rebatching is deterministic from current inputs but does not preserve or acknowledge a stable cross-frame membership generation.
 
 ## Intent
 
-Make one committed projection result authoritative for what the player sees and what sightseeing recognition scores.
+Make one accepted cloud membership and instance-buffer generation authoritative for what the player sees during close-cloud traversal.
 
 ## What needs to happen
 
 ```txt
-CameraZoomIntentCommand
-  -> bind route, session, camera, mode and viewport revisions
-  -> normalize wheel units
-  -> choose exactly one active owner
-  -> publish CameraZoomIntentResult
+CloudFieldAdmissionCommand
+  -> bind world, weather-layer, seed and quality revisions
+  -> CloudFieldAdmissionResult
+  -> CloudFieldRevision / CloudFieldDigest
 
-CameraProjectionCommitCommand
-  -> combine camera-rig pose with the accepted optical policy
-  -> commit one FOV/projection revision
-  -> publish CameraProjectionResult
+CloudSplatBudgetCommand
+  -> bind camera, weather, predecessor membership and capacity
+  -> stable per-bank quotas
+  -> CloudSplatBudgetResult
 
-PhotoZoomEvidenceCommand
-  -> score from the committed projection result
-  -> render one matching frame
-  -> publish FirstZoomBoundFrameAck
+CloudMembershipTransitionCommand
+  -> apply LOD hysteresis, retention and crossfade
+  -> reject stale rebatches
+  -> CloudLodMembershipResult
+
+CloudProjectionCommitCommand
+  -> commit one instance-buffer generation
+  -> CloudProjectionResult / CloudProjectionDigest
+  -> FirstGaussianCloudFrameAck
 ```
 
 ## Interaction loop
 
 ```txt
 boot
-  -> compose semantic Meadow Lift domains
-  -> Experience creates shared camera and renderer
-  -> Camera Rig binds global wheel input
-  -> Image Capture binds renderer-canvas wheel input
+  -> Sky builds deterministic close-cloud banks
+  -> Experience passes field and live weather to Visual
+  -> Visual separates Gaussian close layers from distant volumetric layers
 
-flight mode
-  -> wheel changes camera-rig follow distance
-
-sightseeing mode
-  -> canvas wheel changes capture zoom and FOV
-  -> the same event can reach global Camera Rig input
-  -> Camera Rig also changes follow distance
-
-next frame
-  -> Experience updates Camera Rig
-  -> Camera Rig writes position, look target and FOV
-  -> Image Capture evaluates with private capture zoom
-  -> Experience renders Camera Rig projection
+frame
+  -> Weather and Layered Weather advance
+  -> camera movement or 0.2-second age requests rebatch
+  -> field query returns volume-reachable banks
+  -> bank distance selects one of five tiers
+  -> candidates receive live weather opacity
+  -> nearest-first sort and fixed-capacity truncation
+  -> far-to-near sort
+  -> direct instance-buffer replacement
+  -> HDR presentation
 ```
 
 ## Domains in use
 
 ```txt
 Journey: session, map policy, RAF and aggregate snapshots
-Ballooning: balloon simulation, steering, terrain contact and pose
-Sky: airstreams, Weather/Layered Weather and local wind particles
+Ballooning: flight simulation, wind-relative steering, terrain contact and pose
+Sky: airstreams, Weather readback, wind particles and deterministic cloud field
 Land: Core World configuration, features, foundation and terrain readback
 Navigation: map lifecycle, routes, Snap Points and journal projection
-Image Capture: camera mode, capture zoom, shutter, recognition and score
-Experience: renderer, camera, Camera Rig, visual update and render
-Nexus Engine: World, Foundation, Features, Landforms, Atmosphere, Weather and Layered Weather
-Build/deploy: validation, Vite artifact and GitHub Pages
+Image Capture: camera mode, shutter, recognition and score
+Experience: renderer, camera, visual update/render and diagnostics
+Core World: Foundation, Features, Landforms and Atmosphere descriptors
+Weather: base and semantic layered weather advancement/snapshots
+Cloud presentation: Gaussian close layers plus volumetric high/cirrus layers
+Build/deploy: tiered validation, Vite artifact and GitHub Pages
 ```
 
 ## Current finding
 
 ```txt
-flight follow-distance wheel owner: present
-sightseeing optical wheel owner: present
-shared bubbling wheel source: present
-direct FOV writes from both camera paths: present
-capture score private zoom: present
+five deterministic LOD tiers: present
+volume-reach bank query: present
+nearest-first capacity retention: present
+far-to-near transparency ordering: present
+quality capacities 7000/4400/2400: present
 
-single mode-aware owner: absent
-ordered camera projection commit: absent
-actual FOV/effective zoom result: absent
-score-to-projection binding: absent
-FirstZoomBoundFrameAck: absent
+accepted rebatch generation: absent
+predecessor membership: absent
+per-bank quota result: absent
+LOD hysteresis: absent
+membership retention: absent
+enter/leave crossfade: absent
+stale rebatch rejection: absent
+CloudProjectionDigest: absent
+FirstGaussianCloudFrameAck: absent
 ```
 
-The Image Capture listener prevents default browser behavior but does not stop the event from reaching the global Camera Rig listener. The Camera Rig then overwrites FOV during `Experience.update()` before capture evaluation and rendering. No specific player incident was reproduced.
+A rebatch overwrites all instance attributes and `instanceCount` after camera movement or a 0.2-second timeout. No specific browser-visible popping incident was reproduced.
 
 ## Inventory
 
-The complete 121-surface kit/provider/adapter inventory and offered services are recorded in:
+The complete 124-surface kit/provider/adapter inventory and offered services are recorded in:
 
 ```txt
-.agent/trackers/2026-07-16T20-40-58-04-00/project-breakdown.md
+.agent/trackers/2026-07-17T02-32-08-04-00/project-breakdown.md
 ```
 
 ## Required parent domain
 
-`open-above-sightseeing-camera-zoom-projection-authority-domain`
+`open-above-gaussian-cloud-lod-membership-transition-authority-domain`
 
 ## Boundary
 
-Documentation only. Runtime, rendering, input, gameplay, tests, build and deployment were not changed.
+Documentation only. Runtime, rendering, gameplay, tests, build and deployment were not changed.
