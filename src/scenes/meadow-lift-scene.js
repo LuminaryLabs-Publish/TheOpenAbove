@@ -21,7 +21,11 @@ export async function createMeadowLiftScene({
   nexusEngineSha,
   onFatal
 } = {}) {
-  const sky = createSkyDomain();
+  const sky = createSkyDomain({
+    weatherLayers: WORLD.weather?.layers ?? [],
+    worldSurface: WORLD.surface,
+    cloudSeed: WORLD.seed
+  });
   const worldFeatures = [
     ...(WORLD.features?.landforms ?? []),
     ...(WORLD.features?.atmosphere ?? [])
