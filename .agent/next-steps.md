@@ -1,92 +1,92 @@
-# Next Steps: TheOpenAbove Camera Capture Zoom Projection
+# Next Steps: TheOpenAbove Gaussian Cloud LOD Membership Transition
 
-**Last aligned:** `2026-07-16T20-40-58-04-00`  
-**Status:** `camera-capture-zoom-projection-authority-audited`
+**Last aligned:** `2026-07-17T02-32-08-04-00`  
+**Status:** `gaussian-cloud-lod-membership-transition-authority-audited`
 
 ## Summary
 
-Unify normal follow zoom and sightseeing optical zoom under one mode-aware camera authority. Recognition must score the projection that is actually committed and rendered.
+Keep the implemented deterministic bank field, live weather visibility and nearby-priority capacity policy. Add stable membership admission and bounded transitions before expanding cloud fidelity further.
 
 ## Intent
 
-Produce one deterministic path from wheel evidence to camera mode ownership, projection commit, score evidence and visible-frame acknowledgement.
+Produce one deterministic path from field inputs and camera evidence to stable LOD membership, instance-buffer commit and matching-frame acknowledgement.
 
 ## What needs to happen
 
-### Gate 1: Input admission
+### Gate 1: Field identity
 
-- [ ] Add `ZoomIntentId`, route/session revision, camera-mode revision and viewport revision.
-- [ ] Normalize `WheelEvent.deltaY` with `deltaMode`.
-- [ ] Coalesce high-frequency trackpad evidence under one policy.
-- [ ] Reject stale, map-suspended and retired evidence.
+- [ ] Add `CloudFieldRevision` and `CloudFieldDigest`.
+- [ ] Bind world surface, weather-layer descriptors, seed, supported kinds and LOD tiers.
+- [ ] Reject stale fields after config, route or quality-generation changes.
 
-### Gate 2: Owner arbitration
+### Gate 2: Rebatch admission
 
-- [ ] Normal flight accepts follow-distance zoom only.
-- [ ] Sightseeing mode accepts optical projection zoom only.
-- [ ] Prevent one browser event from mutating both owners.
-- [ ] Publish `CameraZoomArbitrationResult`.
+- [ ] Add `CloudRebatchGeneration`, camera revision, weather revision and predecessor membership revision.
+- [ ] Record rebatch reason: initial, movement, age, weather, quality, teleport or recovery.
+- [ ] Reject duplicate and stale rebatches.
 
-### Gate 3: Camera commit
+### Gate 3: Capacity and quotas
 
-- [ ] Move direct camera FOV ownership into one ordered commit.
-- [ ] Let the Camera Rig contribute pose and follow-distance descriptors.
-- [ ] Let Image Capture contribute an optical request rather than a direct FOV write.
-- [ ] Publish actual FOV, effective magnification and `CameraProjectionRevision`.
+- [ ] Preserve nearest-first global overflow priority.
+- [ ] Add stable per-bank minimum and maximum quotas.
+- [ ] Bound how many prior members one newly close bank can evict in a frame.
+- [ ] Publish `CloudSplatBudgetResult`.
 
-### Gate 4: Recognition evidence
+### Gate 4: LOD transitions
 
-- [ ] Score from `CameraProjectionResult` rather than a private capture scalar.
-- [ ] Store projection revision with every capture result.
-- [ ] Reject score/projection mismatches.
-- [ ] Publish `PhotoZoomEvidenceResult`.
+- [ ] Add distinct enter and leave distances around each tier threshold.
+- [ ] Retain predecessor membership during small camera movement.
+- [ ] Crossfade entering, leaving and tier-changing splats.
+- [ ] Reset explicitly on teleport or field revision replacement.
+- [ ] Publish `CloudLodMembershipResult`.
 
-### Gate 5: Lifecycle
+### Gate 5: Projection commit
 
-- [ ] Settle camera-mode exit, map open, route exit and disposal.
-- [ ] Reject duplicate or late wheel evidence from retired revisions.
-- [ ] Preserve explicit reset behavior when leaving sightseeing mode.
+- [ ] Make the Three.js adapter consume one immutable membership result.
+- [ ] Commit one buffer generation and membership digest.
+- [ ] Preserve far-to-near order across blended membership.
+- [ ] Publish `CloudProjectionResult` and `FirstGaussianCloudFrameAck`.
 
-### Gate 6: Fixtures
+### Gate 6: Lifecycle and fixtures
 
-- [ ] Verify one wheel gesture changes only the accepted policy.
-- [ ] Verify rendered FOV equals capture-score evidence.
-- [ ] Verify pixel, line, page and trackpad wheel behavior.
-- [ ] Verify resize, DPR and dynamic-resolution transitions.
+- [ ] Define map-open, page-suspension and resume transition-clock policy.
+- [ ] Settle WebGL context loss/recovery and route disposal.
+- [ ] Verify still-camera stability, all tier boundaries and forced overflow.
+- [ ] Verify low/medium/high quality capacities.
 - [ ] Verify source, Vite artifact and Pages parity.
-- [ ] Publish `FirstZoomBoundFrameAck`.
 
 ## Recommended file cut
 
 ```txt
-src/domains/experience/
-  sightseeing-camera-zoom-projection-authority-domain.js
-  camera-zoom-intent-admission-kit.js
-  camera-zoom-owner-arbitration-kit.js
-  camera-projection-policy-kit.js
-  camera-projection-commit-kit.js
-  camera-projection-result-kit.js
+src/domains/sky/cloud-form/
+  gaussian-cloud-lod-membership-transition-authority-domain.js
+  cloud-field-generation-admission-kit.js
+  cloud-field-revision-kit.js
+  cloud-splat-budget-admission-kit.js
+  cloud-bank-quota-kit.js
+  cloud-membership-retention-kit.js
+  cloud-lod-hysteresis-kit.js
+  cloud-splat-crossfade-kit.js
+  cloud-lod-membership-result-kit.js
 
-src/domains/image-capture/
-  sightseeing-optical-zoom-kit.js
-  photo-zoom-evidence-kit.js
-
-src/visual/camera-presentation/
-  flight-follow-distance-zoom-kit.js
+src/visual/atmosphere/
+  gaussian-instance-buffer-commit-kit.js
+  cloud-projection-result-kit.js
 
 tests/
-  camera-zoom-owner-parity.mjs
-  sightseeing-projection-score-parity.mjs
+  cloud-membership-stability.mjs
+  cloud-lod-hysteresis.mjs
+  cloud-capacity-transition.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve balloon movement, wind-relative steering, camera smoothing, first-person transition feel, sightseeing targets, world/weather behavior, map pause, Vite build and Pages deployment.
+Preserve existing field seed output, five tier descriptors, nearby-priority overflow behavior, far-to-near blending, live weather visibility, distant high/cirrus volumetric rendering, balloon controls, camera behavior, map pause and Pages deployment.
 
 ## Retained next steps
 
-Rendered-photo artifact ownership, validation severity, weather-clock ownership, page lifecycle, WebGL recovery, audio, fixed-step pacing, HDR/depth, cloud, provider and persistence gaps remain open.
+Camera zoom projection, rendered-photo artifacts, validation severity, weather-clock ownership, lifecycle, WebGL recovery, audio, fixed-step pacing, HDR/depth, provider and persistence gaps remain open.
 
 ## Do not claim
 
-Do not claim single-owner wheel handling, optical zoom correctness, projection-bound scoring, source/build/Pages parity or production readiness until the fixture matrix passes.
+Do not claim temporal LOD stability, bounded capacity transitions, exact cloud-frame convergence, source/build/Pages parity or production readiness until implementation and fixtures exist.
