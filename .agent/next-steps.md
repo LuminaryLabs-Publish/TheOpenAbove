@@ -1,92 +1,103 @@
-# Next Steps: TheOpenAbove Gaussian Cloud LOD Membership Transition
+# Next Steps: TheOpenAbove Camera Pointer-Look Gesture Admission and Retirement
 
-**Last aligned:** `2026-07-17T02-32-08-04-00`  
-**Status:** `gaussian-cloud-lod-membership-transition-authority-audited`
+**Last aligned:** `2026-07-17T05-41-10-04-00`  
+**Status:** `camera-pointer-look-gesture-admission-retirement-authority-audited`
 
 ## Summary
 
-Keep the implemented deterministic bank field, live weather visibility and nearby-priority capacity policy. Add stable membership admission and bounded transitions before expanding cloud fidelity further.
+Keep immediate drag look, yaw/pitch clamps, and five-second heading recentering. Move raw Pointer Events behind explicit render-surface admission and complete every gesture lifecycle before expanding camera behavior.
 
 ## Intent
 
-Produce one deterministic path from field inputs and camera evidence to stable LOD membership, instance-buffer commit and matching-frame acknowledgement.
+Produce one deterministic path from admitted pointer evidence to camera pose, projection, diagnostics, and a matching frame acknowledgement.
 
 ## What needs to happen
 
-### Gate 1: Field identity
+### Gate 1: Surface and session admission
 
-- [ ] Add `CloudFieldRevision` and `CloudFieldDigest`.
-- [ ] Bind world surface, weather-layer descriptors, seed, supported kinds and LOD tiers.
-- [ ] Reject stale fields after config, route or quality-generation changes.
+- [ ] Pass the main `#game` canvas into the camera-input authority.
+- [ ] Bind `HostSessionId`, `RouteRevision`, `MapStateRevision`, and `CameraRigGeneration`.
+- [ ] Admit primary pointer look only from the active flight canvas.
+- [ ] Reject map, error, hidden, retired, and stale surfaces.
+- [ ] Publish `CameraLookGestureAdmissionResult`.
 
-### Gate 2: Rebatch admission
+### Gate 2: Pointer owner and capture lease
 
-- [ ] Add `CloudRebatchGeneration`, camera revision, weather revision and predecessor membership revision.
-- [ ] Record rebatch reason: initial, movement, age, weather, quality, teleport or recovery.
-- [ ] Reject duplicate and stale rebatches.
+- [ ] Allocate `GestureId` and `CaptureLeaseRevision`.
+- [ ] Preserve one owner pointer until terminal settlement.
+- [ ] Record capture acquisition and explicit release results.
+- [ ] Reject owner replacement and stale deltas.
 
-### Gate 3: Capacity and quotas
+### Gate 3: Delta and pose
 
-- [ ] Preserve nearest-first global overflow priority.
-- [ ] Add stable per-bank minimum and maximum quotas.
-- [ ] Bound how many prior members one newly close bank can evict in a frame.
-- [ ] Publish `CloudSplatBudgetResult`.
+- [ ] Normalize deltas against viewport and DPR policy.
+- [ ] Preserve current sensitivity and yaw/pitch clamps.
+- [ ] Publish `CameraLookDeltaResult` and `CameraLookPoseRevision`.
+- [ ] Keep raw DOM event objects outside domain state.
 
-### Gate 4: LOD transitions
+### Gate 4: Complete settlement
 
-- [ ] Add distinct enter and leave distances around each tier threshold.
-- [ ] Retain predecessor membership during small camera movement.
-- [ ] Crossfade entering, leaving and tier-changing splats.
-- [ ] Reset explicitly on teleport or field revision replacement.
-- [ ] Publish `CloudLodMembershipResult`.
+- [ ] Handle `pointerup`, `pointercancel`, and `lostpointercapture`.
+- [ ] Handle blur, hidden document, map open, route retirement, replacement, and disposal.
+- [ ] Retain named listener functions so every listener is removable.
+- [ ] Retire the previous Camera Rig before `bindBalloon()` installs another.
+- [ ] Publish one idempotent `CameraLookGestureSettlementResult`.
 
-### Gate 5: Projection commit
+### Gate 5: Recenter authority
 
-- [ ] Make the Three.js adapter consume one immutable membership result.
-- [ ] Commit one buffer generation and membership digest.
-- [ ] Preserve far-to-near order across blended membership.
-- [ ] Publish `CloudProjectionResult` and `FirstGaussianCloudFrameAck`.
+- [ ] Bind the last accepted input/settlement revision to the simulation clock.
+- [ ] Preserve the configured five-second delay and recenter rate.
+- [ ] Bind the current accepted heading revision.
+- [ ] Publish `CameraLookPoseResult` for drag and recenter phases.
 
-### Gate 6: Lifecycle and fixtures
+### Gate 6: Projection and diagnostics
 
-- [ ] Define map-open, page-suspension and resume transition-clock policy.
-- [ ] Settle WebGL context loss/recovery and route disposal.
-- [ ] Verify still-camera stability, all tier boundaries and forced overflow.
-- [ ] Verify low/medium/high quality capacities.
-- [ ] Verify source, Vite artifact and Pages parity.
+- [ ] Commit camera position, target, FOV, and projection from one pose result.
+- [ ] Add yaw, pitch, gesture, recenter, pose, and projection state to `cameraSnapshot()`.
+- [ ] Publish `CameraLookFrameDigest` and `FirstCameraLookFrameAck`.
+
+### Gate 7: Fixtures
+
+- [ ] Verify main-canvas drag at mouse, pen, and touch pointer types.
+- [ ] Verify map/error interactions do not mutate camera state.
+- [ ] Verify multi-pointer owner stability.
+- [ ] Verify capture loss, blur, hidden, map-open, replacement, and disposal.
+- [ ] Verify 4.9-second and 5.1-second recenter boundaries.
+- [ ] Verify source, Vite artifact, and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/domains/sky/cloud-form/
-  gaussian-cloud-lod-membership-transition-authority-domain.js
-  cloud-field-generation-admission-kit.js
-  cloud-field-revision-kit.js
-  cloud-splat-budget-admission-kit.js
-  cloud-bank-quota-kit.js
-  cloud-membership-retention-kit.js
-  cloud-lod-hysteresis-kit.js
-  cloud-splat-crossfade-kit.js
-  cloud-lod-membership-result-kit.js
+src/domains/experience/camera-input/
+  camera-pointer-look-gesture-admission-retirement-authority-domain.js
+  camera-look-surface-admission-kit.js
+  camera-look-pointer-owner-kit.js
+  camera-look-capture-lease-kit.js
+  camera-look-delta-normalization-kit.js
+  camera-look-settlement-kit.js
+  camera-look-recenter-clock-kit.js
+  camera-look-pose-result-kit.js
 
-src/visual/atmosphere/
-  gaussian-instance-buffer-commit-kit.js
-  cloud-projection-result-kit.js
+src/visual/camera-presentation/
+  balloon-camera-rig-kit.js
+  camera-look-projection-commit-kit.js
 
 tests/
-  cloud-membership-stability.mjs
-  cloud-lod-hysteresis.mjs
-  cloud-capacity-transition.mjs
+  camera-look-surface-admission.mjs
+  camera-look-pointer-ownership.mjs
+  camera-look-lifecycle.mjs
+  camera-look-recenter-clock.mjs
+  camera-look-frame-correlation.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve existing field seed output, five tier descriptors, nearby-priority overflow behavior, far-to-near blending, live weather visibility, distant high/cirrus volumetric rendering, balloon controls, camera behavior, map pause and Pages deployment.
+Preserve current steering-relative heading, immediate drag response, yaw/pitch limits, five-second delay, recenter curve, follow-distance zoom, basket/third-person blend, map presentation, sightseeing capture, cloud rendering, and Pages deployment.
 
 ## Retained next steps
 
-Camera zoom projection, rendered-photo artifacts, validation severity, weather-clock ownership, lifecycle, WebGL recovery, audio, fixed-step pacing, HDR/depth, provider and persistence gaps remain open.
+Gaussian cloud membership stability, camera zoom projection, rendered-photo artifacts, validation severity, weather-clock ownership, page lifecycle, WebGL recovery, audio, fixed-step pacing, HDR/depth, provider identity, terrain/flora proof, and persistence remain open.
 
 ## Do not claim
 
-Do not claim temporal LOD stability, bounded capacity transitions, exact cloud-frame convergence, source/build/Pages parity or production readiness until implementation and fixtures exist.
+Do not claim cross-surface input isolation, complete gesture retirement, listener replacement safety, exact pose/frame convergence, source/build/Pages parity, or production readiness until implementation and fixtures exist.
