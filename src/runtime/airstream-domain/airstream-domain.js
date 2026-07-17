@@ -1,6 +1,5 @@
 import { createAirstreamField } from "./airstream-field-kit.js";
 import { createDefaultAirstreamRoutes } from "./airstream-route-kit.js";
-import { createAirstreamVisual } from "./airstream-visual-kit.js";
 import { createAirstreamDebug } from "./airstream-debug-kit.js";
 
 export const AIRSTREAM_DOMAIN_ID = "open-above-airstream-domain";
@@ -11,8 +10,7 @@ export function createAirstreamDomain({
   debug = false
 } = {}) {
   const field = createAirstreamField({ routes });
-  const visual = scene ? createAirstreamVisual({ scene, routes }) : null;
-  const diagnostics = scene ? createAirstreamDebug({ scene, routes, visible: debug }) : null;
+  const diagnostics = scene && debug ? createAirstreamDebug({ scene, routes, visible: true }) : null;
   const state = {
     activeRouteId: null,
     influence: 0,
@@ -34,29 +32,27 @@ export function createAirstreamDomain({
     state.activeRouteId = next?.routeId ?? null;
     state.influence = Number(next?.influence) || 0;
     state.captureState = next?.captureState ?? "ambient";
-    visual?.update(elapsed, state.activeRouteId);
     diagnostics?.update(position, next);
     return state;
   }
 
   function snapshot() {
-    const sample = state.lastSample ?? {};
+    const current = state.lastSample ?? {};
     return {
       activeRouteId: state.activeRouteId,
-      destinationTownId: sample.destinationTownId ?? null,
+      destinationTownId: current.destinationTownId ?? null,
       influence: Number(state.influence.toFixed(3)),
       captureState: state.captureState,
-      distanceFromCenter: Number.isFinite(sample.distanceFromCenter)
-        ? Number(sample.distanceFromCenter.toFixed(2))
+      distanceFromCenter: Number.isFinite(current.distanceFromCenter)
+        ? Number(current.distanceFromCenter.toFixed(2))
         : null,
-      velocity: sample.velocity
-        ? [sample.velocity.x, sample.velocity.y, sample.velocity.z].map((value) => Number(value.toFixed(3)))
+      velocity: current.velocity
+        ? [current.velocity.x, current.velocity.y, current.velocity.z].map((value) => Number(value.toFixed(3)))
         : [0, 0, 0]
     };
   }
 
   function dispose() {
-    visual?.dispose();
     diagnostics?.dispose();
   }
 
@@ -64,7 +60,6 @@ export function createAirstreamDomain({
     id: AIRSTREAM_DOMAIN_ID,
     routes,
     field,
-    visual,
     diagnostics,
     state,
     sample,
