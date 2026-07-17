@@ -1,22 +1,22 @@
 {
-  "schemaVersion": 118,
+  "schemaVersion": 119,
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-16T14-59-39-04-00",
-  "status": "sightseeing-photo-frame-artifact-authority-audited",
-  "technicalStatus": "sightseeing-photo-frame-artifact-authority-audited",
-  "reviewedPreAuditRepositoryHead": "d0677937043224bb295bd3b270c336aed0e2a2b1",
-  "previousCentralRepoLocalHead": "aac119fd0b793ea4a86edee7167f87d4d740275b",
-  "latestTracker": ".agent/trackers/2026-07-16T14-59-39-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-16T14-59-39-04-00.md",
+  "lastAligned": "2026-07-16T20-40-58-04-00",
+  "status": "camera-capture-zoom-projection-authority-audited",
+  "technicalStatus": "camera-capture-zoom-projection-authority-audited",
+  "reviewedPreAuditRepositoryHead": "7f8de3ab0b6c8540992a22a9605586ef993e14e3",
+  "previousCentralRepoLocalHead": "7f8de3ab0b6c8540992a22a9605586ef993e14e3",
+  "latestTracker": ".agent/trackers/2026-07-16T20-40-58-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-16T20-40-58-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-16T14-59-39-04-00-sightseeing-photo-frame-artifact-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-16T14-59-39-04-00-semantic-photo-without-rendered-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-16T14-59-39-04-00-shutter-score-journal-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-16T14-59-39-04-00-photo-capture-command-result-map.md",
-    "photoCapture": ".agent/photo-capture-audit/2026-07-16T14-59-39-04-00-rendered-frame-artifact-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-16T14-59-39-04-00-photo-artifact-source-build-pages-fixture-gate.md",
-    "centralSync": ".agent/central-sync-audit/2026-07-16T14-59-39-04-00-runtime-ahead-sightseeing-reconciliation.md"
+    "architecture": ".agent/architecture-audit/2026-07-16T20-40-58-04-00-camera-capture-zoom-projection-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-16T20-40-58-04-00-capture-zoom-projection-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-16T20-40-58-04-00-camera-mode-wheel-zoom-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-16T20-40-58-04-00-camera-zoom-command-result-map.md",
+    "cameraZoom": ".agent/camera-zoom-audit/2026-07-16T20-40-58-04-00-dual-owner-optical-follow-zoom-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-16T20-40-58-04-00-camera-zoom-browser-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-16T20-40-58-04-00-oldest-selection-camera-zoom-reconciliation.md"
   },
   "selection": {
     "inventoryCount": 11,
@@ -27,48 +27,13 @@
     "centralLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
     "undocumentedCount": 0,
-    "runtimeAheadCount": 1,
+    "runtimeAheadCount": 0,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "TheOpenAbove was the remaining eligible repository ahead of its centrally documented repo-local head.",
-    "aheadByCommits": 26,
-    "changedFileCount": 19,
+    "reason": "Oldest synchronized eligible repository after all priority categories were empty.",
+    "selectedPreviousTimestamp": "2026-07-16T14-59-39-04-00",
+    "nextOldestRepository": "LuminaryLabs-Publish/IntoTheMeadow",
+    "nextOldestTimestamp": "2026-07-16T15-38-27-04-00",
     "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
-  },
-  "newRuntimeChangeSet": {
-    "base": "aac119fd0b793ea4a86edee7167f87d4d740275b",
-    "head": "d0677937043224bb295bd3b270c336aed0e2a2b1",
-    "aheadBy": 26,
-    "changedFiles": [
-      ".agent/workstreams.json",
-      "src/domains/README.md",
-      "src/domains/air-mail/air-mail-domain.js",
-      "src/domains/ballooning/ballooning-domain.js",
-      "src/domains/ballooning/wind-relative-steering-kit.js",
-      "src/domains/experience/experience-domain.js",
-      "src/domains/image-capture/image-capture-domain.js",
-      "src/domains/index.js",
-      "src/domains/journey/journey-domain.js",
-      "src/domains/land/land-domain.js",
-      "src/domains/navigation/navigation-domain.js",
-      "src/domains/sky/sky-domain.js",
-      "src/domains/sky/wind-particle-field-kit.js",
-      "src/main.js",
-      "src/runtime/balloon-simulation-kit.js",
-      "src/scenes/meadow-lift-scene.js",
-      "src/ui/parchment-map-overlay.js",
-      "tests/semantic-domain-composition.mjs",
-      "tests/smoke.mjs"
-    ],
-    "implementedCapabilities": [
-      "seven semantic Meadow Lift domains",
-      "thin scene bootstrap and semantic scene composition",
-      "Air Mail retirement from active Meadow Lift composition",
-      "sightseeing camera mode zoom shutter recognition and scoring",
-      "Snap Point regions and completion projection on the map",
-      "immediate wind-relative steering within a fifteen-degree cone",
-      "player-centered 3200-particle local wind field",
-      "semantic composition source proof"
-    ]
   },
   "counts": {
     "activeLocalSourceBacked": 78,
@@ -76,7 +41,7 @@
     "nexusEngineProviderSurfaces": 30,
     "currentDocumentedActiveTotal": 121,
     "inactiveAirMailMigrationSurfaces": 6,
-    "plannedPhotoAuthorityIncludingParent": 20
+    "plannedCameraZoomAuthorityIncludingParent": 19
   },
   "semanticDomains": [
     "open-above-journey-domain",
@@ -87,11 +52,12 @@
     "open-above-image-capture-domain",
     "open-above-experience-domain"
   ],
-  "newActiveSurfaces": [
-    "open-above-meadow-lift-scene",
-    "open-above-wind-relative-steering-kit",
-    "open-above-wind-particle-field-kit",
-    "open-above-semantic-domain-composition-test-kit"
+  "activeCameraSurfaces": [
+    "open-above-image-capture-domain",
+    "open-above-experience-domain",
+    "open-above-balloon-camera-rig-kit",
+    "open-above-wheel-zoom-input-kit",
+    "open-above-meadow-lift-scene"
   ],
   "inactiveMigrationSurfaces": [
     "open-above-mail-delivery-domain",
@@ -102,11 +68,11 @@
     "open-above-mail-town-kit"
   ],
   "retainedActiveGroups": {
+    "semanticSceneAndNewWind": 10,
+    "runtimeAndAirstream": 9,
     "balloonObjectAndPresentation": 15,
     "visualWorldAndEnvironment": 34,
-    "legacyRuntimeWithoutAirMail": 9,
-    "uiToolingAndProofIncludingSemanticTest": 10,
-    "semanticSceneAndNewWind": 10
+    "uiToolingAndProof": 10
   },
   "runtimeImpliedAdapters": [
     "open-above-route-shell-kit",
@@ -124,38 +90,58 @@
     "open-above-pages-deploy-kit"
   ],
   "nexusEngineProviderSurfaceCount": 30,
-  "serviceInventorySource": ".agent/trackers/2026-07-16T14-59-39-04-00/project-breakdown.md#complete-kit-and-offered-service-inventory",
+  "serviceInventorySource": ".agent/trackers/2026-07-16T20-40-58-04-00/project-breakdown.md#complete-kit-and-offered-service-inventory",
   "interactionLoop": [
-    "boot semantic Meadow Lift domains and Nexus Engine world weather providers",
-    "Journey RAF advances Ballooning Sky Experience Image Capture and engine state",
-    "Experience renders after capture metadata has already settled",
-    "map route projects world routes Snap Points and completion metadata",
-    "no rendered image artifact binds the shutter score and journal"
+    "boot semantic Meadow Lift domains and shared Three.js camera",
+    "global Camera Rig listener accepts flight follow zoom",
+    "renderer-canvas Image Capture listener accepts sightseeing optical zoom",
+    "one wheel event can mutate both policies",
+    "Camera Rig overwrites FOV before capture scoring and render",
+    "recognition score reads private capture zoom rather than committed projection"
   ],
   "domainsInUse": [
     "Journey Ballooning Sky Land Navigation Image Capture and Experience",
     "Core World Foundation Features Landforms Atmosphere Weather and Layered Weather",
     "Three.js world balloon camera HDR cloud terrain flora water and map presentation",
     "tiered validation Vite artifact Pages deployment and central governance",
-    "photo frame admission artifact encoding persistence journal projection and proof"
+    "camera zoom admission arbitration projection commit score evidence and frame proof"
   ],
-  "photoArtifactState": {
-    "semanticCaptureMetadataPresent": true,
-    "cameraModeZoomAndShutterPresent": true,
-    "recognitionAndScoringPresent": true,
-    "snapPointCompletionPresent": true,
-    "renderedPixelCapturePresent": false,
-    "acceptedFrameIdentityPresent": false,
-    "worldWeatherRendererBindingPresent": false,
-    "photoBytesDigestPresent": false,
-    "artifactLifecyclePresent": false,
-    "actualPhotoJournalProjectionPresent": false,
-    "photoCaptureResultPresent": false,
-    "firstPhotoArtifactAckPresent": false,
-    "firstJournalPhotoFrameAckPresent": false
+  "cameraZoomState": {
+    "globalFollowZoomListenerPresent": true,
+    "canvasOpticalZoomListenerPresent": true,
+    "singleEventCanReachBothOwners": true,
+    "imageCaptureDirectFovWritePresent": true,
+    "cameraRigFovWritePresent": true,
+    "scoreReadsPrivateCaptureZoom": true,
+    "singleModeAwareOwnerPresent": false,
+    "cameraProjectionResultPresent": false,
+    "scoreProjectionBindingPresent": false,
+    "firstZoomBoundFrameAckPresent": false
   },
-  "plannedParentDomain": "open-above-sightseeing-photo-frame-artifact-authority-domain",
+  "plannedParentDomain": "open-above-sightseeing-camera-zoom-projection-authority-domain",
+  "plannedSurfaces": [
+    "open-above-sightseeing-camera-zoom-projection-authority-domain",
+    "camera-zoom-intent-admission-kit",
+    "wheel-delta-normalization-kit",
+    "camera-mode-revision-kit",
+    "camera-zoom-owner-arbitration-kit",
+    "flight-follow-distance-zoom-kit",
+    "sightseeing-optical-zoom-kit",
+    "camera-projection-policy-kit",
+    "camera-projection-commit-kit",
+    "camera-position-look-descriptor-kit",
+    "capture-zoom-readback-kit",
+    "photo-zoom-evidence-kit",
+    "stale-zoom-intent-rejection-kit",
+    "map-route-zoom-settlement-kit",
+    "camera-zoom-intent-result-kit",
+    "camera-zoom-arbitration-result-kit",
+    "camera-projection-result-kit",
+    "first-zoom-bound-frame-ack-kit",
+    "camera-zoom-parity-fixture-kit"
+  ],
   "retainedStatuses": [
+    "sightseeing-photo-frame-artifact-authority-central-reconciled",
     "validation-finding-severity-release-gate-authority-central-reconciled",
     "weather-simulation-clock-projection-ownership-authority-central-reconciled",
     "atmosphere-reference-layer-runtime-traceability-authority-central-reconciled",
@@ -180,14 +166,14 @@
   "validation": {
     "documentationChanged": true,
     "runtimeOrTestSourceChangedByAudit": false,
-    "gameplayRenderingWeatherWorldChangedByAudit": false,
+    "inputCameraGameplayRenderingChangedByAudit": false,
     "packageWorkflowDeploymentChangedByAudit": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "sourceDiffInspected": true,
+    "sourceInspected": true,
     "npmCheckRun": false,
     "npmBuildRun": false,
-    "browserPhotoFixtureRun": false,
+    "browserCameraZoomFixtureRun": false,
     "artifactDownloaded": false,
     "pagesSmokeRun": false
   }
