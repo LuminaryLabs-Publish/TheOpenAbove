@@ -1,103 +1,90 @@
-# Next Steps: TheOpenAbove Camera Pointer-Look Gesture Admission and Retirement
+# Next Steps: TheOpenAbove Balloon Rigging Frame Budget and Resource Retirement
 
-**Last aligned:** `2026-07-17T05-41-10-04-00`  
-**Status:** `camera-pointer-look-gesture-admission-retirement-authority-audited`
+**Last aligned:** `2026-07-17T10-41-44-04-00`  
+**Status:** `balloon-rigging-frame-budget-resource-retirement-authority-audited`
 
 ## Summary
 
-Keep immediate drag look, yaw/pitch clamps, and five-second heading recentering. Move raw Pointer Events behind explicit render-surface admission and complete every gesture lifecycle before expanding camera behavior.
+Keep the current four-rope shape, sway, sag, tension response, and persistent dynamic buffers. Replace frame-local scratch allocation and implicit resource lifetime with one admitted rigging generation and typed results.
 
 ## Intent
 
-Produce one deterministic path from admitted pointer evidence to camera pose, projection, diagnostics, and a matching frame acknowledgement.
+Produce one deterministic path from balloon-model admission through bounded rigging updates, exact resource retirement, diagnostics, and the matching rendered frame.
 
 ## What needs to happen
 
-### Gate 1: Surface and session admission
+### Gate 1: Resource admission
 
-- [ ] Pass the main `#game` canvas into the camera-input authority.
-- [ ] Bind `HostSessionId`, `RouteRevision`, `MapStateRevision`, and `CameraRigGeneration`.
-- [ ] Admit primary pointer look only from the active flight canvas.
-- [ ] Reject map, error, hidden, retired, and stale surfaces.
-- [ ] Publish `CameraLookGestureAdmissionResult`.
+- [ ] Allocate `BalloonModelGeneration`, `RiggingGeneration`, and `RopeGeneration` identities.
+- [ ] Enumerate owned geometries, materials, dynamic buffers, and scratch sets.
+- [ ] Publish `RiggingResourceAdmissionResult` and an immutable resource manifest.
 
-### Gate 2: Pointer owner and capture lease
+### Gate 2: Reusable scratch
 
-- [ ] Allocate `GestureId` and `CaptureLeaseRevision`.
-- [ ] Preserve one owner pointer until terminal settlement.
-- [ ] Record capture acquisition and explicit release results.
-- [ ] Reject owner replacement and stale deltas.
+- [ ] Preallocate endpoint vectors and `segments + 1` point vectors per rope.
+- [ ] Reuse tangent, frame-normal, binormal, ring-normal, and ring-position vectors.
+- [ ] Preserve stable typed-array identities until retirement.
+- [ ] Keep raw Three.js objects outside renderer-neutral result state.
 
-### Gate 3: Delta and pose
+### Gate 3: Frame update admission
 
-- [ ] Normalize deltas against viewport and DPR policy.
-- [ ] Preserve current sensitivity and yaw/pitch clamps.
-- [ ] Publish `CameraLookDeltaResult` and `CameraLookPoseRevision`.
-- [ ] Keep raw DOM event objects outside domain state.
+- [ ] Bind `HostSessionId`, route, simulation, model, rigging, tension, and frame revisions.
+- [ ] Reject stale or retired generations before buffer mutation.
+- [ ] Publish `RiggingFrameUpdateResult` with updated ropes, vertices, and buffer revisions.
 
-### Gate 4: Complete settlement
+### Gate 4: Budget settlement
 
-- [ ] Handle `pointerup`, `pointercancel`, and `lostpointercapture`.
-- [ ] Handle blur, hidden document, map open, route retirement, replacement, and disposal.
-- [ ] Retain named listener functions so every listener is removable.
-- [ ] Retire the previous Camera Rig before `bindBalloon()` installs another.
-- [ ] Publish one idempotent `CameraLookGestureSettlementResult`.
+- [ ] Record update duration and temporary allocation count after warm-up.
+- [ ] Define an accepted long-flight CPU/allocation budget.
+- [ ] Keep any visual degradation explicit and non-authoritative for flight truth.
+- [ ] Publish `RiggingFrameBudgetResult`.
 
-### Gate 5: Recenter authority
+### Gate 5: Replacement and retirement
 
-- [ ] Bind the last accepted input/settlement revision to the simulation clock.
-- [ ] Preserve the configured five-second delay and recenter rate.
-- [ ] Bind the current accepted heading revision.
-- [ ] Publish `CameraLookPoseResult` for drag and recenter phases.
+- [ ] Retire predecessor updates before detaching the old model.
+- [ ] Dispose owned geometries and materials exactly once.
+- [ ] Clear updater references and dynamic-buffer ownership.
+- [ ] Publish `RiggingResourceRetirementResult`.
 
-### Gate 6: Projection and diagnostics
+### Gate 6: Diagnostics and frame proof
 
-- [ ] Commit camera position, target, FOV, and projection from one pose result.
-- [ ] Add yaw, pitch, gesture, recenter, pose, and projection state to `cameraSnapshot()`.
-- [ ] Publish `CameraLookFrameDigest` and `FirstCameraLookFrameAck`.
+- [ ] Add rigging generation, update revision, buffer revisions, budget state, and retirement state to diagnostics.
+- [ ] Publish `RiggingFrameDigest`.
+- [ ] Publish `FirstRiggingBoundFrameAck` for the accepted generation.
 
 ### Gate 7: Fixtures
 
-- [ ] Verify main-canvas drag at mouse, pen, and touch pointer types.
-- [ ] Verify map/error interactions do not mutate camera state.
-- [ ] Verify multi-pointer owner stability.
-- [ ] Verify capture loss, blur, hidden, map-open, replacement, and disposal.
-- [ ] Verify 4.9-second and 5.1-second recenter boundaries.
+- [ ] Assert stable typed-array identities across updates.
+- [ ] Assert temporary allocation plateaus during a bounded long flight.
+- [ ] Assert stale writes stop after replacement and disposal.
+- [ ] Assert repeated retirement is harmless.
 - [ ] Verify source, Vite artifact, and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/domains/experience/camera-input/
-  camera-pointer-look-gesture-admission-retirement-authority-domain.js
-  camera-look-surface-admission-kit.js
-  camera-look-pointer-owner-kit.js
-  camera-look-capture-lease-kit.js
-  camera-look-delta-normalization-kit.js
-  camera-look-settlement-kit.js
-  camera-look-recenter-clock-kit.js
-  camera-look-pose-result-kit.js
+src/domains/ballooning/rigging/
+  balloon-rigging-frame-budget-resource-retirement-authority-domain.js
+  rigging-resource-manifest-kit.js
+  rigging-frame-plan-kit.js
+  rigging-update-budget-kit.js
+  rigging-resource-retirement-kit.js
 
-src/visual/camera-presentation/
-  balloon-camera-rig-kit.js
-  camera-look-projection-commit-kit.js
+src/
+  rope-kit.js
+  hot-air-balloon-rigging-kit.js
+  hot-air-balloon-object-kit.js
 
 tests/
-  camera-look-surface-admission.mjs
-  camera-look-pointer-ownership.mjs
-  camera-look-lifecycle.mjs
-  camera-look-recenter-clock.mjs
-  camera-look-frame-correlation.mjs
+  rope-allocation-budget.mjs
+  rigging-replacement-retirement.mjs
+  rigging-frame-correlation.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve current steering-relative heading, immediate drag response, yaw/pitch limits, five-second delay, recenter curve, follow-distance zoom, basket/third-person blend, map presentation, sightseeing capture, cloud rendering, and Pages deployment.
-
-## Retained next steps
-
-Gaussian cloud membership stability, camera zoom projection, rendered-photo artifacts, validation severity, weather-clock ownership, page lifecycle, WebGL recovery, audio, fixed-step pacing, HDR/depth, provider identity, terrain/flora proof, and persistence remain open.
+Preserve balloon geometry, four-rope layout, default 10×5 topology, sag, sway, tension response, burner animation, camera behavior, flight simulation, map behavior, sightseeing capture, and deployment.
 
 ## Do not claim
 
-Do not claim cross-surface input isolation, complete gesture retirement, listener replacement safety, exact pose/frame convergence, source/build/Pages parity, or production readiness until implementation and fixtures exist.
+Do not claim an allocation plateau, leak-free replacement, exact disposal, stale-write rejection, rigging/frame convergence, artifact parity, Pages parity, or production readiness until implementation and fixtures exist.
