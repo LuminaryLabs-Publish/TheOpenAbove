@@ -1,22 +1,22 @@
 {
-  "schemaVersion": 119,
+  "schemaVersion": 120,
   "repository": "LuminaryLabs-Publish/TheOpenAbove",
   "branch": "main",
-  "lastAligned": "2026-07-16T20-40-58-04-00",
-  "status": "camera-capture-zoom-projection-authority-audited",
-  "technicalStatus": "camera-capture-zoom-projection-authority-audited",
-  "reviewedPreAuditRepositoryHead": "7f8de3ab0b6c8540992a22a9605586ef993e14e3",
-  "previousCentralRepoLocalHead": "7f8de3ab0b6c8540992a22a9605586ef993e14e3",
-  "latestTracker": ".agent/trackers/2026-07-16T20-40-58-04-00/project-breakdown.md",
-  "latestTurnLedger": ".agent/turn-ledger/2026-07-16T20-40-58-04-00.md",
+  "lastAligned": "2026-07-17T02-32-08-04-00",
+  "status": "gaussian-cloud-lod-membership-transition-authority-audited",
+  "technicalStatus": "gaussian-cloud-lod-membership-transition-authority-audited",
+  "reviewedPreAuditRepositoryHead": "5695e11ab7948ea6417b3ccf1c1d66550aa5c4df",
+  "previousCentralRepoLocalHead": "132f1c5998c86a0201b48215167f8bf28d921e6c",
+  "latestTracker": ".agent/trackers/2026-07-17T02-32-08-04-00/project-breakdown.md",
+  "latestTurnLedger": ".agent/turn-ledger/2026-07-17T02-32-08-04-00.md",
   "latestAudits": {
-    "architecture": ".agent/architecture-audit/2026-07-16T20-40-58-04-00-camera-capture-zoom-projection-dsk-map.md",
-    "render": ".agent/render-audit/2026-07-16T20-40-58-04-00-capture-zoom-projection-visible-frame-gap.md",
-    "gameplay": ".agent/gameplay-audit/2026-07-16T20-40-58-04-00-camera-mode-wheel-zoom-loop.md",
-    "interaction": ".agent/interaction-audit/2026-07-16T20-40-58-04-00-camera-zoom-command-result-map.md",
-    "cameraZoom": ".agent/camera-zoom-audit/2026-07-16T20-40-58-04-00-dual-owner-optical-follow-zoom-contract.md",
-    "deploy": ".agent/deploy-audit/2026-07-16T20-40-58-04-00-camera-zoom-browser-fixture-gate.md",
-    "centralSync": ".agent/central-sync-audit/2026-07-16T20-40-58-04-00-oldest-selection-camera-zoom-reconciliation.md"
+    "architecture": ".agent/architecture-audit/2026-07-17T02-32-08-04-00-gaussian-cloud-lod-membership-dsk-map.md",
+    "render": ".agent/render-audit/2026-07-17T02-32-08-04-00-gaussian-membership-pop-visible-frame-gap.md",
+    "gameplay": ".agent/gameplay-audit/2026-07-17T02-32-08-04-00-flight-through-gaussian-cloud-lod-loop.md",
+    "interaction": ".agent/interaction-audit/2026-07-17T02-32-08-04-00-cloud-membership-command-result-map.md",
+    "cloudSystem": ".agent/cloud-system-audit/2026-07-17T02-32-08-04-00-gaussian-field-capacity-transition-contract.md",
+    "deploy": ".agent/deploy-audit/2026-07-17T02-32-08-04-00-gaussian-cloud-transition-fixture-gate.md",
+    "centralSync": ".agent/central-sync-audit/2026-07-17T02-32-08-04-00-runtime-ahead-gaussian-cloud-reconciliation.md"
   },
   "selection": {
     "inventoryCount": 11,
@@ -27,21 +27,24 @@
     "centralLedgerMissingCount": 0,
     "rootAgentMissingCount": 0,
     "undocumentedCount": 0,
-    "runtimeAheadCount": 0,
+    "runtimeAheadCount": 1,
     "selectedRepository": "LuminaryLabs-Publish/TheOpenAbove",
-    "reason": "Oldest synchronized eligible repository after all priority categories were empty.",
-    "selectedPreviousTimestamp": "2026-07-16T14-59-39-04-00",
-    "nextOldestRepository": "LuminaryLabs-Publish/IntoTheMeadow",
-    "nextOldestTimestamp": "2026-07-16T15-38-27-04-00",
-    "excluded": ["LuminaryLabs-Publish/TheCavalryOfRome"]
+    "reason": "Sole runtime-ahead eligible repository after full Publish/ledger comparison.",
+    "previousDocumentedHead": "132f1c5998c86a0201b48215167f8bf28d921e6c",
+    "reviewedRuntimeHead": "5695e11ab7948ea6417b3ccf1c1d66550aa5c4df",
+    "aheadByCommits": 11,
+    "changedFiles": 8,
+    "excluded": [
+      "LuminaryLabs-Publish/TheCavalryOfRome"
+    ]
   },
   "counts": {
-    "activeLocalSourceBacked": 78,
+    "activeLocalSourceBacked": 81,
     "runtimeImpliedAdapters": 13,
     "nexusEngineProviderSurfaces": 30,
-    "currentDocumentedActiveTotal": 121,
+    "currentDocumentedActiveTotal": 124,
     "inactiveAirMailMigrationSurfaces": 6,
-    "plannedCameraZoomAuthorityIncludingParent": 19
+    "plannedGaussianTransitionAuthorityIncludingParent": 20
   },
   "semanticDomains": [
     "open-above-journey-domain",
@@ -52,11 +55,21 @@
     "open-above-image-capture-domain",
     "open-above-experience-domain"
   ],
-  "activeCameraSurfaces": [
-    "open-above-image-capture-domain",
+  "newRuntimeSurfaces": [
+    "open-above-cloud-bank-field-kit",
+    "open-above-gaussian-cloud-render-adapter",
+    "open-above-cloud-lod-integration-test-kit"
+  ],
+  "activeCloudSurfaces": [
+    "open-above-sky-domain",
+    "open-above-cloud-bank-field-kit",
+    "open-above-cloud-weather-map-kit",
+    "open-above-volumetric-cloud-kit",
+    "open-above-gaussian-cloud-render-adapter",
+    "open-above-cloud-lod-kit",
+    "open-above-cloud-lighting-kit",
+    "open-above-visual-domain",
     "open-above-experience-domain",
-    "open-above-balloon-camera-rig-kit",
-    "open-above-wheel-zoom-input-kit",
     "open-above-meadow-lift-scene"
   ],
   "inactiveMigrationSurfaces": [
@@ -68,11 +81,11 @@
     "open-above-mail-town-kit"
   ],
   "retainedActiveGroups": {
-    "semanticSceneAndNewWind": 10,
+    "semanticSceneWindAndCloseCloud": 11,
     "runtimeAndAirstream": 9,
     "balloonObjectAndPresentation": 15,
-    "visualWorldAndEnvironment": 34,
-    "uiToolingAndProof": 10
+    "visualWorldAndEnvironment": 35,
+    "uiToolingAndProof": 11
   },
   "runtimeImpliedAdapters": [
     "open-above-route-shell-kit",
@@ -90,57 +103,64 @@
     "open-above-pages-deploy-kit"
   ],
   "nexusEngineProviderSurfaceCount": 30,
-  "serviceInventorySource": ".agent/trackers/2026-07-16T20-40-58-04-00/project-breakdown.md#complete-kit-and-offered-service-inventory",
+  "serviceInventorySource": ".agent/trackers/2026-07-17T02-32-08-04-00/project-breakdown.md#complete-kit-and-offered-service-inventory",
   "interactionLoop": [
-    "boot semantic Meadow Lift domains and shared Three.js camera",
-    "global Camera Rig listener accepts flight follow zoom",
-    "renderer-canvas Image Capture listener accepts sightseeing optical zoom",
-    "one wheel event can mutate both policies",
-    "Camera Rig overwrites FOV before capture scoring and render",
-    "recognition score reads private capture zoom rather than committed projection"
+    "Sky builds deterministic close-cloud banks from world weather layers, surface and seed",
+    "Experience passes cloudField plus live Weather and Layered Weather into Visual",
+    "Visual keeps high-cloud and cirrus on the distant volumetric renderer",
+    "Gaussian adapter queries close banks by volume reach and selects distance LOD",
+    "live weather controls visibility and candidates are sorted nearest-first",
+    "fixed quality capacity truncates the set before far-to-near blending",
+    "every rebatch directly replaces all instance attributes and instanceCount"
   ],
   "domainsInUse": [
     "Journey Ballooning Sky Land Navigation Image Capture and Experience",
     "Core World Foundation Features Landforms Atmosphere Weather and Layered Weather",
-    "Three.js world balloon camera HDR cloud terrain flora water and map presentation",
+    "deterministic close-cloud field and Gaussian/volumetric split presentation",
+    "Three.js world balloon camera HDR terrain flora water and map presentation",
     "tiered validation Vite artifact Pages deployment and central governance",
-    "camera zoom admission arbitration projection commit score evidence and frame proof"
+    "cloud field admission capacity LOD membership transition projection and frame proof"
   ],
-  "cameraZoomState": {
-    "globalFollowZoomListenerPresent": true,
-    "canvasOpticalZoomListenerPresent": true,
-    "singleEventCanReachBothOwners": true,
-    "imageCaptureDirectFovWritePresent": true,
-    "cameraRigFovWritePresent": true,
-    "scoreReadsPrivateCaptureZoom": true,
-    "singleModeAwareOwnerPresent": false,
-    "cameraProjectionResultPresent": false,
-    "scoreProjectionBindingPresent": false,
-    "firstZoomBoundFrameAckPresent": false
+  "gaussianCloudState": {
+    "deterministicFieldPresent": true,
+    "deterministicSplatSamplingPresent": true,
+    "fiveDistanceTiersPresent": true,
+    "volumeReachQueryPresent": true,
+    "nearestFirstCapacityPolicyPresent": true,
+    "farToNearOrderingPresent": true,
+    "stablePredecessorMembershipPresent": false,
+    "perBankQuotaResultPresent": false,
+    "lodHysteresisPresent": false,
+    "crossfadePresent": false,
+    "staleRebatchRejectionPresent": false,
+    "cloudProjectionDigestPresent": false,
+    "firstGaussianCloudFrameAckPresent": false
   },
-  "plannedParentDomain": "open-above-sightseeing-camera-zoom-projection-authority-domain",
+  "plannedParentDomain": "open-above-gaussian-cloud-lod-membership-transition-authority-domain",
   "plannedSurfaces": [
-    "open-above-sightseeing-camera-zoom-projection-authority-domain",
-    "camera-zoom-intent-admission-kit",
-    "wheel-delta-normalization-kit",
-    "camera-mode-revision-kit",
-    "camera-zoom-owner-arbitration-kit",
-    "flight-follow-distance-zoom-kit",
-    "sightseeing-optical-zoom-kit",
-    "camera-projection-policy-kit",
-    "camera-projection-commit-kit",
-    "camera-position-look-descriptor-kit",
-    "capture-zoom-readback-kit",
-    "photo-zoom-evidence-kit",
-    "stale-zoom-intent-rejection-kit",
-    "map-route-zoom-settlement-kit",
-    "camera-zoom-intent-result-kit",
-    "camera-zoom-arbitration-result-kit",
-    "camera-projection-result-kit",
-    "first-zoom-bound-frame-ack-kit",
-    "camera-zoom-parity-fixture-kit"
+    "open-above-gaussian-cloud-lod-membership-transition-authority-domain",
+    "cloud-field-generation-admission-kit",
+    "cloud-field-revision-kit",
+    "cloud-bank-query-kit",
+    "cloud-bank-volume-reach-kit",
+    "cloud-splat-lod-policy-kit",
+    "cloud-splat-budget-admission-kit",
+    "cloud-bank-quota-kit",
+    "cloud-membership-retention-kit",
+    "cloud-lod-hysteresis-kit",
+    "cloud-splat-crossfade-kit",
+    "cloud-rebatch-generation-kit",
+    "stale-cloud-rebatch-rejection-kit",
+    "cloud-weather-visibility-binding-kit",
+    "gaussian-instance-buffer-commit-kit",
+    "cloud-projection-digest-kit",
+    "cloud-lod-membership-result-kit",
+    "cloud-projection-result-kit",
+    "first-gaussian-cloud-frame-ack-kit",
+    "cloud-transition-fixture-kit"
   ],
   "retainedStatuses": [
+    "camera-capture-zoom-projection-authority-central-reconciled",
     "sightseeing-photo-frame-artifact-authority-central-reconciled",
     "validation-finding-severity-release-gate-authority-central-reconciled",
     "weather-simulation-clock-projection-ownership-authority-central-reconciled",
@@ -148,7 +168,6 @@
     "page-lifecycle-flight-suspension-resume-authority-central-reconciled",
     "webgl-context-resource-recovery-authority-central-reconciled",
     "game-audio-event-projection-authority-central-reconciled",
-    "device-control-action-coverage-authority-central-reconciled",
     "host-clock-fixed-step-flight-simulation-authority-central-reconciled",
     "hdr-dynamic-resolution-depth-attachment-size-coherence-authority-central-reconciled",
     "cloud-low-resolution-composite-depth-occlusion-authority-central-reconciled",
@@ -166,14 +185,14 @@
   "validation": {
     "documentationChanged": true,
     "runtimeOrTestSourceChangedByAudit": false,
-    "inputCameraGameplayRenderingChangedByAudit": false,
+    "gameplayWeatherRenderingChangedByAudit": false,
     "packageWorkflowDeploymentChangedByAudit": false,
     "branchCreated": false,
     "pullRequestCreated": false,
-    "sourceInspected": true,
+    "sourceDeltaInspected": true,
     "npmCheckRun": false,
     "npmBuildRun": false,
-    "browserCameraZoomFixtureRun": false,
+    "browserCloudTransitionFixtureRun": false,
     "artifactDownloaded": false,
     "pagesSmokeRun": false
   }
