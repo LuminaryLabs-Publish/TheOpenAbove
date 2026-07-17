@@ -1,81 +1,80 @@
-# Known Gaps: TheOpenAbove Sightseeing Photo Frame Artifact
+# Known Gaps: TheOpenAbove Camera Capture Zoom Projection
 
-**Last aligned:** `2026-07-16T14-59-39-04-00`  
-**Status:** `sightseeing-photo-frame-artifact-authority-audited`
+**Last aligned:** `2026-07-16T20-40-58-04-00`  
+**Status:** `camera-capture-zoom-projection-authority-audited`
 
 ## Summary
 
-The current sightseeing domain recognizes views and records metadata, but it does not capture the rendered image that the player framed. The journal therefore tracks completion without owning an actual photograph.
+Sightseeing optical zoom and balloon follow-distance zoom have separate listeners, state and camera writes. The current recognition score cannot prove that its private zoom value matches the projection rendered to the player.
 
 ## Intent
 
-Keep the semantic capture record visibly provisional until it is bound to immutable frame evidence and explicit artifact lifecycle ownership.
+Keep camera and scoring claims provisional until one mode-aware authority publishes the committed projection and matching frame evidence.
 
 ## What needs to happen
 
-### Identity gaps
+### Input and identity gaps
 
 ```txt
-capture request ID: absent
-accepted frame ID: absent
-camera transform/projection revision: absent
-world and weather generation identity: absent
-renderer/render-scale revision: absent
-capture policy revision: absent
+ZoomIntentId: absent
+CameraModeRevision: absent
+ZoomPolicyRevision: absent
+wheel deltaMode normalization: absent
+trackpad burst policy: absent
+stale intent rejection: absent
 ```
 
-### Render and artifact gaps
+### Ownership gaps
 
 ```txt
-renderer canvas/target pixel capture: absent
-post-update frame admission stage: absent
-encoded image bytes: absent
-content digest: absent
-MIME/dimensions/byte-length record: absent
-artifact URL/storage identity: absent
-artifact retirement result: absent
+global follow-zoom listener: present
+renderer-canvas optical-zoom listener: present
+one event can reach both owners: yes
+single active owner result: absent
+mode transition settlement: absent
+map/route retirement result: absent
 ```
 
-### Score and gameplay gaps
+### Camera and render gaps
 
 ```txt
-score bound to accepted frame: absent
-score evidence descriptor: partial only
-artifact required for Snap Point completion: absent
-stale request rejection: absent
-map-open capture policy: implicit
-route/session retirement policy: absent
+direct FOV write from Image Capture: present
+FOV overwrite from Camera Rig: present
+ordered pose/projection commit: absent
+CameraProjectionRevision: absent
+actual FOV/effective magnification result: absent
+FirstZoomBoundFrameAck: absent
 ```
 
-### Journal gaps
+### Score gaps
 
 ```txt
-actual captured image projection: absent
-reference/captured image distinction: absent
-photo loading/failure state: absent
-journal artifact lifecycle: absent
-FirstPhotoArtifactAck: absent
-FirstJournalPhotoFrameAck: absent
+capture private zoom scalar: present
+score reads private scalar: yes
+score reads committed camera projection: no
+projection revision stored in capture: no
+score/projection mismatch rejection: no
 ```
 
 ### Proof gaps
 
 ```txt
-recognized capture pixel fixture: absent
-unrecognized capture artifact fixture: absent
-resize/render-scale generation fixture: absent
-map-open and disposal fixture: absent
-source/build/Pages photo parity fixture: absent
+single-owner browser fixture: absent
+pixel/line/page wheel equivalence: absent
+trackpad momentum fixture: absent
+mode-toggle fixture: absent
+resize/DPR projection fixture: absent
+source/build/Pages parity fixture: absent
 ```
 
 ## Current risk boundary
 
-The current score can be correct for its geometric heuristic while still lacking evidence of what was rendered. This is an artifact and convergence gap, not proof that the current recognition formula is wrong.
+The source proves independent wheel listeners and camera writes. It does not prove how severe the visual mismatch is on every browser or device, and no specific player report was reproduced.
 
 ## Retained product gaps
 
-Validation severity, weather simulation-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, cloud composite proof, provider/build identity, route retirement, terrain/flora proof and persistence remain unresolved.
+Rendered-photo artifacts, validation severity, weather simulation-clock ownership, page lifecycle, WebGL recovery, audio, control coverage, fixed-step pacing, HDR/depth coherence, cloud proof, provider/build identity, route retirement, terrain/flora proof and persistence remain unresolved.
 
 ## Do not claim
 
-Do not claim rendered-photo ownership, immutable artifact identity, score/frame convergence, journal image parity, deployed parity or production readiness until implementation and fixtures exist.
+Do not claim correct sightseeing magnification, exclusive wheel ownership, score/projection convergence, artifact parity, Pages parity or production readiness until implementation and fixtures exist.
