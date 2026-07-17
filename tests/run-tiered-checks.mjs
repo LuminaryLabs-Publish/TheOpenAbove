@@ -5,6 +5,7 @@ const suites = [
   "tests/world-feature-foundation.mjs",
   "tests/world-domain-composition.mjs",
   "tests/layered-weather-integration.mjs",
+  "tests/cloud-lod-integration.mjs",
   "tests/terrain-streaming.mjs",
   "tests/world-route-protection.mjs",
   "tests/terrain-overlays.mjs"
