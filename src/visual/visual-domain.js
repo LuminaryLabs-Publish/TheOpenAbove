@@ -5,6 +5,7 @@ import { createSunLight } from "./illumination/sun-light-kit.js";
 import { createAerialPerspective } from "./illumination/aerial-perspective-kit.js";
 import { createCloudWeatherMap } from "./atmosphere/cloud-weather-map-kit.js";
 import { createVolumetricClouds } from "./atmosphere/volumetric-cloud-kit.js";
+import { createGaussianCloudRenderer } from "./atmosphere/gaussian-cloud-render-adapter.js";
 import { createTerrainSurface, terrainHeight as legacyTerrainHeight, moistureAt as legacyMoistureAt } from "./landscape/terrain-surface-kit.js";
 import { createVegetationClusters } from "./landscape/vegetation-cluster-kit.js";
 import { createGrassFieldDomain } from "./grass-field/grass-field-domain.js";
@@ -18,6 +19,18 @@ import { createWorldFeatureFoundation } from "../world/world-feature-foundation-
 
 export const VISUAL_DOMAIN_ID = "open-above-visual-domain";
 
+function createDistantVolumetricWeatherView(weather) {
+  const closeKinds = new Set(["ground-fog", "low-cloud", "mid-cloud"]);
+  return {
+    state: {
+      get coverage() { return weather.state.coverage; },
+      get density() { return weather.state.density; },
+      get offset() { return weather.state.offset; },
+      get layers() { return (weather.state.layers ?? []).filter((layer) => !closeKinds.has(layer.kind)); }
+    }
+  };
+}
+
 export function createVisualDomain({
   canvas,
   worldConfig,
@@ -25,7 +38,8 @@ export function createVisualDomain({
   worldFeatures = null,
   worldFoundation = null,
   weatherDomain = null,
-  layeredWeather = null
+  layeredWeather = null,
+  cloudField = null
 }) {
   const quality = detectQualityTier();
   const scene = new THREE.Scene();
@@ -57,7 +71,8 @@ export function createVisualDomain({
   const weather = createCloudWeatherMap(worldConfig.seed || 1, { weather: weatherDomain, layeredWeather });
   const sun = createSunLight(scene, quality);
   const sky = createPhysicalSky(scene, { zenithColor: 0x75abd0, horizonColor: 0xf0c9a1, groundHazeColor: 0xd7c2ad, turbidity: 4.2, rayleigh: 1.0, mie: 0.55, sunIntensity: 0.9 });
-  const clouds = createVolumetricClouds(scene, quality, weather);
+  const clouds = createVolumetricClouds(scene, quality, createDistantVolumetricWeatherView(weather));
+  const cloudSplats = createGaussianCloudRenderer(scene, quality, weather, cloudField);
   const aerial = createAerialPerspective(scene, { color: 0xd8c6ae, density: 0.00022 });
   const water = createWaterSurfaces(scene, sun.direction);
   const lens = createLensResponse(scene);
@@ -76,6 +91,7 @@ export function createVisualDomain({
     grass: grass.getState(),
     flowers: flowers.getState(),
     weather: weather.state.snapshot,
+    cloudLod: cloudSplats.getState(),
     firstFramePresented: false,
     worldGeneration: world.getGenerationState()
   };
@@ -107,6 +123,7 @@ export function createVisualDomain({
     sun.update(flightState.position, elapsed);
     sky.update(camera, sun.direction);
     clouds.update(camera, sun.direction, elapsed);
+    cloudSplats.update(camera, sun.direction, elapsed);
     aerial.update(camera, sun.direction, weather.state);
     terrain.update(camera, weather.state);
     grass.update(elapsed, camera);
@@ -118,6 +135,7 @@ export function createVisualDomain({
     state.grass = grass.getState();
     state.flowers = flowers.getState();
     state.weather = weather.state.snapshot;
+    state.cloudLod = cloudSplats.getState();
     state.worldGeneration = world.getGenerationState();
     return state;
   }
@@ -138,6 +156,7 @@ export function createVisualDomain({
     landmarks.dispose?.();
     water.dispose?.();
     clouds.dispose?.();
+    cloudSplats.dispose?.();
     flowers.dispose();
     grass.dispose();
     vegetation.dispose?.();
@@ -156,7 +175,7 @@ export function createVisualDomain({
     resolution,
     landscape: { terrain, vegetation, grass, flowers, water, landmarks },
     illumination: { sun, sky, aerial },
-    atmosphere: { weather, clouds },
+    atmosphere: { weather, clouds, cloudSplats },
     lens,
     state,
     update,
