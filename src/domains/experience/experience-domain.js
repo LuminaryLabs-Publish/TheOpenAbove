@@ -12,7 +12,8 @@ export function createExperienceDomain({ canvas, land, sky } = {}) {
     worldFeatures: land.worldFeatures,
     worldFoundation: land.worldFoundation,
     weatherDomain: sky.weather,
-    layeredWeather: sky.layeredWeather
+    layeredWeather: sky.layeredWeather,
+    cloudField: sky.cloudField
   });
   let cameraRig = null;
   let balloonPresentation = null;
@@ -54,6 +55,7 @@ export function createExperienceDomain({ canvas, land, sky } = {}) {
       grass: visualState.grass,
       flowers: visualState.flowers,
       weather: visualState.weather,
+      cloudLod: visualState.cloudLod,
       worldGeneration: visualState.worldGeneration
     };
   }
