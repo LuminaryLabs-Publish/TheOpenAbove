@@ -1,92 +1,92 @@
-# Current Audit: TheOpenAbove Wind Particle Budget and Frame Authority
+# Current Audit: TheOpenAbove Balloon Simulation Tick Allocation and Terrain Sample Authority
 
-**Last aligned:** `2026-07-17T15-41-19-04-00`  
-**Status:** `wind-particle-simulation-budget-quality-admission-authority-audited`  
-**Reviewed pre-audit repository head:** `c066a1f4315ac7e0db87eb30ffb4bbe4201089d4`
+**Last aligned:** `2026-07-18T01-41-38-04-00`  
+**Status:** `balloon-simulation-tick-allocation-terrain-sample-budget-authority-audited`  
+**Reviewed pre-audit repository head:** `3446d1c65796bdd57bc1aa1ad7dfc59674292b7e`
 
 ## Summary
 
-The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture and Experience. The focused audit covers the new Sky-owned dust wind field that replaced the retired Airstream spline renderer.
+The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture, and Experience. The focused audit covers the accepted balloon simulation tick between bounded frame admission and visible pose projection.
 
-The field uses deterministic initialization, persistent typed arrays, one DynamicDraw position buffer, one Points draw, layered 3D noise and explicit disposal. Its 3,200-particle policy is hardcoded and runs on every accepted flight frame without quality-tier admission, measured CPU or write budgets, adaptive degradation or exact wind-sample-to-frame proof.
+The simulation keeps persistent position, velocity, and wind vectors, but the source-local tick path creates at least nine short-lived objects or arrays before live sampler and renderer allocations. It also evaluates fallback wind before sampler need is known and requests the same post-integration terrain height twice.
 
 ## Intent
 
-Make one wind-visual generation authoritative for sample binding, visual policy, quality tier, capacity, cadence, update budgets, degradation, diagnostics, retirement and the matching rendered frame.
+Make one Balloon Simulation generation authoritative for scratch resources, normalized flow, fallback evaluation, terrain sampling, tick budgets, deterministic parity, diagnostics, retirement, and the matching frame.
 
 ## Interaction loop
 
 ```txt
 boot
-  -> Sky mounts Airstream without production route trails
-  -> Sky creates one 3,200-particle dust field
+  -> Ballooning mounts the balloon and creates Balloon Simulation
+  -> Simulation installs keyboard and blur listeners
 
-flight frame
-  -> Ballooning produces position and accepted Airstream sample
-  -> Sky updates Airstream state from the supplied sample
-  -> particles center on the balloon
-  -> 3,200 layered noise evaluations advance local positions
-  -> 9,600 scalar positions are rewritten
-  -> the DynamicDraw attribute is marked for upload
-  -> Experience renders the frame
+accepted flight tick
+  -> Journey admits bounded dt while map is closed
+  -> controls resolve burner, vent, and steering
+  -> fallback wind is eagerly built
+  -> live Airstream flow is normalized and copied
+  -> steering resolves heading and horizontal velocity
+  -> velocity and position integrate
+  -> terrain height is requested for floor settlement
+  -> terrain height is requested again for altitude
+  -> balloon pose, Sky, Experience, capture, engine, and rendering advance
 
-map / disposal
-  -> map-open state suspends simulation and particle updates
-  -> Sky disposal removes Points and disposes geometry, material and texture
+retirement
+  -> map-open state suppresses simulation updates
+  -> Ballooning disposal removes simulation listeners and detaches the balloon
 ```
 
 ## Domains in use
 
 ```txt
-Journey: session, map policy, RAF, failure containment, snapshots, disposal
-Ballooning: simulation, controls, steering, terrain contact, pose, model animation
-Sky: Airstream composition, Weather readback, dust particles, cloud field
-Airstream: routes, field sampling, state, optional debug diagnostics; no route trails
-Land: Core World configuration, generation, terrain sampling
-Navigation: map, routes, Snap Points, reference cards
-Image Capture: sightseeing, shutter, recognition, score
-Experience: renderer, camera, balloon presentation, update/render, diagnostics
-Balloon object/presentation: envelope, basket, burner, rigging, ropes, materials
-Core World/Weather: foundation, features, landforms, atmosphere, layered weather
-Visual environment: sky, terrain, water, flora, clouds, HDR, resolution
-Validation/deploy: source checks, Vite artifact, Pages
+Journey: frame admission, map pause, failure containment, snapshots, disposal
+Ballooning: model mount, simulation update, pose, animation, state, disposal
+Balloon Simulation: input, flow, steering, buoyancy, integration, terrain, telemetry
+Sky/Airstream: route and field sampling, flow evidence, wind visuals, diagnostics
+Land/Core World: terrain provider, world generation, foundation/features
+Navigation/Image Capture: map, Snap Points, shutter, recognition, completion
+Experience/Presentation: balloon pose, camera, visual update/render, diagnostics
+Validation/Deploy: source checks, Vite artifact, revision stamping, Pages
 ```
 
 ## Current finding
 
 ```txt
-legacy spline route renderer: removed
-single Sky-owned production wind visual: present
-persistent position/phase arrays: present
-DynamicDraw position attribute: present
-explicit resource disposal: present
-source-policy test: present
+persistent position/velocity/wind vectors: present
+bounded dt and map suspension: present
+named input listener retirement: present
 
-WindVisualGeneration: absent
-WindSampleRevision: absent
-quality-tier capacity/noise/cadence policy: absent
-CPU and buffer-write budget result: absent
-adaptive degradation result: absent
-stale update rejection: absent
-runtime/browser fixture: absent
-WindParticleFrameDigest: absent
-FirstWindParticleBoundFrameAck: absent
+source-local minimum objects/arrays per accepted tick: 9
+source-local minimum at 60 accepted ticks/second: 540
+fallback wind evaluated before sampler need: yes
+public airstream identity replaced each tick: yes
+contributors copied twice: yes
+steering result allocated each tick: yes
+velocity target vector allocated each tick: yes
+same-coordinate post-integration terrain queries: 2
+
+BalloonSimulationGeneration: absent
+BalloonTerrainSampleResult: absent
+BalloonSimulationBudgetResult: absent
+BalloonSimulationTickDigest: absent
+FirstAllocationBoundFlightFrameAck: absent
 ```
 
-No visual defect or performance regression was reproduced.
+No hitch, garbage-collection pause, terrain defect, or determinism regression was reproduced.
 
 ## Required authority
 
-`open-above-wind-particle-simulation-budget-quality-admission-authority-domain`
+`open-above-balloon-simulation-tick-allocation-terrain-sample-budget-authority-domain`
 
 ## Inventory
 
 The complete 125-surface kit/provider/adapter inventory and offered services are recorded in:
 
 ```txt
-.agent/trackers/2026-07-17T15-41-19-04-00/project-breakdown.md
+.agent/trackers/2026-07-18T01-41-38-04-00/project-breakdown.md
 ```
 
 ## Boundary
 
-Documentation only. Runtime, rendering, gameplay, tests, build and deployment were not changed by this audit.
+Documentation only. Runtime, simulation, gameplay, rendering, input, tests, build, and deployment were not changed by this audit.
