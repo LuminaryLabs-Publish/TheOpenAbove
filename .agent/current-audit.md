@@ -1,92 +1,94 @@
-# Current Audit: TheOpenAbove Balloon Simulation Tick Allocation and Terrain Sample Authority
+# Current Audit: TheOpenAbove Map-Open Dual-Surface Render Work Budget
 
-**Last aligned:** `2026-07-18T01-41-38-04-00`  
-**Status:** `balloon-simulation-tick-allocation-terrain-sample-budget-authority-audited`  
-**Reviewed pre-audit repository head:** `3446d1c65796bdd57bc1aa1ad7dfc59674292b7e`
+**Last aligned:** `2026-07-18T12-38-04-04-00`  
+**Status:** `map-open-dual-surface-render-work-budget-authority-audited`  
+**Reviewed pre-audit repository head:** `28bed180bac93a326dfa1a31ab54699387698086`
 
 ## Summary
 
-The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture, and Experience. The focused audit covers the accepted balloon simulation tick between bounded frame admission and visible pose projection.
+The active Meadow Lift scene retains Journey, Ballooning, Sky, Land, Navigation, Image Capture, and Experience. The focused audit covers map-open presentation between the accepted map toggle and the visible Three.js plus Canvas2D surfaces.
 
-The simulation keeps persistent position, velocity, and wind vectors, but the source-local tick path creates at least nine short-lived objects or arrays before live sampler and renderer allocations. It also evaluates fallback wind before sampler need is known and requests the same post-integration terrain height twice.
+Journey suppresses gameplay updates while the map is open, but continues its primary RAF and Experience render path with `dt: 0`. The parchment map starts a second independent RAF and redraws mostly retained state every frame. No shared generation settles the main background policy, map dirty state, combined work budget, or matching visible frame.
 
 ## Intent
 
-Make one Balloon Simulation generation authoritative for scratch resources, normalized flow, fallback evaluation, terrain sampling, tick budgets, deterministic parity, diagnostics, retirement, and the matching frame.
+Make one map-open generation authoritative for both presentation surfaces, their cadence, dirty-state admission, RAF ownership, work budgets, diagnostics, retirement, and exact frame convergence.
 
 ## Interaction loop
 
 ```txt
 boot
-  -> Ballooning mounts the balloon and creates Balloon Simulation
-  -> Simulation installs keyboard and blur listeners
+  -> Journey owns primary RAF
+  -> Navigation mounts parchment overlay
 
-accepted flight tick
-  -> Journey admits bounded dt while map is closed
-  -> controls resolve burner, vent, and steering
-  -> fallback wind is eagerly built
-  -> live Airstream flow is normalized and copied
-  -> steering resolves heading and horizontal velocity
-  -> velocity and position integrate
-  -> terrain height is requested for floor settlement
-  -> terrain height is requested again for altitude
-  -> balloon pose, Sky, Experience, capture, engine, and rendering advance
+map toggle
+  -> M opens map
+  -> overlay resizes and starts map RAF
+  -> Journey detects map-open state
 
-retirement
-  -> map-open state suppresses simulation updates
-  -> Ballooning disposal removes simulation listeners and detaches the balloon
+map-open frame
+  -> Journey skips simulation update
+  -> Journey still calls Experience.render(dt=0)
+  -> Journey schedules next primary RAF
+  -> map RAF redraws map canvas
+  -> map RAF schedules next map RAF
+
+close / retirement
+  -> M or Escape closes map
+  -> overlay cancels map RAF
+  -> Journey resumes simulation update
+  -> disposal cancels both owners through their own domains
 ```
 
 ## Domains in use
 
 ```txt
-Journey: frame admission, map pause, failure containment, snapshots, disposal
-Ballooning: model mount, simulation update, pose, animation, state, disposal
-Balloon Simulation: input, flow, steering, buoyancy, integration, terrain, telemetry
-Sky/Airstream: route and field sampling, flow evidence, wind visuals, diagnostics
-Land/Core World: terrain provider, world generation, foundation/features
-Navigation/Image Capture: map, Snap Points, shutter, recognition, completion
-Experience/Presentation: balloon pose, camera, visual update/render, diagnostics
-Validation/Deploy: source checks, Vite artifact, revision stamping, Pages
+Journey: primary RAF, map state, update suppression, main render, failure containment
+Navigation: map mount/open/close/refresh/snapshot/disposal
+Parchment Map: Canvas2D RAF, resize, cache, routes, Snap Points, player, reference card
+Meadow Lift: domain composition and update/render ordering
+Experience: Three.js world, balloon, clouds, HDR and final game-canvas presentation
+Ballooning/Sky/Land/Image Capture: retained state consumed by map projection
+Core World/Weather: world and atmosphere data consumed by both surfaces
+Validation/Deploy: source checks, Vite artifact, provider revision and Pages
 ```
 
 ## Current finding
 
 ```txt
-persistent position/velocity/wind vectors: present
-bounded dt and map suspension: present
-named input listener retirement: present
+Journey primary RAF while map open: present
+map independent RAF while open: present
+scheduled RAF loops while map open: 2
+simulation update while open: suppressed
+Experience.render while open: present with dt zero
+map redraw while open: every map RAF
+fixed decorative circles per map draw: 90
+reference gradient creations per map draw: 1
+world-map revision cache: present
+close/dispose map RAF cancellation: present
 
-source-local minimum objects/arrays per accepted tick: 9
-source-local minimum at 60 accepted ticks/second: 540
-fallback wind evaluated before sampler need: yes
-public airstream identity replaced each tick: yes
-contributors copied twice: yes
-steering result allocated each tick: yes
-velocity target vector allocated each tick: yes
-same-coordinate post-integration terrain queries: 2
-
-BalloonSimulationGeneration: absent
-BalloonTerrainSampleResult: absent
-BalloonSimulationBudgetResult: absent
-BalloonSimulationTickDigest: absent
-FirstAllocationBoundFlightFrameAck: absent
+MapOpenGeneration: absent
+MapSurfacePlanResult: absent
+MapRedrawAdmissionResult: absent
+MapRenderWorkBudgetResult: absent
+MapSurfaceDigest: absent
+FirstMapBoundFrameAck: absent
 ```
 
-No hitch, garbage-collection pause, terrain defect, or determinism regression was reproduced.
+At a hypothetical 60 displayed frames per second, source arithmetic yields 120 RAF callbacks, 60 Experience render calls, 60 map draws, 5,400 decorative-circle iterations, and 60 gradient creations per second. No browser or GPU measurement was performed.
 
 ## Required authority
 
-`open-above-balloon-simulation-tick-allocation-terrain-sample-budget-authority-domain`
+`open-above-map-open-dual-surface-render-work-budget-authority-domain`
 
 ## Inventory
 
 The complete 125-surface kit/provider/adapter inventory and offered services are recorded in:
 
 ```txt
-.agent/trackers/2026-07-18T01-41-38-04-00/project-breakdown.md
+.agent/trackers/2026-07-18T12-38-04-04-00/project-breakdown.md
 ```
 
 ## Boundary
 
-Documentation only. Runtime, simulation, gameplay, rendering, input, tests, build, and deployment were not changed by this audit.
+Documentation only. Runtime, rendering, gameplay, input, tests, build, and deployment were not changed by this audit.
