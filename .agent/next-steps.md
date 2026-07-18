@@ -1,88 +1,94 @@
-# Next Steps: TheOpenAbove Wind Particle Budget and Frame Authority
+# Next Steps: TheOpenAbove Balloon Simulation Tick Allocation and Terrain Sample Authority
 
-**Last aligned:** `2026-07-17T15-41-19-04-00`  
-**Status:** `wind-particle-simulation-budget-quality-admission-authority-audited`
+**Last aligned:** `2026-07-18T01-41-38-04-00`  
+**Status:** `balloon-simulation-tick-allocation-terrain-sample-budget-authority-audited`
 
 ## Summary
 
-Keep the new dust-stream visual and retired spline renderer. Replace the fixed implicit policy with one admitted, measured and observable wind-visual generation.
+Preserve current flight behavior while replacing repeated tick construction and duplicate terrain sampling with generation-owned scratch state and explicit result boundaries.
 
 ## Intent
 
-Produce one deterministic path from accepted wind evidence through quality policy, bounded particle updates, degradation, retirement and the matching rendered frame.
+Produce one deterministic path from accepted input and dt through normalized flow, steering, one terrain sample, bounded tick work, pose projection, and the matching frame.
 
 ## What needs to happen
 
-### Gate 1: Policy admission
+### Gate 1: Generation and scratch admission
 
-- [ ] Add `WindVisualGeneration`, `WindPolicyRevision` and `QualityTierRevision`.
-- [ ] Move count, radii, size, opacity, noise profile and cadence into one immutable policy.
-- [ ] Bind the policy to the existing `open-above-quality-tier-kit`.
-- [ ] Publish `WindVisualAdmissionResult`.
+- [ ] Add `BalloonSimulationGeneration` and immutable sampler/terrain-provider revisions.
+- [ ] Allocate reusable flow, contributor, steering, and velocity-target scratch state once.
+- [ ] Publish `BalloonSimulationGenerationResult` with a diagnostic scratch manifest.
 
-### Gate 2: Sample and update admission
+### Gate 2: Lazy flow settlement
 
-- [ ] Publish an immutable `WindSampleRevision` from the accepted flight frame.
-- [ ] Bind frame, sample, visual generation, policy and dt before buffer mutation.
-- [ ] Reject stale or retired generations.
-- [ ] Publish `WindParticleUpdateResult`.
+- [ ] Avoid evaluating fallback wind until the live sampler is unavailable or invalid.
+- [ ] Normalize live or fallback flow into reusable scratch state.
+- [ ] Choose and document stable mutable public airstream state or a versioned immutable result.
+- [ ] Publish `BalloonSimulationTickResult`.
 
-### Gate 3: Budget settlement
+### Gate 3: Terrain sample reuse
 
-- [ ] Record particles evaluated, noise evaluations and scalar writes.
-- [ ] Record position-buffer bytes and measured update duration.
-- [ ] Define measured low, medium and high policies.
-- [ ] Add explicit capacity, cadence or noise degradation without changing wind truth.
-- [ ] Publish `WindVisualBudgetResult`.
+- [ ] Sample post-integration terrain once at accepted horizontal coordinates.
+- [ ] Bind height to `TerrainSampleRevision` and provider revision.
+- [ ] Reuse the sample for floor settlement and altitude.
+- [ ] Publish `BalloonTerrainSampleResult`.
 
-### Gate 4: Diagnostics and frame proof
+### Gate 4: Budget settlement
 
-- [ ] Add generation, sample, policy, quality, capacity, cadence, update and degradation state to diagnostics.
-- [ ] Publish `WindParticleFrameDigest` after the accepted buffer revision is rendered.
-- [ ] Publish `FirstWindParticleBoundFrameAck`.
+- [ ] Record attributed allocations, reused scratch writes, fallback evaluations, terrain queries, and tick duration.
+- [ ] Define accepted budgets from measurements rather than source arithmetic.
+- [ ] Publish `BalloonSimulationBudgetResult`.
 
-### Gate 5: Retirement
+### Gate 5: Diagnostics and frame proof
 
-- [ ] Stop updates before detaching the active Points object.
-- [ ] Dispose geometry, material and texture exactly once.
+- [ ] Expose simulation generation, tick, flow, terrain sample, scratch identity, query count, and budget state.
+- [ ] Publish `BalloonSimulationTickDigest` after pose projection.
+- [ ] Publish `FirstAllocationBoundFlightFrameAck` after the matching frame is presented.
+
+### Gate 6: Retirement
+
+- [ ] Reject updates after simulation generation retirement.
+- [ ] Clear contributor scratch and listener ownership exactly once.
 - [ ] Make repeated retirement harmless and observable.
-- [ ] Publish `WindVisualRetirementResult`.
 
-### Gate 6: Fixtures
+### Gate 7: Fixtures
 
-- [ ] Construct the real field in a controlled runtime scene.
-- [ ] Assert stable array, attribute and resource identities across updates.
-- [ ] Assert map-open suspension causes no buffer mutation.
-- [ ] Measure warm and long-flight cost at each admitted quality tier.
-- [ ] Assert degradation does not alter Ballooning or Airstream truth.
-- [ ] Assert stale generation writes are rejected.
-- [ ] Verify source, Vite artifact and Pages parity.
+- [ ] Capture a current deterministic golden trace.
+- [ ] Run warm-up and at least 10,000 accepted controlled ticks.
+- [ ] Require one post-integration terrain query per accepted tick.
+- [ ] Verify fallback evaluation occurs only when required.
+- [ ] Compare all accepted flight and pose outputs after scratch adoption.
+- [ ] Observe browser heap, GC, frame pacing, and visible stability during long flights.
+- [ ] Verify source, Vite artifact, and Pages parity.
 
 ## Recommended file cut
 
 ```txt
-src/domains/sky/wind/
-  wind-particle-simulation-budget-quality-admission-authority-domain.js
-  wind-particle-policy-kit.js
-  wind-particle-quality-tier-kit.js
-  wind-particle-update-plan-kit.js
-  wind-particle-update-budget-kit.js
-  wind-particle-frame-digest-kit.js
+src/domains/ballooning/simulation-budget/
+  balloon-simulation-tick-allocation-terrain-sample-budget-authority-domain.js
+  balloon-simulation-generation-kit.js
+  balloon-simulation-tick-plan-kit.js
+  balloon-simulation-allocation-budget-kit.js
+  balloon-terrain-sample-reuse-kit.js
+  balloon-simulation-tick-digest-kit.js
 
-src/domains/sky/
-  sky-domain.js
-  wind-particle-field-kit.js
+src/runtime/
+  balloon-simulation-kit.js
+  airstream-domain/airstream-balloon-force-kit.js
+
+src/domains/ballooning/
+  wind-relative-steering-kit.js
 
 tests/
-  wind-particle-runtime.mjs
-  wind-particle-budget.mjs
-  wind-particle-frame-correlation.mjs
+  balloon-simulation-allocation.mjs
+  balloon-terrain-sample-count.mjs
+  balloon-deterministic-flight-parity.mjs
 ```
 
 ## Compatibility constraints
 
-Preserve Airstream as renderer-neutral wind truth, Sky as production wind-visual owner, the 50 m player-centered field, deterministic seeding, normal blending, map suspension, explicit disposal, balloon simulation, steering, camera, clouds, sightseeing and deployment.
+Preserve all current control mappings, simulation equations, Airstream semantics, terrain floor clearance, map suspension, balloon pose, camera, wind visuals, clouds, sightseeing, snapshots, and deployment behavior.
 
 ## Do not claim
 
-Do not claim an accepted device budget, performance improvement, visual correctness, stale-update rejection, exact wind-sample/frame convergence, artifact parity, Pages parity or production readiness until implementation and fixtures exist.
+Do not claim allocation reduction, garbage-collection improvement, faster ticks, deterministic parity, exact frame convergence, artifact parity, Pages parity, or production readiness until implementation and fixtures exist.
