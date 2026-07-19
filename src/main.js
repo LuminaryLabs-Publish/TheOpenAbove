@@ -5,6 +5,12 @@ const canvas = document.querySelector("#game");
 const mapRoot = document.querySelector("#mapOverlay");
 const mapCanvas = document.querySelector("#mapCanvas");
 const errorPanel = document.querySelector("#error");
+const startupElements = Object.freeze({
+  loader: document.querySelector("#startupLoader"),
+  fill: document.querySelector("#startupProgressFill"),
+  label: document.querySelector("#startupLabel"),
+  error: document.querySelector("#startupError")
+});
 
 function showFatal(error) {
   errorPanel.hidden = false;
@@ -18,6 +24,7 @@ async function boot() {
       canvas,
       mapRoot,
       mapCanvas,
+      startupElements,
       nexusEngineSha: NEXUS_ENGINE_SHA,
       onFatal: showFatal
     });
