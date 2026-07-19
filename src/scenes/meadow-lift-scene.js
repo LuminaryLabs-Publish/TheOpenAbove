@@ -238,6 +238,7 @@ export async function createMeadowLiftScene({
       sample: initialState.airstream,
       dt: 0
     });
+    experience.cameraRig?.update?.(1, initialState);
     experience.update({ dt: 0, flightState: initialState });
     engine.tick(0);
     startup.ready("starting-area", {
