@@ -46,8 +46,16 @@ export function createBalloonTelemetryEngine(NexusEngine, getSnapshot, { worldFe
     }
   });
 
+  const startupKits = NexusEngine.createCoreStartupDomain({
+    metadata: {
+      product: "the-open-above",
+      purpose: "Coordinates deterministic world preparation before player input enters the sightseeing scene."
+    }
+  });
+
   const engine = NexusEngine.createRealtimeGame({
     kits: [
+      ...startupKits,
       NexusEngine.createCoreWorldDomain({ childDomains: false }),
       NexusEngine.createWorldFoundationDomain(),
       NexusEngine.createWorldFeatureDomain(),
