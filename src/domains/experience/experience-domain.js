@@ -1,10 +1,20 @@
-import { createVisualDomain } from "../../visual/visual-domain.js";
+import { createVisualDomain, createVisualWorldPreparation } from "../../visual/visual-domain.js";
 import { createBalloonCameraRig } from "../../visual/camera-presentation/balloon-camera-rig-kit.js";
 import { createBalloonPresentationDomain } from "../../visual/balloon-presentation/balloon-presentation-domain.js";
 
 export const EXPERIENCE_DOMAIN_ID = "open-above-experience-domain";
 
-export function createExperienceDomain({ canvas, land, sky } = {}) {
+export function createExperienceWorldPreparation({ land } = {}) {
+  if (!land) throw new TypeError("Experience world preparation requires the Land domain.");
+  return createVisualWorldPreparation({
+    worldConfig: land.worldConfig,
+    worldAnchors: land.worldAnchors,
+    worldFeatures: land.worldFeatures,
+    worldFoundation: land.worldFoundation
+  });
+}
+
+export function createExperienceDomain({ canvas, land, sky, preparedWorld = null } = {}) {
   const visual = createVisualDomain({
     canvas,
     worldConfig: land.worldConfig,
@@ -13,7 +23,8 @@ export function createExperienceDomain({ canvas, land, sky } = {}) {
     worldFoundation: land.worldFoundation,
     weatherDomain: sky.weather,
     layeredWeather: sky.layeredWeather,
-    cloudField: sky.cloudField
+    cloudField: sky.cloudField,
+    preparedWorld
   });
   let cameraRig = null;
   let balloonPresentation = null;
