@@ -17,6 +17,15 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #080b12; color: #f8fbff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     #game { width: 100vw; height: 100dvh; display: block; touch-action: none; }
+    .startup-loader { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 50% 22%, rgba(114, 171, 198, .24), transparent 38%), linear-gradient(180deg, #132438 0%, #0d1724 58%, #090f18 100%); transition: opacity .42s ease, visibility .42s ease; }
+    .startup-loader[hidden] { display: none; }
+    .startup-card { width: min(520px, 92vw); padding: clamp(24px, 5vw, 42px); text-align: center; border: 1px solid rgba(224, 239, 242, .18); border-radius: 28px; background: rgba(13, 25, 36, .76); box-shadow: 0 30px 100px rgba(0, 0, 0, .44), inset 0 1px 0 rgba(255, 255, 255, .08); backdrop-filter: blur(18px); }
+    .startup-kicker { margin: 0 0 8px; color: #b9d6df; font-size: .74rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+    .startup-title { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 7vw, 3.6rem); font-weight: 500; letter-spacing: -.035em; }
+    .startup-label { min-height: 1.5em; margin: 18px 0 14px; color: #dce9eb; font-size: .98rem; }
+    .startup-progress { height: 8px; overflow: hidden; border-radius: 999px; background: rgba(215, 232, 234, .12); box-shadow: inset 0 1px 4px rgba(0, 0, 0, .42); }
+    .startup-progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8bb6c1, #d9c692 70%, #f0dfae); box-shadow: 0 0 18px rgba(213, 225, 191, .34); transition: width .18s linear; }
+    .startup-error { margin: 16px 0 0; color: #ffd7ca; white-space: pre-wrap; }
     .map-overlay { position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; padding: clamp(12px, 3vw, 36px); background: rgba(8, 14, 16, .42); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .24s ease, visibility 0s linear .5s; }
     .map-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
     .map-scroll { position: relative; width: min(1120px, 94vw); height: min(760px, 88dvh); min-width: 0; min-height: 0; overflow: hidden; border: 1px solid rgba(90, 61, 30, .62); border-radius: 26px 20px 28px 22px; background: radial-gradient(circle at 18% 14%, rgba(255,255,255,.35), transparent 28%), radial-gradient(circle at 82% 74%, rgba(112,77,39,.12), transparent 38%), linear-gradient(112deg, #e8d3a4 0%, #f2dfb5 47%, #d9bd88 100%); box-shadow: 0 30px 90px rgba(0,0,0,.48), inset 0 0 0 2px rgba(255,248,218,.46), inset 0 0 46px rgba(83,55,25,.22); transform: translateY(112vh) rotate(-.35deg); transform-origin: center bottom; transition: transform .5s cubic-bezier(.19,.83,.24,1); }
@@ -25,22 +34,34 @@
     .map-scroll::before { top: -7px; border-radius: 50% 50% 44% 44%; }
     .map-scroll::after { bottom: -7px; border-radius: 44% 44% 50% 50%; box-shadow: 0 -5px 12px rgba(64,43,22,.2); }
     #mapCanvas { width: 100%; height: 100%; display: block; }
-    #error { position: fixed; inset: 16px; z-index: 10; overflow: auto; white-space: pre-wrap; padding: 16px; color: #fff1ea; background: rgba(42,4,2,.94); border: 0; border-radius: 18px; box-shadow: 0 22px 80px rgba(0,0,0,.54), inset 0 0 0 1px rgba(255,210,190,.22); }
+    #error { position: fixed; inset: 16px; z-index: 30; overflow: auto; white-space: pre-wrap; padding: 16px; color: #fff1ea; background: rgba(42,4,2,.94); border: 0; border-radius: 18px; box-shadow: 0 22px 80px rgba(0,0,0,.54), inset 0 0 0 1px rgba(255,210,190,.22); }
     #error[hidden] { display: none; }
     @media (max-width: 640px), (max-height: 520px) {
+      .startup-card { border-radius: 20px; }
       .map-overlay { padding: 8px; }
       .map-scroll { width: 100%; height: 100%; border-radius: 18px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .map-overlay, .map-scroll { transition-duration: .01ms; }
+      .startup-loader, .startup-progress-fill, .map-overlay, .map-scroll { transition-duration: .01ms; }
     }
   </style>
 </head>
 <body>
   <canvas id="game" aria-label="The Open Above cinematic hot air balloon canvas"></canvas>
+  <section class="startup-loader" id="startupLoader" role="status" aria-live="polite" aria-atomic="true">
+    <div class="startup-card">
+      <p class="startup-kicker">Luminary Labs presents</p>
+      <h1 class="startup-title">The Open Above</h1>
+      <p class="startup-label" id="startupLabel">Preparing the world</p>
+      <div class="startup-progress" role="progressbar" aria-label="World loading progress" aria-valuemin="0" aria-valuemax="100">
+        <div class="startup-progress-fill" id="startupProgressFill"></div>
+      </div>
+      <p class="startup-error" id="startupError" hidden></p>
+    </div>
+  </section>
   <section class="map-overlay" id="mapOverlay" aria-hidden="true">
-    <div class="map-scroll" role="dialog" aria-modal="true" aria-label="Air Mail map">
-      <canvas id="mapCanvas" aria-label="Parchment route map"></canvas>
+    <div class="map-scroll" role="dialog" aria-modal="true" aria-label="Sightseeing journal map">
+      <canvas id="mapCanvas" aria-label="Parchment sightseeing map"></canvas>
     </div>
   </section>
   <pre id="error" hidden></pre>
