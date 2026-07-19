@@ -18,6 +18,7 @@ import { createWorldGenerationKit } from "../world/world-generation-kit.js";
 import { createWorldFeatureFoundation } from "../world/world-feature-foundation-kit.js";
 
 export const VISUAL_DOMAIN_ID = "open-above-visual-domain";
+export const VISUAL_WORLD_PREPARATION_ID = "open-above-visual-world-preparation";
 
 function createDistantVolumetricWeatherView(weather) {
   const closeKinds = new Set(["ground-fog", "low-cloud", "mid-cloud"]);
@@ -31,6 +32,50 @@ function createDistantVolumetricWeatherView(weather) {
   };
 }
 
+export function createVisualWorldPreparation({
+  worldConfig = {},
+  worldAnchors = {},
+  worldFeatures = null,
+  worldFoundation = null,
+  workBudget = worldConfig.generation?.workBudget
+} = {}) {
+  const generatedWorld = createWorldGenerationKit({
+    worldConfig,
+    legacyTerrainHeight,
+    legacyMoistureAt,
+    anchors: worldAnchors,
+    staged: true,
+    workBudget,
+    autoStart: true
+  });
+  let preparedWorld = null;
+
+  function finalize() {
+    const state = generatedWorld.getGenerationState();
+    if (state.status !== "ready") {
+      throw new Error(`Visual world cannot finalize while generation status is ${state.status}.`);
+    }
+    if (!preparedWorld) {
+      preparedWorld = createWorldFeatureFoundation(generatedWorld, {
+        worldConfig,
+        worldFeatures,
+        worldFoundation
+      });
+    }
+    return preparedWorld;
+  }
+
+  return Object.freeze({
+    id: VISUAL_WORLD_PREPARATION_ID,
+    generatedWorld,
+    getState: () => generatedWorld.getGenerationState(),
+    advance: (units) => generatedWorld.advanceGeneration(units),
+    finalize,
+    get world() { return preparedWorld; },
+    dispose() { (preparedWorld ?? generatedWorld).dispose?.(); }
+  });
+}
+
 export function createVisualDomain({
   canvas,
   worldConfig,
@@ -39,7 +84,8 @@ export function createVisualDomain({
   worldFoundation = null,
   weatherDomain = null,
   layeredWeather = null,
-  cloudField = null
+  cloudField = null,
+  preparedWorld = null
 }) {
   const quality = detectQualityTier();
   const scene = new THREE.Scene();
@@ -50,15 +96,14 @@ export function createVisualDomain({
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.physicallyCorrectLights = true;
 
-  const generatedWorld = createWorldGenerationKit({
+  const world = preparedWorld ?? createWorldFeatureFoundation(createWorldGenerationKit({
     worldConfig,
     legacyTerrainHeight,
     legacyMoistureAt,
     anchors: worldAnchors,
     staged: true,
     workBudget: worldConfig.generation?.workBudget
-  });
-  const world = createWorldFeatureFoundation(generatedWorld, {
+  }), {
     worldConfig,
     worldFeatures,
     worldFoundation
@@ -186,5 +231,9 @@ export function createVisualDomain({
 }
 
 if (typeof window !== "undefined") {
-  window.OpenAboveVisualDomain = { id: VISUAL_DOMAIN_ID, createVisualDomain };
+  window.OpenAboveVisualDomain = {
+    id: VISUAL_DOMAIN_ID,
+    createVisualWorldPreparation,
+    createVisualDomain
+  };
 }
