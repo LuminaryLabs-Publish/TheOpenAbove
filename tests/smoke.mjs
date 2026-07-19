@@ -18,7 +18,7 @@ const requiredFiles = [
   "src/domains/sky/sky-domain.js",
   "src/domains/land/land-domain.js",
   "src/domains/navigation/navigation-domain.js",
-  "src/domains/air-mail/air-mail-domain.js",
+  "src/domains/image-capture/image-capture-domain.js",
   "src/domains/experience/experience-domain.js",
   "src/ui/parchment-map-overlay.js",
   "src/data/campaign.config.js",
@@ -28,7 +28,6 @@ const requiredFiles = [
   "src/runtime/balloon-simulation-kit.js",
   "src/runtime/balloon-telemetry-kit.js",
   "src/runtime/airstream-domain/index.js",
-  "src/gameplay/mail-delivery-domain/index.js",
   "src/visual/visual-domain.js",
   "src/visual/atmosphere/volumetric-cloud-kit.js",
   "src/visual/grass-field/grass-field-domain.js",
@@ -37,6 +36,7 @@ const requiredFiles = [
   "src/visual/balloon-presentation/balloon-presentation-domain.js",
   "src/visual/camera-presentation/balloon-camera-rig-kit.js",
   "tests/semantic-domain-composition.mjs",
+  "tests/startup-loading.mjs",
   "tools/headless-editor-environment.mjs",
   "vite.config.js"
 ];
@@ -44,12 +44,15 @@ for (const file of requiredFiles) assert.equal(existsSync(file), true, `${file} 
 
 const index = readFileSync("index.html", "utf8");
 assert.doesNotMatch(index, /class="hud"|id="hud"/);
+assert.match(index, /id="startupLoader"/);
+assert.match(index, /id="startupProgressFill"/);
 assert.match(index, /id="mapOverlay"/);
 assert.match(index, /id="mapCanvas"/);
 assert.match(index, /map-scroll/);
 
 const main = readFileSync("src/main.js", "utf8");
 assert.match(main, /createMeadowLiftScene/);
+assert.match(main, /startupElements/);
 assert.match(main, /window\.GameHost = scene\.gameHost/);
 assert.doesNotMatch(main, /createBalloonSimulation|createParchmentMapOverlay|createVisualDomain|requestAnimationFrame/);
 assert.doesNotMatch(main, /renderer\.render\(/);
@@ -61,11 +64,15 @@ for (const factory of [
   "createSkyDomain",
   "createLandDomain",
   "createNavigationDomain",
-  "createAirMailDomain",
+  "createImageCaptureDomain",
+  "createExperienceWorldPreparation",
   "createExperienceDomain"
 ]) assert.match(scene, new RegExp(factory));
-assert.match(scene, /worldFeatures/);
-assert.match(scene, /weather: WORLD\.weather/);
+assert.match(scene, /coreStartup/);
+assert.match(scene, /startup\.presentFirstFrame/);
+assert.match(scene, /startup\.enter/);
+assert.match(scene, /await advanceGeneratedWorld/);
+assert.match(scene, /worldPreparation\.finalize/);
 assert.match(scene, /domains = Object\.freeze/);
 assert.match(scene, /journey\.start/);
 assert.match(scene, /modelSnapshot/);
@@ -84,6 +91,7 @@ assert.match(ballooning, /modelSnapshot/);
 
 const sky = readFileSync("src/domains/sky/sky-domain.js", "utf8");
 assert.match(sky, /createAirstreamDomain/);
+assert.match(sky, /createWindParticleField/);
 assert.match(sky, /layeredWeather/);
 assert.match(sky, /weatherSnapshot/);
 
@@ -97,13 +105,15 @@ assert.match(navigation, /createParchmentMapOverlay/);
 assert.match(navigation, /isMapOpen/);
 assert.match(navigation, /snapshot/);
 
-const airMail = readFileSync("src/domains/air-mail/air-mail-domain.js", "utf8");
-assert.match(airMail, /createMailDeliveryDomain/);
-assert.match(airMail, /createDefaultMailRoute/);
-assert.match(airMail, /parcel|towns/);
+const imageCapture = readFileSync("src/domains/image-capture/image-capture-domain.js", "utf8");
+assert.match(imageCapture, /snapPoints/);
+assert.match(imageCapture, /requestCapture/);
+assert.match(imageCapture, /cameraMode/);
 
 const experience = readFileSync("src/domains/experience/experience-domain.js", "utf8");
-assert.match(experience, /createVisualDomain/);
+assert.match(experience, /createVisualWorldPreparation/);
+assert.match(experience, /createExperienceWorldPreparation/);
+assert.match(experience, /preparedWorld/);
 assert.match(experience, /createBalloonCameraRig/);
 assert.match(experience, /createBalloonPresentationDomain/);
 assert.match(experience, /balloonPresentation\?\.update/);
@@ -114,9 +124,9 @@ assert.match(mapOverlay, /event\.code === "Escape"/);
 assert.match(mapOverlay, /createWorldMapCanvas/);
 assert.match(mapOverlay, /sampleMapColor/);
 assert.match(mapOverlay, /drawRoute/);
-assert.match(mapOverlay, /drawTown/);
-assert.match(mapOverlay, /drawPlayer/);
-assert.match(mapOverlay, /MAIL DESTINATION/);
+assert.match(mapOverlay, /drawSnapPoint/);
+assert.match(mapOverlay, /drawReferenceCard/);
+assert.match(mapOverlay, /SIGHTSEEING JOURNAL/);
 
 const objectKit = readFileSync("src/hot-air-balloon-object-kit.js", "utf8");
 assert.match(objectKit, /export async function loadHotAirBalloonModel/);
@@ -126,9 +136,13 @@ assert.match(objectKit, /persistentGpuResources = true/);
 const simulation = readFileSync("src/runtime/balloon-simulation-kit.js", "utf8");
 assert.match(simulation, /keys\.has\("KeyA"\)/);
 assert.match(simulation, /keys\.has\("KeyD"\)/);
-assert.match(simulation, /lateralTrim/);
+assert.match(simulation, /createWindRelativeSteering/);
+assert.match(simulation, /state\.wind\.set\(resolved\.velocityX/);
 assert.match(simulation, /visualBank/);
-assert.match(simulation, /state\.wind\.addScaledVector\(rightVector, state\.lateralTrim\)/);
+
+const telemetry = readFileSync("src/runtime/balloon-telemetry-kit.js", "utf8");
+assert.match(telemetry, /createCoreStartupDomain/);
+assert.match(telemetry, /\.\.\.startupKits/);
 
 const presentation = readFileSync("src/visual/balloon-presentation/balloon-presentation-domain.js", "utf8");
 assert.match(presentation, /envelopePivot/);
@@ -138,13 +152,15 @@ assert.match(presentation, /lateralAcceleration/);
 const camera = readFileSync("src/visual/camera-presentation/balloon-camera-rig-kit.js", "utf8");
 assert.match(camera, /steeringLook/);
 assert.match(camera, /flightState\.steeringInput/);
+assert.match(camera, /lastLookInputAt/);
 
 const clouds = readFileSync("src/visual/atmosphere/volumetric-cloud-kit.js", "utf8");
-assert.match(clouds, /hash21\(gl_FragCoord\.xy\)/);
-assert.doesNotMatch(clouds, /hash21\(gl_FragCoord\.xy \+ uTime\)/);
+assert.match(clouds, /hash21\(gl_FragCoord\.xy \+ float\(layerIndex\) \* 19\.0\)/);
+assert.doesNotMatch(clouds, /hash21\([^)]*uTime/);
 
 const visualDomain = readFileSync("src/visual/visual-domain.js", "utf8");
-assert.match(visualDomain, /createWorldGenerationKit/);
+assert.match(visualDomain, /createVisualWorldPreparation/);
+assert.match(visualDomain, /preparedWorld \?\? createWorldFeatureFoundation/);
 assert.match(visualDomain, /createFlowerFieldDomain/);
 assert.match(visualDomain, /worldAnchors/);
 
@@ -177,4 +193,4 @@ assert.match(harness, /renderer\.validate/);
 assert.match(harness, /project\.check/);
 assert.match(harness, /project\.build/);
 
-console.log("The Open Above semantic-domain, balloon, world, map, weather, and visual smoke passed.");
+console.log("The Open Above startup, semantic-domain, balloon, world, map, weather, and visual smoke passed.");
