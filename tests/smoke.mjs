@@ -152,7 +152,8 @@ assert.match(presentation, /lateralAcceleration/);
 const camera = readFileSync("src/visual/camera-presentation/balloon-camera-rig-kit.js", "utf8");
 assert.match(camera, /steeringLook/);
 assert.match(camera, /flightState\.steeringInput/);
-assert.match(camera, /lastLookInputAt/);
+assert.match(camera, /secondsSinceLookInput/);
+assert.match(camera, /recenterDelay/);
 
 const clouds = readFileSync("src/visual/atmosphere/volumetric-cloud-kit.js", "utf8");
 assert.match(clouds, /hash21\(gl_FragCoord\.xy \+ float\(layerIndex\) \* 19\.0\)/);
