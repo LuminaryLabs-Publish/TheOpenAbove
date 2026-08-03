@@ -1,4 +1,8 @@
-# Aero-Glide Kit Extraction Reference
+# Historical Aero-Glide Kit Extraction Reference
+
+> Historical reference only. The active product uses the balloon simulation
+> described in `docs/FLIGHT_MODEL.md`; these bird-flight notes are not current
+> implementation instructions.
 
 ## Source
 

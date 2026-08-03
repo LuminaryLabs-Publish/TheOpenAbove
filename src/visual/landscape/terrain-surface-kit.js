@@ -1,5 +1,5 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import { createDiskWorldSurface } from "https://cdn.jsdelivr.net/gh/LuminaryLabs-Agents/NexusEngine-ProtoKits@dd8d68f5635a64f34043edd3ac757067a02eb43c/protokits/disk-world-surface-kit/surface.js";
+import * as THREE from "three";
+import { createDiskWorldSurface } from "./disk-world-surface.js";
 import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-chunk-streaming-kit.js";
 import { createTerrainHorizonStreamer } from "./terrain-horizon-streaming-kit.js";
 import { createTerrainStreamingFrame } from "./terrain-streaming-contract-kit.js";

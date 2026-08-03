@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const ENVELOPE_FABRIC_MATERIAL_KIT_ID = "open-above-envelope-fabric-material-kit";
 

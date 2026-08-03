@@ -1,65 +1,38 @@
 # Implementation Status
 
-## Current status
+## Release Integration
 
-The repository now contains a playable standalone Meadow Lift slice that imports Nexus Engine from the renamed core repo and publishes flight state through a small Nexus Engine runtime kit.
+The `release-integration/nexusengine-0.0.4-showcase-20260802` branch consumes
+NexusEngine candidate commit `100af375f31b13d3c8c16c633ede6e76f465672f`.
 
-## Implemented
-
-```txt
-full-screen Three.js canvas host
-Nexus Engine import from LuminaryLabs-Dev/NexusEngine
-open-above-flight-telemetry runtime kit
-Nexus Engine Realtime Core tick per frame
-arcade-assisted bird flight
-high-fidelity procedural open terrain
-lakes / river moisture coloring
-far mountain ring
-procedural dense tree scatter
-cloud banks
-wind ribbons
-three thermals
-five wind gates
-return-to-perch completion
-terrain-strike failure
-restart control
-small HUD
-GameHost debug state with engine.openAbove state
-basic smoke test
-GitHub Pages workflow from main
-```
-
-## Not implemented yet
+Implemented and locally proven:
 
 ```txt
-exact copy of the old experiment renderer
-advanced terrain horizon compression
-flocking
-full smoke particle system
-persistent save state
-start/pause/settings screens
-region unlock UI
-route-by-route playtest report
+exact Git-SHA NexusEngine dependency
+Three.js 0.165.0 package dependency and lockfile
+no CDN, import-map, local symlink, or private Engine source dependency
+canonical Runtime, Spatial, World, Foundation, Feature, Weather, and Startup APIs
+game-owned browser Startup presentation adapter
+game-owned disk world surface extracted from frozen ProtoKit history
+shared deterministic balloon-flight native kernel
+target-specific Web and native Build entries
+MCP inspect, plan, exact approval, apply, receipt, no-op, and restart loop
+on-demand GameHost build diagnostics
+manual-only Pages deployment workflow
+desktop and mobile Chromium gameplay proof with a clean console
 ```
 
-## Validation needed
-
-Run:
-
-```bash
-npm install
-npm run check
-npm run build
-```
-
-Manual smoke:
+Still externally gated:
 
 ```txt
-Open game.
-Fly for 60 seconds.
-Clear a gate.
-Catch a thermal.
-Press R to restart.
-Use GameHost.getState().
-Confirm GameHost.engine.openAbove.getState() returns mission state.
+Engine candidate push to its remote default branch
+clean install from that remote exact SHA
+Android XR package job on Linux
+PCVR package job on Windows
+consumer pin propagation after the final Engine SHA stops moving
+hardware execution on Android XR and Windows OpenXR devices
 ```
+
+The native package claim is intentionally limited to the portable flight kernel
+and OpenXR host. The full Three.js Web presentation is not claimed to execute
+natively in `0.0.4`.

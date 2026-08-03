@@ -1,9 +1,6 @@
 name: Deploy Pages
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -21,57 +18,34 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout The Open Above
-        uses: actions/checkout@v7
-        with:
-          ref: main
-
-      - name: Checkout NexusEngine main
-        uses: actions/checkout@v7
-        with:
-          repository: LuminaryLabs-Dev/NexusEngine
-          ref: main
-          path: .nexus-engine
-
-      - name: Record NexusEngine revision
-        run: |
-          NEXUS_ENGINE_SHA="$(git -C .nexus-engine rev-parse HEAD)"
-          echo "VITE_NEXUS_ENGINE_SHA=$NEXUS_ENGINE_SHA" >> "$GITHUB_ENV"
-          echo "NexusEngine SHA: $NEXUS_ENGINE_SHA"
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
+          cache: npm
 
       - name: Install
-        run: npm install
+        run: npm ci --ignore-scripts --no-audit --no-fund
 
-      - name: Headless editor status
-        run: npm run headless:status
+      - name: Validate exact Engine consumer
+        run: npm run check
 
-      - name: Headless editor inspect
-        run: npm run headless:inspect
+      - name: Prove NexusEngine Build and MCP loop
+        run: npm run showcase:prove
 
-      - name: Headless renderer validation
-        run: npm run headless:renderer
-
-      - name: Headless world generation validation
-        run: npm run headless:world
-
-      - name: Headless smoke validation
-        run: npm run headless:check
-
-      - name: Headless production build
-        run: npm run headless:build
+      - name: Build production Web artifact
+        run: npm run build
 
       - name: Configure Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
       - name: Add nojekyll marker
         run: touch dist/.nojekyll
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: dist
 
@@ -85,4 +59,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

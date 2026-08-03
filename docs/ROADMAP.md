@@ -1,68 +1,39 @@
 # Roadmap
 
-## Milestone 0: Published playable scaffold
+## NexusEngine 0.0.4 Showcase
 
-Status: started.
-
-```txt
-standalone repo initialized
-Meadow Lift playable slice
-small HUD
-GameHost debug surface
-basic docs
-basic smoke test
-```
-
-## Milestone 1: Preserve and harden flight feel
+Locally complete:
 
 ```txt
-extract flight model
-add deterministic flight smoke tests
-improve camera smoothing
-add terrain avoidance / near-miss lift
-add better wind streaks
-add performance budget
+exact Engine candidate dependency
+canonical semantic Domain composition
+locked local Three.js closure
+MCP inspect, plan, approval, apply, no-op, and receipt loop
+Web live/static Build artifacts
+desktop/mobile browser and diagnostic proof
+portable balloon-flight native entry
 ```
 
-## Milestone 2: Full Meadow Lift loop
+Externally gated:
 
 ```txt
-start screen
-mission intro sequence
-thermal route readability
-perch landing / return logic
-completion banner
-Cloud Basin unlock record
-local save state
+push the approved Engine candidate
+clean remote-SHA consumer install
+Android XR package job
+Windows PCVR package job
+final consumer pin propagation
 ```
 
-## Milestone 3: World expansion
+## After 0.0.4
 
 ```txt
-Pine Wall region
-Cloud Basin region
-region selection flow
-landmarks
-sky shrines
-bird/flock content pass
+native presentation adapter and full renderer-neutral scene projection
+Android XR and PCVR hardware execution
+save and continuation flow
+additional routes, destinations, and campaign regions
+accessibility and input remapping
+audio and settings ownership
+performance budgets across Web and XR hosts
 ```
 
-## Milestone 4: Production polish
-
-```txt
-real menu/settings
-better audio
-more dynamic sky
-cloud/fog/weather pass
-more detailed bird rig
-route scoring
-leaderboard-ready local stats
-```
-
-## Milestone 5: Engine-backed version
-
-```txt
-move reusable flight/objective systems toward Nexus Engine kits or ProtoKits
-add headless tests
-preserve standalone publish build
-```
+Deployment, npm publication, and hardware proof remain separate approvals.

@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const WIND_PARTICLE_FIELD_KIT_ID = "open-above-wind-particle-field-kit";
 

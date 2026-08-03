@@ -1,108 +1,59 @@
 # Technical Architecture
 
-## Current architecture
-
-The first standalone slice uses:
+## Ownership
 
 ```txt
-index.html
-  thin semantic host
+NexusEngine package
+  runtime and semantic Domain contracts
+  read-only Build planning and isolated artifact production
+  MCP discovery, approval, and receipt contracts
 
+The Open Above
+  authored campaign and world data
+  balloon rules and deterministic flight kernel
+  Three.js presentation and browser adapters
+  player input, navigation, and image capture
+  release diagnostic view
+
+external Build state
+  ~/.nexusengine sources, toolchains, stages, artifacts, and receipts
+```
+
+Runtime code never imports the Build Domain. Build reads this project, selects
+one target entry, writes only to external staging/output roots, and proves the
+project fingerprint is unchanged.
+
+## Runtime Composition
+
+```txt
+createEngine
+  + n:runtime defaults
+  + n:runtime:startup
+  + n:spatial
+  + n:world
+  + n:world:foundation
+  + n:world:feature
+  + landform and atmosphere feature atoms
+  + n:world:weather
+  + layered weather
+  + Open Above telemetry Kit
+```
+
+The browser host projects this renderer-neutral state through game-owned
+Three.js modules. `window.GameHost` exposes runtime state and release diagnostics
+without making the diagnostic dialog part of the normal first-screen workflow.
+
+## Target Fan-Out
+
+```txt
 src/main.js
-  Three.js renderer
-  flight state
-  mission state
-  input adapter
-  GameHost debug surface
+  -> web-live
+  -> web-static
 
-src/data/campaign.config.js
-  region, world, and flight tuning
+src/native/balloon-flight-kernel.js
+  -> Android ARM64 OpenXR package
+  -> Windows x64 PCVR OpenXR package
 ```
 
-This is intentionally small and playable.
-
-## Long-term architecture
-
-The product should move toward:
-
-```txt
-src/game/
-  session state
-  objective resolution
-  progression
-  save state
-
-src/flight/
-  bird controller
-  flight model
-  input map
-
-src/world/
-  terrain
-  sky
-  wind
-  biomes
-  points of interest
-
-src/render/
-  renderer
-  bird mesh
-  terrain renderer
-  cloud renderer
-  effects
-
-src/camera/
-  bird follow camera
-
-src/data/
-  campaign config
-  world config
-  flight config
-```
-
-## Boundary rule
-
-Renderer presents state.
-
-Flight/game modules own rules.
-
-Data configures behavior.
-
-Input requests actions.
-
-## Debug contract
-
-Every route should expose:
-
-```js
-window.GameHost = {
-  restart,
-  getState
-};
-```
-
-Current `getState()` returns:
-
-```txt
-position
-velocity
-speed
-mission progress
-gates
-thermals
-completion/failure flags
-```
-
-## Extraction path
-
-Refactor in this order:
-
-```txt
-1. move flight math into src/flight/flight-model.js
-2. move objective checks into src/game/objectives.js
-3. move terrain/tree generation into src/world/
-4. move renderer construction into src/render/renderer.js
-5. move camera follow into src/camera/bird-follow-camera.js
-6. add save/progression state
-7. add tests for objective and flight model logic
-```
+The shared native entry contains only compiler-supported numeric functions.
+Unsupported behavior fails during planning instead of silently changing mode.

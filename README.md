@@ -1,54 +1,51 @@
 # The Open Above
 
-The Open Above is a free-flight exploration game about carving, gliding, diving, boosting, and discovering a vast living sky-world.
+The Open Above is a standalone hot-air-balloon exploration game and the release
+showcase consumer for NexusEngine `0.0.4`.
 
-This repository is the standalone publishing/game repo for The Open Above.
+The game owns its authored world, Three.js presentation, browser adapters, and
+campaign rules. It consumes NexusEngine through an exact Git commit and uses
+public semantic Domain subpaths; it does not contain or alias an Engine source
+checkout.
 
-## Current milestone
-
-The first milestone is **Meadow Lift**:
-
-```txt
-Start above an ancient canopy.
-Catch three thermals.
-Fly through five wind gates.
-Return to the sky perch.
-Unlock Cloud Basin.
-```
-
-## Run locally
+## Run
 
 ```bash
-npm install
-npm start
+npm ci --ignore-scripts --no-audit --no-fund
+npm run check
+npm run dev
 ```
 
-Then open the local URL printed by Vite.
+Vite prints the local game URL. Press `F9` to open the on-demand release
+diagnostics view.
 
 ## Controls
 
 ```txt
-W / ArrowUp      pitch up
-S / ArrowDown    pitch down
-A / ArrowLeft    bank left
-D / ArrowRight   bank right
-Space            boost
-R                restart mission
+W / ArrowUp / Space       burner
+S / ArrowDown / Shift    vent
+A / ArrowLeft            steer left within the wind
+D / ArrowRight           steer right within the wind
+M                         sightseeing map
+Escape                    close map
 ```
 
-## Architecture
+## NexusEngine Proof
 
-The game starts as a standalone flight slice with a clean route toward a fuller mission-based game.
-
-Long-term shape:
-
-```txt
-Host loop
-Flight model
-World generation
-Mission objectives
-Progression / save state
-Renderer / camera / effects
+```bash
+npm run showcase:inspect
+npm run showcase:plan
+npm run showcase:prove
 ```
 
-The first push keeps the game self-contained and playable while docs define how the experiment becomes a full product.
+`showcase:prove` inspects the read-only project, plans all four targets through
+MCP, applies Web targets after exact-hash authorization, proves repeated apply
+is a no-op, restores the persistent receipt in a fresh Build instance, and
+proves the runtime kernel continues after the MCP controller is discarded.
+
+Android XR and PCVR use `src/native/balloon-flight-kernel.js` as their shared
+portable entry. Their hosted jobs prove packages; hardware execution remains a
+separate post-release activity.
+
+Pages deployment is manual through `workflow_dispatch`. No push deploys the
+game automatically.

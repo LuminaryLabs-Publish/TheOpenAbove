@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const WIND_RELATIVE_STEERING_KIT_ID = "open-above-wind-relative-steering-kit";
 

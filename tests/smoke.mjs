@@ -27,6 +27,9 @@ const requiredFiles = [
   "src/hot-air-balloon-object-kit.js",
   "src/runtime/balloon-simulation-kit.js",
   "src/runtime/balloon-telemetry-kit.js",
+  "src/native/balloon-flight-kernel.js",
+  "src/platform/browser-startup-presentation.js",
+  "src/release/build-diagnostics.js",
   "src/runtime/airstream-domain/index.js",
   "src/visual/visual-domain.js",
   "src/visual/atmosphere/volumetric-cloud-kit.js",
@@ -53,7 +56,7 @@ assert.match(index, /map-scroll/);
 const main = readFileSync("src/main.js", "utf8");
 assert.match(main, /createMeadowLiftScene/);
 assert.match(main, /startupElements/);
-assert.match(main, /window\.GameHost = scene\.gameHost/);
+assert.match(main, /window\.GameHost = installBuildDiagnostics\(scene\.gameHost\)/);
 assert.doesNotMatch(main, /createBalloonSimulation|createParchmentMapOverlay|createVisualDomain|requestAnimationFrame/);
 assert.doesNotMatch(main, /renderer\.render\(/);
 
@@ -68,7 +71,7 @@ for (const factory of [
   "createExperienceWorldPreparation",
   "createExperienceDomain"
 ]) assert.match(scene, new RegExp(factory));
-assert.match(scene, /coreStartup/);
+assert.match(scene, /engine\.n\?\.startup/);
 assert.match(scene, /startup\.presentFirstFrame/);
 assert.match(scene, /startup\.enter/);
 assert.match(scene, /await advanceGeneratedWorld/);
@@ -139,10 +142,14 @@ assert.match(simulation, /keys\.has\("KeyD"\)/);
 assert.match(simulation, /createWindRelativeSteering/);
 assert.match(simulation, /state\.wind\.set\(resolved\.velocityX/);
 assert.match(simulation, /visualBank/);
+assert.match(simulation, /balloonVerticalAcceleration/);
 
 const telemetry = readFileSync("src/runtime/balloon-telemetry-kit.js", "utf8");
-assert.match(telemetry, /createCoreStartupDomain/);
-assert.match(telemetry, /\.\.\.startupKits/);
+assert.match(telemetry, /createStartupKit/);
+assert.match(telemetry, /createSpatialKit/);
+assert.match(telemetry, /createWorldDomain/);
+assert.match(telemetry, /createEngine/);
+assert.doesNotMatch(telemetry, /createCoreStartupDomain|createRealtimeGame/);
 
 const presentation = readFileSync("src/visual/balloon-presentation/balloon-presentation-domain.js", "utf8");
 assert.match(presentation, /envelopePivot/);

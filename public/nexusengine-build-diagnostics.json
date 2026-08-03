@@ -1,0 +1,10 @@
+{
+  "schema": "open-above.release-diagnostics/1",
+  "status": "vite-development",
+  "engineCommit": "100af375f31b13d3c8c16c633ede6e76f465672f",
+  "engineVersion": "0.0.4",
+  "registryHash": "0ddb768ad5bc0a015bdaefa33227e7901c42c192d5f129963270b5dbf1a2d8cd",
+  "planId": null,
+  "target": "vite-development",
+  "sourceRecords": []
+}

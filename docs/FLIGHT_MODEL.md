@@ -1,74 +1,37 @@
 # Flight Model
 
-## Current model
+The current vehicle is a hot-air balloon governed by buoyancy, venting,
+altitude-dependent wind, and limited steering relative to the active airflow.
 
-The first slice uses an arcade-assisted bird flight model.
-
-The player controls:
-
-```txt
-pitch
-bank
-boost
-```
-
-The simulation derives:
+## Player Inputs
 
 ```txt
-yaw from bank
-forward vector from yaw and pitch
-speed from cruise/boost/drag
-vertical motion from gravity, speed lift, and thermals
-terrain strike failure
+burner    increases lift
+vent      releases lift
+steering  rotates up to 15 degrees around the sampled wind direction
 ```
 
-## Current values
+The player does not command absolute horizontal velocity. The airstream Domain
+selects ambient or route flow, then the steering Kit applies a bounded heading
+offset. Vertical velocity combines burner heat, venting, stream lift, damping,
+and a soft ceiling.
 
-Configured in:
+## Ownership
 
 ```txt
-src/data/campaign.config.js
+src/runtime/balloon-simulation-kit.js
+  browser input, Three.js state, terrain contact, and presentation snapshot
+
+src/runtime/airstream-domain/
+  deterministic route and ambient wind sampling
+
+src/domains/ballooning/wind-relative-steering-kit.js
+  bounded steering around flow direction
+
+src/native/balloon-flight-kernel.js
+  portable numeric vertical acceleration and altitude functions
 ```
 
-Important values:
-
-```txt
-minSpeed
-cruiseSpeed
-maxSpeed
-drag
-gravity
-lift
-pitchRate
-rollRate
-yawFromRoll
-boostImpulse
-boostCooldown
-thermalLift
-terrainClearance
-```
-
-## Feel target
-
-The bird should feel:
-
-```txt
-small
-light
-fast enough to carve
-stable enough for new players
-responsive while banking
-rewarding when diving and pulling into lift
-```
-
-## Next model improvements
-
-```txt
-terrain avoidance assist
-stall warning and recovery
-near-miss ground lift
-speed-reactive camera shake
-wind volume influence
-thermal spiral drift
-flock influence / guidance
-```
+The native kernel is imported by the Web simulation and is also the Android XR
+and PCVR Build entry. This keeps one proved numeric behavior across targets
+without claiming that the Three.js browser presentation is native.

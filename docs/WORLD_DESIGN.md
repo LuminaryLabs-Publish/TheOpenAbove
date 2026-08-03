@@ -1,52 +1,32 @@
 # World Design
 
-## World premise
+The world is a bounded curved landscape whose airspace is as important as its
+terrain. Readability comes from altitude layers, weather, routes, settlements,
+water, vegetation, mountains, and distant silhouettes.
 
-The Open Above is a sky-world built around altitude, airflow, landmarks, and safe return points.
-
-The world is not only terrain below the player.
-
-The world is the readable airspace above it.
-
-## Region design
-
-Each region should teach one new kind of flight reading.
-
-| Region | Core pressure | Unlock fantasy |
-|---|---|---|
-| Meadow Lift | gentle thermals and readable gates | first sky route |
-| Pine Wall | narrow valley flight | forest-wall carving |
-| Cloud Basin | cloud cover and altitude | flying by silhouettes |
-| Storm Shelf | gusts and weather fronts | storm crossing |
-| Glacier Above | thin air and long dives | high-altitude mastery |
-| Sunspire Expanse | mixed mastery route | final open sky |
-
-## Landmarks
-
-Use large, readable landmarks:
+## Meadow Lift
 
 ```txt
-ancient canopy trees
-sky perches
-thermal plumes
-wind gates
-cloud shelves
-ridge lines
-stone arches
-sunspire towers
+10 km bounded disk surface
+procedurally generated terrain and biomes
+northern 500 m mountain feature
+ground fog plus four cloud layers
+route airstreams and ambient wind
+streamed near terrain and compressed horizon
+town, landmark, navigation, and photographic descriptors
 ```
 
-## World feedback
+World state remains renderer neutral until the game-owned visual Domain projects
+it through Three.js. Authored presets and complete region behavior stay in this
+repository; only universal deterministic atoms belong in NexusEngine.
 
-Use diegetic feedback first:
+## Feedback
 
 ```txt
-thermals spiral upward
-wind gates glow and rotate
-perches are tall and visible
-clouds show route direction
-trees show scale and speed
-sun angle shows altitude and mood
+wind particles reveal current direction
+balloon bank reveals steering pressure
+cloud layers reveal altitude bands
+terrain and water reveal scale and route clearance
+map marks reveal destinations and Snap Points
+startup presentation reveals world preparation progress
 ```
-
-The HUD should explain as little as possible once the world is readable.

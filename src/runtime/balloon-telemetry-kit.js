@@ -1,13 +1,31 @@
+import {
+  createEngine,
+  defineEvent,
+  defineResource,
+  defineRuntimeKit
+} from "nexusengine";
+import { createStartupKit } from "nexusengine/domains/runtime/startup";
+import { createSpatialKit } from "nexusengine/domains/spatial";
+import {
+  createWorldDomain
+} from "nexusengine/domains/world";
+import { createWorldFeatureDomain } from "nexusengine/domains/world/feature";
+import { createAtmosphereFeatureDomain } from "nexusengine/domains/world/feature/atmosphere";
+import { createLandformFeatureDomain } from "nexusengine/domains/world/feature/landform";
+import { createWorldFoundationDomain } from "nexusengine/domains/world/foundation";
+import { createWeatherKit } from "nexusengine/domains/world/weather";
+import { createLayeredWeatherDomain } from "nexusengine/domains/world/weather/layers";
+
 export const BALLOON_TELEMETRY_KIT_ID = "open-above-balloon-telemetry-kit";
 
-export function createBalloonTelemetryEngine(NexusEngine, getSnapshot, { worldFeatures = [], weather = {} } = {}) {
-  const BalloonSnapshot = NexusEngine.defineResource("openAbove.balloonSnapshot");
-  const BalloonTicked = NexusEngine.defineEvent("openAbove.balloonTicked");
-  const VisualSnapshot = NexusEngine.defineResource("openAbove.visualSnapshot");
+export function createBalloonTelemetryEngine(getSnapshot, { worldFeatures = [], weather = {} } = {}) {
+  const BalloonSnapshot = defineResource("openAbove.balloonSnapshot");
+  const BalloonTicked = defineEvent("openAbove.balloonTicked");
+  const VisualSnapshot = defineResource("openAbove.visualSnapshot");
 
-  const telemetryKit = NexusEngine.defineRuntimeKit({
+  const telemetryKit = defineRuntimeKit({
     id: BALLOON_TELEMETRY_KIT_ID,
-    requires: ["n:world:features", "n:weather", "n:weather:layered"],
+    requires: ["n:world:feature", "n:world:weather", "weather:layers"],
     provides: ["open-above:balloon-telemetry", "open-above:wind-drift-state", "open-above:visual-state"],
     resources: { BalloonSnapshot, VisualSnapshot },
     events: { BalloonTicked },
@@ -46,33 +64,33 @@ export function createBalloonTelemetryEngine(NexusEngine, getSnapshot, { worldFe
     }
   });
 
-  const startupKits = NexusEngine.createCoreStartupDomain({
+  const startupKit = createStartupKit({
     metadata: {
       product: "the-open-above",
       purpose: "Coordinates deterministic world preparation before player input enters the sightseeing scene."
     }
   });
 
-  const engine = NexusEngine.createRealtimeGame({
+  const engine = createEngine({
     kits: [
-      ...startupKits,
-      NexusEngine.createCoreWorldDomain({ childDomains: false }),
-      NexusEngine.createWorldFoundationDomain(),
-      NexusEngine.createWorldFeatureDomain(),
-      NexusEngine.createLandformFeatureDomain(),
-      NexusEngine.createAtmosphereFeatureDomain(),
-      NexusEngine.createWeatherDomain({
+      startupKit,
+      createSpatialKit(),
+      createWorldDomain({ childDomains: false }),
+      createWorldFoundationDomain(),
+      createWorldFeatureDomain(),
+      createLandformFeatureDomain(),
+      createAtmosphereFeatureDomain(),
+      createWeatherKit({
         conditions: weather.conditions,
         tendencies: weather.tendencies,
         regions: weather.regions
       }),
-      NexusEngine.createLayeredWeatherDomain(),
+      createLayeredWeatherDomain(),
       telemetryKit
-    ],
-    provides: ["n:runtime.engine"]
+    ]
   });
 
-  const worldFeaturesApi = engine.n?.worldFeatures;
+  const worldFeaturesApi = engine.n?.worldFeature;
   if (!worldFeaturesApi || typeof worldFeaturesApi.registerFeature !== "function") {
     throw new TypeError("World Features API is unavailable before Open Above feature registration.");
   }

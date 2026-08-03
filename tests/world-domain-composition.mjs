@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import * as NexusEngine from "../.nexus-engine/src/index.js";
 import { WORLD } from "../src/data/campaign.config.js";
 import { createBalloonTelemetryEngine } from "../src/runtime/balloon-telemetry-kit.js";
 
@@ -8,12 +7,11 @@ const worldFeatures = [
   ...(WORLD.features?.atmosphere ?? [])
 ];
 const engine = createBalloonTelemetryEngine(
-  NexusEngine,
   () => ({ altitude: 0, windSpeed: 0, burner: false, visual: {} }),
   { worldFeatures, weather: WORLD.weather }
 );
 
-const features = engine.n?.worldFeatures;
+const features = engine.n?.worldFeature;
 const worldFoundation = engine.n?.worldFoundation;
 assert.equal(typeof features?.registerFeature, "function");
 assert.equal(typeof features?.compileCell, "function");

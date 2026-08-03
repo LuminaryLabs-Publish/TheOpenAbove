@@ -1,11 +1,9 @@
 import assert from "node:assert/strict";
-import * as NexusEngine from "../.nexus-engine/src/index.js";
 import { WORLD } from "../src/data/campaign.config.js";
 import { createBalloonTelemetryEngine } from "../src/runtime/balloon-telemetry-kit.js";
 import { createCloudWeatherMap } from "../src/visual/atmosphere/cloud-weather-map-kit.js";
 
 const engine = createBalloonTelemetryEngine(
-  NexusEngine,
   () => ({ altitude: 0, windSpeed: 0, burner: false, visual: {} }),
   {
     worldFeatures: [...(WORLD.features?.landforms ?? []), ...(WORLD.features?.atmosphere ?? [])],

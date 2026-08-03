@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const BALLOON_STREAMER_FIT_KIT_ID = "open-above-balloon-streamer-fit-kit";
 

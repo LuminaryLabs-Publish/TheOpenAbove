@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { installEnvelopeFabricMaterials } from "./envelope-fabric-material-kit.js";
 import { installBasketMaterials } from "./basket-material-kit.js";
 import { installRopeMaterials } from "./rope-material-kit.js";

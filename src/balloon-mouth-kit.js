@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { envelopeMouthRadius, resolveEnvelopeShapeProfile } from "./balloon-envelope-profile-kit.js";
 
 export const BALLOON_MOUTH_KIT_ID = "open-above-balloon-mouth-kit";

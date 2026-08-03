@@ -1,38 +1,20 @@
-# Repo Bootstrap Notes
+# Repository Bootstrap
 
-## Current repo identity
-
-```txt
-LuminaryLabs-Publish/TheOpenAbove
-```
-
-This is the standalone publishing/game repo for The Open Above.
-
-## First pushed form
-
-The first pushed form is not a perfect byte-for-byte copy of the old experiment.
-
-It is a standalone playable rebuild of the first intended game slice:
+`LuminaryLabs-Publish/TheOpenAbove` is the product and publishing owner for The
+Open Above. It is also a clean NexusEngine consumer.
 
 ```txt
-The Open Above: Meadow Lift
+package.json
+  exact NexusEngine commit
+  exact Three.js version
+  target-specific nexusengineBuild entries
+
+src/
+  authored game, world, presentation, adapters, and portable flight kernel
+
+~/.nexusengine/
+  downloaded sources, toolchains, isolated stages, artifacts, and receipts
 ```
 
-## Why this shape
-
-The old experiment is a flight/rendering harness.
-
-This repo needs to become a game product.
-
-So the first push establishes:
-
-```txt
-playable product host
-mission objective loop
-standalone docs
-package scripts
-smoke test
-Pages workflow
-```
-
-Then the advanced experiment systems can be selectively migrated back in.
+The repository does not embed Engine source, generated native projects,
+toolchains, caches, or Build receipts. Pages deployment is manual only.

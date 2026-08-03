@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { detectQualityTier, createDynamicResolutionController } from "./quality-tier-kit.js";
 import { createPhysicalSky } from "./illumination/physical-sky-kit.js";
 import { createSunLight } from "./illumination/sun-light-kit.js";

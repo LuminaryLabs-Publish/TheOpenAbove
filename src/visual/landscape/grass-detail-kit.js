@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { terrainHeight, moistureAt } from "./terrain-surface-kit.js";
 
 export const GRASS_DETAIL_KIT_ID = "open-above-grass-detail-kit";

@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { hashGrassSeed, seedFloat } from "../grass-field/grass-world-seed-kit.js";
 import { FLOWER_TYPE_COUNT } from "./flower-chunk-placement-kit.js";
 

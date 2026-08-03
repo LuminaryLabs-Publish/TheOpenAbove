@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const GAUSSIAN_CLOUD_RENDER_ADAPTER_ID = "open-above-gaussian-cloud-render-adapter";
 

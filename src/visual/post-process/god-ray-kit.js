@@ -1,5 +1,5 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import { Pass, FullScreenQuad } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/Pass.js";
+import * as THREE from "three";
+import { Pass, FullScreenQuad } from "three/examples/jsm/postprocessing/Pass.js";
 
 export const GOD_RAY_KIT_ID = "open-above-god-ray-kit";
 

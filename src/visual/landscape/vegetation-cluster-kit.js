@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { normalizeGrassSeed } from "../grass-field/grass-world-seed-kit.js";
 import { terrainHeight, moistureAt } from "./terrain-surface-kit.js";
 

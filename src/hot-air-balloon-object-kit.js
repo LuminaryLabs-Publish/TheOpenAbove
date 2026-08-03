@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { buildEnvelopePanels, defaultEnvelopePanelProfile } from "./balloon-envelope-panel-kit.js";
 import { buildBalloonMouth, defaultBalloonMouthProfile } from "./balloon-mouth-kit.js";
 import { buildFittedStreamers, defaultStreamerFitProfile } from "./balloon-streamer-fit-kit.js";

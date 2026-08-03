@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 const required = [
   "src/main.js",
   "src/runtime/balloon-telemetry-kit.js",
+  "src/platform/browser-startup-presentation.js",
   "src/scenes/meadow-lift-scene.js",
   "src/domains/experience/experience-domain.js",
   "src/visual/visual-domain.js",
@@ -12,11 +13,13 @@ const required = [
 for (const path of required) assert.equal(existsSync(path), true, `${path} should exist`);
 
 const telemetry = readFileSync("src/runtime/balloon-telemetry-kit.js", "utf8");
-assert.match(telemetry, /createCoreStartupDomain/);
-assert.match(telemetry, /\.\.\.startupKits/);
+assert.match(telemetry, /createStartupKit/);
+assert.match(telemetry, /createSpatialKit/);
+assert.match(telemetry, /createEngine/);
+assert.doesNotMatch(telemetry, /createCoreStartupDomain|createRealtimeGame/);
 
 const scene = readFileSync("src/scenes/meadow-lift-scene.js", "utf8");
-assert.match(scene, /engine\.n\?\.coreStartup \?\? engine\.coreStartup/);
+assert.match(scene, /engine\.n\?\.startup/);
 assert.match(scene, /createBrowserStartupPresentationAdapter/);
 assert.match(scene, /startup\.launch/);
 assert.match(scene, /startup\.presentFirstFrame/);
@@ -34,7 +37,7 @@ const enterIndex = scene.indexOf("startup.enter({ inputReady: true })");
 assert.ok(generationIndex >= 0 && generationIndex < experienceIndex, "world generation should finish before visual-domain creation");
 assert.ok(experienceIndex < startingAreaIndex, "visual-domain creation should precede starting-area activation");
 assert.ok(startingAreaIndex < firstFrameIndex, "starting-area terrain should be built before the first frame");
-assert.ok(firstFrameIndex < enterIndex, "Core Startup should admit player input only after the first frame");
+assert.ok(firstFrameIndex < enterIndex, "Startup should admit player input only after the first frame");
 
 const visual = readFileSync("src/visual/visual-domain.js", "utf8");
 assert.match(visual, /createVisualWorldPreparation/);

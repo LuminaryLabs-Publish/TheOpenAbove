@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import { findBird, clamp01, lerp } from "./bird-flight-physics-kit.js";
 
 export const BIRD_POSTURE_KIT_ID = "open-above-bird-posture-kit";

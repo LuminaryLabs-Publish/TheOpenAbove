@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const BIRD_FLIGHT_PHYSICS_KIT_ID = "open-above-bird-flight-physics-kit";
 export const DEG = 180 / Math.PI;

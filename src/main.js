@@ -1,6 +1,7 @@
 import { createMeadowLiftScene } from "./scenes/meadow-lift-scene.js";
+import { NEXUS_ENGINE_COMMIT } from "./release-identity.js";
+import { installBuildDiagnostics } from "./release/build-diagnostics.js";
 
-const NEXUS_ENGINE_SHA = __NEXUS_ENGINE_SHA__;
 const canvas = document.querySelector("#game");
 const mapRoot = document.querySelector("#mapOverlay");
 const mapCanvas = document.querySelector("#mapCanvas");
@@ -25,10 +26,10 @@ async function boot() {
       mapRoot,
       mapCanvas,
       startupElements,
-      nexusEngineSha: NEXUS_ENGINE_SHA,
+      nexusEngineSha: NEXUS_ENGINE_COMMIT,
       onFatal: showFatal
     });
-    window.GameHost = scene.gameHost;
+    window.GameHost = installBuildDiagnostics(scene.gameHost);
     canvas.setAttribute("aria-busy", "false");
     scene.start();
   } catch (error) {

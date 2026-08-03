@@ -1,97 +1,22 @@
 # Migration From Experiment
 
-## Source experiment
+The historical NexusRealtime experiments supplied early flight, terrain,
+atmosphere, camera, and world-scale evidence. This repository now owns the
+product behavior directly.
 
-Live experiment route:
-
-```txt
-https://luminarylabs-agents.github.io/NexusRealtime-Experiments/experiments/the-open-above-harness/
-```
-
-Source folders in the experiments repo:
+## Final Disposition
 
 ```txt
-experiments/the-open-above-harness/
-experiments/the-open-above-v2/
+authored balloon campaign and rendering  -> The Open Above
+browser/Three.js adapters                -> The Open Above
+universal runtime and world contracts    -> NexusEngine semantic Domains
+build targets and package production     -> NexusEngine n:build
+historical ProtoKit source               -> frozen lineage only
 ```
 
-## What the experiment proved
+The disk world surface was extracted from ProtoKits commit
+`dd8d68f5635a64f34043edd3ac757067a02eb43c` into a game-owned local module.
+Runtime fetching from the retired repository has been removed.
 
-```txt
-bird flight feel
-assisted pitch / bank / boost
-terrain patches
-horizon terrain idea
-sky/fog lighting
-flocking concept
-giant tree scale
-wind streaks
-smoke/cloud feel
-follow camera
-```
-
-## What this repo changes
-
-This repo turns the flight harness into a standalone game product.
-
-First push:
-
-```txt
-self-contained Meadow Lift playable slice
-local src/data campaign config
-standalone index.html host
-minimal HUD
-GameHost debug state
-basic smoke test
-product docs
-```
-
-## What still needs to move over
-
-The experiment has more advanced terrain/domain composition than this first standalone product slice.
-
-Future migration should bring over or rebuild:
-
-```txt
-terrain patch LOD
-horizon ring compression
-sky/fog presets
-smoke cloud particles
-flocking behavior
-ancient canopy tree archetypes
-Nexus Engine / ProtoKit composition when ready
-```
-
-## Important rename note
-
-The old experiment config referenced:
-
-```txt
-LuminaryLabs-Dev/NexusRealtime
-```
-
-The engine repo has been renamed to:
-
-```txt
-LuminaryLabs-Dev/NexusEngine
-```
-
-This standalone publishing repo does not need to use that dependency for the first slice, but any future engine-backed import should point to `NexusEngine`.
-
-## Migration posture
-
-Treat the old experiment as:
-
-```txt
-flight and rendering proof
-```
-
-Treat this repo as:
-
-```txt
-full game product
-```
-
-The first milestone is not to make the world larger.
-
-The first milestone is to preserve flight feel, add objectives, and establish a product repo structure.
+This is a hard cutover. There is no `.nexus-engine` checkout, Vite source alias,
+CDN import map, moving Engine branch, or compatibility forwarding layer.

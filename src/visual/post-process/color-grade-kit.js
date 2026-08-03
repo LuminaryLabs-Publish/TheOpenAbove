@@ -1,5 +1,5 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import { ShaderPass } from "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/ShaderPass.js";
+import * as THREE from "three";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 
 export const COLOR_GRADE_KIT_ID = "open-above-color-grade-kit";
 

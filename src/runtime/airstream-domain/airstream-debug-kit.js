@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 
 export const AIRSTREAM_DEBUG_KIT_ID = "open-above-airstream-debug-kit";
 

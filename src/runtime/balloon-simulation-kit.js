@@ -1,9 +1,10 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+import * as THREE from "three";
 import {
   applyAirstreamToBalloonState,
   sampleBalloonAirstream
 } from "./airstream-domain/airstream-balloon-force-kit.js";
 import { createWindRelativeSteering } from "../domains/ballooning/wind-relative-steering-kit.js";
+import { balloonVerticalAcceleration } from "../native/balloon-flight-kernel.js";
 
 export const BALLOON_SIMULATION_KIT_ID = "open-above-balloon-simulation-kit";
 
@@ -102,10 +103,14 @@ export function createBalloonSimulation({
     updateSteering(flow, dt);
 
     const streamLift = flow.velocity.y * flow.influence * 0.24;
-    const buoyancy = 0.36 + state.burner * 3.7 - state.vent * 3.2 + streamLift;
-    const damping = -state.verticalVelocity * 0.74;
-    const ceilingSoft = state.position.y > 420 ? -(state.position.y - 420) * 0.018 : 0;
-    state.verticalVelocity += (buoyancy + damping + ceilingSoft - 0.92) * dt;
+    const ceilingOffset = Math.max(0, state.position.y - 420);
+    state.verticalVelocity += balloonVerticalAcceleration(
+      state.burner,
+      state.vent,
+      state.verticalVelocity,
+      streamLift,
+      ceilingOffset
+    ) * dt;
     state.verticalVelocity = clamp(state.verticalVelocity, -8, 8);
 
     state.velocity.lerp(

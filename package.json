@@ -4,22 +4,35 @@
   "private": true,
   "type": "module",
   "description": "Cinematic hot air balloon wind-drift experience powered by Nexus Engine Realtime Core.",
+  "module": "src/main.js",
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "dev": "vite --host 0.0.0.0",
     "check": "node tests/run-tiered-checks.mjs",
     "build": "npm run check && vite build",
-    "headless:status": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs status --json",
-    "headless:inspect": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs call project.inspect --json",
-    "headless:renderer": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs call renderer.validate --json",
-    "headless:world": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs call world-generation.validate --json",
-    "headless:check": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs call project.check --json",
-    "headless:build": "node .nexus-engine/bin/nexus-editor.mjs --environment ./tools/headless-editor-environment.mjs call project.build --json"
+    "showcase:prove": "node tools/prove-release-showcase.mjs",
+    "showcase:inspect": "nexusengine inspect .",
+    "showcase:plan": "nexusengine plan . --profile native-preferred --target web-live --target web-static --target android-xr --target pcvr"
   },
   "dependencies": {
-    "@vitejs/plugin-basic-ssl": "^2.1.0",
-    "vite": "^6.0.0"
+    "nexusengine": "git+https://github.com/LuminaryLabs-Dev/NexusEngine.git#100af375f31b13d3c8c16c633ede6e76f465672f",
+    "three": "0.165.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "playwright": "1.61.1",
+    "vite": "6.0.0"
+  },
+  "nexusengineBuild": {
+    "include": [
+      "index.html",
+      "src"
+    ],
+    "entries": {
+      "android-xr": "src/native/balloon-flight-kernel.js",
+      "pcvr": "src/native/balloon-flight-kernel.js",
+      "web-live": "src/main.js",
+      "web-static": "src/main.js"
+    }
+  },
   "license": "UNLICENSED"
 }

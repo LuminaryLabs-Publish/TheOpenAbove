@@ -1,7 +1,8 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
-import * as NexusEngine from "@nexus-engine";
+import * as THREE from "three";
+import * as NexusEngine from "nexusengine";
 import { CAMPAIGN, WORLD } from "../data/campaign.config.js";
 import { createBalloonTelemetryEngine } from "../runtime/balloon-telemetry-kit.js";
+import { createBrowserStartupPresentationAdapter } from "../platform/browser-startup-presentation.js";
 import {
   createJourneyDomain,
   createBallooningDomain,
@@ -48,7 +49,7 @@ function nextHostFrame() {
 }
 
 function createStartupPresentation(startup, elements = {}) {
-  return NexusEngine.createBrowserStartupPresentationAdapter({
+  return createBrowserStartupPresentationAdapter({
     startup,
     loader: elements.loader,
     fill: elements.fill,
@@ -128,12 +129,12 @@ export async function createMeadowLiftScene({
     ...(WORLD.features?.atmosphere ?? [])
   ];
   let snapshotReader = () => ({ status: "booting" });
-  const engine = createBalloonTelemetryEngine(NexusEngine, () => snapshotReader(), {
+  const engine = createBalloonTelemetryEngine(() => snapshotReader(), {
     worldFeatures,
     weather: WORLD.weather
   });
-  const startup = engine.n?.coreStartup ?? engine.coreStartup;
-  if (!startup) throw new TypeError("Nexus Engine Core Startup API is unavailable.");
+  const startup = engine.n?.startup;
+  if (!startup) throw new TypeError("Nexus Engine Startup API is unavailable.");
 
   const startupPresentation = createStartupPresentation(startup, startupElements);
   startup.launch({
@@ -158,7 +159,7 @@ export async function createMeadowLiftScene({
   try {
     land = createLandDomain({
       worldConfig: WORLD,
-      worldFeatures: engine.n.worldFeatures,
+      worldFeatures: engine.n.worldFeature,
       worldFoundation: engine.n.worldFoundation,
       routes: sky.routes,
       towns: []
