@@ -1,9 +1,9 @@
 {
   "schema": "open-above.release-diagnostics/1",
   "status": "vite-development",
-  "engineCommit": "100af375f31b13d3c8c16c633ede6e76f465672f",
+  "engineCommit": "58fa721db73992d77d6866b282494a559f0ec13c",
   "engineVersion": "0.0.4",
-  "registryHash": "0ddb768ad5bc0a015bdaefa33227e7901c42c192d5f129963270b5dbf1a2d8cd",
+  "registryHash": "8d65c7d6589811bdb9a56b80021095b16c1b8ce91bac4b488698132179c7f359",
   "planId": null,
   "target": "vite-development",
   "sourceRecords": []
