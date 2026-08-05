@@ -3,7 +3,7 @@
 ## Release Integration
 
 The `release-integration/nexusengine-0.0.4-showcase-20260802` branch consumes
-NexusEngine candidate commit `58fa721db73992d77d6866b282494a559f0ec13c`.
+NexusEngine candidate commit `16aee598c06efcb7b511e4827ee3f7e23ce3549b`.
 
 Implemented and locally proven:
 

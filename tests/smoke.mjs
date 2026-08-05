@@ -7,6 +7,13 @@ import "./grass-field.mjs";
 import "./flower-field.mjs";
 import "./semantic-domain-composition.mjs";
 
+const packageManifest = JSON.parse(readFileSync("package.json", "utf8"));
+const npmLockfile = JSON.parse(readFileSync("package-lock.json", "utf8"));
+const engineCommit = packageManifest.dependencies.nexusengine.split("#")[1];
+const engineSource = `git+https://github.com/LuminaryLabs-Dev/NexusEngine.git#${engineCommit}`;
+assert.equal(packageManifest.dependencies.nexusengine, engineSource, "Engine dependency must use exact-commit HTTPS");
+assert.equal(npmLockfile.packages["node_modules/nexusengine"].resolved, engineSource, "Engine lock must use exact-commit HTTPS");
+
 const requiredFiles = [
   "index.html",
   "src/main.js",

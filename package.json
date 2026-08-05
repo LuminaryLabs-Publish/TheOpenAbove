@@ -15,7 +15,7 @@
     "showcase:plan": "nexusengine plan . --profile native-preferred --target web-live --target web-static --target android-xr --target pcvr"
   },
   "dependencies": {
-    "nexusengine": "git+https://github.com/LuminaryLabs-Dev/NexusEngine.git#58fa721db73992d77d6866b282494a559f0ec13c",
+    "nexusengine": "git+https://github.com/LuminaryLabs-Dev/NexusEngine.git#16aee598c06efcb7b511e4827ee3f7e23ce3549b",
     "three": "0.165.0"
   },
   "devDependencies": {
