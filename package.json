@@ -10,6 +10,7 @@
     "dev": "vite --host 0.0.0.0",
     "check": "node tests/run-tiered-checks.mjs",
     "build": "npm run check && vite build",
+    "sanitize:check": "node tools/sanitize-repository.mjs",
     "showcase:prove": "node tools/prove-release-showcase.mjs",
     "showcase:inspect": "nexusengine inspect .",
     "showcase:plan": "nexusengine plan . --profile native-preferred --target web-live --target web-static --target android-xr --target pcvr"
@@ -20,7 +21,7 @@
   },
   "devDependencies": {
     "playwright": "1.61.1",
-    "vite": "6.0.0"
+    "vite": "6.4.3"
   },
   "nexusengineBuild": {
     "include": [

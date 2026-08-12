@@ -20,6 +20,9 @@ proof for NexusEngine `0.0.4`.
 - Expose release evidence on demand through `GameHost.getBuildDiagnostics()`
   and `F9`; do not add a persistent debug HUD.
 - Deploy Pages only through an explicitly dispatched workflow.
+- Keep only active policy, handoff, registry, and latest per-category proof in
+  `.agent`; preserve chronological agent evidence outside the public tree.
+- Run the read-only repository sanitization check before publishing changes.
 
 ## Proof Boundary
 

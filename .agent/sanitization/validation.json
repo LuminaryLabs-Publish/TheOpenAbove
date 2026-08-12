@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "the-open-above.sanitization-validation/1",
+  "recordedAt": "2026-08-11",
+  "baseSha": "96a118e7abe9c58547aec1ca2fd5ea523d7a92c8",
+  "preservation": {
+    "archivedAgentFiles": 896,
+    "archiveChecksum": "864745d192199d1748d659b4f78d9adcb982dee7631aaaa27259946185484788",
+    "restoreChecksumVerification": "passed",
+    "historyRewritten": false
+  },
+  "publicTree": {
+    "removedRepetitiveAgentFiles": 823,
+    "retainedAgentFilesIncludingSanitizationEvidence": 76,
+    "missingLiveRegistryReferences": 0,
+    "gameplayOrRuntimeSourceChanged": false
+  },
+  "dependencies": {
+    "vite": "6.4.3",
+    "nanoid": "3.3.18",
+    "nexusengineTransport": "exact-commit-https",
+    "npmAuditVulnerabilities": 0
+  },
+  "checks": {
+    "npmCiWithSshDisabled": "passed",
+    "npmAudit": "passed",
+    "sanitizationTreeScan": "passed",
+    "repositoryChecks": "passed-10-info-0-warning-0-error-0-blocker",
+    "productionBuild": "passed",
+    "workflowYamlParse": "passed"
+  },
+  "advisories": [
+    "Production bundle remains approximately 1.61 MB before gzip; this is a performance warning, not a sanitization or gameplay failure."
+  ],
+  "result": "passed"
+}

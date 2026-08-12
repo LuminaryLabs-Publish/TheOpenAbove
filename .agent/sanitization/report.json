@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "the-open-above.sanitization-report/1",
+  "repository": ".",
+  "tree": {
+    "filesScanned": 223,
+    "textFilesScanned": 223,
+    "findings": []
+  },
+  "history": {
+    "range": "origin/main..HEAD",
+    "commitsScanned": 1,
+    "textFilesScanned": 223,
+    "findings": []
+  },
+  "findingCount": 0,
+  "result": "passed",
+  "integrity": "c7dd802b260a249d814302023947e91ced830123b6d8f453fb5dfdfd16812091"
+}

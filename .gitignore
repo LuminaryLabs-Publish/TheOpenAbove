@@ -4,3 +4,39 @@ dist/
 playwright-report/
 test-results/
 .playwright-cli/
+
+# Runtime configuration and credentials
+.env
+.env.*
+!.env.example
+credentials*.json
+secrets*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+
+# Local tools, caches, coverage, and receipts
+.cache/
+.nyc_output/
+coverage/
+.nexusengine/
+.agent/local/
+.agent/sanitization/runs/
+receipts/
+*.receipt.json
+*.log
+*.tmp
+*.temp
+
+# Editor and operating-system state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
