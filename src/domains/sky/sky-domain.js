@@ -1,6 +1,5 @@
 import { createAirstreamDomain } from "../../runtime/airstream-domain/index.js";
 import { createDefaultAirstreamRoutes } from "../../runtime/airstream-domain/airstream-route-kit.js";
-import { createWindParticleField } from "./wind-particle-field-kit.js";
 import { createCloudBankField } from "./cloud-form/cloud-bank-field-kit.js";
 
 export const SKY_DOMAIN_ID = "open-above-sky-domain";
@@ -13,7 +12,6 @@ export function createSkyDomain({
 } = {}) {
   let engine = null;
   let airstream = null;
-  let windParticles = null;
   const cloudField = createCloudBankField({ layers: weatherLayers, worldSurface, seed: cloudSeed });
 
   function bindRuntimeEngine(runtimeEngine) {
@@ -23,14 +21,8 @@ export function createSkyDomain({
 
   function mount({ scene, runtimeEngine } = {}) {
     bindRuntimeEngine(runtimeEngine);
+    if (airstream) return api;
     airstream = createAirstreamDomain({ scene, routes, debug: false });
-    windParticles = createWindParticleField({
-      scene,
-      particleCount: 3200,
-      radius: 50,
-      particleSize: 0.11,
-      opacity: 0.5
-    });
     return api;
   }
 
@@ -38,15 +30,13 @@ export function createSkyDomain({
     return airstream?.sample(position, elapsed) ?? null;
   }
 
+  function queryFlow(position, elapsed = 0) {
+    return airstream?.queryFlow(position, elapsed) ?? null;
+  }
+
   function update({ position, elapsed = 0, sample: suppliedSample = null, dt = 0 } = {}) {
     const currentSample = suppliedSample ?? sample(position, elapsed);
     const result = airstream?.update({ position, elapsed, sample: currentSample }) ?? null;
-    windParticles?.update({
-      position,
-      velocity: currentSample?.velocity,
-      elapsed,
-      dt
-    });
     return result;
   }
 
@@ -63,24 +53,17 @@ export function createSkyDomain({
     bindRuntimeEngine,
     mount,
     sample,
+    queryFlow,
     update,
     weatherSnapshot,
     cloudFormSnapshot: () => cloudField.snapshot(),
     airstreamSnapshot: () => airstream?.snapshot?.() ?? null,
-    windParticleSnapshot: () => windParticles ? Object.freeze({
-      particleCount: windParticles.particleCount,
-      radius: windParticles.radius,
-      particleSize: windParticles.particleSize,
-      opacity: windParticles.opacity,
-      noiseModel: windParticles.noiseModel
-    }) : null,
     get airstream() { return airstream; },
-    get windParticles() { return windParticles; },
     get weather() { return engine?.n?.weather ?? null; },
     get layeredWeather() { return engine?.n?.layeredWeather ?? null; },
     dispose() {
-      windParticles?.dispose?.();
       airstream?.dispose?.();
+      airstream = null;
     }
   };
   return Object.freeze(api);

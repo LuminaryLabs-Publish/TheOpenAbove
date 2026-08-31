@@ -3,6 +3,9 @@ import { spawnSync } from "node:child_process";
 const suites = [
   "tests/smoke.mjs",
   "tests/startup-loading.mjs",
+  "tests/airstream-regression.mjs",
+  "tests/airstream-trail-proto-kit.mjs",
+  "tests/airstream-trail-lifecycle.mjs",
   "tests/wind-visuals.mjs",
   "tests/world-feature-foundation.mjs",
   "tests/world-domain-composition.mjs",

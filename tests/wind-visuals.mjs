@@ -1,37 +1,56 @@
 import { existsSync, readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 
-const particlesPath = "src/domains/sky/wind-particle-field-kit.js";
-const airstreamDomainPath = "src/runtime/airstream-domain/airstream-domain.js";
-const airstreamIndexPath = "src/runtime/airstream-domain/index.js";
-const legacyVisualPath = "src/runtime/airstream-domain/airstream-visual-kit.js";
+const legacyParticlesPath = "src/domains/sky/wind-particle-field-kit.js";
+const protoPath = "src/runtime/airstream-trails/airstream-trail-proto-kit.js";
+const geometryPath = "src/visual/airstream-trails/airstream-trail-geometry-kit.js";
+const materialPath = "src/visual/airstream-trails/airstream-trail-material-kit.js";
+const adapterPath = "src/visual/airstream-trails/three-airstream-trail-adapter.js";
+const presentationPath = "src/visual/airstream-trails/airstream-trail-presentation-kit.js";
 const skyDomainPath = "src/domains/sky/sky-domain.js";
+const scenePath = "src/scenes/meadow-lift-scene.js";
 
-for (const file of [particlesPath, airstreamDomainPath, airstreamIndexPath, skyDomainPath]) {
+assert.equal(existsSync(legacyParticlesPath), false, "legacy CPU wind particles must be deleted");
+for (const file of [protoPath, geometryPath, materialPath, adapterPath, presentationPath, skyDomainPath, scenePath]) {
   assert.equal(existsSync(file), true, `${file} should exist`);
 }
-assert.equal(existsSync(legacyVisualPath), false, "legacy spline wind trails should be removed");
 
-const particles = readFileSync(particlesPath, "utf8");
-assert.match(particles, /DEFAULT_PARTICLE_SIZE = 0\.11/);
-assert.match(particles, /DEFAULT_OPACITY = 0\.5/);
-assert.match(particles, /createDustTexture/);
-assert.match(particles, /sampleFlowNoise3D/);
-assert.match(particles, /directional-layered-3d/);
-assert.match(particles, /THREE\.NormalBlending/);
-assert.doesNotMatch(particles, /THREE\.AdditiveBlending/);
-assert.doesNotMatch(particles, /material\.opacity\s*=/);
+const proto = readFileSync(protoPath, "utf8");
+assert.match(proto, /DEFAULT_AIRSTREAM_TRAIL_COUNT = 7/);
+assert.match(proto, /createAirstreamTrailField/);
+assert.match(proto, /integratePoint/);
+assert.doesNotMatch(proto, /from "three"|THREE\./, "the ProtoKit must remain renderer-neutral");
 
-const airstreamDomain = readFileSync(airstreamDomainPath, "utf8");
-assert.doesNotMatch(airstreamDomain, /createAirstreamVisual/);
-assert.doesNotMatch(airstreamDomain, /visual\?\.(?:update|dispose)/);
+const geometry = readFileSync(geometryPath, "utf8");
+assert.match(geometry, /createAirstreamTrailGeometry/);
+assert.match(geometry, /updateAirstreamTrailGeometry/);
+assert.match(geometry, /aPreviousFrom/);
+assert.match(geometry, /bufferUploads/);
 
-const airstreamIndex = readFileSync(airstreamIndexPath, "utf8");
-assert.doesNotMatch(airstreamIndex, /airstream-visual-kit/);
+const material = readFileSync(materialPath, "utf8");
+assert.match(material, /ShaderMaterial/);
+assert.match(material, /cameraPosition/);
+assert.match(material, /uMorph/);
+assert.match(material, /depthWrite: false/);
 
-const skyDomain = readFileSync(skyDomainPath, "utf8");
-assert.match(skyDomain, /particleSize: 0\.11/);
-assert.match(skyDomain, /opacity: 0\.5/);
-assert.match(skyDomain, /noiseModel/);
+const adapter = readFileSync(adapterPath, "utf8");
+assert.match(adapter, /new THREE\.Mesh/);
+assert.doesNotMatch(adapter, /THREE\.Points|PointsMaterial|requestAnimationFrame/);
+assert.match(adapter, /drawCalls: 1/);
 
-console.log("The Open Above dust wind field uses 50% alpha, half-size particles, layered 3D noise, and no spline-follow trail renderer.");
+const presentation = readFileSync(presentationPath, "utf8");
+assert.match(presentation, /trailCount !== DEFAULT_AIRSTREAM_TRAIL_COUNT/);
+assert.doesNotMatch(presentation, /requestAnimationFrame/);
+
+const sky = readFileSync(skyDomainPath, "utf8");
+assert.match(sky, /queryFlow/);
+assert.doesNotMatch(sky, /createWindParticleField|windParticles|particleCount/);
+
+const scene = readFileSync(scenePath, "utf8");
+assert.match(scene, /createAirstreamTrailPresentation/);
+assert.match(scene, /trailCount: 7/);
+assert.match(scene, /windTrails\.update/);
+assert.match(scene, /windTrails\.dispose/);
+assert.doesNotMatch(scene, /windParticles/);
+
+console.log("The Open Above uses exactly seven renderer-neutral, one-draw GPU wind trails with no legacy particle path.");

@@ -3,6 +3,7 @@ import * as NexusEngine from "nexusengine";
 import { CAMPAIGN, WORLD } from "../data/campaign.config.js";
 import { createBalloonTelemetryEngine } from "../runtime/balloon-telemetry-kit.js";
 import { createBrowserStartupPresentationAdapter } from "../platform/browser-startup-presentation.js";
+import { createAirstreamTrailPresentation } from "../visual/airstream-trails/airstream-trail-presentation-kit.js";
 import {
   createJourneyDomain,
   createBallooningDomain,
@@ -155,6 +156,7 @@ export async function createMeadowLiftScene({
   let imageCapture = null;
   let navigation = null;
   let journey = null;
+  let windTrails = null;
 
   try {
     land = createLandDomain({
@@ -182,10 +184,17 @@ export async function createMeadowLiftScene({
     experience = createExperienceDomain({ canvas, land, sky, preparedWorld });
     land.bindVisual(experience.visual);
     sky.mount({ scene: experience.scene });
+    windTrails = createAirstreamTrailPresentation({
+      scene: experience.scene,
+      queryFlow: sky.queryFlow,
+      seed: WORLD.seed,
+      quality: experience.visual.quality,
+      trailCount: 7
+    });
     startup.ready("world-presentation", {
       quality: experience.visual.quality.id,
       world: preparedWorld.getDescriptor()
-    }, "Terrain, atmosphere, clouds, and wind presentation ready");
+    }, "Terrain, atmosphere, clouds, and airstream ready");
     renderStartup(startupPresentation);
 
     startup.working("balloon", 0.1, "Loading the balloon and camera rig");
@@ -239,12 +248,18 @@ export async function createMeadowLiftScene({
       sample: initialState.airstream,
       dt: 0
     });
+    windTrails.mount({
+      position: initialState.position,
+      elapsed: initialState.elapsed,
+      sample: initialState.airstream
+    });
     experience.cameraRig?.update?.(1, initialState);
     experience.update({ dt: 0, flightState: initialState });
     engine.tick(0);
     startup.ready("starting-area", {
       terrain: land.snapshot(),
-      visual: experience.snapshot()
+      visual: experience.snapshot(),
+      windTrails: windTrails.snapshot()
     }, "Starting terrain and ecology ready");
     renderStartup(startupPresentation);
 
@@ -284,6 +299,7 @@ export async function createMeadowLiftScene({
     function update({ now, dt }) {
       const state = ballooning.update({ dt, now });
       sky.update({ position: state.position, elapsed: state.elapsed, sample: state.airstream, dt });
+      windTrails.update(state.position, state.elapsed, state.airstream);
       experience.update({ dt, flightState: state });
       const captureEvent = imageCapture.update(state);
       if (captureEvent) state.message = `${captureEvent.name}: ${captureEvent.rating} (${captureEvent.score})`;
@@ -310,6 +326,7 @@ export async function createMeadowLiftScene({
       navigation.dispose();
       imageCapture.dispose();
       ballooning.dispose();
+      windTrails.dispose();
       sky.dispose();
       experience.dispose();
     }
@@ -328,7 +345,7 @@ export async function createMeadowLiftScene({
       visual: experience.visual,
       simulation: ballooning.simulation,
       airstream: sky.airstream,
-      windParticles: sky.windParticles,
+      windTrails,
       imageCapture,
       cameraRig: experience.cameraRig,
       balloonPresentation: experience.balloonPresentation,
@@ -365,6 +382,7 @@ export async function createMeadowLiftScene({
     navigation?.dispose?.();
     imageCapture?.dispose?.();
     ballooning?.dispose?.();
+    windTrails?.dispose?.();
     sky?.dispose?.();
     experience?.dispose?.();
     if (!experience) worldPreparation?.dispose?.();

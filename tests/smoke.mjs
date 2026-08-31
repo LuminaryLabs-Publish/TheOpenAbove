@@ -38,6 +38,11 @@ const requiredFiles = [
   "src/platform/browser-startup-presentation.js",
   "src/release/build-diagnostics.js",
   "src/runtime/airstream-domain/index.js",
+  "src/runtime/airstream-trails/airstream-trail-proto-kit.js",
+  "src/visual/airstream-trails/airstream-trail-presentation-kit.js",
+  "src/visual/airstream-trails/airstream-trail-geometry-kit.js",
+  "src/visual/airstream-trails/airstream-trail-material-kit.js",
+  "src/visual/airstream-trails/three-airstream-trail-adapter.js",
   "src/visual/visual-domain.js",
   "src/visual/atmosphere/volumetric-cloud-kit.js",
   "src/visual/grass-field/grass-field-domain.js",
@@ -101,9 +106,15 @@ assert.match(ballooning, /modelSnapshot/);
 
 const sky = readFileSync("src/domains/sky/sky-domain.js", "utf8");
 assert.match(sky, /createAirstreamDomain/);
-assert.match(sky, /createWindParticleField/);
+assert.match(sky, /queryFlow/);
+assert.doesNotMatch(sky, /createWindParticleField|windParticles/);
 assert.match(sky, /layeredWeather/);
 assert.match(sky, /weatherSnapshot/);
+
+assert.match(scene, /createAirstreamTrailPresentation/);
+assert.match(scene, /windTrails\.update/);
+assert.match(scene, /windTrails\.dispose/);
+assert.doesNotMatch(scene, /windParticles/);
 
 const land = readFileSync("src/domains/land/land-domain.js", "utf8");
 assert.match(land, /worldAnchors/);

@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const args = process.argv.slice(2);
@@ -70,15 +70,19 @@ function scanContent(file, content, target, commit = null) {
 function scanWorkingTree() {
   const files = splitNull(runGit(["ls-files", "-co", "--exclude-standard", "-z"], { encoding: "buffer" }));
   const findings = [];
+  let existingFiles = 0;
   let textFiles = 0;
   for (const file of files) {
-    const content = readFileSync(path.join(root, file));
+    const absolutePath = path.join(root, file);
+    if (!existsSync(absolutePath)) continue;
+    existingFiles += 1;
+    const content = readFileSync(absolutePath);
     if (scanContent(file, content, findings)) textFiles += 1;
     if (riskyPathPatterns.some((pattern) => pattern.test(file)) && file !== ".env.example") {
       findings.push({ category: "risky-file", pattern: "sensitive-filename", path: file, count: 1 });
     }
   }
-  return { files: files.length, textFiles, findings };
+  return { files: existingFiles, textFiles, findings };
 }
 
 function scanHistory() {

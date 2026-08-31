@@ -26,6 +26,10 @@ export function createAirstreamDomain({
     return state.lastSample;
   }
 
+  function queryFlow(position, elapsed = 0) {
+    return field.sample(position, elapsed);
+  }
+
   function update({ position, elapsed = 0, sample: suppliedSample = null } = {}) {
     const next = suppliedSample ?? sample(position, elapsed);
     state.lastSample = next;
@@ -62,6 +66,7 @@ export function createAirstreamDomain({
     field,
     diagnostics,
     state,
+    queryFlow,
     sample,
     update,
     snapshot,
