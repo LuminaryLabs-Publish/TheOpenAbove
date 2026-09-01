@@ -85,17 +85,17 @@ const fragmentShader = /* glsl */`
     float head = smoothstep(0.0, 0.085, vAlong);
     float tail = 1.0 - smoothstep(0.83, 1.0, vAlong);
     float ends = head * tail;
-    float flowPhase = vAlong * 42.0 - uTime * (4.4 + vFlowSpeed * 2.6) + vPhase;
-    float primary = 0.5 + 0.5 * sin(flowPhase);
-    float filament = 0.5 + 0.5 * sin(flowPhase * 0.47 + vAlong * 21.0 + vPhase * 2.1);
-    float wisps = smoothstep(0.18, 0.96, primary * 0.72 + filament * 0.42);
+    float flowPhase = vAlong * 11.0 - uTime * (1.2 + vFlowSpeed * 0.72) + vPhase;
+    float broadFlow = 0.5 + 0.5 * sin(flowPhase);
+    float fineFlow = 0.5 + 0.5 * sin(flowPhase * 1.7 + vPhase * 0.65);
+    float flowingLight = broadFlow * 0.18 + fineFlow * 0.07;
     float nearFade = smoothstep(2.8, 8.5, vCameraDistance);
-    float farFade = 1.0 - smoothstep(210.0, 330.0, vCameraDistance);
-    float alpha = vOpacity * edge * ends * nearFade * farFade * (0.28 + wisps * 0.72);
+    float farFade = 1.0 - smoothstep(280.0, 420.0, vCameraDistance);
+    float alpha = vOpacity * edge * ends * nearFade * farFade * (0.78 + flowingLight);
     alpha *= 0.72 + vIntensity * 0.38;
-    if (alpha < 0.004) discard;
+    if (alpha < 0.002) discard;
 
-    vec3 glow = vColor * (0.82 + vIntensity * 0.34 + wisps * 0.12);
+    vec3 glow = vColor * (0.86 + vIntensity * 0.3 + flowingLight * 0.18);
     gl_FragColor = vec4(glow * alpha, alpha);
   }
 `;

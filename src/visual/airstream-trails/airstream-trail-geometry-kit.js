@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export const AIRSTREAM_TRAIL_GEOMETRY_KIT_ID = "open-above-airstream-trail-geometry-kit";
-const TRAIL_BOUNDS_RADIUS = 260;
+const TRAIL_BOUNDS_RADIUS = 360;
 
 const ATTRIBUTE_NAMES = Object.freeze([
   "aFrom",

@@ -35,7 +35,7 @@ Normal frames update only the presentation transform and shader uniforms. They d
 
 ## GPU resources
 
-The Three.js adapter owns one `BufferGeometry`, one `ShaderMaterial`, one `Mesh`, and their disposal. All seven indexed ribbons share the same geometry and material. Camera-facing extrusion, internal flow, waves, edge softening, endpoint fading, distance fading, and camera-proximity dissolve run in shaders.
+The Three.js adapter owns one `BufferGeometry`, one `ShaderMaterial`, one `Mesh`, and their disposal. All seven indexed ribbons share the same geometry and material. Camera-facing extrusion, continuous internal flow, waves, edge softening, endpoint fading, distance fading, and camera-proximity dissolve run in shaders. The shader keeps a visible ribbon body at every point along the centerline; moving light gradients communicate speed without fragmenting the trail into particle-like dashes.
 
 ## Performance contract
 

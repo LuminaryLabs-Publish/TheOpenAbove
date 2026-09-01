@@ -19,6 +19,8 @@ const proto = readFileSync(protoPath, "utf8");
 assert.match(proto, /DEFAULT_AIRSTREAM_TRAIL_COUNT = 7/);
 assert.match(proto, /createAirstreamTrailField/);
 assert.match(proto, /integratePoint/);
+assert.match(proto, /length: 118/);
+assert.match(proto, /length: 242/);
 assert.doesNotMatch(proto, /from "three"|THREE\./, "the ProtoKit must remain renderer-neutral");
 
 const geometry = readFileSync(geometryPath, "utf8");
@@ -32,6 +34,8 @@ assert.match(material, /ShaderMaterial/);
 assert.match(material, /cameraPosition/);
 assert.match(material, /uMorph/);
 assert.match(material, /depthWrite: false/);
+assert.match(material, /flowingLight/);
+assert.doesNotMatch(material, /wisps|smoothstep\(0\.18, 0\.96/, "wind ribbons must remain continuous rather than breaking into particle-like wisps");
 
 const adapter = readFileSync(adapterPath, "utf8");
 assert.match(adapter, /new THREE\.Mesh/);

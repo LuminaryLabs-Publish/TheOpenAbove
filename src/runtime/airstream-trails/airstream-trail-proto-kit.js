@@ -5,13 +5,13 @@ const EPSILON = 1e-8;
 const DEFAULT_SAMPLE_COUNT = 48;
 
 const OPEN_ABOVE_TRAIL_PROFILE = Object.freeze([
-  Object.freeze({ band: "near", lateral: -10, vertical: 4, longitudinal: -7, length: 72, width: 0.82, opacity: 0.38 }),
-  Object.freeze({ band: "near", lateral: 11, vertical: -4, longitudinal: 4, length: 76, width: 0.88, opacity: 0.36 }),
-  Object.freeze({ band: "near", lateral: -2, vertical: 12, longitudinal: 11, length: 82, width: 0.94, opacity: 0.34 }),
-  Object.freeze({ band: "medium", lateral: -25, vertical: 9, longitudinal: 14, length: 112, width: 1.18, opacity: 0.3 }),
-  Object.freeze({ band: "medium", lateral: 24, vertical: -11, longitudinal: 22, length: 120, width: 1.24, opacity: 0.29 }),
-  Object.freeze({ band: "distant", lateral: -43, vertical: 19, longitudinal: 34, length: 158, width: 1.52, opacity: 0.24 }),
-  Object.freeze({ band: "distant", lateral: 42, vertical: -19, longitudinal: 45, length: 166, width: 1.6, opacity: 0.23 })
+  Object.freeze({ band: "near", lateral: -10, vertical: 4, longitudinal: -18, length: 118, width: 1.02, opacity: 0.42 }),
+  Object.freeze({ band: "near", lateral: 11, vertical: -4, longitudinal: -6, length: 126, width: 1.08, opacity: 0.4 }),
+  Object.freeze({ band: "near", lateral: -2, vertical: 12, longitudinal: 8, length: 136, width: 1.14, opacity: 0.38 }),
+  Object.freeze({ band: "medium", lateral: -25, vertical: 9, longitudinal: 10, length: 174, width: 1.34, opacity: 0.34 }),
+  Object.freeze({ band: "medium", lateral: 24, vertical: -11, longitudinal: 20, length: 186, width: 1.42, opacity: 0.33 }),
+  Object.freeze({ band: "distant", lateral: -43, vertical: 19, longitudinal: 30, length: 228, width: 1.68, opacity: 0.28 }),
+  Object.freeze({ band: "distant", lateral: 42, vertical: -19, longitudinal: 42, length: 242, width: 1.78, opacity: 0.27 })
 ]);
 
 function finite(value, fallback = 0) {
