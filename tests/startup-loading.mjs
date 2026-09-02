@@ -41,9 +41,9 @@ assert.ok(firstFrameIndex < enterIndex, "Startup should admit player input only 
 
 const visual = readFileSync("src/visual/visual-domain.js", "utf8");
 assert.match(visual, /createVisualWorldPreparation/);
-assert.match(visual, /preparedWorld \?\? createWorldFeatureFoundation/);
-assert.match(visual, /staged: true/);
-assert.match(visual, /autoStart: true/);
+assert.match(visual, /createVirtualHeightfieldTerrainKit/);
+assert.match(visual, /Visual provider requires a prepared world packet source/);
+assert.doesNotMatch(visual, /createWorldGenerationKit/);
 
 const experience = readFileSync("src/domains/experience/experience-domain.js", "utf8");
 assert.match(experience, /createExperienceWorldPreparation/);

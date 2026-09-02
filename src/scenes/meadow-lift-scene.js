@@ -4,6 +4,7 @@ import { CAMPAIGN, WORLD } from "../data/campaign.config.js";
 import { createBalloonTelemetryEngine } from "../runtime/balloon-telemetry-kit.js";
 import { createBrowserStartupPresentationAdapter } from "../platform/browser-startup-presentation.js";
 import { createAirstreamTrailPresentation } from "../visual/airstream-trails/airstream-trail-presentation-kit.js";
+import { createOpenAboveWorldRuntime } from "../world/open-above-world-runtime.js";
 import {
   createJourneyDomain,
   createBallooningDomain,
@@ -27,15 +28,6 @@ const STARTUP_PREPARATIONS = Object.freeze([
   Object.freeze({ id: "navigation", label: "Preparing the sightseeing journal", weight: 1 }),
   Object.freeze({ id: "first-frame", label: "Presenting the world", weight: 1 })
 ]);
-
-const WORLD_PHASE_LABELS = Object.freeze({
-  height: "Forming the terrain",
-  erosion: "Eroding ridges and valleys",
-  flow: "Tracing watersheds",
-  climate: "Distributing moisture and temperature",
-  biome: "Planting biomes",
-  ready: "World generation complete"
-});
 
 const nowMs = () => globalThis.performance?.now?.() ?? Date.now();
 
@@ -79,29 +71,11 @@ function renderStartup(presentation) {
 }
 
 async function advanceGeneratedWorld(worldPreparation, startup, presentation) {
-  let state = worldPreparation.getState();
-  startup.working("world-generation", state.progress, WORLD_PHASE_LABELS[state.phase] ?? "Preparing the world");
+  startup.working("world-generation", 0.05, "Preparing terrain, climate, and biomes in a worker");
   renderStartup(presentation);
   await nextHostFrame();
-
-  while (state.status === "working" || state.status === "idle") {
-    const deadline = nowMs() + 7;
-    do {
-      state = worldPreparation.advance(512);
-    } while (state.status === "working" && nowMs() < deadline);
-
-    startup.working(
-      "world-generation",
-      state.progress,
-      WORLD_PHASE_LABELS[state.phase] ?? `Generating ${state.phase ?? "world"}`
-    );
-    renderStartup(presentation);
-    if (state.status === "working") await nextHostFrame();
-  }
-
-  if (state.status !== "ready") {
-    throw new Error(state.failure?.message ?? `World generation ended with status ${state.status}.`);
-  }
+  await worldPreparation.prepare();
+  const state = worldPreparation.getState();
 
   startup.ready("world-generation", {
     generation: state,
@@ -117,7 +91,7 @@ export async function createMeadowLiftScene({
   mapRoot,
   mapCanvas,
   startupElements = {},
-  nexusEngineSha,
+  nexusEngineIdentity,
   onFatal
 } = {}) {
   const sky = createSkyDomain({
@@ -143,14 +117,15 @@ export async function createMeadowLiftScene({
     projectId: "the-open-above",
     preparations: STARTUP_PREPARATIONS,
     continuation: { mode: "new" },
-    metadata: { sceneId: MEADOW_LIFT_SCENE_ID, nexusEngineSha }
+    metadata: { sceneId: MEADOW_LIFT_SCENE_ID, nexusEngineIdentity }
   });
   startup.selectContinuation({ mode: "new", sourceId: MEADOW_LIFT_SCENE_ID });
-  startup.ready("runtime", { nexusEngineSha }, "Nexus Engine runtime ready");
+  startup.ready("runtime", { nexusEngineIdentity }, "Nexus Engine runtime ready");
   renderStartup(startupPresentation);
 
   let land = null;
   let worldPreparation = null;
+  let worldRuntime = null;
   let experience = null;
   let ballooning = null;
   let imageCapture = null;
@@ -164,7 +139,7 @@ export async function createMeadowLiftScene({
       worldFeatures: engine.n.worldFeature,
       worldFoundation: engine.n.worldFoundation,
       routes: sky.routes,
-      towns: []
+      towns: WORLD.towns ?? []
     });
     sky.bindRuntimeEngine(engine);
 
@@ -175,6 +150,8 @@ export async function createMeadowLiftScene({
     renderStartup(startupPresentation);
     await nextHostFrame();
     const preparedWorld = worldPreparation.finalize();
+    worldRuntime = createOpenAboveWorldRuntime({ engine, preparedWorld, worldConfig: WORLD });
+    land.bindWorld({ world: preparedWorld, runtime: worldRuntime });
     startup.ready("world-features", preparedWorld.getDescriptor(), "Landmarks and world features resolved");
     renderStartup(startupPresentation);
 
@@ -182,7 +159,6 @@ export async function createMeadowLiftScene({
     renderStartup(startupPresentation);
     await nextHostFrame();
     experience = createExperienceDomain({ canvas, land, sky, preparedWorld });
-    land.bindVisual(experience.visual);
     sky.mount({ scene: experience.scene });
     windTrails = createAirstreamTrailPresentation({
       scene: experience.scene,
@@ -203,7 +179,7 @@ export async function createMeadowLiftScene({
     ballooning = createBallooningDomain();
     await ballooning.mount({
       targetScene: experience.scene,
-      terrainHeight: experience.visual.landscape.terrain.terrainHeight,
+      terrainHeight: land.sampleHeight,
       sampleAirstream: sky.sample
     });
     experience.bindBalloon(ballooning.balloon);
@@ -242,6 +218,8 @@ export async function createMeadowLiftScene({
     renderStartup(startupPresentation);
     await nextHostFrame();
     const initialState = ballooning.update({ dt: 0, now: nowMs() });
+    worldRuntime.updateFocus(initialState.position, initialState.velocity);
+    const initialWorldPacket = worldRuntime.getPresentationPacket();
     sky.update({
       position: initialState.position,
       elapsed: initialState.elapsed,
@@ -254,7 +232,7 @@ export async function createMeadowLiftScene({
       sample: initialState.airstream
     });
     experience.cameraRig?.update?.(1, initialState);
-    experience.update({ dt: 0, flightState: initialState });
+    experience.update({ dt: 0, flightState: initialState, worldPacket: initialWorldPacket });
     engine.tick(0);
     startup.ready("starting-area", {
       terrain: land.snapshot(),
@@ -298,12 +276,14 @@ export async function createMeadowLiftScene({
 
     function update({ now, dt }) {
       const state = ballooning.update({ dt, now });
+      worldRuntime.updateFocus(state.position, state.velocity);
+      engine.tick(dt);
+      const worldPacket = worldRuntime.getPresentationPacket();
       sky.update({ position: state.position, elapsed: state.elapsed, sample: state.airstream, dt });
       windTrails.update(state.position, state.elapsed, state.airstream);
-      experience.update({ dt, flightState: state });
+      experience.update({ dt, flightState: state, worldPacket });
       const captureEvent = imageCapture.update(state);
       if (captureEvent) state.message = `${captureEvent.name}: ${captureEvent.rating} (${captureEvent.score})`;
-      engine.tick(dt);
     }
 
     function render({ dt, frameMs }) {
@@ -329,12 +309,13 @@ export async function createMeadowLiftScene({
       windTrails.dispose();
       sky.dispose();
       experience.dispose();
+      worldRuntime.dispose();
     }
 
     const gameHost = Object.freeze({
       engine,
       NexusEngine,
-      nexusEngineSha,
+      nexusEngineIdentity,
       THREE,
       startup,
       scene: experience.scene,
@@ -352,6 +333,7 @@ export async function createMeadowLiftScene({
       getState: () => ({
         startup: startup.getDescriptor(),
         nexusEngine: engine.openAbove?.getState?.(),
+        world: worldRuntime.getPresentationPacket(),
         local: getSnapshot()
       })
     });
@@ -385,6 +367,7 @@ export async function createMeadowLiftScene({
     windTrails?.dispose?.();
     sky?.dispose?.();
     experience?.dispose?.();
+    worldRuntime?.dispose?.();
     if (!experience) worldPreparation?.dispose?.();
     throw error;
   }

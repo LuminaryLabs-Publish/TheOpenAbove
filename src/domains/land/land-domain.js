@@ -7,24 +7,26 @@ export function createLandDomain({
   routes = [],
   towns = []
 } = {}) {
-  let visual = null;
+  let preparedWorld = null;
+  let worldRuntime = null;
   const worldAnchors = Object.freeze({ routes, towns });
 
-  function bindVisual(nextVisual) {
-    visual = nextVisual;
+  function bindWorld({ world, runtime }) {
+    if (!world?.sampleHeight || !runtime?.snapshot) throw new TypeError("Land requires the prepared Nexus world runtime.");
+    preparedWorld = world;
+    worldRuntime = runtime;
     return api;
   }
 
   function snapshot() {
-    const terrain = visual?.landscape?.terrain;
-    if (!terrain) return null;
+    const snapshot = worldRuntime?.snapshot?.();
+    if (!snapshot) return null;
     return {
-      nearChunks: terrain.streamer?.chunks?.size ?? 0,
-      horizonChunks: terrain.horizon?.chunks?.size ?? 0,
-      horizonDistance: terrain.horizon?.maxDistance ?? 0,
-      worldSurface: terrain.worldSurface?.getDescriptor?.() ?? null,
-      generation: visual.world?.getDescriptor?.() ?? null,
-      generationState: visual.world?.getGenerationState?.() ?? null
+      activeCells: snapshot.activeCells.length,
+      focus: snapshot.focus,
+      revision: snapshot.sequence,
+      generation: preparedWorld?.getDescriptor?.() ?? null,
+      generationState: preparedWorld?.getGenerationState?.() ?? null
     };
   }
 
@@ -34,11 +36,11 @@ export function createLandDomain({
     worldFeatures,
     worldFoundation,
     worldAnchors,
-    bindVisual,
+    bindWorld,
     snapshot,
-    get world() { return visual?.world ?? null; },
-    get landscape() { return visual?.landscape ?? null; },
-    sampleHeight(x, z) { return visual?.landscape?.terrain?.terrainHeight?.(x, z) ?? 0; }
+    get world() { return preparedWorld; },
+    get worldRuntime() { return worldRuntime; },
+    sampleHeight(x, z) { return preparedWorld?.sampleHeight?.(x, z) ?? 0; }
   };
   return Object.freeze(api);
 }

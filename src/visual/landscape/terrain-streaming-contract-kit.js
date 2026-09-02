@@ -102,6 +102,47 @@ export function createTerrainStreamingFrame(cameraPosition, {
   });
 }
 
+export function createTerrainStreamingFrameFromWorldPacket(cameraPosition, packet, {
+  nearChunkSize = TERRAIN_NEAR_CHUNK_SIZE,
+  nearChunkRadius = 3,
+  horizonScale = TERRAIN_HORIZON_SCALE,
+  worldSurface = null
+} = {}) {
+  if (packet?.schema !== "open-above.world-presentation/1" || !Array.isArray(packet.cells)) {
+    throw new TypeError("Terrain streaming requires an Open Above world presentation packet.");
+  }
+  const cameraX = Number(cameraPosition?.x) || 0;
+  const cameraZ = Number(cameraPosition?.z) || 0;
+  const nearCenterX = stableRoundHalfAwayFromZero(cameraX / nearChunkSize);
+  const nearCenterZ = stableRoundHalfAwayFromZero(cameraZ / nearChunkSize);
+  const horizonCenterX = Math.trunc(nearCenterX / horizonScale);
+  const horizonCenterZ = Math.trunc(nearCenterZ / horizonScale);
+  const nearChunks = packet.cells.map((cell) => {
+    const bounds = cell.bounds;
+    const cx = stableRoundHalfAwayFromZero(((bounds.minX + bounds.maxX) * 0.5) / nearChunkSize);
+    const cz = stableRoundHalfAwayFromZero(((bounds.minZ + bounds.maxZ) * 0.5) / nearChunkSize);
+    const dx = cx - nearCenterX;
+    const dz = cz - nearCenterZ;
+    return { key: terrainChunkKey(cx, cz), cx, cz, dx, dz, distance: Math.hypot(dx, dz), bounds };
+  }).filter((chunk) => !worldSurface || worldSurface.intersectsBounds(chunk.bounds));
+  nearChunks.sort((left, right) => left.key.localeCompare(right.key));
+  return Object.freeze({
+    revision: `nexus:${packet.revision}:${nearChunks.map((chunk) => chunk.key).join(",")}`,
+    cameraX,
+    cameraZ,
+    nearChunkSize,
+    nearChunkRadius,
+    horizonScale,
+    horizonChunkSize: nearChunkSize * horizonScale,
+    nearCenterX,
+    nearCenterZ,
+    horizonCenterX,
+    horizonCenterZ,
+    nearChunks: Object.freeze(nearChunks),
+    nearBounds: Object.freeze(nearChunks.map((chunk) => chunk.bounds))
+  });
+}
+
 function uniqueSorted(values) {
   const sorted = [...values].sort((a, b) => a - b);
   const result = [];

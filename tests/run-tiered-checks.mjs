@@ -13,7 +13,8 @@ const suites = [
   "tests/cloud-lod-integration.mjs",
   "tests/terrain-streaming.mjs",
   "tests/world-route-protection.mjs",
-  "tests/terrain-overlays.mjs"
+  "tests/terrain-overlays.mjs",
+  "tests/world-streaming-authority.mjs"
 ];
 
 const findings = {
@@ -70,17 +71,14 @@ function runSuite(suite) {
     return;
   }
 
-  if (isAssertionDrift(output)) {
-    record("warning", suite, output);
-    return;
-  }
+  if (isAssertionDrift(output)) return record("blocker", suite, output);
 
   if (isBlocker(output, result)) {
     record("blocker", suite, output || `Terminated by ${result.signal || "fatal execution failure"}.`);
     return;
   }
 
-  record("error", suite, output || `Exited with status ${result.status}.`);
+  record("blocker", suite, output || `Exited with status ${result.status}.`);
 }
 
 console.log("Four-tier validation policy: INFO reports success, WARNING reports contract drift, ERROR reports non-blocking failures, and BLOCKER alone stops deployment.");

@@ -1,5 +1,5 @@
 import { createMeadowLiftScene } from "./scenes/meadow-lift-scene.js";
-import { NEXUS_ENGINE_COMMIT } from "./release-identity.js";
+import { OPEN_ABOVE_RELEASE_IDENTITY } from "./release-identity.js";
 import { installBuildDiagnostics } from "./release/build-diagnostics.js";
 
 const canvas = document.querySelector("#game");
@@ -26,7 +26,7 @@ async function boot() {
       mapRoot,
       mapCanvas,
       startupElements,
-      nexusEngineSha: NEXUS_ENGINE_COMMIT,
+      nexusEngineIdentity: OPEN_ABOVE_RELEASE_IDENTITY,
       onFatal: showFatal
     });
     window.GameHost = installBuildDiagnostics(scene.gameHost);

@@ -11,10 +11,13 @@ import {
 import { createMcpDomain } from "nexusengine/domains/mcp";
 
 import { balloonVerticalAcceleration } from "../src/native/balloon-flight-kernel.js";
-import {
-  NEXUS_ENGINE_COMMIT,
-  NEXUS_ENGINE_REGISTRY_HASH
-} from "../src/release-identity.js";
+import { readFile } from "node:fs/promises";
+import { NEXUS_ENGINE_CHANNEL, NEXUS_ENGINE_REGISTRY_HASH } from "../src/release-identity.js";
+
+const lockfile = JSON.parse(await readFile(new URL("../package-lock.json", import.meta.url), "utf8"));
+const resolvedEngineSource = lockfile.packages?.["node_modules/nexusengine"]?.resolved ?? "";
+const NEXUS_ENGINE_COMMIT = resolvedEngineSource.match(/#([a-f0-9]{40})$/i)?.[1] ?? null;
+assert.ok(NEXUS_ENGINE_COMMIT, "NexusEngine lockfile must resolve main to an exact commit");
 
 const project = path.resolve(".");
 const stateRoot = await mkdtemp(path.join(tmpdir(), "open-above-nexus-state-"));
@@ -83,6 +86,7 @@ assert.equal(Number.isFinite(disconnectedRuntimeResult), true);
 
 console.log(JSON.stringify({
   status: "passed",
+  engineChannel: NEXUS_ENGINE_CHANNEL,
   engineCommit: NEXUS_ENGINE_COMMIT,
   registryHash: NEXUS_ENGINE_REGISTRY_HASH,
   aggregatePlanId: aggregatePlan.id,

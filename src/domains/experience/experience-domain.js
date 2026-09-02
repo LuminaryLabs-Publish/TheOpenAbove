@@ -38,10 +38,10 @@ export function createExperienceDomain({ canvas, land, sky, preparedWorld = null
     return api;
   }
 
-  function update({ dt, flightState } = {}) {
+  function update({ dt, flightState, worldPacket } = {}) {
     balloonPresentation?.update(flightState);
     cameraContext = cameraRig?.update(dt, flightState) ?? cameraContext;
-    visualState = visual.update({ dt, elapsed: flightState.elapsed, flightState, cameraContext });
+    visualState = visual.update({ dt, elapsed: flightState.elapsed, flightState, cameraContext, worldPacket });
     return visualState;
   }
 

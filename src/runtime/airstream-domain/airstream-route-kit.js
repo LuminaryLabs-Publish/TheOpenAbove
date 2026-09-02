@@ -38,57 +38,6 @@ export function createAirstreamRoute(input = {}) {
 }
 
 export function createDefaultAirstreamRoutes() {
-  return Object.freeze([
-    createAirstreamRoute({
-      id: "meadow-to-brookhaven",
-      label: "Brookhaven Meadow Current",
-      destinationTownId: "brookhaven",
-      family: "meadow",
-      color: 0xbce8bf,
-      radius: 105,
-      speed: 19,
-      lift: 0.35,
-      turbulence: 0.06,
-      points: [
-        { x: 0, y: 165, z: 0 },
-        { x: -450, y: 190, z: -700 },
-        { x: -1100, y: 160, z: -1500 },
-        { x: -1900, y: 125, z: -2400 }
-      ]
-    }),
-    createAirstreamRoute({
-      id: "lowland-to-sunvale",
-      label: "Sunvale Warm Current",
-      destinationTownId: "sunvale",
-      family: "warm",
-      color: 0xffe2a0,
-      radius: 100,
-      speed: 17,
-      lift: 0.18,
-      turbulence: 0.075,
-      points: [
-        { x: 0, y: 92, z: 0 },
-        { x: 520, y: 112, z: -650 },
-        { x: 1140, y: 98, z: -1420 },
-        { x: 1850, y: 82, z: -2200 }
-      ]
-    }),
-    createAirstreamRoute({
-      id: "highland-to-cloudmere",
-      label: "Cloudmere Cool Current",
-      destinationTownId: "cloudmere",
-      family: "cool",
-      color: 0xc5e7ff,
-      radius: 112,
-      speed: 22,
-      lift: -0.08,
-      turbulence: 0.045,
-      points: [
-        { x: 0, y: 285, z: 0 },
-        { x: 470, y: 305, z: 560 },
-        { x: 980, y: 275, z: 1180 },
-        { x: 1600, y: 235, z: 1800 }
-      ]
-    })
-  ]);
+  return Object.freeze(FIVE_TOWN_ROUTES.map(createAirstreamRoute));
 }
+import { FIVE_TOWN_ROUTES } from "../../data/five-towns.config.js";

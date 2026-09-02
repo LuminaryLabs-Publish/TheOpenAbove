@@ -26,6 +26,8 @@ const worldFoundation = {
   sampleElevation(_cellId, point) { return point.z === 5500 ? 500 : 0; }
 };
 const world = createWorldFeatureFoundation(baseWorld, { worldConfig: WORLD, worldFeatures, worldFoundation });
+const mountainCell = { id: "mountain-cell", bounds: { minX: -5200, minZ: 4900, maxX: 5200, maxZ: 5900 } };
+world.prepareCell(mountainCell);
 assert.equal(compiled, 1);
 assert.equal(world.sampleHeight(0, 5500), 20, "fallback terrain must remain active before generation is ready");
 status = "ready";
@@ -35,8 +37,10 @@ assert.equal(world.sampleBiome(0, 5500).name, "highland");
 assert.equal(world.sampleFlora(0, 5500).grassDensity, 0);
 assert.notDeepEqual(world.sampleMapColor(0, 5500), [50, 120, 70]);
 assert.equal(world.getDescriptor().featureIds[0], "northern-wall");
+assert.deepEqual(world.getDescriptor().foundationCellIds, ["mountain-cell"]);
 assert.equal(WORLD.features.landforms[0].definition.height, 500);
 world.reset();
+world.releaseCell("mountain-cell");
 world.dispose();
 assert.equal(resetCount, 1);
 assert.equal(disposed, true);

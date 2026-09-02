@@ -204,6 +204,15 @@ export const WORLD = Object.freeze({
     layers: WEATHER_LAYERS
   }),
   terrainSize: 2400,
+  towns: FIVE_TOWNS,
+  streaming: Object.freeze({
+    cellSize: 520,
+    activeRadius: 3,
+    prefetchRadius: 5,
+    maxInflight: 1,
+    cpuBudgetBytes: 96 * 1024 * 1024,
+    gpuBudgetBytes: 192 * 1024 * 1024
+  }),
   terrainSegments: 128,
   treeCount: 360,
   gateCount: 5,
@@ -233,3 +242,4 @@ export const FLIGHT = Object.freeze({
   thermalLift: 42,
   terrainClearance: 8
 });
+import { FIVE_TOWNS } from "./five-towns.config.js";

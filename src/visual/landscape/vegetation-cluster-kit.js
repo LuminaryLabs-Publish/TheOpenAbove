@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { normalizeGrassSeed } from "../grass-field/grass-world-seed-kit.js";
 import { terrainHeight, moistureAt } from "./terrain-surface-kit.js";
+import { createVegetationCellBatchBuilder } from "../../world/vegetation-cell-batch.js";
 
 export const VEGETATION_CLUSTER_KIT_ID = "open-above-vegetation-cluster-kit";
 
@@ -43,9 +44,14 @@ export function createVegetationClusters(
   const position = new THREE.Vector3();
   const color = new THREE.Color();
   let count = 0;
+  let cellBatches = Object.freeze([]);
 
   function populate() {
     const random = seeded(worldSeed);
+    const batchBuilder = createVegetationCellBatchBuilder({
+      cellSize: Number(worldConfig.streaming?.cellSize) || 520,
+      revision: Number(world?.getGenerationState?.().revision) || 1
+    });
     clusters.length = 0;
     treePositions.length = 0;
     for (let index = 0; index < clusterCount; index += 1) {
@@ -84,6 +90,17 @@ export function createVegetationClusters(
       color.set(0x315f38).offsetHSL((random() - 0.5) * 0.025, (random() - 0.5) * 0.1, (random() - 0.5) * 0.12);
       crowns.setColorAt(count, color);
       treePositions.push({ x, z, radius: 2.2 + treeScale * 1.6 });
+      batchBuilder.add({
+        x,
+        y,
+        z,
+        yaw: quaternion.y,
+        scaleX: treeScale * 0.62,
+        scaleY: treeScale,
+        scaleZ: treeScale * 0.62,
+        radius: 2.2 + treeScale * 1.6,
+        color: color.getHex()
+      });
       count += 1;
     }
 
@@ -94,6 +111,7 @@ export function createVegetationClusters(
     if (crowns.instanceColor) crowns.instanceColor.needsUpdate = true;
     trunks.computeBoundingSphere?.();
     crowns.computeBoundingSphere?.();
+    cellBatches = batchBuilder.finalize();
     return count;
   }
 
@@ -116,6 +134,8 @@ export function createVegetationClusters(
     trunks,
     crowns,
     get count() { return count; },
+    get cellBatches() { return cellBatches; },
+    getBatchDescriptors: () => cellBatches.map(({ transforms, ...descriptor }) => Object.freeze({ ...descriptor, byteLength: transforms.byteLength })),
     clusters,
     treePositions,
     refresh: populate,

@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { createDiskWorldSurface } from "./disk-world-surface.js";
 import { createTerrainChunkStreamer, installSoftCloudShadow } from "./terrain-chunk-streaming-kit.js";
 import { createTerrainHorizonStreamer } from "./terrain-horizon-streaming-kit.js";
-import { createTerrainStreamingFrame } from "./terrain-streaming-contract-kit.js";
+import { createTerrainStreamingFrame, createTerrainStreamingFrameFromWorldPacket } from "./terrain-streaming-contract-kit.js";
 
 export const TERRAIN_SURFACE_KIT_ID = "open-above-terrain-surface-kit";
 
@@ -163,13 +163,17 @@ export function createTerrainSurface(scene, worldConfig, quality, world = null) 
     activeFrame = null;
   }
 
-  function update(camera, weatherState) {
+  function update(camera, weatherState, worldPacket = null) {
     const nextGenerationRevision = Number(world?.getGenerationState?.().revision ?? generationRevision);
     if (nextGenerationRevision !== generationRevision) {
       generationRevision = nextGenerationRevision;
       refresh();
     }
-    const frame = createTerrainStreamingFrame(camera.position, {
+    const frame = worldPacket ? createTerrainStreamingFrameFromWorldPacket(camera.position, worldPacket, {
+      nearChunkSize: chunkSize,
+      nearChunkRadius: nearRadius,
+      worldSurface
+    }) : createTerrainStreamingFrame(camera.position, {
       nearChunkSize: chunkSize,
       nearChunkRadius: nearRadius,
       worldSurface

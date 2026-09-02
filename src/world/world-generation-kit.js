@@ -389,6 +389,57 @@ export function createWorldGenerationKit({
     return snapshotGeneration();
   }
 
+  function exportPreparedState() {
+    if (!active) throw new Error("World generation has no prepared state to export.");
+    return {
+      schema: "open-above.world-generation-state/1",
+      seed,
+      gridSize,
+      revision: active.revision,
+      heightGrid: active.heightGrid,
+      moistureGrid: active.moistureGrid,
+      temperatureGrid: active.temperatureGrid,
+      fertilityGrid: active.fertilityGrid,
+      flowGrid: active.flowGrid,
+      biomeGrid: active.biomeGrid,
+      biomeCounts: [...active.biomeCounts]
+    };
+  }
+
+  function hydratePreparedState(snapshot = {}) {
+    if (disposed) throw new Error("World generation kit is disposed.");
+    if (snapshot.schema !== "open-above.world-generation-state/1") {
+      throw new TypeError("Unsupported world generation snapshot.");
+    }
+    if (Number(snapshot.gridSize) !== gridSize || String(snapshot.seed) !== String(seed)) {
+      throw new TypeError("World generation snapshot does not match this world.");
+    }
+    const expectedLength = gridSize * gridSize;
+    for (const field of ["heightGrid", "moistureGrid", "temperatureGrid", "fertilityGrid", "flowGrid", "biomeGrid"]) {
+      if (!ArrayBuffer.isView(snapshot[field]) || snapshot[field].length !== expectedLength) {
+        throw new TypeError(`World generation snapshot ${field} is invalid.`);
+      }
+    }
+    active = Object.freeze({
+      revision: Math.max(1, Number(snapshot.revision) || 1),
+      heightGrid: snapshot.heightGrid,
+      moistureGrid: snapshot.moistureGrid,
+      temperatureGrid: snapshot.temperatureGrid,
+      fertilityGrid: snapshot.fertilityGrid,
+      flowGrid: snapshot.flowGrid,
+      biomeGrid: snapshot.biomeGrid,
+      biomeCounts: Object.freeze([...(snapshot.biomeCounts ?? [])])
+    });
+    pending = null;
+    generation = createGenerationState("ready", "ready");
+    generation.revision = active.revision;
+    generation.startedAt = nowMs();
+    generation.completedAt = generation.startedAt;
+    generation.phaseHistory = ["worker", "ready"];
+    notify();
+    return snapshotGeneration();
+  }
+
   function dispose() {
     pending = null;
     active = null;
@@ -421,6 +472,8 @@ export function createWorldGenerationKit({
     startGeneration,
     advanceGeneration,
     completeGenerationSync,
+    exportPreparedState,
+    hydratePreparedState,
     getGenerationState: snapshotGeneration,
     getGenerationDiagnostics: snapshotGeneration,
     subscribeGeneration(listener) {

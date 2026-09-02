@@ -6,7 +6,7 @@ import { createAerialPerspective } from "./illumination/aerial-perspective-kit.j
 import { createCloudWeatherMap } from "./atmosphere/cloud-weather-map-kit.js";
 import { createVolumetricClouds } from "./atmosphere/volumetric-cloud-kit.js";
 import { createGaussianCloudRenderer } from "./atmosphere/gaussian-cloud-render-adapter.js";
-import { createTerrainSurface, terrainHeight as legacyTerrainHeight, moistureAt as legacyMoistureAt } from "./landscape/terrain-surface-kit.js";
+import { createTerrainSurface } from "./landscape/terrain-surface-kit.js";
 import { createVegetationClusters } from "./landscape/vegetation-cluster-kit.js";
 import { createGrassFieldDomain } from "./grass-field/grass-field-domain.js";
 import { createFlowerFieldDomain } from "./flower-field/flower-field-domain.js";
@@ -14,8 +14,7 @@ import { createWaterSurfaces } from "./landscape/water-surface-kit.js";
 import { createDistantLandmarks } from "./landscape/distant-landmark-kit.js";
 import { createHdrComposer } from "./post-process/hdr-composer-kit.js";
 import { createLensResponse } from "./camera-presentation/lens-response-kit.js";
-import { createWorldGenerationKit } from "../world/world-generation-kit.js";
-import { createWorldFeatureFoundation } from "../world/world-feature-foundation-kit.js";
+import { createVirtualHeightfieldTerrainKit } from "../world/virtual-heightfield-terrain-kit.js";
 
 export const VISUAL_DOMAIN_ID = "open-above-visual-domain";
 export const VISUAL_WORLD_PREPARATION_ID = "open-above-visual-world-preparation";
@@ -37,42 +36,12 @@ export function createVisualWorldPreparation({
   worldAnchors = {},
   worldFeatures = null,
   worldFoundation = null,
-  workBudget = worldConfig.generation?.workBudget
 } = {}) {
-  const generatedWorld = createWorldGenerationKit({
+  return createVirtualHeightfieldTerrainKit({
     worldConfig,
-    legacyTerrainHeight,
-    legacyMoistureAt,
-    anchors: worldAnchors,
-    staged: true,
-    workBudget,
-    autoStart: true
-  });
-  let preparedWorld = null;
-
-  function finalize() {
-    const state = generatedWorld.getGenerationState();
-    if (state.status !== "ready") {
-      throw new Error(`Visual world cannot finalize while generation status is ${state.status}.`);
-    }
-    if (!preparedWorld) {
-      preparedWorld = createWorldFeatureFoundation(generatedWorld, {
-        worldConfig,
-        worldFeatures,
-        worldFoundation
-      });
-    }
-    return preparedWorld;
-  }
-
-  return Object.freeze({
-    id: VISUAL_WORLD_PREPARATION_ID,
-    generatedWorld,
-    getState: () => generatedWorld.getGenerationState(),
-    advance: (units) => generatedWorld.advanceGeneration(units),
-    finalize,
-    get world() { return preparedWorld; },
-    dispose() { (preparedWorld ?? generatedWorld).dispose?.(); }
+    worldAnchors,
+    worldFeatures,
+    worldFoundation
   });
 }
 
@@ -96,18 +65,8 @@ export function createVisualDomain({
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.physicallyCorrectLights = true;
 
-  const world = preparedWorld ?? createWorldFeatureFoundation(createWorldGenerationKit({
-    worldConfig,
-    legacyTerrainHeight,
-    legacyMoistureAt,
-    anchors: worldAnchors,
-    staged: true,
-    workBudget: worldConfig.generation?.workBudget
-  }), {
-    worldConfig,
-    worldFeatures,
-    worldFoundation
-  });
+  if (!preparedWorld) throw new TypeError("Visual provider requires a prepared world packet source.");
+  const world = preparedWorld;
   const terrain = createTerrainSurface(scene, worldConfig, quality, world);
   const vegetation = createVegetationClusters(scene, worldConfig, quality, terrain.terrainHeight, world);
   const grass = createGrassFieldDomain(scene, worldConfig, quality, terrain, vegetation, world);
@@ -160,7 +119,7 @@ export function createVisualDomain({
   addEventListener("resize", resize);
   resize();
 
-  function update({ dt, elapsed, flightState, cameraContext }) {
+  function update({ dt, elapsed, flightState, cameraContext, worldPacket }) {
     if (state.firstFramePresented && world.getGenerationState().status === "working") {
       state.worldGeneration = world.advanceGeneration();
     }
@@ -170,7 +129,7 @@ export function createVisualDomain({
     clouds.update(camera, sun.direction, elapsed);
     cloudSplats.update(camera, sun.direction, elapsed);
     aerial.update(camera, sun.direction, weather.state);
-    terrain.update(camera, weather.state);
+    terrain.update(camera, weather.state, worldPacket);
     grass.update(elapsed, camera);
     flowers.update(elapsed, camera);
     water.update(elapsed, sun.direction);

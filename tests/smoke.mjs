@@ -9,10 +9,9 @@ import "./semantic-domain-composition.mjs";
 
 const packageManifest = JSON.parse(readFileSync("package.json", "utf8"));
 const npmLockfile = JSON.parse(readFileSync("package-lock.json", "utf8"));
-const engineCommit = packageManifest.dependencies.nexusengine.split("#")[1];
-const engineSource = `git+https://github.com/LuminaryLabs-Dev/NexusEngine.git#${engineCommit}`;
-assert.equal(packageManifest.dependencies.nexusengine, engineSource, "Engine dependency must use exact-commit HTTPS");
-assert.equal(npmLockfile.packages["node_modules/nexusengine"].resolved, engineSource, "Engine lock must use exact-commit HTTPS");
+assert.match(packageManifest.dependencies.nexusengine, /LuminaryLabs-Dev\/NexusEngine#main$/, "Engine dependency must track main");
+const resolvedEngineSource = npmLockfile.packages["node_modules/nexusengine"].resolved;
+assert.match(resolvedEngineSource, /#[a-f0-9]{40}$/i, "Engine lock must record the exact tested main commit");
 
 const requiredFiles = [
   "index.html",
@@ -31,6 +30,12 @@ const requiredFiles = [
   "src/data/campaign.config.js",
   "src/world/world-generation-kit.js",
   "src/world/world-generation-support.js",
+  "src/world/virtual-heightfield-terrain-kit.js",
+  "src/world/open-above-world-runtime.js",
+  "src/workers/terrain-world.worker.js",
+  "src/providers/terrain/terrain-worker-provider.js",
+  "src/data/five-towns.config.js",
+  "src/world/vegetation-cell-batch.js",
   "src/hot-air-balloon-object-kit.js",
   "src/runtime/balloon-simulation-kit.js",
   "src/runtime/balloon-telemetry-kit.js",
@@ -118,7 +123,8 @@ assert.doesNotMatch(scene, /windParticles/);
 
 const land = readFileSync("src/domains/land/land-domain.js", "utf8");
 assert.match(land, /worldAnchors/);
-assert.match(land, /nearChunks/);
+assert.match(land, /bindWorld/);
+assert.match(land, /worldRuntime/);
 assert.match(land, /generationState/);
 
 const navigation = readFileSync("src/domains/navigation/navigation-domain.js", "utf8");
@@ -186,7 +192,8 @@ assert.doesNotMatch(clouds, /hash21\([^)]*uTime/);
 
 const visualDomain = readFileSync("src/visual/visual-domain.js", "utf8");
 assert.match(visualDomain, /createVisualWorldPreparation/);
-assert.match(visualDomain, /preparedWorld \?\? createWorldFeatureFoundation/);
+assert.match(visualDomain, /createVirtualHeightfieldTerrainKit/);
+assert.doesNotMatch(visualDomain, /preparedWorld \?\? createWorldFeatureFoundation/);
 assert.match(visualDomain, /createFlowerFieldDomain/);
 assert.match(visualDomain, /worldAnchors/);
 
@@ -198,6 +205,7 @@ assert.match(worldGeneration, /sampleHeight/);
 assert.match(worldGeneration, /sampleFlora/);
 assert.match(worldGeneration, /sampleMapColor/);
 assert.match(worldGeneration, /protectionAt/);
+assert.match(worldGeneration, /hydratePreparedState/);
 
 const grassDomain = readFileSync("src/visual/grass-field/grass-field-domain.js", "utf8");
 assert.match(grassDomain, /createGrassTextureAtlas/);

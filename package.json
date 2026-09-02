@@ -6,6 +6,7 @@
   "description": "Cinematic hot air balloon wind-drift experience powered by Nexus Engine Realtime Core.",
   "module": "src/main.js",
   "scripts": {
+    "precheck": "node tools/write-nexus-build-diagnostics.mjs",
     "start": "vite --host 0.0.0.0",
     "dev": "vite --host 0.0.0.0",
     "check": "node tests/run-tiered-checks.mjs",
@@ -16,7 +17,7 @@
     "showcase:plan": "nexusengine plan . --profile native-preferred --target web-live --target web-static --target android-xr --target pcvr"
   },
   "dependencies": {
-    "nexusengine": "git+https://github.com/LuminaryLabs-Dev/NexusEngine.git#16aee598c06efcb7b511e4827ee3f7e23ce3549b",
+    "nexusengine": "github:LuminaryLabs-Dev/NexusEngine#main",
     "three": "0.165.0"
   },
   "devDependencies": {

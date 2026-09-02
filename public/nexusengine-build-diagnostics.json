@@ -1,10 +1,14 @@
 {
-  "schema": "open-above.release-diagnostics/1",
-  "status": "vite-development",
-  "engineCommit": "58fa721db73992d77d6866b282494a559f0ec13c",
+  "schema": "open-above.release-diagnostics/2",
+  "status": "validated-dependency",
+  "engineSource": {
+    "channel": "main",
+    "commit": "8a60167fc945109408851c586a9355b1147438d5",
+    "repository": "https://github.com/LuminaryLabs-Dev/NexusEngine"
+  },
+  "engineCommit": "8a60167fc945109408851c586a9355b1147438d5",
   "engineVersion": "0.0.4",
-  "registryHash": "8d65c7d6589811bdb9a56b80021095b16c1b8ce91bac4b488698132179c7f359",
-  "planId": null,
+  "generatedAt": "2026-09-02T00:01:03.832Z",
   "target": "vite-development",
   "sourceRecords": []
 }

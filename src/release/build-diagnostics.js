@@ -20,7 +20,8 @@ async function readBuildDiagnostics() {
     const record = await response.json();
     return Object.freeze({
       ...record,
-      engineCommit: record.engineSource?.commit ?? OPEN_ABOVE_RELEASE_IDENTITY.engineCommit,
+      engineChannel: record.engineSource?.channel ?? OPEN_ABOVE_RELEASE_IDENTITY.engineChannel,
+      engineCommit: record.engineSource?.commit ?? record.engineCommit ?? null,
       engineVersion: OPEN_ABOVE_RELEASE_IDENTITY.engineVersion
     });
   } catch {

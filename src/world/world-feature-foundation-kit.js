@@ -20,27 +20,39 @@ function mixColor(first, second, amount) {
 export function createWorldFeatureFoundation(baseWorld, {
   worldConfig = {},
   worldFeatures = null,
-  worldFoundation = null,
-  cellId = "open-above-global-foundation"
+  worldFoundation = null
 } = {}) {
   if (!baseWorld?.sampleHeight) throw new TypeError("World Feature Foundation requires a generated world.");
-  let compiled = false;
+  const compiledCells = new Map();
 
-  function compileFeatures() {
-    if (compiled || !worldFeatures?.compileCell || !worldFoundation?.sampleElevation) return false;
-    worldFeatures.compileCell({ id: cellId, bounds: worldBounds(worldConfig) }, {
+  function prepareCell(cell) {
+    if (!cell?.id || !worldFeatures?.compileCell || !worldFoundation?.sampleElevation) return false;
+    worldFeatures.compileCell(cell, {
       foundation: worldFoundation,
       baseFoundation: { elevation: 0 }
     });
-    compiled = true;
+    compiledCells.set(cell.id, Object.freeze({ id: cell.id, bounds: Object.freeze({ ...cell.bounds }) }));
     return true;
+  }
+
+  function releaseCell(cellId) {
+    compiledCells.delete(String(cellId));
+    return worldFeatures?.releaseCompiledCell?.(cellId, { foundation: worldFoundation }) ?? false;
+  }
+
+  function cellAt(x, z) {
+    for (const cell of compiledCells.values()) {
+      if (x >= cell.bounds.minX && x <= cell.bounds.maxX && z >= cell.bounds.minZ && z <= cell.bounds.maxZ) return cell;
+    }
+    return null;
   }
 
   function featureElevation(x, z) {
     if (baseWorld.getGenerationState?.().status !== "ready") return 0;
-    compileFeatures();
+    const cell = cellAt(x, z);
+    if (!cell) return 0;
     return Number(worldFoundation?.sampleElevation?.(
-      cellId,
+      cell.id,
       { x, z },
       worldFeatures?.getSamplers?.() ?? {}
     )) || 0;
@@ -72,12 +84,11 @@ export function createWorldFeatureFoundation(baseWorld, {
     const state = baseWorld.getGenerationState?.() ?? { status: "ready", revision: 0 };
     return Object.freeze({
       ...state,
-      foundationCompiled: compiled,
+      foundationCompiled: compiledCells.size > 0,
+      foundationCellCount: compiledCells.size,
       worldFeatureCount: worldFeatures?.listFeatures?.().length ?? 0
     });
   }
-
-  compileFeatures();
 
   return Object.freeze({
     ...baseWorld,
@@ -87,14 +98,17 @@ export function createWorldFeatureFoundation(baseWorld, {
     sampleMapColor,
     getGenerationState,
     getGenerationDiagnostics: getGenerationState,
+    prepareCell,
+    releaseCell,
+    listFoundationCells: () => Object.freeze([...compiledCells.values()]),
     subscribeGeneration(listener) {
       return baseWorld.subscribeGeneration?.(() => listener(getGenerationState())) ?? (() => {});
     },
     getDescriptor() {
       return Object.freeze({
         ...baseWorld.getDescriptor(),
-        foundationCellId: cellId,
-        worldFeatureDomain: "n:world:features",
+        foundationCellIds: Object.freeze([...compiledCells.keys()].sort()),
+        worldFeatureDomain: "n:world:feature",
         worldFoundationDomain: "n:world:foundation",
         featureIds: Object.freeze((worldFeatures?.listFeatures?.() ?? []).map((feature) => feature.id))
       });
