@@ -38,6 +38,7 @@ export function createTerrainWorkerProvider({ maxInflight = 1 } = {}) {
         reject(Object.assign(new Error("Terrain preparation aborted."), { name: "AbortError" }));
       };
       const finish = () => {
+        clearTimeout(timeout);
         signal?.removeEventListener?.("abort", abort);
         worker.terminate();
         inflight.delete(requestId);
@@ -52,10 +53,22 @@ export function createTerrainWorkerProvider({ maxInflight = 1 } = {}) {
         finish();
         reject(event.error ?? new Error(event.message ?? "Terrain worker failed."));
       });
+      const timeout = setTimeout(() => {
+        finish();
+        reject(new Error("Terrain worker timed out."));
+      }, 120000);
       inflight.set(requestId, { worker, abort });
       if (signal?.aborted) return abort();
       signal?.addEventListener?.("abort", abort, { once: true });
-      worker.postMessage({ requestId, worldConfig, anchors });
+      try {
+        worker.postMessage({ requestId, worldConfig, anchors });
+      } catch (error) {
+        finish();
+        reject(error);
+      }
+    }).catch((error) => {
+      if (disposed || signal?.aborted || error?.name === "AbortError") throw error;
+      return prepareFallback({ worldConfig, anchors });
     });
   }
 
