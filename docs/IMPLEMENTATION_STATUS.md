@@ -48,3 +48,7 @@ A deterministic Meadow Lift mission authority and unit fixtures now establish th
 The parchment map now redraws on open/resize/explicit revision changes rather than owning a recurring RAF while paused. Journey's Three.js background RAF remains present. Browser performance claims are withheld until measured.
 
 Browser flight behavior, mobile inputs, native XR, and the 10-minute expedition are still unverified and require build-pinned gameplay evidence.
+
+## Meadow Lift world integration
+
+Meadow Lift now instantiates in-world thermal and wind-gate markers and a destination landing ring, reports progress through an unobtrusive HUD, and wires proximity events into the deterministic reducer. The timer is 600 seconds and R reloads the flight. Source contract and headless world-contact tests cover success, timeout and restart. Real browser usability and sustained performance have not yet been verified.

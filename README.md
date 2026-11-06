@@ -56,3 +56,9 @@ Meadow Lift has a deterministic mission reducer in src/gameplay/meadow-mission-k
 
 The NexusEngine dependency is an immutable Git commit in the manifest and lockfile.
 Pushes to main trigger validation only. GitHub Pages publication requires an explicitly dispatched deployment workflow.
+
+## Meadow Lift playable flight
+
+Fly downwind through the highlighted thermal rings and wind gates, then descend safely at the green final landing ring. The mission allows up to ten minutes; use R to restart a flight. Press M to view the sightseeing map. The upper-left panel displays progress and the current flight objective.
+
+The route geometry follows the lowland wind corridor. Hardware and subjective playability still require hands-on browser review.

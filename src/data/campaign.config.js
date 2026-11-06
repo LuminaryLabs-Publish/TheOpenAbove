@@ -12,7 +12,7 @@ export const CAMPAIGN = Object.freeze({
         thermalTarget: 3,
         gateTarget: 5,
         returnRadius: 34,
-        timeLimitSeconds: 300
+        timeLimitSeconds: 600
       }
     },
     {

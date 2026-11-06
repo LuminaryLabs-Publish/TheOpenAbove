@@ -5,6 +5,7 @@ import { createBalloonTelemetryEngine } from "../runtime/balloon-telemetry-kit.j
 import { createBrowserStartupPresentationAdapter } from "../platform/browser-startup-presentation.js";
 import { createAirstreamTrailPresentation } from "../visual/airstream-trails/airstream-trail-presentation-kit.js";
 import { createOpenAboveWorldRuntime } from "../world/open-above-world-runtime.js";
+import { createMeadowMissionWorld } from "../gameplay/meadow-mission-world.js";
 import {
   createJourneyDomain,
   createBallooningDomain,
@@ -132,6 +133,9 @@ export async function createMeadowLiftScene({
   let navigation = null;
   let journey = null;
   let windTrails = null;
+  let missionWorld = null;
+  let missionPanel = null;
+  let onRestart = null;
 
   try {
     land = createLandDomain({
@@ -198,6 +202,40 @@ export async function createMeadowLiftScene({
       routes: sky.routes
     });
     journey = createJourneyDomain({ campaign: CAMPAIGN, onFatal });
+    missionPanel = document.createElement("section");
+    missionPanel.id = "meadowMission";
+    missionPanel.setAttribute("role", "status");
+    missionPanel.setAttribute("aria-live", "polite");
+    missionPanel.style.cssText = "position:fixed;left:clamp(12px,2vw,28px);top:clamp(12px,2vw,28px);z-index:4;max-width:min(370px,90vw);padding:13px 17px;border-radius:15px;background:rgba(12,28,38,.78);color:#f4f0de;font:500 14px/1.5 system-ui,sans-serif;box-shadow:0 8px 34px #0005;pointer-events:none;white-space:pre-line";
+    document.body.append(missionPanel);
+    missionWorld = createMeadowMissionWorld({
+      scene: experience.scene,
+      terrainHeight: land.sampleHeight,
+      region: CAMPAIGN.regions[0],
+      onChange(state, notification) {
+        if (!missionPanel) return;
+        const target = missionWorld?.getTarget();
+        const stage = state.phase === "completed" ? "EXPEDITION COMPLETE" :
+          state.phase === "failed" ? "FLIGHT ENDED" :
+          state.returnReady ? "FINAL LANDING" :
+          state.thermals.completedIds.length < state.thermals.target ? "FIND THE THERMALS" : "FOLLOW THE WIND GATES";
+        const remaining = Math.ceil(state.remainingSeconds);
+        missionPanel.textContent = "MEADOW LIFT  ·  " + stage + "\n" +
+          "Thermals " + state.thermals.completedIds.length + "/" + state.thermals.target +
+          "   Gates " + state.gates.completedIds.length + "/" + state.gates.target +
+          "   " + Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0") + "\n" +
+          (["completed","failed"].includes(state.phase) ? "Press R to fly again." :
+            "Fly through the glowing rings. " + (target ? target.id.replace(/-/g, " ") : "Land safely.")) +
+          (notification ? "\n" + notification : "");
+      }
+    });
+    onRestart = (event) => {
+      if (event.code === "KeyR" && !event.repeat) {
+        event.preventDefault();
+        window.location.reload();
+      }
+    };
+    addEventListener("keydown", onRestart);
     const domains = Object.freeze({
       startup,
       journey,
@@ -206,10 +244,12 @@ export async function createMeadowLiftScene({
       land,
       navigation,
       imageCapture,
-      experience
+      experience,
+      missionWorld
     });
     const getSnapshot = () => ({
       ...journey.snapshot(domains),
+      mission: missionWorld?.snapshot() ?? null,
       startup: startup.getDescriptor()
     });
     snapshotReader = getSnapshot;
@@ -276,6 +316,7 @@ export async function createMeadowLiftScene({
 
     function update({ now, dt }) {
       const state = ballooning.update({ dt, now });
+      missionWorld.update(state, dt);
       worldRuntime.updateFocus(state.position, state.velocity);
       engine.tick(dt);
       const worldPacket = worldRuntime.getPresentationPacket();
@@ -302,6 +343,9 @@ export async function createMeadowLiftScene({
     }
 
     function dispose() {
+      if (onRestart) removeEventListener("keydown", onRestart);
+      missionWorld?.dispose();
+      missionPanel?.remove();
       journey.dispose();
       navigation.dispose();
       imageCapture.dispose();
@@ -363,6 +407,9 @@ export async function createMeadowLiftScene({
     }
     navigation?.dispose?.();
     imageCapture?.dispose?.();
+    missionWorld?.dispose?.();
+    missionPanel?.remove?.();
+    if (onRestart) removeEventListener("keydown", onRestart);
     ballooning?.dispose?.();
     windTrails?.dispose?.();
     sky?.dispose?.();
