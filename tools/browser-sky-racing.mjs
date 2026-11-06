@@ -73,24 +73,45 @@ try {
   const chained=await page.evaluate(()=>window.GameHost.getState());
   assert.ok(chained.combo.momentum>0,"Cloud skim must award persistent speed");
   assert.match(await page.locator("#comboScore").textContent(),/PTS/);
-  // Fresh authentic user-input sequence for TOA-014; no state injection.
+  // TOA-014 V2 real browser input: Space alone cannot trigger a reward.
   await page.keyboard.press("KeyR");
   await page.keyboard.down("Space");
   await page.waitForTimeout(1850);
   const dive=await page.evaluate(()=>window.GameHost.getState());
-  assert.ok(dive.flight.canopyCollapse>=.8,"Space hold must substantially collapse wing");
-  assert.equal(dive.slingshot.awards,0,"Holding Space must not award early");
+  assert.ok(dive.flight.canopyCollapse>=.8,"Space must collapse canopy");
+  assert.equal(dive.slingshot.awards,0,"Holding Space must never award early");
+  await page.keyboard.up("Space");
+  await page.waitForTimeout(780);
+  assert.equal((await page.evaluate(()=>window.GameHost.getState())).slingshot.awards,0,
+    "Without W pull-back the dive must not trigger an automatic speed reward");
+
+  // New flight: hold Space for a sustained dive, then release and pull back with W.
+  await page.keyboard.press("KeyR");
+  await page.keyboard.down("Space");
+  await page.waitForTimeout(1850);
+  const armed=await page.evaluate(()=>window.GameHost.getState());
+  assert.ok(armed.slingshot.diveDistance>=7,
+    "Dive must accumulate real downward distance before earning a slingshot");
+  await page.keyboard.down("KeyW");
   await page.keyboard.up("Space");
   await page.waitForFunction(()=>window.GameHost.getState().slingshot.awards===1,
     null,{timeout:18000});
   const slingshot=await page.evaluate(()=>window.GameHost.getState());
   assert.equal(slingshot.slingshot.lastEvent?.kind,"dive-to-lift-slingshot");
-  assert.ok(slingshot.slingshot.lastEvent.updraft>.5,
-    "Slingshot must occur in sampled positive air");
-  assert.ok(slingshot.flight.chainVelocity>=8,"Recovery should retain the earned velocity");
+  assert.ok(slingshot.slingshot.lastEvent.updraft>.55,
+    "Slingshot requires measured rising air");
+  assert.ok(slingshot.slingshot.lastEvent.diveDistance>=7);
+  assert.ok(slingshot.flight.chainVelocity>=7,"Earned speed must persist");
+  assert.ok(slingshot.flight.vy>0,
+    "A real slingshot must generate upward motion, not just a speed number");
+  const recoveryHeight=slingshot.flight.y;
   await page.waitForTimeout(650);
-  assert.equal((await page.evaluate(()=>window.GameHost.getState())).slingshot.awards,1,
-    "An unbroken recovery cannot repeat the bonus");
+  const recovered=await page.evaluate(()=>window.GameHost.getState());
+  await page.keyboard.up("KeyW");
+  assert.ok(recovered.flight.y>recoveryHeight+.6,
+    "The rider must visibly climb during the recovery window");
+  assert.equal(recovered.slingshot.awards,1,
+    "An unbroken recovery cannot repeat the reward");
   assert.equal(errors.length,0,"Browser JavaScript errors: "+errors.join("\n"));
   mkdirSync("artifacts",{recursive:true});
   await page.screenshot({path:"artifacts/parasail-smoke.png"});

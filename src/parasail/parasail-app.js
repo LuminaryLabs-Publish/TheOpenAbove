@@ -231,14 +231,22 @@ export function startParasail(){
     const chain=combos.snapshot().momentum;
     flight=advanceParasail(previous,{...controls,chainVelocity:chain},dt);
     elapsed+=dt;
-    const recovery=slingshot.update(flight,{held:controls.collapse});
+    const previousPhase=slingshot.snapshot().phase;
+    const recovery=slingshot.update(flight,{
+      held:controls.collapse,pullBack:controls.lift,dt
+    });
+    const currentPhase=slingshot.snapshot().phase;
+    if(currentPhase==="recovering"&&previousPhase!=="recovering")
+      notify("RELEASED · HOLD W TO CATCH RISING AIR");
     if(recovery){
-      // Add the earned impulse immediately, then retain it through the existing flight bank.
+      // Trade dive energy for retained horizontal momentum and brief upward recovery.
       const bonus=Math.min(recovery.bonus,Math.max(0,80-flight.chainVelocity));
       flight={...flight,chainVelocity:flight.chainVelocity+bonus,
         vx:flight.vx+Math.sin(flight.yaw)*bonus,
-        vz:flight.vz-Math.cos(flight.yaw)*bonus};
-      notify("SLINGSHOT · UPDRAFT RECOVERY · +"+bonus.toFixed(1)+" M/S");
+        vy:Math.max(flight.vy,4.5),
+        vz:flight.vz-Math.cos(flight.yaw)*bonus,
+        recoveryLift:recovery.liftSeconds};
+      notify("SLINGSHOT · +"+bonus.toFixed(1)+" M/S · UPDRAFT CLIMB");
     }
     const cloudEvent=combos.update(flight);
     if(cloudEvent && !recovery){
@@ -258,12 +266,17 @@ export function startParasail(){
     canopy.canopy.scale.set(1-flight.canopyCollapse*.72,1-flight.canopyCollapse*.19,1-flight.canopyCollapse*.16);
     canopy.rider.position.y=-2.5*flight.canopyCollapse;
     canopy.rider.rotation.z=-flight.sway;
-    canopy.rider.rotation.x=Math.sin(flight.elapsed*1.4)*.055;
+    canopy.rider.rotation.x=Math.sin(flight.elapsed*1.4)*.055-
+      (flight.recoveryLift>0?.16:0);
     const camx=flight.x-Math.sin(flight.yaw)*92,camz=flight.z+Math.cos(flight.yaw)*92;
     cameraTarget.set(camx,flight.y+38,camz);
     camera.position.lerp(cameraTarget,1-Math.exp(-2.2*dt));
     look.set(flight.x+Math.sin(flight.yaw)*160,flight.y+8,flight.z-Math.cos(flight.yaw)*160);
     camera.lookAt(look);
+    const recoveryKick=flight.recoveryLift>0?
+      5*Math.min(1,flight.recoveryLift/.5):0;
+    camera.fov+=(67+recoveryKick-camera.fov)*(1-Math.exp(-4*dt));
+    camera.updateProjectionMatrix();
     ribbons.update(flight);
 
     renderer.render(scene,camera);

@@ -33,7 +33,7 @@ export function windAt(x,y,z,time=0){
 }
 export function createParasailState(){
   return {x:0,y:500,z:180,yaw:0,bank:0,pitch:0,airspeed:20.5,
-    vx:0,vy:-.2,vz:-18.8,elapsed:0,distance:0,glide:0,sway:0,wind:null,canopyCollapse:0,chainVelocity:0};
+    vx:0,vy:-.2,vz:-18.8,elapsed:0,distance:0,glide:0,sway:0,wind:null,canopyCollapse:0,chainVelocity:0,recoveryLift:0};
 }
 export function advanceParasail(state,control={},dt=1/60){
   const d=clamp(Number(dt)||0,0,1/20);
@@ -58,7 +58,12 @@ export function advanceParasail(state,control={},dt=1/60){
     if(resolved>1e-6){const factor=retained/resolved;vx*=factor;vz*=factor;}
   }
   const collapsedTarget=controlState.verticalTarget - canopy.extraSink - Math.max(0,w.y)*.6*(1-canopy.liftFraction);
-  const vy=smooth(state.vy,clamp(collapsedTarget,-16,7),canopy.fraction>.2?2.7:1.55,d);
+  // A successful dive recovery temporarily converts stored descent energy to climb.
+  // The impulse belongs to TOA-014; base updraft and steering are unchanged.
+  const recoveryLift=Math.max(0,(Number(state.recoveryLift)||0)-d);
+  const recoveryAssist=recoveryLift>0?5.2*Math.min(1,recoveryLift/.55):0;
+  const vy=smooth(state.vy,clamp(collapsedTarget+recoveryAssist,-16,8),
+    recoveryLift>0?2.5:canopy.fraction>.2?2.7:1.55,d);
   const x=state.x+vx*d,z=state.z+vz*d;
   const minHeight=terrainHeight(x,z)+19;
   const y=Math.max(minHeight,state.y+vy*d);
@@ -66,7 +71,7 @@ export function advanceParasail(state,control={},dt=1/60){
   return {x,y,z,yaw,bank,pitch:canopyPitch,airspeed,vx,vy:y===minHeight?0:vy,vz,
     elapsed:state.elapsed+d,distance:state.distance+Math.hypot(vx*d,vy*d,vz*d),
     glide:Math.max(0,y-terrainHeight(x,z)),sway,wind:w,pullBack:controlState.pullBack,
-    canopyCollapse:canopy.fraction,canopyMode:canopy.mode,chainVelocity};
+    canopyCollapse:canopy.fraction,canopyMode:canopy.mode,chainVelocity,recoveryLift};
 }
 export function makeAirRoutes(){
   return Array.from({length:9},(_,i)=>{

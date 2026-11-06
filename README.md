@@ -67,3 +67,15 @@ The active service boundary is `src/domains/parasailing/cloud-combo/`:
 renderer-neutral zone descriptors, event attribution, and a monotonic momentum Kit.
 `src/visual/cloud-combo/` owns the visible Three.js cloud clusters. The old
 path rings remain in preserved source but are not part of the active gameplay loop.
+
+## TOA-014 — Dive-to-lift slingshot (reworked)
+
+This is a deliberate maneuver, not an automatic bonus from releasing Space. Hold
+**Space** long enough to collapse the canopy and build actual downward speed and
+fall distance; release Space and hold **W** to pull back into **rising wind**.
+A successful recovery now converts measured dive energy and local updraft into a
+variable retained forward-speed bonus and a brief, visible upward climb. There is
+no reward in still/downward wind, for a shallow dive, or without W pull-back.
+Repeated frames of one recovery cannot award multiple bonuses. The original
+fixed +8 m/s reward was superseded after player feedback; cloud combo scoring
+and all equipment-upgrade proposals are unchanged.
