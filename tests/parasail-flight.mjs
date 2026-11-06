@@ -59,4 +59,21 @@ for(let step=0;step<180;step++){
 assert.ok(pulled.y>neutral.y+2,"pitch-back must improve altitude in rising wind");
 assert.ok(pulled.vy>neutral.vy,"pitch-back must improve vertical response");
 
-console.log("Parasailing steering, ridge lift and terrain integration passed.");
+
+// TOA-012: hold-Space collapse and controlled reinflation must be reversible.
+let neutralFlight=createParasailState();
+let collapsedFlight=createParasailState();
+for(let step=0;step<100;step++){
+  neutralFlight=advanceParasail(neutralFlight,{},1/60);
+  collapsedFlight=advanceParasail(collapsedFlight,{collapse:true},1/60);
+}
+assert.ok(collapsedFlight.canopyCollapse>.95,"held canopy should pull substantially inward");
+assert.ok(collapsedFlight.vy<neutralFlight.vy-5,"collapse should produce substantial downward fall");
+assert.ok(collapsedFlight.y<neutralFlight.y-5,"fall should lower altitude relative to open wing");
+let recovered=collapsedFlight;
+for(let step=0;step<140;step++)recovered=advanceParasail(recovered,{},1/60);
+assert.ok(recovered.canopyCollapse<.03,"release must reinflate canopy");
+assert.ok(recovered.vy>collapsedFlight.vy+5,"reinflate should recover sink rate");
+assert.ok(Number.isFinite(recovered.y));
+
+console.log("Parasail steering and collapse recovery fixtures passed.");

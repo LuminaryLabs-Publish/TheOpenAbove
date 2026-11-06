@@ -57,6 +57,17 @@ try {
     "Pitch input must adjust the canopy rather than force an unrealistic climb.");
   assert.ok(endState.flight.wind && Number.isFinite(endState.flight.wind.y),
     "Terrain-aware wind must be available.");
+  await page.keyboard.down("Space");
+  await page.waitForTimeout(1000);
+  const collapsed=await page.evaluate(()=>window.GameHost.getState());
+  assert.ok(collapsed.flight.canopyCollapse>.65,"Holding Space must pull in canopy");
+  assert.ok(collapsed.flight.vy<endState.flight.vy-2,"Holding Space must accelerate descent");
+  assert.match(await page.locator("#canopyStatus").textContent(),/PULLED IN/);
+  await page.keyboard.up("Space");
+  await page.waitForTimeout(1100);
+  const reopened=await page.evaluate(()=>window.GameHost.getState());
+  assert.ok(reopened.flight.canopyCollapse<collapsed.flight.canopyCollapse*.3,
+    "Canopy must reinflate on release");
   assert.equal(errors.length,0,"Browser JavaScript errors: "+errors.join("\n"));
   mkdirSync("artifacts",{recursive:true});
   await page.screenshot({path:"artifacts/parasail-smoke.png"});

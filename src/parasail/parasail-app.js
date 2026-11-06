@@ -181,8 +181,8 @@ function controls(){
       Number(keys.has("KeyA")||keys.has("ArrowLeft")||pointer.has("left")),
     lift:Number(keys.has("KeyW")||keys.has("ArrowUp")||pointer.has("up"))-
       Number(keys.has("KeyS")||keys.has("ArrowDown")||pointer.has("down")),
-    brake:keys.has("Space")||keys.has("ShiftLeft")||keys.has("ShiftRight")||
-      pointer.has("brake")||pointer.has("boost")
+    brake:keys.has("ShiftLeft")||keys.has("ShiftRight")||pointer.has("brake"),
+    collapse:keys.has("Space")||pointer.has("boost")
   }),dispose(){
     removeEventListener("keydown",kd);removeEventListener("keyup",ku);removeEventListener("blur",blur);
   }};
@@ -245,6 +245,8 @@ export function startParasail(){
     canopy.root.rotation.y=-flight.yaw;
     canopy.root.rotation.z=flight.bank;
     canopy.canopy.rotation.z=flight.bank*.45;
+    canopy.canopy.scale.set(1-flight.canopyCollapse*.72,1-flight.canopyCollapse*.19,1-flight.canopyCollapse*.16);
+    canopy.rider.position.y=-2.5*flight.canopyCollapse;
     canopy.rider.rotation.z=-flight.sway;
     canopy.rider.rotation.x=Math.sin(flight.elapsed*1.4)*.055;
     const camx=flight.x-Math.sin(flight.yaw)*92,camz=flight.z+Math.cos(flight.yaw)*92;
@@ -262,6 +264,8 @@ export function startParasail(){
     $("progressValue").textContent=String(index).padStart(2,"0")+" / "+routes.length;
     $("timeValue").textContent=time(elapsed);
     $("boostFill").style.width=clamp(40+flight.wind?.lift*8||40,6,100).toFixed(0)+"%";
+    $("canopyStatus").textContent=flight.canopyCollapse>.07?
+      ("CANOPY "+Math.round(flight.canopyCollapse*100)+"% PULLED IN"):"CANOPY FULLY OPEN";
     const route=routes[index];
     if(route){
       const bearing=Math.atan2(route.x-flight.x,flight.z-route.z);

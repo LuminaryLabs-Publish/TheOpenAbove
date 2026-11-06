@@ -75,13 +75,14 @@ h1 span{display:block;color:#cde8eb;font-size:.57em;font-style:italic;margin-lef
 <div class="hud-left">
 <div class="metric-group"><div><div class="metric-label">GLIDE SPEED</div><div><span class="metric-number" id="speedValue">94</span><span class="metric-unit">KM/H</span></div></div><div><div class="metric-label">ALTITUDE</div><div><span class="metric-compact" id="altValue">230</span><span class="metric-unit">M</span></div></div></div>
 <div class="rule"></div><div class="metric-label">WIND LIFT<div class="boost"><div id="boostFill"></div></div></div>
-<div class="controls-help">W/S PITCH &nbsp; A/D BRAKE LINES &nbsp; SPACE FLARE &nbsp; P PAUSE &nbsp; R RESTART</div>
+<div class="metric-label" id="canopyStatus">CANOPY FULLY OPEN</div>
+<div class="controls-help">W/S PITCH &nbsp; A/D BRAKE LINES &nbsp; HOLD SPACE TO COLLAPSE &nbsp; SHIFT FLARE &nbsp; P PAUSE &nbsp; R RESTART</div>
 </div>
 <div class="hud-right"><div class="metric-label">TIME ALOFT</div><div class="metric-number" id="timeValue">00:00</div><div class="metric-label">READ THE WIND · RIDE THE RIDGES</div></div>
 </div>
 <div class="mobile-controls" aria-label="Touch flight controls">
 <div class="control-group"><button data-control="left" aria-label="Turn left">◀</button><button data-control="right" aria-label="Turn right">▶</button></div>
-<div class="control-group"><button data-control="up" aria-label="Climb">▲</button><button data-control="down" aria-label="Descend">▼</button><button data-control="brake" aria-label="Brake">−</button><button data-control="boost" aria-label="Flare">+</button></div>
+<div class="control-group"><button data-control="up" aria-label="Climb">▲</button><button data-control="down" aria-label="Descend">▼</button><button data-control="brake" aria-label="Brake">−</button><button data-control="boost" aria-label="Collapse canopy">+</button></div>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
 <section class="menu" id="menu" aria-label="Race menu" hidden>
@@ -91,7 +92,7 @@ h1 span{display:block;color:#cde8eb;font-size:.57em;font-style:italic;margin-lef
 <p class="menu-subtitle" id="menuSubtitle">Read the wind. Find your line.</p>
 <p class="menu-copy">You are the pilot beneath the canopy. Read angled wind trails, ride rising air beside the ridges, and glide through nine luminous currents over immense mountains.</p>
 <button id="startButton" class="primary-button" type="button">BEGIN FLIGHT</button>
-<div class="menu-foot">A/D TO PULL BRAKE LINES &nbsp; · &nbsp; W/S TO PITCH &nbsp; · &nbsp; SPACE TO FLARE</div>
+<div class="menu-foot">A/D PULL BRAKE LINES &nbsp; · &nbsp; W PITCH BACK IN LIFT &nbsp; · &nbsp; HOLD SPACE TO COLLAPSE &nbsp; · &nbsp; SHIFT TO FLARE</div>
 <div id="result" class="result-note" hidden>RACE TIME <strong id="resultTime">00:00</strong> &nbsp; BEST <strong id="resultBest">00:00</strong></div>
 </div>
 </section>
