@@ -18,7 +18,7 @@ for (const [name, path] of Object.entries(domains)) {
 }
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /startSkyRacing/);
+assert.match(main, /startParasail/);
 assert.doesNotMatch(main, /createMeadowLiftScene|createBalloonSimulation|createVisualDomain|requestAnimationFrame/);
 
 const scene = readFileSync("src/scenes/meadow-lift-scene.js", "utf8");

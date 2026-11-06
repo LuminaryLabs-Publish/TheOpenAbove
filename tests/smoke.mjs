@@ -72,7 +72,7 @@ assert.match(index, /id="progressValue"/);
 assert.match(index, /id="boostFill"/);
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /startSkyRacing/);
+assert.match(main, /startParasail/);
 assert.match(main, /window.GameHost/);
 assert.match(main, /catch/);
 assert.doesNotMatch(main, /createMeadowLiftScene|advanceGeneratedWorld|createWorldGenerationKit/);

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#081c29">
-<meta name="description" content="The Open Above: a cinematic sky-racing experience. Chase the current through twelve aerial checkpoints.">
-<title>The Open Above — SKY RACING</title>
+<meta name="description" content="The Open Above: a parasailing adventure through dramatic mountain air and visible wind currents.">
+<title>The Open Above — Ride the Wind</title>
 <link rel="icon" href="data:,">
 <style>
 :root{--cream:#f5f0df;--ice:#b8f8f2;--gold:#f6b770;--dark:#071c28;--glass:rgba(6,26,38,.68)}
@@ -63,35 +63,35 @@ h1 span{display:block;color:#cde8eb;font-size:.57em;font-style:italic;margin-lef
 </style>
 </head>
 <body>
-<canvas id="game" aria-label="The Open Above 3D sky racing course"></canvas>
+<canvas id="game" aria-label="The Open Above parasailing mountain flight"></canvas>
 <div class="vignette" aria-hidden="true"></div>
-<header class="top-bar"><div class="brand">LUMINARY LABS <em>/</em> THE OPEN ABOVE</div><div class="tag">SKY CIRCUIT · MEADOW RUN · 01</div></header>
-<div class="race-progress"><small>CHECKPOINTS CLEARED</small><strong id="progressValue">00 / 12</strong></div>
+<header class="top-bar"><div class="brand">LUMINARY LABS <em>/</em> THE OPEN ABOVE</div><div class="tag">RIDGE AIR · WIND NAVIGATION · 01</div></header>
+<div class="race-progress"><small>AIR CURRENTS FOUND</small><strong id="progressValue">00 / 09</strong></div>
 <div class="direction-wrap" aria-hidden="true">
 <svg id="direction" viewBox="0 0 48 48" fill="none"><path d="M24 4 39 42 24 32 9 42 24 4Z" fill="#caf8f1" stroke="#2f6e77" stroke-width="2"/></svg>
-<div id="gateDistance">FIND THE FIRST GATE</div>
+<div id="gateDistance">FIND THE FIRST CURRENT</div>
 </div>
 <div class="hud" aria-label="Flight instruments">
 <div class="hud-left">
-<div class="metric-group"><div><div class="metric-label">AIRSPEED</div><div><span class="metric-number" id="speedValue">94</span><span class="metric-unit">KM/H</span></div></div><div><div class="metric-label">ALTITUDE</div><div><span class="metric-compact" id="altValue">230</span><span class="metric-unit">M</span></div></div></div>
-<div class="rule"></div><div class="metric-label">BOOST ENERGY<div class="boost"><div id="boostFill"></div></div></div>
-<div class="controls-help">W/S PITCH &nbsp; A/D BANK &nbsp; SPACE BOOST &nbsp; SHIFT BRAKE &nbsp; P PAUSE &nbsp; R RESTART</div>
+<div class="metric-group"><div><div class="metric-label">GLIDE SPEED</div><div><span class="metric-number" id="speedValue">94</span><span class="metric-unit">KM/H</span></div></div><div><div class="metric-label">ALTITUDE</div><div><span class="metric-compact" id="altValue">230</span><span class="metric-unit">M</span></div></div></div>
+<div class="rule"></div><div class="metric-label">WIND LIFT<div class="boost"><div id="boostFill"></div></div></div>
+<div class="controls-help">W/S PITCH &nbsp; A/D BRAKE LINES &nbsp; SPACE FLARE &nbsp; P PAUSE &nbsp; R RESTART</div>
 </div>
-<div class="hud-right"><div class="metric-label">TOTAL RACE TIME</div><div class="metric-number" id="timeValue">00:00</div><div class="metric-label">CHASE THE LIGHT · OWN THE SKY</div></div>
+<div class="hud-right"><div class="metric-label">TIME ALOFT</div><div class="metric-number" id="timeValue">00:00</div><div class="metric-label">READ THE WIND · RIDE THE RIDGES</div></div>
 </div>
 <div class="mobile-controls" aria-label="Touch flight controls">
 <div class="control-group"><button data-control="left" aria-label="Turn left">◀</button><button data-control="right" aria-label="Turn right">▶</button></div>
-<div class="control-group"><button data-control="up" aria-label="Climb">▲</button><button data-control="down" aria-label="Descend">▼</button><button data-control="brake" aria-label="Brake">−</button><button data-control="boost" aria-label="Boost">+</button></div>
+<div class="control-group"><button data-control="up" aria-label="Climb">▲</button><button data-control="down" aria-label="Descend">▼</button><button data-control="brake" aria-label="Brake">−</button><button data-control="boost" aria-label="Flare">+</button></div>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
 <section class="menu" id="menu" aria-label="Race menu" hidden>
 <div class="menu-inner">
-<div class="eyebrow">01 / MEADOW SKY CIRCUIT</div>
+<div class="eyebrow">01 / THE RIDGE AIR ROUTE</div>
 <h1 id="menuTitle">THE OPEN <span>ABOVE</span></h1>
-<p class="menu-subtitle" id="menuSubtitle">A new kind of sky racing.</p>
-<p class="menu-copy">Twelve gates in the clouds. One clean line through the mountain air. Bank, climb, descend, and use your boost when the sky opens up.</p>
-<button id="startButton" class="primary-button" type="button">START FLIGHT</button>
-<div class="menu-foot">WASD / ARROW KEYS TO STEER &nbsp; · &nbsp; SPACE TO BOOST &nbsp; · &nbsp; SHIFT TO BRAKE</div>
+<p class="menu-subtitle" id="menuSubtitle">Read the wind. Find your line.</p>
+<p class="menu-copy">You are the pilot beneath the canopy. Read angled wind trails, ride rising air beside the ridges, and glide through nine luminous currents over immense mountains.</p>
+<button id="startButton" class="primary-button" type="button">BEGIN FLIGHT</button>
+<div class="menu-foot">A/D TO PULL BRAKE LINES &nbsp; · &nbsp; W/S TO PITCH &nbsp; · &nbsp; SPACE TO FLARE</div>
 <div id="result" class="result-note" hidden>RACE TIME <strong id="resultTime">00:00</strong> &nbsp; BEST <strong id="resultBest">00:00</strong></div>
 </div>
 </section>

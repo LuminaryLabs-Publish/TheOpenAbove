@@ -1,28 +1,26 @@
-# The Open Above — Agent Guidance
+# The Open Above — Active Product and Repository Boundaries
 
-## Current product
+## Current experience
 
-The active product is **The Open Above: Sky Racing**, a lightweight Three.js aerial racing application. Start from `src/main.js` and the `src/racing/` modules, not the preserved Meadow Lift balloon scene.
+The Open Above is a **parasailor in a vast mountain airspace**. Preserve the canopy, visible harnessed rider, terrain-aware glide dynamics and readable angled wind streams. Do not reintroduce aircraft thrust, rigid wing racing, arcade boost or a hard gate course.
 
-## Primary outcomes
+## Active source
 
-- Load a visible, usable flight scene quickly.
-- Keep a complete playable twelve-gate race.
-- Preserve stable controls, speed feedback, checkpoints, penalty, retry, and local best time.
-- Maintain a cinematic atmosphere without unnecessary loading prerequisites.
-- Never declare success from source-only tests; validate the actual production preview with Playwright.
+- `src/main.js`: isolated boot and user-visible error fallback.
+- `src/parasail/parasail-flight-sim.js`: renderer-neutral terrain and atmospheric flight state.
+- `src/parasail/parasail-app.js`: Three.js scene, canopy, rigging, world, wind indicators and HUD.
+- `index.html`: visible controls, readable flight data, pause and retry.
 
-## Architecture
+The old sky-racing and balloon modules remain intact as legacy source but are not called by the active page.
 
-- `src/racing/flight-sim.js`: pure motion and checkpoint logic, deterministic and unit testable.
-- `src/racing/sky-racing-app.js`: Three.js scene, user input, presentation and race orchestration.
-- `index.html`: HUD, menu, loading failure state and mobile controls.
-- `src/main.js`: fast, isolated boot with explicit fallback error.
+## Acceptance
 
-The old balloon, NexusEngine and world-generation modules are retained for future restoration and compatibility, but must not block the active sky-racer first frame. Do not delete them without an explicit migration plan.
+- First usable frame without terrain-worker startup blocking.
+- Visible pilot attached to fabric canopy by suspension lines.
+- Wind indicators aligned to sampled wind, with upward angles in ridge-lift areas.
+- Distinct valleys and mountain ridges, with long view distance.
+- Time-based flight with controllable steering/flare and no direct vertical thrust.
+- Deterministic unit tests plus actual Chromium WebGL gameplay smoke.
+- Main pushes gated by existing deployment workflow; do not add deploy workflows.
 
-## Validation
-
-Run `npm run check`, `npm run build`, and `node tools/browser-sky-racing.mjs` with Playwright Chromium installed. The deployment workflow must gate publication on those checks.
-
-Avoid copying engine code, adding duplicate deployment workflows, or overstating browser/hardware validation.
+Any design or rendering modification requires source-pinned tests, and a successful Web deployment must not be misrepresented as headset validation.

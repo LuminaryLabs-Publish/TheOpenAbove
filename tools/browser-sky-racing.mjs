@@ -35,9 +35,11 @@ try {
     null,{timeout:45000}
   );
   const startState=await page.evaluate(()=>window.GameHost.getState());
-  assert.equal(startState.mode,"sky-racing");
-  assert.equal(startState.race.total,12);
-  await page.getByRole("button",{name:"START FLIGHT"}).click();
+  assert.equal(startState.mode,"parasailing");
+  assert.equal(startState.route.total,9);
+  assert.ok(startState.atmosphere.drawDistance>=40000);
+  assert.ok(startState.terrain.sampleHeight<startState.flight.y);
+  await page.getByRole("button",{name:"BEGIN FLIGHT"}).click();
   await page.keyboard.down("KeyW");
   await page.keyboard.down("KeyD");
   await page.keyboard.down("Space");
@@ -46,21 +48,21 @@ try {
   await page.keyboard.up("KeyD");
   await page.keyboard.up("Space");
   const endState=await page.evaluate(()=>window.GameHost.getState());
-  assert.equal(endState.race.started,true);
-  assert.ok(endState.flight.z<startState.flight.z-20,
-    "Glider must advance after player starts.");
-  assert.ok(endState.flight.x>startState.flight.x,
-    "Steering must move the glider horizontally.");
-  assert.ok(endState.flight.y>startState.flight.y,
-    "Climb input must raise the glider.");
-  assert.ok(endState.flight.boost<1,
-    "Boost must consume energy.");
+  assert.equal(endState.route.started,true);
+  assert.ok(endState.flight.z<startState.flight.z-10,
+    "Parasail must drift downwind after player starts.");
+  assert.ok(endState.flight.yaw>startState.flight.yaw,
+    "Brake-line steering must rotate the parasail.");
+  assert.ok(endState.flight.pitch>startState.flight.pitch,
+    "Pitch input must adjust the canopy rather than force an unrealistic climb.");
+  assert.ok(endState.flight.wind && Number.isFinite(endState.flight.wind.y),
+    "Terrain-aware wind must be available.");
   assert.equal(errors.length,0,"Browser JavaScript errors: "+errors.join("\n"));
   mkdirSync("artifacts",{recursive:true});
-  await page.screenshot({path:"artifacts/sky-racing-smoke.png"});
+  await page.screenshot({path:"artifacts/parasail-smoke.png"});
   console.log(JSON.stringify({status:"passed",url:base,start:startState.flight,
-    end:endState.flight,checkpoint:endState.race.gate,browserErrors:errors,
-    screenshot:"artifacts/sky-racing-smoke.png"},null,2));
+    end:endState.flight,current:endState.route.current,browserErrors:errors,
+    screenshot:"artifacts/parasail-smoke.png"},null,2));
 } finally {
   if(browser)await browser.close();
   server.kill("SIGTERM");

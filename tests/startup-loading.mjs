@@ -50,7 +50,7 @@ assert.match(experience, /createExperienceWorldPreparation/);
 assert.match(experience, /preparedWorld/);
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /startSkyRacing/);
+assert.match(main, /startParasail/);
 assert.match(main, /bootMessage/);
 assert.match(main, /catch/);
 assert.doesNotMatch(main, /advanceGeneratedWorld|createMeadowLiftScene/);

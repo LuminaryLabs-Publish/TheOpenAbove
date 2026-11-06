@@ -10,7 +10,7 @@ function fail(error) {
   retry.hidden=false;
   retry.onclick=()=>location.reload();
 }
-import("./racing/sky-racing-app.js").then(({startSkyRacing})=>{
-  const app=startSkyRacing();
-  window.GameHost=Object.freeze({getState:app.getState,getMode:()=>"sky-racing",dispose:app.dispose});
+import("./parasail/parasail-app.js").then(({startParasail})=>{
+  const app=startParasail();
+  window.GameHost=Object.freeze({getState:app.getState,getMode:()=>"parasailing",dispose:app.dispose});
 }).catch(fail);

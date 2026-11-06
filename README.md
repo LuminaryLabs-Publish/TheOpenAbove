@@ -1,31 +1,40 @@
-# The Open Above — Sky Racing
+# The Open Above — Ride the Wind
 
-A cinematic 12-gate aerial racing game, built with Three.js and Vite.
+The active Web experience is a **parasailing flight game**. A human pilot hangs beneath a ram-air canopy and navigates nine broad lift corridors over a mountainous landscape. The focus is on wind-reading, suspension movement and terrain-driven gliding rather than an aircraft or rocket racer.
 
-## Play
+Playable site: https://luminarylabs-publish.github.io/TheOpenAbove/
 
-Open the [GitHub Pages game](https://luminarylabs-publish.github.io/TheOpenAbove/), select **Start Flight**, and chase the luminous gates through the mountains.
+## Active runtime
 
-Controls:
-- **W / S** or **Up / Down**: climb / descend
-- **A / D** or **Left / Right**: steer
-- **Space**: boost (regenerates)
-- **Shift**: brake
-- **P**: pause / resume
-- **R**: restart
-- On touch screens, use the on-screen flight controls.
+- `src/main.js` dynamically imports `src/parasail/parasail-app.js` with an explicit startup-error fallback.
+- `src/parasail/parasail-flight-sim.js` defines wind sampling, ridge uplift, terrain, sink rate, brake-line steering, and flight corridor contracts.
+- `src/parasail/parasail-app.js` owns the canopy and harnessed pilot, suspension lines, mountain mesh, distant silhouettes, angled wind streaks, camera and controls.
 
-The sky circuit includes 12 checkpoints, time penalties for missed gates, race timing and locally saved personal bests. The menu and HUD are intended to be readable without an external guide.
+The earlier balloon experiment and sky racer remain in the repository for preservation; neither is on the current first-frame path. NexusEngine stays pinned for the legacy domain and portable build proof.
 
-## Fast-start architecture
+## Controls
 
-The live entry point is `src/main.js`, which dynamically loads `src/racing/sky-racing-app.js`. The active course uses `src/racing/flight-sim.js` for testable, deterministic glider control and checkpoint rules.
+- A / D or Left / Right: left/right brake lines.
+- W / S or Up / Down: modest pitch control.
+- Space or Shift: symmetric flare / brake.
+- P: pause or resume.
+- R: restart.
+- Touch controls appear on narrow displays.
 
-The first rendered frame is **not** gated on worker-based world generation or NexusEngine startup. A failed renderer displays a retryable error rather than a permanent loader.
+The wing is **unpowered**. Rising thermals and terrain-driven ridge lift provide altitude; W does not magically make the player climb. Nine forgiving wind corridors provide an optional navigation route. The world offers expansive free gliding and a soft ground-contact limit.
 
-The earlier Meadow Lift balloon exploration source, NexusEngine domains, and associated tests are retained as a separate legacy foundation; they are **not** the currently launched racing game. This is intentional to preserve the earlier technical experiments without allowing them to block the playable racer.
+## Visual approach
 
-## Develop and verify
+- Approximately 17.8 km by 27 km primary procedural landscape.
+- Mountain-scale variation, valleys, steep ridges and rocky higher elevations.
+- Three additional far-horizon silhouette layers.
+- 47 km camera far plane and substantially reduced atmospheric fog.
+- 300 animated, wind-aligned instances with upward-sloping strokes near ridge lift.
+- Fabric-colored ram-air canopy, visible pilot and rigging.
+
+This is a procedural Web 3D prototype; physical realism, consistent high-end performance and exact hardware behavior still require further testing.
+
+## Build and validate
 
 ```bash
 npm ci --ignore-scripts --no-audit --no-fund
@@ -33,15 +42,10 @@ npm run check
 npm run build
 npx playwright install --with-deps chromium
 node tools/browser-sky-racing.mjs
-npm run dev
 ```
 
-The normal check verifies flight simulations, checkpoint interactions, startup source contracts, and preserved legacy modules. The browser smoke launches the actual Vite production preview, verifies the startup panel is dismissed, starts a race, exercises climb, steering and boost, and saves a screenshot.
+The Chromium smoke test verifies the actual Vite production preview, startup, pitch and steering, downwind motion, long draw distance and exposed wind data.
 
-## Publishing
+## Deployment
 
-Pushes to `main` execute validation and the existing `.github/workflows/deploy-pages.yml`. Pages deployment requires the browser smoke test to pass. No additional deployment workflow is needed.
-
-## NexusEngine boundary
-
-NexusEngine is pinned in the dependency lockfile for preserved shared-domain and portable-kernel validation. The new sky-racing runtime is intentionally self-contained for reliable startup. XR target packaging and hardware testing are separate from the Web game.
+The existing `.github/workflows/deploy-pages.yml` automatically validates and publishes main. Do not introduce another Pages workflow. The separate Validate Main workflow uses the same browser gate.
