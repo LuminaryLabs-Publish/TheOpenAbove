@@ -33,7 +33,7 @@ export function createParchmentMapOverlay({
   if (!(root instanceof HTMLElement) || !(canvas instanceof HTMLCanvasElement)) throw new TypeError("Parchment map elements are required.");
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Parchment map canvas is unavailable.");
-  let open = false, width = 1, height = 1, frame = 0;
+  let open = false, width = 1, height = 1;
   const center = worldSurface?.center ?? { x: 0, z: 0 };
   const radius = Math.max(1, Number(worldSurface?.radius) || 10000);
   let worldMapCanvas = null;
@@ -62,6 +62,7 @@ export function createParchmentMapOverlay({
     canvas.width = Math.max(1, Math.floor(width * ratio));
     canvas.height = Math.max(1, Math.floor(height * ratio));
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    if (open) draw();
   }
 
   function drawWorldBackground(mapRadius) {
@@ -143,10 +144,12 @@ export function createParchmentMapOverlay({
     context.fillText("SIGHTSEEING JOURNAL", width * 0.5, clamp(height * 0.135, 65, 102));
   }
 
-  function animate() { if (!open) return; draw(); frame = requestAnimationFrame(animate); }
   function setOpen(nextOpen) {
-    open = Boolean(nextOpen); root.classList.toggle("is-open", open); root.setAttribute("aria-hidden", String(!open)); cancelAnimationFrame(frame);
-    if (open) { resize(); refreshWorldMap(); frame = requestAnimationFrame(animate); }
+    const changed = open !== Boolean(nextOpen);
+    open = Boolean(nextOpen);
+    root.classList.toggle("is-open", open);
+    root.setAttribute("aria-hidden", String(!open));
+    if (open && changed) { refreshWorldMap(); resize(); }
     return open;
   }
   function onKeyDown(event) {
@@ -157,8 +160,9 @@ export function createParchmentMapOverlay({
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas); addEventListener("keydown", onKeyDown); resize();
 
   return Object.freeze({
-    isOpen: () => open, setOpen, refreshWorldMap,
+    isOpen: () => open, setOpen,
+    refreshWorldMap: () => { const changed = refreshWorldMap(); if (open && changed) draw(); return changed; },
     snapshot: () => Object.freeze({ open, mappedWorld: Boolean(worldMapCanvas), worldRevision: worldMapRevision }),
-    dispose() { cancelAnimationFrame(frame); resizeObserver.disconnect(); removeEventListener("keydown", onKeyDown); }
+    dispose() { resizeObserver.disconnect(); removeEventListener("keydown", onKeyDown); }
   });
 }

@@ -1,0 +1,29 @@
+name: Validate Main
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288ca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Validate
+        run: npm run check
+      - name: Prove showcase
+        run: npm run showcase:prove
+      - name: Build
+        run: npm run build

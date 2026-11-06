@@ -4,13 +4,13 @@ const lockfile = JSON.parse(await readFile(new URL("../package-lock.json", impor
 const enginePackage = JSON.parse(await readFile(new URL("../node_modules/nexusengine/package.json", import.meta.url), "utf8"));
 const resolved = lockfile.packages?.["node_modules/nexusengine"]?.resolved ?? "";
 const commit = resolved.match(/#([a-f0-9]{40})$/i)?.[1] ?? null;
-if (!commit) throw new Error("NexusEngine #main did not resolve to an exact Git commit.");
+if (commit !== "8a60167fc945109408851c586a9355b1147438d5") throw new Error("NexusEngine lock differs from the approved immutable commit.");
 
 const diagnostics = {
   schema: "open-above.release-diagnostics/2",
   status: "validated-dependency",
   engineSource: {
-    channel: "main",
+    channel: "commit",
     commit,
     repository: "https://github.com/LuminaryLabs-Dev/NexusEngine"
   },
@@ -22,4 +22,4 @@ const diagnostics = {
 };
 
 await writeFile(new URL("../public/nexusengine-build-diagnostics.json", import.meta.url), `${JSON.stringify(diagnostics, null, 2)}\n`);
-console.log(`NexusEngine main resolved at ${commit}`);
+console.log(`NexusEngine pinned commit verified at ${commit}`);

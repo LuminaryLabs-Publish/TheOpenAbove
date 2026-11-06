@@ -9,9 +9,9 @@ import "./semantic-domain-composition.mjs";
 
 const packageManifest = JSON.parse(readFileSync("package.json", "utf8"));
 const npmLockfile = JSON.parse(readFileSync("package-lock.json", "utf8"));
-assert.match(packageManifest.dependencies.nexusengine, /LuminaryLabs-Dev\/NexusEngine#main$/, "Engine dependency must track main");
+assert.equal(packageManifest.dependencies.nexusengine, "github:LuminaryLabs-Dev/NexusEngine#8a60167fc945109408851c586a9355b1147438d5", "Engine dependency must pin the immutable commit");
 const resolvedEngineSource = npmLockfile.packages["node_modules/nexusengine"].resolved;
-assert.match(resolvedEngineSource, /#[a-f0-9]{40}$/i, "Engine lock must record the exact tested main commit");
+assert.ok(resolvedEngineSource.endsWith("#8a60167fc945109408851c586a9355b1147438d5"), "Engine lock must resolve the declared immutable commit");
 
 const requiredFiles = [
   "index.html",

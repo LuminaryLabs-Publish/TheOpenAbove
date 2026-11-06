@@ -49,3 +49,10 @@ separate post-release activity.
 
 Pages deployment is manual through `workflow_dispatch`. No push deploys the
 game automatically.
+
+## Current Development Status
+
+Meadow Lift has a deterministic mission reducer in src/gameplay/meadow-mission-kit.js, covered by tests/meadow-mission.mjs. Mission-world contact and Journey integration are still pending; declaring 3 thermals and 5 gates in source does not make the route playable.
+
+The NexusEngine dependency is an immutable Git commit in the manifest and lockfile.
+Pushes to main trigger validation only. GitHub Pages publication requires an explicitly dispatched deployment workflow.
