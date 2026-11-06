@@ -7,7 +7,8 @@ import assert from "node:assert/strict";
 
 const base="http://127.0.0.1:4179/TheOpenAbove/";
 const ffmpeg=(args)=>{const r=spawnSync("ffmpeg",args,{encoding:"utf8",maxBuffer:8*1024*1024});
-  if(r.status!==0)throw new Error("ffmpeg failed: "+(r.stderr||"").slice(-2400));};
+  if(r.error)throw new Error("ffmpeg launch failed: "+r.error.message);
+  if(r.status!==0)throw new Error("ffmpeg exit "+r.status+": "+String(r.stderr||r.stdout||"(no process output)").slice(-4200));};
 const probe=(path)=>{
   const r=spawnSync("ffprobe",["-v","error","-show_entries","format=duration:stream=width,height,r_frame_rate","-of","json",path],{encoding:"utf8"});
   if(r.status!==0)throw new Error("ffprobe failed: "+r.stderr);
