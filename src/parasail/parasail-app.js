@@ -2,6 +2,7 @@ import * as THREE from "three";
 import {createParasailState,advanceParasail,terrainHeight,windAt} from "./parasail-flight-sim.js";
 import {createCloudComboDomain} from "../domains/parasailing/cloud-combo/combo-domain.js";
 import {createCloudComboVisualKit} from "../visual/cloud-combo/cloud-combo-cloud-kit.js";
+import {createDiveSlingshotService} from "../domains/parasailing/slingshot/slingshot-service.js";
 const $=id=>document.getElementById(id);
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const hash=(x,z)=>{const r=Math.sin(x*127.1+z*311.7)*43758.5453;return r-Math.floor(r);};
@@ -206,6 +207,7 @@ export function startParasail(){
   const canopy=createCanopyRider();scene.add(canopy.root);
   const ribbons=createWindStreaks(scene);
   const combos=createCloudComboDomain({heightAt:terrainHeight});
+  const slingshot=createDiveSlingshotService();
   const comboClouds=createCloudComboVisualKit(scene,combos.zones);
   const input=controls();
   let flight=createParasailState(),started=false,paused=false,elapsed=0;
@@ -214,7 +216,7 @@ export function startParasail(){
   const menu=$("menu"),toast=$("toast"),boot=$("boot");
   function notify(message){toast.textContent=message;toast.classList.add("show");}
   function reset(){
-    flight=createParasailState();combos.reset();elapsed=0;started=false;paused=false;
+    flight=createParasailState();combos.reset();slingshot.reset();elapsed=0;started=false;paused=false;
     $("menuTitle").innerHTML='THE OPEN <span>ABOVE</span>';
     $("menuSubtitle").textContent="Read the wind. Find your line.";
     $("startButton").textContent="BEGIN FLIGHT";
@@ -225,11 +227,21 @@ export function startParasail(){
   function time(t){const s=Math.floor(t);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
   function tick(dt){
     const previous=flight;
+    const controls=input.read();
     const chain=combos.snapshot().momentum;
-    flight=advanceParasail(previous,{...input.read(),chainVelocity:chain},dt);
+    flight=advanceParasail(previous,{...controls,chainVelocity:chain},dt);
     elapsed+=dt;
+    const recovery=slingshot.update(flight,{held:controls.collapse});
+    if(recovery){
+      // Add the earned impulse immediately, then retain it through the existing flight bank.
+      const bonus=Math.min(recovery.bonus,Math.max(0,80-flight.chainVelocity));
+      flight={...flight,chainVelocity:flight.chainVelocity+bonus,
+        vx:flight.vx+Math.sin(flight.yaw)*bonus,
+        vz:flight.vz-Math.cos(flight.yaw)*bonus};
+      notify("SLINGSHOT · UPDRAFT RECOVERY · +"+bonus.toFixed(1)+" M/S");
+    }
     const cloudEvent=combos.update(flight);
-    if(cloudEvent){
+    if(cloudEvent && !recovery){
       notify(cloudEvent.kind.toUpperCase().replace(/-/g," ")+" · COMBO X"+
         cloudEvent.combo+" · +"+cloudEvent.bonus.toFixed(1)+" M/S");
     }
@@ -294,6 +306,7 @@ export function startParasail(){
   $("retryButton").addEventListener("click",()=>{reset();begin();});
   reset();draw(1/60);hud();boot.hidden=true;requestAnimationFrame(animate);
   return {getState:()=>({mode:"parasailing",flight:{...flight},combo:combos.snapshot(),
+    slingshot:slingshot.snapshot(),
     route:{current:combos.snapshot().cloudsVisited.length,total:combos.zones.length,started},
     atmosphere:{drawDistance:camera.far,wind:flight.wind},terrain:{sampleHeight:terrainHeight(flight.x,flight.z)}}),
     dispose(){disposed=true;input.dispose();comboClouds.dispose();removeEventListener("resize",resize);removeEventListener("keydown",onKey);

@@ -73,6 +73,24 @@ try {
   const chained=await page.evaluate(()=>window.GameHost.getState());
   assert.ok(chained.combo.momentum>0,"Cloud skim must award persistent speed");
   assert.match(await page.locator("#comboScore").textContent(),/PTS/);
+  // Fresh authentic user-input sequence for TOA-014; no state injection.
+  await page.keyboard.press("KeyR");
+  await page.keyboard.down("Space");
+  await page.waitForTimeout(1850);
+  const dive=await page.evaluate(()=>window.GameHost.getState());
+  assert.ok(dive.flight.canopyCollapse>=.8,"Space hold must substantially collapse wing");
+  assert.equal(dive.slingshot.awards,0,"Holding Space must not award early");
+  await page.keyboard.up("Space");
+  await page.waitForFunction(()=>window.GameHost.getState().slingshot.awards===1,
+    null,{timeout:18000});
+  const slingshot=await page.evaluate(()=>window.GameHost.getState());
+  assert.equal(slingshot.slingshot.lastEvent?.kind,"dive-to-lift-slingshot");
+  assert.ok(slingshot.slingshot.lastEvent.updraft>.5,
+    "Slingshot must occur in sampled positive air");
+  assert.ok(slingshot.flight.chainVelocity>=8,"Recovery should retain the earned velocity");
+  await page.waitForTimeout(650);
+  assert.equal((await page.evaluate(()=>window.GameHost.getState())).slingshot.awards,1,
+    "An unbroken recovery cannot repeat the bonus");
   assert.equal(errors.length,0,"Browser JavaScript errors: "+errors.join("\n"));
   mkdirSync("artifacts",{recursive:true});
   await page.screenshot({path:"artifacts/parasail-smoke.png"});
