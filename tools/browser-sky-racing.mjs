@@ -88,7 +88,12 @@ try {
   // New flight: hold Space for a sustained dive, then release and pull back with W.
   await page.keyboard.press("KeyR");
   await page.keyboard.down("Space");
-  await page.waitForTimeout(1850);
+  // SwiftShader can render slower than real time: wait for simulation evidence,
+  // not an assumed wall-clock duration of a held input.
+  await page.waitForFunction(()=>{
+    const state=window.GameHost.getState();
+    return state.slingshot.diveDistance>=7 && state.flight.canopyCollapse>=.8;
+  },null,{timeout:30000});
   const armed=await page.evaluate(()=>window.GameHost.getState());
   assert.ok(armed.slingshot.diveDistance>=7,
     "Dive must accumulate real downward distance before earning a slingshot");
@@ -105,7 +110,9 @@ try {
   assert.ok(slingshot.flight.vy>0,
     "A real slingshot must generate upward motion, not just a speed number");
   const recoveryHeight=slingshot.flight.y;
-  await page.waitForTimeout(650);
+  await page.waitForFunction(baseline=>
+    window.GameHost.getState().flight.y>baseline+.6,
+    recoveryHeight,{timeout:12000});
   const recovered=await page.evaluate(()=>window.GameHost.getState());
   await page.keyboard.up("KeyW");
   assert.ok(recovered.flight.y>recoveryHeight+.6,
