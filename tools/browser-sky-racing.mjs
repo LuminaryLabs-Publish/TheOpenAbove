@@ -36,7 +36,7 @@ try {
   );
   const startState=await page.evaluate(()=>window.GameHost.getState());
   assert.equal(startState.mode,"parasailing");
-  assert.equal(startState.route.total,9);
+  assert.equal(startState.combo.totalClouds,13);
   assert.ok(startState.atmosphere.drawDistance>=40000);
   assert.ok(startState.terrain.sampleHeight<startState.flight.y);
   await page.getByRole("button",{name:"BEGIN FLIGHT"}).click();
@@ -68,11 +68,16 @@ try {
   const reopened=await page.evaluate(()=>window.GameHost.getState());
   assert.ok(reopened.flight.canopyCollapse<collapsed.flight.canopyCollapse*.3,
     "Canopy must reinflate on release");
+  await page.waitForFunction(()=>window.GameHost.getState().combo.combo>=1,
+    null,{timeout:20000});
+  const chained=await page.evaluate(()=>window.GameHost.getState());
+  assert.ok(chained.combo.momentum>0,"Cloud skim must award persistent speed");
+  assert.match(await page.locator("#comboScore").textContent(),/PTS/);
   assert.equal(errors.length,0,"Browser JavaScript errors: "+errors.join("\n"));
   mkdirSync("artifacts",{recursive:true});
   await page.screenshot({path:"artifacts/parasail-smoke.png"});
   console.log(JSON.stringify({status:"passed",url:base,start:startState.flight,
-    end:endState.flight,current:endState.route.current,browserErrors:errors,
+    end:endState.flight,combo:chained.combo.combo,browserErrors:errors,
     screenshot:"artifacts/parasail-smoke.png"},null,2));
 } finally {
   if(browser)await browser.close();

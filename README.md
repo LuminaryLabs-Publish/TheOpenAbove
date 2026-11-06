@@ -49,3 +49,21 @@ The Chromium smoke test verifies the actual Vite production preview, startup, pi
 ## Deployment
 
 The existing `.github/workflows/deploy-pages.yml` automatically validates and publishes main. Do not introduce another Pages workflow. The separate Validate Main workflow uses the same browser gate.
+
+## Cloud combos and retained speed
+
+Cloud pockets, rather than a fixed gate course, are the primary gameplay interaction.
+Enter a distinct cloud with the canopy open or after a controlled dive to register a
+**cloud skim**, **lift rider**, or **dive recovery**. Each distinct pocket extends the
+combo, increases score, and adds to the persistent velocity bank.
+
+The velocity bank does not decay with elapsed time, when crossing another cloud, or
+when steering. The active flight simulation retains the greater of its previous
+horizontal speed and the current target speed unless the pilot deliberately flares.
+Holding Space to collapse the canopy primarily changes vertical descent and does
+not erase the velocity bank. Starting a new run explicitly resets the bank.
+
+The active service boundary is `src/domains/parasailing/cloud-combo/`:
+renderer-neutral zone descriptors, event attribution, and a monotonic momentum Kit.
+`src/visual/cloud-combo/` owns the visible Three.js cloud clusters. The old
+path rings remain in preserved source but are not part of the active gameplay loop.

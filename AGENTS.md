@@ -24,3 +24,14 @@ The old sky-racing and balloon modules remain intact as legacy source but are no
 - Main pushes gated by existing deployment workflow; do not add deploy workflows.
 
 Any design or rendering modification requires source-pinned tests, and a successful Web deployment must not be misrepresented as headset validation.
+
+## Cloud combo requirement
+
+The canonical airborne progression is now cloud-to-cloud combo scoring, **not a
+mandatory linear checkpoint list**. Domain/Service/Kits live under
+`src/domains/parasailing/cloud-combo/` and expose detached state and read-only
+zone descriptors; the visual adapter lives under `src/visual/cloud-combo/`.
+
+Never silently damp earned combo momentum between actions. Changes to braking,
+terrain contact, explicit reset and safe velocity limits must be tested as explicit
+player-visible policies. All GameHost state must remain legible and verifiable.

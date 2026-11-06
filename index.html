@@ -34,6 +34,7 @@
 .direction-wrap{position:fixed;top:19%;left:50%;transform:translateX(-50%);z-index:3;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:7px}
 #direction{display:block;width:44px;height:44px;transition:transform .15s ease}
 #gateDistance{font-size:11px;letter-spacing:.2em;font-weight:800;text-shadow:0 1px 14px #03141e}
+#comboScore{font-size:10px;letter-spacing:.13em;color:#f6d49a;margin-top:6px;font-weight:700;text-shadow:0 1px 8px #03141e}
 .controls-help{font-size:10px;letter-spacing:.10em;color:rgba(238,249,242,.7)}
 #toast{position:fixed;z-index:4;top:31%;left:50%;transform:translate(-50%,-7px);opacity:0;max-width:80vw;text-align:center;font-size:12px;font-weight:800;letter-spacing:.23em;color:var(--ice);text-shadow:0 2px 20px #08202f;transition:opacity .35s ease,transform .35s}
 #toast.show{opacity:1;transform:translate(-50%,0)}
@@ -66,10 +67,10 @@ h1 span{display:block;color:#cde8eb;font-size:.57em;font-style:italic;margin-lef
 <canvas id="game" aria-label="The Open Above parasailing mountain flight"></canvas>
 <div class="vignette" aria-hidden="true"></div>
 <header class="top-bar"><div class="brand">LUMINARY LABS <em>/</em> THE OPEN ABOVE</div><div class="tag">RIDGE AIR · WIND NAVIGATION · 01</div></header>
-<div class="race-progress"><small>AIR CURRENTS FOUND</small><strong id="progressValue">00 / 09</strong></div>
+<div class="race-progress"><small>CLOUD COMBO</small><strong id="progressValue">X0</strong><div id="comboScore">0 PTS · 0 KM/H EARNED</div></div>
 <div class="direction-wrap" aria-hidden="true">
 <svg id="direction" viewBox="0 0 48 48" fill="none"><path d="M24 4 39 42 24 32 9 42 24 4Z" fill="#caf8f1" stroke="#2f6e77" stroke-width="2"/></svg>
-<div id="gateDistance">FIND THE FIRST CURRENT</div>
+<div id="gateDistance">FIND THE FIRST CLOUD</div>
 </div>
 <div class="hud" aria-label="Flight instruments">
 <div class="hud-left">
@@ -90,7 +91,7 @@ h1 span{display:block;color:#cde8eb;font-size:.57em;font-style:italic;margin-lef
 <div class="eyebrow">01 / THE RIDGE AIR ROUTE</div>
 <h1 id="menuTitle">THE OPEN <span>ABOVE</span></h1>
 <p class="menu-subtitle" id="menuSubtitle">Read the wind. Find your line.</p>
-<p class="menu-copy">You are the pilot beneath the canopy. Read angled wind trails, ride rising air beside the ridges, and glide through nine luminous currents over immense mountains.</p>
+<p class="menu-copy">You are the pilot beneath the canopy. Skim cloud pockets, dive through gaps, pull back into ridge lift, and chain each burst of speed into the next. Earned velocity carries forward.</p>
 <button id="startButton" class="primary-button" type="button">BEGIN FLIGHT</button>
 <div class="menu-foot">A/D PULL BRAKE LINES &nbsp; · &nbsp; W PITCH BACK IN LIFT &nbsp; · &nbsp; HOLD SPACE TO COLLAPSE &nbsp; · &nbsp; SHIFT TO FLARE</div>
 <div id="result" class="result-note" hidden>RACE TIME <strong id="resultTime">00:00</strong> &nbsp; BEST <strong id="resultBest">00:00</strong></div>

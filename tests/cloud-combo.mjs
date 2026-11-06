@@ -1,0 +1,41 @@
+import assert from "node:assert/strict";
+import {createCloudComboDomain} from "../src/domains/parasailing/cloud-combo/combo-domain.js";
+import {awardCloudMomentum,retainEarnedVelocity} from "../src/domains/parasailing/cloud-combo/momentum-chain-kit.js";
+import {createParasailState,advanceParasail,terrainHeight} from "../src/parasail/parasail-flight-sim.js";
+
+const combo=createCloudComboDomain({heightAt:terrainHeight});
+assert.equal(combo.snapshot().totalClouds,13);
+const first=combo.zones[0],second=combo.zones[1];
+const event1=combo.update({...first,vy:2});
+assert.equal(event1.kind,"lift-rider");
+assert.equal(event1.combo,1);
+assert.equal(combo.update({...first,vy:2}),null,"same cloud cannot award twice");
+const event2=combo.update({...second,vy:-6});
+assert.equal(event2.kind,"dive-recovery");
+assert.equal(event2.combo,2);
+const before=combo.snapshot();
+assert.ok(before.momentum>10);
+assert.ok(before.score>0);
+assert.equal(retainEarnedVelocity(30,12),30);
+assert.equal(retainEarnedVelocity(12,30),30);
+const idle=combo.snapshot();
+assert.equal(idle.momentum,before.momentum,"momentum must never decay between cloud interactions");
+assert.deepEqual(combo.snapshot().cloudsVisited,["cloud-01","cloud-02"]);
+let withChain=createParasailState(),without=createParasailState();
+let previousMagnitude=0;
+for(let i=0;i<120;i++){
+  withChain=advanceParasail(withChain,{chainVelocity:before.momentum},1/60);
+  without=advanceParasail(without,{},1/60);
+  const magnitude=Math.hypot(withChain.vx,withChain.vz);
+  assert.ok(magnitude>=previousMagnitude-1e-5,"unbraked horizontal velocity must never damp automatically");
+  previousMagnitude=magnitude;
+}
+assert.ok(Math.hypot(withChain.vx,withChain.vz)>Math.hypot(without.vx,without.vz)+8);
+assert.equal(withChain.chainVelocity,before.momentum);
+const turn=advanceParasail(withChain,{turn:1},1/60);
+assert.equal(turn.chainVelocity,before.momentum,"steering cannot reset earned speed");
+assert.ok(Math.hypot(turn.vx,turn.vz)>=previousMagnitude-1e-5,"turn preserves carried speed");
+combo.reset();
+assert.equal(combo.snapshot().momentum,0,"explicit new run may reset momentum");
+assert.throws(()=>awardCloudMomentum({},{}),/cloud/);
+console.log("Cloud-combo chain, repeat protection, retained velocity and reset passed.");

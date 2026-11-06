@@ -33,7 +33,7 @@ export function windAt(x,y,z,time=0){
 }
 export function createParasailState(){
   return {x:0,y:500,z:180,yaw:0,bank:0,pitch:0,airspeed:20.5,
-    vx:0,vy:-.2,vz:-18.8,elapsed:0,distance:0,glide:0,sway:0,wind:null,canopyCollapse:0};
+    vx:0,vy:-.2,vz:-18.8,elapsed:0,distance:0,glide:0,sway:0,wind:null,canopyCollapse:0,chainVelocity:0};
 }
 export function advanceParasail(state,control={},dt=1/60){
   const d=clamp(Number(dt)||0,0,1/20);
@@ -42,13 +42,21 @@ export function advanceParasail(state,control={},dt=1/60){
   const controlState=resolveWindRidingSteering({state,wind:w,turn:(Number(control.turn)||0)*canopy.steeringAuthority,
     pullBack:control.lift,flare:Boolean(control.brake),dt:d});
   const {airspeed,yaw,bank,pitch:canopyPitch}=controlState;
-  const forwardX=Math.sin(yaw)*airspeed;
-  const forwardZ=-Math.cos(yaw)*airspeed;
+  // Cloud combo velocity is persistent: no timer, air drag or transition silently resets it.
+  const chainVelocity=Math.min(80,Math.max(0,Number(state.chainVelocity)||0,Number(control.chainVelocity)||0));
+  const forwardX=Math.sin(yaw)*(airspeed+chainVelocity);
+  const forwardZ=-Math.cos(yaw)*(airspeed+chainVelocity);
   const drag=controlState.flare?2.5:1.7;
   const targetVx=forwardX+w.x*.88;
   const targetVz=forwardZ+w.z*.85;
-  const vx=smooth(state.vx,targetVx,drag,d);
-  const vz=smooth(state.vz,targetVz,drag,d);
+  let vx=smooth(state.vx,targetVx,drag,d);
+  let vz=smooth(state.vz,targetVz,drag,d);
+  // Preserve all earned horizontal speed while steering; only deliberate flare can slow the glide.
+  if(!controlState.flare){
+    const retained=Math.max(Math.hypot(state.vx,state.vz),Math.hypot(targetVx,targetVz));
+    const resolved=Math.hypot(vx,vz);
+    if(resolved>1e-6){const factor=retained/resolved;vx*=factor;vz*=factor;}
+  }
   const collapsedTarget=controlState.verticalTarget - canopy.extraSink - Math.max(0,w.y)*.6*(1-canopy.liftFraction);
   const vy=smooth(state.vy,clamp(collapsedTarget,-16,7),canopy.fraction>.2?2.7:1.55,d);
   const x=state.x+vx*d,z=state.z+vz*d;
@@ -58,7 +66,7 @@ export function advanceParasail(state,control={},dt=1/60){
   return {x,y,z,yaw,bank,pitch:canopyPitch,airspeed,vx,vy:y===minHeight?0:vy,vz,
     elapsed:state.elapsed+d,distance:state.distance+Math.hypot(vx*d,vy*d,vz*d),
     glide:Math.max(0,y-terrainHeight(x,z)),sway,wind:w,pullBack:controlState.pullBack,
-    canopyCollapse:canopy.fraction,canopyMode:canopy.mode};
+    canopyCollapse:canopy.fraction,canopyMode:canopy.mode,chainVelocity};
 }
 export function makeAirRoutes(){
   return Array.from({length:9},(_,i)=>{

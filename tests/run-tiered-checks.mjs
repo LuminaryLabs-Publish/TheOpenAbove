@@ -4,6 +4,7 @@ const suites = [
   "tests/smoke.mjs",
   "tests/sky-racing.mjs",
   "tests/parasail-flight.mjs",
+  "tests/cloud-combo.mjs",
   "tests/meadow-mission.mjs",
   "tests/meadow-world-wiring.mjs",
   "tests/startup-loading.mjs",

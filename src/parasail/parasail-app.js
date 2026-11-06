@@ -1,5 +1,7 @@
 import * as THREE from "three";
-import {createParasailState,advanceParasail,terrainHeight,windAt,makeAirRoutes,crossAirRoute} from "./parasail-flight-sim.js";
+import {createParasailState,advanceParasail,terrainHeight,windAt} from "./parasail-flight-sim.js";
+import {createCloudComboDomain} from "../domains/parasailing/cloud-combo/combo-domain.js";
+import {createCloudComboVisualKit} from "../visual/cloud-combo/cloud-combo-cloud-kit.js";
 const $=id=>document.getElementById(id);
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const hash=(x,z)=>{const r=Math.sin(x*127.1+z*311.7)*43758.5453;return r-Math.floor(r);};
@@ -202,41 +204,37 @@ export function startParasail(){
   scene.add(light,new THREE.HemisphereLight("#cce5f3","#547060",2));
   createMountains(scene);createClouds(scene);
   const canopy=createCanopyRider();scene.add(canopy.root);
-  const ribbons=createWindStreaks(scene),routes=makeAirRoutes(),markers=createRouteVisuals(scene,routes);
+  const ribbons=createWindStreaks(scene);
+  const combos=createCloudComboDomain({heightAt:terrainHeight});
+  const comboClouds=createCloudComboVisualKit(scene,combos.zones);
   const input=controls();
-  let flight=createParasailState(),index=0,started=false,paused=false,finished=false,elapsed=0;
+  let flight=createParasailState(),started=false,paused=false,elapsed=0;
   let last=performance.now(),frame=0,acc=0,disposed=false;
   const cameraTarget=new THREE.Vector3(),look=new THREE.Vector3();
   const menu=$("menu"),toast=$("toast"),boot=$("boot");
   function notify(message){toast.textContent=message;toast.classList.add("show");}
   function reset(){
-    flight=createParasailState();index=0;elapsed=0;finished=false;started=false;paused=false;
+    flight=createParasailState();combos.reset();elapsed=0;started=false;paused=false;
     $("menuTitle").innerHTML='THE OPEN <span>ABOVE</span>';
     $("menuSubtitle").textContent="Read the wind. Find your line.";
     $("startButton").textContent="BEGIN FLIGHT";
     menu.hidden=false;$("result").hidden=true;
     notify("FOLLOW THE WIND · FIND THE RISING AIR");
   }
-  function begin(){if(finished)reset();started=true;paused=false;menu.hidden=true;notify("AIRBORNE · FOLLOW THE GOLDEN CURRENTS");}
-  function complete(){
-    finished=true;started=false;menu.hidden=false;
-    $("menuTitle").innerHTML='SKY <span>DISCOVERED</span>';
-    $("menuSubtitle").textContent="You made the air your own.";
-    $("startButton").textContent="FLY AGAIN";
-    $("result").hidden=false;
-    $("resultTime").textContent=time(elapsed);
-    $("resultBest").textContent=String(index)+" / "+routes.length;
-  }
+  function begin(){started=true;paused=false;menu.hidden=true;notify("AIRBORNE · SKIM CLOUDS AND CHAIN YOUR MOMENTUM");}
   function time(t){const s=Math.floor(t);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
   function tick(dt){
-    const previous=flight;flight=advanceParasail(previous,input.read(),dt);elapsed+=dt;
-    if(flight.y<=terrainHeight(flight.x,flight.z)+20){
-      notify("RIDGE CONTACT · FOLLOW THE LIFT");
+    const previous=flight;
+    const chain=combos.snapshot().momentum;
+    flight=advanceParasail(previous,{...input.read(),chainVelocity:chain},dt);
+    elapsed+=dt;
+    const cloudEvent=combos.update(flight);
+    if(cloudEvent){
+      notify(cloudEvent.kind.toUpperCase().replace(/-/g," ")+" · COMBO X"+
+        cloudEvent.combo+" · +"+cloudEvent.bonus.toFixed(1)+" M/S");
     }
-    const route=routes[index];
-    if(route&&crossAirRoute(previous,flight,route).passed){
-      index++;notify("CURRENT "+index+" / "+routes.length+" · FLOW FOUND");
-      if(index===routes.length)complete();
+    if(flight.y<=terrainHeight(flight.x,flight.z)+20){
+      notify("RIDGE CONTACT · HOLD YOUR LINE");
     }
   }
   function draw(dt){
@@ -255,24 +253,27 @@ export function startParasail(){
     look.set(flight.x+Math.sin(flight.yaw)*160,flight.y+8,flight.z-Math.cos(flight.yaw)*160);
     camera.lookAt(look);
     ribbons.update(flight);
-    markers.update(index,flight.elapsed);
+
     renderer.render(scene,camera);
   }
   function hud(){
+    const chain=combos.snapshot(),near=combos.nearest(flight);
     $("speedValue").textContent=String(Math.round(Math.hypot(flight.vx,flight.vz)*3.6));
     $("altValue").textContent=String(Math.round(flight.glide));
-    $("progressValue").textContent=String(index).padStart(2,"0")+" / "+routes.length;
+    $("progressValue").textContent="X"+chain.combo;
+    $("comboScore").textContent=chain.score.toLocaleString()+" PTS · "+
+      Math.round(chain.momentum*3.6)+" KM/H EARNED";
     $("timeValue").textContent=time(elapsed);
     $("boostFill").style.width=clamp(40+flight.wind?.lift*8||40,6,100).toFixed(0)+"%";
     $("canopyStatus").textContent=flight.canopyCollapse>.07?
       ("CANOPY "+Math.round(flight.canopyCollapse*100)+"% PULLED IN"):"CANOPY FULLY OPEN";
-    const route=routes[index];
-    if(route){
-      const bearing=Math.atan2(route.x-flight.x,flight.z-route.z);
+    if(near){
+      const bearing=Math.atan2(near.x-flight.x,flight.z-near.z);
       const delta=Math.atan2(Math.sin(bearing-flight.yaw),Math.cos(bearing-flight.yaw));
       $("direction").style.transform="rotate("+(delta*180/Math.PI)+"deg)";
-      $("gateDistance").textContent=Math.round(Math.hypot(route.x-flight.x,route.y-flight.y,route.z-flight.z))+" M · LIFT CORRIDOR "+(index+1);
-    }else{$("gateDistance").textContent="ROUTE COMPLETE";}
+      $("gateDistance").textContent=Math.round(Math.hypot(near.x-flight.x,near.y-flight.y,near.z-flight.z))+
+        " M · NEXT CLOUD";
+    }else{$("gateDistance").textContent="EXPLORE THE OPEN AIR · CHAIN CONTINUES";}
   }
   function animate(now){
     if(disposed)return;
@@ -292,9 +293,10 @@ export function startParasail(){
   $("startButton").addEventListener("click",begin);
   $("retryButton").addEventListener("click",()=>{reset();begin();});
   reset();draw(1/60);hud();boot.hidden=true;requestAnimationFrame(animate);
-  return {getState:()=>({mode:"parasailing",flight:{...flight},route:{current:index,total:routes.length,started,finished},
+  return {getState:()=>({mode:"parasailing",flight:{...flight},combo:combos.snapshot(),
+    route:{current:combos.snapshot().cloudsVisited.length,total:combos.zones.length,started},
     atmosphere:{drawDistance:camera.far,wind:flight.wind},terrain:{sampleHeight:terrainHeight(flight.x,flight.z)}}),
-    dispose(){disposed=true;input.dispose();removeEventListener("resize",resize);removeEventListener("keydown",onKey);
+    dispose(){disposed=true;input.dispose();comboClouds.dispose();removeEventListener("resize",resize);removeEventListener("keydown",onKey);
       scene.traverse(item=>{item.geometry?.dispose?.();if(item.material){const mats=Array.isArray(item.material)?item.material:[item.material];mats.forEach(m=>m.dispose());}});
       renderer.dispose();}
   };
