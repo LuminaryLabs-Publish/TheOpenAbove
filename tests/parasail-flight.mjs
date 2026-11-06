@@ -42,4 +42,21 @@ assert.match(app,/createWindStreaks/);
 assert.match(app,/new THREE.InstancedMesh/);
 assert.match(app,/PerspectiveCamera\(67,innerWidth\/innerHeight,0\.4,47000\)/);
 assert.match(app,/requestAnimationFrame/);
-console.log("Parasailing simulation, wind, terrain relief, distant rendering and route checks passed.");
+
+// Domain / Service / Kit steering acceptance: stronger response and wind-supported climb.
+const source=createParasailState();
+const steering=advanceParasail(source,{turn:1,lift:1},1/20);
+assert.ok(steering.yaw>0.03,"steering should respond promptly");
+assert.ok(steering.pitch>0,"pulling back should tilt the canopy");
+const ridgeX=1200,ridgeZ=-900,ridgeY=terrainHeight(ridgeX,ridgeZ)+400;
+assert.ok(windAt(ridgeX,ridgeY,ridgeZ,20).y>1,"fixture must supply ridge lift");
+let neutral={...source,x:ridgeX,y:ridgeY,z:ridgeZ,vy:0};
+let pulled={...neutral};
+for(let step=0;step<180;step++){
+  neutral=advanceParasail(neutral,{lift:0},1/60);
+  pulled=advanceParasail(pulled,{lift:1},1/60);
+}
+assert.ok(pulled.y>neutral.y+2,"pitch-back must improve altitude in rising wind");
+assert.ok(pulled.vy>neutral.vy,"pitch-back must improve vertical response");
+
+console.log("Parasailing steering, ridge lift and terrain integration passed.");

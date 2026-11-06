@@ -1,4 +1,5 @@
 // Renderer-neutral wind and parasail dynamics.
+import {resolveWindRidingSteering} from "../domains/parasailing/wind-riding/steering-kit.js";
 export const PARASAIL_MODEL_VERSION = "1.0.0";
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const smooth=(from,to,rate,dt)=>from+(to-from)*(1-Math.exp(-rate*dt));
@@ -35,31 +36,25 @@ export function createParasailState(){
 }
 export function advanceParasail(state,control={},dt=1/60){
   const d=clamp(Number(dt)||0,0,1/20);
-  const steer=clamp(Number(control.turn)||0,-1,1);
-  const pitch=clamp(Number(control.lift)||0,-1,1);
-  const brake=Boolean(control.brake);
   const w=windAt(state.x,state.y,state.z,state.elapsed);
-  // Lines steer canopy relative to the airflow; no thrust, rocket boost or vertical climb button.
-  const airspeed=smooth(state.airspeed,brake?14.5:22+pitch*1.4,1.25,d);
-  const yaw=state.yaw+steer*(brake?.55:.38)*d;
-  const bank=smooth(state.bank,-steer*.34,1.7,d);
-  const canopyPitch=smooth(state.pitch,pitch*.18+(brake?.12:0),1.35,d);
+  const controlState=resolveWindRidingSteering({state,wind:w,turn:control.turn,
+    pullBack:control.lift,flare:Boolean(control.brake),dt:d});
+  const {airspeed,yaw,bank,pitch:canopyPitch}=controlState;
   const forwardX=Math.sin(yaw)*airspeed;
   const forwardZ=-Math.cos(yaw)*airspeed;
-  const drag=brake?2.5:1.1;
+  const drag=controlState.flare?2.5:1.7;
   const targetVx=forwardX+w.x*.88;
   const targetVz=forwardZ+w.z*.85;
   const vx=smooth(state.vx,targetVx,drag,d);
   const vz=smooth(state.vz,targetVz,drag,d);
-  const sink=-2.5-(airspeed-19)*.045+(brake?1.0:0)+pitch*.45;
-  const vy=smooth(state.vy,clamp(sink+w.y*.72,-8,6),1.2,d);
+  const vy=smooth(state.vy,controlState.verticalTarget,1.55,d);
   const x=state.x+vx*d,z=state.z+vz*d;
   const minHeight=terrainHeight(x,z)+19;
   const y=Math.max(minHeight,state.y+vy*d);
-  const sway=smooth(state.sway,steer*.18+Math.sin(state.elapsed*1.08)*.023,2,d);
+  const sway=smooth(state.sway,controlState.steer*.24+Math.sin(state.elapsed*1.08)*.023,2.3,d);
   return {x,y,z,yaw,bank,pitch:canopyPitch,airspeed,vx,vy:y===minHeight?0:vy,vz,
     elapsed:state.elapsed+d,distance:state.distance+Math.hypot(vx*d,vy*d,vz*d),
-    glide:Math.max(0,y-terrainHeight(x,z)),sway,wind:w};
+    glide:Math.max(0,y-terrainHeight(x,z)),sway,wind:w,pullBack:controlState.pullBack};
 }
 export function makeAirRoutes(){
   return Array.from({length:9},(_,i)=>{
