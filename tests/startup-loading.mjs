@@ -50,14 +50,15 @@ assert.match(experience, /createExperienceWorldPreparation/);
 assert.match(experience, /preparedWorld/);
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /startupElements/);
-assert.match(main, /startupLoader/);
-assert.match(main, /startupProgressFill/);
+assert.match(main, /startSkyRacing/);
+assert.match(main, /bootMessage/);
+assert.match(main, /catch/);
+assert.doesNotMatch(main, /advanceGeneratedWorld|createMeadowLiftScene/);
 
 const html = readFileSync("index.html", "utf8");
-assert.match(html, /id="startupLoader"/);
-assert.match(html, /id="startupProgressFill"/);
-assert.match(html, /id="startupLabel"/);
-assert.match(html, /role="progressbar"/);
+assert.match(html, /id="boot"/);
+assert.match(html, /id="bootMessage"/);
+assert.match(html, /id="bootRetry"/);
+assert.match(html, /id="game"/);
 
-console.log("The Open Above Core Startup world-loading gate passed.");
+console.log("The Open Above fast sky-racing startup gate passed; legacy loading contracts retained separately.");

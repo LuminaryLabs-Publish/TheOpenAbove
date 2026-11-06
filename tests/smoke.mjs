@@ -63,19 +63,19 @@ const requiredFiles = [
 for (const file of requiredFiles) assert.equal(existsSync(file), true, `${file} should exist`);
 
 const index = readFileSync("index.html", "utf8");
-assert.doesNotMatch(index, /class="hud"|id="hud"/);
-assert.match(index, /id="startupLoader"/);
-assert.match(index, /id="startupProgressFill"/);
-assert.match(index, /id="mapOverlay"/);
-assert.match(index, /id="mapCanvas"/);
-assert.match(index, /map-scroll/);
+assert.match(index, /id="game"/);
+assert.match(index, /id="boot"/);
+assert.match(index, /id="bootMessage"/);
+assert.match(index, /id="menu"/);
+assert.match(index, /id="speedValue"/);
+assert.match(index, /id="progressValue"/);
+assert.match(index, /id="boostFill"/);
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /createMeadowLiftScene/);
-assert.match(main, /startupElements/);
-assert.match(main, /window\.GameHost = installBuildDiagnostics\(scene\.gameHost\)/);
-assert.doesNotMatch(main, /createBalloonSimulation|createParchmentMapOverlay|createVisualDomain|requestAnimationFrame/);
-assert.doesNotMatch(main, /renderer\.render\(/);
+assert.match(main, /startSkyRacing/);
+assert.match(main, /window.GameHost/);
+assert.match(main, /catch/);
+assert.doesNotMatch(main, /createMeadowLiftScene|advanceGeneratedWorld|createWorldGenerationKit/);
 
 const scene = readFileSync("src/scenes/meadow-lift-scene.js", "utf8");
 for (const factory of [

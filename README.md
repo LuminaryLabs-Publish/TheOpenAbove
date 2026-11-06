@@ -1,64 +1,47 @@
-# The Open Above
+# The Open Above — Sky Racing
 
-The Open Above is a standalone hot-air-balloon exploration game and the release
-showcase consumer for NexusEngine `0.0.4`.
+A cinematic 12-gate aerial racing game, built with Three.js and Vite.
 
-The game owns its authored world, Three.js presentation, browser adapters, and
-campaign rules. It consumes NexusEngine through an exact Git commit and uses
-public semantic Domain subpaths; it does not contain or alias an Engine source
-checkout.
+## Play
 
-## Run
+Open the [GitHub Pages game](https://luminarylabs-publish.github.io/TheOpenAbove/), select **Start Flight**, and chase the luminous gates through the mountains.
+
+Controls:
+- **W / S** or **Up / Down**: climb / descend
+- **A / D** or **Left / Right**: steer
+- **Space**: boost (regenerates)
+- **Shift**: brake
+- **P**: pause / resume
+- **R**: restart
+- On touch screens, use the on-screen flight controls.
+
+The sky circuit includes 12 checkpoints, time penalties for missed gates, race timing and locally saved personal bests. The menu and HUD are intended to be readable without an external guide.
+
+## Fast-start architecture
+
+The live entry point is `src/main.js`, which dynamically loads `src/racing/sky-racing-app.js`. The active course uses `src/racing/flight-sim.js` for testable, deterministic glider control and checkpoint rules.
+
+The first rendered frame is **not** gated on worker-based world generation or NexusEngine startup. A failed renderer displays a retryable error rather than a permanent loader.
+
+The earlier Meadow Lift balloon exploration source, NexusEngine domains, and associated tests are retained as a separate legacy foundation; they are **not** the currently launched racing game. This is intentional to preserve the earlier technical experiments without allowing them to block the playable racer.
+
+## Develop and verify
 
 ```bash
 npm ci --ignore-scripts --no-audit --no-fund
 npm run check
+npm run build
+npx playwright install --with-deps chromium
+node tools/browser-sky-racing.mjs
 npm run dev
 ```
 
-Vite prints the local game URL. Press `F9` to open the on-demand release
-diagnostics view.
+The normal check verifies flight simulations, checkpoint interactions, startup source contracts, and preserved legacy modules. The browser smoke launches the actual Vite production preview, verifies the startup panel is dismissed, starts a race, exercises climb, steering and boost, and saves a screenshot.
 
-## Controls
+## Publishing
 
-```txt
-W / ArrowUp / Space       burner
-S / ArrowDown / Shift    vent
-A / ArrowLeft            steer left within the wind
-D / ArrowRight           steer right within the wind
-M                         sightseeing map
-Escape                    close map
-```
+Pushes to `main` execute validation and the existing `.github/workflows/deploy-pages.yml`. Pages deployment requires the browser smoke test to pass. No additional deployment workflow is needed.
 
-## NexusEngine Proof
+## NexusEngine boundary
 
-```bash
-npm run showcase:inspect
-npm run showcase:plan
-npm run showcase:prove
-```
-
-`showcase:prove` inspects the read-only project, plans all four targets through
-MCP, applies Web targets after exact-hash authorization, proves repeated apply
-is a no-op, restores the persistent receipt in a fresh Build instance, and
-proves the runtime kernel continues after the MCP controller is discarded.
-
-Android XR and PCVR use `src/native/balloon-flight-kernel.js` as their shared
-portable entry. Their hosted jobs prove packages; hardware execution remains a
-separate post-release activity.
-
-Pages deployment is manual through `workflow_dispatch`. No push deploys the
-game automatically.
-
-## Current Development Status
-
-Meadow Lift has a deterministic mission reducer in src/gameplay/meadow-mission-kit.js, covered by tests/meadow-mission.mjs. Mission-world contact and Journey integration are still pending; declaring 3 thermals and 5 gates in source does not make the route playable.
-
-The NexusEngine dependency is an immutable Git commit in the manifest and lockfile.
-Pushes to main trigger validation only. GitHub Pages publication requires an explicitly dispatched deployment workflow.
-
-## Meadow Lift playable flight
-
-Fly downwind through the highlighted thermal rings and wind gates, then descend safely at the green final landing ring. The mission allows up to ten minutes; use R to restart a flight. Press M to view the sightseeing map. The upper-left panel displays progress and the current flight objective.
-
-The route geometry follows the lowland wind corridor. Hardware and subjective playability still require hands-on browser review.
+NexusEngine is pinned in the dependency lockfile for preserved shared-domain and portable-kernel validation. The new sky-racing runtime is intentionally self-contained for reliable startup. XR target packaging and hardware testing are separate from the Web game.

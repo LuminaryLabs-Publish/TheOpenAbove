@@ -18,9 +18,8 @@ for (const [name, path] of Object.entries(domains)) {
 }
 
 const main = readFileSync("src/main.js", "utf8");
-assert.match(main, /createMeadowLiftScene/);
-assert.match(main, /startupElements/);
-assert.doesNotMatch(main, /createBalloonSimulation|createParchmentMapOverlay|createVisualDomain|requestAnimationFrame/);
+assert.match(main, /startSkyRacing/);
+assert.doesNotMatch(main, /createMeadowLiftScene|createBalloonSimulation|createVisualDomain|requestAnimationFrame/);
 
 const scene = readFileSync("src/scenes/meadow-lift-scene.js", "utf8");
 for (const factory of [

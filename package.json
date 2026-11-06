@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Cinematic hot air balloon wind-drift experience powered by Nexus Engine Realtime Core.",
+  "description": "Cinematic sky racing experience powered by Three.js with preserved NexusEngine compatibility.",
   "module": "src/main.js",
   "scripts": {
     "precheck": "node tools/write-nexus-build-diagnostics.mjs",

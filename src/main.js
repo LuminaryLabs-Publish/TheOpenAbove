@@ -1,40 +1,16 @@
-import { createMeadowLiftScene } from "./scenes/meadow-lift-scene.js";
-import { OPEN_ABOVE_RELEASE_IDENTITY } from "./release-identity.js";
-import { installBuildDiagnostics } from "./release/build-diagnostics.js";
-
-const canvas = document.querySelector("#game");
-const mapRoot = document.querySelector("#mapOverlay");
-const mapCanvas = document.querySelector("#mapCanvas");
-const errorPanel = document.querySelector("#error");
-const startupElements = Object.freeze({
-  loader: document.querySelector("#startupLoader"),
-  fill: document.querySelector("#startupProgressFill"),
-  label: document.querySelector("#startupLabel"),
-  error: document.querySelector("#startupError")
-});
-
-function showFatal(error) {
-  errorPanel.hidden = false;
-  errorPanel.textContent = String(error?.stack || error?.message || error);
+// Fast, isolated racing startup: the renderable course is not gated on world-generation workers.
+const loader=document.getElementById("boot");
+const message=document.getElementById("bootMessage");
+function fail(error) {
+  console.error("The Open Above startup failed",error);
+  loader.hidden=false;
+  loader.classList.add("failed");
+  message.textContent="Unable to start the renderer. "+String(error?.message||error)+". Check WebGL support and reload.";
+  const retry=document.getElementById("bootRetry");
+  retry.hidden=false;
+  retry.onclick=()=>location.reload();
 }
-
-async function boot() {
-  canvas.setAttribute("aria-busy", "true");
-  try {
-    const scene = await createMeadowLiftScene({
-      canvas,
-      mapRoot,
-      mapCanvas,
-      startupElements,
-      nexusEngineIdentity: OPEN_ABOVE_RELEASE_IDENTITY,
-      onFatal: showFatal
-    });
-    window.GameHost = installBuildDiagnostics(scene.gameHost);
-    canvas.setAttribute("aria-busy", "false");
-    scene.start();
-  } catch (error) {
-    showFatal(error);
-  }
-}
-
-boot();
+import("./racing/sky-racing-app.js").then(({startSkyRacing})=>{
+  const app=startSkyRacing();
+  window.GameHost=Object.freeze({getState:app.getState,getMode:()=>"sky-racing",dispose:app.dispose});
+}).catch(fail);

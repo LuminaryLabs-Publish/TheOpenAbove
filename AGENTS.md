@@ -1,63 +1,28 @@
-# AGENTS.md
+# The Open Above — Agent Guidance
 
-This repository is the standalone publishing repo for **The Open Above**.
+## Current product
 
-## Prime directive
+The active product is **The Open Above: Sky Racing**, a lightweight Three.js aerial racing application. Start from `src/main.js` and the `src/racing/` modules, not the preserved Meadow Lift balloon scene.
 
-Build the game as a playable product, not as a loose experiment dump.
+## Primary outcomes
 
-Repeat before each change:
+- Load a visible, usable flight scene quickly.
+- Keep a complete playable twelve-gate race.
+- Preserve stable controls, speed feedback, checkpoints, penalty, retry, and local best time.
+- Maintain a cinematic atmosphere without unnecessary loading prerequisites.
+- Never declare success from source-only tests; validate the actual production preview with Playwright.
 
-```txt
-Preserve the flight feel.
-Keep renderer code presentation-only.
-Move game rules toward explicit modules.
-Document every new objective, region, and progression rule.
-Validate before claiming success.
-```
+## Architecture
 
-## Current scope
+- `src/racing/flight-sim.js`: pure motion and checkpoint logic, deterministic and unit testable.
+- `src/racing/sky-racing-app.js`: Three.js scene, user input, presentation and race orchestration.
+- `index.html`: HUD, menu, loading failure state and mobile controls.
+- `src/main.js`: fast, isolated boot with explicit fallback error.
 
-The first slice is **Meadow Lift**.
-
-The route should prove:
-
-```txt
-free flight
-thermals
-wind gates
-return-to-perch completion
-restart/failure state
-small HUD only
-GameHost debug state
-```
-
-## Repo rules
-
-- Keep `index.html` as the thin host.
-- Keep gameplay in `src/` modules.
-- Keep content in `src/data/`.
-- Keep large design decisions in `docs/`.
-- Keep UI minimal: one full-screen canvas, one small HUD, visible errors only.
-- Do not hide gameplay rules inside draw-only code.
-- Do not add large dashboards or persistent debug panels.
+The old balloon, NexusEngine and world-generation modules are retained for future restoration and compatibility, but must not block the active sky-racer first frame. Do not delete them without an explicit migration plan.
 
 ## Validation
 
-Run:
+Run `npm run check`, `npm run build`, and `node tools/browser-sky-racing.mjs` with Playwright Chromium installed. The deployment workflow must gate publication on those checks.
 
-```bash
-npm run check
-npm run build
-```
-
-Manual smoke:
-
-```txt
-Open game.
-Fly for 60 seconds.
-Catch at least one thermal.
-Clear at least one gate.
-Press R and confirm restart.
-Confirm GameHost.getState() works.
-```
+Avoid copying engine code, adding duplicate deployment workflows, or overstating browser/hardware validation.

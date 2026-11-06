@@ -1,63 +1,102 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="The Open Above: a cinematic hot air balloon wind-drift experience powered by Nexus Engine." />
-  <link rel="icon" href="data:," />
-  <title>The Open Above: Balloon Drift</title>
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #080b12; color: #f8fbff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    #game { width: 100vw; height: 100dvh; display: block; touch-action: none; }
-    .startup-loader { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 50% 22%, rgba(114, 171, 198, .24), transparent 38%), linear-gradient(180deg, #132438 0%, #0d1724 58%, #090f18 100%); transition: opacity .42s ease, visibility .42s ease; }
-    .startup-loader[hidden] { display: none; }
-    .startup-card { width: min(520px, 92vw); padding: clamp(24px, 5vw, 42px); text-align: center; border: 1px solid rgba(224, 239, 242, .18); border-radius: 28px; background: rgba(13, 25, 36, .76); box-shadow: 0 30px 100px rgba(0, 0, 0, .44), inset 0 1px 0 rgba(255, 255, 255, .08); backdrop-filter: blur(18px); }
-    .startup-kicker { margin: 0 0 8px; color: #b9d6df; font-size: .74rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
-    .startup-title { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 7vw, 3.6rem); font-weight: 500; letter-spacing: -.035em; }
-    .startup-label { min-height: 1.5em; margin: 18px 0 14px; color: #dce9eb; font-size: .98rem; }
-    .startup-progress { height: 8px; overflow: hidden; border-radius: 999px; background: rgba(215, 232, 234, .12); box-shadow: inset 0 1px 4px rgba(0, 0, 0, .42); }
-    .startup-progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8bb6c1, #d9c692 70%, #f0dfae); box-shadow: 0 0 18px rgba(213, 225, 191, .34); transition: width .18s linear; }
-    .startup-error { margin: 16px 0 0; color: #ffd7ca; white-space: pre-wrap; }
-    .map-overlay { position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; padding: clamp(12px, 3vw, 36px); background: rgba(8, 14, 16, .42); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .24s ease, visibility 0s linear .5s; }
-    .map-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
-    .map-scroll { position: relative; width: min(1120px, 94vw); height: min(760px, 88dvh); min-width: 0; min-height: 0; overflow: hidden; border: 1px solid rgba(90, 61, 30, .62); border-radius: 26px 20px 28px 22px; background: radial-gradient(circle at 18% 14%, rgba(255,255,255,.35), transparent 28%), radial-gradient(circle at 82% 74%, rgba(112,77,39,.12), transparent 38%), linear-gradient(112deg, #e8d3a4 0%, #f2dfb5 47%, #d9bd88 100%); box-shadow: 0 30px 90px rgba(0,0,0,.48), inset 0 0 0 2px rgba(255,248,218,.46), inset 0 0 46px rgba(83,55,25,.22); transform: translateY(112vh) rotate(-.35deg); transform-origin: center bottom; transition: transform .5s cubic-bezier(.19,.83,.24,1); }
-    .map-overlay.is-open .map-scroll { transform: translateY(0) rotate(-.35deg); }
-    .map-scroll::before, .map-scroll::after { content: ""; position: absolute; left: -1.5%; right: -1.5%; z-index: 2; height: 20px; pointer-events: none; border: 1px solid rgba(86,57,27,.45); background: linear-gradient(180deg, #c9a96d, #efd9a5 48%, #b89055); box-shadow: 0 5px 12px rgba(64,43,22,.24); }
-    .map-scroll::before { top: -7px; border-radius: 50% 50% 44% 44%; }
-    .map-scroll::after { bottom: -7px; border-radius: 44% 44% 50% 50%; box-shadow: 0 -5px 12px rgba(64,43,22,.2); }
-    #mapCanvas { width: 100%; height: 100%; display: block; }
-    #error { position: fixed; inset: 16px; z-index: 30; overflow: auto; white-space: pre-wrap; padding: 16px; color: #fff1ea; background: rgba(42,4,2,.94); border: 0; border-radius: 18px; box-shadow: 0 22px 80px rgba(0,0,0,.54), inset 0 0 0 1px rgba(255,210,190,.22); }
-    #error[hidden] { display: none; }
-    @media (max-width: 640px), (max-height: 520px) {
-      .startup-card { border-radius: 20px; }
-      .map-overlay { padding: 8px; }
-      .map-scroll { width: 100%; height: 100%; border-radius: 18px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .startup-loader, .startup-progress-fill, .map-overlay, .map-scroll { transition-duration: .01ms; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081c29">
+<meta name="description" content="The Open Above: a cinematic sky-racing experience. Chase the current through twelve aerial checkpoints.">
+<title>The Open Above — SKY RACING</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--cream:#f5f0df;--ice:#b8f8f2;--gold:#f6b770;--dark:#071c28;--glass:rgba(6,26,38,.68)}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--cream);background:#071c28}
+[hidden]{display:none!important}
+#game{width:100%;height:100%;display:block;touch-action:none;outline:none}
+.vignette{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,15,28,.52),transparent 31%,transparent 69%,rgba(3,20,29,.4)),radial-gradient(ellipse at center,transparent 40%,rgba(5,18,26,.22));z-index:1}
+.top-bar{position:fixed;z-index:4;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(18px,3.2vw,52px);pointer-events:none}
+.brand{font-size:11px;font-weight:800;letter-spacing:.25em;line-height:1.6;text-shadow:0 1px 12px #061b29b3}
+.brand em{font-style:normal;color:var(--ice)}
+.tag{font-size:10px;color:rgba(244,245,235,.7);font-weight:700;letter-spacing:.24em}
+.hud{position:fixed;z-index:3;left:clamp(16px,3vw,50px);right:clamp(16px,3vw,50px);bottom:clamp(16px,4vh,48px);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;pointer-events:none}
+.hud-left,.hud-right{display:flex;flex-direction:column;gap:12px}
+.hud-right{text-align:right;align-items:flex-end}
+.metric-group{display:flex;gap:25px;align-items:flex-end}
+.metric-label{font-size:10px;font-weight:800;letter-spacing:.23em;color:rgba(239,246,235,.72);margin-bottom:5px}
+.metric-number{font-size:clamp(26px,3.6vw,53px);font-weight:300;line-height:1;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+.metric-unit{font-size:10px;font-weight:700;letter-spacing:.14em;margin-left:5px;color:var(--ice)}
+.metric-compact{font-size:clamp(19px,2.3vw,30px);font-variant-numeric:tabular-nums;font-weight:500}
+.rule{height:1px;background:linear-gradient(90deg,rgba(198,241,232,.6),transparent);width:240px;max-width:30vw}
+.boost{width:clamp(150px,20vw,258px);height:5px;background:rgba(228,251,248,.23);overflow:hidden;margin-top:9px}
+#boostFill{height:100%;width:100%;background:linear-gradient(90deg,#6ed8dc,#f8d49b);box-shadow:0 0 12px #82eafa}
+.race-progress{position:fixed;z-index:3;left:50%;top:25px;transform:translateX(-50%);text-align:center;pointer-events:none}
+.race-progress strong{font-weight:600;font-size:23px;letter-spacing:.14em}
+.race-progress small{display:block;font-size:10px;letter-spacing:.26em;color:#e0f5eec4;margin-bottom:6px}
+.direction-wrap{position:fixed;top:19%;left:50%;transform:translateX(-50%);z-index:3;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:7px}
+#direction{display:block;width:44px;height:44px;transition:transform .15s ease}
+#gateDistance{font-size:11px;letter-spacing:.2em;font-weight:800;text-shadow:0 1px 14px #03141e}
+.controls-help{font-size:10px;letter-spacing:.10em;color:rgba(238,249,242,.7)}
+#toast{position:fixed;z-index:4;top:31%;left:50%;transform:translate(-50%,-7px);opacity:0;max-width:80vw;text-align:center;font-size:12px;font-weight:800;letter-spacing:.23em;color:var(--ice);text-shadow:0 2px 20px #08202f;transition:opacity .35s ease,transform .35s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.menu{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;padding:30px 20px;background:linear-gradient(90deg,rgba(6,25,39,.83),rgba(6,25,39,.36) 70%);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.menu-inner{width:min(1100px,100%);padding:0 4vw}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.32em;color:var(--gold);margin-bottom:24px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(66px,10vw,150px);font-weight:400;letter-spacing:-.075em;line-height:.85;margin:0}
+h1 span{display:block;color:#cde8eb;font-size:.57em;font-style:italic;margin-left:.08em;margin-top:.18em}
+.menu-subtitle{font-size:clamp(18px,2vw,27px);letter-spacing:-.025em;color:#e5ede7;max-width:520px;margin:34px 0 24px}
+.menu-copy{max-width:520px;font-size:14px;line-height:1.85;color:#e1e8e0a9}
+.primary-button{margin-top:33px;border:1px solid #f7dcb3;background:var(--cream);color:#092331;padding:18px 32px;font-weight:800;font-size:12px;letter-spacing:.22em;cursor:pointer;transition:transform .2s,background .2s}
+.primary-button:hover,.primary-button:focus-visible{background:#baf0ec;transform:translateY(-2px)}
+.menu-foot{margin-top:26px;color:#d8eeebaa;font-size:11px;letter-spacing:.11em}
+.result-note{margin-top:20px;font-size:16px;color:var(--ice)}
+.result-note span{margin-right:20px}
+.boot{position:fixed;z-index:20;inset:0;display:grid;place-items:center;background:#0b2733;color:var(--cream);text-align:center;padding:30px}
+.boot-title{font-family:Georgia,serif;font-size:clamp(36px,7vw,64px);letter-spacing:-.06em}
+#bootMessage{font-size:13px;line-height:1.7;color:#ddf1eb;max-width:600px}
+.boot button{padding:12px 24px;background:var(--cream);border:0;color:#072534;font-weight:800;cursor:pointer}
+.mobile-controls{display:none;position:fixed;z-index:6;left:12px;right:12px;bottom:130px;justify-content:space-between;pointer-events:none}
+.control-group{display:flex;gap:6px}
+.control-group button{pointer-events:auto;touch-action:none;width:54px;height:52px;border:1px solid #d6f5ee70;color:#fff;background:#09273890;border-radius:10px;font-size:18px;font-weight:800}
+.control-group button.active{background:#71dce099}
+@media(max-width:760px){.top-bar{padding:18px 18px}.tag{display:none}.race-progress{top:62px}.race-progress strong{font-size:19px}.direction-wrap{top:18%}.hud{bottom:16px}.metric-group{gap:16px}.metric-number{font-size:33px}.metric-compact{font-size:20px}.metric-label{font-size:8px}.controls-help{display:none}.mobile-controls{display:flex}.rule{width:150px}.menu{backdrop-filter:blur(4px)}.menu-inner{padding:0 8px}.menu-copy{font-size:13px}.eyebrow{font-size:10px}}
+@media(max-height:620px){.mobile-controls{bottom:100px}.direction-wrap{top:17%}.hud{bottom:10px}.metric-number{font-size:27px}.menu-copy{display:none}.menu-subtitle{margin:18px 0}.primary-button{margin-top:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
 </head>
 <body>
-  <canvas id="game" aria-label="The Open Above cinematic hot air balloon canvas"></canvas>
-  <section class="startup-loader" id="startupLoader" role="status" aria-live="polite" aria-atomic="true">
-    <div class="startup-card">
-      <p class="startup-kicker">Luminary Labs presents</p>
-      <h1 class="startup-title">The Open Above</h1>
-      <p class="startup-label" id="startupLabel">Preparing the world</p>
-      <div class="startup-progress" role="progressbar" aria-label="World loading progress" aria-valuemin="0" aria-valuemax="100">
-        <div class="startup-progress-fill" id="startupProgressFill"></div>
-      </div>
-      <p class="startup-error" id="startupError" hidden></p>
-    </div>
-  </section>
-  <section class="map-overlay" id="mapOverlay" aria-hidden="true">
-    <div class="map-scroll" role="dialog" aria-modal="true" aria-label="Sightseeing journal map">
-      <canvas id="mapCanvas" aria-label="Parchment sightseeing map"></canvas>
-    </div>
-  </section>
-  <pre id="error" hidden></pre>
-  <script type="module" src="./src/main.js"></script>
+<canvas id="game" aria-label="The Open Above 3D sky racing course"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<header class="top-bar"><div class="brand">LUMINARY LABS <em>/</em> THE OPEN ABOVE</div><div class="tag">SKY CIRCUIT · MEADOW RUN · 01</div></header>
+<div class="race-progress"><small>CHECKPOINTS CLEARED</small><strong id="progressValue">00 / 12</strong></div>
+<div class="direction-wrap" aria-hidden="true">
+<svg id="direction" viewBox="0 0 48 48" fill="none"><path d="M24 4 39 42 24 32 9 42 24 4Z" fill="#caf8f1" stroke="#2f6e77" stroke-width="2"/></svg>
+<div id="gateDistance">FIND THE FIRST GATE</div>
+</div>
+<div class="hud" aria-label="Flight instruments">
+<div class="hud-left">
+<div class="metric-group"><div><div class="metric-label">AIRSPEED</div><div><span class="metric-number" id="speedValue">94</span><span class="metric-unit">KM/H</span></div></div><div><div class="metric-label">ALTITUDE</div><div><span class="metric-compact" id="altValue">230</span><span class="metric-unit">M</span></div></div></div>
+<div class="rule"></div><div class="metric-label">BOOST ENERGY<div class="boost"><div id="boostFill"></div></div></div>
+<div class="controls-help">W/S PITCH &nbsp; A/D BANK &nbsp; SPACE BOOST &nbsp; SHIFT BRAKE &nbsp; P PAUSE &nbsp; R RESTART</div>
+</div>
+<div class="hud-right"><div class="metric-label">TOTAL RACE TIME</div><div class="metric-number" id="timeValue">00:00</div><div class="metric-label">CHASE THE LIGHT · OWN THE SKY</div></div>
+</div>
+<div class="mobile-controls" aria-label="Touch flight controls">
+<div class="control-group"><button data-control="left" aria-label="Turn left">◀</button><button data-control="right" aria-label="Turn right">▶</button></div>
+<div class="control-group"><button data-control="up" aria-label="Climb">▲</button><button data-control="down" aria-label="Descend">▼</button><button data-control="brake" aria-label="Brake">−</button><button data-control="boost" aria-label="Boost">+</button></div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<section class="menu" id="menu" aria-label="Race menu" hidden>
+<div class="menu-inner">
+<div class="eyebrow">01 / MEADOW SKY CIRCUIT</div>
+<h1 id="menuTitle">THE OPEN <span>ABOVE</span></h1>
+<p class="menu-subtitle" id="menuSubtitle">A new kind of sky racing.</p>
+<p class="menu-copy">Twelve gates in the clouds. One clean line through the mountain air. Bank, climb, descend, and use your boost when the sky opens up.</p>
+<button id="startButton" class="primary-button" type="button">START FLIGHT</button>
+<div class="menu-foot">WASD / ARROW KEYS TO STEER &nbsp; · &nbsp; SPACE TO BOOST &nbsp; · &nbsp; SHIFT TO BRAKE</div>
+<div id="result" class="result-note" hidden>RACE TIME <strong id="resultTime">00:00</strong> &nbsp; BEST <strong id="resultBest">00:00</strong></div>
+</div>
+</section>
+<button id="retryButton" hidden>Retry</button>
+<section id="boot" class="boot" role="status" aria-live="polite"><div><div class="eyebrow">LUMINARY LABS PRESENTS</div><div class="boot-title">The Open Above</div><p id="bootMessage">Preparing the sky circuit…</p><button id="bootRetry" hidden type="button">RETRY STARTUP</button></div></section>
+<script type="module" src="./src/main.js"></script>
 </body>
 </html>

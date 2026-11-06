@@ -27,3 +27,9 @@ jobs:
         run: npm run showcase:prove
       - name: Build
         run: npm run build
+
+      - name: Install Chromium for browser QA
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify playable sky race
+        run: node tools/browser-sky-racing.mjs
